@@ -1,14 +1,33 @@
+"""
+Django settings for liquor project.
+
+For more information on this file, see
+https://docs.djangoproject.com/en/1.6/topics/settings/
+
+For the full list of settings and their values, see
+https://docs.djangoproject.com/en/1.6/ref/settings/
+"""
+
+# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
-ROOT_URLCONF = 'liquor.urls'
-DEBUG = False
-TEMPLATE_DEBUG = False
+# Quick-start development settings - unsuitable for production
+# See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
-#database
-import dj_database_url
-DATABASES['default'] =  dj_database_url.config()
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = '&myufun=_r4lsx7v*)rpjyf$9udnwv!#-y)ajjv$3*ty_cwq^4'
 
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
+
+TEMPLATE_DEBUG = True
+
+ALLOWED_HOSTS = []
+
+
+# Application definition
 
 INSTALLED_APPS = (
     'django.contrib.admin',
@@ -28,22 +47,58 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
+ROOT_URLCONF = 'liquor.urls'
 
-SECRET_KEY = '&myufun=_r4lsx7v*)rpjyf$9udnwv!#-y)ajjv$3*ty_cwq^4'
 WSGI_APPLICATION = 'liquor.wsgi.application'
+
+
+# Database
+# https://docs.djangoproject.com/en/1.6/ref/settings/#databases
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
+
+# Internationalization
+# https://docs.djangoproject.com/en/1.6/topics/i18n/
+
 LANGUAGE_CODE = 'en-us'
+
 TIME_ZONE = 'UTC'
+
 USE_I18N = True
+
 USE_L10N = True
+
 USE_TZ = True
+
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/1.6/howto/static-files/
+
+STATIC_URL = '/static/'
+
+
+
+# Parse database configuration from $DATABASE_URL
+import dj_database_url
+DATABASES['default'] =  dj_database_url.config()
+
+# Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# Allow all host headers
 ALLOWED_HOSTS = ['*']
 
-
-
+# Static asset configuration
+import os
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-STATIC_ROOT = ''
-STATIC_URL = '/static/'
+STATIC_ROOT = 'staticfiles'
+STATIC_URL = '/static/' 
+
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static_resource'),
+    os.path.join(BASE_DIR, 'static'),
 )

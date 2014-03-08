@@ -109,7 +109,7 @@ STATICFILES_FINDERS = (
 
 
 TEMPLATE_DIRS = (
-    PROJECT_ROOT.child('templates'),
+    BASE_DIR.child('templates'),
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (

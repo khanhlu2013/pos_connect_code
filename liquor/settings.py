@@ -8,8 +8,27 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.6/ref/settings/
 """
 
-import os
-PROJECT_PATH = os.path.dirname(os.path.abspath(__file__))
+STATIC_ROOT = 'staticfiles'
+STATIC_URL = '/static/'
+
+from unipath import Path
+PROJECT_ROOT = Path(__file__).ancestor(2)
+
+STATICFILES_DIRS = (
+    PROJECT_ROOT.child('static_resource'),
+)
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+)
+
+TEMPLATE_DIRS = (
+    PROJECT_ROOT.child('templates'),
+)
+
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -19,9 +38,9 @@ PROJECT_PATH = os.path.dirname(os.path.abspath(__file__))
 SECRET_KEY = '&myufun=_r4lsx7v*)rpjyf$9udnwv!#-y)ajjv$3*ty_cwq^4'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-TEMPLATE_DEBUG = True
+TEMPLATE_DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -73,27 +92,7 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # Allow all host headers
 ALLOWED_HOSTS = ['*']
 
-STATIC_ROOT = 'staticfiles'
-STATIC_URL = '/static/'
 
-STATICFILES_DIRS = (
-    os.path.join(PROJECT_PATH, 'static_resource'),
-)
-
-STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
-)
-
-from unipath import Path
-PROJECT_ROOT = Path(__file__).ancestor(2)
-# TEMPLATE_DIRS = (
-#     os.path.join(PROJECT_PATH, 'templates'),
-# )
-TEMPLATE_DIRS = (
-    PROJECT_ROOT.child('templates'),
-)
 
 TEMPLATE_CONTEXT_PROCESSORS = (
     "django.contrib.auth.context_processors.auth",

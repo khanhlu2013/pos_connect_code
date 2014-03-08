@@ -12,6 +12,7 @@ import product.urls
 from django.contrib import admin
 from django.utils.functional import curry
 from django.views.defaults import server_error
+from django.conf import settings
 
 admin.autodiscover()
 urlpatterns = patterns('',
@@ -39,3 +40,8 @@ urlpatterns = patterns('',
 
 handler500 = curry(server_error, template_name='500.html')
 urlpatterns += staticfiles_urlpatterns()
+
+if not settings.DEBUG:
+    urlpatterns += patterns('',
+        (r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
+    )

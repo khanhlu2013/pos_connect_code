@@ -1,13 +1,13 @@
 {% extends 'base_regular_user.html' %}
 
 {% block content %}
-  	<link rel="stylesheet" href="/static/css/jquery-ui-themes-1.10.4/themes/smoothness/jquery-ui.css">
-    <link rel="stylesheet" href="/static/css/app/sale_shortcut/sale_shortcut.css">
+  	<link rel="stylesheet" href="{{ STATIC_URL }}css/jquery-ui-themes-1.10.4/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/app/sale_shortcut/sale_shortcut.css">
     <h2>sale shortcut</h2>
 
     <table id='shortcut_tbl' border='1'></table>
 
-    <script data-main = "/static/js/app/sale_shortcut/sale_shortcut_init.js" src="/static/js/lib/require/require.js"></script>
+    <script data-main = "{{ STATIC_URL }}js/app/sale_shortcut/sale_shortcut_init.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script>
     
     <script>
 

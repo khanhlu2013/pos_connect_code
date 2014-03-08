@@ -2,9 +2,9 @@
 
 {% block content %}
 
-
-  <link rel="stylesheet" href="/static/css/app/sale/base.css">
-  <link rel="stylesheet" href="/static/css/jquery-ui-themes-1.10.4/themes/smoothness/jquery-ui.css">
+{{ STATIC_URL }}
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/app/sale/base.css">
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/jquery-ui-themes-1.10.4/themes/smoothness/jquery-ui.css">
 
 
   <div id="wrap">
@@ -63,7 +63,7 @@
     var COLUMN_COUNT = {{COLUMN_COUNT}}
   </script>
 
-  <script data-main = "/static/js/app/sale/sale.js" src="/static/js/lib/require/require.js"></script>
+  <script data-main = "{{ STATIC_URL }}js/app/sale/sale.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script>
 
 
 

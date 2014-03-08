@@ -1,7 +1,7 @@
 {% extends 'base_regular_user.html' %}
 
 {% block content %}
-    <link rel="stylesheet" href="/static/css/jquery-ui-themes-1.10.4/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/jquery-ui-themes-1.10.4/themes/smoothness/jquery-ui.css">
 
     <h2>sale report by day</h2>
 
@@ -10,7 +10,7 @@
     <input id='refresh_btn' type='button' value="refresh">
     <table id='report_tbl' border='1'></table>
 
-    <script data-main = "/static/js/app/sale_report/report_by_day_init.js" src="/static/js/lib/require/require.js"></script>
+    <script data-main = "{{ STATIC_URL }}js/app/sale_report/report_by_day_init.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script>
 
 
 {% endblock content %}

@@ -1,0 +1,54 @@
+html,body {
+  margin: 0 auto;
+  padding: 0 auto;
+  background: #eaeaea url('bg.png');
+  color: #4d4d4d;
+  font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  line-height: 1.4em;
+  width: 1200px;
+}
+
+#wrap{
+  margin: 0 auto;
+  background: #99a;
+  width: 1200px;
+}
+
+#header{
+  background: #99b;
+}
+
+#scan{
+  float: left;
+  width: 600px;
+  background: #9f9;
+}
+
+#shortcut{
+  float: right;
+  width:600px;
+  background: #c99;
+}
+
+#footer{
+  clear:both;
+  background: #19e;
+}
+
+.error {border: solid 2px #FF0000;}
+td { min-width: 100px; height: 30}
+#store_product_prompt_dialog{display: None;}
+
+
+
+
+
+/* ------------------- */
+
+
+/*  -webkit-font-smoothing: antialiased;
+  -moz-font-smoothing: antialiased;
+  -ms-font-smoothing: antialiased;
+  -o-font-smoothing: antialiased;
+  font-smoothing: antialiased;*/
+

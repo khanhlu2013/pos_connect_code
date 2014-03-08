@@ -11,3 +11,4 @@ static==1.0.2
 wsgiref==0.1.2
 requests==2.2.1
 couchdb==0.9
+model_mommy==1.2

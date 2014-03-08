@@ -28,23 +28,22 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-
-INSTALLED_APPS = (
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
+# List of callables that know how to import templates from various sources.
+TEMPLATE_LOADERS = (
+    'django.template.loaders.filesystem.Loader',
+    'django.template.loaders.app_directories.Loader',
+#     'django.template.loaders.eggs.Loader',
 )
 
 MIDDLEWARE_CLASSES = (
-    'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # Uncomment the next line for simple clickjacking protection:
+    # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.transaction.TransactionMiddleware',
 )
 
 ROOT_URLCONF = 'liquor.urls'
@@ -96,9 +95,86 @@ ALLOWED_HOSTS = ['*']
 # Static asset configuration
 import os
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-STATIC_ROOT = 'staticfiles'
+STATIC_ROOT = ''
 STATIC_URL = '/static/' 
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'static_resource'),
 )
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+)
+
+
+TEMPLATE_DIRS = (
+    PROJECT_ROOT.child('templates'),
+)
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    "django.contrib.auth.context_processors.auth",
+    "django.core.context_processors.debug",
+    "django.core.context_processors.i18n",
+    "django.core.context_processors.media",
+    "django.core.context_processors.static",
+    "django.core.context_processors.tz",
+    "django.contrib.messages.context_processors.messages",
+    'django.core.context_processors.request',
+)
+
+INSTALLED_APPS = (
+    # Uncomment the next line to enable admin documentation:
+    # 'django.contrib.admindocs',
+     'django.contrib.auth'
+    ,'django.contrib.contenttypes'
+    ,'django.contrib.sessions'
+    ,'django.contrib.sites'
+    ,'django.contrib.messages'
+    ,'django.contrib.staticfiles'
+    ,'django.contrib.admin'
+    ,'south'
+    ,'django_nose'
+    ,'helper'
+    ,'util'
+    ,'liqUser'
+    ,'bus'
+    ,'product'
+    ,'invoice'
+    ,'vendor_subscription'
+    ,'vendor'
+    ,'store'
+    ,'store_product'
+    ,'sale'
+    ,'tax'
+    ,'sale_shortcut'
+)
+
+#AUTH_USER_MODEL = 'liqUser.LiqUser'
+LOGIN_URL = 'liquor_login_named_url'
+LOGOUT_URL = 'liquor_logout_named_url'
+LOGIN_REDIRECT_URL  = 'liquor_home'
+
+DEFAULT_TEMPLATE_FORM = 'liquor/default_template_form.html'
+
+#COUCHDB-----------------------------------------------------------------
+
+#URL
+COUCHDB_URL = '127.0.0.1:5984'
+
+#USER
+USER_ID_PREFIX = 'org.couchdb.user:'
+
+#ADMIN USER
+MASTER_USER_NAME = 'server_admin'
+MASTER_USER_PASSWORD = 'server_admin'
+#LIQUOR USER
+CLIENT_USER_NAME_PREFIX = 'liquor_'
+
+#STORE DB
+STORE_DB_PREFIX = 'liquor_'
+PROD_BUS_ASSOC_DOCUMENT_TYPE = 'prod_bus_assoc'
+SALE_RECORD_DOCUMENT_TYPE = 'sale_record'
+
+
+TAX_DOCUMENT_ID = "tax_document"

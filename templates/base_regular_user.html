@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block menu %}
+    <a href="{% url 'sale:index' %}" target="_blank">sale</a>
+    <a href="{% url 'store_product:search_product' %}">product</a>
+    <a href="{% url 'tax:detail' request.session.cur_login_store.id %}">tax</a>
+    <a href="{% url 'sale_shortcut:index' %}">sale shortcut</a>
+    <a href="{% url 'sale:report_by_day' %}">sale report</a>
+    <a href="{% url 'department:index' %}">department</a>
+    
+    <!-- 
+    <a href="{% url 'invoice:index' %}">invoice</a>
+
+     -->
+    <hr>
+{% endblock %}
+
+
+

@@ -1,0 +1,30 @@
+{% extends 'base_regular_user.html' %}
+
+{% block content %}
+
+    <p>
+        {% if department_lst %}
+            <table border="1">
+                <tr>
+                    <td>category</td>
+                    <td>department</td>
+                </tr>
+                {% for dep in department_lst %}
+                    <tr>
+                        <td><a href='{% url "department:category_update" dep.category.id %}'>{{ dep.category }}</a></td>
+                        <td><a href='{% url "department:department_update" dep.id %}'>{{ dep }}</a></td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% endif %}
+    </p>
+
+    <p>
+        <form id='default_form' method="post">
+            {% csrf_token %}
+            {{ form.as_table }}
+            <input type="submit" value="create department">
+        </form>
+    </p>
+
+{% endblock content %}

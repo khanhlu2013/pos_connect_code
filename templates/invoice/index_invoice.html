@@ -1,0 +1,27 @@
+{% extends "base_regular_user.html" %}
+
+{% block content %}
+    <Strong>Invoice:</Strong>
+    <a href="{% url 'invoice:create' %}">|new|</a>
+    <a href="{% url 'vendor_subscription:update' cur_login_store.id %}">|subscription|</a>
+    <a href="{% url 'vendor:create' %}">|add vendor|</a>
+    <hr>
+            
+    {% if invoice_list %}
+        <table border="1">
+        {% for each_invoice in invoice_list %}
+            <tr>
+                <td>{{ each_invoice.date_invoice }}</td>
+                <td>{{ each_invoice.from_vendor }}</td>
+                <td>{{ each_invoice.amount }}</td>
+                <td><a href="{% url 'invoice:edit' each_invoice.id %}">edit</a></td>
+            </tr>
+        {% endfor %}  
+        </table>
+    {% else %}
+        <p>There is no invoice</p>
+    {% endif %}
+{% endblock content %}
+
+
+

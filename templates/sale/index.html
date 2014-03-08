@@ -1,0 +1,88 @@
+{% extends 'base_regular_user_without_menu.html' %}
+
+{% block content %}
+
+
+  <link rel="stylesheet" href="/static/css/app/sale/base.css">
+  <link rel="stylesheet" href="/static/css/jquery-ui-themes-1.10.4/themes/smoothness/jquery-ui.css">
+
+
+  <div id="wrap">
+    <div id="header">my header</div>
+
+
+    <div id="scan">
+      <input id="scan_text" placeholder="sku" autofocus>
+
+      <a href="#create_product_dialog" id="create_product_button"> <button>create product</button> </a>
+      <button id="push_receipt_btn" type="push receipt">receipt pusher</button>
+      <button id="void_btn" type="button">void</button>
+      <button id="discount_button" type="button">discount</button>
+      <button id="total_button" type="button">total</button>
+
+      <table id = "sale_table" border="1"></table>
+
+      <div id="store_product_prompt_dialog" title="Enter product info">
+        <div id='approve_product_lst'></div>
+        
+        <label for="product_name_txt">Product:</label>
+        <input type="text" id = "product_name_txt">
+        <br>
+
+        <label for="product_price_txt">Price:</label>
+        <input type="text" id = "product_price_txt">
+        <br>
+
+        <label for="product_taxable_check">Taxable:</label>
+        <input type="checkbox" id = "product_taxable_check">
+        <br>
+
+        <label for="product_crv_txt">Crv:</label>
+        <input type="text" id = "product_crv_txt">
+        <br>
+
+        <label for="product_sku_txt">Sku:</label>
+        <input type="text" id = "product_sku_txt">
+        <br>
+      </div>
+
+
+
+    </div>
+
+
+    <div id="shortcut">  <table id = "shortcut_tbl" border="1"></table> </div>
+    <div id="footer"> my footer </div>
+  </div>
+
+
+  <script type="text/javascript">
+    var STORE_DB_NAME = "{{store_db_name}}"
+    var COUCH_SERVER_URL = "{{couch_server_url}}"
+    var ROW_COUNT = {{ROW_COUNT}}
+    var COLUMN_COUNT = {{COLUMN_COUNT}}
+  </script>
+
+  <script data-main = "/static/js/app/sale/sale.js" src="/static/js/lib/require/require.js"></script>
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock content %}
+

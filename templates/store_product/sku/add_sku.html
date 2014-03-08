@@ -1,0 +1,44 @@
+{% extends 'base_regular_user.html' %}
+{% load prod_sku_assoc_deletable %}
+        
+{% block content %}
+
+    <h2>{{prod_bus_assoc}}</h2>
+    {% if prodskuassoc_lst %}
+        <table border="1">
+            <tr>
+                <td>sku</td>
+                <td>action</td>
+            </tr>
+            
+            {% for prod_sku_assoc in prodskuassoc_lst %}
+                <tr>
+                    <td>{{prod_sku_assoc.sku}}</td>
+                    <td>
+                        {% if prod_sku_assoc|is_prod_sku_assoc_deletable:cur_login_store %}
+                            <a href="{% url 'store_product:delete_sku' prod_sku_assoc.id %}">delete</a>
+                        {% else %}
+                            {#nothing goes here#}
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>there is no sku</p>
+    {% endif %}
+    
+    <br />
+    <form method="post">
+        {% csrf_token %}
+        <div class = "fieldWrapper">
+            {{ form.sku_field.errors}}
+            <label for="id_sku_field">Add sku</label>
+            {{ form.sku_field }}
+            <input type="submit" value="add"/>
+        </div>
+    </form>
+    
+    <a href = "{% url 'store_product:product_detail' prod_bus_assoc_id %}"><button>done</button></a>
+
+{% endblock content %}

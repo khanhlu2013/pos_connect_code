@@ -1,0 +1,33 @@
+{# simple base.html #}
+{% load staticfiles %}
+<html>
+<head>
+    <title>
+        {% block title %}Welcome to KT{% endblock title %}
+    </title>
+
+</head>
+<body>
+    {% block authentication %}
+        <strong>Welcome to KT</strong>
+        {% if user.is_authenticated %}
+        - {{ request.session.cur_login_store }}
+        - {{ user }}
+        - <a href="{% url "liquor_logout_named_url" %}">logout</a>
+        {% endif %}
+        <hr>
+    {% endblock authentication%}
+    
+    <div id="sidebar">
+        {% block menu %}
+        <h1>block menu...</h1>
+        {% endblock menu %}  
+    </div>
+        
+    <div class="content">
+        {% block content %}
+            <h1>block content...</h1>
+        {% endblock content %}
+    </div>
+</body>
+</html>

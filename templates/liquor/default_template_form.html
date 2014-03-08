@@ -1,0 +1,10 @@
+{% extends "base_regular_user.html" %}
+
+{% block content %}
+    <form id='default_form' method="post">
+        {% csrf_token %}
+        {{ form.as_table }}
+        <input type="submit" value="ok">
+        <input type=button value="cancel" onClick="javascript:history.go(-1);">
+    </form>
+{% endblock content %}

@@ -1,0 +1,8 @@
+{% extends 'base_regular_user.html' %}
+
+{% block content %}
+
+    <h2>Tax rate: {{store.tax_rate}}</h2>
+    <a href = "{% url 'tax:update' store.id %}">update</a>
+
+{% endblock content %}

@@ -1,0 +1,5 @@
+<form id='default_form_id' method="post">
+    {% csrf_token %}
+    {{ form.as_table }}
+    <input type="submit" value="ok">
+</form>

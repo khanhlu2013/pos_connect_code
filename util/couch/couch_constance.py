@@ -1,0 +1,14 @@
+VIEW_DOCUMENT_ID = "_design/views"
+
+STORE_DB_VIEW_NAME_BY_PRODUCT_ID = "by_product_id"
+STORE_DB_VIEW_NAME_BY_SKU = "by_sku"
+STORE_DB_VIEW_NAME_BY_D_TYPE = "by_d_type"
+
+APPROVE_PRODUCT_DB_NAME = 'approve_product_db'
+APPROVE_PRODUCT_DB_BY_PRODUCT_ID_VIEW_NAME = 'by_product_id'
+APPROVE_PRODUCT_DB_BY_SKU_VIEW_NAME = 'by_sku'
+APPROVE_PRODUCT_DOC_TYPE = 'approve_product'
+
+
+STORE_PRODUCT_DOCUMENT_TYPE = 'prod_bus_assoc'
+RECEIPT_DOCUMENT_TYPE = 'receipt'

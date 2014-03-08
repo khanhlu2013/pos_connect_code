@@ -1,0 +1,24 @@
+{% extends 'base_regular_user.html' %}
+
+{% block content %}
+    <h2>{{store_product}}</h2>
+    <a href = "{% url 'store_product:update_product' store_product.id %}">info</a>
+    <a href = "{% url 'store_product:add_sku' store_product.id %}">sku</a>
+    <br />
+    <br />
+    
+    price: {{store_product.price}}
+    <br />
+    
+    department: {{store_product.department.full_name}}
+    <br />
+    
+    taxable: {{store_product.isTaxable}}
+    <br />
+    
+    tax report: {{store_product.isTaxReport}}
+    <br />
+    
+    sale report: {{store_product.isSaleReport}}
+    <br />
+{% endblock content %}

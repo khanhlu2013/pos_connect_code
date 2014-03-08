@@ -1,0 +1,13 @@
+{% extends 'base_regular_user.html' %}
+
+{% block content %}
+    <form method="post">
+        {% csrf_token %}
+	Are you sure you want to delete {{prodskuassoc.sku.sku}} sku from {{prodskuassoc.product}}?
+        <br />
+        <br />
+	<input type="submit" value="Delete" />
+    </form>
+    
+    <a href="{% url 'store_product:add_sku' prod_bus_assoc_id %}"><button>Cancel</button></a>
+{% endblock content %}

@@ -74,17 +74,17 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # Allow all host headers
 ALLOWED_HOSTS = ['*']
 
-STATIC_ROOT = 'staticfiles'
+# STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static_resource/'
-STATICFILES_DIRS = (
-    os.path.join(PROJECT_PATH, 'static_resource'),
-)
+# STATICFILES_DIRS = (
+#     os.path.join(PROJECT_PATH, 'static_resource'),
+# )
 
-STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
-)
+# STATICFILES_FINDERS = (
+#     'django.contrib.staticfiles.finders.FileSystemFinder',
+#     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+# #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+# )
 
 from unipath import Path
 PROJECT_ROOT = Path(__file__).ancestor(2)

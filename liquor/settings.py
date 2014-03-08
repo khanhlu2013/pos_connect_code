@@ -86,9 +86,13 @@ STATICFILES_FINDERS = (
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
-
+from unipath import Path
+PROJECT_ROOT = Path(__file__).ancestor(2)
+# TEMPLATE_DIRS = (
+#     os.path.join(PROJECT_PATH, 'templates'),
+# )
 TEMPLATE_DIRS = (
-    os.path.join(PROJECT_PATH, 'templates'),
+    PROJECT_ROOT.child('templates'),
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (

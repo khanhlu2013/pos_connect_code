@@ -3,7 +3,7 @@ from couchdb import Server
 from util.couch import couch_constance,master_account_util
 
 def get_url_using_admin_account():
-    return 'http://' + master_account_util.get_master_user_name() + ':' + master_account_util.get_master_user_password() + '@' + settings.COUCHDB_URL
+    return 'https://' + master_account_util.get_master_user_name() + ':' + master_account_util.get_master_user_password() + '@' + settings.COUCHDB_URL
 
 def get_server(url):
 	return Server(url)

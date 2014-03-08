@@ -146,14 +146,18 @@ DEFAULT_TEMPLATE_FORM = 'liquor/default_template_form.html'
 #COUCHDB-----------------------------------------------------------------
 
 #URL
-COUCHDB_URL = '127.0.0.1:5984'
+# COUCHDB_URL = '127.0.0.1:5984'
+COUCHDB_URL = 'app22826128.heroku.cloudant.com'
 
 #USER
 USER_ID_PREFIX = 'org.couchdb.user:'
 
 #ADMIN USER
-MASTER_USER_NAME = 'server_admin'
-MASTER_USER_PASSWORD = 'server_admin'
+# MASTER_USER_NAME = 'server_admin'
+# MASTER_USER_PASSWORD = 'server_admin'
+MASTER_USER_NAME = 'app22826128.heroku'
+MASTER_USER_PASSWORD = 'j1t7ipeyhuVAq7JDP5eNfk3H'
+
 #LIQUOR USER
 CLIENT_USER_NAME_PREFIX = 'liquor_'
 

@@ -2,13 +2,13 @@ from django.views.generic import CreateView
 from django.forms import ModelForm
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import get_object_or_404
-import kt_share.forms
+from util.forms import StripCharField
 from product.models import ProdSkuAssoc
 from store_product.models import Store_product
 from store_product import insert_sku_cm
 
 class MyForm(ModelForm):
-    sku_field = kt_share.forms.StripCharField()
+    sku_field = StripCharField()
     class Meta:
         model = ProdSkuAssoc
         fields = []

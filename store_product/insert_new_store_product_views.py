@@ -7,13 +7,15 @@ from django.db.models import Q
 from product.models import Product,Sku,ProdSkuAssoc,Department
 from store_product.models import Store_product
 from product.Full_department_name_choice_field import Full_department_name_choice_field
-from liquor import import_kt_project_path
-import kt_share.forms
 from store_product import insert_new_store_product_cm
+from util.forms import StripCharField
 
 #-CREATE PRODUCT--------------------------------------------------------------------
+
+
+        
 class Add_product_form(forms.ModelForm):
-    sku_field = kt_share.forms.StripCharField()
+    sku_field = StripCharField()
         
     class Meta:
         model = Store_product

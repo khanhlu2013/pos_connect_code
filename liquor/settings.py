@@ -45,6 +45,8 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.transaction.TransactionMiddleware',
 )
 
+SESSION_SERIALIZER='django.contrib.sessions.serializers.PickleSerializer'
+
 ROOT_URLCONF = 'liquor.urls'
 
 WSGI_APPLICATION = 'liquor.wsgi.application'

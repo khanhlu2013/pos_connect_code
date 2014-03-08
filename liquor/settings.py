@@ -8,9 +8,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.6/ref/settings/
 """
 
+import os
+PROJECT_PATH = os.path.dirname(os.path.abspath(__file__))
 
-from unipath import Path
-PROJECT_ROOT = Path(__file__).ancestor(2)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
@@ -62,11 +62,6 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.6/howto/static-files/
-
-STATIC_URL = '/static/'
-
 
 
 # Parse database configuration from $DATABASE_URL
@@ -79,14 +74,10 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # Allow all host headers
 ALLOWED_HOSTS = ['*']
 
-STATIC_ROOT = 'static_resource'
-
-# URL prefix for static files.
-# Example: "http://example.com/static/", "http://static.example.com/"
-STATIC_URL = '/static_resource/'
-
-# Additional locations of static files
+STATIC_ROOT = 'staticfiles'
+STATIC_URL = '/static/'
 STATICFILES_DIRS = (
+    os.path.join(PROJECT_PATH, 'static'),
 )
 
 STATICFILES_FINDERS = (
@@ -97,7 +88,7 @@ STATICFILES_FINDERS = (
 
 
 TEMPLATE_DIRS = (
-    PROJECT_ROOT.child('templates'),
+    os.path.join(PROJECT_PATH, 'templates'),
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (

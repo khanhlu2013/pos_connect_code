@@ -119,6 +119,7 @@ INSTALLED_APPS = (
     ,'django.contrib.messages'
     ,'django.contrib.staticfiles'
     ,'django.contrib.admin'
+    ,'django.contrib.sites'
     ,'south'
     # ,'django_nose'
     ,'helper'
@@ -135,6 +136,8 @@ INSTALLED_APPS = (
     ,'tax'
     ,'sale_shortcut'
 )
+
+SITE_ID = 1
 
 #AUTH_USER_MODEL = 'liqUser.LiqUser'
 LOGIN_URL = 'liquor_login_named_url'

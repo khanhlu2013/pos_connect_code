@@ -18,10 +18,10 @@ def p():
     approve_product_db_setup.exe_delete()
     approve_product_db_setup.exe_create()
 
-    json_file = open('./liquor.json')   
-    data = json.load(json_file)
-    import_json_data(data)
-    json_file.close()
+    # json_file = open('./liquor.json')   
+    # data = json.load(json_file)
+    # import_json_data(data)
+    # json_file.close()
 
     #initial insert approve product to couch script
     # initial_script_to_insert_approve_product_to_couch()

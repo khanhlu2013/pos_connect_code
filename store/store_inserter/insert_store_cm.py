@@ -9,6 +9,8 @@ from util.couch import master_account_util,user_util,couch_util,couch_constance
 from store.couch import store_util
 from sale.couch.receipt import receipt_document_validator
 from util.couch import couch_acl_validator,reader_lst_updator
+import hashlib
+import os
 
 def exe(store):
     store_id = exe_master(store)
@@ -42,18 +44,40 @@ def _couch_db_insert_tax_rate(store_id,tax_rate):
     db.update([tax_document,])
 
 
+# def _couch_db_insert_user(store_id):
+#     username = user_util.get_client_user_name(store_id)
+#     password = user_util.get_client_user_password(store_id)
+#     user_id = user_util.get_client_user_id(store_id)
+#     url = couch_util.get_url_using_admin_account() + '/_users/' + user_id
+
+#     data = {
+#          "_id": user_id
+#         ,"name" : username
+#         ,"type" : "user"
+#         ,"roles" : []
+#         ,"password" : password
+#     }
+#     headers = {'Content-type': 'application/json'}
+#     res = requests.put(url, data=json.dumps(data), headers=headers)
+
 def _couch_db_insert_user(store_id):
     username = user_util.get_client_user_name(store_id)
     password = user_util.get_client_user_password(store_id)
     user_id = user_util.get_client_user_id(store_id)
     url = couch_util.get_url_using_admin_account() + '/_users/' + user_id
 
+    h=hashlib.sha1()
+    salt = os.urandom(16).encode('hex')
+    h.update(password)
+    h.update(salt)
+
     data = {
          "_id": user_id
         ,"name" : username
         ,"type" : "user"
         ,"roles" : []
-        ,"password" : password
+        ,"password_sha" : h.digest()
+        ,"salt" : salt
     }
     headers = {'Content-type': 'application/json'}
     res = requests.put(url, data=json.dumps(data), headers=headers)

@@ -76,7 +76,7 @@ def _couch_db_insert_user(store_id):
         ,"name" : username
         ,"type" : "user"
         ,"roles" : []
-        ,"password_sha" : h.digest()
+        ,"password_sha" : h.hexdigest()
         ,"salt" : salt
     }
     headers = {'Content-type': 'application/json'}

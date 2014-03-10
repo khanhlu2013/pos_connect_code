@@ -1,8 +1,8 @@
 requirejs.config({
      baseUrl: '/static/js'
     ,paths: {
-         app : 'app/'
-        ,lib : 'lib/'
+         app : 'app'
+        ,lib : 'lib'
         ,pouch_db : 'lib/db/pouchdb'
         ,jquery : 'lib/jquery/jquery-1_10_2'
         ,jquery_block_ui : 'lib/jquery/jquery_blockUI'

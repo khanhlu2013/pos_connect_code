@@ -24,7 +24,7 @@ def p():
     json_file.close()
 
     #initial insert approve product to couch script
-    initial_script_to_insert_approve_product_to_couch()
+    # initial_script_to_insert_approve_product_to_couch()
 
     #insert 2 store
     user1,store1=test_helper.create_user_then_store_detail(user_name = "tony",user_password="5262",store_name="Cigarete Express")

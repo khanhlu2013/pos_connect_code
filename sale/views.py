@@ -4,7 +4,7 @@ from product.models import ProdSkuAssoc
 from util.couch import user_util
 from store.couch import store_util
 from django.http import HttpResponse
-from django.utils import simplejson
+import json
 from sale import sale_processor
 from sale.models import Receipt
 import datetime
@@ -63,9 +63,9 @@ def get_report_by_day_view(request):
             errmsg = "Incorrect data format, should be MM-DD-YYYY"
 
         if receipt_lst != None:
-            return HttpResponse(simplejson.dumps(sale_data_2_json(receipt_lst),cls=DjangoJSONEncoder),mimetype='application/javascript')
+            return HttpResponse(json.dumps(sale_data_2_json(receipt_lst),cls=DjangoJSONEncoder),mimetype='application/javascript')
         else:
-            return HttpResponse(simplejson.dumps({'error':errmsg}),mimetype='application/javascript')
+            return HttpResponse(json.dumps({'error':errmsg}),mimetype='application/javascript')
 
 
 def update_dic(key,amount,dic):
@@ -113,7 +113,7 @@ def process_sale_data_view(request):
             response_message = 'error in specify store number. Got cha!'
         
         response_dict.update({'server_response': 'from server ' + response_message })                              
-        return HttpResponse(simplejson.dumps(response_dict), mimetype='application/javascript')
+        return HttpResponse(json.dumps(response_dict), mimetype='application/javascript')
           
 
     

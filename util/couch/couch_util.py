@@ -1,9 +1,11 @@
 from django.conf import settings
 from couchdb import Server
 from util.couch import couch_constance,master_account_util
+import os
 
 def get_url_using_admin_account():
-    return 'https://' + master_account_util.get_master_user_name() + ':' + master_account_util.get_master_user_password() + '@' + settings.COUCHDB_URL
+	protocol = 'https://' if os.environ['COUCH_DB_HTTP_S'] else 'http://'
+    return protocol + master_account_util.get_master_user_name() + ':' + master_account_util.get_master_user_password() + '@' + settings.COUCHDB_URL
 
 def get_server(url):
 	return Server(url)

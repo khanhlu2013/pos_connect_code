@@ -15,6 +15,7 @@ from django.views.defaults import server_error
 from django.conf import settings
 
 admin.autodiscover()
+
 urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'liquor.views.home', name='home'),

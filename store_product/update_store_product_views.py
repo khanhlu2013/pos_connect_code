@@ -7,7 +7,7 @@ from store_product.models import Store_product
 from product.Full_department_name_choice_field import Full_department_name_choice_field
 from store_product import update_store_product_cm
 from django.http import HttpResponse
-from django.utils import simplejson
+import json
 
 #-UPDATE PRIVATE PRODUCT-------------------------------------------------------------
 class MyForm(ModelForm):
@@ -134,7 +134,7 @@ def updator_ajax(request):
         except Exception,e:
             errmsg = "error: " + str(e)
 
-        return HttpResponse(simplejson.dumps({'error':errmsg}),mimetype='application/javascript')
+        return HttpResponse(json.dumps({'error':errmsg}),mimetype='application/javascript')
             
 
 

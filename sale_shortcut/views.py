@@ -1,7 +1,7 @@
 from sale_shortcut.models import Parent,Child
 from django.views.generic import TemplateView
 from django.http import HttpResponse
-from django.utils import simplejson
+import json
 from django.core import serializers
 from util.couch import user_util
 from django.conf import settings
@@ -40,7 +40,7 @@ def get_data_view(request):
     cur_login_store = request.session.get('cur_login_store')
     lst_django = Parent.objects.filter(business_id=cur_login_store.id).prefetch_related('child_set')
 
-    return HttpResponse( simplejson.dumps([parent.to_json() for parent in lst_django]), mimetype='application/json' )
+    return HttpResponse( json.dumps([parent.to_json() for parent in lst_django]), mimetype='application/json' )
 
 
 def set_parent_name_view(request):
@@ -53,7 +53,7 @@ def set_parent_name_view(request):
         parent.caption = name
         parent.save()
 
-        return HttpResponse(simplejson.dumps({'success':True}), mimetype='application/json')
+        return HttpResponse(json.dumps({'success':True}), mimetype='application/json')
 
 
 def set_child_info_view(request):
@@ -75,7 +75,7 @@ def set_child_info_view(request):
             child.product = product
             child.save()
 
-        return HttpResponse(simplejson.dumps({'success':True}),mimetype='application/json')
+        return HttpResponse(json.dumps({'success':True}),mimetype='application/json')
 
 
 

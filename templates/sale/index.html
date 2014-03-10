@@ -2,7 +2,7 @@
 
 {% block content %}
 
-{{ STATIC_URL }}
+
   <link rel="stylesheet" href="{{ STATIC_URL }}css/app/sale/base.css">
   <link rel="stylesheet" href="{{ STATIC_URL }}css/jquery-ui-themes-1.10.4/themes/smoothness/jquery-ui.css">
 
@@ -57,6 +57,7 @@
 
 
   <script type="text/javascript">
+    var STATIC_URL = "{{STATIC_URL}}"
     var STORE_DB_NAME = "{{store_db_name}}"
     var COUCH_SERVER_URL = "{{couch_server_url}}"
     var ROW_COUNT = {{ROW_COUNT}}

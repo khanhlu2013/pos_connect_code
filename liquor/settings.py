@@ -40,6 +40,12 @@ DATABASES = {'default': dj_database_url.config()}
 
 STATICFILES_STORAGE = os.environ['STATICFILES_STORAGE']
 STATIC_URL = os.environ['STATIC_URL']
+AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
+AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
+AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
+
+
+
 
 
 COUCHDB_URL = os.environ['COUCHDB_URL']

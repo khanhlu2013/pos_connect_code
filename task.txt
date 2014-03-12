@@ -245,9 +245,8 @@ CAT AND DEP MANAGEMENT -> type and sub_type
 
 . find your way back to development environment
 
-
-
-
+. find out how to replicate using api key
+. find out if we can success replicate with cloudant account first. and why db_url is none
 
     
 

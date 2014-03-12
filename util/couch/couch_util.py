@@ -3,9 +3,13 @@ from couchdb import Server
 from util.couch import couch_constance,master_account_util
 import os
 
+def get_url(name,password):
+	protocol = 'https://' if os.environ['COUCH_DB_HTTP_S'] else 'http://'
+    return protocol + name + ':' + password + '@' + settings.COUCHDB_URL
+    
 def get_url_using_admin_account():
-    protocol = 'https://' if os.environ['COUCH_DB_HTTP_S'] else 'http://'
-    return protocol + master_account_util.get_master_user_name() + ':' + master_account_util.get_master_user_password() + '@' + settings.COUCHDB_URL
+	get_url(master_account_util.get_master_user_name(),master_account_util.get_master_user_password())
+
 
 def get_server(url):
     return Server(url)

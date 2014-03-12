@@ -68,8 +68,7 @@ def _couch_db_insert_user(store_id):
 
     h=hashlib.sha1()
     salt = os.urandom(16).encode('hex')
-    h.update(password)
-    h.update(salt)
+    h.update(password+salt)
 
     data = {
          "_id": user_id

@@ -20,9 +20,10 @@ class Sale_view(TemplateView):
     def get_context_data(self,**kwargs):
         context = super(Sale_view,self).get_context_data(**kwargs)
         bus_id = str(self.cur_login_store.id)
-        client_user_name = user_util.get_client_user_name(bus_id)
-        client_user_password = user_util.get_client_user_password(bus_id)
-        couch_server_url = 'http://' + client_user_name + ':' +client_user_password + "@" + settings.COUCHDB_URL
+        print('-xxx-')
+        client_user_name = 'thanarzandimandstoweress'
+        client_user_password = 'T7UxkEMIq1mQVER1n7gTgPSt'
+        couch_server_url = couch_util.get_url(client_user_name,client_user_password) 
         store_db_name = store_util.get_store_db_name(bus_id)
 
         context['store_db_name'] = store_db_name

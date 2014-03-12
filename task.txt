@@ -1,35 +1,11 @@
-.see if we can logged in with these account
-.try to create a user with hash password, so we can give this to the client.
-	.python
-	.manually with curl
-	.find out coucdb doc to how to create a user
+go with cloudant security feature.
+
+
+	. we don't need to create user document
+	. we don't need to update _security
+
+
+	. store creator
 
 
 
-
-
-
-
->>> import hashlib
->>> h=hashlib.sha1()
->>> h.update('mypassword')
->>> h.update('mysalt')
->>> h.digest()
-'O,\x19\xf8\x85\xea\xe0\x88kRo\xda\x96\x824\x87OQ\xbe4'
->>> h.hexdigest()
-'4f2c19f885eae0886b526fda968234874f51be34'
->>> # create secure salts using os.urandom
-...
->>> salt = os.urandom(16).encode('hex') # 16 byte random salt encoded as hexadecimal string
-
-
-
-
-{
-  "_id"          : "org.couchdb.user:joe",
-  "type"         : "user",
-  "name"         : "joe",
-  "roles"        : ["erlanger"],
-  "password_sha" : "fe95df1ca59a9b567bdca5cbaf8412abd6e06121",
-  "salt"         : "4e170ffeb6f34daecfd814dfb4001a73"
-}

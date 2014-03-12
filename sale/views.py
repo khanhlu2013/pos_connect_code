@@ -9,6 +9,7 @@ from sale import sale_processor
 from sale.models import Receipt
 import datetime
 from django.core.serializers.json import DjangoJSONEncoder
+from util.couch import couch_util
 
 class Sale_view(TemplateView):
     template_name = 'sale/index.html'

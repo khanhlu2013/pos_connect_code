@@ -1,4 +1,343 @@
-go with cloudant security feature.
+~. parakett idea: a trypod with remote. a keyboard of there own sound
+~. i want to be a blues student.
+~. build a play ground for parakeet. how to engage with your paraket. time. 
+~. coverage run manage.py test --settings=settings.test --failfast  
+~. looking at the ball will 100% give you the most input, so that the mind + body will react to the constance input. just look at the ball, you just going to know what to do. 
+~. meditate: thinking is a drug that the mind created as a way of confort seeking. We just want comfort. Turn on the mind = pain. no pain no gain. The mind will trick you to turn it off by fooling you that you are still on. but it is just an auto run. Un-related thought of distraction. Any distraction. 
+
+
+lsof -i :8000
+----------------------------------------------------------------------------
+template
+
+define(
+    [
+
+    ]
+    ,function
+    (
+
+    )
+{
+
+});
+
+UPGRADE FEATURE
+---------------
+. deal
+. store_product info should be push right away if internet is available. if not it can wait when we upload sale data.
+    . if we mark store_product that is not assoc on the server, we can push them right away after sale so that other register can be updated
+.manual discount: 
+    . as oppose to deal discount
+    . always calculate into $ amount
+    . we need 1 more column if this feature is turned on: manual discount column
+.update approve product in couch to contain more multiple suggestion info: price, crv, tax, name. implement not only insert, but update approve product
+
+
+REALIZATION
+-----------
+~. good result: after push sale data up, the receipt and locally create sp is removed correctly. 
+~. pouch store db contain different document type: store_product, receipt,tax. index search make sure we can narrow down the doc type
+. we need un_approve_override: these product will not have a regular sku: such as lt1, pc2 ...
+~. after intialization: insert product lst that is_approve_override = true and run the script to add them to couch, we don't need to update or insert with is_approve_override = true. but if we do, we need to also add them to couch
+~. don't let small un-important stand in your big task. task should be done in an order of important. renaming, code clean up are just clean up. if we can wait, do it later
+~. if we over breakup code into smaller file that should be in one file, we end up write smaller test that should be only 1 test. 
+~. test naming and structure: 
+    ~.folder/package/module name: can be anything. 
+    ~.file name: end with _test
+    ~. class name: anything
+    ~. method name: end with _test
+~. we need to use a sku_str to id the old product to associate with a store. this is create old_store_product. Also, when 3 piece of info: (sku + product + store) come together, we complete the picture of product and sku approval. 
+~. sku.is_approved need to be removed. approval is based on prod_sku_assoc not by sku itself. prod_sku_assoc approval should by fully dynamic. product is approved is also dynamic and is true if there is one approved prod_sku_assoc.
+~. ["qty", "product", "regular price", "deal discount","discount price","crv", "tax", "line total", "X"]
+~. initializer: i don't know how to shorten it yet: how about creator
+~. should a module go find its input or let the input be supplied?
+    ~. if the input is always the same, then it is part of this process
+    ~. if the input could be many things, let the user of this module supply this input so it can be reuse.
+~. displaying scan method naming
+    .price naming
+        . discount_price:       a price after the sum of all kind of discount: manual_discount, auto_deal_discount ...
+        . out_the_door_price:   final_price + crv + tax
+        . line_total:           out_the_door_price * qty
+    .tax naming
+        . with tax concern, tax only apply to final_price -> get_tax
+ ~. don't call inline discount anymore.
+    ~. use discount because we don't need to differentiate inline discount vs independent discount concept. 
+    ~. Independent discount is solved with return of non-product.
+~. deal is solved with deal discount, a type of "inline discount" in stead of return_non_product to lower the tax paying
+    ~. customer don't care, they pay the same
+    ~. inline deal discount reduce the price and reduce the tax collecting and reducing the tax paying
+~. ps vs ds
+    ~. ds dynamically join store_product to contain the fresh update info. 
+    ~. deal change (ps:ds) ratio
+        ~ (ps:ds) = (1:1) no deal
+        ~ (ps:ds) = (1:n) deal
+        ~ (ps:ds) = (n:1) ps is not compressed -> ERROR
+~. who care about grammar when distinction is not matter. its there is not a concept of app vs apps, then go ahead use singular form
+~. work is only part of life, which is a bigger picture. what is it mean to work?
+~. everytime i try to get to store_product_util i like to go to lib not app. because 
+~. keep searching for the easiest way to develop app. get good. not just get do able. 
+~. is store_product_util belong to an app, not lib. store product is an app
+~. spec is good to use in test/software development terminology. use spec!
+~. employee cheat does not measure by void click, but by ratio. we can collect void click as well, just in case. 
+
+~. ds computer only compute based on provided input. dont make the job of computer go find input and limit what input we can put in the 
+~. if you about to kill a lot of code as an alternative eaiser. whatout for comfort brain seeking. Engage in changelenge activity. The sotification of live. 
+
+
+-------------------
+QUESTION - LEARNING
+
+x. django-compressor
+x. if we call async with only 1 method, can we by pass async?
+x. pouch.changes.since
+x. should update and insert be unite. yea, every kick ass simple framework do it. cm should implement a "put" concept to update/insert
+x. why link inside form can not be direct to correct url?
+x. understand require.js : up front dependency list vs lazy loading
+x. Agile and extreme development
+x. couchdb role
+
+
+------------
+MAINTAINANCE
+. where there is 2 product that keep saying they are changed.
+. what do you do with old rev
+. find out there is about 8 db change every refresh. why? there should be zero change and go the hell on. find out if we can optimize the speed here. 
+x. pay attention to what couch db is doing with approved_product db
+x client = store. we should rename this. get_client_name -> get_store_account_name. even better: get rit of user_prefix. 
+x. test ui code with selenium: (sale.js)
+x. ds_2_ui take only html table. it should also take in button to refresh text. basically search for all doc.getElementById and see if we can modular the code.
+~. store_product search by sku need to narrow down to store_product document type. but currently, idb does not allow array key path + multiEntry
+~. product should have things like: suggested name (approved name/temp_name),list of price,crv???,is_taxable
+~. merge relization
+    ~. if owner are too lazy to setup store_product upfront and these product does not meet approval criteria, he miss the chance to assoc them offline. he will create new product with same sku. admin have to merge different product with same name, same sku
+    ~. Lets say this product have 2 real sku. there will be eventually 2 approved product with the same name and different sku. we then merge them. 
+
+x. approve prod_sku_assoc required product must be approved in the first place
+x. why do we need local store_db_name to have prefixed? it supposed to be 100% for the computer to processed. not user.
+x. move receipt into by_sequence (store_os): receipt os have increment = true. how is it in by_sequence? is this gona be a problem?
+x. django -> create new product -> cancel -> error
+x. btn -> button
+x. store_product_inserter
+x. change d_type from prod_bus_assoc into store_product (offline product in pouch and couch)
+x. get_tax.js -> tax_getter.js
+x. can we have update_tax_cm
+x. cm it its owned app. same concept with template for all app. 
+
+x. remove business_id out of couchdb
+x. how to secure client couch user account
+x. continue test the scan/sale. repeated item, deal ...
+x. add product from another store failed. 
+x. replace requests library to couchdb-python
+x. validate django transaction for master and couch is correct
+x. move master user name and password out of cvs
+x. define liqUser app
+
+x. update all spec to use init_db code
+x. js lib to prompt an integer. use this code on share sku breaker and change qty of displaying scan
+x. implement Pending_scan feature: save_to_db(index_db)
+x. need to test sale entry point
+x. i did not test displaying_scan_2_table code that hook up hook up ds_modifier to ui
+x. enforce pending scan qty to not be zero as a db constrain
+x. key for pending scan  is null or wrong?
+x. displaying_scan_2_table -> displaying_scan_lst_2_table
+x. displaying scan modifier:
+    . pending_scan.save_to_db(index_db)
+    . instruction.execute_on(pending_scan)
+x. record -> receipt
+
+
+
+CURRENT TASKS
+-------------
+. couch doc validation
+    . data type?
+    . unexpected fields
+    . receipt_ln: non product name can exist together with sp validation 
+. verify transaction is valid in sale processor
+. process sale data -> create_old_store_product have to create Product one by one. see if you can optimize this
+.user_util and store_util is the same thing
+.insert sku cs / test insert sku
+.delete sku cm / test delete sku
+.when update receipt (collected amount, we need to make sure the rev does not screw stuff up)
+ . test assoc_old_store_product_ui to have response code 200. We don't need to test 2 cases: approved and non approved. we dont need to test the restuls. these will be unit test.
+. test that assoc product from one store to other store will include approved sku. by design, this should work. but test it anway i guess.
+
+. define receipt pusher: may be have another name for it. what is it do? should it clean up offline and ask server to process data? should i break it up to sync receipt, clean up, and ask server?
+. pending scan is part of scanner. scanner is a module to record pending scan. before it is sale_record.
+. i like the word sale_record. we should use this word.
+. receipt_ln structure: we can store it flat out (no need some store_product info: d_type,price,sku_lst)
+    sp_doc_id
+    pid
+    name
+    non_product_name
+    create_offline
+    create_offline_by_sku
+
+    qty
+    price
+    discount
+    crv
+    is_taxable
+.util.couch -> couch
+.Approve_product_document -> document.py
+.store.store_inserter folder should be deleted
+. sku.is_approved, unit.is_approved
+.receipt._doc_id_creator
+.pending_scan_inserter should not take a pending scan as param. break this out to multiple param
+.store.save() by_pass_cm ?
+.store_product_getter: generic_search take an index name. make sure all these index name have atleast one colummn: d_type = 'store_product'
+. using GET instead of POST: refresh sale shortcut table + sale report by day
+. after sync ap product, ui is unblock, but couchdb console still spining for another 5 - 7 second.
+------------------------------------------------------------------------------------------------------------------
+DISCOUNT THAT ATTACH TO PRODUCT
+------------------------------------------------------------------------------------------------------------------
+PRODUCT SEARCH ON SALE PAGE
+------------------------------------------------------------------------------------------------------------------
+SKU MANAGEMENT:
+
+.potential problem and misuse of sku. how can i have a good filter and collect as much as gabage. Do i let people add sku to product, if yes, how do i protect myself? how is this complicate my data and how do i protect myself
+
+------------------------------------------------------------------------------------------------------------------
+SHORTCUT:
+    .who we need setup or db sync?
+    css need for cur selected parent
+    the easy of setting up and use shortcut.
+    .constrain: unique( business + position )
+    .display left and right parent DRY
+    .parent_lst_getter -> shortcut_lst_getter
+------------------------------------------------------------------------------------------------------------------
+SALE REPORT
+
+    sale report: gross sale = tax + non_tax
+        . i like undefined category
+        . how do i get to profit? might be learn from vend the setting price and margin. 
+------------------------------------------------------------------------------------------------------------------
+PRODUCT EDITION AND CREATION. ONLINE / OFFLINE
+
+.senario: create new product offline:
+    user click on sale page, scan a sku that is not exist. soft prompt if user want to create it. if internet is on, we will create them on the server and let auto sync add that same product offline. if the internet is down, we will create it locally and sync them later. we should always check if internet is on as the first default option. This will ensure the info is saved safely and sync accross browser. the interface for create online right away with internet and created locally without internet is the same. This will include all sp info (department,category,is_sale_report,is_tax_report,name,price,crv,is_taxable). User can select cat and dep info which is stored offline, or create cat dep if internet is on(by create online and let auto sync bring that info down.)
+
+.senario: edit product offline:
+    Edition will go online right away since we don't do pending edition with one exception if the product is tag as created offline. (when product is created offline, this mean the internet is not on, and this info is not yet sync anyway, we can do pending change here but it will be exactly the same as pennding creation since this product is not yet exist on master) This mean all the sp info have to be saved offline as well for prefill when edit popup is displayed. cat and dep can be selected with the info offline or create new with ajax and sync down with auto sync. 
+
+.question: on the sale page, should we sync right away product info on creation and edition? it is a yes for edition but a valid question for creation. pro: product info is safely saved and sync accross browser/register. con: it can cost $ for the server since we can't do bulk create. and slow down system. if i am the owner for central, i definitly want auto sync: create a product on 1 register will make it available on other register= freaking cool. if i am the owner like long, i only have 1 register. it make sense if i use pending creation for speed. SPEED or RELIABLE. i want reliable. DONE. find out how long does it take to figure out that ajax request failed due to connect to server failed(either internet or server problem) and recover with offline creation. 
+
+.another question: lets say the internet is off, how can we switch the default online sync to bulk pending create
+
+. we need a good reply messages: can't connect to server, try again later. can't connect to server, this product will be created offline.
+
+. find out behavior when internet is off and ajax request is made. what is the time out?
+------------------------------------------------------------------------------------------------------------------
+CAT AND DEP MANAGEMENT -> type and sub_type
+
+    the easy of setting up category and department: the way we have right now of cat contain dep is good. no initial approve or dynamic approve but we can suggestion based on pure text statistic. 
+
+    . question: can the user only select type and not care about sub_type
+------------------------------------------------------------------------------------------------------------------
+
+. reimplement security around cloudant api key
+    . sale view, geting the api key and pass them in the context accordingly. now we are using cloudant account which is a security hole.
+    . we don't need to create user document
+    . we don't need to update _security
+    . store creator
+
+
+. find your way back to development environment
+
+
+
+
+
+    
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+   
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

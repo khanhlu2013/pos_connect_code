@@ -234,7 +234,7 @@ require(
                             var sp_creator_b = sp_creator.exe.bind(sp_creator.exe,prefill_sku,approve_product_lst,store_idb,store_pdb,product_idb);
                             async.waterfall([sp_creator_b,scanner_b,ds_2_ui_b],function(error,result){
                                 if(error){
-                                    if(error == sp_prompt.STORE_PRODUCT_PROMPT_ERROR_CANCEL_BUTTON_PRESS){
+                                    if(error == sp_creator_b.ERROR_SP_CREATOR_CANCEL){
                                         //do nothing here
                                     }else{
                                         alert(error);

@@ -8,7 +8,7 @@ def get_url(name,password):
     return protocol + name + ':' + password + '@' + settings.COUCHDB_URL
     
 def get_url_using_admin_account():
-    get_url(master_account_util.get_master_user_name(),master_account_util.get_master_user_password())
+    return get_url(master_account_util.get_master_user_name(),master_account_util.get_master_user_password())
 
 
 def get_server(url):

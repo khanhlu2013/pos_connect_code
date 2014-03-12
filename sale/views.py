@@ -21,7 +21,7 @@ class Sale_view(TemplateView):
     def get_context_data(self,**kwargs):
         context = super(Sale_view,self).get_context_data(**kwargs)
         bus_id = str(self.cur_login_store.id)
-        print('-xxx-')
+        print('-befor getting url using admin account xxx-')
         client_user_name = 'thanarzandimandstoweress'
         client_user_password = 'T7UxkEMIq1mQVER1n7gTgPSt'
         couch_server_url = couch_util.get_url_using_admin_account()

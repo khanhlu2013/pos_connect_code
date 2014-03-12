@@ -1,11 +1,7 @@
 go with cloudant security feature.
 
 
-	. we don't need to create user document
-	. we don't need to update _security
 
-
-	. store creator
 
 
 

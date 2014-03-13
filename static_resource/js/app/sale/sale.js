@@ -3,7 +3,8 @@ requirejs.config({
     ,paths: {
          app : 'app'
         ,lib : 'lib'
-        ,pouch_db : 'lib/db/pouchdb'
+        // ,pouch_db : 'lib/db/pouchdb'
+        ,pouch_db : 'lib/db/pouchdb-2.0.1'
         ,jquery : 'lib/jquery/jquery-1_10_2'
         ,jquery_block_ui : 'lib/jquery/jquery_blockUI'
         ,jquery_ui : 'lib/jquery/jquery-ui'

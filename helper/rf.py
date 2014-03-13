@@ -27,7 +27,8 @@ def p():
     # initial_script_to_insert_approve_product_to_couch()
 
     #insert 2 store
-    user1,store1=test_helper.create_user_then_store_detail(user_name = "tony",user_password="5262",store_name="Cigarete Express")
+    user1,store1=test_helper.create_user_then_store_detail(user_name = "x",user_password="x",store_name="Cigarete Express")
+    user2,store2=test_helper.create_user_then_store_detail(user_name = "y",user_password="y",store_name="Cigarete Express")
 
     print("completed")
 

@@ -12,7 +12,7 @@ define(
     )
     {
         function approve_product_db_customizer(callback){
-            var version = 2;//we are upgrading pouchdb after initial_sync. We use version 2 instead of 1
+            var version = 3;//we are upgrading pouchdb after initial_sync. We use version 2 instead of 1
             var request = indexedDB.open(couch_db_util.pouch_db_name_to_index_db_name(constance.APPROVE_PRODUCT_DB_NAME),version);
             request.onupgradeneeded= function(e) {
                 var db = event.target.result;
@@ -36,7 +36,7 @@ define(
         }
 
         function store_db_customizers(store_db_name,callback){
-            var version = 2;//we are upgrading pouchdb after initial_sync. We use version 2 instead of 1
+            var version = 3;//we are upgrading pouchdb after initial_sync. We use version 2 instead of 1
             var request = indexedDB.open(couch_db_util.pouch_db_name_to_index_db_name(store_db_name),version);
             request.onupgradeneeded= function(e) {
                 var db = event.target.result;

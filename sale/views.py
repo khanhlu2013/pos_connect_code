@@ -24,8 +24,8 @@ class Sale_view(TemplateView):
         print('-befor getting url using admin account xxx-')
         client_user_name = 'thanarzandimandstoweress'
         client_user_password = 'T7UxkEMIq1mQVER1n7gTgPSt'
-        couch_server_url = couch_util.get_url_using_admin_account()
-        # couch_server_url = couch_util.get_url(client_user_name,client_user_password)
+        # couch_server_url = couch_util.get_url_using_admin_account()
+        couch_server_url = couch_util.get_url(client_user_name,client_user_password)
         print(couch_server_url)
         store_db_name = store_util.get_store_db_name(bus_id)
 

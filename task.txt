@@ -235,7 +235,7 @@ CAT AND DEP MANAGEMENT -> type and sub_type
 
     . question: can the user only select type and not care about sub_type
 ------------------------------------------------------------------------------------------------------------------
-
+. why setup take too long?
 . reimplement security around cloudant api key
     . sale view, geting the api key and pass them in the context accordingly. now we are using cloudant account which is a security hole.
     . we don't need to create user document
@@ -244,9 +244,9 @@ CAT AND DEP MANAGEMENT -> type and sub_type
 
 
 . find your way back to development environment
-
 . find out how to replicate using api key
-. find out if we can success replicate with cloudant account first. and why db_url is none
+
+
 
     
 

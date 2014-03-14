@@ -23,8 +23,8 @@ def get_api_key():
     print('-xxx- response obj')
     print(r)
 
-    if not r['ok']:
-        raise Exception('error code: ' + r['error'] + ' ,reason: ' + r['reason'])
+    if not r.ok:
+        raise Exception('error code: ' + r.error + ' ,reason: ' + r.reason)
     else:
         print('name: ' + r.key)
         print('pwrd: ' + r.password)

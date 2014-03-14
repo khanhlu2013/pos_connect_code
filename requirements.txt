@@ -14,3 +14,6 @@ couchdb==0.9
 model_mommy==1.2
 django-storages==1.1.8
 boto==2.27.0
+django-nose==1.2
+django-webtest==1.7.6
+webtest==2.0.14

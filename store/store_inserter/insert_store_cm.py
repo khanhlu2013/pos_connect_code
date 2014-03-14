@@ -23,11 +23,16 @@ def exe_master(store):
     return store.id
 
 
+def _couch_db_grant_access_to_db(user_name,db_name,right_lst):
+    print('-xxx')
+
+
 def exe_couch(store_id,tax_rate):
-    _couch_db_insert_user(store_id)
-    _couch_db_insert_user_to_approve_db(store_id)
+    user_name = _couch_db_create_user(store_id)
+    _couch_db_grant_access_to_db(user_name,APPROVE_PRODUCT_DB_NAME,['read'])
+
     _couch_db_insert_db(store_id)
-    _couch_db_insert_security(store_id)
+    _couch_db_grant_access_to_db(user_name,store_util.get_store_db_name(store_id),['read','write'])
     _couch_db_insert_view(store_id)
     _couch_db_insert_validation(store_id)
     _couch_db_insert_tax_rate(store_id,tax_rate)
@@ -44,42 +49,8 @@ def _couch_db_insert_tax_rate(store_id,tax_rate):
     db.update([tax_document,])
 
 
-# def _couch_db_insert_user(store_id):
-#     username = user_util.get_client_user_name(store_id)
-#     password = user_util.get_client_user_password(store_id)
-#     user_id = user_util.get_client_user_id(store_id)
-#     url = couch_util.get_url_using_admin_account() + '/_users/' + user_id
-
-#     data = {
-#          "_id": user_id
-#         ,"name" : username
-#         ,"type" : "user"
-#         ,"roles" : []
-#         ,"password" : password
-#     }
-#     headers = {'Content-type': 'application/json'}
-#     res = requests.put(url, data=json.dumps(data), headers=headers)
-
-def _couch_db_insert_user(store_id):
-    username = user_util.get_client_user_name(store_id)
-    password = user_util.get_client_user_password(store_id)
-    user_id = user_util.get_client_user_id(store_id)
-    url = couch_util.get_url_using_admin_account() + '/_users/' + user_id
-
-    h=hashlib.sha1()
-    salt = os.urandom(16).encode('hex')
-    h.update(password+salt)
-
-    data = {
-         "_id": user_id
-        ,"name" : username
-        ,"type" : "user"
-        ,"roles" : []
-        ,"password_sha" : h.hexdigest()
-        ,"salt" : salt
-    }
-    headers = {'Content-type': 'application/json'}
-    res = requests.put(url, data=json.dumps(data), headers=headers)
+def _couch_db_create_user():
+    print('---xxx---')
 
 
 def _couch_db_insert_db(store_id):
@@ -89,9 +60,11 @@ def _couch_db_insert_db(store_id):
     return server.create(db_name)
 
 def _couch_db_insert_user_to_approve_db(store_id):
+    print('---xxx---')
     reader_lst_updator.exe(store_id)
 
 def _couch_db_insert_security(store_id):
+    print('-xxx-')
     admin_name = master_account_util.get_master_user_name()
     reader_name = user_util.get_client_user_name(store_id)
     db_name = store_util.get_store_db_name(store_id)

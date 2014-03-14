@@ -36,6 +36,7 @@ UPGRADE FEATURE
 
 REALIZATION
 -----------
+~. cloudant only differ in the way they handle _security. however, we don't test if a user can successfully sync from couchdb server. for now, we assume this step. so we don't need to test security feature, we will hand test these.
 ~. good result: after push sale data up, the receipt and locally create sp is removed correctly. 
 ~. pouch store db contain different document type: store_product, receipt,tax. index search make sure we can narrow down the doc type
 . we need un_approve_override: these product will not have a regular sku: such as lt1, pc2 ...
@@ -236,6 +237,10 @@ CAT AND DEP MANAGEMENT -> type and sub_type
     . question: can the user only select type and not care about sub_type
 ------------------------------------------------------------------------------------------------------------------
 . why setup take too long?
+
+
+. make sure store_inserter will let our admin to access the store. is cloudant do this automatically? if not, we have to do it
+
 . reimplement security around cloudant api key
     . sale view, geting the api key and pass them in the context accordingly. now we are using cloudant account which is a security hole.
     . we don't need to create user document
@@ -243,11 +248,36 @@ CAT AND DEP MANAGEMENT -> type and sub_type
     . store creator
 
 
-. find your way back to development environment
-. find out how to replicate using api key
+. find out how cloudant api for creating and setting api key.
+
+import requests
+url = 'http://ES_search_demo.com/document/record/_search?pretty=true'
+data = '{"query":{"bool":{"must":[{"text":{"record.document":"SOME_JOURNAL"}},{"text":{"record.articleTitle":"farmers"}}],"must_not":[],"should":[]}},"from":0,"size":50,"sort":[],"facets":{}}'
 
 
 
+response = requests.get(url, data=data)
+
+
+
+request:
+    POST https://cloudant.com/api/generate_api_key
+
+
+
+response:
+    Property        Description
+    
+    ok              True if the request was successful.
+    error           If request was not successful, contains an error code.
+    reason          If request was not successful, contains a human-readable description of why the error took place.
+    key             API key.
+    password        API password.
+
+
+. how can i setup dev env with test.py
+. how can i deploy to heroku running base.py
+. instead of separate setting files, we want to have only 1 file and use os_env
     
 
         

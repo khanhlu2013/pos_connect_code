@@ -19,6 +19,9 @@ class Store_inserter(WebTest):
     #     test_helper.teardown_test_couchdb()
 
     def store_inserter_can_insert_store_test(self):
+        #foreman start -e .env,test.env test.store.store_inserter_test:Store_inserter.store_inserter_can_insert_store_test        
+        #foreman start -e .env,test.env python manage.py test.store.store_inserter_test:Store_inserter.store_inserter_can_insert_store_test
+        #foreman run -e .env,test.env coverage run manage.py test.store.store_inserter_test:Store_inserter.store_inserter_can_insert_store_test
         #coverage run manage.py test --settings=settings.test test.store.store_inserter_test:Store_inserter.store_inserter_can_insert_store_test
         
         #SETUP COUCHDB
@@ -34,30 +37,26 @@ class Store_inserter(WebTest):
         store_db = store_util.get_store_db(store_id = store.id)
         self.assertTrue(store_db!=None)
 
-        #TEST CLIENT USER EXIST
-        client_user = user_util.get_client_user(store.id)
-        self.assertTrue(client_user!=None)
-
         #TEST SECURITY
         security_info = store_db.get('_security')
+        user_lst = security_info['cloudant']
+        self.assertEqual(len(user_lst),2)
 
         #TEST ADMINS SECURITY INFO
-        admins = security_info['admins']['names']
-        self.assertEqual(len(admins),1)
-        admin = admins[0]
-        self.assertEqual(admin,master_account_util.get_master_user_name())
+        admin_right_lst = user_lst.pop(master_account_util.get_master_user_name())
+        self.assertEqual(len(admin_right_lst),3)
+        self.assertTrue(['_admin','_reader','_writer'] in admin_right_lst)
 
-        #TEST READERS SECURITY INFO
-        readers = security_info['readers']['names']
-        self.assertEqual(len(readers),1)
-        reader = readers[0]
-        self.assertEqual(reader,user_util.get_client_user_name(store.id))
+        #TEST USER SECURITY INFO
+        user,store_right_lst = user_lst.popitem()
+        self.assertTrue(['_reader','_writer'] in store_right_lst)
 
         #TEST STORE CAN ACCESS APPROVE PRODUCT DB
-        db = approve_product_db_getter.exe()
-        reader_lst = reader_lst_getter.exe(db)
-        client_user_name = user_util.get_client_user_name(store.id)
-        self.assertTrue(client_user_name in reader_lst)
+        ap_db = approve_product_db_getter.exe()
+        security_info = ap_db.get('_security')
+        user_lst = security_info(['cloudant'])
+        self.asertTrue(user in user_lst)
+        reader_lst = reader_lst_getter.exe(ap_db)
 
         #TEST TAX_RATE
         self.assertEqual(store.tax_rate,tax_rate)

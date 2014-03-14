@@ -21,6 +21,7 @@ def get_client_user_id(store_id):
     return settings.USER_ID_PREFIX + get_client_user_name(store_id)
 
 def get_client_user(store_id):
+    print('-xxx-')
     db = get_users_db()
     return db.get(id=get_client_user_id(store_id))
 

@@ -20,8 +20,11 @@ def get_api_key():
     headers = {'content-type': 'application/json'}
     url = 'https://cloudant.com/api/generate_api_key'
     r = requests.post(url,data=None,headers=headers)    
-    if not r.ok:
-        raise Exception('error code: ' + r.error + ' ,reason: ' + reason)
+    print('-xxx- response obj')
+    print(r)
+
+    if not r['ok']:
+        raise Exception('error code: ' + r['error'] + ' ,reason: ' + r['reason'])
     else:
         print('name: ' + r.key)
         print('pwrd: ' + r.password)

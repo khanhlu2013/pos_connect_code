@@ -5,7 +5,7 @@ from model_mommy import mommy
 from util.couch import user_util
 from tax.couch import tax_util
 from helper import test_helper 
-from store.couch import store_util
+from store.couch import store_utilß
 from couchdb import ResourceNotFound
 from util.couch import master_account_util,reader_lst_getter
 from product.couch import approve_product_db_getter
@@ -19,8 +19,8 @@ class Store_inserter(WebTest):
     #     test_helper.teardown_test_couchdb()
 
     def store_inserter_can_insert_store_test(self):
-        #foreman start -e .env,test.env test.store.store_inserter_test:Store_inserter.store_inserter_can_insert_store_test        
-        #foreman start -e .env,test.env python manage.py test.store.store_inserter_test:Store_inserter.store_inserter_can_insert_store_test
+     
+        # foreman run -e .env coverage run manage.py test.store.store_inserter_test:Store_inserter.store_inserter_can_insert_store_test
         #foreman run -e .env,test.env coverage run manage.py test.store.store_inserter_test:Store_inserter.store_inserter_can_insert_store_test
         #coverage run manage.py test --settings=settings.test test.store.store_inserter_test:Store_inserter.store_inserter_can_insert_store_test
         

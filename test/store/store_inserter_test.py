@@ -19,10 +19,9 @@ class Store_inserter(WebTest):
     #     test_helper.teardown_test_couchdb()
 
     def store_inserter_can_insert_store_test(self):
-     
-        # foreman run -e .env coverage run manage.py test.store.store_inserter_test:Store_inserter.store_inserter_can_insert_store_test
-        #foreman run -e .env,test.env coverage run manage.py test.store.store_inserter_test:Store_inserter.store_inserter_can_insert_store_test
-        #coverage run manage.py test --settings=settings.test test.store.store_inserter_test:Store_inserter.store_inserter_can_insert_store_test
+
+        # foreman  run -e .env,test.env python manage.py test                          test.store.store_inserter_test:Store_inserter.store_inserter_can_insert_store_test
+        # coverage run                         manage.py test --settings=settings.test test.store.store_inserter_test:Store_inserter.store_inserter_can_insert_store_test
         
         #SETUP COUCHDB
         test_helper.setup_test_couchdb()
@@ -39,6 +38,7 @@ class Store_inserter(WebTest):
 
         #TEST SECURITY
         security_info = store_db.get('_security')
+        self.assertEqual(len(security_info),1)
         user_lst = security_info['cloudant']
         self.assertEqual(len(user_lst),2)
 

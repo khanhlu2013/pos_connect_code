@@ -15,7 +15,7 @@ INSTALLED_APPS = (
     ,'django.contrib.sites'
     ,'storages'
     ,'south'
-    # ,'django_nose'
+    ,'django_nose'
     ,'helper'
     ,'util'
     ,'liqUser'
@@ -44,15 +44,17 @@ AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
 AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
 AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
 
-
-
-
-
+COUCH_DB_HTTP_S = True if os.environ['COUCH_DB_HTTP_S'] == 'True' else False
 COUCHDB_URL = os.environ['COUCHDB_URL']
 COUCH_MASTER_USER_NAME = os.environ['COUCH_MASTER_USER_NAME']
 COUCH_MASTER_USER_PASSWORD = os.environ['COUCH_MASTER_USER_PASSWORD']
 
-
+#TEST
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+TEST_DISCOVER_TOP_LEVEL = PROJECT_ROOT
+TEST_DISCOVER_ROOT = PROJECT_ROOT
+TEST_DISCOVER_PATTERN = "test_*"
+SOUTH_TESTS_MIGRATE = False
 
 #QUESTION----------------------------------------------------------------------------------------------------------------------------------
 SITE_ID = 1 #is this related to staging?

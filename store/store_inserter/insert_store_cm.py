@@ -8,35 +8,48 @@ from tax.couch.models import Tax_document
 from util.couch import master_account_util,user_util,couch_util,couch_constance
 from store.couch import store_util
 from sale.couch.receipt import receipt_document_validator
-from util.couch import couch_acl_validator,reader_lst_updator
+from util.couch import couch_acl_validator
 import hashlib
 import os
 
 def exe(store):
-    store_id = exe_master(store)
-    exe_couch(store_id,store.tax_rate)
+    store_id,api_key_name = exe_master(store)
+    exe_couch(store_id,store.tax_rate,api_key_name)
 
+def get_api_key():
+    d = {database:db_name,username:api_key_name,roles:roles}
+    headers = {'content-type': 'application/json'}
+    url = 'POST https://cloudant.com/api/generate_api_key'
+    r = requests.post(url,data=None,headers=headers)    
+    if not r.ok:
+        raise Exception('error code: ' + r.error + ' ,reason: ' + reason)
+    else:
+        print('name: ' + r.key)
+        print('pwrd: ' + r.password)
+        
+        return (r.key,r.password)
 
 def exe_master(store):
+    store.api_key_name,store.api_key_pwrd = get_api_key()
     store.save(by_pass_cm=True)
     store_id = store.id
     return store.id
 
 
-def _couch_db_grant_access_to_db(user_name,db_name,right_lst):
-    print('-xxx')
+def _couch_db_grant_access_to_db(api_key_name,db_name,roles):
+    d = {database:db_name,username:api_key_name,roles:roles}
+    headers = {'content-type': 'application/json'}
+    url = 'https://cloudant.com/api/set_permissions'
+    r = requests.post(url,data=json.dumps(d),headers=headers)
 
 
-def exe_couch(store_id,tax_rate):
-    user_name = _couch_db_create_user(store_id)
-    _couch_db_grant_access_to_db(user_name,APPROVE_PRODUCT_DB_NAME,['read'])
-
+def exe_couch(store_id,tax_rate,api_key_name):
+    _couch_db_grant_access_to_db(api_key_name,APPROVE_PRODUCT_DB_NAME,['read'])
     _couch_db_insert_db(store_id)
-    _couch_db_grant_access_to_db(user_name,store_util.get_store_db_name(store_id),['read','write'])
+    _couch_db_grant_access_to_db(api_key_name,store_util.get_store_db_name(store_id),['read','write'])
     _couch_db_insert_view(store_id)
     _couch_db_insert_validation(store_id)
     _couch_db_insert_tax_rate(store_id,tax_rate)
-
 
 
 def _couch_db_insert_tax_rate(store_id,tax_rate):
@@ -49,33 +62,11 @@ def _couch_db_insert_tax_rate(store_id,tax_rate):
     db.update([tax_document,])
 
 
-def _couch_db_create_user():
-    print('---xxx---')
-
-
 def _couch_db_insert_db(store_id):
     #CREATE LIQUOR DATABASE
     server = couch_util.get_server_using_admin_account()
     db_name = store_util.get_store_db_name(store_id)
     return server.create(db_name)
-
-def _couch_db_insert_user_to_approve_db(store_id):
-    print('---xxx---')
-    reader_lst_updator.exe(store_id)
-
-def _couch_db_insert_security(store_id):
-    print('-xxx-')
-    admin_name = master_account_util.get_master_user_name()
-    reader_name = user_util.get_client_user_name(store_id)
-    db_name = store_util.get_store_db_name(store_id)
-    secure_url = couch_util.get_url_using_admin_account() + "/" + db_name + '/_security'
-    data = {
-        "admins"    : {"names":[admin_name],"roles":[]},
-        "readers"   : {"names":[reader_name],"roles":[]}
-    }
-    headers = {'Content-type': 'application/json'}
-    requests.put(secure_url, data=json.dumps(data), headers=headers)
-
 
 def _couch_db_insert_view(store_id):
     d_type_view_map_function = \

@@ -18,7 +18,7 @@ def exe(store):
 
 def get_api_key():
     headers = {'content-type': 'application/json'}
-    url = 'POST https://cloudant.com/api/generate_api_key'
+    url = 'https://cloudant.com/api/generate_api_key'
     r = requests.post(url,data=None,headers=headers)    
     if not r.ok:
         raise Exception('error code: ' + r.error + ' ,reason: ' + reason)

@@ -17,7 +17,6 @@ def exe(store):
     exe_couch(store_id,store.tax_rate,api_key_name)
 
 def get_api_key():
-    d = {database:db_name,username:api_key_name,roles:roles}
     headers = {'content-type': 'application/json'}
     url = 'POST https://cloudant.com/api/generate_api_key'
     r = requests.post(url,data=None,headers=headers)    
@@ -26,7 +25,7 @@ def get_api_key():
     else:
         print('name: ' + r.key)
         print('pwrd: ' + r.password)
-        
+
         return (r.key,r.password)
 
 def exe_master(store):

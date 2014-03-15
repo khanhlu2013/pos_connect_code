@@ -53,6 +53,12 @@ def _couch_db_grant_access_to_db(api_key_name,db_name,roles):
     data_str += role_str
     headers = {'content-type': 'application/x-www-form-urlencoded'}
     
+    print('-xxx-')
+    print(db_name)
+    print(url)
+    print(data_str)
+    print(headers)
+
     r = requests.post(url,data=data_str,headers=headers,auth=(master_account_util.get_master_user_name(),master_account_util.get_master_user_password()))
 
 

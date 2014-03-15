@@ -238,8 +238,17 @@ CAT AND DEP MANAGEMENT -> type and sub_type
 ------------------------------------------------------------------------------------------------------------------
 . store_inserter_test: we can probably turn this off. but if we need it, we can probably setup the env specifically for this test
 . why setup take too long?
+. how can we test since our local env is couchdb and production if bigcouch is this complicate anything?
 
-. right now we casting from business to store obj when we login. we have to rethink about the whole business vs store in our app before we can use the sale.view
+
+. user logged in 
+
+    . if user belong to zero bus: check the user role: software seller? investor, admin ...?
+    . narrow down a single business: prompt user if she belong to multiple bus
+    . with 1 bus narrowed down, we will load the correct ui 
+
+
+
 
 
 

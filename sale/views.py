@@ -21,18 +21,10 @@ class Sale_view(TemplateView):
     def get_context_data(self,**kwargs):
         context = super(Sale_view,self).get_context_data(**kwargs)
         bus_id = str(self.cur_login_store.id)
-        print('-befor getting url using admin account xxx-')
-        client_user_name = 'thanarzandimandstoweress'
-        client_user_password = 'T7UxkEMIq1mQVER1n7gTgPSt'
-        # couch_server_url = couch_util.get_url_using_admin_account()
-        couch_server_url = couch_util.get_url(client_user_name,client_user_password)
-        print(couch_server_url)
-        store_db_name = store_util.get_store_db_name(bus_id)
-
-        context['store_db_name'] = store_db_name
-        context['couch_server_url'] = couch_server_url
-        context['ROW_COUNT'] = 5
-        context['COLUMN_COUNT'] = 3
+        context['store_db_name'] = store_util.get_store_db_name(bus_id)
+        context['couch_server_url'] = couch_util.get_url(self.cur_login_store.api_key_name,self.cur_login_store.api_key_pwrd)
+        context['ROW_COUNT'] = 5        # xxx move this ugly to constance
+        context['COLUMN_COUNT'] = 3     # xxx move this ugly to constance
         return context
 
 

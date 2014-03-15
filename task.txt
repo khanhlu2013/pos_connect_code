@@ -245,16 +245,9 @@ CAT AND DEP MANAGEMENT -> type and sub_type
     . sale view, geting the api key and pass them in the context accordingly. now we are using cloudant account which is a security hole.
     . we don't need to create user document
     . we don't need to update _security
-    . store creator
-
-
-. find out how cloudant api for creating and setting api key.
 
 
 
-. how can i setup dev env with test.py
-. how can i deploy to heroku running base.py
-. instead of separate setting files, we want to have only 1 file and use os_env
     
 
         

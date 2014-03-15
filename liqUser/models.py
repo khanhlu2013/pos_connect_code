@@ -33,7 +33,7 @@ def select_default_login_store(sender,user,request,**kwargs):
     cur_store = None
     try:
         cur_store = cur_bus.store #casting business into store
-    except: Store.DoesNotExist
+    except Store.DoesNotExist:
         raise Exception('we only support store as a business type for now')
 
 

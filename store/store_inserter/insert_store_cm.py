@@ -49,7 +49,8 @@ def _couch_db_grant_access_to_db(api_key_name,db_name,roles):
     for item in roles:
         role_str += ('&roles=' + item)
 
-    data_str = 'database=%s/%s&username=%s' + role_str % (prefix,db_name,api_key_name)
+    data_str = 'database=%s/%s&username=%s' % (prefix,db_name,api_key_name)
+    data_str += role_str
     headers = {'content-type': 'application/x-www-form-urlencoded'}
     
     r = requests.post(url,data=data_str,headers=headers,auth=(master_account_util.get_master_user_name(),master_account_util.get_master_user_password()))

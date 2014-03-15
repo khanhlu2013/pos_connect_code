@@ -31,23 +31,23 @@ INSTALLED_APPS = (
     ,'sale_shortcut'
 )
 
-DEBUG = os.environ['DEBUG']
-TEMPLATE_DEBUG = os.environ['TEMPLATE_DEBUG']
-SECRET_KEY = os.environ['SECRET_KEY']
+DEBUG = os.environ.get('DEBUG')
+TEMPLATE_DEBUG = os.environ.get('TEMPLATE_DEBUG')
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 import dj_database_url
 DATABASES = {'default': dj_database_url.config()}
 
-STATICFILES_STORAGE = os.environ['STATICFILES_STORAGE']
-STATIC_URL = os.environ['STATIC_URL']
-AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
-AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
-AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
+STATICFILES_STORAGE = os.environ.get('STATICFILES_STORAGE')
+STATIC_URL = os.environ.get('STATIC_URL')
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
 
-COUCH_DB_HTTP_S = True if os.environ['COUCH_DB_HTTP_S'] == 'True' else False
-COUCHDB_URL = os.environ['COUCHDB_URL']
-COUCH_MASTER_USER_NAME = os.environ['COUCH_MASTER_USER_NAME']
-COUCH_MASTER_USER_PASSWORD = os.environ['COUCH_MASTER_USER_PASSWORD']
+COUCH_DB_HTTP_S = True if os.environ.get('COUCH_DB_HTTP_S') == 'True' else False
+COUCHDB_URL = os.environ.get('COUCHDB_URL')
+COUCH_MASTER_USER_NAME = os.environ.get('COUCH_MASTER_USER_NAME')
+COUCH_MASTER_USER_PASSWORD = os.environ.get('COUCH_MASTER_USER_PASSWORD')
 
 #TEST
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'

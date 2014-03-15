@@ -6,6 +6,8 @@ from store import update_store_cm
 class Store(Business):
     """ Liquor store object which is a retail business. We also have Vendor which is a distributor business"""
     tax_rate = models.DecimalField(max_digits=5,decimal_places=3)
+    # api_key_name = models.CharField(max_length=25)
+    # api_key_pwrd = models.CharField(max_length=25)
 
     def save(self,*args,**kwargs):
         if('by_pass_cm' in kwargs):

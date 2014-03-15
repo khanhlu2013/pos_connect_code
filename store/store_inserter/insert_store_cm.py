@@ -17,14 +17,15 @@ def exe(store):
     exe_couch(store_id,store.tax_rate,api_key_name)
 
 def get_api_key():
-    headers = {'content-type': 'application/json'}
-    url = 'https://cloudant.com/api/generate_api_key'
-    r = requests.post(url,data=None,headers=headers)    
+    headers={'referer': 'https://%s.cloudant.com' % (master_account_util.get_master_user_name()), 'content-type': 'multipart/form-data'}
+    url='https://cloudant.com/api/generate_api_key'
+    r = requests.post(url,headers=headers,auth=(master_account_util.get_master_user_name(),master_account_util.get_master_user_password()))
+
     print('-xxx- response obj')
     print(r)
 
     if not r.ok:
-        raise Exception('error code: ' + r.error + ' ,reason: ' + r.reason)
+        raise Exception('error code: ' + r.status_code + ' ,reason: ' + r.reason)
     else:
         print('name: ' + r.key)
         print('pwrd: ' + r.password)
@@ -39,16 +40,23 @@ def exe_master(store):
 
 
 def _couch_db_grant_access_to_db(api_key_name,db_name,roles):
-    d = {database:db_name,username:api_key_name,roles:roles}
-    headers = {'content-type': 'application/json'}
     url = 'https://cloudant.com/api/set_permissions'
-    r = requests.post(url,data=json.dumps(d),headers=headers)
+    prefix = master_account_util.get_master_user_name()
+
+    role_str = ""
+    for item in roles:
+        role_str += ('&roles=' + item)
+
+    data_str = 'database=%s/%s&username=%s' + role_str % (prefix,db_name,api_key_name)
+    headers = {'content-type': 'application/x-www-form-urlencoded'}
+    
+    r = requests.post(url,data=data_str,headers=headers,auth=(master_account_util.get_master_user_name(),master_account_util.get_master_user_password()))
 
 
 def exe_couch(store_id,tax_rate,api_key_name):
-    _couch_db_grant_access_to_db(api_key_name,APPROVE_PRODUCT_DB_NAME,['read'])
+    _couch_db_grant_access_to_db(api_key_name,APPROVE_PRODUCT_DB_NAME,['_read'])
     _couch_db_insert_db(store_id)
-    _couch_db_grant_access_to_db(api_key_name,store_util.get_store_db_name(store_id),['read','write'])
+    _couch_db_grant_access_to_db(api_key_name,store_util.get_store_db_name(store_id),['_read','_write'])
     _couch_db_insert_view(store_id)
     _couch_db_insert_validation(store_id)
     _couch_db_insert_tax_rate(store_id,tax_rate)

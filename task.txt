@@ -236,15 +236,13 @@ CAT AND DEP MANAGEMENT -> type and sub_type
 
     . question: can the user only select type and not care about sub_type
 ------------------------------------------------------------------------------------------------------------------
+. store_inserter_test: we can probably turn this off. but if we need it, we can probably setup the env specifically for this test
 . why setup take too long?
 
+. right now we casting from business to store obj when we login. we have to rethink about the whole business vs store in our app before we can use the sale.view
 
-. make sure store_inserter will let our admin to access the store. is cloudant do this automatically? if not, we have to do it
 
-. reimplement security around cloudant api key
-    . sale view, geting the api key and pass them in the context accordingly. now we are using cloudant account which is a security hole.
-    . we don't need to create user document
-    . we don't need to update _security
+
 
 
 

@@ -53,7 +53,7 @@ def _couch_db_grant_access_to_db(api_key_name,db_name,roles):
     data_str += role_str
     headers = {'content-type': 'application/x-www-form-urlencoded'}
     
-    print('-xxx-')
+    print('-xxxx-')
     print(db_name)
     print(url)
     print(data_str)
@@ -65,7 +65,7 @@ def _couch_db_grant_access_to_db(api_key_name,db_name,roles):
 def exe_couch(store_id,tax_rate,api_key_name):
     _couch_db_grant_access_to_db(api_key_name,couch_constance.APPROVE_PRODUCT_DB_NAME,['_reader'])
     _couch_db_insert_db(store_id)
-    _couch_db_grant_access_to_db(api_key_name,store_util.get_store_db_name(store_id),['_reader','_writer'])
+    _couch_db_grant_access_to_db(api_key_name,store_util.get_store_db_name(store_id),['_reader','_write'])
     _couch_db_insert_view(store_id)
     _couch_db_insert_validation(store_id)
     _couch_db_insert_tax_rate(store_id,tax_rate)

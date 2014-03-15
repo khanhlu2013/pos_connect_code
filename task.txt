@@ -250,29 +250,6 @@ CAT AND DEP MANAGEMENT -> type and sub_type
 
 . find out how cloudant api for creating and setting api key.
 
-import requests
-url = 'http://ES_search_demo.com/document/record/_search?pretty=true'
-data = '{"query":{"bool":{"must":[{"text":{"record.document":"SOME_JOURNAL"}},{"text":{"record.articleTitle":"farmers"}}],"must_not":[],"should":[]}},"from":0,"size":50,"sort":[],"facets":{}}'
-
-
-
-response = requests.get(url, data=data)
-
-
-
-request:
-    POST https://cloudant.com/api/generate_api_key
-
-
-
-response:
-    Property        Description
-    
-    ok              True if the request was successful.
-    error           If request was not successful, contains an error code.
-    reason          If request was not successful, contains a human-readable description of why the error took place.
-    key             API key.
-    password        API password.
 
 
 . how can i setup dev env with test.py

@@ -25,18 +25,20 @@ def get_api_key():
     print(r)
 
     if not r.ok:
-        raise Exception('error code: ' + r.status_code + ' ,reason: ' + r.reason)
+        raise Exception('error code: ' + str(r.status_code) + ' ,reason: ' + r.reason)
     else:
-        print('name: ' + r.key)
-        print('pwrd: ' + r.password)
+        money = json.loads(r._content)
+        print('name: ' + money['key'])
+        print('pwrd: ' + money['password'])
 
-        return (r.key,r.password)
+        return (money['key'],money['password'])
+
 
 def exe_master(store):
     store.api_key_name,store.api_key_pwrd = get_api_key()
     store.save(by_pass_cm=True)
     store_id = store.id
-    return store.id
+    return store.id,store.api_key_name
 
 
 def _couch_db_grant_access_to_db(api_key_name,db_name,roles):

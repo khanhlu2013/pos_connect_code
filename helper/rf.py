@@ -12,48 +12,42 @@ import json
 from store.couch import store_util
 
 def p():
-    print("refresh production fixture util")
+    print("refresh fixture: production")
 
     delete_data()
     approve_product_db_setup.exe_delete()
     approve_product_db_setup.exe_create()
 
-    # json_file = open('./liquor.json')   
-    # data = json.load(json_file)
-    # import_json_data(data)
-    # json_file.close()
+    print("load approve product data")
+    json_file = open('./liquor.json')   
+    data = json.load(json_file)
+    import_json_data(data)
+    json_file.close()
 
-    #initial insert approve product to couch script
-    # initial_script_to_insert_approve_product_to_couch()
-
-    test_helper.createProductWithSku(sku_str='123',is_approve_override=True)
-
-    #insert 2 store
-    user1,store1=test_helper.create_user_then_store_detail(user_name = "x",user_password="x",store_name="x")
-    user2,store2=test_helper.create_user_then_store_detail(user_name = "y",user_password="y",store_name="y")
+    initial_script_to_insert_approve_product_to_couch()
 
     print("completed")
 
 
-def d():
-    print("refresh development fixture util")
+
+def s():
+    print("refresh fixture: staging ")
 
     delete_data()
     approve_product_db_setup.exe_delete()
     approve_product_db_setup.exe_create()
 
-    #insert one approved product
+    print("create 1 approve product with sku = 123")
     test_helper.createProductWithSku(sku_str='123',is_approve_override=True)
-    
-    #initial insert approve product to couch script
     initial_script_to_insert_approve_product_to_couch()
 
-    #insert 2 store
+    print("create 2 sample store x and y")
     user1,store1=test_helper.create_user_then_store_detail(user_name = "tony",user_password="5262",store_name="Cigarete Express")
     user2,store2=test_helper.create_user_then_store_detail(user_name = "y",user_password="y",store_name="y")
 
     # insert_100_product_to_store(store1)
     print("completed")
+
 
 
 def import_json_data(data):

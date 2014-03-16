@@ -190,6 +190,16 @@ CURRENT TASKS
 .store_product_getter: generic_search take an index name. make sure all these index name have atleast one colummn: d_type = 'store_product'
 . using GET instead of POST: refresh sale shortcut table + sale report by day
 . after sync ap product, ui is unblock, but couchdb console still spining for another 5 - 7 second.
+. take a look at setup optimization if there is any thing we can do a better job here.
+. store_inserter_test: we can probably turn this off. but if we need it, we can probably setup the env specifically for this test. how about the rest of the test?
+. refactor about KTBusiness, Business, and Store in our project
+. how can we test since our local env is couchdb and production if bigcouch is this complicate anything?
+
+------------------------------------------------------------------------------------------------------------------
+APPROVED PRODUCT FREQUENCY
+
+    . if i change the ap frequency, what do i want to happend? do i want to remove ap from couch? how about if these product is assoced offline? think about this
+    . build an ap manager
 ------------------------------------------------------------------------------------------------------------------
 DISCOUNT THAT ATTACH TO PRODUCT
 ------------------------------------------------------------------------------------------------------------------
@@ -230,22 +240,19 @@ PRODUCT EDITION AND CREATION. ONLINE / OFFLINE
 
 . find out behavior when internet is off and ajax request is made. what is the time out?
 ------------------------------------------------------------------------------------------------------------------
-CAT AND DEP MANAGEMENT -> type and sub_type
+Product type and sub_type(cat&dep)
 
     the easy of setting up category and department: the way we have right now of cat contain dep is good. no initial approve or dynamic approve but we can suggestion based on pure text statistic. 
 
     . question: can the user only select type and not care about sub_type
 ------------------------------------------------------------------------------------------------------------------
-. store_inserter_test: we can probably turn this off. but if we need it, we can probably setup the env specifically for this test
-. why setup take too long?
-. how can we test since our local env is couchdb and production if bigcouch is this complicate anything?
+Deploy    
 
 
-. user logged in 
+    . can i setup a staging? we will test online with staging. upload code to staging. and then upload code to heroku, might be can even write test that execute on staging
 
-    . if user belong to zero bus: check the user role: software seller? investor, admin ...?
-    . narrow down a single business: prompt user if she belong to multiple bus
-    . with 1 bus narrowed down, we will load the correct ui 
+
+
 
 
 

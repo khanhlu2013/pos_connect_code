@@ -248,12 +248,13 @@ Product type and sub_type(cat&dep)
 ------------------------------------------------------------------------------------------------------------------
 Deploy    
 
-
     . can i setup a staging? we will test online with staging. upload code to staging. and then upload code to heroku, might be can even write test that execute on staging
 
+    .go to heroku and add another app. add cloudant add on to this app. create another git repo locally and link to this one. 
+        .is heroku config app specific or a clump to all app? we need it to be app specific to create a stage.
 
 
-
+x
 
 
 

@@ -9,7 +9,7 @@ from product.couch.Approve_product_document import Approve_product_document
 from util.couch import couch_constance
 from product.couch import approve_product_db_getter
 import json
-
+from store.couch import store_util
 
 def p():
     print("refresh production fixture util")
@@ -155,7 +155,9 @@ def delete_data():
     #delete store on couch
     store_lst = list(Store.objects.all())
     for store in store_lst:
-        test_helper._delete_liquor_db_and_user(store.id)
+        store_db = store_util.get_store_db(store.id)
+        if store_db:    
+            store_util.delete_store_db(store.id)
 
     #delete store on master
     Store.objects.all().delete()

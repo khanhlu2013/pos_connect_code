@@ -35,6 +35,7 @@ def create_user_then_store():
     return (membership.user,membership.user.business_lst.all()[0])
 
 def _delete_liquor_db_and_user(store_id):
+    # xxx
     client_user = user_util.get_client_user(store_id)
     if client_user:
         user_util.delete_client_user(store_id)

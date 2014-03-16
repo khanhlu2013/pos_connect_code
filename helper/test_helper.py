@@ -11,7 +11,7 @@ def associateProductAndBusiness(product,business):
 def createProductWithSku(sku_str,is_approve_override=False):
     name = sku_str + '_' + str(is_approve_override)
     product = mommy.make('product.Product',_name_admin=name)
-    sku = mommy.make('product.Sku',sku=sku_str)
+    sku = mommy.make('product.Sku',sku=sku_str,is_approved=False) # xxx we need to destroy is_approved
     prodSkuAssoc = mommy.make('product.ProdSkuAssoc',product=product,sku=sku,is_approve_override=is_approve_override)
     return prodSkuAssoc.product
 

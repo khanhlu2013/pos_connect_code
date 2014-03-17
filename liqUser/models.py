@@ -14,7 +14,7 @@ class Membership(models.Model):
 @receiver(user_logged_in)    
 def select_default_login_store(sender,user,request,**kwargs):
 
-    check for super user
+    # check for super user
     if user.is_superuser:
         # raise Exception('we dont accept super user at this point')
         return

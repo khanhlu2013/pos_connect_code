@@ -65,7 +65,6 @@ def create_old_store_product(sp_couch_lst,store_id):
             ,sp_couch['price']
             ,sp_couch['crv']
             ,sp_couch['is_taxable']
-            ,None#department
             ,True#isTaxReport
             ,True#store_product.isSaleReport
             ,sp_couch['create_offline_by_sku']
@@ -82,7 +81,6 @@ def create_new_store_product(sp_couch_lst,store_id,receipt_lst):
              sp_couch['name']
             ,sp_couch['price']
             ,sp_couch['crv']
-            ,None #department
             ,sp_couch['is_taxable']
             ,True#isTaxReport
             ,True#isSaleReport

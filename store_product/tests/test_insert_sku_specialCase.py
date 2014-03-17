@@ -19,7 +19,6 @@ class Test(WebTest):
              name = 'Jack Daniel'
             ,price = 2.99
             ,crv = None
-            ,department = None
             ,isTaxable = False
             ,isTaxReport = False
             ,isSaleReport = False
@@ -60,7 +59,6 @@ class Test(WebTest):
              name = 'Jack Daniel'
             ,price = 2.99
             ,crv = None
-            ,department = None
             ,isTaxable = False
             ,isTaxReport = False
             ,isSaleReport = False
@@ -74,7 +72,6 @@ class Test(WebTest):
              name = 'Jack Daniel'
             ,price = 2.99
             ,crv = None
-            ,department = None
             ,isTaxable = False
             ,isTaxReport = False
             ,isSaleReport = False

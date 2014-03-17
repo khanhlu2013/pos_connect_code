@@ -4,9 +4,8 @@ from django.core.urlresolvers import reverse_lazy
 from django.conf import settings
 from django.shortcuts import get_object_or_404
 from django.db.models import Q
-from product.models import Product,Sku,ProdSkuAssoc,Department
+from product.models import Product,Sku,ProdSkuAssoc
 from store_product.models import Store_product
-from product.Full_department_name_choice_field import Full_department_name_choice_field
 from store_product import insert_new_store_product_cm
 from util.forms import StripCharField
 
@@ -19,7 +18,7 @@ class Add_product_form(forms.ModelForm):
         
     class Meta:
         model = Store_product
-        fields = ['name','price','crv','isTaxable','department','isTaxReport','isSaleReport']
+        fields = ['name','price','crv','isTaxable','isTaxReport','isSaleReport']
         
     def __init__(self,*args,**kwargs):
         #ARGS
@@ -36,9 +35,7 @@ class Add_product_form(forms.ModelForm):
         #PRE-FILL SKU WIDGET
         self.fields['sku_field'].initial = self.pre_fill_sku
         
-        #OVERRIDE DEPARTMENT WIDGET
-        self.fields['department'] = Full_department_name_choice_field(Department.objects.filter(category__creator=self.cur_login_store),required=False)
-        
+       
     def save(self):
         #-CREATE PRODUCT
         store_product = super(Add_product_form,self).save(commit=False)
@@ -47,7 +44,6 @@ class Add_product_form(forms.ModelForm):
              name = store_product.name
             ,price = store_product.price
             ,crv = store_product.crv
-            ,department = store_product.department
             ,isTaxable = store_product.isTaxable
             ,isTaxReport = store_product.isTaxReport
             ,isSaleReport = store_product.isSaleReport

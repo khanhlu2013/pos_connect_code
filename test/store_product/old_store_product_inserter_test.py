@@ -30,7 +30,6 @@ class old_store_product_inserter(WebTest):
              name = "x"
             ,price = None
             ,crv = None
-            ,department = None
             ,isTaxable = False
             ,isTaxReport = False
             ,isSaleReport = False
@@ -54,7 +53,6 @@ class old_store_product_inserter(WebTest):
             ,price = price
             ,crv = crv
             ,isTaxable = isTaxable
-            ,department = None
             ,isTaxReport = isTaxReport
             ,isSaleReport = isSaleReport
             ,assoc_sku_str = sku_str
@@ -100,7 +98,6 @@ class old_store_product_inserter(WebTest):
              name = "x"
             ,price = None
             ,crv = None
-            ,department = None
             ,isTaxable = False
             ,isTaxReport = False
             ,isSaleReport = False
@@ -118,7 +115,6 @@ class old_store_product_inserter(WebTest):
             ,price = None
             ,crv = None
             ,isTaxable = False
-            ,department = None
             ,isTaxReport = False
             ,isSaleReport = False
             ,assoc_sku_str = sku_str
@@ -144,7 +140,6 @@ class old_store_product_inserter(WebTest):
              name = "x"
             ,price = None
             ,crv = None
-            ,department = None
             ,isTaxable = False
             ,isTaxReport = False
             ,isSaleReport = False
@@ -162,7 +157,6 @@ class old_store_product_inserter(WebTest):
             ,price = None
             ,crv = None
             ,isTaxable = False
-            ,department = None
             ,isTaxReport = False
             ,isSaleReport = False
             ,assoc_sku_str = sku_str
@@ -190,7 +184,6 @@ class old_store_product_inserter(WebTest):
              name = "x"
             ,price = None
             ,crv = None
-            ,department = None
             ,isTaxable = False
             ,isTaxReport = False
             ,isSaleReport = False
@@ -216,7 +209,6 @@ class old_store_product_inserter(WebTest):
             ,price = None
             ,crv = None
             ,isTaxable = False
-            ,department = None
             ,isTaxReport = False
             ,isSaleReport = False
             ,assoc_sku_str = sku_1_str
@@ -248,7 +240,6 @@ class old_store_product_inserter(WebTest):
              name = "x"
             ,price = None
             ,crv = None
-            ,department = None
             ,isTaxable = False
             ,isTaxReport = False
             ,isSaleReport = False
@@ -273,7 +264,6 @@ class old_store_product_inserter(WebTest):
             ,price = None
             ,crv = None
             ,isTaxable = False
-            ,department = None
             ,isTaxReport = False
             ,isSaleReport = False
             ,assoc_sku_str = sku_1_str
@@ -288,7 +278,6 @@ class old_store_product_inserter(WebTest):
             ,price = None
             ,crv = None
             ,isTaxable = False
-            ,department = None
             ,isTaxReport = False
             ,isSaleReport = False
             ,assoc_sku_str = sku_2_str

@@ -34,7 +34,6 @@ class new_store_product_inserter(WebTest):
              name = name
             ,price = price
             ,crv = crv
-            ,department = None
             ,isTaxable = isTaxable
             ,isTaxReport = isTaxReport
             ,isSaleReport = isSaleReport

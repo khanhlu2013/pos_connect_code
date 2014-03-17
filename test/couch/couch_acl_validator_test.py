@@ -27,7 +27,6 @@ class Test(WebTest):
              name = 'product name'
             ,price = 0.1
             ,crv = 0.2
-            ,department = None
             ,isTaxable = True
             ,isTaxReport = True
             ,isSaleReport = True
@@ -90,7 +89,6 @@ class Test(WebTest):
              name = 'product name'
             ,price = 0.1
             ,crv = 0.2
-            ,department = None
             ,isTaxable = True
             ,isTaxReport = True
             ,isSaleReport = True
@@ -144,7 +142,6 @@ class Test(WebTest):
              name = 'product name'
             ,price = 0.1
             ,crv = 0.2
-            ,department = None
             ,isTaxable = True
             ,isTaxReport = True
             ,isSaleReport = True

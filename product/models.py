@@ -2,7 +2,6 @@ from django.db import models
 from django.core.exceptions import MultipleObjectsReturned,ObjectDoesNotExist,ValidationError
 from bus.models import Business
 
-
 class Category(models.Model):
     name = models.CharField(max_length=30)
     creator = models.ForeignKey(Business,blank=True,null=True)
@@ -27,8 +26,7 @@ class Department(models.Model):
     @property
     def full_name(self):
         return self.category.name + ' - ' + self.name
-
-
+        
 class Unit(models.Model):
     name = models.CharField(max_length=100)
     abbreviate = models.CharField(max_length=20)

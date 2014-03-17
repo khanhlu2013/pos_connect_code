@@ -9,7 +9,6 @@ def exe(
     ,name
     ,price
     ,crv
-    ,department
     ,isTaxable
     ,isTaxReport
     ,isSaleReport ):
@@ -20,7 +19,6 @@ def exe(
         ,name
         ,price
         ,crv
-        ,department
         ,isTaxable
         ,isTaxReport
         ,isSaleReport)
@@ -59,7 +57,6 @@ def exe_master( \
     ,name
     ,price
     ,crv
-    ,department
     ,isTaxable
     ,isTaxReport
     ,isSaleReport):
@@ -70,8 +67,7 @@ def exe_master( \
     rel_prod_bus_assoc.crv = crv
     rel_prod_bus_assoc.isTaxable = isTaxable
 
-    if department != None or isTaxReport != None or isSaleReport != None:
-        rel_prod_bus_assoc.department = department
+    if isTaxReport != None or isSaleReport != None: # xxx fishy code
         rel_prod_bus_assoc.isTaxReport = isTaxReport
         rel_prod_bus_assoc.isSaleReport = isSaleReport
 

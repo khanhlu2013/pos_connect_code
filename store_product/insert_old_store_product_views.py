@@ -3,16 +3,15 @@ from django.views.generic import CreateView
 from django.shortcuts import get_object_or_404
 from django.core.urlresolvers import reverse_lazy
 
-from product.models import ProdSkuAssoc,Department
+from product.models import ProdSkuAssoc
 from store_product.models import Store_product
-from product.Full_department_name_choice_field import Full_department_name_choice_field
 import insert_old_store_product_cm
 
 class Add_form(forms.ModelForm):
     
     class Meta:
         model = Store_product
-        fields = ['name','price','department','isTaxable','isTaxReport','isSaleReport']
+        fields = ['name','price','isTaxable','isTaxReport','isSaleReport']
     
     def __init__(self,*args,**kwargs):
         #ARGS
@@ -27,9 +26,7 @@ class Add_form(forms.ModelForm):
                 
         #PREFILL NAME
         self.fields['name'].initial = self.prod_sku_assoc.product.__unicode__()
-                                 
-        #OVERRIDE DEPARTMENT WIDGET
-        self.fields['department'] = Full_department_name_choice_field(Department.objects.filter(category__creator=self.cur_login_store),required=False)
+
         
     def save(self):
         #CREATE PROD_BUS_ASSOC
@@ -43,7 +40,6 @@ class Add_form(forms.ModelForm):
             ,store_product.price
             ,store_product.crv
             ,store_product.isTaxable
-            ,store_product.department
             ,store_product.isTaxReport
             ,store_product.isSaleReport
             ,assoc_sku_str

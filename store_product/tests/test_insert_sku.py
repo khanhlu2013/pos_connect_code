@@ -25,7 +25,6 @@ class Test(WebTest):
 			 name = product_name
 			,price = price
 			,crv = None
-			,department = None
 			,isTaxable = True
 			,isTaxReport = True
 			,isSaleReport = True
@@ -45,7 +44,6 @@ class Test(WebTest):
 			,price = price
 			,crv = crv
 			,isTaxable = True
-			,department = None
  			,isTaxReport = True
 			,isSaleReport = True
 			,assoc_sku_str = sku_str )

@@ -23,7 +23,6 @@ class Test(WebTest):
              name = product_name
             ,price = price
             ,crv = None
-            ,department = None
             ,isTaxable = True
             ,isTaxReport = True
             ,isSaleReport = True

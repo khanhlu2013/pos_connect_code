@@ -2,9 +2,7 @@ from django.views.generic import UpdateView
 from django.shortcuts import get_object_or_404
 from django.core.urlresolvers import reverse_lazy
 from django.forms import ModelForm
-from product.models import Department
 from store_product.models import Store_product
-from product.Full_department_name_choice_field import Full_department_name_choice_field
 from store_product import update_store_product_cm
 from django.http import HttpResponse
 import json
@@ -13,7 +11,7 @@ import json
 class MyForm(ModelForm):
     class Meta:
         model = Store_product
-        fields = ['name','price','crv','department','isTaxable','isTaxReport','isSaleReport']
+        fields = ['name','price','crv','isTaxable','isTaxReport','isSaleReport']
     
     def __init__(self,*args,**kwargs):
         #ARGS
@@ -21,9 +19,6 @@ class MyForm(ModelForm):
         
         #SUPER
         super(MyForm,self).__init__(*args,**kwargs)
-        
-        #OVERRIDE DEPARTMENT WIDGET
-        self.fields['department'] = Full_department_name_choice_field(Department.objects.filter(category__creator=self.cur_login_store),required=False)
         
         #LABEL
         self.fields['name'].label = 'Name'
@@ -36,7 +31,6 @@ class MyForm(ModelForm):
             ,prod_bus_assoc.name
             ,prod_bus_assoc.price
             ,prod_bus_assoc.crv
-            ,prod_bus_assoc.department
             ,prod_bus_assoc.isTaxable
             ,prod_bus_assoc.isTaxReport
             ,prod_bus_assoc.isSaleReport )
@@ -126,7 +120,6 @@ def updator_ajax(request):
                 ,name
                 ,price
                 ,crv
-                ,None#prod_bus_assoc.department
                 ,is_taxable
                 ,None#prod_bus_assoc.isTaxReport
                 ,None#prod_bus_assoc.isSaleReport 

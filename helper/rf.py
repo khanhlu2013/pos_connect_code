@@ -163,7 +163,6 @@ def insert_100_product_to_store(store):
              name = i
             ,price = i
             ,crv = i if (i%2 == 0) else 0
-            ,department = None
             ,isTaxable = (i % 2 == 0)
             ,isTaxReport = True
             ,isSaleReport = True

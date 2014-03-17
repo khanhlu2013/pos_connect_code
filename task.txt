@@ -146,7 +146,7 @@ x. displaying scan modifier:
     . pending_scan.save_to_db(index_db)
     . instruction.execute_on(pending_scan)
 x. record -> receipt
-
+x. DEFAULT_TEMPLATE_FORM: what to do about this?
 
 
 CURRENT TASKS
@@ -197,6 +197,7 @@ CURRENT TASKS
 . we can kill some of the environment variable (couchdb_master_user_name,password,url)  and just derived on cloudant_url which is auto set.
 . when pushing receipt to server, we need to handle data that is enter wrong such as price, crv is out of range: negative or over max value. how can we make sure good data is still saved and not roll back the whole thing and loss them
 . _doc_id_rev of receipt and store product should be change to _rev
+. account number, bug number to handle bug live bug fix
 ------------------------------------------------------------------------------------------------------------------
 APPROVED PRODUCT FREQUENCY
 
@@ -251,11 +252,31 @@ Product type and sub_type(cat&dep)
 ------------------------------------------------------------------------------------------------------------------
 
 . it just a 2 piece of text, user can type in or drop down. i can even create them locally.
-    . i need to pass into context param all the type and tag and organize them: type is till the parent, but they are just text
+    . deploy
+        . run migration on heroku staging and production for product app, with a fake since i am convert it locally (it only work on locally machine)
+
+    . implement
+        . sale.views -> include type and tag (type is parent of tag) into context param
+        . sale.view.sale_data_2_json: this is the report that need to be redo
+        . template.store_product.detail.detail.html : i need to display the deparment here
+
+    . clean up
+        . run all test
+        . run migration locally
+            . do i need local server to be on to run schemamigration?
 
 
-    . kill cat dep view and template and model
-    . sale.views -> include type and tag (type is parent of tag) into context param
+
+    . 
+        i have to put back cat dep to the model, 
+        convert product app to south
+        check them in to heroku
+        run a fake migration on heroku
+        delete cat dep locally
+        schemamigration locall 
+        schemamigration heroku
+
+
 
 
 

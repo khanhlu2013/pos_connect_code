@@ -16,7 +16,6 @@ def exe(
     ,price
     ,crv
     ,isTaxable
-    ,department
     ,isTaxReport
     ,isSaleReport
     ,assoc_sku_str 
@@ -29,7 +28,6 @@ def exe(
         ,price
         ,crv
         ,isTaxable
-        ,department
         ,isSaleReport
         ,assoc_sku_str)
     
@@ -56,7 +54,6 @@ def exe_master(
     ,price
     ,crv
     ,isTaxable
-    ,department
     ,isSaleReport
     ,assoc_sku_str):
 
@@ -67,7 +64,6 @@ def exe_master(
         ,price = price
         ,crv = crv
         ,isTaxable = isTaxable
-        ,department = department
         ,isSaleReport = isSaleReport )
 
     prod_sku_assoc = ProdSkuAssoc.objects.get(product__id=product.id,sku__sku=assoc_sku_str)

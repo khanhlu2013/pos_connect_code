@@ -8,7 +8,6 @@ import invoice.urls
 import vendor.urls
 import vendor_subscription.urls
 import store_product.urls
-import product.urls
 from django.contrib import admin
 from django.utils.functional import curry
 from django.views.defaults import server_error
@@ -30,7 +29,6 @@ urlpatterns = patterns('',
     url(r'^sale_shortcut/',include(sale_shortcut.urls,namespace='sale_shortcut')),
     url(r'^tax/',include(tax.urls,namespace='tax')),
     url(r'^product/',include(store_product.urls,namespace='store_product')),
-    url(r'^product/department/',include(product.urls,namespace='department')),
     url(r'^invoice/',include(invoice.urls,namespace="invoice")),
     url(r'^vendor/subscription/',include(vendor_subscription.urls,namespace='vendor_subscription')),
     url(r'^vendor/',include(vendor.urls,namespace='vendor')),

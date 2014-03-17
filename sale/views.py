@@ -71,7 +71,7 @@ def update_dic(key,amount,dic):
         dic[key] = amount
 
 
-def sale_data_2_json(receipt_lst):
+def sale_data_2_json(receipt_lst): # xxx naming is hard to understand. subject to refactor
     dic = {}
 
     receipt_ln_lst = []
@@ -86,8 +86,9 @@ def sale_data_2_json(receipt_lst):
             key = 'tax' if item.store_product.isTaxable else 'non_tax'
             update_dic(key,amount,dic)
 
-            if item.store_product.department != None:
-                update_dic(item.store_product.department.category.name,amount,dic)
+            # xxx TODO: this is part of the report that need to be redo
+            # if item.store_product.department != None: 
+            #     update_dic(item.store_product.department.category.name,amount,dic)
 
         elif item.store_product == None:
             update_dic(item.non_product_name,amount,dic)

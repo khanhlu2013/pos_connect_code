@@ -3,7 +3,7 @@ from django_webtest import WebTest
 from django.core.urlresolvers import reverse
 from model_mommy import mommy
 from helper import test_helper
-from product.models import Product,Category,Department
+from product.models import Product
 from store_product.couch import store_product_couch_getter
 from util.couch import couch_util
 
@@ -16,9 +16,6 @@ class Test(WebTest):
         #FIXTURE-----------------------------------------------------------
         #user and store
         user,bus = test_helper.create_user_then_store()
-        #category & department
-        category = mommy.make(Category,creator=bus,name='cat')
-        department = mommy.make(Department,category=category,name='dep')
         sku_str = '123'
         
         #MAKING REQUEST----------------------------------------------------
@@ -39,7 +36,6 @@ class Test(WebTest):
         form['price'] = price
         form['crv'] = crv
         form['isTaxable'] = is_taxable
-        form['department'] = 1 #the only created department
         res = form.submit()
         
         #VALIDATE DATA OF RELATIONAL DB------------------------------------
@@ -50,9 +46,6 @@ class Test(WebTest):
         #ASSERT PROD_BUS_ASSOC
         store_product = prod.get_store_product(bus)
         self.assertEqual(store_product.business,bus)
-        
-        #ASSERT DEPARTMENT
-        self.assertEqual(store_product.department,department)
         
         #ASSERT SKU / PROD_SKU_ASSOC
         all_prod_sku_assoc = prod.prodskuassoc_set.all()

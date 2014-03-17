@@ -10,7 +10,6 @@ def exe( \
      name
     ,price
     ,crv
-    ,department
     ,isTaxable
     ,isTaxReport
     ,isSaleReport
@@ -21,7 +20,6 @@ def exe( \
          name = name
         ,price = price
         ,crv = crv
-        ,department = department
         ,isTaxable = isTaxable
         ,isTaxReport = isTaxReport
         ,isSaleReport = isSaleReport
@@ -43,7 +41,6 @@ def exe_master( \
      name
     ,price
     ,crv
-    ,department
     ,isTaxable
     ,isTaxReport
     ,isSaleReport
@@ -64,7 +61,6 @@ def exe_master( \
          name = name
         ,price = price
         ,crv = crv
-        ,department = department
         ,isTaxable = isTaxable
         ,isTaxReport = isTaxReport
         ,isSaleReport = isSaleReport

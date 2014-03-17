@@ -1,7 +1,7 @@
 from django_webtest import WebTest
 from model_mommy import mommy
 from django.core.urlresolvers import reverse
-from product.models import Product,ProdSkuAssoc,Category,Department,Sku
+from product.models import Product,ProdSkuAssoc,Sku
 from store_product.models import Store_product
 from helper import test_helper
 from store_product.couch import store_product_couch_getter
@@ -17,13 +17,10 @@ class Test(WebTest):
         
         #FIXTURE
         user,bus = test_helper.create_user_then_store();
-        old_cateogry,old_department = test_helper.create_category_then_department(bus,cat_name='cat',dep_name='dep')
-        new_category,new_department = test_helper.create_category_then_department(bus,cat_name='new_cat',dep_name='new_dep')
         prod_bus_assoc = insert_new_store_product_cm.exe(\
              name = 'Jack Daniel'
             ,price = 2.99
             ,crv = None
-            ,department = old_department
             ,isTaxable = False
             ,isTaxReport = False
             ,isSaleReport = False
@@ -44,7 +41,6 @@ class Test(WebTest):
         form['name'] = new_name
         form['price'] = new_price
         form['crv'] = new_crv
-        form['department'] = new_department.id
         res = form.submit().follow()
         self.assertEqual(res.status_int,200)
         
@@ -53,7 +49,6 @@ class Test(WebTest):
         self.assertEqual(rel_prod_bus_assoc.name,new_name)
         self.assertEqual(rel_prod_bus_assoc.price,new_price)
         self.assertEqual(rel_prod_bus_assoc.crv,new_crv)
-        self.assertEqual(rel_prod_bus_assoc.department,new_department)
 
         #VALIDATE COUCH DB
         couch_prod_bus_assoc = store_product_couch_getter.exe(rel_prod_bus_assoc.product.id,rel_prod_bus_assoc.business.id)

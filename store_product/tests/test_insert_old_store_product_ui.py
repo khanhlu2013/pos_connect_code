@@ -3,7 +3,7 @@ from django.core.urlresolvers import reverse
 from decimal import Decimal
 from model_mommy import mommy
 from store_product import insert_new_store_product_cm
-from product.models import Product,ProdSkuAssoc,Category,Department,Sku
+from product.models import Product,ProdSkuAssoc,Sku
 from store_product.models import Store_product
 from helper import test_helper
 from store_product.couch import store_product_couch_getter
@@ -22,7 +22,6 @@ class Test(WebTest):
              name = "Jack Daniel"
             ,price = 2.99
             ,crv = None
-            ,department = None
             ,isTaxable = False
             ,isTaxReport = False
             ,isSaleReport = False
@@ -40,8 +39,6 @@ class Test(WebTest):
 
         #CREATE THIS STORE
         user_this,bus_this = test_helper.create_user_then_store();
-        category_this = mommy.make(Category,creator=bus_this,name='cat')
-        department_this = mommy.make(Department,category=category_this,name='dep')
         
         #MAKING REQUEST FROM THIS STORE TO ADD OTHER PRODUCT
         res = self.app.get(
@@ -59,7 +56,6 @@ class Test(WebTest):
         form = res.form
         form['name'] = product_name_this
         form['price'] = price_this
-        form['department'] = department_this.id
         res = form.submit().follow()
         self.assertEqual(res.status_int,200)
         
@@ -67,7 +63,6 @@ class Test(WebTest):
         prod_bus_assoc_rel_this = Store_product.objects.get(product__id=prod_bus_assoc_other.id,business__id=bus_this.id)
         self.assertEqual(prod_bus_assoc_rel_this.name,product_name_this)
         self.assertEqual(prod_bus_assoc_rel_this.price,Decimal(str(price_this)))
-        self.assertEqual(prod_bus_assoc_rel_this.department,department_this)
         
         #VALIDATE THIS STORE PRODUCT - COUCHDB
         prod_bus_assoc_couch_this = store_product_couch_getter.exe(prod_bus_assoc_rel_this.product.id,prod_bus_assoc_rel_this.business.id)

@@ -61,7 +61,6 @@ class sale_processor_test(WebTest):
         name_x = 'product name'
         price_x = 0.1
         crv_x = 0.2
-        department = None
         isTaxable_x = True
         isTaxReport = True
         isSaleReport = True
@@ -70,7 +69,6 @@ class sale_processor_test(WebTest):
              name = name_x
             ,price = price_x
             ,crv = crv_x
-            ,department = department
             ,isTaxable = isTaxable_x
             ,isTaxReport = isTaxReport
             ,isSaleReport = isSaleReport

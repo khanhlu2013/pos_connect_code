@@ -15,11 +15,6 @@ def createProductWithSku(sku_str,is_approve_override=False):
     prodSkuAssoc = mommy.make('product.ProdSkuAssoc',product=product,sku=sku,is_approve_override=is_approve_override)
     return prodSkuAssoc.product
 
-def create_category_then_department(business,cat_name,dep_name):
-    category = mommy.make('product.Category',creator = business,name=cat_name)
-    department = mommy.make('product.Department',category = category,name=dep_name)
-    return (category,department)
-
 def create_user_then_store_detail(user_name,user_password,store_name):
     #helper: create user belong to that single store
     store = mommy.make('store.Store',name=store_name)

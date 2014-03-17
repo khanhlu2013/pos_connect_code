@@ -27,7 +27,6 @@ class Product(WebTest):
             ,price = None
             ,crv = None
             ,isTaxable = False
-            ,department = None
             ,isTaxReport = False
             ,isSaleReport = False
             ,assoc_sku_str = sku_str )
@@ -53,7 +52,6 @@ class Product(WebTest):
             ,price = None
             ,crv = None
             ,isTaxable = False
-            ,department = None
             ,isTaxReport = False
             ,isSaleReport = False
             ,assoc_sku_str = sku_str )
@@ -64,7 +62,6 @@ class Product(WebTest):
             ,price = None
             ,crv = None
             ,isTaxable = False
-            ,department = None
             ,isTaxReport = False
             ,isSaleReport = False
             ,assoc_sku_str = sku_str )
@@ -90,7 +87,6 @@ class Product(WebTest):
             ,price = None
             ,crv = None
             ,isTaxable = False
-            ,department = None
             ,isTaxReport = False
             ,isSaleReport = False
             ,assoc_sku_str = sku_str )
@@ -117,7 +113,6 @@ class Product(WebTest):
             ,price = None
             ,crv = None
             ,isTaxable = False
-            ,department = None
             ,isTaxReport = False
             ,isSaleReport = False
             ,assoc_sku_str = sku_str )
@@ -128,7 +123,6 @@ class Product(WebTest):
             ,price = None
             ,crv = None
             ,isTaxable = False
-            ,department = None
             ,isTaxReport = False
             ,isSaleReport = False
             ,assoc_sku_str = sku_str )

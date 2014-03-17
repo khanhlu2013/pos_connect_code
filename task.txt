@@ -246,12 +246,17 @@ Product type and sub_type(cat&dep)
 
     the easy of setting up category and department: the way we have right now of cat contain dep is good. no initial approve or dynamic approve but we can suggestion based on pure text statistic. 
 
-    . question: can the user only select type and not care about sub_type
+
+
 ------------------------------------------------------------------------------------------------------------------
 
-Deploy    
+. it just a 2 piece of text, user can type in or drop down. i can even create them locally.
+    . i need to pass into context param all the type and tag and organize them: type is till the parent, but they are just text
 
-    . admin to add store info/user info
+
+    . kill cat dep view and template and model
+    . sale.views -> include type and tag (type is parent of tag) into context param
+
 
 
 

@@ -262,20 +262,7 @@ Product type and sub_type(cat&dep)
 
     . clean up
         . run all test
-        . run migration locally
-            . do i need local server to be on to run schemamigration?
 
-
-
-    . 
-        . i have to put back cat dep to the model, 
-        . convert product app to south locally
-        . check them in to heroku
-        . run a fake migration on heroku
-        . delete cat dep locally
-        . schemamigration locall 
-        check app in heroku staging and production
-        run migrate on heroku
 
 
 

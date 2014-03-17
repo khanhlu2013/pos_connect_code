@@ -5,7 +5,7 @@ from model_mommy import mommy
 from util.couch import user_util
 from tax.couch import tax_util
 from helper import test_helper 
-from store.couch import store_utilß
+from store.couch import store_util
 from couchdb import ResourceNotFound
 from util.couch import master_account_util,reader_lst_getter
 from product.couch import approve_product_db_getter

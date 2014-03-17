@@ -268,13 +268,14 @@ Product type and sub_type(cat&dep)
 
 
     . 
-        i have to put back cat dep to the model, 
-        convert product app to south
-        check them in to heroku
-        run a fake migration on heroku
-        delete cat dep locally
-        schemamigration locall 
-        schemamigration heroku
+        . i have to put back cat dep to the model, 
+        . convert product app to south locally
+        . check them in to heroku
+        . run a fake migration on heroku
+        . delete cat dep locally
+        . schemamigration locall 
+        check app in heroku staging and production
+        run migrate on heroku
 
 
 

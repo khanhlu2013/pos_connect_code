@@ -2,31 +2,6 @@ from django.db import models
 from django.core.exceptions import MultipleObjectsReturned,ObjectDoesNotExist,ValidationError
 from bus.models import Business
 
-class Category(models.Model):
-    name = models.CharField(max_length=30)
-    creator = models.ForeignKey(Business,blank=True,null=True)
-        
-    class Meta:
-        unique_together =('creator','name')
-    
-    def __unicode__(self):
-        return self.name
-
-
-class Department(models.Model):
-    category = models.ForeignKey(Category)
-    name = models.CharField(max_length=30)
-
-    class Meta:
-        unique_together =('category','name')
-    
-    def __unicode__(self):
-        return self.name
-    
-    @property
-    def full_name(self):
-        return self.category.name + ' - ' + self.name
-        
 class Unit(models.Model):
     name = models.CharField(max_length=100)
     abbreviate = models.CharField(max_length=20)

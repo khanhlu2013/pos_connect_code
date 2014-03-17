@@ -11,8 +11,7 @@ class Store_product(models.Model):
     isTaxable = models.BooleanField()
     isTaxReport = models.BooleanField(default=True)
     isSaleReport = models.BooleanField(default=True)
-    department = models.ForeignKey('product.Department',blank=True,null=True)
-    
+
     class Meta:
         unique_together = ("product","business")
         

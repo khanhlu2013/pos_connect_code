@@ -20,7 +20,7 @@ define(
 		return new Approve_product
         (
              cursor.value._id
-            ,cursor.value._doc_id_rev
+            ,cursor.value._rev
             ,cursor.value.product_id
             ,cursor.value.name
             ,cursor.value.sku_lst

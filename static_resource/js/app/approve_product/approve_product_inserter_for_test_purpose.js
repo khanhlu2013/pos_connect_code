@@ -12,7 +12,7 @@ define(
 		var approve_product = new Approve_product
  		(
 	         null//_id: handle by pouch
-	        ,null//_doc_id_rev: handle by pouch
+	        ,null//_rev: handle by pouch
  			,product_id
 	        ,name
 	        ,sku_lst

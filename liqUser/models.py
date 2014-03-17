@@ -15,8 +15,8 @@ class Membership(models.Model):
 def select_default_login_store(sender,user,request,**kwargs):
 
     #check for super user
-    if user.is_superuser:
-        raise Exception('we dont accept super user at this point')
+    # if user.is_superuser:
+    #     raise Exception('we dont accept super user at this point')
 
 
     #user must belong to a single bus for now

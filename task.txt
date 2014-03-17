@@ -195,6 +195,8 @@ CURRENT TASKS
 . refactor about KTBusiness, Business, and Store in our project
 . how can we test since our local env is couchdb and production if bigcouch is this complicate anything?
 . we can kill some of the environment variable (couchdb_master_user_name,password,url)  and just derived on cloudant_url which is auto set.
+. when pushing receipt to server, we need to handle data that is enter wrong such as price, crv is out of range: negative or over max value. how can we make sure good data is still saved and not roll back the whole thing and loss them
+. _doc_id_rev of receipt and store product should be change to _rev
 ------------------------------------------------------------------------------------------------------------------
 APPROVED PRODUCT FREQUENCY
 
@@ -246,9 +248,10 @@ Product type and sub_type(cat&dep)
 
     . question: can the user only select type and not care about sub_type
 ------------------------------------------------------------------------------------------------------------------
+
 Deploy    
 
-
+    . admin to add store info/user info
 
 
 

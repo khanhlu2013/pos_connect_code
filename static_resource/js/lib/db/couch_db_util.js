@@ -28,7 +28,7 @@ define(function(){
 		/*
 			DESC: couch_db use multi revision/version for a single doc. index_db use pouch_db/couch_db, we don't care about older revision
 			PARAM:
-				doc_lst: a list of javascript object that have _doc_id_rev member
+				doc_lst: a list of javascript object that have _id and _rev member
 			RETURN: a filtered doc_lst containing latest revision
 		*/
 		function validate_lst(lst){

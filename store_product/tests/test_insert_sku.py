@@ -8,11 +8,15 @@ from store_product.couch import store_product_couch_getter
 from decimal import Decimal
 
 class Test(WebTest):
+
+    def setUp(self):
+        test_helper.setup_test_couchdb()
+
+    def tearDown(self):
+        test_helper.teardown_test_couchdb()
+
 	def test(self):
-		#coverage run manage.py test --settings=settings.test store_product.tests.test_insert_sku:Test.test
-				
-		#SETUP COUCHDB TEST
-		test_helper.setup_test_couchdb()
+		#foreman  run -e .env,test.env python manage.py test store_product.tests.test_insert_sku:Test.test
 
 		#FIXTURE
 		#CREATE A PRODUCT FOR THIS STORE
@@ -93,5 +97,4 @@ class Test(WebTest):
 		self.assertEqual(len(couchdb_sku_other_lst),1)
 		self.assertTrue(sku_str in couchdb_sku_other_lst)
 
-		#TEARDOWN COUCHDB TEST-------
-		test_helper.teardown_test_couchdb()
+

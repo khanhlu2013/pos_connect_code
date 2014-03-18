@@ -16,7 +16,7 @@ class old_store_product_inserter(WebTest):
         test_helper.teardown_test_couchdb()
 
     def can_insert_old_store_product_to_master_and_couch_test(self):
-        #coverage run manage.py test --settings=settings.test test.store_product.old_store_product_inserter_test:old_store_product_inserter.can_insert_old_store_product_to_master_and_couch_test
+        #foreman  run -e .env,test.env python manage.py test test.store_product.old_store_product_inserter_test:old_store_product_inserter.can_insert_old_store_product_to_master_and_couch_test
         """
             .insert a new store_product to x_store
             .insert that same product to my_store, frequency = 2
@@ -84,7 +84,7 @@ class old_store_product_inserter(WebTest):
 
 
     def can_detect_product_is_not_approve_after_assoc_and_not_insert_into_approve_product_test(self):
-        #coverage run manage.py test --settings=settings.test test.store_product.old_store_product_inserter_test:old_store_product_inserter.can_detect_product_is_not_approve_after_assoc_and_not_insert_into_approve_product_test
+        #foreman  run -e .env,test.env python manage.py test test.store_product.old_store_product_inserter_test:old_store_product_inserter.can_detect_product_is_not_approve_after_assoc_and_not_insert_into_approve_product_test
         """
             .insert a new store_product to x_store
             .insert that same product to my_store, use ovrride default approve_frequency = 3
@@ -126,7 +126,7 @@ class old_store_product_inserter(WebTest):
         self.assertTrue(product_couch==None)        
 
     def can_detect_product_is_become_approve_after_assoc_and_insert_into_approve_product_test(self):
-        #coverage run manage.py test --settings=settings.test test.store_product.old_store_product_inserter_test:old_store_product_inserter.can_detect_product_is_become_approve_after_assoc_and_insert_into_approve_product_test
+        #foreman  run -e .env,test.env python manage.py test test.store_product.old_store_product_inserter_test:old_store_product_inserter.can_detect_product_is_become_approve_after_assoc_and_insert_into_approve_product_test
         """
             .insert a new store_product to x_store
             .insert that same product to my_store, use  approve_frequency = 2
@@ -168,7 +168,7 @@ class old_store_product_inserter(WebTest):
         self.assertTrue(product_couch!=None)   
 
     def can_insert_only_approve_sku_when_insert_new_approve_product_test(self):
-        #coverage run manage.py test --settings=settings.test test.store_product.old_store_product_inserter_test:old_store_product_inserter.can_insert_only_approve_sku_when_insert_new_approve_product_test
+        #foreman  run -e .env,test.env python manage.py test test.store_product.old_store_product_inserter_test:old_store_product_inserter.can_insert_only_approve_sku_when_insert_new_approve_product_test
         """
             .insert a new x_store_product to x_store, with sku_1
             .add sku_2 to x_store_product
@@ -223,7 +223,7 @@ class old_store_product_inserter(WebTest):
 
 
     def can_update_approve_product_with_new_approve_sku_test(self):
-        #coverage run manage.py test --settings=settings.test test.store_product.old_store_product_inserter_test:old_store_product_inserter.can_update_approve_product_with_new_approve_sku_test
+        #foreman  run -e .env,test.env python manage.py test test.store_product.old_store_product_inserter_test:old_store_product_inserter.can_update_approve_product_with_new_approve_sku_test
         """
             .insert a new x_store_product to x_store, with sku_1
             .add sku_2 to x_store_product

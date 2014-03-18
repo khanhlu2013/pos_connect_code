@@ -18,3 +18,5 @@ class Store(Business):
                 insert_store_cm.exe(self)
             else:
                 update_store_cm.exe(self)
+
+            

@@ -14,7 +14,10 @@ def exe( \
     ,isTaxReport
     ,isSaleReport
     ,business_id
-    ,sku_str):
+    ,sku_str
+    ,p_type = None
+    ,p_tag = None
+):
 
     prod_bus_assoc = exe_master( \
          name = name
@@ -25,6 +28,8 @@ def exe( \
         ,isSaleReport = isSaleReport
         ,business_id = business_id
         ,sku_str = sku_str
+        ,p_type = p_type
+        ,p_tag = p_tag
     )
     exe_couch( \
          name = name
@@ -45,7 +50,10 @@ def exe_master( \
     ,isTaxReport
     ,isSaleReport
     ,business_id
-    ,sku_str):
+    ,sku_str
+    ,p_type
+    ,p_tag
+):
 
     #CREATE PRODUCT
     product = Product.objects.create(
@@ -66,6 +74,8 @@ def exe_master( \
         ,isSaleReport = isSaleReport
         ,business_id = business_id
         ,product = product
+        ,p_type = p_type
+        ,p_tag = p_tag
     )
 
     #CREATE SKU

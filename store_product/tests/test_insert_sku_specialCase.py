@@ -7,10 +7,15 @@ from store_product.models import Store_product
 from store_product import insert_new_store_product_cm
 
 class Test(WebTest):
-    def test_add_sku_skuExistForSameProduct(self):
-        #coverage run manage.py test --settings=settings.test store_product.tests.test_insert_sku_specialCase:Test.test_add_sku_skuExistForSameProduct
-        #SETUP COUCHDB
+
+    def setUp(self):
         test_helper.setup_test_couchdb()
+
+    def tearDown(self):
+        test_helper.teardown_test_couchdb()
+
+    def test_add_sku_skuExistForSameProduct(self):
+        #foreman  run -e .env,test.env python manage.py test store_product.tests.test_insert_sku_specialCase:Test.test_add_sku_skuExistForSameProduct
 
         #FIXTURE
         user,store = test_helper.create_user_then_store()
@@ -43,14 +48,9 @@ class Test(WebTest):
         self.assertEqual(len(sku_lst),1)#still 1 sku associate with this product. Duplicated sku is not added
         self.assertTrue('sku existed for this product' in res.text)
 
-        #CLEAN UP COUCHDB
-        test_helper.teardown_test_couchdb()
 
     def test_add_sku_skuExistForDifferentProduct(self):
-        #coverage run manage.py test --settings=settings.test store_product.tests.test_insert_sku_specialCase:Test.test_add_sku_skuExistForDifferentProduct
-        
-        #SETUP COUCHDB
-        test_helper.setup_test_couchdb()
+        #foreman  run -e .env,test.env python manage.py test store_product.tests.test_insert_sku_specialCase:Test.test_add_sku_skuExistForDifferentProduct
 
         #INSERT PRODUCT TO OTHER STORE, WITH OTHER_SKU
         user_other,store_other = test_helper.create_user_then_store()
@@ -105,9 +105,4 @@ class Test(WebTest):
         self.assertEqual(len(couch_sku_lst),2)
         self.assertTrue(sku_other_str in couch_sku_lst)
         self.assertTrue(sku_this_str in couch_sku_lst)
-
-        #CLEAN UP COUCHDB
-        test_helper.teardown_test_couchdb()
-    
-
 

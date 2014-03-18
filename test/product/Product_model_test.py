@@ -12,7 +12,7 @@ class Product(WebTest):
         test_helper.teardown_test_couchdb()
 
     def override_false_dynamic_false_test(self):
-        #coverage run manage.py test --settings=settings.test test.product.Product_model_test:Product.override_false_dynamic_false_test
+        # foreman  run -e .env,test.env python manage.py test test.product.Product_model_test:Product.override_false_dynamic_false_test
         #override -> false
         sku_str = '123'
         product = test_helper.createProductWithSku(sku_str=sku_str,is_approve_override=False)
@@ -35,8 +35,7 @@ class Product(WebTest):
         self.assertFalse(product.is_approve(frequency))
 
     def override_false_dynamic_true_test(self):
-        
-        #coverage run manage.py test --settings=settings.test test.product.Product_model_test:Product.override_false_dynamic_true_test
+        # foreman  run -e .env,test.env python manage.py test test.product.Product_model_test:Product.override_false_dynamic_true_test       
         #override -> false
         sku_str = '123'
         product = test_helper.createProductWithSku(sku_str=sku_str,is_approve_override=False)
@@ -71,8 +70,7 @@ class Product(WebTest):
 
 
     def override_true_dynamic_false_test(self):
-
-        #coverage run manage.py test --settings=settings.test test.product.Product_model_test:Product.override_true_dynamic_false_test
+        # foreman  run -e .env,test.env python manage.py test test.product.Product_model_test:Product.override_true_dynamic_false_test
         #override -> true
         sku_str = '123'
         product = test_helper.createProductWithSku(sku_str=sku_str,is_approve_override=True)
@@ -96,8 +94,7 @@ class Product(WebTest):
 
 
     def override_true_dynamic_true_test(self):
-        
-        #coverage run manage.py test --settings=settings.test test.product.Product_model_test:Product.override_true_dynamic_true_test
+        # foreman  run -e .env,test.env python manage.py test test.product.Product_model_test:Product.override_true_dynamic_true_test
         #override -> true
         sku_str = '123'
         product = test_helper.createProductWithSku(sku_str=sku_str,is_approve_override=True)

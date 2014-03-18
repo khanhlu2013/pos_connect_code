@@ -1,7 +1,7 @@
 ~. parakett idea: a trypod with remote. a keyboard of there own sound
 ~. i want to be a blues student.
 ~. build a play ground for parakeet. how to engage with your paraket. time. 
-~. coverage run manage.py test --settings=settings.test --failfast  
+~. foreman  run -e .env,test.env python manage.py test --failfast
 ~. looking at the ball will 100% give you the most input, so that the mind + body will react to the constance input. just look at the ball, you just going to know what to do. 
 ~. meditate: thinking is a drug that the mind created as a way of confort seeking. We just want comfort. Turn on the mind = pain. no pain no gain. The mind will trick you to turn it off by fooling you that you are still on. but it is just an auto run. Un-related thought of distraction. Any distraction. 
 
@@ -147,7 +147,8 @@ x. displaying scan modifier:
     . instruction.execute_on(pending_scan)
 x. record -> receipt
 x. DEFAULT_TEMPLATE_FORM: what to do about this?
-
+x. "xxx test failed" these tests with this text are failed.
+x. oganize store_product app: view,test,cm
 
 CURRENT TASKS
 -------------
@@ -256,12 +257,11 @@ Product type and sub_type(cat&dep)
         . run migration on heroku staging and production for product app, with a fake since i am convert it locally (it only work on locally machine)
 
     . implement
+        . bring p_type and p_tag offline
         . sale.views -> include type and tag (type is parent of tag) into context param
         . sale.view.sale_data_2_json: this is the report that need to be redo
+        
         . template.store_product.detail.detail.html : i need to display the deparment here
-
-    . clean up
-        . run all test
 
 
 

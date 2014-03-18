@@ -18,7 +18,7 @@ class receipt_document_validator_test(WebTest):
         test_helper.teardown_test_couchdb()
 
     def can_validate_receipt_document_error_test(self):
-        #coverage run manage.py test --settings=settings.test test.sale.receipt.receipt_document_validator_test:receipt_document_validator_test.can_validate_receipt_document_error_test
+        #foreman  run -e .env,test.env python manage.py test test.sale.receipt.receipt_document_validator_test:receipt_document_validator_test.can_validate_receipt_document_error_test
         user,store = test_helper.create_user_then_store()
         db = store_util.get_store_db(store.id)
         dummy_receipt_doc = {'d_type':couch_constance.RECEIPT_DOCUMENT_TYPE}
@@ -39,7 +39,8 @@ class receipt_document_validator_test(WebTest):
 
 
     def can_validate_receipt_ln_lst_empty_error_test(self):
-        #coverage run manage.py test --settings=settings.test test.sale.receipt.receipt_document_validator_test:receipt_document_validator_test.can_validate_receipt_ln_lst_empty_error_test
+        #foreman  run -e .env,test.env python manage.py test test.sale.receipt.receipt_document_validator_test:receipt_document_validator_test.can_validate_receipt_ln_lst_empty_error_test
+
         user,store = test_helper.create_user_then_store()
         db = store_util.get_store_db(store.id)
 
@@ -63,7 +64,7 @@ class receipt_document_validator_test(WebTest):
            
 
     def can_validate_receipt_ln_document_format_error_test(self):
-        #coverage run manage.py test --settings=settings.test test.sale.receipt.receipt_document_validator_test:receipt_document_validator_test.can_validate_receipt_ln_document_format_error_test
+        #foreman  run -e .env,test.env python manage.py test test.sale.receipt.receipt_document_validator_test:receipt_document_validator_test.can_validate_receipt_ln_document_format_error_test
         user,store = test_helper.create_user_then_store()
         db = store_util.get_store_db(store.id)
 
@@ -91,7 +92,8 @@ class receipt_document_validator_test(WebTest):
             self.assertTrue(receipt_document_validator.ERROR_RECEIPT_LN_NON_PRODUCT_NAME in error_message)
 
     def can_validate_receipt_format_correct_test(self):
-        #coverage run manage.py test --settings=settings.test test.sale.receipt.receipt_document_validator_test:receipt_document_validator_test.can_validate_receipt_format_correct_test
+        # xxx test failed
+        #foreman  run -e .env,test.env python manage.py test test.sale.receipt.receipt_document_validator_test:receipt_document_validator_test.can_validate_receipt_format_correct_test
         user,store = test_helper.create_user_then_store()
 
         #.insert new store_product_x

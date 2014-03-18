@@ -5,10 +5,15 @@ from tax.couch import tax_util
 from store.models import Store
 
 class Test(WebTest):
-    def test(self):
-        #coverage run manage.py test --settings=settings.test tax.tests.test_update_tax:Test.test
-        #SETUP COUCHDB-----------------------------------------------------
+
+    def setUp(self):
         test_helper.setup_test_couchdb()
+
+    def tearDown(self):
+        test_helper.teardown_test_couchdb()
+
+    def test(self):
+        #foreman  run -e .env,test.env python manage.py test tax.tests.test_update_tax:Test.test
 
         #FIXTURE-----------------------------------------------------------
         #user and store
@@ -40,5 +45,3 @@ class Test(WebTest):
         self.assertTrue(tax_document!=None)
         self.assertEqual(tax_document["tax_rate"],str(tax_rate))
 
-        #TEARDOWN COUCHDB TEST
-        test_helper.teardown_test_couchdb()

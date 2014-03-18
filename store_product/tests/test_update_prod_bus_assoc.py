@@ -10,10 +10,15 @@ from store_product import insert_new_store_product_cm
 from decimal import Decimal
 
 class Test(WebTest):
-    def test(self):
-        #coverage run manage.py test --settings=settings.test store_product.tests.test_update_prod_bus_assoc:Test.test
-        #SETUP COUCHDB TEST DB
+
+    def setUp(self):
         test_helper.setup_test_couchdb()
+
+    def tearDown(self):
+        test_helper.teardown_test_couchdb()
+
+    def test(self):
+        #foreman  run -e .env,test.env python manage.py test store_product.tests.test_update_prod_bus_assoc:Test.test
         
         #FIXTURE
         user,bus = test_helper.create_user_then_store();
@@ -38,23 +43,39 @@ class Test(WebTest):
         new_price = Decimal('3.99')
         new_crv = Decimal('1.23')
         form = res.form
+        new_is_taxable = False
+        new_is_tax_report = False
+        new_is_sale_report = False
+        new_p_type = 'a'
+        new_p_tag = 'b'
+
         form['name'] = new_name
         form['price'] = new_price
         form['crv'] = new_crv
+        form['isTaxable'] = new_is_taxable
+        form['isTaxReport'] = new_is_tax_report
+        form['isSaleReport'] = new_is_sale_report
+        form['p_type'] = new_p_type
+        form['p_tag'] = new_p_tag
+
         res = form.submit().follow()
         self.assertEqual(res.status_int,200)
         
         #VALIDATE RELATIONAL DB
-        rel_prod_bus_assoc = Store_product.objects.get(pk=prod_bus_assoc.id)
-        self.assertEqual(rel_prod_bus_assoc.name,new_name)
-        self.assertEqual(rel_prod_bus_assoc.price,new_price)
-        self.assertEqual(rel_prod_bus_assoc.crv,new_crv)
+        sp = Store_product.objects.get(pk=prod_bus_assoc.id)
+        self.assertEqual(sp.name,new_name)
+        self.assertEqual(sp.price,new_price)
+        self.assertEqual(sp.crv,new_crv)
+
+        self.assertEqual(sp.isTaxable,new_is_taxable)
+        self.assertEqual(sp.isTaxReport,new_is_tax_report)
+        self.assertEqual(sp.isSaleReport,new_is_sale_report)
+        self.assertEqual(sp.p_type,new_p_type)
+        self.assertEqual(sp.p_tag,new_p_tag)
 
         #VALIDATE COUCH DB
-        couch_prod_bus_assoc = store_product_couch_getter.exe(rel_prod_bus_assoc.product.id,rel_prod_bus_assoc.business.id)
+        couch_prod_bus_assoc = store_product_couch_getter.exe(sp.product.id,sp.business.id)
         self.assertEqual(couch_prod_bus_assoc['name'],new_name)
         self.assertEqual(couch_prod_bus_assoc['price'],str(new_price))
         self.assertEqual(couch_prod_bus_assoc['crv'],str(new_crv))
 
-        #CLEAN UP COUCHDB TEST DB
-        test_helper.teardown_test_couchdb()

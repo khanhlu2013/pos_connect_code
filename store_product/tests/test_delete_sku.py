@@ -6,12 +6,16 @@ from store_product import insert_new_store_product_cm
 from product.models import ProdSkuAssoc
 from helper import test_helper
 
-class Test(WebTest):    
-    def test(self):
-        #coverage run manage.py test --settings=settings.test store_product.tests.test_delete_sku:Test.test
-                
-        #SETUP COUCHDB TEST
+class Test(WebTest):   
+    def setUp(self):
         test_helper.setup_test_couchdb()
+
+    def tearDown(self):
+        test_helper.teardown_test_couchdb()
+
+    def test(self):
+        # xxx test failed
+        #foreman  run -e .env,test.env python manage.py test store_product.tests.test_delete_sku:Test.test         
 
         #FIXTURE
         #CREATE A PRODUCT FOR THIS STORE
@@ -66,7 +70,4 @@ class Test(WebTest):
         couch_prod_bus_assoc = store_product_couch_getter.exe(prod_bus_assoc_this.product.id,prod_bus_assoc_this.business.id)  
         couch_sku_lst = couch_prod_bus_assoc['sku_lst']
         self.assertEqual(len(couch_sku_lst),0)#delete
-
-        #TEARDOWN COUCHDB TEST-------
-        test_helper.teardown_test_couchdb()
 

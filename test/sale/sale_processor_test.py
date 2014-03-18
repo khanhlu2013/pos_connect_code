@@ -20,7 +20,8 @@ class sale_processor_test(WebTest):
         test_helper.teardown_test_couchdb()
 
     def can_process_exist_store_product_test(self):
-        #coverage run manage.py test --settings=settings.test test.sale.sale_processor_test:sale_processor_test.can_process_exist_store_product_test
+        # xxx test failed
+        #foreman  run -e .env,test.env python manage.py test test.sale.sale_processor_test:sale_processor_test.can_process_exist_store_product_test
         """
             #-INSERT FIXTURE: setup a store product, and insert into couch a receipt which contain only this store product, no assoc will be needed to process this receipt
             #.insert my_user,my_store

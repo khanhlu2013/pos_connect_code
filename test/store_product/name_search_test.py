@@ -5,11 +5,17 @@ from helper import test_helper
 from product.models import Product
 
 class Test(WebTest):
+
+    def setUp(self):
+        test_helper.setup_test_couchdb()
+
+    def tearDown(self):
+        test_helper.teardown_test_couchdb()
+
 	def test(self):
-		#coverage run manage.py test --settings=settings.test store_product.tests.test_nameSearch:Test.test
-		#SETUP COUCHDB TEST
-		test_helper.setup_test_couchdb()
-		
+		# xxx test failed
+		# foreman  run -e .env,test.env python manage.py test test.store_product.name_search_test:Test.test
+
 		#FIXTURE---------------------------------------------
 		#user and store
 		user,store = test_helper.create_user_then_store()
@@ -44,6 +50,4 @@ class Test(WebTest):
 		product = product_lst[0]
 		self.assertEqual(product.bus_lst.all()[0],store) 
 
-		#TEARDOWN COUCHDB TEST-------
-		test_helper.teardown_test_couchdb()
 		

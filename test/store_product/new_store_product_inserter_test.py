@@ -5,6 +5,7 @@ from store_product.couch import store_product_couch_getter
 from model_mommy import mommy
 from helper import test_helper
 from product.couch import approve_product_document_getter
+
 class new_store_product_inserter(WebTest):
 
     def setUp(self):
@@ -14,7 +15,7 @@ class new_store_product_inserter(WebTest):
         test_helper.teardown_test_couchdb()
 
     def can_insert_new_store_product_test(self):
-        #coverage run manage.py test --settings=settings.test test.store_product.new_store_product_inserter_test:new_store_product_inserter.can_insert_new_store_product_test
+        #foreman  run -e .env,test.env python manage.py test test.store_product.new_store_product_inserter_test:new_store_product_inserter.can_insert_new_store_product_test
         """
             .insert a new store_product to my_store
             .verify my_store_product in master.store_product

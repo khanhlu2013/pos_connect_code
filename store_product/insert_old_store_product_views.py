@@ -11,7 +11,7 @@ class Add_form(forms.ModelForm):
     
     class Meta:
         model = Store_product
-        fields = ['name','price','isTaxable','isTaxReport','isSaleReport']
+        fields = ['name','price','crv','isTaxable','isTaxReport','isSaleReport','p_type','p_tag']
     
     def __init__(self,*args,**kwargs):
         #ARGS
@@ -33,16 +33,19 @@ class Add_form(forms.ModelForm):
         store_product = super(Add_form,self).save(commit=False)
         assoc_sku_str = self.prod_sku_assoc.sku.sku
 
-        return insert_old_store_product_cm.exe(
-             self.prod_sku_assoc.product#product
-            ,self.cur_login_store.id#business
-            ,store_product.name
-            ,store_product.price
-            ,store_product.crv
-            ,store_product.isTaxable
-            ,store_product.isTaxReport
-            ,store_product.isSaleReport
-            ,assoc_sku_str
+        return insert_old_store_product_cm.exe \
+        ( 
+             product = self.prod_sku_assoc.product
+            ,business_id = self.cur_login_store.id
+            ,name = store_product.name
+            ,price = store_product.price
+            ,crv = store_product.crv
+            ,isTaxable = store_product.isTaxable
+            ,isTaxReport = store_product.isTaxReport
+            ,isSaleReport = store_product.isSaleReport
+            ,assoc_sku_str = assoc_sku_str
+            ,p_type = store_product.p_type
+            ,p_tag = store_product.p_tag
         )
  
 class Add_view(CreateView):

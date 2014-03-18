@@ -11,7 +11,10 @@ def exe(
     ,crv
     ,isTaxable
     ,isTaxReport
-    ,isSaleReport ):
+    ,isSaleReport 
+    ,p_type = None
+    ,p_tag = None
+):
     
     exe_master( \
          product_id
@@ -21,7 +24,10 @@ def exe(
         ,crv
         ,isTaxable
         ,isTaxReport
-        ,isSaleReport)
+        ,isSaleReport
+        ,p_type
+        ,p_tag
+    )
 
     exe_couch(\
          product_id
@@ -59,13 +65,19 @@ def exe_master( \
     ,crv
     ,isTaxable
     ,isTaxReport
-    ,isSaleReport):
+    ,isSaleReport
+    ,p_type
+    ,p_tag
+):
 
     rel_prod_bus_assoc = Store_product.objects.get(product__id=product_id,business__id=business_id)
     rel_prod_bus_assoc.name = name
     rel_prod_bus_assoc.price = price
     rel_prod_bus_assoc.crv = crv
     rel_prod_bus_assoc.isTaxable = isTaxable
+    rel_prod_bus_assoc.p_type = p_type
+    rel_prod_bus_assoc.p_tag = p_tag
+
 
     if isTaxReport != None or isSaleReport != None: # xxx fishy code
         rel_prod_bus_assoc.isTaxReport = isTaxReport

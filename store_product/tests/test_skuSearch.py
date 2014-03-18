@@ -12,10 +12,14 @@ def createProductWithSku(sku_str):
 
 class SearchSkuTest(WebTest):
 
-    # @with_setup(test_helper.setup_test_couchdb, test_helper.teardown_test_couchdb)
-    def test_can_search_sku_productInStore(self):
+    def setUp(self):
         test_helper.setup_test_couchdb()
 
+    def tearDown(self):
+        test_helper.teardown_test_couchdb()
+
+    def test_can_search_sku_productInStore(self):
+        #foreman  run -e .env,test.env python manage.py test store_product.tests.test_skuSearch:SearchSkuTest.test_can_search_sku_productInStore
         #FIXTURE----------------------------------------------------------
         #create user and store
         user,store = test_helper.create_user_then_store()
@@ -46,13 +50,11 @@ class SearchSkuTest(WebTest):
         product = product_lst[0]
         self.assertEqual(product.bus_lst.all()[0],store) 
 
-        test_helper.teardown_test_couchdb()
     
-    # @with_setup(test_helper.setup_test_couchdb, test_helper.teardown_test_couchdb)
-    def test_can_search_sku_productOutSTore(self):
-        #coverage run manage.py test --settings=settings.test store_product.tests.test_skuSearch:SearchSkuTest.test_can_search_sku_productOutSTore
 
-        test_helper.setup_test_couchdb()
+    def test_can_search_sku_productOutSTore(self):
+        #foreman  run -e .env,test.env python manage.py test store_product.tests.test_skuSearch:SearchSkuTest.test_can_search_sku_productOutSTore
+
         #FIXTURE----------------------------------------------------------
         #create user and store
         user,thisStore = test_helper.create_user_then_store()
@@ -61,7 +63,7 @@ class SearchSkuTest(WebTest):
         product = test_helper.createProductWithSku(sku_str)
         #make this product belong to another store
         anotherStore = mommy.make('bus.Business')
-        store_product = mommy.make('store_product.Store_product',product=product,business=anotherStore)
+        store_product = mommy.make('store_product.Store_product',product=product,business=anotherStore,isTaxable=False)
 
         #MAKING REQUEST---------------------------------------------------
         res = self.app.get(
@@ -84,12 +86,10 @@ class SearchSkuTest(WebTest):
         product = product_lst[0]
         self.assertEqual(product.bus_lst.all()[0],anotherStore) 
 
-        test_helper.teardown_test_couchdb
 
-    # @with_setup(test_helper.setup_test_couchdb, test_helper.teardown_test_couchdb)
     def test_can_not_search_sku_whenSkuIsNotExist(self):
-        #coverage run manage.py test --settings=settings.test store_product.tests.test_skuSearch:SearchSkuTest.test_can_not_search_sku_whenSkuIsNotExist
-        test_helper.setup_test_couchdb()
+        #foreman  run -e .env,test.env python manage.py test store_product.tests.test_skuSearch:SearchSkuTest.test_can_not_search_sku_whenSkuIsNotExist
+
         #FIXTURE----------------------------------------------------------
         #create user and store
         user,thisStore = test_helper.create_user_then_store()
@@ -98,7 +98,7 @@ class SearchSkuTest(WebTest):
         product = test_helper.createProductWithSku(sku_str)
         #make this product belong to another store
         anotherStore = mommy.make('bus.Business')
-        store_product = mommy.make('store_product.Store_product',product=product,business=anotherStore)
+        store_product = mommy.make('store_product.Store_product',product=product,business=anotherStore,isTaxable=False)
 
         #MAKING REQUEST---------------------------------------------------
         res = self.app.get(
@@ -117,5 +117,4 @@ class SearchSkuTest(WebTest):
         #PRODUCT RESULT NOT EXIST 
         product_lst = res.context['product_lst']
         self.assertEqual(len(product_lst),0)
-        
-        test_helper.teardown_test_couchdb
+

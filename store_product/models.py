@@ -11,6 +11,9 @@ class Store_product(models.Model):
     isTaxable = models.BooleanField()
     isTaxReport = models.BooleanField(default=True)
     isSaleReport = models.BooleanField(default=True)
+    p_type = models.CharField(blank=True,null=True,max_length=100)
+    p_tag = models.CharField(blank=True,null=True,max_length=100)
+
 
     class Meta:
         unique_together = ("product","business")

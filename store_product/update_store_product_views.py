@@ -11,7 +11,7 @@ import json
 class MyForm(ModelForm):
     class Meta:
         model = Store_product
-        fields = ['name','price','crv','isTaxable','isTaxReport','isSaleReport']
+        fields = ['name','price','crv','isTaxable','isTaxReport','isSaleReport','p_type','p_tag']
     
     def __init__(self,*args,**kwargs):
         #ARGS
@@ -24,16 +24,19 @@ class MyForm(ModelForm):
         self.fields['name'].label = 'Name'
         
     def save(self):
-        prod_bus_assoc = super(MyForm,self).save(commit=False)
+        store_product = super(MyForm,self).save(commit=False)
         update_store_product_cm.exe( \
-             prod_bus_assoc.product.id
-            ,prod_bus_assoc.business.id
-            ,prod_bus_assoc.name
-            ,prod_bus_assoc.price
-            ,prod_bus_assoc.crv
-            ,prod_bus_assoc.isTaxable
-            ,prod_bus_assoc.isTaxReport
-            ,prod_bus_assoc.isSaleReport )
+             store_product.product.id
+            ,store_product.business.id
+            ,store_product.name
+            ,store_product.price
+            ,store_product.crv
+            ,store_product.isTaxable
+            ,store_product.isTaxReport
+            ,store_product.isSaleReport 
+            ,store_product.p_type
+            ,store_product.p_tag
+        )
 
         
 class Update_view(UpdateView):
@@ -121,8 +124,8 @@ def updator_ajax(request):
                 ,price
                 ,crv
                 ,is_taxable
-                ,None#prod_bus_assoc.isTaxReport
-                ,None#prod_bus_assoc.isSaleReport 
+                ,None#store_product.isTaxReport
+                ,None#store_product.isSaleReport 
             )
         except Exception,e:
             errmsg = "error: " + str(e)

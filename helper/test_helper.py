@@ -4,9 +4,13 @@ from store.couch import store_util
 from couchdb import ResourceNotFound
 from django.contrib.auth.models import User
 from helper import approve_product_db_setup
+import os
+
+def is_local_env():
+    return 'LOCAL_ENVIRONMENT' in os.environ.keys()
 
 def associateProductAndBusiness(product,business):
-    return mommy.make('store_product.Store_product',product=product,business=business)
+    return mommy.make('store_product.Store_product',product=product,business=business,isTaxable=False)
 
 def createProductWithSku(sku_str,is_approve_override=False):
     name = sku_str + '_' + str(is_approve_override)
@@ -30,10 +34,10 @@ def create_user_then_store():
     return (membership.user,membership.user.business_lst.all()[0])
 
 def _delete_liquor_db_and_user(store_id):
-    # xxx
-    client_user = user_util.get_client_user(store_id)
-    if client_user:
-        user_util.delete_client_user(store_id)
+    # xxx remove this code
+    # client_user = user_util.get_client_user(store_id)
+    # if client_user:
+    #     user_util.delete_client_user(store_id)
 
     store_db = store_util.get_store_db(store_id)
     if store_db:    

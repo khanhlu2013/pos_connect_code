@@ -19,6 +19,8 @@ def exe(
     ,isTaxReport
     ,isSaleReport
     ,assoc_sku_str 
+    ,p_type = None
+    ,p_tag = None
     ,frequency=2):
 
     prod_bus_assoc = exe_master( \
@@ -28,8 +30,12 @@ def exe(
         ,price
         ,crv
         ,isTaxable
+        ,isTaxReport
         ,isSaleReport
-        ,assoc_sku_str)
+        ,assoc_sku_str
+        ,p_type
+        ,p_tag
+    )
     
     if product.is_approve(frequency):
         approve_product_document_updator.exe(product.id,business_id,frequency,assoc_sku_str)
@@ -54,8 +60,12 @@ def exe_master(
     ,price
     ,crv
     ,isTaxable
+    ,isTaxReport
     ,isSaleReport
-    ,assoc_sku_str):
+    ,assoc_sku_str
+    ,p_type
+    ,p_tag
+):
 
     prod_bus_assoc = Store_product.objects.create( \
          product = product
@@ -64,7 +74,11 @@ def exe_master(
         ,price = price
         ,crv = crv
         ,isTaxable = isTaxable
-        ,isSaleReport = isSaleReport )
+        ,isTaxReport = isTaxReport
+        ,isSaleReport = isSaleReport 
+        ,p_type = p_type
+        ,p_tag = p_tag
+    )
 
     prod_sku_assoc = ProdSkuAssoc.objects.get(product__id=product.id,sku__sku=assoc_sku_str)
     prod_sku_assoc.store_product_lst.add(prod_bus_assoc);

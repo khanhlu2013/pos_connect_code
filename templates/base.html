@@ -1,11 +1,13 @@
 {# simple base.html #}
 {% load staticfiles %}
+
 <html>
 <head>
     <title>
         {% block title %}Welcome to KT{% endblock title %}
     </title>
 
+    {% block static %}{% endblock static %}
 </head>
 <body>
     {% block authentication %}

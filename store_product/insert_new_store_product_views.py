@@ -8,11 +8,11 @@ from product.models import Product,Sku,ProdSkuAssoc
 from store_product.models import Store_product
 from store_product import insert_new_store_product_cm
 from util.forms import StripCharField
+from store_product import sp_master_util
+
 
 #-CREATE PRODUCT--------------------------------------------------------------------
 
-
-        
 class Add_product_form(forms.ModelForm):
     sku_field = StripCharField()
         
@@ -77,9 +77,22 @@ class Add_product_view(CreateView):
     template_name = 'store_product/add_product/add_product.html'
     form_class = Add_product_form
     success_url = reverse_lazy('store_product:search_product')
-        
+
+
+    def dispatch(self,request,*args,**kwargs):
+        self.cur_login_store = request.session.get('cur_login_store')
+        return super(Add_product_view,self).dispatch(request,*args,**kwargs)
+
+
+    def get_context_data(self,**kwargs):
+        context = super(Add_product_view,self).get_context_data(**kwargs)
+        context['lookup_type_tag'] = sp_master_util.get_lookup_type_tag(self.cur_login_store)
+        return context
+
+
     def get_form_kwargs(self):
         kwargs = super(Add_product_view,self).get_form_kwargs()
-        kwargs['cur_login_store'] = self.request.session.get('cur_login_store')
+        # kwargs['cur_login_store'] = self.request.session.get('cur_login_store') # xxx remove this line
+        kwargs['cur_login_store'] = self.cur_login_store
         kwargs['pre_fill_sku'] = self.kwargs.get('pre_fill_sku',None)
         return kwargs

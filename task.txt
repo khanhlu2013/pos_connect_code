@@ -149,6 +149,7 @@ x. record -> receipt
 x. DEFAULT_TEMPLATE_FORM: what to do about this?
 x. "xxx test failed" these tests with this text are failed.
 x. oganize store_product app: view,test,cm
+x. {% load staticfiles %} why do i need this on my base.html, since i don't believe i use static template tag anywhere. True?
 
 CURRENT TASKS
 -------------
@@ -199,6 +200,8 @@ CURRENT TASKS
 . when pushing receipt to server, we need to handle data that is enter wrong such as price, crv is out of range: negative or over max value. how can we make sure good data is still saved and not roll back the whole thing and loss them
 . _doc_id_rev of receipt and store product should be change to _rev
 . account number, bug number to handle bug live bug fix
+. use google to host your javascript: require js now does not use my STATIC_URL for jquery. question:  how do we combine loading multiple file?
+
 ------------------------------------------------------------------------------------------------------------------
 APPROVED PRODUCT FREQUENCY
 
@@ -261,8 +264,10 @@ Product type and sub_type(cat&dep)
         . sale.views -> include type and tag (type is parent of tag) into context param
         . sale.view.sale_data_2_json: this is the report that need to be redo
         
-        . template.store_product.detail.detail.html : i need to display the deparment here
-
+        . implement a drop down for p_type and p_tag
+            django have ways: so how do i load google cnd?
+                STATIC_URL which i do use
+                {% load staticfiles %} which build the full url use setting STATICFILES_STORAGE (either use django or botos3)
 
 
 

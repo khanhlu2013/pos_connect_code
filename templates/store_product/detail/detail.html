@@ -10,9 +10,9 @@
     price: {{store_product.price}}
     <br />
     
-    department: {{store_product.department.full_name}}
+    crv: {{store_product.crv}}
     <br />
-    
+
     taxable: {{store_product.isTaxable}}
     <br />
     
@@ -21,4 +21,11 @@
     
     sale report: {{store_product.isSaleReport}}
     <br />
+
+    type: {{store_product.p_type}}
+    <br />
+
+    tag: {{store_product.p_tag}}
+    <br />
+            
 {% endblock content %}

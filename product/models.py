@@ -2,6 +2,7 @@ from django.db import models
 from django.core.exceptions import MultipleObjectsReturned,ObjectDoesNotExist,ValidationError
 from bus.models import Business
 
+
 class Unit(models.Model):
     name = models.CharField(max_length=100)
     abbreviate = models.CharField(max_length=20)
@@ -27,7 +28,8 @@ class ProdSkuAssoc(models.Model):
     product = models.ForeignKey('product.Product')
     creator = models.ForeignKey(Business,blank=True,null=True)
     is_approve_override = models.BooleanField()
-    store_product_lst = models.ManyToManyField('store_product.Store_product')#list of business support this product_sku_assoc
+    store_product_lst = models.ManyToManyField('store_product.Store_product')#list of business support this product_sku_assoc 
+                                                                            
     
     def _is_dynamic_approve(self,frequency):
         return len(self.store_product_lst.all()) == frequency

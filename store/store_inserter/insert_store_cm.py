@@ -14,13 +14,13 @@ import os
 from helper import test_helper
 
 def exe(store):
-    store_id,api_key_name = exe_master(store)
-    exe_couch(store_id,store.tax_rate,api_key_name)
+    store_id,username = exe_master(store)
+    exe_couch(store_id,store.tax_rate,username)
 
 
-def get_api_key():
+def create_user_account():
     if test_helper.is_local_env():
-        return (1,1) #return dummy api key
+        return (1,1)
 
     headers={'referer': 'https://%s.cloudant.com' % (master_account_util.get_master_user_name()), 'content-type': 'multipart/form-data'}
     url='https://cloudant.com/api/generate_api_key'
@@ -29,14 +29,12 @@ def get_api_key():
     if not r.ok:
         raise Exception('error code: ' + str(r.status_code) + ' ,reason: ' + r.reason)
     else:
-        money = json.loads(r._content)
-        return (money['key'],money['password'])
+        return (r._content['key'],r._content['password'])
 
 
 def exe_master(store):
-    store.api_key_name,store.api_key_pwrd = get_api_key()
-    # xxx remove the print
-    print(store.api_key_name,store.api_key_pwrd)
+    store.api_key_name,store.api_key_pwrd = create_user_account()
+    print(store.api_key_name,store.api_key_pwrd)     # xxx remove the print
     store.save(by_pass_cm=True)
     store_id = store.id
     return store.id,store.api_key_name
@@ -61,12 +59,13 @@ def _couch_db_grant_access_to_db(api_key_name,db_name,roles):
 
 
 def exe_couch(store_id,tax_rate,api_key_name):
-    _couch_db_grant_access_to_db(api_key_name,couch_constance.APPROVE_PRODUCT_DB_NAME,['_reader'])
     _couch_db_insert_db(store_id)
-    _couch_db_grant_access_to_db(api_key_name,store_util.get_store_db_name(store_id),['_reader','_writer'])
     _couch_db_insert_view(store_id)
     _couch_db_insert_validation(store_id)
     _couch_db_insert_tax_rate(store_id,tax_rate)
+    _couch_db_grant_access_to_db(api_key_name,couch_constance.APPROVE_PRODUCT_DB_NAME,['_reader'])
+    _couch_db_grant_access_to_db(api_key_name,store_util.get_store_db_name(store_id),['_reader','_writer'])
+
 
 
 def _couch_db_insert_tax_rate(store_id,tax_rate):

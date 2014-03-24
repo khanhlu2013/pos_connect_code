@@ -94,7 +94,7 @@ define(
 
         //-PRICE
         td = tr.insertCell(-1);
-        td.innerHTML = displaying_scan.get_discount_price();
+        td.innerHTML = displaying_scan.get_total_discount_price();
         td.addEventListener("click", function() {
             var msg = ""
             msg += 'price info:' + '\n';
@@ -106,7 +106,7 @@ define(
             }
             var tax = displaying_scan.get_tax(tax_rate);
             msg += 'tax: ' + tax + '\n'
-            msg += 'out the door price: ' + displaying_scan.get_out_the_door_price(tax_rate);
+            msg += 'out the door price: ' + displaying_scan.get_otd_wt_price(tax_rate);
             msg += '\n\n\n';    
             msg += 'enter new regular price\n';
             msg += '-------------------';

@@ -63,7 +63,7 @@ class receipt_document_validator_test(WebTest):
             self.assertTrue(receipt_document_validator.ERROR_RECEIPT_LN_EMPTY in error_message)
            
 
-    def can_validate_receipt_ln_document_format_error_test(self):
+    def can_validate_receipt_ln_document_format_error_test(self):       
         #foreman  run -e .env,test.env python manage.py test test.sale.receipt.receipt_document_validator_test:receipt_document_validator_test.can_validate_receipt_ln_document_format_error_test
         user,store = test_helper.create_user_then_store()
         db = store_util.get_store_db(store.id)
@@ -92,7 +92,6 @@ class receipt_document_validator_test(WebTest):
             self.assertTrue(receipt_document_validator.ERROR_RECEIPT_LN_NON_PRODUCT_NAME in error_message)
 
     def can_validate_receipt_format_correct_test(self):
-        # xxx test failed
         #foreman  run -e .env,test.env python manage.py test test.sale.receipt.receipt_document_validator_test:receipt_document_validator_test.can_validate_receipt_format_correct_test
         user,store = test_helper.create_user_then_store()
 
@@ -124,7 +123,7 @@ class receipt_document_validator_test(WebTest):
         tax_rate = 9.75
         time_stamp = 1
         ds_lst = [ln_1]
-        receipt_inserter_for_test_purpose.exe(collected_amount,ds_lst,tax_rate,time_stamp,store.id)
+        receipt_inserter_for_test_purpose.exe(collected_amount,ds_lst,tax_rate,time_stamp,store.id,use_store_account=False)
 
 
         #ASSERT INSERTION

@@ -6,10 +6,12 @@ from helper import test_helper,approve_product_db_setup
 from store_product import insert_new_store_product_cm
 from product import approve_product_lst_getter
 from product.couch.Approve_product_document import Approve_product_document
-from util.couch import couch_constance
+from util.couch import couch_constance,couch_util,master_account_util,old_security_4_test_purpose
 from product.couch import approve_product_db_getter
 import json
 from store.couch import store_util
+import requests
+
 
 def p():
     print("refresh fixture: production")
@@ -30,7 +32,7 @@ def p():
 
 
 
-def s():
+def d():
     print("refresh fixture: staging ")
 
     delete_data()
@@ -44,9 +46,19 @@ def s():
     print("create 2 sample store x and y")
     user1,store1=test_helper.create_user_then_store_detail(user_name = "x",user_password="x",store_name="x")
     user2,store2=test_helper.create_user_then_store_detail(user_name = "y",user_password="y",store_name="y")
+    user2,store2=test_helper.create_user_then_store_detail(user_name = "z",user_password="z",store_name="z")
+
+    insert_user_to_old_couch_db_security(store1.id)
+    insert_user_to_old_couch_db_security(store2.id)
 
     # insert_100_product_to_store(store1)
     print("completed")
+
+def insert_user_to_old_couch_db_security(store_id):
+    old_security_4_test_purpose._couch_db_insert_user(store_id)
+    old_security_4_test_purpose._couch_db_insert_user_to_approve_db(store_id)
+    old_security_4_test_purpose._couch_db_insert_user_2_store(store_id)
+
 
 
 

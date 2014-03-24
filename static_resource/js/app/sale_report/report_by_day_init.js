@@ -63,7 +63,7 @@ require(
         var to_day = $( "#to_day_txt" ).val();
 
         $.ajax({
-             url : "/product/updator_ajax"
+             url : "/sale/get_report_by_day"
             ,type : "POST"
             ,dataType : "json"
             ,data : {from_day:from_day,to_day:to_day}

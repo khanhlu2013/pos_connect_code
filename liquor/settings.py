@@ -13,6 +13,7 @@ INSTALLED_APPS = (
     ,'django.contrib.staticfiles'
     ,'django.contrib.admin'
     ,'django.contrib.sites'
+    # ,'debug_toolbar'
     ,'storages'
     ,'south'
     ,'django_nose'
@@ -133,8 +134,9 @@ USER_ID_PREFIX = 'org.couchdb.user:'
 
 #LIQUOR USER
 CLIENT_USER_NAME_PREFIX = 'liquor_'
+
 #STORE DB
-STORE_DB_PREFIX = 'liquor_'
+STORE_DB_PREFIX = os.environ.get('STORE_DB_PREFIX')
 PROD_BUS_ASSOC_DOCUMENT_TYPE = 'prod_bus_assoc'
 SALE_RECORD_DOCUMENT_TYPE = 'sale_record'
 TAX_DOCUMENT_ID = "tax_document"

@@ -19,7 +19,7 @@ class Test(WebTest):
         test_helper.teardown_test_couchdb()
 
     def can_allow_reg_user_to_insert_receipt_document(self):
-        # xxx test failed
+        # xxx reimplement test
         #foreman  run -e .env,test.env python manage.py test test.couch.couch_acl_validator_test:Test.can_allow_reg_user_to_insert_receipt_document
         user,store = test_helper.create_user_then_store()
 
@@ -60,7 +60,7 @@ class Test(WebTest):
 
 
     def can_stop_reg_user_to_insert_none_receipt_document(self):
-        # xxx test failed
+        # xxx reimplement test
         #foreman  run -e .env,test.env python manage.py test test.couch.couch_acl_validator_test:Test.can_stop_reg_user_to_insert_none_receipt_document
         user,store = test_helper.create_user_then_store()
 
@@ -83,7 +83,7 @@ class Test(WebTest):
 
 
     def can_stop_reg_user_to_delete_document(self):
-        # xxx test failed
+        # xxx reimplement test
         #foreman  run -e .env,test.env python manage.py test test.couch.couch_acl_validator_test:Test.can_stop_reg_user_to_delete_document
         user,store = test_helper.create_user_then_store()
 
@@ -137,7 +137,7 @@ class Test(WebTest):
 
 
     def can_stop_reg_user_to_update_document(self):
-        # xxx test failed
+        # xxx reimplement test
         #foreman  run -e .env,test.env python manage.py test test.couch.couch_acl_validator_test:Test.can_stop_reg_user_to_update_document
         user,store = test_helper.create_user_then_store()
 

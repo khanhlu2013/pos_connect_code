@@ -1,58 +1,83 @@
 {% extends 'base_regular_user.html' %}
 {% load get_prod_bus_assoc %}
+{% load get_prod_sku_assoc_popularity %}
 
 {% block content %}
     <form id="sku" method="GET">
-        <input type="text" name="sku" />
+        <input type="text" name="sku" value="{{ sku_str|default_if_none:"" }}"/>
         <button type="submit">sku</button>
         {% if sku_error %} {{ sku_error }} {% endif %}
     </form>
 
     <form id="name" method="GET">
-        <input type="text" name="name" />
+        <input type="text" name="name" value="{{ name_str|default_if_none:"" }}"/>
         <button type="submit">name</button>
         {% if name_error %} {{ name_error }} {% endif %}
     </form>
     
-    {% if product_lst %}
-        <table border="1">
-            <tr>
-                <td>name</td>
-                <td>action</td>
-            </tr>
-            
-            {% for p in product_lst %}
-                <tr>
-                    {# PRODUCT NAME #}
-                    <td>{{p}}</td>
-                    
-                    {# ACTION #}
-                    <td>
-                        {% if name_str %}
-                            <a href="{% url 'store_product:product_detail' p|get_prod_bus_assoc_id:cur_login_store %}">info</a>    
-                        {% elif sku_str %}
-                            {% if p|get_prod_bus_assoc_id:cur_login_store %}
-                                <a href="{% url 'store_product:product_detail' p|get_prod_bus_assoc_id:cur_login_store %}">info</a>
-                            {% else %}
-                                <a href="{% url 'store_product:add_assoc' p.id sku_str %}">add</a>
-                            {% endif %}
-                        {% else %}
-                            UN-REACHABLE CODE
-                        {% endif %}    
-                    </td>
-                </tr>
-            {% endfor %}
-        </table>
-    {% else %}
+    {% if exist_product_lst %}
         <p>
-            {% if sku_str and not sku_error %}
-                sku not found. Add new product of sku: <a href='{% url "store_product:add_product_sku" sku_str %}'>{{sku_str}}</a> ?
-            {% elif name_str %}
-                no result for {{name_str}}
-            {% endif %}
+            <table border="1">
+                <tr>
+                    <td>name</td>
+                    <td>action</td>
+                </tr>
+                
+                {% for p in exist_product_lst %}
+
+                    <tr>
+                        <td>{{p}}</td>
+                        <td> <a href="{% url 'store_product:product_detail' p|get_prod_bus_assoc_id:cur_login_store %}">info</a> </td>
+                    </tr>
+
+                {% endfor %}
+            </table>
+        </p>
+
+
+    {% else %} 
+
+        {% if sku_str and not sku_error and suggest_product_lst%}
+            sku not found. Suggestion from other stores:
+        {% elif name_str and not name_error%}
+            name not found
+        {% else %}
+
+        {% endif %}
+        
+    {% endif %}
+
+
+    {% if sku_str and suggest_product_lst and not exist_product_lst%}
+        <p>
+            <table border="1">
+                <tr>
+                    <td>name</td>
+                    <td>popularity</td>
+                    <td>action</td>
+                </tr>
+                
+                {% for p in suggest_product_lst %}
+
+                    <tr>
+                        <td>{{p}}</td>
+                        <td>{{ p|get_prod_sku_assoc_popularity:sku_str }}</td>
+                        <td> <a href="{% url 'store_product:add_assoc' p.id sku_str %}">add</a> </td>
+                    </tr>
+
+                {% endfor %}
+            </table>
         </p>
     {% endif %}
     
+    {% if not exist_product_lst and not suggest_product_lst%}
+        <p>
+            {% if sku_str and not sku_error %}
+                sku not found. Add new product with sku: <a href='{% url "store_product:add_product_sku" sku_str %}'>{{sku_str}}</a> ?
+            {% endif %}
+        </p>
+    {% endif %}
+
     <p>
         <a href= "{% url 'store_product:add_product' %}">add new product</a>
     </p>

@@ -37,7 +37,7 @@ require(
         ,'app/local_db_initializer/set_sync_status'
         ,'app/local_db_initializer/oneshot_sync'
         ,'app/local_db_initializer/customize_db'
-        ,'app/local_db_initializer/continuous_sync'
+        // ,'app/local_db_initializer/continuous_sync'
         ,'app/store_product/store_product_creator'
         ,'app/sale_shortcut/parent_lst_getter'
         ,'app/sale_shortcut/sale_shortcut_util'
@@ -66,7 +66,7 @@ require(
         ,set_sync_status
         ,oneshot_sync
         ,customize_db
-        ,continuous_sync
+        // ,continuous_sync
         ,sp_creator
         ,parent_lst_getter
         ,sale_shortcut_util
@@ -235,7 +235,7 @@ require(
                             var sp_creator_b = sp_creator.exe.bind(sp_creator.exe,prefill_sku,approve_product_lst,store_idb,store_pdb,product_idb);
                             async.waterfall([sp_creator_b,scanner_b,ds_2_ui_b],function(error,result){
                                 if(error){
-                                    if(error == sp_creator_b.ERROR_SP_CREATOR_CANCEL){
+                                    if(error == sp_creator.ERROR_SP_CREATOR_CANCEL){
                                         //do nothing here
                                     }else{
                                         alert(error);
@@ -399,7 +399,7 @@ require(
             var store_pdb = pouch_db_util.get_db(STORE_DB_NAME);
 
             set_sync_status(true);
-            continuous_sync(STORE_DB_NAME,COUCH_SERVER_URL);
+            // continuous_sync(STORE_DB_NAME,COUCH_SERVER_URL);
             listen_to_document_change_and_update_ui(store_idb,store_pdb);
 
             //init ui functionality

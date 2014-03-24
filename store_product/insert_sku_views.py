@@ -72,7 +72,7 @@ class Add_prod_sku_assoc_view(CreateView):
     def get_context_data(self,**kwargs):
         context = super(Add_prod_sku_assoc_view,self).get_context_data(**kwargs)
         #CONSTRUCT CONTEXT
-        context['prodskuassoc_lst'] = ProdSkuAssoc.objects.filter(product=self.prod_bus_assoc.product)
+        context['prodskuassoc_lst'] = ProdSkuAssoc.objects.filter(product=self.prod_bus_assoc.product).prefetch_related('store_product_lst')
         context['prod_bus_assoc'] = self.prod_bus_assoc
         context['prod_bus_assoc_id'] = self.prod_bus_assoc_id
         context['cur_login_store'] = self.cur_login_store

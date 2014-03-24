@@ -5,7 +5,7 @@ from util.couch import user_util
 from store.couch import store_util
 from django.http import HttpResponse
 import json
-from sale import sale_processor
+from sale import sale_processor,report_generator
 from sale.models import Receipt
 import datetime
 from django.core.serializers.json import DjangoJSONEncoder
@@ -55,46 +55,16 @@ def get_report_by_day_view(request):
             print(to_day)
             print(Receipt.objects.filter(store_id=cur_login_store.id,time_stamp__range=(from_day, to_day)).prefetch_related('receipt_ln_lst').query)
             receipt_lst = list(Receipt.objects.filter(store_id=cur_login_store.id,time_stamp__range=(from_day, to_day)).prefetch_related('receipt_ln_lst'))
+            print('-xxx- receipt length')
+            print(len(receipt_lst))
+
         except ValueError:
             errmsg = "Incorrect data format, should be MM-DD-YYYY"
 
         if receipt_lst != None:
-            return HttpResponse(json.dumps(sale_data_2_json(receipt_lst),cls=DjangoJSONEncoder),mimetype='application/javascript')
+            return HttpResponse(json.dumps(report_generator.exe(receipt_lst),cls=DjangoJSONEncoder),mimetype='application/javascript')
         else:
             return HttpResponse(json.dumps({'error':errmsg}),mimetype='application/javascript')
-
-
-def update_dic(key,amount,dic):
-    if key in dic:
-        dic[key] += amount
-    else:
-        dic[key] = amount
-
-
-def sale_data_2_json(receipt_lst): # xxx naming is hard to understand. subject to refactor
-    dic = {}
-
-    receipt_ln_lst = []
-    for receipt in receipt_lst:
-        receipt_ln_lst += receipt.receipt_ln_lst.all()
-
-    for item in receipt_ln_lst:
-        amount = item.get_total_out_the_door_price()
-        
-        if item.store_product != None and item.store_product.isSaleReport:
-            #TAX - NON_TAX
-            key = 'tax' if item.store_product.isTaxable else 'non_tax'
-            update_dic(key,amount,dic)
-
-            # xxx TODO: this is part of the report that need to be redo
-            # if item.store_product.department != None: 
-            #     update_dic(item.store_product.department.category.name,amount,dic)
-
-        elif item.store_product == None:
-            update_dic(item.non_product_name,amount,dic)
-
-    return dic
-    
 
 def process_sale_data_view(request):
     if request.POST.has_key('store_db_name'):

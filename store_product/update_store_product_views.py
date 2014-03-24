@@ -65,6 +65,7 @@ class Update_view(UpdateView):
 
 
 def updator_ajax(request):
+
     if all(key in request.POST for key in ('product_id','name','price','crv','is_taxable')):
         cur_login_store = request.session.get('cur_login_store')
 

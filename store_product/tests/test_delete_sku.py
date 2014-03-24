@@ -14,7 +14,6 @@ class Test(WebTest):
         test_helper.teardown_test_couchdb()
 
     def test(self):
-        # xxx test failed
         #foreman  run -e .env,test.env python manage.py test store_product.tests.test_delete_sku:Test.test         
 
         #FIXTURE

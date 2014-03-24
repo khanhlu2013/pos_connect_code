@@ -24,7 +24,7 @@ class Delete_prod_sku_assoc_view(DeleteView):
         if prod_sku_assoc_deletable.is_prod_sku_assoc_deletable(self.prod_sku_assoc,self.cur_login_store):
             pass
         else:
-            raise Exception('Bug: this should not be accessible')
+            raise Exception('Bug: this should not be accessible, becase to get here, we have to go through prod_sku_assoc_deletable in the ui')
                 
         #SUPER
         return super(Delete_prod_sku_assoc_view, self).dispatch(request, *args, **kwargs)

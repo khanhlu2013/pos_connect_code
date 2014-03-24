@@ -1,11 +1,9 @@
-from django.views.generic import ListView
+from django.views.generic import TemplateView
 
 from product.models import Product
 
-class Search_view(ListView):
-    model = Product
+class Search_view(TemplateView):
     template_name = 'store_product/search/search.html'
-    context_object_name = 'product_lst'
     
     def dispatch(self,request,*args,**kwargs):
         #GET ARGS-------------------
@@ -52,14 +50,29 @@ class Search_view(ListView):
         context['sku_str'] = self.sku_str
         context['name_str'] = self.name_str
         context['cur_login_store'] = self.cur_login_store
-        return context
-    
-    def get_queryset(self):
+
+        search_result = None
+
         if self.sku_search:
-            return Product.objects.select_related('bus_lst').filter(sku_lst__sku=self.sku_str)
+            search_result = list(Product.objects.filter(sku_lst__sku=self.sku_str).prefetch_related('store_product_set','prodskuassoc_set'))
         elif self.name_search:
-            return Product.objects.filter(bus_lst__id__exact = self.cur_login_store.id,store_product__name__icontains = self.name_str)
+            search_result = list(Product.objects.filter(bus_lst__id = self.cur_login_store.id,store_product__name__icontains = self.name_str).prefetch_related('store_product_set'))
         else:
-            return Product.objects.none()
+            search_result = []
+
+        exist_product_lst  = []
+        suggest_product_lst = []
+
+        for item in search_result:
+            if item.get_store_product(self.cur_login_store) != None:
+                exist_product_lst.append(item)
+            else:
+                suggest_product_lst.append(item)
+
+        context['exist_product_lst'] = exist_product_lst
+        context['suggest_product_lst'] = suggest_product_lst        
+        return context
+
+
     
 

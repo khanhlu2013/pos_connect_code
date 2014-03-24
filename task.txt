@@ -2,6 +2,7 @@
 ~. i want to be a blues student.
 ~. build a play ground for parakeet. how to engage with your paraket. time. 
 ~. foreman  run -e .env,test.env python manage.py test --failfast
+~. 
 ~. looking at the ball will 100% give you the most input, so that the mind + body will react to the constance input. just look at the ball, you just going to know what to do. 
 ~. meditate: thinking is a drug that the mind created as a way of confort seeking. We just want comfort. Turn on the mind = pain. no pain no gain. The mind will trick you to turn it off by fooling you that you are still on. but it is just an auto run. Un-related thought of distraction. Any distraction. 
 
@@ -36,6 +37,8 @@ UPGRADE FEATURE
 
 REALIZATION
 -----------
+~. encourage user to scan all data first, that way, when the internet is down, the data is already located offline for them. 
+~. no approve_product on couch = fast loading, simplify project, less code to maintain. only 1 place to lookup for approve_product and that is master.
 ~. cloudant only differ in the way they handle _security. however, we don't test if a user can successfully sync from couchdb server. for now, we assume this step. so we don't need to test security feature, we will hand test these.
 ~. good result: after push sale data up, the receipt and locally create sp is removed correctly. 
 ~. pouch store db contain different document type: store_product, receipt,tax. index search make sure we can narrow down the doc type
@@ -88,7 +91,7 @@ REALIZATION
 
 -------------------
 QUESTION - LEARNING
-
+x. cloudant replicator database
 x. django-compressor
 x. if we call async with only 1 method, can we by pass async?
 x. pouch.changes.since
@@ -147,9 +150,8 @@ x. displaying scan modifier:
     . instruction.execute_on(pending_scan)
 x. record -> receipt
 x. DEFAULT_TEMPLATE_FORM: what to do about this?
-x. "xxx test failed" these tests with this text are failed.
 x. oganize store_product app: view,test,cm
-x. {% load staticfiles %} why do i need this on my base.html, since i don't believe i use static template tag anywhere. True?
+x. {% load staticfiles %} why do i need this on my base.html, since i don't believe in my project, i use static template tag, which build dynamic url based on STATICFILES_STORAGE. True?
 
 CURRENT TASKS
 -------------
@@ -186,7 +188,7 @@ CURRENT TASKS
 .Approve_product_document -> document.py
 .store.store_inserter folder should be deleted
 . sku.is_approved, unit.is_approved
-.receipt._doc_id_creator
+.receipt._doc_id_creator: what exactly is this field do. we need a bit better documentation beside it is an optimization for moving sale data from couch to master 
 .pending_scan_inserter should not take a pending scan as param. break this out to multiple param
 .store.save() by_pass_cm ?
 .store_product_getter: generic_search take an index name. make sure all these index name have atleast one colummn: d_type = 'store_product'
@@ -201,7 +203,19 @@ CURRENT TASKS
 . _doc_id_rev of receipt and store product should be change to _rev
 . account number, bug number to handle bug live bug fix
 . use google to host your javascript: require js now does not use my STATIC_URL for jquery. question:  how do we combine loading multiple file?
+. report generator test
+. there is a total of 6 times when we first load the page, ds_2_ui have to run. when ever i change qty, ds_2_ui have to run twice
 
+------------------------------------------------------------------------------------------------------------------
+xxx reimplement test 
+
+couch_acl_validator_test: client have write permission that follow these 4 rules. is big couch follow the same syntax as couchdb?
+    . client can insert receipt. 
+    . client can not insert non-receipt
+    . client can not update
+    . client can not delete
+
+    
 ------------------------------------------------------------------------------------------------------------------
 APPROVED PRODUCT FREQUENCY
 
@@ -209,12 +223,9 @@ APPROVED PRODUCT FREQUENCY
     . build an ap manager
 ------------------------------------------------------------------------------------------------------------------
 DISCOUNT THAT ATTACH TO PRODUCT
+
 ------------------------------------------------------------------------------------------------------------------
 PRODUCT SEARCH ON SALE PAGE
-------------------------------------------------------------------------------------------------------------------
-SKU MANAGEMENT:
-
-.potential problem and misuse of sku. how can i have a good filter and collect as much as gabage. Do i let people add sku to product, if yes, how do i protect myself? how is this complicate my data and how do i protect myself
 
 ------------------------------------------------------------------------------------------------------------------
 SHORTCUT:
@@ -241,42 +252,54 @@ PRODUCT EDITION AND CREATION. ONLINE / OFFLINE
 
 .question: on the sale page, should we sync right away product info on creation and edition? it is a yes for edition but a valid question for creation. pro: product info is safely saved and sync accross browser/register. con: it can cost $ for the server since we can't do bulk create. and slow down system. if i am the owner for central, i definitly want auto sync: create a product on 1 register will make it available on other register= freaking cool. if i am the owner like long, i only have 1 register. it make sense if i use pending creation for speed. SPEED or RELIABLE. i want reliable. DONE. find out how long does it take to figure out that ajax request failed due to connect to server failed(either internet or server problem) and recover with offline creation. 
 
-.another question: lets say the internet is off, how can we switch the default online sync to bulk pending create
+. another question: lets say the internet is off, how can we switch the default online sync to bulk pending create
 
 . we need a good reply messages: can't connect to server, try again later. can't connect to server, this product will be created offline.
 
 . find out behavior when internet is off and ajax request is made. what is the time out?
-------------------------------------------------------------------------------------------------------------------
-Product type and sub_type(cat&dep)
-
-    the easy of setting up category and department: the way we have right now of cat contain dep is good. no initial approve or dynamic approve but we can suggestion based on pure text statistic. 
-
-
 
 ------------------------------------------------------------------------------------------------------------------
 
-. it just a 2 piece of text, user can type in or drop down. i can even create them locally.
-    . deploy
-        . run migration on heroku staging and production for product app, with a fake since i am convert it locally (it only work on locally machine)
-
-    . implement
-        . bring p_type and p_tag offline
-        . sale.views -> include type and tag (type is parent of tag) into context param
-        . sale.view.sale_data_2_json: this is the report that need to be redo
-        
-        . implement a drop down for p_type and p_tag
-            django have ways: so how do i load google cnd?
-                STATIC_URL which i do use
-                {% load staticfiles %} which build the full url use setting STATICFILES_STORAGE (either use django or botos3)
+Bring more info offline: 
+    . is_taxable        -> any potential problem?
+    . is_sale_report    -> any potential problem?
+    . p_type and p_tag
 
 
 
+------------------------------------------------------------------------------------------------------------------
+. when we create a store with admin, the cm code did not work as expected: it did not create couch user, only store is there. 
+
+
+SKU MANAGEMENT:
+
+.potential problem and misuse of sku. how can i have a good filter and collect as much as gabage. Do i let people add sku to product, if yes, how do i protect myself? how is this complicate my data and how do i protect myself
 
 
 
 
 
 
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+
+
+
+
+
+
+
+
+. no approve_product on couch = rare case, when interet is down, we can lookup ap. we will create new product. how to deal with duplicate sku?
+. look up for ap in master when sku is not exist on couch. this will become an online search.
+
+
+
+. clean up ap on couch.
+
+    . user create link to product, product will be insert into ap database in couch
+    . store will be replicating 2 db: there store and this ap database. (when new store is created, we will grant access to this ap database)
+    . when we search for sku that is not found, stop there. no more ap offline to look at
 
 
 

@@ -7,7 +7,12 @@ define(
 		Pouch_db
 	)
 {
+	function get_store_db(store_id){
+		return get_db('store_' + store_id)
+	}
+
 	function get_db(db_name){
+		//222 it is more convenient to pass in a int for the store number. we no longer have ap_db 
 		return new Pouch_db(db_name);
 	}
 
@@ -26,6 +31,7 @@ define(
 	return {
 		get_db:get_db,
 		delete_db:delete_db,
-		delete_doc:delete_doc
+		delete_doc:delete_doc,
+		get_store_db:get_store_db
 	}
 });

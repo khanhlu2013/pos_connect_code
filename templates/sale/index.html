@@ -13,7 +13,6 @@
     <div id="scan">
       <input id="scan_text" placeholder="sku" autofocus>
 
-      <a href="#create_product_dialog" id="create_product_button"> <button>create product</button> </a>
       <button id="push_receipt_btn" type="push receipt">receipt pusher</button>
       <button id="void_btn" type="button">void</button>
       <button id="discount_button" type="button">discount</button>
@@ -21,8 +20,9 @@
 
       <table id = "sale_table" border="1"></table>
 
-      <div id="store_product_prompt_dialog" title="Enter product info">
-        <div id='approve_product_lst'></div>
+
+      <div id="store_product_prompt_dialog" title="Enter product info xxx ">
+        <div id='suggest_product_lst'></div>
         
         <label for="product_name_txt">Product:</label>
         <input type="text" id = "product_name_txt">
@@ -45,11 +45,6 @@
         <br>
       </div>
 
-
-
-    </div>
-
-
     <div id="shortcut">  <table id = "shortcut_tbl" border="1"></table> </div>
     <div id="footer"> my footer </div>
   </div>
@@ -64,25 +59,6 @@
   </script>
 
   <script data-main = "{{ STATIC_URL }}js/app/sale/sale.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script>
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 {% endblock content %}
 

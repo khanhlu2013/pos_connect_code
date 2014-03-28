@@ -26,8 +26,8 @@ define
     {
         describe("receipt pusher",function(){
             var test_db_name="test_store";var tax_rate = 9.125;
-            var store_idb=null;var product_idb = null;
-            var store_pdb=null;var product_pdb = null;
+            var store_idb=null;
+            var store_pdb=null;
             var time_out = 500;
             
             beforeEach(function () {
@@ -36,23 +36,20 @@ define
                     var before_each_b=before_each.bind(before_each,test_db_name,tax_rate);
                     async.waterfall([before_each_b],function(error,result){
                         store_idb=result[0];
-                        product_idb = result[1];
                         store_pdb=result[2];
-                        product_pdb = result[3];
                     });
                 });
-                waitsFor(function(){return(store_idb!==null&&product_idb!==null&&store_pdb!==null&&product_pdb!=null);},"local database to setup",time_out);
+                waitsFor(function(){return(store_idb!==null&&store_pdb!==null);},"local database to setup",time_out);
             });
 
             afterEach(function () {
                 //DELETE DB
                 var success = false;
                 runs(function(){
-                    var after_each_b = after_each.bind(after_each,store_idb,product_idb,test_db_name);
+                    var after_each_b = after_each.bind(after_each,store_idb,test_db_name);
                     async.waterfall([after_each_b],function(error,result){
                         success=result;
                         store_pdb = null;
-                        product_pdb = null;
                     })
                 });
                 waitsFor(function(){return success === true},"test db to be destroyed",time_out);
@@ -65,7 +62,7 @@ define
                 var price_1 = 9.99;
                 var crv_1 = 1.3;
                 var is_taxable_1 = true;
-                var sku_str_1 = '111';     
+                var sku_str_1 = '987';     
 
                 runs(function () {
                     var insert_sp_1_b = new_sp_inserter.bind(new_sp_inserter,name_1,price_1.toString(),crv_1.toString(),is_taxable_1,sku_str_1,store_pdb);
@@ -84,7 +81,7 @@ define
                     var scan_str_1 = scan_qty_1 + ' ' + sku_str_1;
                     var collected_amount = 100;
                     //execute and check result
-                    var scanner_1_b = scanner.exe.bind(scanner.exe,scan_str_1,store_idb,product_idb);
+                    var scanner_1_b = scanner.exe.bind(scanner.exe,scan_str_1,store_idb);
                     var sale_finalizer_b = sale_finalizer.bind(sale_finalizer,store_pdb,store_idb,collected_amount);    
                     var receipt_lst_getter_b = receipt_lst_getter.bind(receipt_lst_getter,store_idb);
                     async.waterfall(
@@ -117,8 +114,8 @@ define
                 var create_offline_sp_lst = null;
                 runs(function(){
                     var receipt_lst_getter_b = receipt_lst_getter.bind(receipt_lst_getter,store_idb);
-                    var create_offline_sp_lst_nb = sp_getter.by_create_offline;
-                    var create_offline_sp_lst_b = create_offline_sp_lst_nb.bind(create_offline_sp_lst_nb,store_idb);
+                    var create_offline_sp_lst_nb = sp_getter.by_product_id;
+                    var create_offline_sp_lst_b = create_offline_sp_lst_nb.bind(create_offline_sp_lst_nb,null/*create offline pid = null*/store_idb);
                     async.series([receipt_lst_getter_b,create_offline_sp_lst_b],function(error,results){
                         if(error){
                             alert(error);

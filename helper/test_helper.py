@@ -3,7 +3,6 @@ from util.couch import user_util
 from store.couch import store_util
 from couchdb import ResourceNotFound
 from django.contrib.auth.models import User
-from helper import approve_product_db_setup
 import os
 
 def is_local_env():
@@ -34,11 +33,6 @@ def create_user_then_store():
     return (membership.user,membership.user.business_lst.all()[0])
 
 def _delete_liquor_db_and_user(store_id):
-    # xxx remove this code
-    # client_user = user_util.get_client_user(store_id)
-    # if client_user:
-    #     user_util.delete_client_user(store_id)
-
     store_db = store_util.get_store_db(store_id)
     if store_db:    
         store_util.delete_store_db(store_id)
@@ -47,11 +41,8 @@ def setup_test_couchdb():
     _delete_liquor_db_and_user(1)
     _delete_liquor_db_and_user(2)
     _delete_liquor_db_and_user(3)
-    approve_product_db_setup.exe_create()
-
 
 def teardown_test_couchdb():
-    approve_product_db_setup.exe_delete()
     _delete_liquor_db_and_user(1)
     _delete_liquor_db_and_user(2)
     _delete_liquor_db_and_user(3)

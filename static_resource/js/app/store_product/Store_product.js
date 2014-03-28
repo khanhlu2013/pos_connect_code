@@ -18,8 +18,6 @@ define(
         ,crv
         ,is_taxable
         ,sku_lst
-        ,create_offline
-        ,create_offline_by_sku
     )   
     {
         if(_id != null && _rev != null){
@@ -36,8 +34,6 @@ define(
         this.is_taxable = is_taxable;
         this.sku_lst = sku_lst;
         this.d_type = constance.STORE_PRODUCT_TYPE;
-        this.create_offline = create_offline;
-        this.create_offline_by_sku = create_offline_by_sku;
     };
 
     return Store_product;

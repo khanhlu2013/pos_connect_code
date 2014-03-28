@@ -8,7 +8,6 @@ from helper import test_helper
 from store.couch import store_util
 from couchdb import ResourceNotFound
 from util.couch import master_account_util,reader_lst_getter
-from product.couch import approve_product_db_getter
 
 class test(WebTest):
 
@@ -51,11 +50,6 @@ class test(WebTest):
         # user,store_right_lst = user_lst.popitem()
         # self.assertTrue(['_reader','_writer'] in store_right_lst)
 
-        # #TEST STORE CAN ACCESS APPROVE PRODUCT DB
-        # ap_db = approve_product_db_getter.exe()
-        # security_info = ap_db.get('_security')
-        # user_lst = security_info(['cloudant'])
-        # self.asertTrue(user in user_lst)
 
         #TEST TAX_RATE
         self.assertEqual(store.tax_rate,tax_rate)

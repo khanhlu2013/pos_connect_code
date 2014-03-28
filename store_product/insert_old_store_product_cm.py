@@ -1,5 +1,5 @@
 from store_product.models import Store_product
-from product.models import ProdSkuAssoc
+from product.models import ProdSkuAssoc,Product
 from store_product.couch.models import Product_document
 from store_product.couch import store_product_couch_getter
 from util.couch import couch_constance
@@ -7,10 +7,10 @@ from store.couch import store_util
 from django.conf import settings
 from util.couch import couch_util
 from django.db import IntegrityError
-from product.couch import approve_product_document_updator
+
 
 def exe(
-     product
+     product_id
     ,business_id
     ,name
     ,price
@@ -21,10 +21,10 @@ def exe(
     ,assoc_sku_str 
     ,p_type = None
     ,p_tag = None
-    ,frequency=2):
+):
 
     prod_bus_assoc = exe_master( \
-         product
+         product_id
         ,business_id
         ,name
         ,price
@@ -36,17 +36,15 @@ def exe(
         ,p_type
         ,p_tag
     )
-    
-    if product.is_approve(frequency):
-        approve_product_document_updator.exe(product.id,business_id,frequency,assoc_sku_str)
 
+    product = Product.objects.prefetch_related('prodskuassoc_set__store_product_lst').get(pk=product_id)
     exe_couch( \
          name
         ,price
         ,crv
         ,isTaxable
         ,business_id
-        ,product.id
+        ,product_id
         ,assoc_sku_str = assoc_sku_str 
         ,approved_sku_lst = [sku.sku for sku in product.sku_lst.all() if sku.is_approved] #we only add approved sku
     )
@@ -54,7 +52,7 @@ def exe(
     return prod_bus_assoc
 
 def exe_master(
-     product
+     product_id
     ,business_id
     ,name
     ,price
@@ -68,7 +66,7 @@ def exe_master(
 ):
 
     prod_bus_assoc = Store_product.objects.create( \
-         product = product
+         product_id = product_id
         ,business_id = business_id
         ,name = name
         ,price = price
@@ -80,7 +78,7 @@ def exe_master(
         ,p_tag = p_tag
     )
 
-    prod_sku_assoc = ProdSkuAssoc.objects.get(product__id=product.id,sku__sku=assoc_sku_str)
+    prod_sku_assoc = ProdSkuAssoc.objects.get(product_id=product_id,sku__sku=assoc_sku_str)
     prod_sku_assoc.store_product_lst.add(prod_bus_assoc);
 
     return prod_bus_assoc

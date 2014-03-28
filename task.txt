@@ -176,8 +176,6 @@ CURRENT TASKS
     pid
     name
     non_product_name
-    create_offline
-    create_offline_by_sku
 
     qty
     price
@@ -185,7 +183,6 @@ CURRENT TASKS
     crv
     is_taxable
 .util.couch -> couch
-.Approve_product_document -> document.py
 .store.store_inserter folder should be deleted
 . sku.is_approved, unit.is_approved
 .receipt._doc_id_creator: what exactly is this field do. we need a bit better documentation beside it is an optimization for moving sale data from couch to master 
@@ -229,7 +226,7 @@ PRODUCT SEARCH ON SALE PAGE
 
 ------------------------------------------------------------------------------------------------------------------
 SHORTCUT:
-    .who we need setup or db sync?
+    .why do we need setup or db sync?
     css need for cur selected parent
     the easy of setting up and use shortcut.
     .constrain: unique( business + position )
@@ -268,55 +265,44 @@ Bring more info offline:
 
 
 ------------------------------------------------------------------------------------------------------------------
-. when we create a store with admin, the cm code did not work as expected: it did not create couch user, only store is there. 
-
 
 SKU MANAGEMENT:
 
-.potential problem and misuse of sku. how can i have a good filter and collect as much as gabage. Do i let people add sku to product, if yes, how do i protect myself? how is this complicate my data and how do i protect myself
+.potential problem and misuse of sku. how can i have a good filter and collect as much as gabage. Do i let people add sku to product, if yes, how do i protect myself? how is this complicate my data and how do i protect myself. give a test how people can not fuck with adding sku to a popular product and mess up things.
 
 
+. when interet is down, we can lookup ap. we will create new product. or people will create new anyway: we should put a defense here for user. how to deal with duplicate sku?
 
-
-
-
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-
-
-
-
-
-
-
-
-
-. no approve_product on couch = rare case, when interet is down, we can lookup ap. we will create new product. how to deal with duplicate sku?
 . look up for ap in master when sku is not exist on couch. this will become an online search.
-
-
 
 . clean up ap on couch.
 
     . user create link to product, product will be insert into ap database in couch
     . store will be replicating 2 db: there store and this ap database. (when new store is created, we will grant access to this ap database)
     . when we search for sku that is not found, stop there. no more ap offline to look at
+    .new_store_product_inserter -> new_store_product_inserter_when_no_connection
+
+        var new_sp_inserter_b = new_sp_inserter.bind(new_sp_inserter,result['name'],result['price'],result['crv'],result['is_taxable'],result['sku_str'],store_pdb);
+        async.waterfall([new_sp_inserter_b],function(error,result){
+            callback(error);
+        });    
+
+    . it is the exact code that we are writing when scan a sku offline or scan a sku online. lets comebine these code. actually we should not combine these code. we don't want to sync everywhere. we only sync when we are dealing with the sale page. ONLY SALE PAGE SYNC. owner could borrow a friend computer to change online price does not mean we have to download everything offline. however, check if that computer have local data. if it already does, then go ahead and sync. but then we if throw in a check if local data exist, then we can use same code.
 
 
+. check view and template for search feature. we don't need them anymore. (we don't do template tag and replace view with ajax)
+
+store_product_creator
+    . it is called when sku is not found offline. we can check this condition and throw exception if this is not the case: defensive check
+    . it then go look up for a sku on the server. this is just a sku search and create storeproduct on the server, sync, then continue.
 
 
+----------------------
 
+search page with ajax request.
 
-
-
-
-
-
-    
-
-        
-
-
-
+    . need to serialize popularity
+    . lets just serialize __unicode__, 
 
 
 

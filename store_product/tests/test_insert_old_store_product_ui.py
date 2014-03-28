@@ -24,13 +24,13 @@ class Test(WebTest):
         sku_str_other = '12345'
         user_other,bus_other = test_helper.create_user_then_store();
         prod_bus_assoc_other = insert_new_store_product_cm.exe( \
-             name = "Jack Daniel"
+             business_id = bus_other.id            
+            ,name = "Jack Daniel"
             ,price = 2.99
             ,crv = None
             ,isTaxable = False
             ,isTaxReport = False
             ,isSaleReport = False
-            ,business_id = bus_other.id
             ,sku_str = sku_str_other)
 
         #ALSO ASSUME THAT CREATED PRODUCT HAS ANOTHER COUPLE APPROVED SKU

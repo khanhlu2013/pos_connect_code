@@ -4,10 +4,8 @@ define(function(require){
     var inserter = require('app/sale/pending_scan/pending_scan_inserter');
     var async = require('lib/async');
     var Pending_scan = require('app/sale/pending_scan/Pending_scan');
-    var ap_getter = require('app/approve_product/approve_product_getter')
 
-    var ERROR_STORE_PRODUCT_NOT_FOUND_APROVE_PRODUCT_IS_FOUND = 'ERROR_STORE_PRODUCT_NOT_FOUND_APROVE_PRODUCT_IS_FOUND';
-    var ERROR_STORE_PRODUCT_NOT_FOUND_APROVE_PRODUCT_NOT_FOUND = 'ERROR_STORE_PRODUCT_NOT_FOUND_APROVE_PRODUCT_NOT_FOUND';
+    var ERROR_STORE_PRODUCT_NOT_FOUND = 'ERROR_STORE_PRODUCT_NOT_FOUND';
     var ERROR_CANCEL_SHARE_SKU_BREAKER = 'ERROR_CANCEL_SHARE_SKU_BREAKER';
 
     function get_sku_from_scan_str(scan_str){
@@ -116,7 +114,7 @@ define(function(require){
         callback(null/*error*/,inserting_ps);
     }
 
-    function exe(scan_str,store_idb,product_idb,callback){
+    function exe(scan_str,store_idb,callback){
 
         var qty = get_qty_from_scan_str(scan_str);
         var sku = get_sku_from_scan_str(scan_str);
@@ -139,27 +137,8 @@ define(function(require){
             }
 
             if(result.length == 0){
-                var ap_getter_b = ap_getter.by_sku.bind(ap_getter.by_sku,sku,product_idb)
-                async.waterfall([ap_getter_b],function(error,result){
-                    if(error){
-                        callback(error);
-                        return;
-                    }
-
-                    if(result == null || result == undefined){
-                        callback("Error: cant search for approve product");
-                        return;
-                    }     
-
-                    if(result.length == 0){
-                        callback(ERROR_STORE_PRODUCT_NOT_FOUND_APROVE_PRODUCT_NOT_FOUND);
-                        return;
-                    }else{
-                        callback(ERROR_STORE_PRODUCT_NOT_FOUND_APROVE_PRODUCT_IS_FOUND,result);
-                        return;                        
-                    }
-                });
-                return;
+                callback(ERROR_STORE_PRODUCT_NOT_FOUND);
+                return;                        
             }
 
             var one_product_selector_b = one_product_selector.bind(one_product_selector,result);
@@ -179,12 +158,12 @@ define(function(require){
             );
         });
     }
+
     return{
          exe:exe
         ,get_sku_from_scan_str:get_sku_from_scan_str 
         ,get_qty_from_scan_str:get_qty_from_scan_str
-        ,ERROR_STORE_PRODUCT_NOT_FOUND_APROVE_PRODUCT_NOT_FOUND:ERROR_STORE_PRODUCT_NOT_FOUND_APROVE_PRODUCT_NOT_FOUND
-        ,ERROR_STORE_PRODUCT_NOT_FOUND_APROVE_PRODUCT_IS_FOUND:ERROR_STORE_PRODUCT_NOT_FOUND_APROVE_PRODUCT_IS_FOUND
+        ,ERROR_STORE_PRODUCT_NOT_FOUND:ERROR_STORE_PRODUCT_NOT_FOUND
         ,ERROR_CANCEL_SHARE_SKU_BREAKER:ERROR_CANCEL_SHARE_SKU_BREAKER
     }
 

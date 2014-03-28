@@ -25,13 +25,13 @@ class Test(WebTest):
 
         #.insert new store_product_x
         store_product_x = insert_new_store_product_cm.exe(
-             name = 'product name'
+             business_id = store.id            
+            ,name = 'product name'
             ,price = 0.1
             ,crv = 0.2
             ,isTaxable = True
             ,isTaxReport = True
             ,isSaleReport = True
-            ,business_id = store.id
             ,sku_str = '111')
 
 
@@ -89,13 +89,13 @@ class Test(WebTest):
 
         #.insert new store_product_x
         store_product_x = insert_new_store_product_cm.exe(
-             name = 'product name'
+             business_id = store.id            
+            ,name = 'product name'
             ,price = 0.1
             ,crv = 0.2
             ,isTaxable = True
             ,isTaxReport = True
             ,isSaleReport = True
-            ,business_id = store.id
             ,sku_str = '111')
 
 
@@ -143,13 +143,13 @@ class Test(WebTest):
 
         #.insert new store_product_x
         store_product_x = insert_new_store_product_cm.exe(
-             name = 'product name'
+             business_id = store.id
+            ,name = 'product name'
             ,price = 0.1
             ,crv = 0.2
             ,isTaxable = True
             ,isTaxReport = True
             ,isSaleReport = True
-            ,business_id = store.id
             ,sku_str = '111')
 
 

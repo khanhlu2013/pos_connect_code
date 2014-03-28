@@ -23,13 +23,13 @@ class Test(WebTest):
         #FIXTURE
         user,bus = test_helper.create_user_then_store();
         prod_bus_assoc = insert_new_store_product_cm.exe(\
-             name = 'Jack Daniel'
+             business_id = bus.id            
+            ,name = 'Jack Daniel'
             ,price = 2.99
             ,crv = None
             ,isTaxable = False
             ,isTaxReport = False
             ,isSaleReport = False
-            ,business_id = bus.id
             ,sku_str = None )
 
         #MAKING REQUEST

@@ -2,12 +2,9 @@ from product.models import Product,Unit,ProdSkuAssoc,Sku
 from django.contrib.auth.models import User
 from store.models import Store
 from model_mommy import mommy
-from helper import test_helper,approve_product_db_setup
+from helper import test_helper
 from store_product import insert_new_store_product_cm
-from product import approve_product_lst_getter
-from product.couch.Approve_product_document import Approve_product_document
 from util.couch import couch_constance,couch_util,master_account_util,old_security_4_test_purpose
-from product.couch import approve_product_db_getter
 import json
 from store.couch import store_util
 import requests
@@ -17,16 +14,12 @@ def p():
     print("refresh fixture: production")
 
     delete_data()
-    approve_product_db_setup.exe_delete()
-    approve_product_db_setup.exe_create()
 
     print("load approve product data")
     json_file = open('./liquor.json')   
     data = json.load(json_file)
     import_json_data(data)
     json_file.close()
-
-    initial_script_to_insert_approve_product_to_couch()
 
     print("completed")
 
@@ -36,27 +29,24 @@ def d():
     print("refresh fixture: staging ")
 
     delete_data()
-    approve_product_db_setup.exe_delete()
-    approve_product_db_setup.exe_create()
 
     print("create 1 approve product with sku = 123")
     test_helper.createProductWithSku(sku_str='123',is_approve_override=True)
-    initial_script_to_insert_approve_product_to_couch()
 
-    print("create 2 sample store x and y")
+    print("create 3 sample store x,y,z")
     user1,store1=test_helper.create_user_then_store_detail(user_name = "x",user_password="x",store_name="x")
     user2,store2=test_helper.create_user_then_store_detail(user_name = "y",user_password="y",store_name="y")
-    user2,store2=test_helper.create_user_then_store_detail(user_name = "z",user_password="z",store_name="z")
+    user3,store3=test_helper.create_user_then_store_detail(user_name = "z",user_password="z",store_name="z")
 
     insert_user_to_old_couch_db_security(store1.id)
     insert_user_to_old_couch_db_security(store2.id)
+    insert_user_to_old_couch_db_security(store3.id)
 
     # insert_100_product_to_store(store1)
     print("completed")
 
 def insert_user_to_old_couch_db_security(store_id):
     old_security_4_test_purpose._couch_db_insert_user(store_id)
-    old_security_4_test_purpose._couch_db_insert_user_to_approve_db(store_id)
     old_security_4_test_purpose._couch_db_insert_user_2_store(store_id)
 
 
@@ -130,21 +120,6 @@ def import_json_data(data):
     Unit.objects.filter(product=None).delete()
 
 
-def initial_script_to_insert_approve_product_to_couch():
-    frequency = 2
-    approve_product_lst = approve_product_lst_getter.exe(frequency)
-
-    for product in approve_product_lst:
-        doc = Approve_product_document(
-             d_type = couch_constance.APPROVE_PRODUCT_DOC_TYPE
-            ,product_id = product.id
-            ,name = str(product)
-            ,sku_lst = [item.sku for item in list(product.sku_lst.all())]
-        )    
-        db = approve_product_db_getter.exe()
-        doc.store(db)
-
-
 def delete_data():
     #delete master
     print("delete product model..")
@@ -172,12 +147,12 @@ def insert_100_product_to_store(store):
     print('insert 100 product to a store')
     for i in range(100):
         insert_new_store_product_cm.exe(
-             name = i
+             business_id = store.id
+            ,name = i
             ,price = i
             ,crv = i if (i%2 == 0) else 0
             ,isTaxable = (i % 2 == 0)
             ,isTaxReport = True
             ,isSaleReport = True
-            ,business_id = store.id
             ,sku_str = i)
 

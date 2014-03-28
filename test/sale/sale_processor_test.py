@@ -66,13 +66,13 @@ class sale_processor_test(WebTest):
         isSaleReport = True
         sku_str = '111'
         store_product_x = insert_new_store_product_cm.exe(
-             name = name_x
+             business_id = my_store.id            
+            ,name = name_x
             ,price = price_x
             ,crv = crv_x
             ,isTaxable = isTaxable_x
             ,isTaxReport = isTaxReport
             ,isSaleReport = isSaleReport
-            ,business_id = my_store.id
             ,sku_str = sku_str)
 
 
@@ -97,8 +97,7 @@ class sale_processor_test(WebTest):
         ln_2_sp_crv =  2.2
         ln_2_sp_is_taxable = True
         ln_2_sp_sku_lst = [approve_product_sku_str]
-        ln_2_sp_create_offline_by_sku = approve_product_sku_str
-        ln_2_sp = create_pouch_offline_store_product(ln_2_sp_id,approve_product_y.id,ln_2_sp_name,ln_2_sp_price,ln_2_sp_crv,ln_2_sp_is_taxable,ln_2_sp_sku_lst,ln_2_sp_create_offline_by_sku)
+        ln_2_sp = create_pouch_offline_store_product(ln_2_sp_id,approve_product_y.id,ln_2_sp_name,ln_2_sp_price,ln_2_sp_crv,ln_2_sp_is_taxable,ln_2_sp_sku_lst)
         #.ln_2
         ln_2_qty = 2
         ln_2_price = 2.3
@@ -118,8 +117,7 @@ class sale_processor_test(WebTest):
         ln_3_sp_crv =  3.2
         ln_3_sp_is_taxable = False
         ln_3_sp_sku_lst = [ln_3_sku_str]
-        ln_3_sp_create_offline_by_sku = ln_3_sku_str
-        ln_3_sp = create_pouch_offline_store_product(ln_3_sp_id,ln_3_pid,ln_3_sp_name,ln_3_sp_price,ln_3_sp_crv,ln_3_sp_is_taxable,ln_3_sp_sku_lst,ln_3_sp_create_offline_by_sku)
+        ln_3_sp = create_pouch_offline_store_product(ln_3_sp_id,ln_3_pid,ln_3_sp_name,ln_3_sp_price,ln_3_sp_crv,ln_3_sp_is_taxable,ln_3_sp_sku_lst)
         #.ln_2
         ln_3_qty = 3
         ln_3_price = 3.3
@@ -243,6 +241,4 @@ def create_pouch_offline_store_product(_id,product_id,name,price,crv,is_taxable,
         ,'crv' : crv
         ,'is_taxable' : is_taxable
         ,'sku_lst' : sku_lst
-        ,'create_offline' : True
-        ,'create_offline_by_sku' : create_offline_by_sku
     }

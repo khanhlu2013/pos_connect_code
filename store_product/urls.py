@@ -1,7 +1,9 @@
 from django.conf.urls import patterns,url
 from django.contrib.auth.decorators import login_required
 from store_product import insert_new_store_product_views,product_detail_views,insert_sku_views,delete_sku_views,search_product_views,update_store_product_views
-from store_product import insert_old_store_product_views
+from store_product import insert_old_store_product_views,views
+
+# namespace='store_product'
 
 urlpatterns = patterns('',
     #SEARCH PRODUCT
@@ -30,4 +32,6 @@ urlpatterns = patterns('',
 
     #AJAX
     url(r'^updator_ajax$',login_required(update_store_product_views.updator_ajax)),
+    url(r'^search_product_by_sku_ajax$',login_required(search_product_views.search_product_by_sku_ajax_view)),
+    url(r'^sp_creator$',login_required(views.sp_creator_ajax_view)),    
 )

@@ -27,8 +27,8 @@ define
     {
         describe("displaying scan modifier - non product",function(){
             var test_db_name="test_store";var tax_rate = 9.125;
-            var store_idb=null;var product_idb = null;
-            var store_pdb=null;var product_pdb = null;
+            var store_idb=null;
+            var store_pdb=null;
             var time_out = 500;
 
             beforeEach(function () {
@@ -38,12 +38,10 @@ define
                     var before_each_b=before_each.bind(before_each,test_db_name,tax_rate);
                     async.waterfall([before_each_b],function(error,result){
                         store_idb=result[0];
-                        product_idb = result[1];
-                        store_pdb=result[2];
-                        product_pdb = result[3];
+                        store_pdb=result[1];
                     });
                 });
-                waitsFor(function(){return(store_idb!==null&&product_idb!==null&&store_pdb!==null&&product_pdb!=null);},"local database to setup",time_out);
+                waitsFor(function(){return(store_idb!==null&&store_pdb!==null);},"local database to setup",time_out);
 
             });
 
@@ -51,11 +49,10 @@ define
                 //DELETE DB
                 var success = false;
                 runs(function(){
-                    var after_each_b = after_each.bind(after_each,store_idb,product_idb,test_db_name);
+                    var after_each_b = after_each.bind(after_each,store_idb,test_db_name);
                     async.waterfall([after_each_b],function(error,result){
                         success=result;
                         store_pdb = null;
-                        product_pdb = null;
                     })
                 });
                 waitsFor(function(){return success === true},"test db to be destroyed",time_out);
@@ -83,7 +80,7 @@ define
                     var instruction = new Instruction(true/*delete*/,null/*new_qty*/,null/*new_price*/,null/*new_discount*/);
                     
                     var alone_discounter_b = alone_discounter.bind(alone_discounter,store_idb,discount_input_str);
-                    var scanner_b = scanner.exe.bind(scanner.exe,scan_str,store_idb,product_idb);
+                    var scanner_b = scanner.exe.bind(scanner.exe,scan_str,store_idb);
                     var ds_modifier_b = ds_modifier.bind(ds_modifier,store_idb,modifying_ds_index,instruction);
                     var ps_lst_getter_b = ps_lst_getter.bind(ps_lst_getter,store_idb);
 

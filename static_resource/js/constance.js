@@ -10,16 +10,13 @@ define(function(){
 		,PRODUCT_ID_INDEX_NAME : 'product_id_index'
 		,SKU_INDEX_NAME : 'sku_index'
 		,DOCUMENT_ID_INDEX_NAME : 'document_id_index'
-		,CREATE_OFFLINE_INDEX_NAME : 'create_offline_index'
 
 		//DOCUMENT TYPE
 		,STORE_PRODUCT_TYPE : 'prod_bus_assoc'
 		,RECEIPT_TYPE : 'receipt'
-		,APPROVE_PRODUCT_TYPE : 'approve_product'
-
+		
 		//MISC
 		,STATIC_URL : '/static/'
 		,TAX_DOCUMENT_ID : 'tax_document'
-		,APPROVE_PRODUCT_DB_NAME : 'approve_product_db'
  	}
 });

@@ -1,6 +1,6 @@
 from store_product.models import Store_product
 import json
-from django.core.serializers.json import DjangoJSONEncoder
+
 
 def get_lookup_type_tag(store_id):
 	py_data = {}

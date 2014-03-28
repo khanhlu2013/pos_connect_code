@@ -1,6 +1,10 @@
 from django.views.generic import TemplateView
-
+from django.http import HttpResponse
+from rest_framework import serializers
 from product.models import Product
+import json
+from util.couch import couch_util
+
 
 class Search_view(TemplateView):
     template_name = 'store_product/search/search.html'
@@ -49,12 +53,13 @@ class Search_view(TemplateView):
         context['name_error'] = self.name_error
         context['sku_str'] = self.sku_str
         context['name_str'] = self.name_str
-        context['cur_login_store'] = self.cur_login_store
+        context['STORE_ID'] = self.cur_login_store.id
+        context['COUCH_SERVER_URL'] = couch_util.get_url(self.cur_login_store.api_key_name,self.cur_login_store.api_key_pwrd)
 
         search_result = None
 
         if self.sku_search:
-            search_result = list(Product.objects.filter(sku_lst__sku=self.sku_str).prefetch_related('store_product_set','prodskuassoc_set'))
+            search_result = search_product_by_sku(self.sku_str)
         elif self.name_search:
             search_result = list(Product.objects.filter(bus_lst__id = self.cur_login_store.id,store_product__name__icontains = self.name_str).prefetch_related('store_product_set'))
         else:
@@ -73,6 +78,41 @@ class Search_view(TemplateView):
         context['suggest_product_lst'] = suggest_product_lst        
         return context
 
+class Product_serializer(serializers.ModelSerializer):
+    name = serializers.Field(source='__unicode__')
 
-    
+    class Meta:
+        model = Product
+        fields = ('name','id')
+
+def serialize_prod_lst(prod_lst):
+    return Product_serializer(prod_lst,many=True).data
+
+def search_product_by_sku_ajax_view(request):
+    if request.method == 'GET':
+        cur_login_store = request.session.get('cur_login_store')
+        sku_str = request.GET['sku_str']
+        product_lst = search_product_by_sku(sku_str)
+        exist_product_lst = []
+        suggest_product_lst = []
+
+        for item in product_lst:
+            if item.get_store_product(cur_login_store) != None:
+                exist_product_lst.append(item)
+            else:
+                suggest_product_lst.append(item)
+
+        data = {
+             'exist_product_lst':serialize_prod_lst(exist_product_lst)
+            ,'suggest_product_lst':serialize_prod_lst(suggest_product_lst)
+        } 
+        return HttpResponse(json.dumps(data),content_type='application/json')
+
+
+def search_product_by_sku(sku_str):
+    """
+        DESC:   search all products in the network (all stores) that matched specified sku. 
+    """
+
+    return list(Product.objects.filter(sku_lst__sku=sku_str).prefetch_related('store_product_set','prodskuassoc_set'))    
 

@@ -62,33 +62,29 @@ define(
                 return;
             }
 
-            if(!displaying_scan.store_product.create_offline){
-                var sp_updator_b = sp_updator.exe.bind(sp_updator.exe,displaying_scan.store_product.product_id,store_idb)
-                async.waterfall([sp_updator_b],function(error,result){
-                    if(error){
-                        if(error == sp_updator.ERROR_SP_UPDATOR_CANCEL){
-                            //do nothing 
-                            return;
-                        }else{
-                            alert(error);
-                            return;                            
-                        }
-
+            var sp_updator_b = sp_updator.exe.bind(sp_updator.exe,displaying_scan.store_product.product_id,store_idb)
+            async.waterfall([sp_updator_b],function(error,result){
+                if(error){
+                    if(error == sp_updator.ERROR_SP_UPDATOR_CANCEL){
+                        //do nothing 
+                        return;
+                    }else{
+                        alert(error);
+                        return;                            
                     }
 
-                    var ds_lst_getter_b = ds_lst_getter.bind(ds_lst_getter,store_idb);
-                    async.waterfall([ds_lst_getter_b],function(error,result){
-                        if(error){
-                            alert(error);
-                        }else{
-                            var new_ds_lst = result;
-                            ds_2_ui(store_idb,table,new_ds_lst,tax_rate);
-                        }
-                    });
-                });                
-            }else{
-                alert('to be continue xxx')
-            }
+                }
+
+                var ds_lst_getter_b = ds_lst_getter.bind(ds_lst_getter,store_idb);
+                async.waterfall([ds_lst_getter_b],function(error,result){
+                    if(error){
+                        alert(error);
+                    }else{
+                        var new_ds_lst = result;
+                        ds_2_ui(store_idb,table,new_ds_lst,tax_rate);
+                    }
+                });
+            });  
             
         });
 

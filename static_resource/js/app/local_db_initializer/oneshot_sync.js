@@ -36,9 +36,8 @@ define(
             This is the starting point of sync process. we sync couch_db from the server to pouch_db on the browser
         */
         var rep_store_db_b = rep_db.bind(rep_db,store_db_name,couch_server_url);
-        var rep_prod_db_b = rep_db.bind(rep_db,constance.APPROVE_PRODUCT_DB_NAME,couch_server_url)
 
-        async.waterfall([rep_store_db_b,rep_prod_db_b],function(error,result){
+        async.waterfall([rep_store_db_b],function(error,result){
             callback(error)
         })
     };

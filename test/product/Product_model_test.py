@@ -21,7 +21,7 @@ class Product(WebTest):
         user_x,store_x = test_helper.create_user_then_store()
         frequency = 2
         insert_old_store_product_cm.exe(
-             product = product
+             product_id = product.id
             ,business_id = store_x.id
             ,name = "name 1"
             ,price = None
@@ -45,7 +45,7 @@ class Product(WebTest):
         user_y,store_y = test_helper.create_user_then_store()
         frequency = 2
         insert_old_store_product_cm.exe(
-             product = product
+             product_id = product.id
             ,business_id = store_x.id
             ,name = "name 1"
             ,price = None
@@ -54,8 +54,9 @@ class Product(WebTest):
             ,isTaxReport = False
             ,isSaleReport = False
             ,assoc_sku_str = sku_str )
+
         insert_old_store_product_cm.exe(
-             product = product
+             product_id = product.id
             ,business_id = store_y.id
             ,name = "name 1"
             ,price = None
@@ -79,7 +80,7 @@ class Product(WebTest):
         user_x,store_x = test_helper.create_user_then_store()
         frequency = 2
         insert_old_store_product_cm.exe(
-             product = product
+             product_id = product.id
             ,business_id = store_x.id
             ,name = "name 1"
             ,price = None
@@ -104,7 +105,7 @@ class Product(WebTest):
         user_y,store_y = test_helper.create_user_then_store()
         frequency = 2
         insert_old_store_product_cm.exe(
-             product = product
+             product_id = product.id
             ,business_id = store_x.id
             ,name = "name 1"
             ,price = None
@@ -113,8 +114,9 @@ class Product(WebTest):
             ,isTaxReport = False
             ,isSaleReport = False
             ,assoc_sku_str = sku_str )
+        
         insert_old_store_product_cm.exe(
-             product = product
+             product_id = product.id
             ,business_id = store_y.id
             ,name = "name 1"
             ,price = None

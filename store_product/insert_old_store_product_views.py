@@ -35,7 +35,7 @@ class Add_form(forms.ModelForm):
 
         return insert_old_store_product_cm.exe \
         ( 
-             product = self.prod_sku_assoc.product
+             product_id = self.prod_sku_assoc.product.id
             ,business_id = self.cur_login_store.id
             ,name = store_product.name
             ,price = store_product.price

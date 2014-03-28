@@ -1,6 +1,36 @@
 from unipath import Path
 PROJECT_ROOT = Path(__file__).ancestor(2)
 import os
+import sys
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': True,
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
+        },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        }
+    },
+    'handlers': {
+        'console': {
+            'level':'DEBUG',
+            'class':'logging.StreamHandler',
+            'stream': sys.stdout,
+            'formatter':'simple'
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers':['console'],
+            'filters': [],   
+            'propagate': True,
+            'level':'INFO',
+        }, 
+    },
+}
 
 INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
@@ -13,6 +43,7 @@ INSTALLED_APPS = (
     ,'django.contrib.staticfiles'
     ,'django.contrib.admin'
     ,'django.contrib.sites'
+    ,'rest_framework'
     # ,'debug_toolbar'
     ,'storages'
     ,'south'

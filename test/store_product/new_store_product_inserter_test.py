@@ -4,7 +4,6 @@ from store_product.models import Store_product
 from store_product.couch import store_product_couch_getter
 from model_mommy import mommy
 from helper import test_helper
-from product.couch import approve_product_document_getter
 
 class new_store_product_inserter(WebTest):
 
@@ -32,13 +31,13 @@ class new_store_product_inserter(WebTest):
         isSaleReport = True
         sku_str = '1234'
         my_store_product = insert_new_store_product_cm.exe(
-             name = name
+             business_id = my_store.id            
+            ,name = name
             ,price = price
             ,crv = crv
             ,isTaxable = isTaxable
             ,isTaxReport = isTaxReport
             ,isSaleReport = isSaleReport
-            ,business_id = my_store.id
             ,sku_str = sku_str
         )
         
@@ -65,7 +64,4 @@ class new_store_product_inserter(WebTest):
         self.assertEqual(len(sku_lst),1)
         self.assertTrue(sku_str in sku_lst)
 
-        #.verify my_store_product not in couch.product
-        product_couch = approve_product_document_getter.exe(my_store_product.product.id)
-        self.assertTrue(product_couch==None)
         

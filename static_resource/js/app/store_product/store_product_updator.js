@@ -22,7 +22,7 @@ define(
 				return;
 			}
 
-			var sp_prompt_b = sp_prompt.exe.bind(sp_prompt.exe,result.name/*name*/,result.price/*price*/,result.crv/*crv*/,result.is_taxable/*is_taxable*/,null/*prefill_sku*/,false/*is_prompt_sku*/,null/*approve_product_lst*/);
+			var sp_prompt_b = sp_prompt.show_prompt.bind(sp_prompt.show_prompt,result.name/*name*/,result.price/*price*/,result.crv/*crv*/,result.is_taxable/*is_taxable*/,null/*prefill_sku*/,false/*is_prompt_sku*/,null/*approve_product_lst*/);
 			async.waterfall([sp_prompt_b],function(error,result){
 				if(error){
 					if(error == sp_prompt.STORE_PRODUCT_PROMPT_ERROR_CANCEL_BUTTON_PRESS){
@@ -48,7 +48,7 @@ define(
 					}
 					,success: function(data){
 						var error = data.error.length == 0 ? null : data.error
-							callback(data.error)
+							callback(data.error) //111 how did we bring the update data from server down?
 					}
 					,error: function(xhr,errmsg,err){
 						callback('there is error');

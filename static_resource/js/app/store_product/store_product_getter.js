@@ -27,8 +27,6 @@ define(
             ,cursor.value.crv
             ,cursor.value.is_taxable
             ,cursor.value.sku_lst
-            ,cursor.value.create_offline
-            ,cursor.value.create_offline_by_sku
         );
         return store_product;
     }
@@ -58,25 +56,6 @@ define(
                 }else{
                     callback(null/*error*/,filtered_result_lst);
                 }
-            }
-        };
-    }
-
-    function by_create_offline(store_idb,callback){
-        var store_os = get_os.get_main_os(true/*is_read_only*/,store_idb)
-        var index = store_os.index(constance.DOCUMENT_TYPE_INDEX);
-
-        var product_lst = new Array();
-            index.openCursor(IDBKeyRange.only(constance.STORE_PRODUCT_TYPE)).onsuccess = function(event) {
-            var cursor = event.target.result;
-            if (cursor) {
-                if(cursor.value.create_offline){
-                    product_lst.push(_create_store_product_from_cursor(cursor));
-                }
-                cursor.continue();
-            }else{
-                var filtered_result_lst = couch_db_util.filter_old_rev(product_lst);
-                callback(null/*error*/,product_lst);
             }
         };
     }
@@ -159,7 +138,6 @@ define(
         ,search_by_doc_id:search_by_doc_id 
         ,search_by_doc_id_lst:search_by_doc_id_lst
         ,by_product_id:by_product_id
-        ,by_create_offline:by_create_offline
         ,by_product_id_not_null:by_product_id_not_null
     }
 });

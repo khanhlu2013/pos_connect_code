@@ -17,3 +17,4 @@ boto==2.27.0
 django-nose==1.2
 django-webtest==1.7.6
 webtest==2.0.14
+djangorestframework==2.2

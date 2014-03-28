@@ -34,9 +34,15 @@ def create_user_account():
 
 def exe_master(store):
     store.api_key_name,store.api_key_pwrd = create_user_account()
-    print(store.api_key_name,store.api_key_pwrd)     # xxx remove the print
     store.save(by_pass_cm=True)
     store_id = store.id
+    
+    # 222 need to remove when we can install cloudant into development machine
+    if test_helper.is_local_env():
+        store.api_key_name = 'store_' + str(store_id)
+        store.api_key_pwrd = 'store_' + str(store_id)
+        store.save(by_pass_cm=True)
+
     return store.id,store.api_key_name
 
 
@@ -63,7 +69,6 @@ def exe_couch(store_id,tax_rate,api_key_name):
     _couch_db_insert_view(store_id)
     _couch_db_insert_validation(store_id)
     _couch_db_insert_tax_rate(store_id,tax_rate)
-    _couch_db_grant_access_to_db(api_key_name,couch_constance.APPROVE_PRODUCT_DB_NAME,['_reader'])
     _couch_db_grant_access_to_db(api_key_name,store_util.get_store_db_name(store_id),['_reader','_writer'])
 
 

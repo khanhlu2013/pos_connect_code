@@ -23,13 +23,13 @@ class Test(WebTest):
         product_name = "Jack Daniel"
         price = 2.99
         prod_bus_assoc_this = insert_new_store_product_cm.exe( \
-             name = product_name
+             business_id = store_this.id            
+            ,name = product_name
             ,price = price
             ,crv = None
             ,isTaxable = True
             ,isTaxReport = True
             ,isSaleReport = True
-            ,business_id = store_this.id
             ,sku_str = sku_str )
 
         #TEST RELATIONAL

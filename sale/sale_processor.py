@@ -58,6 +58,7 @@ def create_old_store_product(sp_couch_lst,store_id):
     for sp_couch in sp_couch_lst:
         product = Product.objects.get(pk=sp_couch['product_id'])
 
+        # 111 remove this
         master_sp = insert_old_store_product_cm.exe(
              product
             ,store_id
@@ -78,13 +79,13 @@ def create_new_store_product(sp_couch_lst,store_id,receipt_lst):
 
     for sp_couch in sp_couch_lst:
         master_sp = insert_new_store_product_cm.exe(
-             sp_couch['name']
+             store_id
+            ,sp_couch['name']
             ,sp_couch['price']
             ,sp_couch['crv']
             ,sp_couch['is_taxable']
             ,True#isTaxReport
             ,True#isSaleReport
-            ,store_id
             ,sp_couch['create_offline_by_sku'])
 
         new_sp_lookup_lst.append({'couch_id':sp_couch['_id'],'master_id':master_sp.id,'pid':master_sp.product.id})

@@ -37,6 +37,7 @@ html,body {
 
 .error {border: solid 2px #FF0000;}
 td { min-width: 100px; height: 30}
+
 #store_product_prompt_dialog{display: None;}
 
 

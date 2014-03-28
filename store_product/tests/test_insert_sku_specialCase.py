@@ -21,13 +21,13 @@ class Test(WebTest):
         user,store = test_helper.create_user_then_store()
         sku_str = '123'
         prod_bus_assoc = insert_new_store_product_cm.exe( \
-             name = 'Jack Daniel'
+             business_id = store.id
+            ,name = 'Jack Daniel'
             ,price = 2.99
             ,crv = None
             ,isTaxable = False
             ,isTaxReport = False
             ,isSaleReport = False
-            ,business_id = store.id
             ,sku_str = sku_str)
 
         #MAKE REQUEST
@@ -56,26 +56,26 @@ class Test(WebTest):
         user_other,store_other = test_helper.create_user_then_store()
         sku_other_str = '123'
         prod_bus_assoc_other = insert_new_store_product_cm.exe( \
-             name = 'Jack Daniel'
+             business_id = store_other.id
+            ,name = 'Jack Daniel'
             ,price = 2.99
             ,crv = None
             ,isTaxable = False
             ,isTaxReport = False
             ,isSaleReport = False
-            ,business_id = store_other.id
             ,sku_str = sku_other_str)
 
         #INSERT PRODUCT TO THIS STORE
         user_this,store_this = test_helper.create_user_then_store()
         sku_this_str = '321'
         prod_bus_assoc_this = insert_new_store_product_cm.exe( \
-             name = 'Jack Daniel'
+             business_id = store_this.id            
+            ,name = 'Jack Daniel'
             ,price = 2.99
             ,crv = None
             ,isTaxable = False
             ,isTaxReport = False
             ,isSaleReport = False
-            ,business_id = store_this.id
             ,sku_str = sku_this_str)
 
         #MAKE REQUEST

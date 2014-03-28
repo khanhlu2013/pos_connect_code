@@ -7,13 +7,13 @@ from util.couch import couch_constance
 from util.couch import couch_util
 
 def exe( \
-     name
+     business_id
+    ,name
     ,price
     ,crv
     ,isTaxable
     ,isTaxReport
     ,isSaleReport
-    ,business_id
     ,sku_str
     ,p_type = None
     ,p_tag = None

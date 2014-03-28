@@ -194,8 +194,7 @@ require(
             return;
         }
 
-        var store_idb = result[0];
-        var product_idb = result[1];
+        var store_idb = result;
 
         refresh_table(store_idb)
 

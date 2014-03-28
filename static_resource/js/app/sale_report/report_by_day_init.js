@@ -67,7 +67,7 @@ require(
             ,type : "POST"
             ,dataType : "json"
             ,data : {from_day:from_day,to_day:to_day}
-            ,success: function(data){
+            ,success: function(data,status,xhr){
                 if(data.error!=null){
                     alert(data.error)
                 }else{

@@ -33,8 +33,6 @@ define(
 	        ,crv
 	        ,is_taxable
 	        ,sku_lst
-	        ,true//create_offline
-	        ,sku_str//create_offline_by_sku
 	    );
 
 		pouch_db.post(store_product, function(err, response) {

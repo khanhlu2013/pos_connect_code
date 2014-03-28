@@ -42,8 +42,8 @@ define(
     }
 
     function clean_up_locally_create_store_product(store_idb,store_pdb,callback){
-        var func = sp_getter.by_create_offline; 
-        var func_b = func.bind(func,store_idb);
+        var func = sp_getter.by_product_id; 
+        var func_b = func.bind(func,null/*product_id*/,store_idb);
         async.waterfall([func_b],function(error,result){
             if(error){
                 callback(error);

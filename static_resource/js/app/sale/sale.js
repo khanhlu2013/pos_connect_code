@@ -37,7 +37,6 @@ require(
         ,'app/local_db_initializer/set_sync_status'
         ,'app/local_db_initializer/oneshot_sync'
         ,'app/local_db_initializer/customize_db'
-        // ,'app/local_db_initializer/continuous_sync'
         ,'app/store_product/store_product_creator'
         ,'app/sale_shortcut/parent_lst_getter'
         ,'app/sale_shortcut/sale_shortcut_util'
@@ -66,7 +65,6 @@ require(
         ,set_sync_status
         ,oneshot_sync
         ,customize_db
-        // ,continuous_sync
         ,sp_creator
         ,parent_lst_getter
         ,sale_shortcut_util
@@ -82,9 +80,6 @@ require(
         var discount_button = document.getElementById("discount_button");
         var void_btn = document.getElementById("void_btn");
         var push_receipt_btn = document.getElementById("push_receipt_btn");
-        
-        //CREATE PRODUCT
-        var create_product_btn = document.getElementById("create_product_button");
 
         //CREATE PRODUCT FORM
         var product_name_txt = document.getElementById("product_name_txt");
@@ -131,24 +126,6 @@ require(
                 });
             }
             push_receipt_btn.addEventListener("click", exe);
-        }
-
-        function hook_product_creator_2_ui(store_idb,store_pdb,product_idb){
-            function exe(){
-
-                var sp_creator_b = sp_creator.exe.bind(sp_creator.exe,null/*prefill_sku*/,null/*approve_product_lst*/,store_idb,store_pdb,product_idb);
-                async.waterfall([sp_creator_b],function(error,result){
-                    if(error){
-                        if(error == sp_creator.ERROR_SP_CREATOR_CANCEL){
-                            //no action need
-                        }else{
-                            alert(error);                            
-                        }                        
-                    }
-                })
-            }
-            
-            create_product_btn.addEventListener("click", exe);
         }
 
         function hook_alone_discounter_2_ui(store_idb){
@@ -209,7 +186,7 @@ require(
             total_button.addEventListener("click", total_button_click_handler_b);
         }
 
-        function hook_scanner_to_ui(store_idb,product_idb,store_pdb){
+        function hook_scanner_to_ui(store_idb,store_pdb){
             var ENTER_KEY = 13;
             var scan_textbox = document.getElementById('scan_text');
             function scan_text_enter_handler( event ) {
@@ -221,27 +198,18 @@ require(
                     return;
                 }
 
-                var scanner_b = scanner.exe.bind(scanner.exe,scan_str,store_idb,product_idb);
+                var scanner_b = scanner.exe.bind(scanner.exe,scan_str,store_idb);
                 var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,store_idb,table);
 
                 async.waterfall([scanner_b,ds_2_ui_b],function(error,result){
                     if(error){
-                        if(
-                              error == scanner.ERROR_STORE_PRODUCT_NOT_FOUND_APROVE_PRODUCT_NOT_FOUND
-                            ||error == scanner.ERROR_STORE_PRODUCT_NOT_FOUND_APROVE_PRODUCT_IS_FOUND
-                        ){
-                            var approve_product_lst = result;
-                            var prefill_sku = scanner.get_sku_from_scan_str(scan_str);
-                            var sp_creator_b = sp_creator.exe.bind(sp_creator.exe,prefill_sku,approve_product_lst,store_idb,store_pdb,product_idb);
-                            async.waterfall([sp_creator_b,scanner_b,ds_2_ui_b],function(error,result){
-                                if(error){
-                                    if(error == sp_creator.ERROR_SP_CREATOR_CANCEL){
-                                        //do nothing here
-                                    }else{
-                                        alert(error);
-                                    }
-                                }
-                            });                          
+                        if(error == scanner.ERROR_STORE_PRODUCT_NOT_FOUND){
+                            // 111 to be implement: issue online search, create product product online, sync down, continue the scan 
+                            sku_str = scanner.get_sku_from_scan_str(scan_str);
+                            
+                            // i need a popup, to display all result with option sort these product and user will select a product, or create new online
+
+
                         }
                         else if(error == scanner.ERROR_CANCEL_SHARE_SKU_BREAKER){
                             //do nothing
@@ -394,19 +362,16 @@ require(
                 return;
             }
 
-            var store_idb = result[0];
-            var product_idb = result[1];
+            var store_idb = result;
             var store_pdb = pouch_db_util.get_db(STORE_DB_NAME);
 
             set_sync_status(true);
-            // continuous_sync(STORE_DB_NAME,COUCH_SERVER_URL);
             listen_to_document_change_and_update_ui(store_idb,store_pdb);
 
             //init ui functionality
-            hook_scanner_to_ui(store_idb,product_idb,store_pdb);
+            hook_scanner_to_ui(store_idb,store_pdb);
             hook_sale_finalizer_2_ui(store_idb,store_pdb);
             hook_alone_discounter_2_ui(store_idb);
-            hook_product_creator_2_ui(store_idb,store_pdb,product_idb);
             hook_voider_2_ui(store_idb);
             hook_receipt_pusher_2_ui(store_idb,store_pdb);
             

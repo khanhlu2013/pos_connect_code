@@ -1,85 +1,74 @@
 {% extends 'base_regular_user.html' %}
-{% load get_prod_bus_assoc %}
-{% load get_prod_sku_assoc_popularity %}
+
 
 {% block content %}
-    <form id="sku" method="GET">
-        <input type="text" name="sku" value="{{ sku_str|default_if_none:"" }}"/>
-        <button type="submit">sku</button>
-        {% if sku_error %} {{ sku_error }} {% endif %}
-    </form>
 
-    <form id="name" method="GET">
-        <input type="text" name="name" value="{{ name_str|default_if_none:"" }}"/>
-        <button type="submit">name</button>
-        {% if name_error %} {{ name_error }} {% endif %}
-    </form>
-    
-    {% if exist_product_lst %}
-        <p>
-            <table border="1">
-                <tr>
-                    <td>name</td>
-                    <td>action</td>
-                </tr>
-                
-                {% for p in exist_product_lst %}
-
-                    <tr>
-                        <td>{{p}}</td>
-                        <td> <a href="{% url 'store_product:product_detail' p|get_prod_bus_assoc_id:cur_login_store %}">info</a> </td>
-                    </tr>
-
-                {% endfor %}
-            </table>
-        </p>
+    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css" />
+    <link rel="stylesheet" href="{{STATIC_URL}}css/app/store_product/sp_search.css" />
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script> 
 
 
-    {% else %} 
-
-        {% if sku_str and not sku_error and suggest_product_lst%}
-            sku not found. Suggestion from other stores:
-        {% elif name_str and not name_error%}
-            name not found
-        {% else %}
-
-        {% endif %}
-        
-    {% endif %}
 
 
-    {% if sku_str and suggest_product_lst and not exist_product_lst%}
-        <p>
-            <table border="1">
-                <tr>
-                    <td>name</td>
-                    <td>popularity</td>
-                    <td>action</td>
-                </tr>
-                
-                {% for p in suggest_product_lst %}
 
-                    <tr>
-                        <td>{{p}}</td>
-                        <td>{{ p|get_prod_sku_assoc_popularity:sku_str }}</td>
-                        <td> <a href="{% url 'store_product:add_assoc' p.id sku_str %}">add</a> </td>
-                    </tr>
+    <input id='sku_txt' type='text'/>
+    <input id='sku_btn' type='button' value="sku"/>
+    <label id="sku_err_lbl"></label>
+    <br/>
+    <input id='name_txt' type='text'/>
+    <input id='name_btn' type='button' value="name"/>
+    <label id="name_err_lbl"/>
 
-                {% endfor %}
-            </table>
-        </p>
-    {% endif %}
-    
-    {% if not exist_product_lst and not suggest_product_lst%}
-        <p>
-            {% if sku_str and not sku_error %}
-                sku not found. Add new product with sku: <a href='{% url "store_product:add_product_sku" sku_str %}'>{{sku_str}}</a> ?
-            {% endif %}
-        </p>
-    {% endif %}
 
-    <p>
-        <a href= "{% url 'store_product:add_product' %}">add new product</a>
-    </p>
-    
+
+
+
+    <table id=product_tbl border="1"></table>
+
+
+
+
+
+    <div id="store_product_prompt_dialog" title="Product not found. Enter info to create">
+        <div id='suggest_product_lst'></div>
+
+        <label for="product_name_txt">Product:</label>
+        <input type="text" id = "product_name_txt">
+        <br>
+
+        <label for="product_price_txt">Price:</label>
+        <input type="text" id = "product_price_txt">
+        <br>
+
+        <label for="product_taxable_check">Taxable:</label>
+        <input type="checkbox" id = "product_taxable_check">
+        <br>
+
+        <label for="product_crv_txt">Crv:</label>
+        <input type="text" id = "product_crv_txt">
+        <br>
+
+        <label for="product_sku_txt">Sku:</label>
+        <input type="text" id = "product_sku_txt">
+        <br>
+    </div>
+
+
+
+
+
+    <script type="text/javascript">
+        var STATIC_URL = "{{STATIC_URL}}"
+        var STORE_ID = "{{STORE_ID}}"
+        var COUCH_SERVER_URL = "{{COUCH_SERVER_URL}}"
+    </script>
+
+
+
+
+
+    <script data-main = "{{ STATIC_URL }}js/app/store_product/sp_search.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script>
+
+
 {% endblock content %}

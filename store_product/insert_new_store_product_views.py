@@ -41,13 +41,13 @@ class Add_product_form(forms.ModelForm):
         store_product = super(Add_product_form,self).save(commit=False)
         sku_str = self.cleaned_data.get('sku_field',None)
         return insert_new_store_product_cm.exe(
-             name = store_product.name
+             business_id = self.cur_login_store.id            
+            ,name = store_product.name
             ,price = store_product.price
             ,crv = store_product.crv
             ,isTaxable = store_product.isTaxable
             ,isTaxReport = store_product.isTaxReport
             ,isSaleReport = store_product.isSaleReport
-            ,business_id = self.cur_login_store.id
             ,sku_str = sku_str
             ,p_type = store_product.p_type
             ,p_tag = store_product.p_tag

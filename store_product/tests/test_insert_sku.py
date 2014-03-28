@@ -26,14 +26,14 @@ class Test(WebTest):
 		price = 2.99
 		crv = None
 		prod_bus_assoc_this = insert_new_store_product_cm.exe( \
-			 name = product_name
+			 business_id = store_this.id			
+			,name = product_name
 			,price = price
 			,crv = None
 			,isTaxable = True
 			,isTaxReport = True
 			,isSaleReport = True
-			,business_id = store_this.id
-			,sku_str = sku_str )
+ 			,sku_str = sku_str )
 
 		prod_sku_assoc_lst = prod_bus_assoc_this.product.prodskuassoc_set.all()
 		self.assertEqual(len(prod_sku_assoc_lst),1)
@@ -42,7 +42,7 @@ class Test(WebTest):
 		#ASSOCIATE THIS PRODUCT TO ANOTHER STORE
 		store_other = mommy.make('store.Store')
 		insert_old_store_product_cm.exe( \
-			 product = prod_bus_assoc_this.product
+			 product_id = prod_bus_assoc_this.product.id
 			,business_id = store_other.id
 			,name = product_name
 			,price = price

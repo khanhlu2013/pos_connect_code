@@ -23,8 +23,7 @@ define(
                 callback(null/*error*/);
             }
             ,error : function(xhr,errmsg,err) {
-                var error = xhr.status + ": " + xhr.responseText;
-                callback(error)
+                callback('there is an error');
             }
         });
     }

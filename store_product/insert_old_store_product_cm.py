@@ -88,13 +88,13 @@ def exe_couch(
     ,price
     ,crv
     ,isTaxable
-    ,business_id
+    ,store_id
     ,product_id
     ,assoc_sku_str
     ,approved_sku_lst):
 
-    store_product = store_product_couch_getter.exe(product_id,business_id)
-    db = store_util.get_store_db(business_id)
+    store_product = store_product_couch_getter.exe(product_id,store_id)
+    db = store_util.get_store_db(store_id)
 
     if store_product != None:
         #this product should not exist in couch. 
@@ -113,7 +113,7 @@ def exe_couch(
             ,crv = couch_util.number_2_str(crv)
             ,is_taxable = isTaxable
             ,sku_lst = sku_lst
-            ,business_id = business_id
+            ,store_id = store_id
             ,product_id  = product_id
         )
         store_product.store(db)

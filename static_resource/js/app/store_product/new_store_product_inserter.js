@@ -27,6 +27,7 @@ define(
 	         null//_id: handle by pouch
 	        ,null//_doc_id_rev: handle by pouch
 	        ,null//key
+	        ,null//store_id (default is my store when null)
  			,null//product_id
 	        ,name
 	        ,price

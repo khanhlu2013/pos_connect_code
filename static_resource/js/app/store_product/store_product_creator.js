@@ -19,25 +19,26 @@ define(
 	)
 {
 	var ERROR_SP_CREATOR_CANCEL = 'ERROR_SP_CREATOR_CANCEL';
-	var ERROR_PRODUCT_EXIST_OFFLINE = 'ERROR_PRODUCT_EXIST_OFFLINE';
     
-	function sync_data_if_nessesary(store_id,couch_server_url){
+	function sync_data_if_nessesary(store_id,couch_server_url,callback){
 		var is_store_idb_exist_b = index_db_util.is_store_idb_exist.bind(index_db_util.is_store_idb_exist,store_id)
 		async.waterfall([is_store_idb_exist_b],function(error,result){
 			if(error){
-				alert(error);
+				$.unblockUI();
+				callback(error);
 				return;
 			}
 
 			if(result === false){
+				$.unblockUI();
+				callback(null/*error*/);
 				//db is not exist, do nothing
 			}
 			else{
 				var oneshot_sync_b = oneshot_sync.bind(oneshot_sync,db_util.get_store_db_name(store_id),couch_server_url)
 				async.waterfall([oneshot_sync_b],function(error,result){
-					if(error){
-						alert('there is an error syncing');
-					}
+					$.unblockUI();
+					callback(error);
 				});
 			}
 		});
@@ -74,6 +75,7 @@ define(
         		,p_type : null
         		,p_tag : null
         	}
+        	$.blockUI();
 
  			$.ajax({
  				 url:'/product/sp_creator'
@@ -81,7 +83,7 @@ define(
  				,data : data
  				,dataType:'json'
  				,success:function(data,status_str,xhr){
- 					sync_data_if_nessesary(store_id,couch_server_url)
+ 					sync_data_if_nessesary(store_id,couch_server_url,callback)
  				}
  				,error:function(xhr,status_str,error){
  					alert("there is an error");
@@ -93,6 +95,5 @@ define(
 	return{
 		 exe:exe
 		,ERROR_SP_CREATOR_CANCEL : ERROR_SP_CREATOR_CANCEL
-		,ERROR_PRODUCT_EXIST_OFFLINE : ERROR_PRODUCT_EXIST_OFFLINE
 	}
 });

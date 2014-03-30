@@ -68,15 +68,10 @@ require(
             ,dataType : "json"
             ,data : {from_day:from_day,to_day:to_day}
             ,success: function(data,status,xhr){
-                if(data.error!=null){
-                    alert(data.error)
-                }else{
-                    display_report(data);
-                }
+                display_report(data);
             }
             ,error : function(xhr,errmsg,err){
-                var error = xhr.status + ':' + xhr.responseText;
-                alert(error);
+                alert('there is an error');
             }
         });
     }

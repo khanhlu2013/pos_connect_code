@@ -36,7 +36,7 @@ def exe( \
         ,price = price
         ,crv = crv
         ,isTaxable = isTaxable
-        ,business_id = business_id
+        ,store_id = business_id
         ,product_id = prod_bus_assoc.product.id
         ,sku_str = sku_str
     )
@@ -103,7 +103,7 @@ def exe_couch(
     ,price
     ,crv
     ,isTaxable
-    ,business_id
+    ,store_id
     ,product_id
     ,sku_str):
 
@@ -118,12 +118,12 @@ def exe_couch(
         ,crv = couch_util.number_2_str(crv)
         ,is_taxable = isTaxable
         ,sku_lst = sku_lst
-        ,business_id = business_id
+        ,store_id = store_id
         ,product_id  = product_id
     )
 
     #save doc
-    db = store_util.get_store_db(business_id)
+    db = store_util.get_store_db(store_id)
     document.store(db)
 
 

@@ -37,6 +37,9 @@ class ProdSkuAssoc(models.Model):
     def is_approve(self,frequency):
         return self.is_approve_override or self._is_dynamic_approve(frequency)
 
+    def get_popularity(self):
+        return self.store_product_lst.count()
+
     class Meta:
         unique_together = ("sku","product")
 

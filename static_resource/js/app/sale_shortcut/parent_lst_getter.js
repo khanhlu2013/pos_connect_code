@@ -17,8 +17,7 @@ define(
                 callback(null/*error*/,parent_lst/*result*/);
             }
             ,error : function(xhr,errmsg,err) {
-                var error = xhr.status + ": " + xhr.responseText;
-                callback(error,null/*result*/)
+                callback('there is an error')
             }
         });
     }

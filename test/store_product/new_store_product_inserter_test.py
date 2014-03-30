@@ -60,6 +60,7 @@ class new_store_product_inserter(WebTest):
         self.assertEqual(my_store_product_couch['price'],str(price))
         self.assertEqual(my_store_product_couch['crv'],str(crv))
         self.assertEqual(my_store_product_couch['is_taxable'],isTaxable)
+        self.assertEqual(my_store_product_couch['store_id'],my_store.id )
         sku_lst = my_store_product_couch['sku_lst']
         self.assertEqual(len(sku_lst),1)
         self.assertTrue(sku_str in sku_lst)

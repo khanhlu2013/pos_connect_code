@@ -1,3 +1,5 @@
+~. july 10-11-12-13
+
 ~. parakett idea: a trypod with remote. a keyboard of there own sound
 ~. i want to be a blues student.
 ~. build a play ground for parakeet. how to engage with your paraket. time. 
@@ -91,15 +93,15 @@ REALIZATION
 
 -------------------
 QUESTION - LEARNING
+x. sp_couch_inserter use sp_document, but sp_couch_getter use a generic dictionary. i want these to be the same data: go through the same constructor for validation logic. Extra Info: look at python code not javascript code. 
 x. cloudant replicator database
 x. django-compressor
 x. if we call async with only 1 method, can we by pass async?
 x. pouch.changes.since
-x. should update and insert be unite. yea, every kick ass simple framework do it. cm should implement a "put" concept to update/insert
 x. why link inside form can not be direct to correct url?
 x. understand require.js : up front dependency list vs lazy loading
 x. Agile and extreme development
-x. couchdb role
+x. 
 
 
 ------------
@@ -202,7 +204,7 @@ CURRENT TASKS
 . use google to host your javascript: require js now does not use my STATIC_URL for jquery. question:  how do we combine loading multiple file?
 . report generator test
 . there is a total of 6 times when we first load the page, ds_2_ui have to run. when ever i change qty, ds_2_ui have to run twice
-
+. kill all related name, only use default.
 ------------------------------------------------------------------------------------------------------------------
 xxx reimplement test 
 
@@ -291,18 +293,23 @@ SKU MANAGEMENT:
 
 
 . check view and template for search feature. we don't need them anymore. (we don't do template tag and replace view with ajax)
-
-store_product_creator
-    . it is called when sku is not found offline. we can check this condition and throw exception if this is not the case: defensive check
-    . it then go look up for a sku on the server. this is just a sku search and create storeproduct on the server, sync, then continue.
+. we need a button to create new product, then check if sku exist or not.
 
 
-----------------------
 
-search page with ajax request.
+. when scan a sku offline, if it is not found, we can use store product creator to create
 
-    . need to serialize popularity
-    . lets just serialize __unicode__, 
+
+------------------
+. ajax update sp and sync if nessesary
+------------------
+. we need couch document inserter. might be kill cm concept. there will be no CM. and 3 things: sp_inserter, sp_master_inserter,sp_couch_inserter
+. isTaxable -> is_taxable
+. kill all the business: we are dealing with liquor_store business at the momment. there is no vendor yet. business_id -> store_id
+
+
+
+
 
 
 

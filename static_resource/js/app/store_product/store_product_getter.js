@@ -21,6 +21,7 @@ define(
              cursor.value._id
             ,cursor.value._rev
             ,cursor.primaryKey
+            ,cursor.value.store_id
             ,cursor.value.product_id
             ,cursor.value.name
             ,cursor.value.price

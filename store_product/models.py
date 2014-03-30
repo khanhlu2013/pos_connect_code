@@ -25,3 +25,6 @@ class Store_product(models.Model):
         self.name = self.name.strip()
         if not self.name:
             raise ValidationError("Please provide product's name")
+
+    def get_price_str(self):
+        return str(self.price)

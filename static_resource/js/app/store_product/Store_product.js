@@ -12,6 +12,7 @@ define(
          _id
         ,_rev
         ,key
+        ,store_id
         ,product_id
         ,name
         ,price
@@ -27,6 +28,7 @@ define(
         }
 
         this.key = key;
+        this.store_id = store_id;
         this.product_id = product_id;
         this.name = name;
         this.price = (price == null ? null : Number(price));

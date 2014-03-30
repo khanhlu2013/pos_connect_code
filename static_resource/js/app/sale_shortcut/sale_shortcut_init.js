@@ -98,8 +98,7 @@ require(
                     refresh_table(store_idb);
                 }
                 ,error : function(xhr,errmsg,err){
-                    var error = xhr.status + ":" + xhr.responseText;
-                    alert(error)
+                    alert('there is an error');
                 }
             });  
         })

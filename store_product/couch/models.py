@@ -7,5 +7,5 @@ class Product_document(Document):
     crv = DecimalField()
     is_taxable = BooleanField() 
     sku_lst = ListField(TextField())
-    business_id = IntegerField()
+    store_id = IntegerField()
     product_id = IntegerField()

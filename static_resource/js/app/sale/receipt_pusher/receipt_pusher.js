@@ -35,8 +35,7 @@ define(
                 callback(null/*error*/,json.server_response/*result*/);
             }
             ,error : function(xhr,errmsg,err) {
-                var error = xhr.status + ": " + xhr.responseText;
-                callback(error,null/*result*/)
+                callback('there is an error')
             }
         });
     }

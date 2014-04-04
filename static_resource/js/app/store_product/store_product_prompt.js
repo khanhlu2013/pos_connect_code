@@ -18,12 +18,15 @@ define(
 
     function ok_btn_handler(is_prompt_sku,callback){
         var result = {
-             "name"         : $('#product_name_txt').val()
-            ,"price"        : $('#product_price_txt').val()
-            ,"is_taxable"   : $('#product_taxable_check').is(':checked')
-            ,"crv"          : $('#product_crv_txt').val()
-            ,"sku_str"      : $('#product_sku_txt').val()   
-            ,"product_id"   : (selected_suggest_product == null ? null : selected_suggest_product.id)
+             "name"             : $('#product_name_txt').val()
+            ,"price"            : $('#product_price_txt').val()
+            ,"is_taxable"       : $('#product_taxable_check').is(':checked')
+            ,"is_sale_report"   : $('#product_sale_report_check').is(':checked')
+            ,"p_type"           : $('#product_type_txt').val()   
+            ,"p_tag"            : $('#product_tag_txt').val()             
+            ,"crv"              : $('#product_crv_txt').val()
+            ,"sku_str"          : $('#product_sku_txt').val()   
+            ,"product_id"       : (selected_suggest_product == null ? null : selected_suggest_product.id)
         }
 
         var error_lst = sp_validator.validate(result['name'],result['price'],result['crv'],result['is_taxable'],result['sku_str'],is_prompt_sku);
@@ -59,15 +62,45 @@ define(
         }
     }
 
-    function helper_fill_form(name,price,crv,is_taxable){
+    function helper_fill_form(
+         name
+        ,price
+        ,crv
+        ,is_taxable
+        ,is_sale_report
+        ,p_type
+        ,p_tag
+    ){
         $('#product_name_txt').val(name);
         $('#product_price_txt').val(price);
-        $('#product_taxable_check').prop('checked', is_taxable);
         $('#product_crv_txt').val(crv);
+        $('#product_taxable_check').prop('checked', is_taxable);
+        $('#product_sale_report_check').prop('checked', is_sale_report);
+        $('#product_type_txt').val(p_type);
+        $('#product_tag_txt').val(p_tag);        
     }
 
-    function populate_ui(name_prefill,price_prefill,crv_prefill,is_taxable_prefill,sku_prefill,is_prompt_sku,suggest_product_lst){
-        helper_fill_form(name_prefill,price_prefill,crv_prefill,is_taxable_prefill);
+    function populate_ui(
+         name_prefill
+        ,price_prefill
+        ,crv_prefill
+        ,is_taxable_prefill
+        ,is_sale_report_prefill
+        ,p_type_prefill
+        ,p_tag_prefill        
+        ,sku_prefill
+        ,is_prompt_sku
+        ,suggest_product_lst
+    ){
+        helper_fill_form(
+             name_prefill
+            ,price_prefill
+            ,crv_prefill
+            ,is_taxable_prefill
+            ,is_sale_report_prefill
+            ,p_type_prefill
+            ,p_tag_prefill
+        );
         set_validation_indicator([]);
         
         //SKU INFO
@@ -83,7 +116,7 @@ define(
 
         //SUGGEST PRODUCT LIST
         $('#suggest_product_lst').html('');
-        if(suggest_product_lst!=null){
+        if(suggest_product_lst && suggest_product_lst.length !=0){
             for(var i = 0;i<suggest_product_lst.length;i++){
                 $('<input type="radio" name = "select_product" value = "' + i + '"id="' + i + '"><label for="' + i + '">' + suggest_product_lst[i].name +  '</label>').appendTo("#suggest_product_lst");
                 $('#suggest_product_lst').append("<br/>");
@@ -99,7 +132,15 @@ define(
                 }else{
                     selected_suggest_product = suggest_product_lst[value];
                 }
-                helper_fill_form(selected_suggest_product == null ? null : selected_suggest_product.name/*name*/,null/*price*/,null/*crv*/,null/*is_taxable*/);
+                helper_fill_form(
+                    selected_suggest_product == null ? null : selected_suggest_product.name
+                    ,null//price
+                    ,null//crv
+                    ,null//is_taxable
+                    ,null//is_sale_report
+                    ,null//p_type
+                    ,null//p_tag
+                );
             });
 
             $("#0").attr('checked', true).trigger('click');//select the first item
@@ -112,9 +153,13 @@ define(
         ,price_prefill
         ,crv_prefill
         ,is_taxable_prefill
+        ,is_sale_report_prefill
+        ,p_type_prefill
+        ,p_tag_prefill        
         ,sku_prefill
         ,is_prompt_sku
         ,suggest_product_lst
+        ,lookup_type_tag
         ,callback
     ){
 
@@ -123,16 +168,46 @@ define(
         var cancel_btn_handler_b = cancel_btn_handler.bind(cancel_btn_handler,callback);
         $('#store_product_prompt_dialog').dialog({ buttons: [ { text: "Ok", click: ok_btn_handler_b },{ text: "Cancel", click: cancel_btn_handler_b } ] });
 
+
         populate_ui
         (
              name_prefill
             ,price_prefill
             ,crv_prefill
             ,is_taxable_prefill
+            ,is_sale_report_prefill
+            ,p_type_prefill
+            ,p_tag_prefill
             ,sku_prefill
             ,is_prompt_sku
             ,suggest_product_lst
+
         );
+
+
+        //auto complete for product type and tag
+        var type_lst = Object.keys(lookup_type_tag)
+        $('#product_type_txt').on('autocompletechange', function() {
+            var tag_lst = lookup_type_tag[$(this).val()];
+            if(tag_lst == undefined){
+                tag_lst = [];
+            }
+            $( "#product_tag_txt" ).autocomplete({
+                 source: tag_lst
+                ,minLength: 0
+            })
+            .bind('focus', function () {
+                $(this).autocomplete("search");
+            });
+        });
+        $( "#product_type_txt" ).autocomplete({
+             source: type_lst
+            ,minLength: 0
+        })
+        .bind('focus', function () {
+            $(this).autocomplete("search");
+        });
+
 
         //show dialog
         $('#store_product_prompt_dialog').dialog('open');

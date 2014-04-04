@@ -1,8 +1,8 @@
 from django_webtest import WebTest
 from django.core.urlresolvers import reverse
 from model_mommy import mommy
-from store_product.couch import store_product_couch_getter
-from store_product import insert_new_store_product_cm
+from store_product.sp_couch import store_product_couch_getter
+from store_product import new_sp_inserter
 from product.models import ProdSkuAssoc
 from helper import test_helper
 
@@ -22,25 +22,27 @@ class Test(WebTest):
         sku_str = '123'
         product_name = "Jack Daniel"
         price = 2.99
-        prod_bus_assoc_this = insert_new_store_product_cm.exe( \
+        prod_bus_assoc_this = new_sp_inserter.exe( \
              business_id = store_this.id            
             ,name = product_name
             ,price = price
             ,crv = None
-            ,isTaxable = True
-            ,isTaxReport = True
-            ,isSaleReport = True
-            ,sku_str = sku_str )
+            ,is_taxable = True
+            ,is_sale_report = True
+            ,p_type = None
+            ,p_tag = None
+            ,sku_str = sku_str 
+        )
 
         #TEST RELATIONAL
         rel_prod_sku_assoc_lst = prod_bus_assoc_this.product.prodskuassoc_set.all()
         self.assertEqual(len(rel_prod_sku_assoc_lst),1)
         rel_prod_sku_assoc = rel_prod_sku_assoc_lst[0]
         self.assertEqual(prod_bus_assoc_this.product,rel_prod_sku_assoc.product)
-        self.assertEqual(prod_bus_assoc_this.business,store_this)
+        self.assertEqual(prod_bus_assoc_this.store,store_this)
 
         #TEST COUCHDB
-        couch_prod_bus_assoc = store_product_couch_getter.exe(prod_bus_assoc_this.product.id,prod_bus_assoc_this.business.id)  
+        couch_prod_bus_assoc = store_product_couch_getter.exe(prod_bus_assoc_this.product.id,prod_bus_assoc_this.store.id)  
         couch_sku_lst = couch_prod_bus_assoc['sku_lst']
         self.assertEqual(len(couch_sku_lst),1)
 
@@ -66,7 +68,7 @@ class Test(WebTest):
             pass #sku is deleted
 
         #TEST COUCH DB
-        couch_prod_bus_assoc = store_product_couch_getter.exe(prod_bus_assoc_this.product.id,prod_bus_assoc_this.business.id)  
+        couch_prod_bus_assoc = store_product_couch_getter.exe(prod_bus_assoc_this.product.id,prod_bus_assoc_this.store.id)  
         couch_sku_lst = couch_prod_bus_assoc['sku_lst']
         self.assertEqual(len(couch_sku_lst),0)#delete
 

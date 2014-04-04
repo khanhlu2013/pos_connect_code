@@ -18,6 +18,9 @@ define(
         ,price
         ,crv
         ,is_taxable
+        ,is_sale_report
+        ,p_type
+        ,p_tag
         ,sku_lst
     )   
     {
@@ -34,6 +37,9 @@ define(
         this.price = (price == null ? null : Number(price));
         this.crv = (crv == null ? null : Number(crv));
         this.is_taxable = is_taxable;
+        this.is_sale_report = is_sale_report;
+        this.p_type = p_type;
+        this.p_tag = p_tag;
         this.sku_lst = sku_lst;
         this.d_type = constance.STORE_PRODUCT_TYPE;
     };

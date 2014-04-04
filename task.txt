@@ -130,7 +130,7 @@ x. get_tax.js -> tax_getter.js
 x. can we have update_tax_cm
 x. cm it its owned app. same concept with template for all app. 
 
-x. remove business_id out of couchdb
+
 x. how to secure client couch user account
 x. continue test the scan/sale. repeated item, deal ...
 x. add product from another store failed. 
@@ -163,7 +163,7 @@ CURRENT TASKS
     . receipt_ln: non product name can exist together with sp validation 
 . verify transaction is valid in sale processor
 . process sale data -> create_old_store_product have to create Product one by one. see if you can optimize this
-.user_util and store_util is the same thing
+.user_util : remove this guy
 .insert sku cs / test insert sku
 .delete sku cm / test delete sku
 .when update receipt (collected amount, we need to make sure the rev does not screw stuff up)
@@ -195,7 +195,6 @@ CURRENT TASKS
 . after sync ap product, ui is unblock, but couchdb console still spining for another 5 - 7 second.
 . take a look at setup optimization if there is any thing we can do a better job here.
 . store_inserter_test: we can probably turn this off. but if we need it, we can probably setup the env specifically for this test. how about the rest of the test?
-. refactor about KTBusiness, Business, and Store in our project
 . how can we test since our local env is couchdb and production if bigcouch is this complicate anything?
 . we can kill some of the environment variable (couchdb_master_user_name,password,url)  and just derived on cloudant_url which is auto set.
 . when pushing receipt to server, we need to handle data that is enter wrong such as price, crv is out of range: negative or over max value. how can we make sure good data is still saved and not roll back the whole thing and loss them
@@ -205,6 +204,7 @@ CURRENT TASKS
 . report generator test
 . there is a total of 6 times when we first load the page, ds_2_ui have to run. when ever i change qty, ds_2_ui have to run twice
 . kill all related name, only use default.
+. how is current old_sp_inserter handle old product having new skus. there are 2 scenarios: they create new, or they add sku to old one.
 ------------------------------------------------------------------------------------------------------------------
 xxx reimplement test 
 
@@ -301,11 +301,21 @@ SKU MANAGEMENT:
 
 
 ------------------
-. ajax update sp and sync if nessesary
-------------------
-. we need couch document inserter. might be kill cm concept. there will be no CM. and 3 things: sp_inserter, sp_master_inserter,sp_couch_inserter
-. isTaxable -> is_taxable
-. kill all the business: we are dealing with liquor_store business at the momment. there is no vendor yet. business_id -> store_id
+
+
+
+
+. finish sp_updator in sale module
+. optimize sale page to include short cut data in the template, that way we will minimize another ajax trip. make sure we have the same code when we selecting the parent shortcut
+
+isTaxable
+isTaxReport
+isSaleReport
+
+. store_product price should not be null
+. couch_util.number_2_str -> decimal_2_str
+. json response helper: no more content_type dry 'application/json'
+. serialize helper:
 
 
 
@@ -314,14 +324,7 @@ SKU MANAGEMENT:
 
 
 
-
-
-
-
-
-
-
-
+    
 
 
    

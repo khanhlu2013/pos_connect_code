@@ -3,10 +3,9 @@ from django.contrib.auth.models import User
 from store.models import Store
 from model_mommy import mommy
 from helper import test_helper
-from store_product import insert_new_store_product_cm
-from util.couch import couch_constance,couch_util,master_account_util,old_security_4_test_purpose
+from util.couch import master_account_util,old_security_4_test_purpose
 import json
-from store.couch import store_util
+from couch import couch_util,couch_constance
 import requests
 
 
@@ -42,7 +41,6 @@ def d():
     insert_user_to_old_couch_db_security(store2.id)
     insert_user_to_old_couch_db_security(store3.id)
 
-    # insert_100_product_to_store(store1)
     print("completed")
 
 def insert_user_to_old_couch_db_security(store_id):
@@ -136,23 +134,11 @@ def delete_data():
     #delete store on couch
     store_lst = list(Store.objects.all())
     for store in store_lst:
-        store_db = store_util.get_store_db(store.id)
+        store_db = couch_util.get_store_db(store.id)
         if store_db:    
-            store_util.delete_store_db(store.id)
+            couch_util.delete_store_db(store.id)
 
     #delete store on master
     Store.objects.all().delete()
 
-def insert_100_product_to_store(store):
-    print('insert 100 product to a store')
-    for i in range(100):
-        insert_new_store_product_cm.exe(
-             business_id = store.id
-            ,name = i
-            ,price = i
-            ,crv = i if (i%2 == 0) else 0
-            ,isTaxable = (i % 2 == 0)
-            ,isTaxReport = True
-            ,isSaleReport = True
-            ,sku_str = i)
 

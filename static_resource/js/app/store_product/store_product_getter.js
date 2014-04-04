@@ -27,6 +27,9 @@ define(
             ,cursor.value.price
             ,cursor.value.crv
             ,cursor.value.is_taxable
+            ,cursor.value.is_sale_report
+            ,cursor.value.p_type
+            ,cursor.value.p_tag
             ,cursor.value.sku_lst
         );
         return store_product;

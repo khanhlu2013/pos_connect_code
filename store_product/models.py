@@ -1,22 +1,22 @@
 from django.db import models
-from bus.models import Business
+from store.models import Store
 from product.models import Product    
+from couch import couch_util
 
 class Store_product(models.Model):
     product = models.ForeignKey(Product)
-    business = models.ForeignKey(Business)
+    store = models.ForeignKey(Store)
     name = models.CharField(max_length=100)
     price = models.DecimalField(max_digits=6, decimal_places=2,blank=True,null=True)
     crv = models.DecimalField(max_digits=5, decimal_places=3,blank=True,null=True)
-    isTaxable = models.BooleanField()
-    isTaxReport = models.BooleanField(default=True)
-    isSaleReport = models.BooleanField(default=True)
+    is_taxable = models.BooleanField()
+    is_sale_report = models.BooleanField(default=True)
     p_type = models.CharField(blank=True,null=True,max_length=100)
     p_tag = models.CharField(blank=True,null=True,max_length=100)
 
 
     class Meta:
-        unique_together = ("product","business")
+        unique_together = ("product","store")
         
     def __unicode__(self):
         return self.name
@@ -27,4 +27,7 @@ class Store_product(models.Model):
             raise ValidationError("Please provide product's name")
 
     def get_price_str(self):
-        return str(self.price)
+        return couch_util.number_2_str(self.price)
+
+    def get_crv_str(self):
+        return couch_util.number_2_str(self.crv)

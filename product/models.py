@@ -1,12 +1,11 @@
 from django.db import models
 from django.core.exceptions import MultipleObjectsReturned,ObjectDoesNotExist,ValidationError
-from bus.models import Business
+
 
 
 class Unit(models.Model):
     name = models.CharField(max_length=100)
     abbreviate = models.CharField(max_length=20)
-    creator = models.ForeignKey(Business,blank=True,null=True)
     is_approved = models.BooleanField()
     _old_id = models.IntegerField(null=True)  
     
@@ -16,7 +15,7 @@ class Unit(models.Model):
 
 class Sku(models.Model):
     sku = models.CharField(max_length=30,unique=True)
-    creator = models.ForeignKey(Business,blank=True,null=True)
+    creator = models.ForeignKey('store.Store',blank=True,null=True)
     is_approved = models.BooleanField()
     _old_id = models.IntegerField(null=True)  
     def __unicode__(self):
@@ -26,9 +25,9 @@ class Sku(models.Model):
 class ProdSkuAssoc(models.Model):
     sku = models.ForeignKey(Sku)
     product = models.ForeignKey('product.Product')
-    creator = models.ForeignKey(Business,blank=True,null=True)
+    creator = models.ForeignKey('store.Store',blank=True,null=True)
     is_approve_override = models.BooleanField()
-    store_product_lst = models.ManyToManyField('store_product.Store_product')#list of business support this product_sku_assoc 
+    store_product_lst = models.ManyToManyField('store_product.Store_product')#list of store support this product_sku_assoc 
                                                                             
     
     def _is_dynamic_approve(self,frequency):
@@ -51,9 +50,9 @@ class Product(models.Model):
     temp_name = models.CharField(max_length=255,blank=True,null=True)
     _old_id = models.IntegerField(null=True)        
 
-    creator = models.ForeignKey(Business,null=True,blank=True,related_name='created_prod_lst')
+    creator = models.ForeignKey('store.Store',null=True,blank=True,related_name='created_prod_lst')
     sku_lst = models.ManyToManyField(Sku,through=ProdSkuAssoc)
-    bus_lst = models.ManyToManyField(Business,through='store_product.Store_product',related_name='private_prod_lst')#list of business that contain this product
+    bus_lst = models.ManyToManyField('store.Store',through='store_product.Store_product',related_name='private_prod_lst')#list of business that contain this product
 
     def is_approve(self,frequency):
         result = False
@@ -63,9 +62,9 @@ class Product(models.Model):
                 break
         return result
 
-    def get_store_product(self,business):
+    def get_store_product(self,store):
         try:
-            store_product = self.store_product_set.get(business__id=business.id)
+            store_product = self.store_product_set.get(store_id=store.id)
         except ObjectDoesNotExist:
             store_product = None
         return store_product
@@ -88,5 +87,6 @@ class Product(models.Model):
         #validate
         if not self._name_admin and not self.temp_name:
             raise ValidationError('product need a name')
-        
+
+
     

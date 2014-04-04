@@ -1,9 +1,8 @@
 from django.db import models
 from product.models import Product
-from bus.models import Business
 
 class Parent(models.Model):
-    business = models.ForeignKey(Business)
+    store = models.ForeignKey('store.Store')
     position = models.IntegerField()
     caption = models.CharField(max_length=30)
 

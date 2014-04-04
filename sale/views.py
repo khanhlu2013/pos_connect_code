@@ -2,14 +2,14 @@ from django.views.generic import TemplateView
 from django.conf import settings
 from product.models import ProdSkuAssoc
 from util.couch import user_util
-from store.couch import store_util
+from couch import couch_util
 from django.http import HttpResponse
 import json
 from sale import sale_processor,report_generator
 from sale.models import Receipt
 import datetime
 from django.core.serializers.json import DjangoJSONEncoder
-from util.couch import couch_util
+
 
 class Sale_view(TemplateView):
     template_name = 'sale/index.html'
@@ -21,8 +21,8 @@ class Sale_view(TemplateView):
     def get_context_data(self,**kwargs):
         context = super(Sale_view,self).get_context_data(**kwargs)
         bus_id = str(self.cur_login_store.id)
-        context['store_db_name'] = store_util.get_store_db_name(bus_id)
-        context['couch_server_url'] = couch_util.get_url(self.cur_login_store.api_key_name,self.cur_login_store.api_key_pwrd)
+        context['store_db_name'] = couch_util._get_store_db_name(bus_id) # 1111 pass a store_id here
+        context['couch_server_url'] = couch_util.get_couch_url(self.cur_login_store.api_key_name,self.cur_login_store.api_key_pwrd)
         context['ROW_COUNT'] = 5        # xxx move this ugly to constance
         context['COLUMN_COUNT'] = 3     # xxx move this ugly to constance
         return context
@@ -73,7 +73,7 @@ def process_sale_data_view(request):
         
         response_dict = {}
         response_message = None
-        if store_util.get_store_db_name(cur_login_store.id) == store_db_name :
+        if couch_util._get_store_db_name(cur_login_store.id) == store_db_name : # 1111 user store_id instead of name
             receipt_processed_count = sale_processor.exe(cur_login_store.id) 
             response_message = str(receipt_processed_count) + ' receipt(s) processed.'
         else:

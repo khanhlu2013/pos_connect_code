@@ -21,7 +21,7 @@ class test(WebTest):
         #create product
         product = mommy.make('product.Product')
         #associcate product and business
-        store_product = test_helper.associateProductAndBusiness(product=product,business=store)
+        store_product = test_helper.associateProductAndBusiness(product=product,store=store)
         #override name for this store
         name = 'xyz product'
         store_product.name = name

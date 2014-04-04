@@ -1,7 +1,6 @@
 from django.conf import settings
 from couchdb import Server
-from util.couch import couch_constance,master_account_util
-import os
+from util.couch import master_account_util
 
 def get_url(name,password):
     protocol = 'https://' if settings.COUCH_DB_HTTP_S else 'http://'
@@ -16,14 +15,9 @@ def get_server(url):
 def get_server_using_admin_account():
     return get_server(get_url_using_admin_account())
 
-def number_2_str(number):
-    if number == None:
-        return None
-    else:
-        return str(number)
 
-def get_full_view_name(view_name):
-    return couch_constance.VIEW_DOCUMENT_ID + '/_view/' + view_name
+
+
 
 
 

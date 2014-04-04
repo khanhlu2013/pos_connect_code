@@ -2,7 +2,7 @@ from django_webtest import WebTest
 from django.core.urlresolvers import reverse
 from model_mommy import mommy
 from helper import test_helper
-from store_product import insert_new_store_product_cm,insert_old_store_product_cm
+from store_product import new_sp_inserter,old_sp_inserter
 from product.models import ProdSkuAssoc
 
 class Test(WebTest):    
@@ -23,33 +23,35 @@ class Test(WebTest):
         product_name = "Jack Daniel"
         price = 2.99
         crv = None
-        prod_bus_assoc_this = insert_new_store_product_cm.exe( \
-             business_id = store_this.id
+        prod_bus_assoc_this = new_sp_inserter.exe( \
+             store_id = store_this.id
             ,name = product_name
             ,price = price
             ,crv = None
-            ,isTaxable = True
-            ,isTaxReport = True
-            ,isSaleReport = True
+            ,is_taxable = True
+            ,is_sale_report = True
+            ,p_type = None
+            ,p_tag = None
             ,sku_str = sku_str )
 
         prod_sku_assoc_lst = prod_bus_assoc_this.product.prodskuassoc_set.all()
         self.assertEqual(len(prod_sku_assoc_lst),1)
         prod_sku_assoc = prod_sku_assoc_lst[0]
         self.assertEqual(prod_bus_assoc_this.product,prod_sku_assoc.product)
-        self.assertEqual(prod_bus_assoc_this.business,store_this)
+        self.assertEqual(prod_bus_assoc_this.store,store_this)
 
         #ASSOCIATE THIS PRODUCT TO ANOTHER STORE
         user_other,store_other = test_helper.create_user_then_store()
-        prod_bus_assoc_other = insert_old_store_product_cm.exe( \
+        prod_bus_assoc_other = old_sp_inserter.exe( \
              product_id = prod_bus_assoc_this.product.id
             ,business_id = store_other.id
             ,name = product_name
             ,price = price
             ,crv = crv
-            ,isTaxable = True
-            ,isTaxReport = True
-            ,isSaleReport = True
+            ,is_taxable = True
+            ,is_sale_report = True
+            ,p_type = None
+            ,p_tag = None
             ,assoc_sku_str = sku_str )
         
         prod_sku_assoc_lst = ProdSkuAssoc.objects.filter(product__id=prod_bus_assoc_this.product.id)

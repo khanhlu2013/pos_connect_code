@@ -1,9 +1,9 @@
-from util.couch import couch_util
+from couch import couch_util
 from django.conf import settings
 
 
 def get_users_db():
-    server = couch_util.get_server_using_admin_account()
+    server = couch_util._get_couch_server()
     return server['_users']
     
 #CLIENT USER

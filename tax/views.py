@@ -4,7 +4,6 @@ from django.forms import ModelForm
 from store.models import Store
 from store import update_store_cm
 
-
 class Form(ModelForm):
     class Meta:
         model = Store

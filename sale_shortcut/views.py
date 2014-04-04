@@ -5,7 +5,7 @@ import json
 from django.core import serializers
 from util.couch import user_util
 from django.conf import settings
-from store.couch import store_util
+from couch import couch_util
 from product.models import Product
 
 
@@ -24,7 +24,7 @@ class Index_view(TemplateView):
         client_user_name = user_util.get_client_user_name(bus_id)
         client_user_password = user_util.get_client_user_password(bus_id)
         couch_server_url = 'http://' + client_user_name + ':' +client_user_password + "@" + settings.COUCHDB_URL
-        store_db_name = store_util.get_store_db_name(bus_id)
+        store_db_name = couch_util._get_store_db_name(bus_id) # 1111 use store_id instead of name
         row_count = 5
         column_count = 3
 
@@ -38,7 +38,7 @@ class Index_view(TemplateView):
 
 def get_data_view(request):
     cur_login_store = request.session.get('cur_login_store')
-    lst_django = Parent.objects.filter(business_id=cur_login_store.id).prefetch_related('child_set')
+    lst_django = Parent.objects.filter(store_id=cur_login_store.id).prefetch_related('child_set')
 
     return HttpResponse( json.dumps([parent.to_json() for parent in lst_django]), mimetype='application/json' )
 
@@ -49,7 +49,7 @@ def set_parent_name_view(request):
         position = request.POST['position'] 
 
         cur_login_store = request.session.get('cur_login_store')
-        parent,created = Parent.objects.get_or_create(business_id=cur_login_store.id,position=position)
+        parent,created = Parent.objects.get_or_create(store_id=cur_login_store.id,position=position)
         parent.caption = name
         parent.save()
 
@@ -67,7 +67,7 @@ def set_child_info_view(request):
 
         product = Product.objects.get(pk=product_id)
 
-        parent,created_p = Parent.objects.get_or_create(business_id=cur_login_store.id,position=parent_position)
+        parent,created_p = Parent.objects.get_or_create(store_id=cur_login_store.id,position=parent_position)
         child,created_c = Child.objects.get_or_create(parent_id=parent.id,position=child_position,defaults={'product_id':product_id,'caption':child_caption})
         
         if not created_c:

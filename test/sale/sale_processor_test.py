@@ -1,14 +1,14 @@
 from django_webtest import WebTest
 from decimal import Decimal
 from model_mommy import mommy
-from store_product import insert_new_store_product_cm
+from store_product import new_sp_inserter
 from helper import test_helper
-from sale.couch.receipt import receipt_inserter_for_test_purpose,receipt_lst_couch_getter,receipt_ln_creator_for_test_purpose
+from sale.sale_couch.receipt import receipt_inserter_for_test_purpose,receipt_lst_couch_getter,receipt_ln_creator_for_test_purpose
 from sale import sale_processor
 from sale.receipt import receipt_lst_master_getter
 from store_product.models import Store_product
-from store_product.couch import store_product_couch_getter
-from util.couch import couch_constance
+from store_product.sp_couch import store_product_couch_getter
+from couch import couch_constance
 # import time
 
 class sale_processor_test(WebTest):
@@ -61,25 +61,25 @@ class sale_processor_test(WebTest):
         name_x = 'product name'
         price_x = 0.1
         crv_x = 0.2
-        isTaxable_x = True
-        isTaxReport = True
-        isSaleReport = True
+        is_taxable_x = True
+        is_sale_report = True
         sku_str = '111'
-        store_product_x = insert_new_store_product_cm.exe(
-             business_id = my_store.id            
+        store_product_x = new_sp_inserter.exe(
+             store_id = my_store.id            
             ,name = name_x
             ,price = price_x
             ,crv = crv_x
-            ,isTaxable = isTaxable_x
-            ,isTaxReport = isTaxReport
-            ,isSaleReport = isSaleReport
+            ,is_taxable = is_taxable_x
+            ,is_sale_report = is_sale_report
+            ,p_type = None
+            ,p_tag = None
             ,sku_str = sku_str)
 
 
 
         #.ln_1: exist store_product_x
         #.ln_1_sp
-        ln_1_sp = store_product_couch_getter.exe(store_product_x.product.id,store_product_x.business.id)
+        ln_1_sp = store_product_couch_getter.exe(store_product_x.product.id,store_product_x.store.id)
         #.ln_1
         ln_1_qty = 1
         ln_1_price = 1.1
@@ -148,7 +148,7 @@ class sale_processor_test(WebTest):
         ds_lst.append(ln_2)
         ds_lst.append(ln_3)
         ds_lst.append(ln_4)
-        receipt_inserter_for_test_purpose.exe(collected_amount,ds_lst,tax_rate,time_stamp,my_store.id,use_store_account=False)
+        receipt_inserter_for_test_purpose.exe(collected_amount,ds_lst,tax_rate,time_stamp,my_store.id)
         receipt_couch_lst = receipt_lst_couch_getter.exe(my_store.id)
         self.assertEqual(len(receipt_couch_lst),1)
 

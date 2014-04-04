@@ -24,7 +24,10 @@ define(
 			        ,cur_sp.name
 			        ,cur_sp.price
 			        ,cur_sp.crv
-			        ,cur_sp.isTaxable
+			        ,cur_sp.is_taxable
+			        ,cur_sp.is_sale_report
+			        ,cur_sp.p_type
+			        ,cur_sp.p_tag
 			        ,cur_sp.sku_lst					
 				);
 

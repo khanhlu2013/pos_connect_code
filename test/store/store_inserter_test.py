@@ -5,7 +5,7 @@ from model_mommy import mommy
 from util.couch import user_util
 from tax.couch import tax_util
 from helper import test_helper 
-from store.couch import store_util
+from couch import couch_util
 from couchdb import ResourceNotFound
 from util.couch import master_account_util,reader_lst_getter
 
@@ -32,7 +32,7 @@ class test(WebTest):
         
         #-ASSERT
         #.store_[store_id] database is created in couch
-        store_db = store_util.get_store_db(store_id = store.id)
+        store_db = couch_util.get_store_db(store_id = store.id)
         self.assertTrue(store_db!=None)
 
         # #TEST  xxx we will need to uncomment these when we can install bigcouch in this development machine. 

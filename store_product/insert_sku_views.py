@@ -49,7 +49,7 @@ class MyForm(ModelForm):
         return insert_sku_cm.content_management(
              sku_str = sku_str
             ,product = self.prod_bus_assoc.product
-            ,creator = self.prod_bus_assoc.business
+            ,creator = self.prod_bus_assoc.store
             ,prod_bus_assoc = self.prod_bus_assoc
         )        
 

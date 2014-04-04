@@ -1,6 +1,6 @@
 from django_webtest import WebTest
 from model_mommy import mommy
-from store_product import insert_old_store_product_cm
+from store_product import old_sp_inserter
 from helper import test_helper
 
 class Product(WebTest):
@@ -20,15 +20,16 @@ class Product(WebTest):
         #dynamic -> false
         user_x,store_x = test_helper.create_user_then_store()
         frequency = 2
-        insert_old_store_product_cm.exe(
+        old_sp_inserter.exe(
              product_id = product.id
             ,business_id = store_x.id
             ,name = "name 1"
             ,price = None
             ,crv = None
-            ,isTaxable = False
-            ,isTaxReport = False
-            ,isSaleReport = False
+            ,is_taxable = False
+            ,is_sale_report = False
+            ,p_type = None
+            ,p_tag = None            
             ,assoc_sku_str = sku_str )
 
         #assert
@@ -44,26 +45,28 @@ class Product(WebTest):
         user_x,store_x = test_helper.create_user_then_store()
         user_y,store_y = test_helper.create_user_then_store()
         frequency = 2
-        insert_old_store_product_cm.exe(
+        old_sp_inserter.exe(
              product_id = product.id
             ,business_id = store_x.id
             ,name = "name 1"
             ,price = None
             ,crv = None
-            ,isTaxable = False
-            ,isTaxReport = False
-            ,isSaleReport = False
+            ,is_taxable = False
+            ,is_sale_report = False
+            ,p_type = None
+            ,p_tag = None            
             ,assoc_sku_str = sku_str )
 
-        insert_old_store_product_cm.exe(
+        old_sp_inserter.exe(
              product_id = product.id
             ,business_id = store_y.id
             ,name = "name 1"
             ,price = None
             ,crv = None
-            ,isTaxable = False
-            ,isTaxReport = False
-            ,isSaleReport = False
+            ,is_taxable = False
+            ,is_sale_report = False
+            ,p_type = None
+            ,p_tag = None            
             ,assoc_sku_str = sku_str )
 
         #assert
@@ -79,15 +82,16 @@ class Product(WebTest):
         #dynamic -> false
         user_x,store_x = test_helper.create_user_then_store()
         frequency = 2
-        insert_old_store_product_cm.exe(
+        old_sp_inserter.exe(
              product_id = product.id
             ,business_id = store_x.id
             ,name = "name 1"
             ,price = None
             ,crv = None
-            ,isTaxable = False
-            ,isTaxReport = False
-            ,isSaleReport = False
+            ,is_taxable = False
+            ,is_sale_report = False
+            ,p_type = None
+            ,p_tag = None            
             ,assoc_sku_str = sku_str )
 
         #assert
@@ -104,26 +108,28 @@ class Product(WebTest):
         user_x,store_x = test_helper.create_user_then_store()
         user_y,store_y = test_helper.create_user_then_store()
         frequency = 2
-        insert_old_store_product_cm.exe(
+        old_sp_inserter.exe(
              product_id = product.id
             ,business_id = store_x.id
             ,name = "name 1"
             ,price = None
             ,crv = None
-            ,isTaxable = False
-            ,isTaxReport = False
-            ,isSaleReport = False
+            ,is_taxable = False
+            ,is_sale_report = False
+            ,p_type = None
+            ,p_tag = None            
             ,assoc_sku_str = sku_str )
         
-        insert_old_store_product_cm.exe(
+        old_sp_inserter.exe(
              product_id = product.id
             ,business_id = store_y.id
             ,name = "name 1"
             ,price = None
             ,crv = None
-            ,isTaxable = False
-            ,isTaxReport = False
-            ,isSaleReport = False
+            ,is_taxable = False
+            ,is_sale_report = False
+            ,p_type = None
+            ,p_tag = None            
             ,assoc_sku_str = sku_str )
 
         #assert

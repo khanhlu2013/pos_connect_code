@@ -1,9 +1,9 @@
-from sale.couch.receipt import receipt_lst_couch_getter
-from store_product import insert_new_store_product_cm,insert_old_store_product_cm,store_product_master_getter
+from sale.sale_couch.receipt import receipt_lst_couch_getter
+from store_product import new_sp_inserter,store_product_master_getter
 from store_product.models import Store_product
 from sale.models import Receipt,Receipt_ln
 from store.models import Store
-from store.couch import store_util
+from couch import couch_util
 from product.models import Product
 import datetime
 
@@ -44,7 +44,7 @@ def exe(store_id):
     exist_in_master_sp_lookup = not_null_pid_sp_lookup
     
     #- CREATE STORE PRODUCT 
-    old_sp_lookup = create_old_store_product(not_null_pid_iss_create_offline,store_id)
+    old_sp_lookup = create_old_store_product(not_null_pid_iss_create_offline,store_id) # 1111
     new_sp_lookup = create_new_store_product(iss_null_pid,store_id,couch_receipt_lst)
 
     #- SAVE RECEIPT TO MASTER   
@@ -53,40 +53,22 @@ def exe(store_id):
     return receipt_processed_count
 
 
-def create_old_store_product(sp_couch_lst,store_id):
-    old_sp_lookup = []
-    for sp_couch in sp_couch_lst:
-        product = Product.objects.get(pk=sp_couch['product_id'])
-
-        # 111 remove this
-        master_sp = insert_old_store_product_cm.exe(
-             product
-            ,store_id
-            ,sp_couch['name']
-            ,sp_couch['price']
-            ,sp_couch['crv']
-            ,sp_couch['is_taxable']
-            ,True#isTaxReport
-            ,True#store_product.isSaleReport
-            ,sp_couch['create_offline_by_sku']
-        )       
-        old_sp_lookup.append({'couch_id':sp_couch['_id'],'master_id':master_sp.id,'pid':product.id})
-    return old_sp_lookup
-
 
 def create_new_store_product(sp_couch_lst,store_id,receipt_lst):
     new_sp_lookup_lst = []
 
     for sp_couch in sp_couch_lst:
-        master_sp = insert_new_store_product_cm.exe(
-             store_id
-            ,sp_couch['name']
-            ,sp_couch['price']
-            ,sp_couch['crv']
-            ,sp_couch['is_taxable']
-            ,True#isTaxReport
-            ,True#isSaleReport
-            ,sp_couch['create_offline_by_sku'])
+        master_sp = new_sp_inserter.exe(
+             store_id = store_id
+            ,name = sp_couch['name']
+            ,price = sp_couch['price']
+            ,crv = sp_couch['crv']
+            ,is_taxable = sp_couch['is_taxable']
+            ,is_sale_report = sp_couch['is_sale_report']
+            ,p_type = sp_couch['p_type']
+            ,p_tag = sp_couch['p_tag']
+            ,sku_str = sp_couch['create_offline_by_sku']
+        )
 
         new_sp_lookup_lst.append({'couch_id':sp_couch['_id'],'master_id':master_sp.id,'pid':master_sp.product.id})
 
@@ -197,7 +179,7 @@ def copy_paste_receipt_from_couch_to_master(sp_lookup_lst,receipt_couch_lst,stor
     #DELETE RECEIPT
     for receipt in receipt_couch_lst:
         receipt['_deleted'] = True
-    db = store_util.get_store_db(store_id)
+    db = couch_util.get_store_db(store_id)
     db.update(receipt_couch_lst)
 
 

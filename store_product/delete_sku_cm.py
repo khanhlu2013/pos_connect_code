@@ -1,5 +1,5 @@
-from store_product.couch import store_product_couch_getter
-from store.couch import store_util
+from store_product.sp_couch import store_product_couch_getter
+from couch import couch_util
 from product.templatetags import prod_sku_assoc_deletable
 
 def content_management(prod_sku_assoc,business):
@@ -16,5 +16,5 @@ def content_management_couch_db(product_id,business_id,sku_str):
 		if(cur_sku == sku_str):
 			del sku_lst[idx]
 			break
-	db = store_util.get_store_db(business_id)
+	db = couch_util.get_store_db(business_id)
 	db.update([prod_bus_assoc_doc,])

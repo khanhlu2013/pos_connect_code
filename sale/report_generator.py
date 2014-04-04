@@ -23,7 +23,7 @@ def exe(receipt_lst): # xxx naming is hard to understand. subject to refactor
         
         if item.store_product != None and item.store_product.isSaleReport:
             #TAX - NON_TAX
-            key = 'tax' if item.store_product.isTaxable else 'non_tax'
+            key = 'tax' if item.store_product.is_taxable else 'non_tax'
             update_dic(key,amount,dic)
 
             if item.store_product.p_type != None: 

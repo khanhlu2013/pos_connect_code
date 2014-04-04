@@ -1,6 +1,6 @@
 from model_mommy import mommy
 from util.couch import user_util
-from store.couch import store_util
+from couch import couch_util
 from couchdb import ResourceNotFound
 from django.contrib.auth.models import User
 import os
@@ -8,8 +8,11 @@ import os
 def is_local_env():
     return 'LOCAL_ENVIRONMENT' in os.environ.keys()
 
-def associateProductAndBusiness(product,business):
-    return mommy.make('store_product.Store_product',product=product,business=business,isTaxable=False)
+def create_sp(store,product):
+    return mommy.make('store_product.Store_product',product=product,store=store,is_taxable=False)
+
+def associateProductAndBusiness(product,store):
+    return mommy.make('store_product.Store_product',product=product,store=store,is_taxable=False)
 
 def createProductWithSku(sku_str,is_approve_override=False):
     name = sku_str + '_' + str(is_approve_override)
@@ -30,12 +33,12 @@ def create_user_then_store():
     store = mommy.make('store.Store')
     user = mommy.make('auth.User')
     membership = mommy.make('liqUser.Membership',business=store,user=user)
-    return (membership.user,membership.user.business_lst.all()[0])
+    return (membership.user,membership.user.business_lst.all()[0].store)
 
 def _delete_liquor_db_and_user(store_id):
-    store_db = store_util.get_store_db(store_id)
+    store_db = couch_util.get_store_db(store_id)
     if store_db:    
-        store_util.delete_store_db(store_id)
+        couch_util.delete_store_db(store_id)
 
 def setup_test_couchdb():
     _delete_liquor_db_and_user(1)

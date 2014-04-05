@@ -18,41 +18,47 @@ class Search_view(TemplateView):
         context['COUCH_SERVER_URL'] = couch_util.get_couch_url(self.cur_login_store.api_key_name,self.cur_login_store.api_key_pwrd) #when search for sku, and product is not found, we will create product and sycn to pouch if nessesary when current local data exist in browser. when sync, we need couch_url
         return context
 
-def serialize_prod_lst(prod_lst):
-    return sp_serializer.Product_serializer(prod_lst,many=True).data
 
+def Name_ajax(request):
+    if request.method == GET:
+        if request.GET.has_key('name_str'):
+            name_str = request.GET['name_str']
+            cur_login_store = request.session.get('cur_login_store')
+            prod_lst = list(Product.objects.filter(store_product_set_id = cur_login_store.id, store_product_set__name__icontain=name_str).prefetch_related('store_product_set'))  
+            
+            data = {
+                 'prod_lst' : sp_serializer.serialize_product_lst(prod_lst)
+            }
 
-def sp_search_by_sku_ajax_view(request):
+            return HttpResponse(json.dumps(data),content_type='application/json')
+
+def is_need_to_get_lookup_type_tag(prod_lst,store_id):
+    result = True;
+
+    for prod in prod_lst:
+        sp_set = prod.store_product_set.all()
+        for store_product in sp_set:
+            if store_product.store_id == store_id:
+                result = False
+                break;
+
+    return result;
+
+def Sku_ajax(request):
     if request.method == 'GET':
-        cur_login_store = request.session.get('cur_login_store')
-        sku_str = request.GET['sku_str']
-        product_lst = search_product_by_sku(sku_str)
-        exist_product_lst = []
-        suggest_product_lst = []
+        if request.GET.has_key('sku_str'):
+            sku_str = request.GET['sku_str']
+            cur_login_store = request.session.get('cur_login_store')
+            prod_lst = list(Product.objects.filter(sku_set__sku=sku_str).prefetch_related('store_product_set','prodskuassoc_set__store_product_set'))  
 
-        for item in product_lst:
-            if item.get_store_product(cur_login_store) != None:
-                exist_product_lst.append(item)
-            else:
-                suggest_product_lst.append(item)
+            lookup_type_tag = None
+            if is_need_to_get_lookup_type_tag(prod_lst,cur_login_store.id):
+                lookup_type_tag = sp_master_util.get_lookup_type_tag(cur_login_store.id)
 
-        lookup_type_tag = None
-        if len(exist_product_lst) == 0:
-            lookup_type_tag = sp_master_util.get_lookup_type_tag(cur_login_store.id)
+            data = {
+                 'prod_lst' : sp_serializer.serialize_product_lst(prod_lst)
+                ,'lookup_type_tag' : lookup_type_tag
+            }
 
-        data = {
-             'exist_product_lst':serialize_prod_lst(exist_product_lst)
-            ,'suggest_product_lst':serialize_prod_lst(suggest_product_lst)
-            ,'lookup_type_tag': lookup_type_tag
-        }
-
-        return HttpResponse(json.dumps(data),content_type='application/json')
-
-
-def search_product_by_sku(sku_str):
-    """
-        DESC:   search all products in the network (all stores) that matched specified sku. 
-    """
-
-    return list(Product.objects.filter(sku_lst__sku=sku_str).prefetch_related('store_product_set','prodskuassoc_set__store_product_lst'))    
-
+            return HttpResponse(json.dumps(data),content_type='application/json')
+        

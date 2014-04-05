@@ -59,8 +59,8 @@ define(
                 }
                 ,success: function(data){
                     var error_message = data.error_message;
-                    var sp = data.sp;
-                    callback(error_message.length == 0 ? null: error_message/*error*/,sp/*result*/);
+                    var product = data.product;
+                    callback(error_message.length == 0 ? null: error_message/*error*/,product/*result*/);
                 }
                 ,error: function(xhr,errmsg,err){
                     callback('there is error');

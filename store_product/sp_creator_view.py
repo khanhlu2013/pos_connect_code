@@ -1,7 +1,9 @@
 from store_product import new_sp_inserter,old_sp_inserter
 from django.http import HttpResponse
-from django.core import serializers
+from store_product import sp_serializer
+from product.models import Product
 from decimal import Decimal
+import json
 
 def sp_creator_ajax_view(request):
 
@@ -71,6 +73,7 @@ def sp_creator_ajax_view(request):
             )
 
         if sp != None:
-            return HttpResponse(serializers.serialize('json',[sp,]),content_type='application/json')
+            product_serialized = sp_serializer.serialize_product_from_id(sp.product.id)
+            return HttpResponse(json.dumps(product_serialized),content_type='application/json')
 
 

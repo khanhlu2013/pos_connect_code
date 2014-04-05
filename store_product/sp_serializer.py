@@ -30,3 +30,10 @@ class Product_serializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = ('name','product_id','store_product_set','prodskuassoc_set')
+
+def serialize_product_from_id(product_id):
+    product = list(Product.objects.filter(id=product_id).prefetch_related('store_product_set','prodskuassoc_set__store_product_set'))[0]
+    return serialize_product_lst([product,])[0]
+
+def serialize_product_lst(prod_lst):
+    return Product_serializer(prod_lst,many=True).data

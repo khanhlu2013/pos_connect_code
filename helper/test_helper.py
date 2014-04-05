@@ -26,14 +26,14 @@ def create_user_then_store_detail(user_name,user_password,store_name):
     store = mommy.make('store.Store',name=store_name)
     user = User.objects.create_user(username = user_name,password=user_password,first_name=user_name)
     membership = mommy.make('liqUser.Membership',business=store,user=user)
-    return (membership.user,membership.user.business_lst.all()[0])
+    return (membership.user,membership.user.business_set.all()[0])
 
 def create_user_then_store():
     #helper: create user belong to that single store
     store = mommy.make('store.Store')
     user = mommy.make('auth.User')
     membership = mommy.make('liqUser.Membership',business=store,user=user)
-    return (membership.user,membership.user.business_lst.all()[0].store)
+    return (membership.user,membership.user.business_set.all()[0].store)
 
 def _delete_liquor_db_and_user(store_id):
     store_db = couch_util.get_store_db(store_id)

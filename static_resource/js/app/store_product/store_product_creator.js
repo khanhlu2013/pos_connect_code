@@ -5,6 +5,7 @@ define(
 		,'app/store_product/store_product_prompt'
 		,'app/store_product/store_product_getter'
 		,'app/local_db_initializer/oneshot_sync'
+		,'app/local_db_initializer/sync_if_nessesary'
 
 	]
 	,function
@@ -14,34 +15,11 @@ define(
 		,sp_prompt
 		,sp_getter
 		,oneshot_sync
+		,sync_if_nessesary
 	)
 {
 	var ERROR_SP_CREATOR_CANCEL = 'ERROR_SP_CREATOR_CANCEL';
     
-	function sync_data_if_nessesary(store_id,couch_server_url,callback){
-		var is_store_idb_exist_b = db_util.is_store_idb_exist.bind(db_util.is_store_idb_exist,store_id);
-		async.waterfall([is_store_idb_exist_b],function(error,result){
-			if(error){
-				$.unblockUI();
-				callback(error);
-				return;
-			}
-
-			if(result === null){
-				$.unblockUI();
-				callback(null/*error*/);
-				//db is not exist, do nothing
-			}
-			else{
-				var oneshot_sync_b = oneshot_sync.bind(oneshot_sync,db_util.get_store_db_name(store_id),couch_server_url)
-				async.waterfall([oneshot_sync_b],function(error,result){
-					$.unblockUI();
-					callback(error);
-				});
-			}
-		});
- 	}
-
 	function exe(sku_str,suggest_product_lst,lookup_type_tag,store_id,couch_server_url,callback){
 		/*
 			DESC: 	we need this module if store_product is not found when searching for sku. It will make sure that offline db does not contain this sku. 
@@ -94,10 +72,17 @@ define(
  				,data : data
  				,dataType:'json'
  				,success:function(data,status_str,xhr){
- 					sync_data_if_nessesary(store_id,couch_server_url,callback)
+ 					var sync_b = sync_if_nessesary.bind(sync_if_nessesary,store_id,couch_server_url);
+ 					async.waterfall([sync_b],function(error,result){
+ 						if(error){
+ 							callback(error);
+ 						}else{
+ 							callback(null/*error*/,data)
+ 						}
+ 					});
  				}
  				,error:function(xhr,status_str,error){
- 					alert("there is an error");
+ 					callback('there is error');
  				}
  			});
  		});

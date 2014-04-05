@@ -74,7 +74,7 @@ def updator_ajax(request):
         else:
             errmsg += 'is sale report is not valid'
 
-        sp_serialized = None
+        product_serialized = None
         if len(errmsg) == 0:
             try:
                 sp = update_store_product_cm.exe( \
@@ -88,17 +88,13 @@ def updator_ajax(request):
                     ,p_type
                     ,p_tag
                 )
-                sp_serialized = sp_serializer.Store_product_serializer([sp,]).data[0]
-                print('-xxx-')
-                print(sp_serialized)
-                print('-yyy-')
-                print(sp)
+                product_serialized = sp_serializer.serialize_product_from_id(sp.product.id)
 
             except Exception,e:
                 errmsg = 'there is error updating product'
+                print(e)
 
-
-        return HttpResponse(json.dumps({'error_message':errmsg,'sp':sp_serialized}),mimetype='application/javascript')
+        return HttpResponse(json.dumps({'error_message':errmsg,'product':product_serialized}),mimetype='application/javascript')
 
 
 

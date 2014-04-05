@@ -22,7 +22,7 @@ def select_default_login_store(sender,user,request,**kwargs):
 
     #user must belong to a single bus for now
     cur_bus = None
-    bus_lst = user.business_lst.all()
+    bus_lst = user.business_set.all()
     bus_lst_len = len(bus_lst)
     if bus_lst_len != 1:
         raise Exception('we dont accept loner user or multi-business user at this point')

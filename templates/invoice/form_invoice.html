@@ -1,9 +1,0 @@
-{% extends "base_regular_user.html" %}
-
-{% block content %}
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_table }}
-        <input type="submit" value="save">
-    </form>
-{% endblock content %}

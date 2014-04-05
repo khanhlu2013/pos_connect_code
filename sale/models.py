@@ -14,7 +14,7 @@ class Receipt(models.Model):
 
 
 class Receipt_ln(models.Model):
-    receipt = models.ForeignKey(Receipt,related_name='receipt_ln_lst')
+    receipt = models.ForeignKey(Receipt)
     qty = models.IntegerField()
     store_product = models.ForeignKey(Store_product,blank=True,null=True)
     price = models.DecimalField(max_digits=6, decimal_places=2)

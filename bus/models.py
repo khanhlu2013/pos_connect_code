@@ -30,5 +30,4 @@ class KT_Business(Address):
 
 
 class Business(KT_Business):
-    user_lst = models.ManyToManyField(settings.AUTH_USER_MODEL,through="liqUser.Membership",related_name='business_lst')
-    sub_vendors = models.ManyToManyField('vendor.Vendor', blank=True, null=True, related_name = 'sub_stores')
+    user_set = models.ManyToManyField(settings.AUTH_USER_MODEL,through="liqUser.Membership")

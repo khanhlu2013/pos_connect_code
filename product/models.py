@@ -27,17 +27,17 @@ class ProdSkuAssoc(models.Model):
     product = models.ForeignKey('product.Product')
     creator = models.ForeignKey('store.Store',blank=True,null=True)
     is_approve_override = models.BooleanField()
-    store_product_lst = models.ManyToManyField('store_product.Store_product')#list of store support this product_sku_assoc 
+    store_product_set = models.ManyToManyField('store_product.Store_product')#list of store support this product_sku_assoc 
                                                                             
     
     def _is_dynamic_approve(self,frequency):
-        return len(self.store_product_lst.all()) == frequency
+        return len(self.store_product_set.all()) == frequency
 
     def is_approve(self,frequency):
         return self.is_approve_override or self._is_dynamic_approve(frequency)
 
     def get_popularity(self):
-        return self.store_product_lst.count()
+        return self.store_product_set.count()
 
     class Meta:
         unique_together = ("sku","product")
@@ -50,9 +50,9 @@ class Product(models.Model):
     temp_name = models.CharField(max_length=255,blank=True,null=True)
     _old_id = models.IntegerField(null=True)        
 
-    creator = models.ForeignKey('store.Store',null=True,blank=True,related_name='created_prod_lst')
-    sku_lst = models.ManyToManyField(Sku,through=ProdSkuAssoc)
-    bus_lst = models.ManyToManyField('store.Store',through='store_product.Store_product',related_name='private_prod_lst')#list of business that contain this product
+    creator = models.ForeignKey('store.Store',null=True,blank=True,related_name='create_product_set')
+    sku_set = models.ManyToManyField(Sku,through=ProdSkuAssoc)
+    store_set = models.ManyToManyField('store.Store',through='store_product.Store_product',related_name='own_product_set')#list of business that contain this product
 
     def is_approve(self,frequency):
         result = False

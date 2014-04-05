@@ -94,7 +94,7 @@ def exe_master( \
             is_approve_override = False
         )
         #CREATE PROD_SKU_ASSOC__PROD_BUS_ASSOC
-        prodSkuAssoc.store_product_lst.add(prod_bus_assoc)
+        prodSkuAssoc.store_product_set.add(prod_bus_assoc)
 
     return prod_bus_assoc
 

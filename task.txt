@@ -317,11 +317,12 @@ isSaleReport
 . json response helper: no more content_type dry 'application/json'
 . serialize helper:
 
+------------------
 
 
 
-
-
+sp_searcher
+sp_updator
 
 
     

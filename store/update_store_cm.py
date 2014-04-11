@@ -11,5 +11,5 @@ def exe_master(store):
 def exe_couch(store):
     tax_document = tax_util.get_tax_document(store.id)
     db = couch_util.get_store_db(store.id)
-    tax_document["tax_rate"] = couch_util.number_2_str(store.tax_rate) # 1111 this couch_util will need to be deleted. rethink about number_2_str
+    tax_document["tax_rate"] = couch_util.decimal_2_str(store.tax_rate)
     db.update([tax_document,])

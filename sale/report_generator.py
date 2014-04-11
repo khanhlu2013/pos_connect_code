@@ -21,7 +21,7 @@ def exe(receipt_lst): # xxx naming is hard to understand. subject to refactor
     for item in receipt_ln_lst:
         amount = item.get_total_out_the_door_price()
         
-        if item.store_product != None and item.store_product.isSaleReport:
+        if item.store_product != None and item.store_product.is_sale_report:
             #TAX - NON_TAX
             key = 'tax' if item.store_product.is_taxable else 'non_tax'
             update_dic(key,amount,dic)

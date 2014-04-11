@@ -32,15 +32,14 @@ require(
         ,'app/sale/voider/voider'
         ,'lib/misc/csrf_ajax_protection_setup'
         ,'app/sale/receipt_pusher/receipt_pusher'
-        ,'app/local_db_initializer/set_sync_status'
         ,'app/local_db_initializer/oneshot_sync'
         ,'app/local_db_initializer/customize_db'
-        ,'app/store_product/store_product_creator'
         ,'app/sale_shortcut/parent_lst_getter'
         ,'app/sale_shortcut/sale_shortcut_util'
         ,'app/store_product/store_product_getter'
         ,'app/sale/pending_scan/Pending_scan'
         ,'app/sale/pending_scan/pending_scan_inserter'
+        ,'app/sale/scan/sku_scan_not_found'
         //-----------------
         ,'jquery_block_ui'
         ,'jquery_ui'
@@ -60,15 +59,14 @@ require(
         ,voider
         ,csrf_ajax_protection_setup
         ,receipt_pusher
-        ,set_sync_status
         ,oneshot_sync
         ,customize_db
-        ,sp_creator
         ,parent_lst_getter
         ,sale_shortcut_util
         ,sp_getter
         ,Pending_scan
         ,ps_inserter
+        ,sku_scan_not_found
     )
     {
         //UI
@@ -86,24 +84,6 @@ require(
         var product_crv_txt = document.getElementById("product_crv_txt");
         var product_sku_txt = document.getElementById("product_sku_txt");
 
-        function listen_to_document_change_and_update_ui(store_idb,store_pdb){
-            store_pdb.changes({
-                 continuous: true
-                ,include_docs: true
-                // ,since: 20
-                ,onChange: function(change) { 
-                    if(change.doc.d_type != null && change.doc.d_type == constance.STORE_PRODUCT_TYPE){
-                        var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,store_idb,table);
-                        async.waterfall([ds_2_ui_b],function(error,result){
-                            if(error){
-                                alert(error);
-                                return;
-                            }
-                        });                        
-                    }
-                }
-            });
-        }
 
         function hook_receipt_pusher_2_ui(store_idb,store_pdb){
             function exe(){
@@ -134,7 +114,7 @@ require(
                     return;
                 }
 
-                var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,store_idb,table);
+                var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,store_idb,table,STORE_ID,COUCH_SERVER_URL);
                 var alone_discounter_b = alone_discounter.bind(alone_discounter,store_idb,discount_input_str);
                 async.waterfall([alone_discounter_b,ds_2_ui_b],function(error,result){
                     if(error){alert(error);}
@@ -167,7 +147,7 @@ require(
                                         alert(error);
                                     }else{
                                         //refresh table
-                                        var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,store_idb,table);
+                                        var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,store_idb,table,STORE_ID,COUCH_SERVER_URL);
                                         async.waterfall([ds_2_ui_b],function(error,result){
                                             if(error){
                                                 alert(error);
@@ -197,17 +177,19 @@ require(
                 }
 
                 var scanner_b = scanner.exe.bind(scanner.exe,scan_str,store_idb);
-                var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,store_idb,table);
+                var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,store_idb,table,STORE_ID,COUCH_SERVER_URL);
 
                 async.waterfall([scanner_b,ds_2_ui_b],function(error,result){
                     if(error){
                         if(error == scanner.ERROR_STORE_PRODUCT_NOT_FOUND){
-                            // 111 to be implement: issue online search, create product product online, sync down, continue the scan 
                             sku_str = scanner.get_sku_from_scan_str(scan_str);
-                            
-                            // i need a popup, to display all result with option sort these product and user will select a product, or create new online
 
-
+                            var sku_scan_not_found_b = sku_scan_not_found.bind(sku_scan_not_found,sku_str,STORE_ID,COUCH_SERVER_URL);
+                            async.waterfall([sku_scan_not_found_b,scanner_b,ds_2_ui_b],function(error,result){
+                                if(error){
+                                    alert(error);//TODO. if cancel, ignore, if internet error, create sp offline.
+                                }
+                            });
                         }
                         else if(error == scanner.ERROR_CANCEL_SHARE_SKU_BREAKER){
                             //do nothing
@@ -236,7 +218,7 @@ require(
                         }
                         
                         var voider_b = voider.bind(voider,store_idb);
-                        var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,store_idb,table);
+                        var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,store_idb,table,STORE_ID,COUCH_SERVER_URL);
 
                         async.waterfall([voider_b,ds_2_ui_b],function(error,result){
                             if(error){alert(error);}
@@ -267,7 +249,7 @@ require(
                         var sp = result;
                         var ps = new Pending_scan(null/*key*/,1/*qty*/,sp.price,null/*discount*/,sp._id,null/*non_product_name*/);
                         var ps_inserter_b = ps_inserter.bind(ps_inserter,store_idb,ps)
-                        var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,store_idb,table);
+                        var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,store_idb,table,STORE_ID,COUCH_SERVER_URL);
                         async.waterfall([ps_inserter_b,ds_2_ui_b],function(error,result){
                             if(error){alert(error);}
                         });
@@ -356,15 +338,11 @@ require(
             if(error){
                 $.unblockUI();
                 alert("There is error initializing db: " + error);
-                set_sync_status(false);
                 return;
             }
 
             var store_idb = result;
             var store_pdb = pouch_db_util.get_db(STORE_DB_NAME);
-
-            set_sync_status(true);
-            listen_to_document_change_and_update_ui(store_idb,store_pdb);
 
             //init ui functionality
             hook_scanner_to_ui(store_idb,store_pdb);
@@ -374,17 +352,15 @@ require(
             hook_receipt_pusher_2_ui(store_idb,store_pdb);
             
             //refresh ui
-            var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,store_idb,table);
+            var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,store_idb,table,STORE_ID,COUCH_SERVER_URL);
             var init_shortcut_table_b = init_shortcut_table.bind(init_shortcut_table,store_idb);
             async.waterfall([init_shortcut_table_b,ds_2_ui_b],function(error,result){
                 if(error){
                     $.unblockUI();
                     alert("There is error displaying scan: " + error);
-                    set_sync_status(false);
                     return;
                 } 
                 $.unblockUI();
-                set_sync_status(true);
             });
         });
     }

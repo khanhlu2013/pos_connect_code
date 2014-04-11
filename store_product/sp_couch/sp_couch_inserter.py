@@ -17,8 +17,8 @@ def exe(
 
          d_type = couch_constance.STORE_PRODUCT_DOCUMENT_TYPE
         ,name = name
-        ,price = couch_util.number_2_str(price)
-        ,crv = couch_util.number_2_str(crv)
+        ,price = couch_util.decimal_2_str(price)
+        ,crv = couch_util.decimal_2_str(crv)
         ,is_taxable = is_taxable
         ,is_sale_report = is_sale_report
         ,p_type = p_type

@@ -4,7 +4,7 @@
 {% block content %}
 
     <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css" />
-    <link rel="stylesheet" href="{{STATIC_URL}}css/app/store_product/sp_search.css" />
+    <link rel="stylesheet" href="{{STATIC_URL}}css/app/product/product.css" />
 
 
 
@@ -28,8 +28,16 @@
 
 
 
-    <div id="store_product_prompt_dialog" title="Product not found. Enter info to create">
-        <div id='suggest_product_lst'></div>
+    <div id="select_product_option_dialog">
+        <input type="button" id = "product_option_create_new_btn" value = 'create new product'>
+        <table id=select_product_option_tbl border="1"></table>
+    </div>
+
+
+
+
+
+    <div id="store_product_prompt_dialog">
 
         <label for="product_name_txt">Product:</label>
         <input type="text" id = "product_name_txt">
@@ -62,6 +70,19 @@
         <label for="product_sku_txt">Sku:</label>
         <input type="text" id = "product_sku_txt">
         <br>
+
+        <input type="button" id = "sku_management_btn" value = 'manage sku'>
+        <br>        
+    </div>
+
+
+
+
+
+    <div id="sku_management_dialog" title="x Product name go here x">
+        <input type="button" id = "add_sku_btn" value = 'add sku'>
+        <table id=sku_tbl border="1"></table>
+        <br>        
     </div>
 
 
@@ -69,16 +90,16 @@
 
 
     <script type="text/javascript">
-        var STATIC_URL = "{{STATIC_URL}}"
-        var STORE_ID = "{{STORE_ID}}"
-        var COUCH_SERVER_URL = "{{COUCH_SERVER_URL}}"
+        var STATIC_URL = "{{STATIC_URL}}";
+        var STORE_ID = Number("{{STORE_ID}}");
+        var COUCH_SERVER_URL = "{{COUCH_SERVER_URL}}";
     </script>
 
 
 
 
 
-    <script data-main = "{{ STATIC_URL }}js/app/sp_search/search.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script>
+    <script data-main = "{{ STATIC_URL }}js/app/product/product.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script>
 
 
 {% endblock content %}

@@ -6,7 +6,7 @@ from couch import couch_util
 from store_product import sp_master_util,sp_serializer
 
 class Search_view(TemplateView):
-    template_name = 'store_product/search/search.html'
+    template_name = 'store_product/product/product.html'
     
     def dispatch(self,request,*args,**kwargs):
         self.cur_login_store = self.request.session.get('cur_login_store')
@@ -20,11 +20,11 @@ class Search_view(TemplateView):
 
 
 def Name_ajax(request):
-    if request.method == GET:
+    if request.method == 'GET':
         if request.GET.has_key('name_str'):
             name_str = request.GET['name_str']
             cur_login_store = request.session.get('cur_login_store')
-            prod_lst = list(Product.objects.filter(store_product_set_id = cur_login_store.id, store_product_set__name__icontain=name_str).prefetch_related('store_product_set'))  
+            prod_lst = list(Product.objects.filter(store_set__id = cur_login_store.id, store_product__name__icontains=name_str).prefetch_related('store_product_set'))  
             
             data = {
                  'prod_lst' : sp_serializer.serialize_product_lst(prod_lst)
@@ -32,17 +32,21 @@ def Name_ajax(request):
 
             return HttpResponse(json.dumps(data),content_type='application/json')
 
-def is_need_to_get_lookup_type_tag(prod_lst,store_id):
-    result = True;
+
+def is_store_prod_sku_in_lst(prod_lst,store_id,sku_str):
+    """
+        this is an optimization to calculate if we need to include lookup type tag in sku search.
+    """
+    result = False;
 
     for prod in prod_lst:
-        sp_set = prod.store_product_set.all()
-        for store_product in sp_set:
-            if store_product.store_id == store_id:
-                result = False
-                break;
+        prodskuassoc = prod.prodskuassoc_set.get(sku__sku=sku_str)
+        if store_id in [sp.store.id for sp in prodskuassoc.store_product_set.all()]:
+            result = True;
+            break;
 
     return result;
+
 
 def Sku_ajax(request):
     if request.method == 'GET':
@@ -52,7 +56,7 @@ def Sku_ajax(request):
             prod_lst = list(Product.objects.filter(sku_set__sku=sku_str).prefetch_related('store_product_set','prodskuassoc_set__store_product_set'))  
 
             lookup_type_tag = None
-            if is_need_to_get_lookup_type_tag(prod_lst,cur_login_store.id):
+            if not is_store_prod_sku_in_lst(prod_lst,cur_login_store.id,sku_str):
                 lookup_type_tag = sp_master_util.get_lookup_type_tag(cur_login_store.id)
 
             data = {

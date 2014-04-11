@@ -20,8 +20,9 @@ class Sale_view(TemplateView):
 
     def get_context_data(self,**kwargs):
         context = super(Sale_view,self).get_context_data(**kwargs)
-        bus_id = str(self.cur_login_store.id)
-        context['store_db_name'] = couch_util._get_store_db_name(bus_id) # 1111 pass a store_id here
+        store_id = str(self.cur_login_store.id)
+        context['store_db_name'] = couch_util._get_store_db_name(store_id) #TODO: remove store_db_name
+        context['store_id'] = store_id
         context['couch_server_url'] = couch_util.get_couch_url(self.cur_login_store.api_key_name,self.cur_login_store.api_key_pwrd)
         context['ROW_COUNT'] = 5        # xxx move this ugly to constance
         context['COLUMN_COUNT'] = 3     # xxx move this ugly to constance

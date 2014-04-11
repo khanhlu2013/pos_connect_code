@@ -1,5 +1,5 @@
 from django_webtest import WebTest
-from store_product import old_sp_inserter,new_sp_inserter,insert_sku_cm
+from store_product import old_sp_inserter,new_sp_inserter
 from store_product.models import Store_product
 from store_product.sp_couch import store_product_couch_getter
 from model_mommy import mommy

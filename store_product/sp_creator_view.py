@@ -6,7 +6,8 @@ from decimal import Decimal
 import json
 
 def sp_creator_ajax_view(request):
-
+    print(request.POST)
+    
     if      request.POST.has_key('product_id') \
         and request.POST.has_key('name') \
         and request.POST.has_key('price') \
@@ -16,7 +17,6 @@ def sp_creator_ajax_view(request):
         and request.POST.has_key('sku_str') \
         and request.POST.has_key('p_type') \
         and request.POST.has_key('p_tag'):
-
 
         product_id_raw      = request.POST['product_id']
         name_raw            = request.POST['name'] 
@@ -73,7 +73,7 @@ def sp_creator_ajax_view(request):
             )
 
         if sp != None:
-            product_serialized = sp_serializer.serialize_product_from_id(sp.product.id)
+            product_serialized = sp_serializer.serialize_product_from_id(product_id = sp.product.id,store_id=store_id,is_include_other_store = False)
             return HttpResponse(json.dumps(product_serialized),content_type='application/json')
 
 

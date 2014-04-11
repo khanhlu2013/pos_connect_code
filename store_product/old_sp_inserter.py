@@ -34,18 +34,14 @@ def exe(
         ,p_tag
     )
 
-    product = Product.objects.prefetch_related('prodskuassoc_set__store_product_lst').get(pk=product_id)
-    approved_sku_lst = [sku.sku for sku in product.sku_lst.all() if sku.is_approved]
-    sku_lst = [sku for sku in approved_sku_lst]
-    if not assoc_sku_str in approved_sku_lst:
-        sku_lst.append(assoc_sku_str)   
+    sku_lst = [assoc_sku_str,]
     
     sp_couch_inserter.exe(
          store_id = store_id
         ,product_id = product_id
         ,name = name
-        ,price = couch_util.number_2_str(price)
-        ,crv = couch_util.number_2_str(crv)
+        ,price = couch_util.decimal_2_str(price)
+        ,crv = couch_util.decimal_2_str(crv)
         ,is_taxable = is_taxable
         ,is_sale_report = is_sale_report
         ,p_type = p_type
@@ -81,7 +77,7 @@ def exe_master(
     )
 
     prod_sku_assoc = ProdSkuAssoc.objects.get(product_id=product_id,sku__sku=assoc_sku_str)
-    prod_sku_assoc.store_product_lst.add(prod_bus_assoc);
+    prod_sku_assoc.store_product_set.add(prod_bus_assoc);
 
     return prod_bus_assoc
 

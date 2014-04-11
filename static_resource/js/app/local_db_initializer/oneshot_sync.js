@@ -17,17 +17,10 @@ define(
         var local_pouch = pouch_db_util.get_db(store_db_name);
         var store_db_url = couch_db_util.get_db_url(couch_server_url,store_db_name)
 
-        console.log('before replication xxx')
-        console.log('db name: ' + store_db_name)
-        console.log('server url: ' + couch_server_url)
-
         local_pouch.replicate.from(store_db_url,function(error,result){
-            console.log('after replication xxx')
-            console.log('db name: ' + store_db_name)
-            console.log('server url: ' + couch_server_url)
-            console.log('error is: ' + error)
-            console.log('result is:' + result)
-            callback(error);
+            local_pouch.compact(function(){
+                callback(error);
+            });
         });
     }
 
@@ -38,7 +31,7 @@ define(
         var rep_store_db_b = rep_db.bind(rep_db,store_db_name,couch_server_url);
 
         async.waterfall([rep_store_db_b],function(error,result){
-            callback(error)
-        })
+            callback(error);
+        });
     };
 });

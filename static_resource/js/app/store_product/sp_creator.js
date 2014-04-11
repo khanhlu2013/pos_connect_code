@@ -1,0 +1,179 @@
+define(
+	[
+		 'lib/async'
+		,'app/store_product/sp_prompt'
+		,'app/local_db_initializer/sync_if_nessesary'
+		,'app/store_product/sp_online_creator'
+		,'app/product/product_json_helper'
+		,'app/sku/product_sku_online_adder'
+
+	]
+	,function
+	(
+		 async
+		,sp_prompt
+		,sync_if_nessesary
+		,sp_online_creator
+		,product_json_helper
+		,sku_adder
+	)
+{
+   	var CANCEL = 'CANCEL';
+   	
+   	function _create(product_id,prompt_result,callback){
+
+		var creator_b = sp_online_creator.bind 
+		(
+			 sp_online_creator
+	        ,product_id
+	        ,prompt_result.name
+	        ,prompt_result.price
+	        ,prompt_result.crv
+	        ,prompt_result.is_taxable
+	        ,prompt_result.is_sale_report
+	        ,prompt_result.sku_str
+	        ,prompt_result.p_type
+	        ,prompt_result.p_tag
+		);
+		async.waterfall([creator_b],function(error,result){
+			callback(error,result);
+		});
+ 	}
+
+    function exit_btn_handler(callback){
+        $("#select_product_option_dialog").dialog("close");
+        callback(CANCEL/*error*/);
+    }
+
+	function select_option(prodStore_prodSku_1_0,prodStore_prodSku_0_0,store_id,callback){
+		if(prodStore_prodSku_1_0.length == 0 && prodStore_prodSku_0_0.length == 0){
+			callback(null/*error*/,null/*result*/);
+		}else{
+
+			$('#product_option_create_new_btn').off('click').click(function(){
+				callback(null,null);
+				$("#select_product_option_dialog").dialog("close");
+			});
+
+			var product_option_tbl = document.getElementById('select_product_option_tbl');
+			product_option_tbl.innerHTML='';
+
+			var td;
+			var tr;
+
+			tr = product_option_tbl.insertRow(-1);
+			
+			td = tr.insertCell(-1);
+			td.innerHTML = 'product';
+
+			td = tr.insertCell(-1);
+			td.innerHTML = 'add';
+
+			for(var i =0;i<prodStore_prodSku_1_0.length;i++){
+				var cur_prod = prodStore_prodSku_1_0[i];
+				var cur_sp = product_json_helper.get_sp_from_p(cur_prod,store_id);
+
+				tr = product_option_tbl.insertRow(-1);
+				
+				td = tr.insertCell(-1);
+ 				td.innerHTML = cur_sp.name;
+
+ 				td = tr.insertCell(-1);
+ 				td.innerHTML = 'sku';
+
+ 				td.addEventListener('click',function(){
+ 					$("#select_product_option_dialog").dialog("close");
+ 					callback(null,cur_prod);
+ 				});
+ 			}
+
+			for(var i =0;i<prodStore_prodSku_0_0.length;i++){
+				
+				var cur_prod = prodStore_prodSku_0_0[i];
+				tr = product_option_tbl.insertRow(-1);
+				
+				td = tr.insertCell(-1);
+ 				td.innerHTML = cur_prod.name;
+
+ 				td = tr.insertCell(-1);
+ 				td.innerHTML = 'product';
+
+ 				td.addEventListener('click',function(){
+ 					$("#select_product_option_dialog").dialog("close");
+ 					callback(null,cur_prod);
+ 				});
+ 			} 
+
+			var exit_btn_handler_b = exit_btn_handler.bind(exit_btn_handler,callback);
+			$('#select_product_option_dialog').dialog(
+				{
+					 title:'create new product or select option'
+					,buttons:[{ text:'cancel',click:exit_btn_handler_b }] 
+				}
+			); 		
+ 		}
+	}
+
+ 	function exe(sku_str,prod_lst,lookup_type_tag,store_id,couch_server_url,callback){
+ 		
+ 		var prodStore_prodSku_0_0 = product_json_helper.extract_prod_store__prod_sku(prod_lst,store_id,false/*is_prod_store*/,false/*is_prod_sku*/,sku_str);
+ 		var prodStore_prodSku_0_1 = product_json_helper.extract_prod_store__prod_sku(prod_lst,store_id,false/*is_prod_store*/,true/*is_prod_sku*/,sku_str);
+ 		var prodStore_prodSku_1_0 = product_json_helper.extract_prod_store__prod_sku(prod_lst,store_id,true/*is_prod_store*/,false/*is_prod_sku*/,sku_str);
+ 		var prodStore_prodSku_1_1 = product_json_helper.extract_prod_store__prod_sku(prod_lst,store_id,true/*is_prod_store*/,true/*is_prod_sku*/,sku_str);
+
+ 		if(prodStore_prodSku_1_1.length != 0){
+ 			callback('there is error: attempt to create a product that is already exist');
+ 		}else if(prodStore_prodSku_0_1.length != 0){
+ 			callback('there is error. please report bug: data integrity constrain failed');
+ 		}else{
+
+ 			var select_option_b = select_option.bind(select_option,prodStore_prodSku_1_0,prodStore_prodSku_0_0,store_id);
+			async.waterfall([select_option_b],function(error,result){
+				if(error){
+					callback(error);
+					return;
+				}
+
+				var selected_product = result;
+
+				if(selected_product != null && product_json_helper.get_p_from_lst(selected_product.product_id,prodStore_prodSku_1_0) ) {
+					var sku_adder_b = sku_adder.bind(sku_adder,selected_product.product_id,sku_str);
+					async.waterfall([sku_adder_b],function(error,result){
+						callback(error,result);
+					});
+				}else{
+					//ajax to create
+					var sp_prompt_b = sp_prompt.show_prompt.bind(
+						 sp_prompt.show_prompt
+						,null//name
+						,null//price
+						,null//crv
+						,false//is_taxable
+						,true//is_sale_report
+						,null//p_type
+						,null//p_tag
+						,sku_str//sku_str
+						,true//is_prompt_sku
+						,lookup_type_tag
+						,false//is_sku_management
+						,selected_product
+					); 		
+					var product_id = (selected_product == null ? null : selected_product.product_id);
+					var create_b = _create.bind(_create,product_id);
+					async.waterfall([sp_prompt_b,create_b],function(error,result){
+						product = result;
+						var sync_if_nessesary_b = sync_if_nessesary.bind(sync_if_nessesary,store_id,couch_server_url);
+						async.waterfall([sync_if_nessesary_b],function(error,result){
+							callback(error,product);
+						});
+ 					});
+				}
+			});
+ 		}
+ 	}
+
+	return{
+		 exe:exe
+		,CANCEL : CANCEL
+	}
+});

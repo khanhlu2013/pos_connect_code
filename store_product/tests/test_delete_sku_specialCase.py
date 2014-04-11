@@ -58,7 +58,7 @@ class Test(WebTest):
         self.assertEqual(len(prod_sku_assoc_lst),1)
         prod_sku_assoc = prod_sku_assoc_lst[0]
         self.assertEqual(prod_sku_assoc.product,prod_bus_assoc_this.product)
-        prod_bus_assoc_lst = prod_sku_assoc.store_product_lst.all()
+        prod_bus_assoc_lst = prod_sku_assoc.store_product_set.all()
         self.assertEqual(len(prod_bus_assoc_lst),2)
         self.assertTrue(prod_bus_assoc_this in prod_bus_assoc_lst)
         self.assertTrue(prod_bus_assoc_other in prod_bus_assoc_lst)

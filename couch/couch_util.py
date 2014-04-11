@@ -28,7 +28,7 @@ def delete_store_db(store_id):
     store_db_name = _get_store_db_name(store_id)
     server.delete(store_db_name)
 
-def number_2_str(number): 
+def decimal_2_str(number): 
     """
         django models use Decimal which couch can not handle. we need to convert Decimal to string for couch to handle. 
     """

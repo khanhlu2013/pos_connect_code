@@ -20,10 +20,13 @@
 
       <table id = "sale_table" border="1"></table>
 
+    <div id="select_product_option_dialog">
+        <input type="button" id = "product_option_create_new_btn" value = 'create new product'>
+        <table id=select_product_option_tbl border="1"></table>
+    </div>
 
-      <div id="store_product_prompt_dialog" title="Enter product info xxx ">
-        <div id='suggest_product_lst'></div>
-        
+    <div id="store_product_prompt_dialog">
+
         <label for="product_name_txt">Product:</label>
         <input type="text" id = "product_name_txt">
         <br>
@@ -32,18 +35,33 @@
         <input type="text" id = "product_price_txt">
         <br>
 
+        <label for="product_crv_txt">Crv:</label>
+        <input type="text" id = "product_crv_txt">
+        <br>
+
         <label for="product_taxable_check">Taxable:</label>
         <input type="checkbox" id = "product_taxable_check">
         <br>
 
-        <label for="product_crv_txt">Crv:</label>
-        <input type="text" id = "product_crv_txt">
+        <label for="product_sale_report_check">Sale report:</label>
+        <input type="checkbox" id = "product_sale_report_check">
+        <br>
+
+        <label for="product_type_txt">Type:</label>
+        <input type="text" id = "product_type_txt">
+        <br>
+
+        <label for="product_tag_txt">Tag:</label>
+        <input type="text" id = "product_tag_txt">
         <br>
 
         <label for="product_sku_txt">Sku:</label>
         <input type="text" id = "product_sku_txt">
         <br>
-      </div>
+
+        <input type="button" id = "sku_management_btn" value = 'manage sku'>
+        <br>        
+    </div>
 
     <div id="shortcut">  <table id = "shortcut_tbl" border="1"></table> </div>
     <div id="footer"> my footer </div>
@@ -53,6 +71,7 @@
   <script type="text/javascript">
     var STATIC_URL = "{{STATIC_URL}}"
     var STORE_DB_NAME = "{{store_db_name}}"
+    var STORE_ID = Number("{{store_id}}")
     var COUCH_SERVER_URL = "{{couch_server_url}}"
     var ROW_COUNT = {{ROW_COUNT}}
     var COLUMN_COUNT = {{COLUMN_COUNT}}

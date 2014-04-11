@@ -214,12 +214,10 @@ couch_acl_validator_test: client have write permission that follow these 4 rules
     . client can not update
     . client can not delete
 
-    
 ------------------------------------------------------------------------------------------------------------------
-APPROVED PRODUCT FREQUENCY
+OFFLINE PRODUCT CREATION
 
-    . if i change the ap frequency, what do i want to happend? do i want to remove ap from couch? how about if these product is assoced offline? think about this
-    . build an ap manager
+. how to test ajax failed so that we can create product offline
 ------------------------------------------------------------------------------------------------------------------
 DISCOUNT THAT ATTACH TO PRODUCT
 
@@ -234,6 +232,7 @@ SHORTCUT:
     .constrain: unique( business + position )
     .display left and right parent DRY
     .parent_lst_getter -> shortcut_lst_getter
+    . optimize sale page to include short cut data in the template, that way we will minimize another ajax trip. make sure we have the same code when we selecting the parent shortcut    
 ------------------------------------------------------------------------------------------------------------------
 SALE REPORT
 
@@ -256,14 +255,6 @@ PRODUCT EDITION AND CREATION. ONLINE / OFFLINE
 . we need a good reply messages: can't connect to server, try again later. can't connect to server, this product will be created offline.
 
 . find out behavior when internet is off and ajax request is made. what is the time out?
-
-------------------------------------------------------------------------------------------------------------------
-
-Bring more info offline: 
-    . is_taxable        -> any potential problem?
-    . is_sale_report    -> any potential problem?
-    . p_type and p_tag
-
 
 
 ------------------------------------------------------------------------------------------------------------------
@@ -298,54 +289,25 @@ SKU MANAGEMENT:
 
 
 . when scan a sku offline, if it is not found, we can use store product creator to create
-
-
-------------------
-
-
-
-
-. finish sp_updator in sale module
-. optimize sale page to include short cut data in the template, that way we will minimize another ajax trip. make sure we have the same code when we selecting the parent shortcut
-
-isTaxable
-isTaxReport
-isSaleReport
-
-. store_product price should not be null
-. couch_util.number_2_str -> decimal_2_str
-. json response helper: no more content_type dry 'application/json'
-. serialize helper:
+. remove store_db_name context from sale view
 
 ------------------
 
 
-
-sp_searcher
-sp_updator
+. is crv can not be more than $100?
 
 
-    
 
-
-   
-
+.sale module: what else we need to do?
+    . sp creator
+        .sp creator offline
+        .sp updator for created offline product
 
 
 
 
 
-
-
-
-
-    
-
-
-
-
-
-
+ 
 
 
 

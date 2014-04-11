@@ -1,13 +1,15 @@
-<!doctype html>
+<!DOCTYPE HTML>
 <html>
 <head>
-    <title>My First Unit Test With Jasmine And RequireJS</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Jasmine Spec Runner v2.0.0</title>
  
     <!-- Include the Jasmine assets for running in an HTML page. -->
-    <link rel="stylesheet" type="text/css" href="../lib/jasmine-1.3.1/jasmine.css"></link>
-    <script type="text/javascript" src="../lib/jasmine-1.3.1/jasmine.js"></script>
-    <script type="text/javascript" src="../lib/jasmine-1.3.1/jasmine-html.js"></script>
- 
+    <link rel="shortcut icon" type="image/png" href="../lib/jasmine-2.0.0/jasmine_favicon.png">
+    <link rel="stylesheet" type="text/css" href="../lib/jasmine-2.0.0/jasmine.css"></link>
+    <script type="text/javascript" src="../lib/jasmine-2.0.0/jasmine.js"></script>
+    <script type="text/javascript" src="../lib/jasmine-2.0.0/jasmine-html.js"></script>
+    <script type="text/javascript" src="../lib/jasmine-2.0.0/boot.js"></script>
 
     <script type="text/javascript" src="../lib/require/require.js"></script>
 
@@ -15,19 +17,21 @@
         requirejs.config({
              baseUrl: '../'
             ,paths: {
-                 app : 'app/'
-                ,lib : 'lib/'
+                 app : 'app'
+                ,lib : 'lib'
                 ,spec: 'test/spec'
-                ,pouch_db : 'lib/db/pouchdb'
+                ,pouch_db : 'lib/db/pouchdb-2.0.1'
                 ,jquery : 'lib/jquery/jquery-1_10_2'
-                // ,jquery_block_ui : 'lib/jquery/jquery_blockUI'
+                ,jquery_block_ui : 'lib/jquery/jquery_blockUI'
+                ,jquery_ui : 'lib/jquery/jquery-ui'
                 ,domReady: "lib/require/domReady",
             }
             ,shim: {
                  'pouch_db': {
                     exports: 'Pouch_db'
                 }
-                // ,'jquery_block_ui': ['jquery']
+                ,'jquery_block_ui': ['jquery']
+                ,'jquery_ui' : ['jquery']
             }
         });
 
@@ -36,11 +40,13 @@
     <script type="text/javascript">
         require(
             [
-                "domReady!"
-
+                 "domReady!"
+                ,'jquery_block_ui'
+                ,'jquery_ui'  
+                
                 // //-STORE PRODUCT
                 // ,"spec/store_product/new_store_product_inserter_spec"   
-            
+                ,"spec/store_product/sp_updator_spec"
                 // //-SCANNER
                 // ,"spec/sale/scan/scanner_spec"
 
@@ -64,7 +70,8 @@
                 // ,"spec/sale/receipt_pusher/receipt_pusher_spec"
 
             ],
-            function( document ){
+            function (document )
+            {
                 // Set up the HTML reporter - this is reponsible for
                 // aggregating the results reported by Jasmine as the
                 // tests and suites are executed.

@@ -26,7 +26,7 @@ html,body {
 
 #shortcut{
   float: right;
-  width:600px;
+  width: 600px;
   background: #c99;
 }
 
@@ -36,11 +36,12 @@ html,body {
 }
 
 .error {border: solid 2px #FF0000;}
+
 td { min-width: 100px; height: 30}
 
 #store_product_prompt_dialog{display: None;}
-
-
+#select_product_option_dialog{display: None;}
+#sku_management_dialog{display: None;}
 
 
 

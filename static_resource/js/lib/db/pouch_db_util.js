@@ -8,7 +8,7 @@ define(
 	)
 {
 	function get_store_db(store_id){
-		return get_db('store_' + store_id)
+		return get_db('liquor_' + store_id)
 	}
 
 	function get_db(db_name){

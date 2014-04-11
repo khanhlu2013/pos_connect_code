@@ -3,11 +3,12 @@ from store.models import Store
 from product.models import Product    
 from couch import couch_util
 
+
 class Store_product(models.Model):
     product = models.ForeignKey(Product)
     store = models.ForeignKey(Store)
     name = models.CharField(max_length=100)
-    price = models.DecimalField(max_digits=6, decimal_places=2,blank=True,null=True)
+    price = models.DecimalField(max_digits=6, decimal_places=2)
     crv = models.DecimalField(max_digits=5, decimal_places=3,blank=True,null=True)
     is_taxable = models.BooleanField()
     is_sale_report = models.BooleanField(default=True)
@@ -27,7 +28,7 @@ class Store_product(models.Model):
             raise ValidationError("Please provide product's name")
 
     def get_price_str(self):
-        return couch_util.number_2_str(self.price)
+        return couch_util.decimal_2_str(self.price)
 
     def get_crv_str(self):
-        return couch_util.number_2_str(self.crv)
+        return couch_util.decimal_2_str(self.crv)

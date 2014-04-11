@@ -88,7 +88,7 @@ def updator_ajax(request):
                     ,p_type
                     ,p_tag
                 )
-                product_serialized = sp_serializer.serialize_product_from_id(sp.product.id)
+                product_serialized = sp_serializer.serialize_product_from_id(product_id=sp.product.id,store_id = cur_login_store.id,is_include_other_store = False)
 
             except Exception,e:
                 errmsg = 'there is error updating product'

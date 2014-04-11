@@ -31,13 +31,16 @@ class ProdSkuAssoc(models.Model):
                                                                             
     
     def _is_dynamic_approve(self,frequency):
-        return len(self.store_product_set.all()) == frequency
+        return self.store_product_set.count() == frequency
 
     def is_approve(self,frequency):
         return self.is_approve_override or self._is_dynamic_approve(frequency)
 
-    def get_popularity(self):
-        return self.store_product_set.count()
+    def get_store_set(self):
+        return [sp.store.id for sp in self.store_product_set.all()]
+
+    def is_deletable(self,store_id):
+        return self.store_product_set.count() == 1 and self.creator.id == store_id
 
     class Meta:
         unique_together = ("sku","product")

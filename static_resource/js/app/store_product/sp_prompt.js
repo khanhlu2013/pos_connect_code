@@ -7,13 +7,18 @@ define(
         sp_validator
     )
 {
-
-    var selected_suggest_product = null;
+        
     var STORE_PRODUCT_PROMPT_ERROR_CANCEL_BUTTON_PRESS = "STORE_PRODUCT_PROMPT_ERROR_CANCEL_BUTTON_PRESS";
+    var MANAGE_SKU_BUTTON_PRESS = "MANAGE_SKU_BUTTON_PRESS";
 
     function cancel_btn_handler(callback){
         $("#store_product_prompt_dialog").dialog("close");
         callback(STORE_PRODUCT_PROMPT_ERROR_CANCEL_BUTTON_PRESS/*error*/);
+    }
+
+    function manage_sku_btn_handler(callback){
+        $("#store_product_prompt_dialog").dialog("close");
+        callback(MANAGE_SKU_BUTTON_PRESS/*error*/,null);         
     }
 
     function ok_btn_handler(is_prompt_sku,callback){
@@ -26,7 +31,6 @@ define(
             ,"p_tag"            : $('#product_tag_txt').val()             
             ,"crv"              : $('#product_crv_txt').val()
             ,"sku_str"          : $('#product_sku_txt').val()   
-            ,"product_id"       : (selected_suggest_product == null ? null : selected_suggest_product.id)
         }
 
         var error_lst = sp_validator.validate(result['name'],result['price'],result['crv'],result['is_taxable'],result['sku_str'],is_prompt_sku);
@@ -90,8 +94,14 @@ define(
         ,p_tag_prefill        
         ,sku_prefill
         ,is_prompt_sku
-        ,suggest_product_lst
+        ,is_sku_management
     ){
+        if(is_sku_management){
+            $('#sku_management_btn').show();
+        }else{
+             $('#sku_management_btn').hide();
+        }
+        
         helper_fill_form(
              name_prefill
             ,price_prefill
@@ -113,38 +123,6 @@ define(
             $('#product_sku_txt').hide();
             $('label[for="product_sku_txt"]').hide();
         }
-
-        //SUGGEST PRODUCT LIST
-        $('#suggest_product_lst').html('');
-        if(suggest_product_lst && suggest_product_lst.length !=0){
-            for(var i = 0;i<suggest_product_lst.length;i++){
-                $('<input type="radio" name = "select_product" value = "' + i + '"id="' + i + '"><label for="' + i + '">' + suggest_product_lst[i].name +  '</label>').appendTo("#suggest_product_lst");
-                $('#suggest_product_lst').append("<br/>");
-            }
-            $('<input type="radio" id="create_new" name = "select_product" value = -1><label for="create_new">Create new product</label>').appendTo("#suggest_product_lst");
-            $('#suggest_product_lst').append("<br/>");
-            $('#suggest_product_lst').append("<br/>");
-
-            $("input:radio[name=select_product]").click(function() {
-                var value = $(this).val();
-                if(value == '-1'){
-                    selected_suggest_product = null;
-                }else{
-                    selected_suggest_product = suggest_product_lst[value];
-                }
-                helper_fill_form(
-                    selected_suggest_product == null ? null : selected_suggest_product.name
-                    ,null//price
-                    ,null//crv
-                    ,null//is_taxable
-                    ,null//is_sale_report
-                    ,null//p_type
-                    ,null//p_tag
-                );
-            });
-
-            $("#0").attr('checked', true).trigger('click');//select the first item
-        }
     }
 
     function show_prompt
@@ -158,16 +136,18 @@ define(
         ,p_tag_prefill        
         ,sku_prefill
         ,is_prompt_sku
-        ,suggest_product_lst
         ,lookup_type_tag
+        ,is_sku_management
+        ,suggest_product
         ,callback
     ){
-
-        //ok cancel button
+        //ok cancel sku_management button
         var ok_btn_handler_b = ok_btn_handler.bind(ok_btn_handler,is_prompt_sku,callback);
         var cancel_btn_handler_b = cancel_btn_handler.bind(cancel_btn_handler,callback);
-        $('#store_product_prompt_dialog').dialog({ buttons: [ { text: "Ok", click: ok_btn_handler_b },{ text: "Cancel", click: cancel_btn_handler_b } ] });
-
+        var title = (suggest_product == null ? 'create new product' : 'create product ' + suggest_product.name);
+        $('#store_product_prompt_dialog').dialog({ title:title,buttons: [ { text: "Ok", click: ok_btn_handler_b },{ text: "Cancel", click: cancel_btn_handler_b } ] });
+        var manage_sku_btn_handler_b = manage_sku_btn_handler.bind(manage_sku_btn_handler,callback);
+        $('#sku_management_btn').off('click').click(manage_sku_btn_handler_b);
 
         populate_ui
         (
@@ -180,8 +160,7 @@ define(
             ,p_tag_prefill
             ,sku_prefill
             ,is_prompt_sku
-            ,suggest_product_lst
-
+            ,is_sku_management
         );
 
 
@@ -215,6 +194,7 @@ define(
 
     return{
          STORE_PRODUCT_PROMPT_ERROR_CANCEL_BUTTON_PRESS : STORE_PRODUCT_PROMPT_ERROR_CANCEL_BUTTON_PRESS
+        ,MANAGE_SKU_BUTTON_PRESS : MANAGE_SKU_BUTTON_PRESS 
         ,show_prompt:show_prompt
     }
 });

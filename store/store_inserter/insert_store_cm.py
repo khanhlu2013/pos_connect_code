@@ -30,6 +30,8 @@ def create_user_account():
     if not r.ok:
         raise Exception('error code: ' + str(r.status_code) + ' ,reason: ' + r.reason)
     else:
+        print('-xxx-')
+        print(r._content)
         return (r._content['key'],r._content['password'])
 
 

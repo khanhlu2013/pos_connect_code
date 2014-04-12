@@ -18,12 +18,7 @@ def exe(store):
     store_id,username = exe_master(store)
     exe_couch(store_id,store.tax_rate,username)
 
-def test_xxx():
-    headers={'referer': 'https://%s.cloudant.com' % (master_account_util.get_master_user_name()), 'content-type': 'multipart/form-data'}
-    url='https://cloudant.com/api/generate_api_key'
-    r = requests.post(url,headers=headers,auth=(master_account_util.get_master_user_name(),master_account_util.get_master_user_password()))
-    return r
-        
+
 def create_user_account():
     if test_helper.is_local_env():
         return (1,1)
@@ -35,9 +30,8 @@ def create_user_account():
     if not r.ok:
         raise Exception('error code: ' + str(r.status_code) + ' ,reason: ' + r.reason)
     else:
-        print('-xxx-')
-        print(r._content)
-        return (r._content['key'],r._content['password'])
+        dic = json.loads(r._content)
+        return (dic['key'],dic['password'])
 
 
 def exe_master(store):

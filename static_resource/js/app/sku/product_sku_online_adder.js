@@ -18,12 +18,12 @@ define(
                  product_id:product_id
                 ,sku_str:sku_str
             }
-            ,success: function(data){
+            ,success: function(data,status_str,xhr){
                 var product = data;
             	callback(null,product);
             }
-            ,error: function(xhr,errmsg,err){
-                callback('there is error');
+            ,error: function(xhr,status_str,err){
+                callback(xhr);
             }
         }); 
     }	

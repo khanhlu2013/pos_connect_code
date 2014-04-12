@@ -94,11 +94,11 @@ require(
                 ,type : "POST"
                 ,dataType: "json"
                 ,data : data
-                ,success : function(data){
+                ,success : function(data,status_str,xhr){
                     refresh_table(store_idb);
                 }
-                ,error : function(xhr,errmsg,err){
-                    alert('there is an error');
+                ,error : function(xhr,status_str,err){
+                    alert(xhr);
                 }
             });  
         })
@@ -184,7 +184,7 @@ require(
 
     $.blockUI({ message: 'please wait for setup ...' });
 
-    var oneshot_sync_b = oneshot_sync.bind(oneshot_sync,STORE_DB_NAME,COUCH_SERVER_URL);
+    var oneshot_sync_b = oneshot_sync.bind(oneshot_sync,STORE_ID,COUCH_SERVER_URL);
     var customize_db_b =  customize_db.bind(customize_db,STORE_DB_NAME);
     async.waterfall([oneshot_sync_b,customize_db_b],function(error,result){
         if(error){

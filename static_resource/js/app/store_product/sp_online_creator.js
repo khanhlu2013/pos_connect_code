@@ -40,8 +40,8 @@ define(
             ,success:function(data,status_str,xhr){
                 callback(null/*error*/,data);
             }
-            ,error:function(xhr,status_str,error){
-                callback('there is error');
+            ,error:function(xhr,status_str,err){
+                callback(xhr);
             }
         });
     }

@@ -4,8 +4,7 @@ define(function(require){
     var inserter = require('app/sale/pending_scan/pending_scan_inserter');
     var async = require('lib/async');
     var Pending_scan = require('app/sale/pending_scan/Pending_scan');
-
-    var ERROR_STORE_PRODUCT_NOT_FOUND = 'ERROR_STORE_PRODUCT_NOT_FOUND';
+    var ERROR_STORE_PRODUCT_NOT_FOUND = 'ERROR_STORE_PRODUCT_NOT_FOUND'
     var ERROR_CANCEL_SHARE_SKU_BREAKER = 'ERROR_CANCEL_SHARE_SKU_BREAKER';
 
     function get_sku_from_scan_str(scan_str){

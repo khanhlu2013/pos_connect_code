@@ -24,8 +24,8 @@ define
             ,success: function(data,status_str,xhr){
             	callback(null/*error*/,data.prod_lst);
             }
-            ,error: function(xhr,status_str,error){
-                callback('there is an error'/*error*/);
+            ,error: function(xhr,status_str,err){
+                callback(xhr);
             }
         });           
     }
@@ -45,8 +45,8 @@ define
             ,success: function(data,status_str,xhr){
             	callback(null,data);
             }
-            ,error: function(xhr,status_str,error){
-                callback('there is an error');
+            ,error: function(xhr,status_str,err){
+                callback(xhr);
             }
         });           
     }

@@ -29,7 +29,8 @@ require(
     ,'app/store_product/sp_online_searcher'
     ,'app/product/product_json_helper'
     ,'app/sku/product_sku_manager'
-    ,'lib/db/pouch_db_util'
+    ,'lib/error_lib'
+
     //-----------------    
     ,'jquery_block_ui'
     ,'jquery_ui'    
@@ -45,7 +46,8 @@ require(
     ,sp_online_searcher
     ,product_json_helper
     ,product_sku_manager
-    ,pouch_db_util
+    ,error_lib
+
 )
 {
     var product_data_lst = null;
@@ -103,14 +105,11 @@ require(
                 var sp_updator_b = sp_updator.exe.bind(sp_updator.exe,sp.product_id,STORE_ID,COUCH_SERVER_URL);
                 async.waterfall([sp_updator_b],function(error,result){
                     if(error){
-                        if(error == sp_prompt.STORE_PRODUCT_PROMPT_ERROR_CANCEL_BUTTON_PRESS){
-                            //do nothing
-                        }
-                        else if(error == sp_prompt.MANAGE_SKU_BUTTON_PRESS){
+                        if(error == sp_prompt.MANAGE_SKU_BUTTON_PRESS){
                             product_sku_manager(sp.product_id,STORE_ID,COUCH_SERVER_URL);
                         }
                         else{
-                            alert(error);
+                            error_lib.alert_error(error);
                         }
                         return;
                     }else{
@@ -161,14 +160,10 @@ require(
                         var sp_creator_b = sp_creator.exe.bind(sp_creator.exe,  sku_str,product_data_lst,result.lookup_type_tag,STORE_ID,COUCH_SERVER_URL);
                         async.waterfall([sp_creator_b],function(error,result){
                             if(error){
-                                if(error == sp_prompt.STORE_PRODUCT_PROMPT_ERROR_CANCEL_BUTTON_PRESS){
-                                    //do nothing
-                                }else{
-                                    alert(error);
-                                }
-
-                                return;             
+                                error_lib.alert_error(error);
+                                return;
                             }
+                            
                             product_data_lst = [result,]
                             product_data_2_ui();
                         });

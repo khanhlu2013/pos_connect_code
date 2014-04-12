@@ -8,12 +8,12 @@ define(
     )
 {
         
-    var STORE_PRODUCT_PROMPT_ERROR_CANCEL_BUTTON_PRESS = "STORE_PRODUCT_PROMPT_ERROR_CANCEL_BUTTON_PRESS";
-    var MANAGE_SKU_BUTTON_PRESS = "MANAGE_SKU_BUTTON_PRESS";
+    var ERROR_CANCEL_STORE_PRODUCT_PROMPT = 'ERROR_CANCEL_STORE_PRODUCT_PROMPT';
+    var MANAGE_SKU_BUTTON_PRESS = 'MANAGE_SKU_BUTTON_PRESS';
 
     function cancel_btn_handler(callback){
         $("#store_product_prompt_dialog").dialog("close");
-        callback(STORE_PRODUCT_PROMPT_ERROR_CANCEL_BUTTON_PRESS/*error*/);
+        callback(ERROR_CANCEL_STORE_PRODUCT_PROMPT/*error*/);
     }
 
     function manage_sku_btn_handler(callback){
@@ -193,8 +193,8 @@ define(
     }
 
     return{
-         STORE_PRODUCT_PROMPT_ERROR_CANCEL_BUTTON_PRESS : STORE_PRODUCT_PROMPT_ERROR_CANCEL_BUTTON_PRESS
-        ,MANAGE_SKU_BUTTON_PRESS : MANAGE_SKU_BUTTON_PRESS 
+         ERROR_CANCEL_STORE_PRODUCT_PROMPT : ERROR_CANCEL_STORE_PRODUCT_PROMPT
+        ,MANAGE_SKU_BUTTON_PRESS : MANAGE_SKU_BUTTON_PRESS
         ,show_prompt:show_prompt
     }
 });

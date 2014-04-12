@@ -45,7 +45,7 @@ define(
                 ,p_tag:p_tag
 
             }
-            ,success: function(data){
+            ,success: function(data,status_str,xhr){
                 var error_message = data.error_message;
                 var product = data.product;
                 if(error_message.length != 0){
@@ -54,8 +54,8 @@ define(
                     callback(null,product);
                 }
             }
-            ,error: function(xhr,errmsg,err){
-                callback('there is error');
+            ,error: function(xhr,status_str,err){
+                callback(xhr);
             }
         }); 
     }

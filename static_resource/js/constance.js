@@ -18,5 +18,6 @@ define(function(){
 		//MISC
 		,STATIC_URL : '/static/'
 		,TAX_DOCUMENT_ID : 'tax_document'
+
  	}
 });

@@ -18,7 +18,7 @@ define(
 		,sku_adder
 	)
 {
-   	var CANCEL = 'CANCEL';
+   	var ERROR_CANCEL_select_product_option = 'ERROR_CANCEL_select_product_option';
    	
    	function _create(product_id,prompt_result,callback){
 
@@ -42,7 +42,7 @@ define(
 
     function exit_btn_handler(callback){
         $("#select_product_option_dialog").dialog("close");
-        callback(CANCEL/*error*/);
+        callback(ERROR_CANCEL_select_product_option);
     }
 
 	function select_option(prodStore_prodSku_1_0,prodStore_prodSku_0_0,store_id,callback){
@@ -137,6 +137,7 @@ define(
 				var selected_product = result;
 
 				if(selected_product != null && product_json_helper.get_p_from_lst(selected_product.product_id,prodStore_prodSku_1_0) ) {
+					//if product is already exist in our store, but the sku is not, then we just add sku
 					var sku_adder_b = sku_adder.bind(sku_adder,selected_product.product_id,sku_str);
 					async.waterfall([sku_adder_b],function(error,result){
 						callback(error,result);
@@ -161,6 +162,11 @@ define(
 					var product_id = (selected_product == null ? null : selected_product.product_id);
 					var create_b = _create.bind(_create,product_id);
 					async.waterfall([sp_prompt_b,create_b],function(error,result){
+						if(error){
+							callback(error);
+							return;
+						}
+						
 						product = result;
 						var sync_if_nessesary_b = sync_if_nessesary.bind(sync_if_nessesary,store_id,couch_server_url);
 						async.waterfall([sync_if_nessesary_b],function(error,result){
@@ -174,6 +180,6 @@ define(
 
 	return{
 		 exe:exe
-		,CANCEL : CANCEL
+		,ERROR_CANCEL_select_product_option : ERROR_CANCEL_select_product_option
 	}
 });

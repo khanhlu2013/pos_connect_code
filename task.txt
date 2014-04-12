@@ -214,25 +214,16 @@ couch_acl_validator_test: client have write permission that follow these 4 rules
     . client can not update
     . client can not delete
 
-------------------------------------------------------------------------------------------------------------------
-OFFLINE PRODUCT CREATION
 
-. how to test ajax failed so that we can create product offline
+
+
 ------------------------------------------------------------------------------------------------------------------
 DISCOUNT THAT ATTACH TO PRODUCT
 
 ------------------------------------------------------------------------------------------------------------------
 PRODUCT SEARCH ON SALE PAGE
 
-------------------------------------------------------------------------------------------------------------------
-SHORTCUT:
-    .why do we need setup or db sync?
-    css need for cur selected parent
-    the easy of setting up and use shortcut.
-    .constrain: unique( business + position )
-    .display left and right parent DRY
-    .parent_lst_getter -> shortcut_lst_getter
-    . optimize sale page to include short cut data in the template, that way we will minimize another ajax trip. make sure we have the same code when we selecting the parent shortcut    
+
 ------------------------------------------------------------------------------------------------------------------
 SALE REPORT
 
@@ -284,31 +275,38 @@ SKU MANAGEMENT:
 
 
 . check view and template for search feature. we don't need them anymore. (we don't do template tag and replace view with ajax)
-. we need a button to create new product, then check if sku exist or not.
+. we need a button to create new product, then check if sku exist or not. this is needed because there will be no sku product
+
+------
+
+. process sale data
+
+------
+
+. receipt pusher
+
+------
+
+. why there is a store id on sp in couch side?
+
+ ------------------------------------------------------------------------------------------------------------------
+SHORTCUT:
+    .why do we need setup or db sync?
+    css need for cur selected parent
+    the easy of setting up and use shortcut.
+    .constrain: unique( business + position )
+    .display left and right parent DRY
+    .parent_lst_getter -> shortcut_lst_getter
+    . optimize sale page to include short cut data in the template, that way we will minimize another ajax trip. make sure we have the same code when we selecting the parent shortcut    
+    .review sale_shortcut_init. why do we need this and STORE_DB_NAME context need to be kill
 
 
+------------------------------------------------------------------------------------------------------------------
 
-. when scan a sku offline, if it is not found, we can use store product creator to create
-. remove store_db_name context from sale view
+OFFLINE PRODUCT CREATION
 
-------------------
-
-
-. is crv can not be more than $100?
-
-
-
-.sale module: what else we need to do?
-    . sp creator
-        .sp creator offline
-        .sp updator for created offline product
-
-
-
-
-
- 
-
+. update sp created offline
+. test if the app working when internet is down.
 
 
 

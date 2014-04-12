@@ -10,6 +10,7 @@ define(
         ,'app/store_product/sp_prompt'
         ,'app/store_product/sp_updator'
         ,'app/product/product_json_helper'
+        ,'lib/error_lib'
     ]
     ,function(
          async
@@ -22,6 +23,7 @@ define(
         ,sp_prompt
         ,sp_updator
         ,product_json_helper
+        ,error_lib
     )
 {
     var column_name = ["qty", "product", "price", "line total", "X"];
@@ -31,7 +33,7 @@ define(
         var ds_lst_getter_b = ds_lst_getter.bind(ds_lst_getter,store_idb);
         async.waterfall([ds_modifier_b,ds_lst_getter_b],function(error,result){
             if(error){
-                alert(error);
+                error_lib.alert_error(error);
             }else{
                 var new_ds_lst = result;
                 ds_2_ui(store_idb,table,new_ds_lst,tax_rate,store_id,couch_server_url);
@@ -74,11 +76,7 @@ define(
             var sp_updator_b = sp_updator.exe.bind(sp_updator.exe,product_id,store_id,couch_server_url);
             async.waterfall([sp_updator_b],function(error,result){
                 if(error){
-                    if(error == sp_prompt.STORE_PRODUCT_PROMPT_ERROR_CANCEL_BUTTON_PRESS){
-                        //do nothing
-                    }else{
-                        alert(error);
-                    }
+                    error_lib.alert_error(error);
                     return;
                 }else{
                     //hackish way to refresh the interface by pretending the price is change

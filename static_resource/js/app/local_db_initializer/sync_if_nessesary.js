@@ -26,7 +26,7 @@ define(
 				//db is not exist, do nothing
 			}
 			else{
-				var oneshot_sync_b = oneshot_sync.bind(oneshot_sync,db_util.get_store_db_name(store_id),couch_server_url)
+				var oneshot_sync_b = oneshot_sync.bind(oneshot_sync,store_id,couch_server_url)
 				async.waterfall([oneshot_sync_b],function(error,result){
 					$.unblockUI();
 					callback(error);

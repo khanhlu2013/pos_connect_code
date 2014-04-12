@@ -39,7 +39,9 @@ require(
         ,'app/store_product/store_product_getter'
         ,'app/sale/pending_scan/Pending_scan'
         ,'app/sale/pending_scan/pending_scan_inserter'
-        ,'app/sale/scan/sku_scan_not_found'
+        ,'app/sale/scan/sku_scan_not_found_handler'
+        ,'lib/error_lib'
+
         //-----------------
         ,'jquery_block_ui'
         ,'jquery_ui'
@@ -66,7 +68,8 @@ require(
         ,sp_getter
         ,Pending_scan
         ,ps_inserter
-        ,sku_scan_not_found
+        ,ssnf_handler
+        ,error_lib
     )
     {
         //UI
@@ -88,10 +91,10 @@ require(
         function hook_receipt_pusher_2_ui(store_idb,store_pdb){
             function exe(){
                 var receipt_pusher_nb = receipt_pusher.push_receipt;
-                var receipt_pusher_b = receipt_pusher_nb.bind(receipt_pusher_nb,store_idb,store_pdb,STORE_DB_NAME,COUCH_SERVER_URL);
+                var receipt_pusher_b = receipt_pusher_nb.bind(receipt_pusher_nb,store_idb,store_pdb,STORE_ID,COUCH_SERVER_URL);
                                                                                 
                 var ask_server_to_process_sale_data = receipt_pusher.ask_server_to_process_sale_data;
-                var ask_server_to_process_sale_data_b = ask_server_to_process_sale_data.bind(ask_server_to_process_sale_data,STORE_DB_NAME)
+                var ask_server_to_process_sale_data_b = ask_server_to_process_sale_data.bind(ask_server_to_process_sale_data)
 
                 $.blockUI({ message: 'saving sale data ...' });
                 async.waterfall([receipt_pusher_b,ask_server_to_process_sale_data_b],function(error,result){
@@ -184,17 +187,14 @@ require(
                         if(error == scanner.ERROR_STORE_PRODUCT_NOT_FOUND){
                             sku_str = scanner.get_sku_from_scan_str(scan_str);
 
-                            var sku_scan_not_found_b = sku_scan_not_found.bind(sku_scan_not_found,sku_str,STORE_ID,COUCH_SERVER_URL);
-                            async.waterfall([sku_scan_not_found_b,scanner_b,ds_2_ui_b],function(error,result){
+                            var ssnf = ssnf_handler.exe.bind(ssnf_handler.exe,sku_str,STORE_ID,COUCH_SERVER_URL,store_pdb);
+                            async.waterfall([ssnf,scanner_b,ds_2_ui_b],function(error,result){
                                 if(error){
-                                    alert(error);//TODO. if cancel, ignore, if internet error, create sp offline.
+                                    error_lib.alert_error(error);                                   
                                 }
                             });
-                        }
-                        else if(error == scanner.ERROR_CANCEL_SHARE_SKU_BREAKER){
-                            //do nothing
                         }else{
-                            alert(error);
+                            error_lib.alert_error(error);
                         }
                     }
                 });
@@ -332,8 +332,8 @@ require(
         $( "#store_product_prompt_dialog" ).dialog({ autoOpen: false,modal:true });
         csrf_ajax_protection_setup();
 
-        var oneshot_sync_b = oneshot_sync.bind(oneshot_sync,STORE_DB_NAME,COUCH_SERVER_URL);
-        var customize_db_b =  customize_db.bind(customize_db,STORE_DB_NAME);
+        var oneshot_sync_b = oneshot_sync.bind(oneshot_sync,STORE_ID,COUCH_SERVER_URL);
+        var customize_db_b =  customize_db.bind(customize_db,STORE_ID);
         async.waterfall([oneshot_sync_b,customize_db_b],function(error,result){
             if(error){
                 $.unblockUI();
@@ -342,7 +342,7 @@ require(
             }
 
             var store_idb = result;
-            var store_pdb = pouch_db_util.get_db(STORE_DB_NAME);
+            var store_pdb = pouch_db_util.get_store_db(STORE_ID);
 
             //init ui functionality
             hook_scanner_to_ui(store_idb,store_pdb);

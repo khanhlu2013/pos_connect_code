@@ -21,7 +21,6 @@ class Sale_view(TemplateView):
     def get_context_data(self,**kwargs):
         context = super(Sale_view,self).get_context_data(**kwargs)
         store_id = str(self.cur_login_store.id)
-        context['store_db_name'] = couch_util._get_store_db_name(store_id) #TODO: remove store_db_name
         context['store_id'] = store_id
         context['couch_server_url'] = couch_util.get_couch_url(self.cur_login_store.api_key_name,self.cur_login_store.api_key_pwrd)
         context['ROW_COUNT'] = 5        # xxx move this ugly to constance
@@ -68,21 +67,11 @@ def get_report_by_day_view(request):
             return HttpResponse(json.dumps({'error':errmsg}),mimetype='application/javascript')
 
 def process_sale_data_view(request):
-    if request.POST.has_key('store_db_name'):
-        store_db_name = request.POST['store_db_name']   
+    if request.method == 'POST':
         cur_login_store = request.session.get('cur_login_store')
-        
-        response_dict = {}
-        response_message = None
-        if couch_util._get_store_db_name(cur_login_store.id) == store_db_name : # 1111 user store_id instead of name
-            receipt_processed_count = sale_processor.exe(cur_login_store.id) 
-            response_message = str(receipt_processed_count) + ' receipt(s) processed.'
-        else:
-            response_message = 'error in specify store number. Got cha!'
-        
-        response_dict.update({'server_response': 'from server ' + response_message })                              
-        return HttpResponse(json.dumps(response_dict), mimetype='application/javascript')
-          
+        receipt_processed_count = sale_processor.exe(cur_login_store.id) 
+        response_message = str(receipt_processed_count) + ' receipt(s) processed.'
+        return HttpResponse(json.dumps(response_message), mimetype='application/javascript')
 
     
 

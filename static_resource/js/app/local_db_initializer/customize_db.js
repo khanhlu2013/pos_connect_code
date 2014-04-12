@@ -1,19 +1,20 @@
 define(
     [
          'constance'
-        ,'lib/db/couch_db_util'
         ,'lib/async'
+        ,'lib/db/db_util'
     ],
     function
     (
          constance
-        ,couch_db_util
         ,async
+        ,db_util
     )
     {
-        function store_db_customizers(store_db_name,callback){
+        function store_db_customizers(store_id,callback){
             var version = 3;//we are upgrading pouchdb after initial_sync. We use version 2 instead of 1
-            var request = indexedDB.open(couch_db_util.pouch_db_name_to_index_db_name(store_db_name),version);
+            var store_db_name = db_util.get_store_db_name(store_id);
+            var request = indexedDB.open(db_util.pouch_db_name_to_index_db_name(store_db_name),version);
             request.onupgradeneeded= function(e) {
                 var db = event.target.result;
                 
@@ -38,8 +39,8 @@ define(
             }
         }
 
-        return function(store_db_name,callback){
-            var store_db_customizers_b = store_db_customizers.bind(store_db_customizers,store_db_name);
+        return function(store_id,callback){
+            var store_db_customizers_b = store_db_customizers.bind(store_db_customizers,store_id);
             async.waterfall([store_db_customizers_b],function(error,results){
                 callback(error,results)
             })

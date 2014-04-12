@@ -19,11 +19,11 @@ define(
             ,type : "POST"
             ,dataType: "json"
             ,data : data
-            ,success : function(data) {
+            ,success : function(data,status_str,xhr) {
                 callback(null/*error*/);
             }
-            ,error : function(xhr,errmsg,err) {
-                callback('there is an error');
+            ,error : function(xhr,status_str,err) {
+                callback(xhr);
             }
         });
     }

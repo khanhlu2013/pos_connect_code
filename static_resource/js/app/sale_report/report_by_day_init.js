@@ -67,11 +67,11 @@ require(
             ,type : "POST"
             ,dataType : "json"
             ,data : {from_day:from_day,to_day:to_day}
-            ,success: function(data,status,xhr){
+            ,success: function(data,status_str,xhr){
                 display_report(data);
             }
-            ,error : function(xhr,errmsg,err){
-                alert('there is an error');
+            ,error : function(xhr,status_str,err){
+                alert(xhr);
             }
         });
     }

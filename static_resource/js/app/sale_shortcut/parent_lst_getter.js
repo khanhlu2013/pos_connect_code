@@ -13,11 +13,12 @@ define(
             ,type : "POST"
             ,dataType: "json"
             ,data : null
-            ,success : function(parent_lst) {
-                callback(null/*error*/,parent_lst/*result*/);
+            ,success : function(data,status_str,xhr) {
+                var parent_lst = data;
+                callback(null/*error*/,parent_lst);
             }
-            ,error : function(xhr,errmsg,err) {
-                callback('there is an error')
+            ,error : function(xhr,status_str,err) {
+                callback(xhr);
             }
         });
     }

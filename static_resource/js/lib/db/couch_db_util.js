@@ -1,11 +1,14 @@
-define(function(){
-
-    function pouch_db_name_to_index_db_name(pouch_db_name){
-      return '_pouch_' + pouch_db_name;
-    }
-
-	function get_db_url(couch_server_url,db_name){
-		return couch_server_url + '/' + db_name;
+define(
+[
+	'lib/db/db_util'
+]
+,function
+(
+	db_util
+)
+{
+ 	function get_db_url(couch_server_url,store_id){
+		return couch_server_url + '/' + db_util.get_store_db_name(store_id);
 	}
 
 	function extract_rev(doc){
@@ -68,7 +71,6 @@ define(function(){
 
 	return {
 		 filter_old_rev:filter_old_rev
-		,pouch_db_name_to_index_db_name:pouch_db_name_to_index_db_name
 		,get_db_url:get_db_url
 	}
 });

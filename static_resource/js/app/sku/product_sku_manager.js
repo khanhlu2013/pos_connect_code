@@ -6,7 +6,7 @@ define(
     ,'app/sku/product_sku_online_deletor'
     ,'app/sku/product_sku_online_adder'
     ,'app/local_db_initializer/sync_if_nessesary'
-    ,'lib/db/pouch_db_util'
+
 ]
 ,function
 (
@@ -16,7 +16,7 @@ define(
     ,prod_sku_del
     ,prod_sku_add
     ,sync_if_nessesary
-    ,pouch_db_util
+
 )
 {
     function _helper_is_sku_removable(prod_sku_assoc_json){

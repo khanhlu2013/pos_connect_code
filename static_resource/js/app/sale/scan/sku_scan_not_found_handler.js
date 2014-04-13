@@ -6,7 +6,7 @@ define(
 	,'lib/error_lib'
 	,'app/store_product/new_store_product_inserter'
 	,'app/store_product/sp_prompt'
-	,'lib/lib_error'
+	,'lib/error_lib'
 ]
 ,function
 (
@@ -16,7 +16,7 @@ define(
 	,error_lib
 	,new_sp_inserter
 	,sp_prompt
-	,lib_error
+	,error_lib
 
 )
 {
@@ -35,6 +35,9 @@ define(
 			,sku_str
 			,pouch_db
 		);
+		async.waterfall([new_sp_inserter_b],function(error,result){
+			callback(error);
+		});
  	}
 
 	function create_online(sku_str,store_id,couch_server_url,sku_search_result,callback){
@@ -61,7 +64,7 @@ define(
 					return;
 				}
 
-				if(!lib_error.is_offline_error(error)){
+				if(!error_lib.is_offline_error(error)){
 					callback(error);
 					return;
 				}
@@ -81,6 +84,9 @@ define(
 					,true//is_sale_report
 					,null//p_type
 					,null//p_tag
+					,sku_str//sku_prefill
+					,true//is_prompt_sku
+					,null//lookup_type_tag
 					,false//is_sku_management
 					,null//suggest product
  				)
@@ -90,7 +96,7 @@ define(
  					,pouch_db
  				);
 
-				async.waterfall([sp_prompt_b,create_offline],function(error,result){
+				async.waterfall([sp_prompt_b,create_offline_b],function(error,result){
 					callback(error);
 				});				
 			}else{

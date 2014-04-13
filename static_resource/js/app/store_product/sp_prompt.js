@@ -163,30 +163,30 @@ define(
             ,is_sku_management
         );
 
-
         //auto complete for product type and tag
-        var type_lst = Object.keys(lookup_type_tag)
-        $('#product_type_txt').on('autocompletechange', function() {
-            var tag_lst = lookup_type_tag[$(this).val()];
-            if(tag_lst == undefined){
-                tag_lst = [];
-            }
-            $( "#product_tag_txt" ).autocomplete({
-                 source: tag_lst
+        if(lookup_type_tag){
+            var type_lst = Object.keys(lookup_type_tag)
+            $('#product_type_txt').on('autocompletechange', function() {
+                var tag_lst = lookup_type_tag[$(this).val()];
+                if(tag_lst == undefined){
+                    tag_lst = [];
+                }
+                $( "#product_tag_txt" ).autocomplete({
+                     source: tag_lst
+                    ,minLength: 0
+                })
+                .bind('focus', function () {
+                    $(this).autocomplete("search");
+                });
+            });
+            $( "#product_type_txt" ).autocomplete({
+                 source: type_lst
                 ,minLength: 0
             })
             .bind('focus', function () {
                 $(this).autocomplete("search");
-            });
-        });
-        $( "#product_type_txt" ).autocomplete({
-             source: type_lst
-            ,minLength: 0
-        })
-        .bind('focus', function () {
-            $(this).autocomplete("search");
-        });
-
+            });            
+        }
 
         //show dialog
         $('#store_product_prompt_dialog').dialog('open');

@@ -25,7 +25,7 @@ define(
 	}
 
 	function is_offline_error(error){
-		if(is_xhr_obj(error) && error.status == 0)
+		return is_xhr_obj(error) && error.status == 0;
 	}
 
 	return{

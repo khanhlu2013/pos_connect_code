@@ -11,6 +11,7 @@ define(
         ,'app/store_product/sp_updator'
         ,'app/product/product_json_helper'
         ,'lib/error_lib'
+        ,'app/store_product/sp_offline_updator'
     ]
     ,function(
          async
@@ -24,11 +25,12 @@ define(
         ,sp_updator
         ,product_json_helper
         ,error_lib
+        ,sp_offline_updator
     )
 {
     var column_name = ["qty", "product", "price", "line total", "X"];
 
-    function exe_instruction(store_idb,ds_index,instruction,ds_lst,table,tax_rate,store_id,couch_server_url){
+    function exe_instruction(store_idb,store_pdb,ds_index,instruction,ds_lst,table,tax_rate,store_id,couch_server_url){
         var ds_modifier_b = ds_modifier.bind(ds_modifier,store_idb,ds_index,instruction);
         var ds_lst_getter_b = ds_lst_getter.bind(ds_lst_getter,store_idb);
         async.waterfall([ds_modifier_b,ds_lst_getter_b],function(error,result){
@@ -36,12 +38,12 @@ define(
                 error_lib.alert_error(error);
             }else{
                 var new_ds_lst = result;
-                ds_2_ui(store_idb,table,new_ds_lst,tax_rate,store_id,couch_server_url);
+                ds_2_ui(store_idb,store_pdb,table,new_ds_lst,tax_rate,store_id,couch_server_url);
             }
         });
     }
 
-    function _item_2_table(ds_index,ds_lst,tax_rate,table,store_idb,store_id,couch_server_url){
+    function _item_2_table(ds_index,ds_lst,tax_rate,table,store_idb,store_pdb,store_id,couch_server_url){
         var displaying_scan = ds_lst[ds_index];
         var tr = table.insertRow(-1);
         var td;
@@ -57,7 +59,7 @@ define(
                 return;
             }
             var instruction = new Instruction(new_qty==0/*is_delete*/,new_qty,displaying_scan.price,displaying_scan.discount);
-            exe_instruction(store_idb,ds_index,instruction,ds_lst,table,tax_rate,store_id,couch_server_url);
+            exe_instruction(store_idb,store_pdb,ds_index,instruction,ds_lst,table,tax_rate,store_id,couch_server_url);
         });
 
         //-PRODUCT
@@ -69,8 +71,23 @@ define(
             }
             var product_id = displaying_scan.store_product.product_id;
             if(product_id == null){
-                alert('to be implemented');
-                return;
+                if(!confirm('this product is created offline. Modification to this product will be saved offline until sale data is push. Continue?')){
+                    return;
+                }
+
+                var sp_offline_updator_b = sp_offline_updator.bind(sp_offline_updator,displaying_scan,pouch_db);
+                async.waterfall([sp_offline_updator_b],function(error,result){
+                    if(error){
+                        error_lib.allert_error(error);
+                        return;
+                    }else{
+                        //hackish way to refresh the interface by pretending the price is change
+                        var sp = result;
+                        var hackish_new_price = sp.price;
+                        var instruction = new Instruction(false/*is_delete*/,displaying_scan.qty,hackish_new_price,displaying_scan.discount);
+                        exe_instruction(store_idb,store_pdb,ds_index,instruction,ds_lst,table,tax_rate,store_id,couch_server_url);                        
+                    }
+                })
             }
 
             var sp_updator_b = sp_updator.exe.bind(sp_updator.exe,product_id,store_id,couch_server_url);
@@ -83,7 +100,7 @@ define(
                     var sp_updator_return_product = product_json_helper.get_sp_from_p(result,store_id);
                     var hackish_new_price = sp_updator_return_product.price;
                     var instruction = new Instruction(false/*is_delete*/,displaying_scan.qty,hackish_new_price,displaying_scan.discount);
-                    exe_instruction(store_idb,ds_index,instruction,ds_lst,table,tax_rate,store_id,couch_server_url);
+                    exe_instruction(store_idb,store_pdb,ds_index,instruction,ds_lst,table,tax_rate,store_id,couch_server_url);
                 }
             });
         });
@@ -111,7 +128,7 @@ define(
                 return;
             }
             var instruction = new Instruction(false/*is_delete*/,displaying_scan.qty,new_price,displaying_scan.discount);
-            exe_instruction(store_idb,ds_index,instruction,ds_lst,table,tax_rate,store_id,couch_server_url);
+            exe_instruction(store_idb,store_pdb,ds_index,instruction,ds_lst,table,tax_rate,store_id,couch_server_url);
         });
 
         //-LINE TOTAL
@@ -123,11 +140,11 @@ define(
         td.innerHTML = 'x'
         td.addEventListener("click", function() {
             var instruction = new Instruction(true/*delete*/,null/*new_qty*/,null/*new_price*/,null/*new_discount*/);
-            exe_instruction(store_idb,ds_index,instruction,ds_lst,table,tax_rate,store_id,couch_server_url);
+            exe_instruction(store_idb,store_pdb,ds_index,instruction,ds_lst,table,tax_rate,store_id,couch_server_url);
         });
     }
 
-    function ds_2_ui(store_idb,table,ds_lst,tax_rate,store_id,couch_server_url){
+    function ds_2_ui(store_idb,store_pdb,table,ds_lst,tax_rate,store_id,couch_server_url){
 
         while(table.hasChildNodes())
         {
@@ -144,7 +161,7 @@ define(
 
         //table data
         for (var i = 0;i<ds_lst.length;i++){
-            _item_2_table(i,ds_lst,tax_rate,table,store_idb,store_id,couch_server_url)
+            _item_2_table(i,ds_lst,tax_rate,table,store_idb,store_pdb,store_id,couch_server_url)
         }
 
         //total button
@@ -153,12 +170,12 @@ define(
         total_button.innerHTML = computed_total;
     }
 
-    return function(store_idb,table,store_id,couch_server_url,callback){
+    return function(store_idb,store_pdb,table,store_id,couch_server_url,callback){
         var ds_lst_and_tax_getter_b = ds_lst_and_tax_getter.bind(ds_lst_and_tax_getter,store_idb);
         async.waterfall([ds_lst_and_tax_getter_b],function(error,result){
             var ds_lst = result[0];
             var tax_rate = result[1];
-            ds_2_ui(store_idb,table,ds_lst,tax_rate,store_id,couch_server_url);
+            ds_2_ui(store_idb,store_pdb,table,ds_lst,tax_rate,store_id,couch_server_url);
 
             callback(error,table);
         });

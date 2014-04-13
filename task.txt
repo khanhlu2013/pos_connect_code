@@ -306,7 +306,7 @@ SHORTCUT:
 OFFLINE PRODUCT CREATION
 
 . update sp created offline
-. test if the app working when internet is down.
+
 
 
 

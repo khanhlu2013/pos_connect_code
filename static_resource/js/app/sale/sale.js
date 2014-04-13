@@ -87,11 +87,14 @@ require(
         var product_crv_txt = document.getElementById("product_crv_txt");
         var product_sku_txt = document.getElementById("product_sku_txt");
 
+        //DB
+        var STORE_PDB;
+        var STORE_IDB;
 
-        function hook_receipt_pusher_2_ui(store_idb,store_pdb){
+        function hook_receipt_pusher_2_ui(){
             function exe(){
                 var receipt_pusher_nb = receipt_pusher.push_receipt;
-                var receipt_pusher_b = receipt_pusher_nb.bind(receipt_pusher_nb,store_idb,store_pdb,STORE_ID,COUCH_SERVER_URL);
+                var receipt_pusher_b = receipt_pusher_nb.bind(receipt_pusher_nb,STORE_IDB,STORE_ID,COUCH_SERVER_URL);
                                                                                 
                 var ask_server_to_process_sale_data = receipt_pusher.ask_server_to_process_sale_data;
                 var ask_server_to_process_sale_data_b = ask_server_to_process_sale_data.bind(ask_server_to_process_sale_data)
@@ -109,28 +112,26 @@ require(
             push_receipt_btn.addEventListener("click", exe);
         }
 
-        function hook_alone_discounter_2_ui(store_idb){
+        function hook_alone_discounter_2_ui(){
 
-            function discount_button_function_handler(store_idb){
+            function discount_button_function_handler(){
                 var discount_input_str = prompt('enter discount amount or discount %. e.g. 5 or 5%',null/*prefill*/);
                 if(discount_input_str == null){
                     return;
                 }
 
-                var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,store_idb,table,STORE_ID,COUCH_SERVER_URL);
-                var alone_discounter_b = alone_discounter.bind(alone_discounter,store_idb,discount_input_str);
+                var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,STORE_IDB,STORE_PDB,table,STORE_ID,COUCH_SERVER_URL);
+                var alone_discounter_b = alone_discounter.bind(alone_discounter,STORE_IDB,discount_input_str);
                 async.waterfall([alone_discounter_b,ds_2_ui_b],function(error,result){
                     if(error){alert(error);}
                 });
             }
-
-            var discount_button_function_handler_b = discount_button_function_handler.bind(discount_button_function_handler,store_idb);
-            discount_button.addEventListener("click", discount_button_function_handler_b);
+            discount_button.addEventListener("click", discount_button_function_handler);
         }
 
-        function hook_sale_finalizer_2_ui(store_idb,store_pdb){
-            function total_button_click_handler(store_idb){
-                var ds_lst_and_tax_getter_b = ds_lst_and_tax_getter.bind(ds_lst_and_tax_getter,store_idb)
+        function hook_sale_finalizer_2_ui(){
+            function total_button_click_handler(){
+                var ds_lst_and_tax_getter_b = ds_lst_and_tax_getter.bind(ds_lst_and_tax_getter,STORE_IDB)
                 async.waterfall([ds_lst_and_tax_getter_b],function(error,result){
                     var ds_lst = result[0];
                     var tax_rate = result[1];
@@ -144,13 +145,13 @@ require(
                                 alert('collecting amount should be at least:' + line_total);
                                 return;
                             }else if(confirm("Did you give the customer change: " + (number.trim(collected_amount - line_total)))) {
-                                var sale_finalizer_b = sale_finalizer.bind(sale_finalizer,store_pdb,store_idb,collected_amount);
+                                var sale_finalizer_b = sale_finalizer.bind(sale_finalizer,STORE_PDB,STORE_IDB,collected_amount);
                                 async.waterfall([sale_finalizer_b],function(error,result){
                                     if(error){
                                         alert(error);
                                     }else{
                                         //refresh table
-                                        var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,store_idb,table,STORE_ID,COUCH_SERVER_URL);
+                                        var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,STORE_IDB,STORE_PDB,table,STORE_ID,COUCH_SERVER_URL);
                                         async.waterfall([ds_2_ui_b],function(error,result){
                                             if(error){
                                                 alert(error);
@@ -163,11 +164,10 @@ require(
                     }
                 });
             }
-            var total_button_click_handler_b = total_button_click_handler.bind(total_button_click_handler,store_idb);
-            total_button.addEventListener("click", total_button_click_handler_b);
+            total_button.addEventListener("click", total_button_click_handler);
         }
 
-        function hook_scanner_to_ui(store_idb,store_pdb){
+        function hook_scanner_to_ui(){
             var ENTER_KEY = 13;
             var scan_textbox = document.getElementById('scan_text');
             function scan_text_enter_handler( event ) {
@@ -179,15 +179,15 @@ require(
                     return;
                 }
 
-                var scanner_b = scanner.exe.bind(scanner.exe,scan_str,store_idb);
-                var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,store_idb,table,STORE_ID,COUCH_SERVER_URL);
+                var scanner_b = scanner.exe.bind(scanner.exe,scan_str,STORE_IDB);
+                var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,STORE_IDB,STORE_PDB,table,STORE_ID,COUCH_SERVER_URL);
 
                 async.waterfall([scanner_b,ds_2_ui_b],function(error,result){
                     if(error){
                         if(error == scanner.ERROR_STORE_PRODUCT_NOT_FOUND){
                             sku_str = scanner.get_sku_from_scan_str(scan_str);
 
-                            var ssnf = ssnf_handler.exe.bind(ssnf_handler.exe,sku_str,STORE_ID,COUCH_SERVER_URL,store_pdb);
+                            var ssnf = ssnf_handler.exe.bind(ssnf_handler.exe,sku_str,STORE_ID,COUCH_SERVER_URL,STORE_PDB);
                             async.waterfall([ssnf,scanner_b,ds_2_ui_b],function(error,result){
                                 if(error){
                                     error_lib.alert_error(error);                                   
@@ -202,10 +202,10 @@ require(
             scan_textbox.addEventListener('keypress', scan_text_enter_handler, false);
         }
 
-        function hook_voider_2_ui(store_idb){
-            function void_btn_click_handler(store_idb){
+        function hook_voider_2_ui(){
+            function void_btn_click_handler(){
 
-                var ds_lst_and_tax_getter_b = ds_lst_and_tax_getter.bind(ds_lst_and_tax_getter,store_idb)
+                var ds_lst_and_tax_getter_b = ds_lst_and_tax_getter.bind(ds_lst_and_tax_getter,STORE_IDB)
                 async.waterfall([ds_lst_and_tax_getter_b],function(error,result){
                     var ds_lst = result[0];
                     var tax_rate = result[1];
@@ -217,8 +217,8 @@ require(
                             return;
                         }
                         
-                        var voider_b = voider.bind(voider,store_idb);
-                        var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,store_idb,table,STORE_ID,COUCH_SERVER_URL);
+                        var voider_b = voider.bind(voider,STORE_IDB);
+                        var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,STORE_IDB,STORE_PDB,table,STORE_ID,COUCH_SERVER_URL);
 
                         async.waterfall([voider_b,ds_2_ui_b],function(error,result){
                             if(error){alert(error);}
@@ -226,9 +226,7 @@ require(
                     }
                 });
             }
-
-            var void_btn_click_handler_b = void_btn_click_handler.bind(void_btn_click_handler,store_idb);
-            void_btn.addEventListener("click", void_btn_click_handler_b);            
+            void_btn.addEventListener("click", void_btn_click_handler);            
         }
 
         var shortcut_lst;
@@ -249,7 +247,7 @@ require(
                         var sp = result;
                         var ps = new Pending_scan(null/*key*/,1/*qty*/,sp.price,null/*discount*/,sp._id,null/*non_product_name*/);
                         var ps_inserter_b = ps_inserter.bind(ps_inserter,store_idb,ps)
-                        var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,store_idb,table,STORE_ID,COUCH_SERVER_URL);
+                        var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,store_idb,STORE_PDB,table,STORE_ID,COUCH_SERVER_URL);
                         async.waterfall([ps_inserter_b,ds_2_ui_b],function(error,result){
                             if(error){alert(error);}
                         });
@@ -341,19 +339,20 @@ require(
                 return;
             }
 
-            var store_idb = result;
-            var store_pdb = pouch_db_util.get_store_db(STORE_ID);
+            STORE_IDB = result;
+            STORE_PDB = pouch_db_util.get_store_db(STORE_ID);
+
 
             //init ui functionality
-            hook_scanner_to_ui(store_idb,store_pdb);
-            hook_sale_finalizer_2_ui(store_idb,store_pdb);
-            hook_alone_discounter_2_ui(store_idb);
-            hook_voider_2_ui(store_idb);
-            hook_receipt_pusher_2_ui(store_idb,store_pdb);
+            hook_scanner_to_ui();
+            hook_sale_finalizer_2_ui();
+            hook_alone_discounter_2_ui();
+            hook_voider_2_ui();
+            hook_receipt_pusher_2_ui();
             
             //refresh ui
-            var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,store_idb,table,STORE_ID,COUCH_SERVER_URL);
-            var init_shortcut_table_b = init_shortcut_table.bind(init_shortcut_table,store_idb);
+            var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,STORE_IDB,STORE_PDB,table,STORE_ID,COUCH_SERVER_URL);
+            var init_shortcut_table_b = init_shortcut_table.bind(init_shortcut_table,STORE_IDB);
             async.waterfall([init_shortcut_table_b,ds_2_ui_b],function(error,result){
                 if(error){
                     $.unblockUI();

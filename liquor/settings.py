@@ -45,12 +45,10 @@ INSTALLED_APPS = (
     ,'django.contrib.sites'
     ,'rest_framework'
     ,'django_extensions'
-    # ,'debug_toolbar'
+    ,'compressor'
     ,'storages'
     ,'south'
     ,'django_nose' 
-    # ,'helper'
-    # ,'util'
     ,'liqUser'
     ,'bus'
     ,'product'
@@ -107,6 +105,7 @@ ROOT_URLCONF = 'liquor.urls'
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder',
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 TEMPLATE_LOADERS = (

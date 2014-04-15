@@ -1,9 +1,8 @@
-from couch import couch_util
 from product.models import Product,Sku,ProdSkuAssoc
 from store_product.models import Store_product
 from store_product.sp_couch import sp_couch_inserter
 from store_product.sp_couch.document import Store_product_document
-from couch import couch_constance
+from couch import couch_constance,couch_util
 
 
 def exe( \
@@ -16,6 +15,7 @@ def exe( \
     ,p_type
     ,p_tag
     ,sku_str
+    ,sp_couch_id_create_offline = None #when we process sale data, there could be sp that is created offline. we only update pid for these document (vs creating them)
 ):
 
     prod_bus_assoc = exe_master( \
@@ -30,18 +30,24 @@ def exe( \
         ,p_tag = p_tag
     )
 
-    sp_couch_inserter.exe(
-         store_id = store_id
-        ,product_id = prod_bus_assoc.product.id
-        ,name = name
-        ,price = price
-        ,crv = crv
-        ,is_taxable = is_taxable
-        ,is_sale_report = is_sale_report
-        ,p_type = p_type
-        ,p_tag = p_tag
-        ,sku_lst = [sku_str,]
-    )
+    if sp_couch_id_create_offline == None:
+        sp_couch_inserter.exe(
+             store_id = store_id
+            ,product_id = prod_bus_assoc.product.id
+            ,name = name
+            ,price = price
+            ,crv = crv
+            ,is_taxable = is_taxable
+            ,is_sale_report = is_sale_report
+            ,p_type = p_type
+            ,p_tag = p_tag
+            ,sku_lst = [sku_str,]
+        )
+    else:
+        db = couch_util.get_store_db(store_id)
+        doc = db.get(sp_couch_id_create_offline)
+        doc['product_id'] = prod_bus_assoc.product.id
+        db.save(doc)
 
     return prod_bus_assoc
 

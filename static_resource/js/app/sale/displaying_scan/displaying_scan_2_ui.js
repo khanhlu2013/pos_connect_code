@@ -75,10 +75,10 @@ define(
                     return;
                 }
 
-                var sp_offline_updator_b = sp_offline_updator.bind(sp_offline_updator,displaying_scan,pouch_db);
+                var sp_offline_updator_b = sp_offline_updator.bind(sp_offline_updator,displaying_scan.store_product,store_pdb);
                 async.waterfall([sp_offline_updator_b],function(error,result){
                     if(error){
-                        error_lib.allert_error(error);
+                        error_lib.alert_error(error);
                         return;
                     }else{
                         //hackish way to refresh the interface by pretending the price is change
@@ -87,22 +87,22 @@ define(
                         var instruction = new Instruction(false/*is_delete*/,displaying_scan.qty,hackish_new_price,displaying_scan.discount);
                         exe_instruction(store_idb,store_pdb,ds_index,instruction,ds_lst,table,tax_rate,store_id,couch_server_url);                        
                     }
-                })
+                });
+            }else{
+                var sp_updator_b = sp_updator.exe.bind(sp_updator.exe,product_id,store_id,couch_server_url);
+                async.waterfall([sp_updator_b],function(error,result){
+                    if(error){
+                        error_lib.alert_error(error);
+                        return;
+                    }else{
+                        //hackish way to refresh the interface by pretending the price is change
+                        var sp_updator_return_product = product_json_helper.get_sp_from_p(result,store_id);
+                        var hackish_new_price = sp_updator_return_product.price;
+                        var instruction = new Instruction(false/*is_delete*/,displaying_scan.qty,hackish_new_price,displaying_scan.discount);
+                        exe_instruction(store_idb,store_pdb,ds_index,instruction,ds_lst,table,tax_rate,store_id,couch_server_url);
+                    }
+                });                
             }
-
-            var sp_updator_b = sp_updator.exe.bind(sp_updator.exe,product_id,store_id,couch_server_url);
-            async.waterfall([sp_updator_b],function(error,result){
-                if(error){
-                    error_lib.alert_error(error);
-                    return;
-                }else{
-                    //hackish way to refresh the interface by pretending the price is change
-                    var sp_updator_return_product = product_json_helper.get_sp_from_p(result,store_id);
-                    var hackish_new_price = sp_updator_return_product.price;
-                    var instruction = new Instruction(false/*is_delete*/,displaying_scan.qty,hackish_new_price,displaying_scan.discount);
-                    exe_instruction(store_idb,store_pdb,ds_index,instruction,ds_lst,table,tax_rate,store_id,couch_server_url);
-                }
-            });
         });
 
         //-PRICE

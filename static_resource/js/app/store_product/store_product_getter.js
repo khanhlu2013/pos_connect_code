@@ -40,7 +40,7 @@ define(
         var index = store_os.index(index_name);
 
         var product_lst = new Array();
-            index.openCursor(IDBKeyRange.only(search_param)).onsuccess = function(event) {
+        index.openCursor(IDBKeyRange.only(search_param)).onsuccess = function(event) {
             var cursor = event.target.result;
             if (cursor) {
                 product_lst.push(_create_store_product_from_cursor(cursor));

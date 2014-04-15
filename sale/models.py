@@ -10,7 +10,7 @@ class Receipt(models.Model):
     store = models.ForeignKey(Store)
     _doc_id_creator = models.CharField(max_length=40,unique=True)#this field is for an optimization moving sale data from couch to master
     def __unicode__(self):
-        return self.time_stamp + ' ' + self.collect_amount
+        return str(self.id) + ' ' + str(self.collect_amount)
 
 
 class Receipt_ln(models.Model):

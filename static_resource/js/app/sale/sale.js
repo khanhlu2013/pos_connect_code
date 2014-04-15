@@ -93,14 +93,10 @@ require(
 
         function hook_receipt_pusher_2_ui(){
             function exe(){
-                var receipt_pusher_nb = receipt_pusher.push_receipt;
-                var receipt_pusher_b = receipt_pusher_nb.bind(receipt_pusher_nb,STORE_IDB,STORE_ID,COUCH_SERVER_URL);
+                var receipt_pusher_b = receipt_pusher.bind(receipt_pusher,STORE_IDB,STORE_PDB,STORE_ID,COUCH_SERVER_URL);
                                                                                 
-                var ask_server_to_process_sale_data = receipt_pusher.ask_server_to_process_sale_data;
-                var ask_server_to_process_sale_data_b = ask_server_to_process_sale_data.bind(ask_server_to_process_sale_data)
-
                 $.blockUI({ message: 'saving sale data ...' });
-                async.waterfall([receipt_pusher_b,ask_server_to_process_sale_data_b],function(error,result){
+                async.waterfall([receipt_pusher_b],function(error,result){
                     if(error){
                         alert(error);
                     }else{

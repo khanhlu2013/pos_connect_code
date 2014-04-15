@@ -1,4 +1,4 @@
-~. july 10-11-12-13
+~. july 10-11-12-13 back packing
 
 ~. parakett idea: a trypod with remote. a keyboard of there own sound
 ~. i want to be a blues student.
@@ -302,16 +302,24 @@ SHORTCUT:
 
 
 ------------------------------------------------------------------------------------------------------------------
+. refactor: receipt in couch have collected_amount: change this to collect_amount to match master
+. refactor: receipt in master have _doc_id_creator: change this to receipt_doc_id
+. refactor: push_receipt is a async.series of 4 method: check_if_receipt_exist, sync_receipt, delete_receipt, delete_create_offline
+. refactor: receipt is an object, we need it to stand out like the noun store_product, invoice, ...
+. when the internet is disconnected, the front online search,receipt pusher, ... should display correct result:
+. discount does not include crv
+. check if we scan approve product, add an old sp, and see if it is auto re-scan
+. finish sale interface
+    . test receipt pusher offline
+    . receipt pusher online
 
-OFFLINE PRODUCT CREATION
+-----------
 
-. update sp created offline
-
-
-
+receipt pusher: 
+    . we can not delete create offline product but update push it and update it product_id on the server and sycn down. seem like more efficient algorithm.
 
 
-
+    . error report 500 from receipt pusher need to be call through error_lib
 
 
 

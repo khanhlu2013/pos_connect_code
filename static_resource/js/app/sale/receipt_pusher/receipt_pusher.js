@@ -23,7 +23,7 @@ define(
         ,db_util
     )
 {
-    function ask_server_to_process_sale_data(store_id,callback){
+    function ask_server_to_process_sale_data(callback){
 
         $.ajax({
              url : "/sale/process_data"
@@ -37,37 +37,6 @@ define(
                 callback(xhr)
             }
         });
-    }
-
-    function clean_up_locally_create_store_product(store_idb,store_pdb,callback){
-        var func = sp_getter.by_product_id; 
-        var func_b = func.bind(func,null/*product_id*/,store_idb);
-        async.waterfall([func_b],function(error,result){
-            if(error){
-                callback(error);
-                return;
-            }
-
-            var store_product_lst = result;
-            if(store_product_lst == null){
-                callback('Error: can not get create offline store product list');
-                return;
-            }
-
-            if(store_product_lst.length == 0){
-                callback(null/*error*/);
-                return;
-            }
-
-            var func_lst = new Array();
-            for(var i = 0;i<store_product_lst.length;i++){
-                var delete_doc_b = index_db_util.delete_item.bind(index_db_util.delete_item,store_idb,store_product_lst[i].key);
-                func_lst.push(delete_doc_b)
-            }
-            async.series(func_lst,function(error,results){
-                callback(error)
-            });         
-        })
     }
 
     function clean_up_sale_data(receipt_lst,store_idb,callback){
@@ -101,7 +70,10 @@ define(
         });
     }
 
-    function push_receipt(store_idb,store_pdb,store_id,couch_server_url,callback){
+    return function (store_idb,store_pdb,store_id,couch_server_url,callback){
+        /*
+            we use pouchdb replicate with a filter to sync receipt. then delete sale data to simulate a push, or copy paste receipt to couch.
+        */
         var receipt_lst_getter_b = receipt_lst_getter.bind(receipt_lst_getter,store_idb);
         async.waterfall([receipt_lst_getter_b],function(error,result){
             if(error){
@@ -115,18 +87,20 @@ define(
                 return;
             }
 
+
+            //3 step to siumate push receipt: 
             var sync_receipt_b = sync_receipt.bind(sync_receipt,store_id,couch_server_url);
             var clean_up_sale_data_b = clean_up_sale_data.bind(clean_up_sale_data,receipt_lst,store_idb);
-            var clean_up_locally_create_store_product_b = clean_up_locally_create_store_product.bind(clean_up_locally_create_store_product,store_idb,store_pdb);
-
-            async.waterfall([sync_receipt_b,clean_up_sale_data_b,clean_up_locally_create_store_product_b],function(error,result){
-                callback(error);
-            })
+            async.waterfall(
+                [
+                     sync_receipt_b
+                    ,clean_up_sale_data_b
+                    ,ask_server_to_process_sale_data
+                ]
+                ,function(error,result){
+                    callback(error,result);
+                }
+            );
         });
-    }
-
-    return {
-         push_receipt:push_receipt
-        ,ask_server_to_process_sale_data:ask_server_to_process_sale_data
     }
 });

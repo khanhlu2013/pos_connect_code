@@ -161,7 +161,8 @@ USER_ID_PREFIX = 'org.couchdb.user:'
 
 
 #LIQUOR USER
-CLIENT_USER_NAME_PREFIX = 'liquor_'
+CLIENT_USER_NAME_PREFIX = os.environ.get('STORE_DB_PREFIX')
+
 
 #STORE DB
 STORE_DB_PREFIX = os.environ.get('STORE_DB_PREFIX')

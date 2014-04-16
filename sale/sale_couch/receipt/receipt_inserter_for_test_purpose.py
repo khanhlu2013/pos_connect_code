@@ -5,7 +5,7 @@ from couchdb import Server
 from store.models import Store
 
 
-def exe(collected_amount,ds_lst,tax_rate,time_stamp,store_id):
+def exe(collected_amount,ds_lst,tax_rate,time_stamp,store_id,api_key_name,api_key_pwrd):
 
     doc = Receipt_document(
          d_type = couch_constance.RECEIPT_DOCUMENT_TYPE
@@ -15,7 +15,7 @@ def exe(collected_amount,ds_lst,tax_rate,time_stamp,store_id):
         ,time_stamp = time_stamp
     )
 
-    db = couch_util.get_store_db_use_store_account(store_id)
+    db = couch_util.get_store_db_use_store_account(store_id,api_key_name,api_key_pwrd)
     doc.store(db)
 
 

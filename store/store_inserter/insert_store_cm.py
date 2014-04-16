@@ -8,21 +8,45 @@ from tax.couch.models import Tax_document
 from util.couch import master_account_util,user_util
 from couch import couch_util,couch_constance
 from sale.sale_couch.receipt import receipt_document_validator
-from util.couch import couch_acl_validator
+from util.couch import couch_acl_validator,old_security_4_test_purpose
 import hashlib
 import os
 from helper import test_helper
 from couch import couch_util
 
 def exe(store):
-    store_id,username = exe_master(store)
-    exe_couch(store_id,store.tax_rate,username)
+    store_id,api_key_name = exe_master(store)
+    exe_couch(store_id,store.tax_rate,api_key_name)
 
 
-def create_user_account():
+def exe_master(store):
     if test_helper.is_local_env():
-        return (1,1)
+        store.api_key_name,store.api_key_pwrd = (1,1)        
+    else:
+        store.api_key_name,store.api_key_pwrd = get_cloudant_api_key()
+    store.save(by_pass_cm=True)
 
+    #overwrite key_name and password under local env
+    if test_helper.is_local_env():
+        store_db_name = couch_util._get_store_db_name(store.id)
+        store.api_key_name,store.api_key_pwrd = store_db_name,store_db_name
+        store.save(by_pass_cm=True)
+
+    return store.id,store.api_key_name
+
+
+def exe_couch(store_id,tax_rate,api_key_name):
+    _couch_db_insert_db(store_id)
+    _couch_db_insert_view(store_id)
+    _couch_db_insert_validation(store_id)
+    _couch_db_insert_tax_rate(store_id,tax_rate)
+    if test_helper.is_local_env():
+        old_security_4_test_purpose.exe(store_id)
+    else:
+        _couch_db_grant_cloudant_access_to_api_key(api_key_name,store_id,['_reader','_writer'])
+
+
+def get_cloudant_api_key():
     headers={'referer': 'https://%s.cloudant.com' % (master_account_util.get_master_user_name()), 'content-type': 'multipart/form-data'}
     url='https://cloudant.com/api/generate_api_key'
     r = requests.post(url,headers=headers,auth=(master_account_util.get_master_user_name(),master_account_util.get_master_user_password()))
@@ -34,25 +58,8 @@ def create_user_account():
         return (dic['key'],dic['password'])
 
 
-def exe_master(store):
-    store.api_key_name,store.api_key_pwrd = create_user_account()
-    store.save(by_pass_cm=True)
-    store_id = store.id
-    
-    # xxx need to remove when we can install cloudant into development machine
-    if test_helper.is_local_env():
-        store_db_name = couch_util._get_store_db_name(store_id)
-        store.api_key_name = store_db_name
-        store.api_key_pwrd = store_db_name
-        store.save(by_pass_cm=True)
 
-    return store.id,store.api_key_name
-
-
-def _couch_db_grant_access_to_db(api_key_name,db_name,roles):
-    if test_helper.is_local_env():
-        return
-
+def _couch_db_grant_cloudant_access_to_api_key(api_key_name,store_id,roles):
     url = 'https://cloudant.com/api/set_permissions'
     prefix = master_account_util.get_master_user_name()
 
@@ -60,19 +67,12 @@ def _couch_db_grant_access_to_db(api_key_name,db_name,roles):
     for item in roles:
         role_str += ('&roles=' + item)
 
+    db_name = couch_util._get_store_db_name(store_id)
     data_str = 'database=%s/%s&username=%s' % (prefix,db_name,api_key_name)
     data_str += role_str
     headers = {'content-type': 'application/x-www-form-urlencoded'}
 
-    r = requests.post(url,data=data_str,headers=headers,auth=(master_account_util.get_master_user_name(),master_account_util.get_master_user_password()))
-
-
-def exe_couch(store_id,tax_rate,api_key_name):
-    _couch_db_insert_db(store_id)
-    _couch_db_insert_view(store_id)
-    _couch_db_insert_validation(store_id)
-    _couch_db_insert_tax_rate(store_id,tax_rate)
-    _couch_db_grant_access_to_db(api_key_name,couch_util._get_store_db_name(store_id),['_reader','_writer'])
+    r = requests.post(url,data=data_str,headers=headers,auth=(master_account_util.get_master_user_name(),master_account_util.get_master_user_password()))    
 
 
 

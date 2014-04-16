@@ -37,17 +37,7 @@ def d():
     user2,store2=test_helper.create_user_then_store_detail(user_name = "y",user_password="y",store_name="y")
     user3,store3=test_helper.create_user_then_store_detail(user_name = "z",user_password="z",store_name="z")
 
-    insert_user_to_old_couch_db_security(store1.id)
-    insert_user_to_old_couch_db_security(store2.id)
-    insert_user_to_old_couch_db_security(store3.id)
-
     print("completed")
-
-def insert_user_to_old_couch_db_security(store_id):
-    old_security_4_test_purpose._couch_db_insert_user(store_id)
-    old_security_4_test_purpose._couch_db_insert_user_2_store(store_id)
-
-
 
 
 def import_json_data(data):

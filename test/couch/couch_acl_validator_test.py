@@ -64,7 +64,7 @@ class Test(WebTest):
         #foreman  run -e .env,test.env python manage.py test test.couch.couch_acl_validator_test:Test.can_stop_reg_user_to_insert_none_receipt_document
         user,store = test_helper.create_user_then_store()
 
-        db = couch_util.get_store_db_use_store_account(store.id)
+        db = couch_util.get_store_db_use_store_account(store.id,store.api_key_name,store.api_key_pwrd)
         try:
             a_none_type_doc = {'a':'a'}
             db.save(a_none_type_doc)
@@ -129,7 +129,7 @@ class Test(WebTest):
         receipt = receipt_lst[0]
         receipt['_deleted'] = True
 
-        db = couch_util.get_store_db_use_store_account(store.id)
+        db = couch_util.get_store_db_use_store_account(store.id,store.api_key_name,store.api_key_pwrd)
         try:
             db.save(receipt)
         except Unauthorized,err:
@@ -184,7 +184,7 @@ class Test(WebTest):
         receipt = receipt_lst[0]
         receipt['collected_amount'] = 200
 
-        db = couch_util.get_store_db_use_store_account(store.id)
+        db = couch_util.get_store_db_use_store_account(store.id,store.api_key_name,store.api_key_pwrd)
         try:
             db.save(receipt)
         except Unauthorized,err:

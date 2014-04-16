@@ -14,10 +14,7 @@ def get_store_db(store_id):
     except ResourceNotFound:
         return None
 
-def get_store_db_use_store_account(store_id):
-    store = Store.objects.get(pk=store_id)
-    name = store.api_key_name
-    pwrd = store.api_key_pwrd
+def get_store_db_use_store_account(store_id,name,pwrd):
     couch_url = get_couch_url(name,pwrd)
     server = Server(couch_url)      
     store_db_name = _get_store_db_name(store_id)

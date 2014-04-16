@@ -133,8 +133,7 @@ def create_new_sp(sp_couch_lst,store_id):
 
     #assert sp_couch_lst have store_product.product_id = None
     for sp_couch in sp_couch_lst:
-        store_product_couch = sp_couch['store_product']
-        if store_product_couch == None or store_product_couch['product_id'] != None:
+        if sp_couch['product_id'] != None and len(sp_couch['sku_lst']) != 1:
             raise Exception('Bug')
 
     #create
@@ -148,8 +147,7 @@ def create_new_sp(sp_couch_lst,store_id):
             ,is_sale_report = sp_couch['is_sale_report']
             ,p_type = sp_couch['p_type']
             ,p_tag = sp_couch['p_tag']
-            ,sku_str = sp_couch['create_offline_by_sku']
-            ,sp_couch_id_create_offline = sp_couch['_id']
+            ,sku_str = sp_couch['sku_lst'][0]
         )
         result[sp_couch['_id']] = sp_master.id
 

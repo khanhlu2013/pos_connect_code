@@ -118,6 +118,27 @@ define(
         
     }
 
+
+    function by_product_id_is_null(store_idb,callback){
+        var store_os = get_os.get_main_os(true/*is_read_only*/,store_idb)
+        var index = store_os.index(constance.DOCUMENT_TYPE_INDEX);
+
+        var product_lst = new Array();
+            index.openCursor(IDBKeyRange.only(constance.STORE_PRODUCT_TYPE)).onsuccess = function(event) {
+            var cursor = event.target.result;
+            if (cursor) {
+                if(cursor.value.product_id==null){
+                    product_lst.push(_create_store_product_from_cursor(cursor));
+                }
+                cursor.continue();
+            }else{
+                var filtered_result_lst = couch_db_util.filter_old_rev(product_lst);
+                callback(null/*error*/,product_lst);
+            }
+        };       
+    }
+
+
     function by_product_id_not_null(store_idb,callback){
         var store_os = get_os.get_main_os(true/*is_read_only*/,store_idb)
         var index = store_os.index(constance.DOCUMENT_TYPE_INDEX);
@@ -137,12 +158,14 @@ define(
         };       
     }
 
+
     return {
          search_by_sku:search_by_sku
         ,search_by_doc_id:search_by_doc_id 
         ,search_by_doc_id_lst:search_by_doc_id_lst
         ,by_product_id:by_product_id
         ,by_product_id_not_null:by_product_id_not_null
+        ,by_product_id_is_null:by_product_id_is_null
     }
 });
 

@@ -8,7 +8,10 @@ define(
         ,'app/store_product/store_product_getter'
         ,'lib/db/index_db_util'
         ,'lib/db/db_util'
-
+        ,'lib/object_store/get_os'
+        ,'constance'
+        ,'app/store_product/Store_product'
+        ,'lib/db/index_db_util'
 
     ],
     function
@@ -21,8 +24,35 @@ define(
         ,sp_getter
         ,index_db_util
         ,db_util
+        ,get_os
+        ,constance
+        ,Store_product
+        ,index_db_util
     )
 {
+    function delete_local_create_sp(store_idb,callback){
+        var sp_getter_b = sp_getter.by_product_id_is_null.bind(sp_getter.by_product_id_is_null,store_idb);
+        async.waterfall([sp_getter_b],function(error,result){
+
+            var delete_func_lst = []
+            var offline_sp_lst = result;
+            
+            if(offline_sp_lst.length == 0){
+                callback(null);
+                return;
+            }
+
+            for(var i = 0;i<offline_sp_lst.length;i++){
+                var func = index_db_util.delete_item.bind(index_db_util.delete_item,store_idb,offline_sp_lst[i].key)
+                delete_func_lst.push(func);
+            }
+
+            async.series(delete_func_lst,function(error,result){
+                callback(error);
+            });
+        });
+    }
+
     function ask_server_to_process_sale_data(callback){
 
         $.ajax({
@@ -88,13 +118,15 @@ define(
             }
 
 
-            //3 step to siumate push receipt: 
+            //3 step to emulate push receipt: 
             var sync_receipt_b = sync_receipt.bind(sync_receipt,store_id,couch_server_url);
             var clean_up_sale_data_b = clean_up_sale_data.bind(clean_up_sale_data,receipt_lst,store_idb);
+            var delete_local_create_sp_b = delete_local_create_sp.bind(delete_local_create_sp,store_idb);
             async.waterfall(
                 [
                      sync_receipt_b
                     ,clean_up_sale_data_b
+                    ,delete_local_create_sp_b
                     ,ask_server_to_process_sale_data
                 ]
                 ,function(error,result){

@@ -5,6 +5,10 @@ import json
 from util.couch import user_util
 from django.conf import settings
 
+def exe(store_id):
+    _couch_db_insert_user(store_id)
+    _couch_db_insert_user_2_store(store_id)
+
 def _couch_db_insert_user_2_store(store_id):
     admin_name = master_account_util.get_master_user_name()
     reader_name = user_util.get_client_user_name(store_id)

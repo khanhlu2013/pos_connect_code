@@ -69,7 +69,7 @@ def insert_receipt_to_master(receipt_couch_lst,store_id):
             ,collect_amount = receipt_couch['collect_amount']
             ,tax_rate = receipt_couch['tax_rate']
             ,store_id = store_id
-            ,_doc_id_creator = receipt_couch['_id']
+            ,_receipt_doc_id = receipt_couch['_id']
         )
         receipt_master_lst.append(receipt_master)
     Receipt.objects.bulk_create(receipt_master_lst)
@@ -98,7 +98,7 @@ def get_sp_id_c2mLookup(receipt_couch_lst,store_id):
 def get_receipt_master_from_lst_based_on_receipt_couch_doc_id(receipt_master_lst,receipt_couch_doc_id):
     result = None
     for receipt_master in receipt_master_lst:
-        if receipt_master._doc_id_creator == receipt_couch_doc_id:
+        if receipt_master._receipt_doc_id == receipt_couch_doc_id:
             result = receipt_master
             break
 
@@ -120,7 +120,7 @@ def fomulate_receipt_id_c2mLookup(receipt_couch_lst,receipt_master_lst):
 
 def get_receipt_lst_from_master_based_on_receipt_couch_lst(receipt_couch_lst):
     receipt_couch_doc_id_lst = [receipt_couch['_id'] for receipt_couch in receipt_couch_lst]
-    return Receipt.objects.filter(_doc_id_creator__in = receipt_couch_doc_id_lst)#refeshing receipt_lst to get the primary key
+    return Receipt.objects.filter(_receipt_doc_id__in = receipt_couch_doc_id_lst)#refeshing receipt_lst to get the primary key
 
 
 def create_new_sp(sp_couch_lst,store_id):

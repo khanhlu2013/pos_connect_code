@@ -8,7 +8,7 @@ class Receipt(models.Model):
     collect_amount = models.DecimalField(max_digits=6, decimal_places=2)
     tax_rate = models.DecimalField(max_digits=6, decimal_places=4)
     store = models.ForeignKey(Store)
-    _doc_id_creator = models.CharField(max_length=40,unique=True)#this field is the receipt doc id from couch.as an optimization for moving sale data from couch to master. we bulk create receipt and need this link to bulk insert receipt_ln
+    _receipt_doc_id = models.CharField(max_length=40,unique=True)#this field is the receipt doc id from couch.as an optimization for 'copy paste' sale data from couch to master. we bulk create models.Receipt and need this link to document.Receipt to bulk insert models.Receipt_ln
     def __unicode__(self):
         return str(self.id) + ' ' + str(self.collect_amount)
 

@@ -18,7 +18,7 @@ class test(WebTest):
         test_helper.teardown_test_couchdb()
 
     def can_process_online_created_sp_test(self):
-        #foreman  run -e .env,test.env python manage.py test test.sale.sale_processor_test:test.test
+        #foreman  run -e .env,test.env python manage.py test test.sale.sale_processor_test:test.can_process_online_created_sp_test
 
         #-CREATE USER AND STORE
         user,store = test_helper.create_user_then_store()
@@ -106,7 +106,7 @@ class test(WebTest):
 
     def can_process_create_offline_sp_test(self):
         """
-            sale processor responsible to "re-create" create-offline-store-product. This test verify that
+            sale processor responsible to "re-create" created-offline-store-product. This test verify that
         """
         #foreman  run -e .env,test.env python manage.py test test.sale.sale_processor_test:test.can_process_create_offline_sp_test
 

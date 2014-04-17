@@ -187,7 +187,6 @@ CURRENT TASKS
 .util.couch -> couch
 .store.store_inserter folder should be deleted
 . sku.is_approved, unit.is_approved
-.receipt._doc_id_creator: what exactly is this field do. we need a bit better documentation beside it is an optimization for moving sale data from couch to master 
 .pending_scan_inserter should not take a pending scan as param. break this out to multiple param
 .store.save() by_pass_cm ?
 .store_product_getter: generic_search take an index name. make sure all these index name have atleast one colummn: d_type = 'store_product'
@@ -306,14 +305,12 @@ SHORTCUT:
 
 ------------------------------------------------------------------------------------------------------------------
 . ask Tiep: if we give a 50% alone discounter, is that mean it is not beneficial to the owner and customer interm of tax?
+
 . when the internet is disconnected, the front online search,receipt pusher, ... should display correct result:
     . receipt pusher
     . ...
-. refactor: receipt in master have _doc_id_creator: change this to receipt_doc_id
 
 
-
-. db_util.get_store_db_name(store_id); minimize the most possible to this function call. use store_id directly
 
 
 

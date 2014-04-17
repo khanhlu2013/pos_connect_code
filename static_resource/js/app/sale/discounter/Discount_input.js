@@ -45,7 +45,7 @@ define(
                 }else{
                     var discount_price = 0;
                     for(var i = 0;i<ds_lst.length;i++){
-                        discount_price += (ds_lst[i].get_total_discount_price() * ds_lst[i].qty);
+                        discount_price += (ds_lst[i].get_otd_wot_price() * ds_lst[i].qty);
                     }
                     var discount = discount_price * this.number / 100;
                     return number.round_2_decimal(discount);

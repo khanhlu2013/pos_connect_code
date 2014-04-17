@@ -22,7 +22,7 @@ src = """function(newDoc, oldDoc, userCtx, secObj){
         if(newDoc.d_type === '%s'){
             var error_lst = new Array();
 
-            if(newDoc.collected_amount == null){
+            if(newDoc.collect_amount == null){
                 error_lst.push('%s');
             }
 

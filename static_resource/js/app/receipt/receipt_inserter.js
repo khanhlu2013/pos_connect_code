@@ -2,7 +2,7 @@ define(
 	[
 		 'lib/object_store/get_os'
 		,'lib/async'
-		,'app/sale/sale_finalizer/Receipt'
+		,'app/receipt/Receipt'
 	]
 	,function
 	(
@@ -11,7 +11,7 @@ define(
 		,Receipt
 	)
 {
-	return function(store_pdb,ds_lst,tax_rate,collected_amount,callback){
+	return function(store_pdb,ds_lst,tax_rate,collect_amount,callback){
  		var receipt = new Receipt
         (
              null//_id
@@ -21,7 +21,7 @@ define(
             ,new Date().getTime()//time_stamp
             ,tax_rate
             ,ds_lst
-            ,collected_amount
+            ,collect_amount
         );
 
 		store_pdb.post(receipt, function(err, response) {

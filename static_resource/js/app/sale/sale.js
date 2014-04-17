@@ -31,7 +31,7 @@ require(
         ,'constance'
         ,'app/sale/voider/voider'
         ,'lib/misc/csrf_ajax_protection_setup'
-        ,'app/sale/receipt_pusher/receipt_pusher'
+        ,'app/receipt/receipt_pusher'
         ,'app/local_db_initializer/oneshot_sync'
         ,'app/local_db_initializer/customize_db'
         ,'app/sale_shortcut/parent_lst_getter'
@@ -93,14 +93,14 @@ require(
 
         function hook_receipt_pusher_2_ui(){
             function exe(){
-                var receipt_pusher_b = receipt_pusher.bind(receipt_pusher,STORE_IDB,STORE_PDB,STORE_ID,COUCH_SERVER_URL);
+                var receipt_pusher_b = receipt_pusher.exe.bind(receipt_pusher.exe,STORE_IDB,STORE_PDB,STORE_ID,COUCH_SERVER_URL);
                                                                                 
                 $.blockUI({ message: 'saving sale data ...' });
                 async.waterfall([receipt_pusher_b],function(error,result){
                     if(error){
-                        alert(error);
+                        error_lib.alert_error(error);
                     }else{
-                        alert(result);
+                        alert('sale data is saved');
                     }
                     $.unblockUI();
                 });
@@ -111,7 +111,7 @@ require(
         function hook_alone_discounter_2_ui(){
 
             function discount_button_function_handler(){
-                var discount_input_str = prompt('enter discount amount or discount %. e.g. 5 or 5%',null/*prefill*/);
+                var discount_input_str = prompt('enter discount amount or discount %. e.g. 5 or 5%');
                 if(discount_input_str == null){
                     return;
                 }
@@ -134,14 +134,14 @@ require(
 
                     if(ds_lst.length != 0){
                         var line_total = ds_util.get_line_total(ds_lst,tax_rate);
-                        var collected_amount = number.prompt_positive_double("amount: "/*message*/,line_total/*prefill*/,'wrong input'/*error_message*/)
+                        var collect_amount = number.prompt_positive_double("amount: "/*message*/,line_total/*prefill*/,'wrong input'/*error_message*/)
 
-                        if(collected_amount!=null){
-                            if(collected_amount < line_total){
+                        if(collect_amount!=null){
+                            if(collect_amount < line_total){
                                 alert('collecting amount should be at least:' + line_total);
                                 return;
-                            }else if(confirm("Did you give the customer change: " + (number.trim(collected_amount - line_total)))) {
-                                var sale_finalizer_b = sale_finalizer.bind(sale_finalizer,STORE_PDB,STORE_IDB,collected_amount);
+                            }else if(confirm("Did you give the customer change: " + (number.trim(collect_amount - line_total)))) {
+                                var sale_finalizer_b = sale_finalizer.bind(sale_finalizer,STORE_PDB,STORE_IDB,collect_amount);
                                 async.waterfall([sale_finalizer_b],function(error,result){
                                     if(error){
                                         alert(error);

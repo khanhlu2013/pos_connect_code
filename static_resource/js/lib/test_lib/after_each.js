@@ -2,31 +2,24 @@ define(
     [
          'lib/async'
         ,'constance'
+        ,'lib/db/pouch_db_util'
     ]
     ,function
     (
          async
         ,constance
+        ,pouch_db_util
     )
 {
 
-    function delete_idb(db_name,callback){
-        var request = indexedDB.deleteDatabase('_pouch_' + db_name);
-        request.onsuccess = function(event){
-            callback(null/*error*/);
-        };
-        
-        request.onerror = function(event){
-            callback('error while delete indexeddb'/*error*/);
-        };        
-    }
-
-	return function(store_idb,store_db_name,callback){
+	return function(store_idb,callback){
 		store_idb.close();
-
-        var delete_store_idb_b = delete_idb.bind(delete_idb,store_db_name);
-        async.waterfall([delete_store_idb_b],function(error,result){
-            callback(error,error==null/*result*/);
+        var delete_db_b = pouch_db_util.delete_db.bind(pouch_db_util.delete_db,constance.TEST_STORE_ID);
+        async.waterfall([delete_db_b],function(error,result){
+            if(error){
+                alert(error);
+            }
+            callback(error);
         });
     };
 });

@@ -8,7 +8,7 @@ define
         ,'app/sale/scan/scanner'
         ,'app/sale/pending_scan/pending_scan_lst_getter'
         ,'app/sale/sale_finalizer/sale_finalizer'
-        ,'app/sale/sale_finalizer/receipt_lst_getter'
+        ,'app/receipt/receipt_lst_getter'
 
     ],
     function
@@ -74,7 +74,7 @@ define
                 var is_taxable_2 = true;
                 var sku_str_2 = '222';
 
-                var collected_amount = 100;
+                var collect_amount = 100;
 
                 runs(function () {
                     var insert_sp_1_b = new_sp_inserter.bind(new_sp_inserter,name_1,price_1.toString(),crv_1.toString(),is_taxable_1,sku_str_1,store_pdb);
@@ -110,7 +110,7 @@ define
                     var scanner_2_b = scanner.exe.bind(scanner.exe,scan_str_2,store_idb);
                     var scanner_3_b = scanner.exe.bind(scanner.exe,scan_str_3,store_idb);
 
-                    var sale_finalizer_b = sale_finalizer.bind(sale_finalizer,store_pdb,store_idb,collected_amount);    
+                    var sale_finalizer_b = sale_finalizer.bind(sale_finalizer,store_pdb,store_idb,collect_amount);    
 
                     async.waterfall(
                     [
@@ -142,7 +142,7 @@ define
                     expect(receipt_lst).not.toBe(null);
                     expect(receipt_lst.length).toBe(1);
                     var receipt = receipt_lst[0];
-                    expect(receipt.collected_amount).toBe(collected_amount);
+                    expect(receipt.collect_amount).toBe(collect_amount);
                 });
             });
         });

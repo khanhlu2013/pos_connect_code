@@ -47,11 +47,11 @@ class Test(WebTest):
 
 
         #RECEIPT
-        collected_amount = 100
+        collect_amount = 100
         tax_rate = 9.75
         time_stamp = 1
         ds_lst = [ln_1]
-        receipt_inserter_for_test_purpose.exe(collected_amount,ds_lst,tax_rate,time_stamp,store.id)
+        receipt_inserter_for_test_purpose.exe(collect_amount,ds_lst,tax_rate,time_stamp,store.id)
 
 
         #ASSERT INSERTION
@@ -113,11 +113,11 @@ class Test(WebTest):
 
 
         #RECEIPT
-        collected_amount = 100
+        collect_amount = 100
         tax_rate = 9.75
         time_stamp = 1
         ds_lst = [ln_1]
-        receipt_inserter_for_test_purpose.exe(collected_amount,ds_lst,tax_rate,time_stamp,store.id)
+        receipt_inserter_for_test_purpose.exe(collect_amount,ds_lst,tax_rate,time_stamp,store.id)
 
 
         #ASSERT INSERTION
@@ -168,11 +168,11 @@ class Test(WebTest):
 
 
         #RECEIPT
-        collected_amount = 100
+        collect_amount = 100
         tax_rate = 9.75
         time_stamp = 1
         ds_lst = [ln_1]
-        receipt_inserter_for_test_purpose.exe(collected_amount,ds_lst,tax_rate,time_stamp,store.id)
+        receipt_inserter_for_test_purpose.exe(collect_amount,ds_lst,tax_rate,time_stamp,store.id)
 
 
         #ASSERT INSERTION
@@ -182,7 +182,7 @@ class Test(WebTest):
 
         #ASSERT CAN NOT UPDATE
         receipt = receipt_lst[0]
-        receipt['collected_amount'] = 200
+        receipt['collect_amount'] = 200
 
         db = couch_util.get_store_db_use_store_account(store.id,store.api_key_name,store.api_key_pwrd)
         try:

@@ -140,7 +140,7 @@ class sale_processor_test(WebTest):
 
 
         #.insert a receipt
-        collected_amount = 100
+        collect_amount = 100
         tax_rate = 9.75
         time_stamp = 1
         ds_lst = []
@@ -148,7 +148,7 @@ class sale_processor_test(WebTest):
         ds_lst.append(ln_2)
         ds_lst.append(ln_3)
         ds_lst.append(ln_4)
-        receipt_inserter_for_test_purpose.exe(collected_amount,ds_lst,tax_rate,time_stamp,my_store.id)
+        receipt_inserter_for_test_purpose.exe(collect_amount,ds_lst,tax_rate,time_stamp,my_store.id)
         receipt_couch_lst = receipt_lst_couch_getter.exe(my_store.id)
         self.assertEqual(len(receipt_couch_lst),1)
 
@@ -174,7 +174,7 @@ class sale_processor_test(WebTest):
 
 
 
-        self.assertEqual(receipt.collect_amount,collected_amount)
+        self.assertEqual(receipt.collect_amount,collect_amount)
         self.assertEqual(tax_rate,tax_rate)
         self.assertTrue(receipt.id!=None)
         #master.receipt_ln

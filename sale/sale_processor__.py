@@ -140,7 +140,7 @@ def copy_paste_receipt_from_couch_to_master(sp_lookup_lst,receipt_couch_lst,stor
     for receipt_couch in receipt_couch_lst:
         receipt_master = Receipt(
              time_stamp = datetime.datetime.fromtimestamp(receipt_couch['time_stamp']/1000.0)
-            ,collect_amount = receipt_couch['collected_amount']
+            ,collect_amount = receipt_couch['collect_amount']
             ,tax_rate = receipt_couch['tax_rate']
             ,store_id = store_id
             ,_doc_id_creator = receipt_couch['_id']

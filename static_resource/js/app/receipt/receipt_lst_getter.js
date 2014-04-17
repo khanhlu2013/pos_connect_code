@@ -1,6 +1,6 @@
 define(
     [
-         'app/sale/sale_finalizer/Receipt'
+         'app/receipt/Receipt'
         ,'lib/object_store/get_os'
         ,'constance'
         ,'lib/db/couch_db_util'
@@ -30,7 +30,7 @@ define(
                     ,cursor.value.time_stamp
                     ,cursor.value.tax_rate
                     ,cursor.value.ds_lst
-                    ,cursor.value.collected_amount
+                    ,cursor.value.collect_amount
                 );
 
                 receipt_lst.push(receipt);

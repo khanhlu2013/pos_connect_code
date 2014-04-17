@@ -47,7 +47,8 @@
         // 'spec/store_product/sp_online_getter_spec'
         // 'spec/store_product/sp_online_updator_spec'
         // 'spec/store_product/sp_online_searcher_spec'        
-        'spec/store_product/sp_online_creator_spec'        
+        // 'spec/store_product/sp_online_creator_spec'        
+        'spec/receipt/receipt_pusher_spec'        
     ];
                
     // Load Jasmine - This will still create all of the normal Jasmine browser globals unless `boot.js` is re-written to use the

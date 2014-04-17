@@ -5,11 +5,11 @@ from couchdb import Server
 from store.models import Store
 
 
-def exe(collected_amount,ds_lst,tax_rate,time_stamp,store_id,api_key_name,api_key_pwrd):
+def exe(collect_amount,ds_lst,tax_rate,time_stamp,store_id,api_key_name,api_key_pwrd):
 
     doc = Receipt_document(
          d_type = couch_constance.RECEIPT_DOCUMENT_TYPE
-        ,collected_amount = collected_amount
+        ,collect_amount = collect_amount
         ,ds_lst = ds_lst
         ,tax_rate = tax_rate
         ,time_stamp = time_stamp

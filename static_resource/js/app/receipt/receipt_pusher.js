@@ -1,7 +1,7 @@
 define(
     [
          'pouch_db'
-        ,'app/sale/sale_finalizer/receipt_lst_getter'
+        ,'app/receipt/receipt_lst_getter'
         ,'constance'
         ,'lib/async'
         ,'lib/db/couch_db_util'
@@ -53,22 +53,6 @@ define(
         });
     }
 
-    function ask_server_to_process_sale_data(callback){
-
-        $.ajax({
-             url : "/sale/process_data"
-            ,type : "POST"
-            ,dataType: "json"
-            ,data : null
-            ,success : function(data,status_str,xhr) {
-                callback(null/*error*/,data);
-            }
-            ,error : function(xhr,status_str,err) {
-                callback(xhr)
-            }
-        });
-    }
-
     function clean_up_sale_data(receipt_lst,store_idb,callback){
         if(receipt_lst.length == 0)
         {
@@ -100,10 +84,8 @@ define(
         });
     }
 
-    return function (store_idb,store_pdb,store_id,couch_server_url,callback){
-        /*
-            we use pouchdb replicate with a filter to sync receipt. then delete sale data to simulate a push, or copy paste receipt to couch.
-        */
+    function exe(store_idb,store_pdb,store_id,couch_server_url,callback){
+
         var receipt_lst_getter_b = receipt_lst_getter.bind(receipt_lst_getter,store_idb);
         async.waterfall([receipt_lst_getter_b],function(error,result){
             if(error){
@@ -117,8 +99,7 @@ define(
                 return;
             }
 
-
-            //3 step to emulate push receipt: 
+            receipt_lst = result;
             var sync_receipt_b = sync_receipt.bind(sync_receipt,store_id,couch_server_url);
             var clean_up_sale_data_b = clean_up_sale_data.bind(clean_up_sale_data,receipt_lst,store_idb);
             var delete_local_create_sp_b = delete_local_create_sp.bind(delete_local_create_sp,store_idb);
@@ -127,12 +108,17 @@ define(
                      sync_receipt_b
                     ,clean_up_sale_data_b
                     ,delete_local_create_sp_b
-                    ,ask_server_to_process_sale_data
                 ]
                 ,function(error,result){
-                    callback(error,result);
+                    callback(error);
                 }
             );
         });
+    }
+
+    return{
+         exe:exe    
+        ,sync_receipt:sync_receipt //just to be able to spy on jasmine test
+
     }
 });

@@ -16,7 +16,7 @@ define(
  		,time_stamp
  		,tax_rate
  		,ds_lst
- 		,collected_amount
+ 		,collect_amount
  	)
  	{
  		if(_id != null && _rev != null && _doc_id_rev != null){
@@ -31,7 +31,7 @@ define(
         this.time_stamp = time_stamp;
         this.tax_rate = tax_rate;
 		this.ds_lst = ds_lst;
-		this.collected_amount = collected_amount
+		this.collect_amount = collect_amount
 		this.d_type = constance.RECEIPT_TYPE
 	};
     

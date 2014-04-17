@@ -26,7 +26,7 @@ define(
 			error_lst.push(ERROR_STORE_PRODUCT_VALIDATION_PRICE);
 		}
 
-		if(crv != null && crv != undefined && crv.trim().length != 0 && !number.is_positive_double(crv)){
+		if(crv != null && crv != undefined && typeof(crv) == 'string' && crv.trim().length != 0 && !number.is_positive_double(crv)){
 			error_lst.push(ERROR_STORE_PRODUCT_VALIDATION_CRV);
 		}
 

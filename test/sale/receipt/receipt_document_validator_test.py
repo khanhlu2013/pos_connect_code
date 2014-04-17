@@ -45,7 +45,7 @@ class receipt_document_validator_test(WebTest):
 
         receipt_doc = document.Receipt_document(
              d_type = couch_constance.RECEIPT_DOCUMENT_TYPE
-            ,collected_amount = 1
+            ,collect_amount = 1
             ,ds_lst = []
             ,tax_rate = 1
             ,time_stamp = 1
@@ -69,7 +69,7 @@ class receipt_document_validator_test(WebTest):
 
         receipt_doc = document.Receipt_document(
              d_type = couch_constance.RECEIPT_DOCUMENT_TYPE
-            ,collected_amount = 1
+            ,collect_amount = 1
             ,ds_lst = [{'a':'a'}]
             ,tax_rate = 1
             ,time_stamp = 1
@@ -119,11 +119,11 @@ class receipt_document_validator_test(WebTest):
 
 
         #RECEIPT
-        collected_amount = 100
+        collect_amount = 100
         tax_rate = 9.75
         time_stamp = 1
         ds_lst = [ln_1]
-        receipt_inserter_for_test_purpose.exe(collected_amount,ds_lst,tax_rate,time_stamp,store.id)
+        receipt_inserter_for_test_purpose.exe(collect_amount,ds_lst,tax_rate,time_stamp,store.id)
 
 
         #ASSERT INSERTION

@@ -6,9 +6,9 @@ define
         ,'lib/async'
         ,'app/store_product/new_store_product_inserter'
         ,'app/sale/scan/scanner'
-        ,'app/sale/receipt_pusher/receipt_pusher'
+        ,'app/receipt/receipt_pusher'
         ,'app/sale/sale_finalizer/sale_finalizer'
-        ,'app/sale/sale_finalizer/receipt_lst_getter'
+        ,'app/receipt/receipt_lst_getter'
         ,'app/store_product/store_product_getter'
     ],
     function
@@ -79,10 +79,10 @@ define
                     //scan 2 product 1
                     var scan_qty_1 = 2;
                     var scan_str_1 = scan_qty_1 + ' ' + sku_str_1;
-                    var collected_amount = 100;
+                    var collect_amount = 100;
                     //execute and check result
                     var scanner_1_b = scanner.exe.bind(scanner.exe,scan_str_1,store_idb);
-                    var sale_finalizer_b = sale_finalizer.bind(sale_finalizer,store_pdb,store_idb,collected_amount);    
+                    var sale_finalizer_b = sale_finalizer.bind(sale_finalizer,store_pdb,store_idb,collect_amount);    
                     var receipt_lst_getter_b = receipt_lst_getter.bind(receipt_lst_getter,store_idb);
                     async.waterfall(
                     [

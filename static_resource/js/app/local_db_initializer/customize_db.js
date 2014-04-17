@@ -41,8 +41,8 @@ define(
 
         return function(store_id,callback){
             var store_db_customizers_b = store_db_customizers.bind(store_db_customizers,store_id);
-            async.waterfall([store_db_customizers_b],function(error,results){
-                callback(error,results)
+            async.waterfall([store_db_customizers_b],function(error,result){
+                callback(error,result)
             })
         }
     }

@@ -1,7 +1,7 @@
 define(
 	[
 		 'lib/async'
-		,'app/sale/sale_finalizer/receipt_inserter'
+		,'app/receipt/receipt_inserter'
 		,'lib/object_store/get_os'
 		,'lib/number/number'
         ,'app/sale/displaying_scan/displaying_scan_lst_and_tax_getter'
@@ -19,8 +19,8 @@ define(
 		,voider
 	)
 {
-	return function(store_pdb,store_idb,collected_amount,callback){
-		if(!number.is_positive_double(collected_amount)){
+	return function(store_pdb,store_idb,collect_amount,callback){
+		if(!number.is_positive_double(collect_amount)){
 			callback('wrong input'/*error*/);
 		}else{
 			var ds_lst_and_tax_getter_b = ds_lst_and_tax_getter.bind(ds_lst_and_tax_getter,store_idb);
@@ -34,11 +34,11 @@ define(
 					if(ds_lst.length != 0){
 
 						var line_total = ds_util.get_line_total(ds_lst,tax_rate);
-						if(line_total > collected_amount){
+						if(line_total > collect_amount){
 							callback('should collect at least ' + line_total/*error*/);
 						}
 						else{
-			 				var receipt_inserter_b = receipt_inserter.bind(receipt_inserter,store_pdb,ds_lst,tax_rate,collected_amount);
+			 				var receipt_inserter_b = receipt_inserter.bind(receipt_inserter,store_pdb,ds_lst,tax_rate,collect_amount);
 							var voider_b = voider.bind(voider,store_idb);
 							async.waterfall([receipt_inserter_b,voider_b],function(error,result){
 								callback(error);

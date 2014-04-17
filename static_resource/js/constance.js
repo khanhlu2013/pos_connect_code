@@ -19,5 +19,7 @@ define(function(){
 		,STATIC_URL : '/static/'
 		,TAX_DOCUMENT_ID : 'tax_document'
 
+		//TEST
+		,TEST_STORE_ID : 0
  	}
 });

@@ -9,7 +9,9 @@ def exe(store_id):
     
     #STEP1: get receipt data to process
     receipt_couch_lst = receipt_lst_couch_getter.exe(store_id)
-
+    if len(receipt_couch_lst) == 0:
+        return 0
+        
     #STEP2: insert new store product
     sp_id_c2mLookup = get_sp_id_c2mLookup(receipt_couch_lst,store_id)
 
@@ -43,16 +45,29 @@ def insert_receipt_ln_to_master(receipt_couch_lst,receipt_id_c2mLookup,sp_id_c2m
             receipt_master_id = receipt_id_c2mLookup[receipt_couch['_id']]
             sp_couch = receipt_ln_couch['store_product'] 
             sp_master_id = None
+            sp_is_taxable = None
+            sp_p_type = None
+            sp_p_tag = None
+
             if sp_couch != None:
                 sp_master_id = sp_id_c2mLookup[sp_couch['_id']]
+                sp_is_taxable = sp_couch['is_taxable']
+                sp_p_type = sp_couch['p_type']
+                sp_p_tag = sp_couch['p_tag']                
+            else:
+                sp_is_taxable = False
 
             receipt_ln_master = Receipt_ln(
                  receipt_id = receipt_master_id
                 ,qty = receipt_ln_couch['qty']
                 ,store_product_id = sp_master_id
                 ,price = receipt_ln_couch['price']
+                ,crv = sp_couch['crv']
                 ,discount = receipt_ln_couch['discount']
                 ,non_product_name = receipt_ln_couch['non_product_name']
+                ,is_taxable = sp_is_taxable
+                ,p_type = sp_p_type
+                ,p_tag = sp_p_tag
             )
             receipt_ln_master_lst.append(receipt_ln_master)
 

@@ -98,9 +98,15 @@ require(
                 $.blockUI({ message: 'saving sale data ...' });
                 async.waterfall([receipt_pusher_b],function(error,result){
                     if(error){
-                        error_lib.alert_error(error);
+                        if(error == receipt_pusher.ERROR_NO_SALE_DATA_TO_PUSH){
+                            alert(receipt_pusher.ERROR_NO_SALE_DATA_TO_PUSH)
+                        }else{
+                            error_lib.alert_error(error);
+                        }   
+                        
                     }else{
-                        alert('sale data is saved');
+                        var receipt_saved_count = result;
+                        alert(receipt_saved_count + ' receipt(s) are saved.');
                     }
                     $.unblockUI();
                 });

@@ -142,7 +142,7 @@ require(
 
             var sku_search_b = sp_online_searcher.sku_search.bind(sp_online_searcher.sku_search,sku_str);
             async.waterfall([sku_search_b],function(error,result){
-                if(error){alert(error); }
+                if(error){error_lib.alert_error(error); }
                 else{
                     product_data_lst = result.prod_lst;
 
@@ -182,7 +182,7 @@ require(
             search_sku_str = null; //reset
             var name_search_b = sp_online_searcher.name_search.bind(sp_online_searcher.name_search,name_str);
             async.waterfall([name_search_b],function(error,result){
-                if(error){alert(error); }
+                if(error){error_lib.alert_error(error); }
                 else{
                     product_data_lst = result;
                     product_data_2_ui();                    

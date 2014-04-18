@@ -4,9 +4,12 @@
 ~. i want to be a blues student.
 ~. build a play ground for parakeet. how to engage with your paraket. time. 
 ~. foreman  run -e .env,test.env python manage.py test --failfast
-~. 
-~. looking at the ball will 100% give you the most input, so that the mind + body will react to the constance input. just look at the ball, you just going to know what to do. 
-~. meditate: thinking is a drug that the mind created as a way of confort seeking. We just want comfort. Turn on the mind = pain. no pain no gain. The mind will trick you to turn it off by fooling you that you are still on. but it is just an auto run. Un-related thought of distraction. Any distraction. 
+~. kill pg connection to reset db
+
+SELECT pid, pg_terminate_backend(pid) 
+FROM pg_stat_activity 
+WHERE datname = current_database() AND pid <> pg_backend_pid();
+
 
 
 lsof -i :8000
@@ -217,81 +220,34 @@ couch_acl_validator_test: client have write permission that follow these 4 rules
 
 
 ------------------------------------------------------------------------------------------------------------------
-DISCOUNT THAT ATTACH TO PRODUCT
+PAGE LOADING USER EXPERIENCE
+    . block ui when, and report require.js time out
 
+    . need to provide a loading for all area:
+        . load time out for module, including jquery. This time, we can't block ui. but must display error message when time out for loading
+        . when jquery is loaded. we need to block ui for all asyc operation. 
+            . scan for a product that is not found, create sp online, sync sp offline, rescan ... need to block ui for this
+------------------------------------------------------------------------------------------------------------------
+MIX MATCH DEAL
+    . record discount giving from deal
+------------------------------------------------------------------------------------------------------------------
+DISCOUNT THAT ATTACH TO PRODUCT
+    . record discount giving from manual
 ------------------------------------------------------------------------------------------------------------------
 PRODUCT SEARCH ON SALE PAGE
+------------------------------------------------------------------------------------------------------------------
+. ask Tiep: if we give a 50% alone discounter, is that mean it is not beneficial to the owner and customer interm of tax?
+. make sure syncing db from couch to pouch does not sync receipt documents
+. write report_getter test (integration test): this test will verify that, receipt is filter correctly based on from_date and to_date
+. empty string for p_type, show up in report.
+. why there is a store id on sp in couch side? kill it
+. test receipt pusher liquor-staging message when internet is disconnected
+
+
+
 
 
 ------------------------------------------------------------------------------------------------------------------
-SALE REPORT
-
-    sale report: gross sale = tax + non_tax
-        . i like undefined category
-        . how do i get to profit? might be learn from vend the setting price and margin. 
-
-    . report will see if local data exist, and check if receipt is all push. it then make sure receipt data is all copy paste to master from couch
-
-------------------------------------------------------------------------------------------------------------------
-PRODUCT EDITION AND CREATION. ONLINE / OFFLINE
-
-.senario: create new product offline:
-    user click on sale page, scan a sku that is not exist. soft prompt if user want to create it. if internet is on, we will create them on the server and let auto sync add that same product offline. if the internet is down, we will create it locally and sync them later. we should always check if internet is on as the first default option. This will ensure the info is saved safely and sync accross browser. the interface for create online right away with internet and created locally without internet is the same. This will include all sp info (department,category,is_sale_report,is_tax_report,name,price,crv,is_taxable). User can select cat and dep info which is stored offline, or create cat dep if internet is on(by create online and let auto sync bring that info down.)
-
-.senario: edit product offline:
-    Edition will go online right away since we don't do pending edition with one exception if the product is tag as created offline. (when product is created offline, this mean the internet is not on, and this info is not yet sync anyway, we can do pending change here but it will be exactly the same as pennding creation since this product is not yet exist on master) This mean all the sp info have to be saved offline as well for prefill when edit popup is displayed. cat and dep can be selected with the info offline or create new with ajax and sync down with auto sync. 
-
-.question: on the sale page, should we sync right away product info on creation and edition? it is a yes for edition but a valid question for creation. pro: product info is safely saved and sync accross browser/register. con: it can cost $ for the server since we can't do bulk create. and slow down system. if i am the owner for central, i definitly want auto sync: create a product on 1 register will make it available on other register= freaking cool. if i am the owner like long, i only have 1 register. it make sense if i use pending creation for speed. SPEED or RELIABLE. i want reliable. DONE. find out how long does it take to figure out that ajax request failed due to connect to server failed(either internet or server problem) and recover with offline creation. 
-
-. another question: lets say the internet is off, how can we switch the default online sync to bulk pending create
-
-. we need a good reply messages: can't connect to server, try again later. can't connect to server, this product will be created offline.
-
-. find out behavior when internet is off and ajax request is made. what is the time out?
-
-
-------------------------------------------------------------------------------------------------------------------
-
-SKU MANAGEMENT:
-
-.potential problem and misuse of sku. how can i have a good filter and collect as much as gabage. Do i let people add sku to product, if yes, how do i protect myself? how is this complicate my data and how do i protect myself. give a test how people can not fuck with adding sku to a popular product and mess up things.
-
-
-. when interet is down, we can lookup ap. we will create new product. or people will create new anyway: we should put a defense here for user. how to deal with duplicate sku?
-
-. look up for ap in master when sku is not exist on couch. this will become an online search.
-
-. clean up ap on couch.
-
-    . user create link to product, product will be insert into ap database in couch
-    . store will be replicating 2 db: there store and this ap database. (when new store is created, we will grant access to this ap database)
-    . when we search for sku that is not found, stop there. no more ap offline to look at
-    .new_store_product_inserter -> new_store_product_inserter_when_no_connection
-
-        var new_sp_inserter_b = new_sp_inserter.bind(new_sp_inserter,result['name'],result['price'],result['crv'],result['is_taxable'],result['sku_str'],store_pdb);
-        async.waterfall([new_sp_inserter_b],function(error,result){
-            callback(error);
-        });    
-
-    . it is the exact code that we are writing when scan a sku offline or scan a sku online. lets comebine these code. actually we should not combine these code. we don't want to sync everywhere. we only sync when we are dealing with the sale page. ONLY SALE PAGE SYNC. owner could borrow a friend computer to change online price does not mean we have to download everything offline. however, check if that computer have local data. if it already does, then go ahead and sync. but then we if throw in a check if local data exist, then we can use same code.
-
-
-. check view and template for search feature. we don't need them anymore. (we don't do template tag and replace view with ajax)
-. we need a button to create new product, then check if sku exist or not. this is needed because there will be no sku product
-
-------
-
-. process sale data
-
-------
-
-. receipt pusher
-
-------
-
-. why there is a store id on sp in couch side?
-
- ------------------------------------------------------------------------------------------------------------------
 SHORTCUT:
     .why do we need setup or db sync?
     css need for cur selected parent
@@ -303,12 +259,16 @@ SHORTCUT:
     .review sale_shortcut_init. why do we need this and STORE_DB_NAME context need to be kill
 
 
-------------------------------------------------------------------------------------------------------------------
-. ask Tiep: if we give a 50% alone discounter, is that mean it is not beneficial to the owner and customer interm of tax?
 
-. when the internet is disconnected, the front online search,receipt pusher, ... should display correct result:
-    . receipt pusher
-    . ...
+
+
+
+
+
+
+
+
+
 
 
 

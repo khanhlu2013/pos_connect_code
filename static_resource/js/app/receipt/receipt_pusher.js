@@ -30,6 +30,8 @@ define(
         ,index_db_util
     )
 {
+    var ERROR_NO_SALE_DATA_TO_PUSH = 'There is no sale data to push';
+
     function delete_local_create_sp(store_idb,callback){
         var sp_getter_b = sp_getter.by_product_id_is_null.bind(sp_getter.by_product_id_is_null,store_idb);
         async.waterfall([sp_getter_b],function(error,result){
@@ -95,7 +97,7 @@ define(
 
             var receipt_lst = result;
             if(receipt_lst.length == 0){
-                callback('no sale data to push'/*error*/)
+                callback(ERROR_NO_SALE_DATA_TO_PUSH/*error*/)
                 return;
             }
 
@@ -110,7 +112,7 @@ define(
                     ,delete_local_create_sp_b
                 ]
                 ,function(error,result){
-                    callback(error);
+                    callback(error,receipt_lst.length);
                 }
             );
         });
@@ -118,6 +120,7 @@ define(
 
     return{
          exe:exe    
+        ,ERROR_NO_SALE_DATA_TO_PUSH :  ERROR_NO_SALE_DATA_TO_PUSH
         ,sync_receipt:sync_receipt //just to be able to spy on jasmine test
 
     }

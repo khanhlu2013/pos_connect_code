@@ -1,1 +1,4 @@
 td { min-width: 100px; height: 30}
+
+#child_info_prompt_dlg{display: None;}
+#product_search_dlg{display: None;}

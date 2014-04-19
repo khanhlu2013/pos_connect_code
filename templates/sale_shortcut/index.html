@@ -1,31 +1,40 @@
 {% extends 'base_regular_user.html' %}
 
 {% block content %}
-  	<link rel="stylesheet" href="{{ STATIC_URL }}css/jquery-ui-themes-1.10.4/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/jquery-ui-themes-1.10.4/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" href="{{ STATIC_URL }}css/app/sale_shortcut/sale_shortcut.css">
+    
     <h2>sale shortcut</h2>
-
     <table id='shortcut_tbl' border='1'></table>
 
-    <script data-main = "{{ STATIC_URL }}js/app/sale_shortcut/sale_shortcut_init.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script>
-    
     <script>
 
         var ROW_COUNT = {{row_count}};
         var COLUMN_COUNT = {{column_count}};
-        var STORE_DB_NAME = "{{store_db_name}}"
-        var COUCH_SERVER_URL = "{{couch_server_url}}"
+        var MY_SHORTCUT_LST = {{shortcut_lst|safe}};
         
     </script>
 
-	<div id="child_info_prompt_dlg" title="Select product">
+    <div id="product_search_dlg" title "search product">
+        <label for='product_search_txt'>search</label>
+        <input type='text' id = 'product_search_txt'>
 
-		<label for="caption_txt">name:</label>
-		<input type="text" id = "caption_txt">
-		<br>
+        <table id='product_search_tbl' border='1'></table>
+    </div>
 
-    	<table id='product_prompt_tbl' border='1'></table>
+    <div id="child_info_prompt_dlg" title="Select product">
 
-		<br>
-	</div>
+        <label for="child_caption_txt">caption:</label>
+        <input type="text" id = "child_caption_txt">
+        <br>
+
+        <label for="product_name_txt">product:</label>
+        <input type="text" id = "product_name_txt" readonly>
+
+        <input type='button' id = 'product_search_btn' value='search'>
+        <br>
+    </div>
+    
+    <script data-main = "{{ STATIC_URL }}js/app/sale_shortcut/sale_shortcut.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script>
+
 {% endblock content %}

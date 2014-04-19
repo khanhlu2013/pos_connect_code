@@ -20,7 +20,7 @@ define(
             ,dataType: "json"
             ,data : data
             ,success : function(data,status_str,xhr) {
-                callback(null/*error*/);
+                callback(null,data);
             }
             ,error : function(xhr,status_str,err) {
                 callback(xhr);

@@ -20,25 +20,28 @@ define(
 
     function get_sp_from_p(product,store_id){
         var sp = null;
-
-        for(var i = 0;i<product.store_product_set.length;i++){
-            var cur_sp = product.store_product_set[i]
-            if(cur_sp.store_id == store_id){
- 				sp = cur_sp;
-            	break;
-            }
+        if(store_id == null){
+            sp = product.store_product_set[0]
+        }else{
+            for(var i = 0;i<product.store_product_set.length;i++){
+                var cur_sp = product.store_product_set[i]
+                if(cur_sp.store_id == store_id){
+                    sp = cur_sp;
+                    break;
+                }
+            }            
         }
         return sp;
     }
 
-	function get_prod_sku_assoc_set(product){
+    function get_prod_sku_assoc_set(product){
         prod_sku_assoc_set = product.prodskuassoc_set
         if (prod_sku_assoc_set == null){
             prod_sku_assoc_set = [];
         }
 
-		return prod_sku_assoc_set;
-	}
+        return prod_sku_assoc_set;
+    }
 
     function _helper_isStoreIn_storeProductLst(store_id,storeProduct_lst){
         var result = false;
@@ -103,10 +106,10 @@ define(
         return result;
     }
 
-	return{
-		 get_prod_sku_assoc_set: get_prod_sku_assoc_set
+    return{
+         get_prod_sku_assoc_set: get_prod_sku_assoc_set
         ,get_sp_from_p:get_sp_from_p
         ,extract_prod_store__prod_sku:extract_prod_store__prod_sku
         ,get_p_from_lst:get_p_from_lst
-	};
+    };
 });

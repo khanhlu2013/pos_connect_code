@@ -2,8 +2,8 @@ from rest_framework import serializers,fields
 from product.models import Product,ProdSkuAssoc
 from store_product.models import Store_product
 
+
 class Prod_sku_assoc_serializer(serializers.ModelSerializer):
-    
     product_id = serializers.Field(source='product.id')
     sku_str = serializers.Field(source='sku.sku')
     creator_id = serializers.Field(source='creator.id')
@@ -11,6 +11,7 @@ class Prod_sku_assoc_serializer(serializers.ModelSerializer):
     class Meta:
         model = ProdSkuAssoc
         fields = ('sku_str','store_set','creator_id','product_id')
+
 
 class Store_product_serializer(serializers.ModelSerializer):
     price = serializers.Field(source='get_price_str')
@@ -88,7 +89,7 @@ def serialize_product_lst(prod_lst):
             }
             , 
             {
-                 'sku_str': u'11'
+                  'sku_str': u'11'
                 , 'store_set': [33]
                 , 'creator_id': 33
                 , 'product_id': 80

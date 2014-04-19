@@ -1,5 +1,5 @@
 requirejs.config({
-     baseUrl: '/static/js'
+     baseUrl: STATIC_URL + 'js'
     ,paths: {
          app : 'app'
         ,lib : 'lib'

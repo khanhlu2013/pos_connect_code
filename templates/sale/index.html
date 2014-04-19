@@ -76,11 +76,12 @@
 
 
     <script type="text/javascript">
-    var STATIC_URL = "{{STATIC_URL}}"
-    var STORE_ID = Number("{{store_id}}")
-    var COUCH_SERVER_URL = "{{couch_server_url}}"
-    var ROW_COUNT = {{ROW_COUNT}}
-    var COLUMN_COUNT = {{COLUMN_COUNT}}
+        var STATIC_URL = "{{STATIC_URL}}"
+        var STORE_ID = Number("{{store_id}}")
+        var COUCH_SERVER_URL = "{{couch_server_url}}"
+        var ROW_COUNT = {{ROW_COUNT}}
+        var COLUMN_COUNT = {{COLUMN_COUNT}}
+        var MY_SHORTCUT_LST = {{shortcut_lst|safe}};
     </script>
 
     <script data-main = "{{ STATIC_URL }}js/app/sale/sale.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script>

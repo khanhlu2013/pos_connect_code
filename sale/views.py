@@ -5,6 +5,7 @@ import json
 import datetime
 from django.core.serializers.json import DjangoJSONEncoder
 from sale import report_getter
+from sale_shortcut import sale_shortcut_serializer,shortcut_getter
 
 class Sale_view(TemplateView):
     template_name = 'sale/index.html'
@@ -20,6 +21,9 @@ class Sale_view(TemplateView):
         context['couch_server_url'] = couch_util.get_couch_url(self.cur_login_store.api_key_name,self.cur_login_store.api_key_pwrd)
         context['ROW_COUNT'] = 5        # xxx move this ugly to constance
         context['COLUMN_COUNT'] = 3     # xxx move this ugly to constance
+        shortcut_lst = shortcut_getter.get_shorcut_lst(self.cur_login_store.id) 
+        context['shortcut_lst'] = json.dumps(sale_shortcut_serializer.serialize_shortcut_lst(shortcut_lst))
+
         return context
 
 

@@ -34,7 +34,6 @@ require(
         ,'app/receipt/receipt_pusher'
         ,'app/local_db_initializer/oneshot_sync'
         ,'app/local_db_initializer/customize_db'
-        ,'app/sale_shortcut/parent_lst_getter'
         ,'app/sale_shortcut/sale_shortcut_util'
         ,'app/store_product/store_product_getter'
         ,'app/sale/pending_scan/Pending_scan'
@@ -63,7 +62,6 @@ require(
         ,receipt_pusher
         ,oneshot_sync
         ,customize_db
-        ,parent_lst_getter
         ,sale_shortcut_util
         ,sp_getter
         ,Pending_scan
@@ -74,7 +72,6 @@ require(
     {
         //UI
         var table = document.getElementById("sale_table");
-        var shortcut_table = document.getElementById("shortcut_tbl");
         var total_button = document.getElementById("total_button");
         var discount_button = document.getElementById("discount_button");
         var void_btn = document.getElementById("void_btn");
@@ -90,6 +87,11 @@ require(
         //DB
         var STORE_PDB;
         var STORE_IDB;
+
+        //shortcut
+        var SHORTCUT_LST = MY_SHORTCUT_LST;
+        var CUR_SELECT_PARENT_SHORTCUT = 0;
+        var shortcut_tbl = document.getElementById("shortcut_tbl");
 
         function hook_receipt_pusher_2_ui(){
             function exe(){
@@ -204,6 +206,76 @@ require(
             scan_textbox.addEventListener('keypress', scan_text_enter_handler, false);
         }
 
+        function shortcut_child_press_handler(child_position){
+
+            var cur_parent = sale_shortcut_util.get_parent(CUR_SELECT_PARENT_SHORTCUT,SHORTCUT_LST);
+            if(cur_parent!=null){
+                child = sale_shortcut_util.get_child(cur_parent,child_position);
+                if(child!=null){
+
+                    var sp_getter_b = sp_getter.by_product_id.bind(sp_getter.by_product_id,child.pid,STORE_IDB)
+                    async.waterfall([sp_getter_b],function(error,result){
+                        if(error){
+                            error_lib.allert(error);
+                            return;
+                        }
+                        var sp = result;
+                        var ps = new Pending_scan(null/*key*/,1/*qty*/,sp.price,null/*discount*/,sp._id,null/*non_product_name*/);
+                        var ps_inserter_b = ps_inserter.bind(ps_inserter,STORE_IDB,ps)
+                        var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,STORE_IDB,STORE_PDB,table,STORE_ID,COUCH_SERVER_URL);
+                        async.waterfall([ps_inserter_b,ds_2_ui_b],function(error,result){
+                            if(error){alert(error);}
+                        });
+                    }); 
+                }
+            }
+
+        }
+
+        function refresh_shortcut_parent_button(tr,parent_position){
+            var parent = sale_shortcut_util.get_parent(parent_position,SHORTCUT_LST);
+
+            //MAIN
+            td = tr.insertCell(-1);
+            td.innerHTML = (parent == null ? null : parent.caption);   
+            td.addEventListener("click", function() {
+                CUR_SELECT_PARENT_SHORTCUT = parent_position;
+                display_shortcut_table();
+            });
+        }
+
+        function refresh_shortcut_children(tr,row){
+            var cur_parent = sale_shortcut_util.get_parent(CUR_SELECT_PARENT_SHORTCUT,SHORTCUT_LST);
+            
+            for(var cur_column = 0;cur_column<COLUMN_COUNT;cur_column++){
+                td = tr.insertCell(-1);
+                
+                var child_position = COLUMN_COUNT*row+cur_column
+                if(cur_parent!=null){
+                    var child = sale_shortcut_util.get_child(cur_parent,child_position);
+                    if(child != null){
+                        td.innerHTML = child.caption;
+                    }
+                }
+                
+                var handler_b = shortcut_child_press_handler.bind(shortcut_child_press_handler,child_position);
+                td.addEventListener("click", handler_b);            
+            }
+        }
+
+        function display_shortcut_table(){
+            shortcut_tbl.innerHTML = "";
+
+            for(var cur_row = 0;cur_row<ROW_COUNT;cur_row++){
+
+                var tr = shortcut_tbl.insertRow(-1);
+
+                refresh_shortcut_parent_button(tr,cur_row);
+                refresh_shortcut_children(tr,cur_row);
+                refresh_shortcut_parent_button(tr,cur_row + ROW_COUNT);
+            }
+        }
+
         function hook_voider_2_ui(){
             function void_btn_click_handler(){
 
@@ -231,102 +303,6 @@ require(
             void_btn.addEventListener("click", void_btn_click_handler);            
         }
 
-        var shortcut_lst;
-        var cur_selected_parent_index = 0;
-
-        function shortcut_press(child_position,store_idb){
-            var cur_parent = sale_shortcut_util.get_parent(cur_selected_parent_index,shortcut_lst);
-            if(cur_parent!=null){
-                child = sale_shortcut_util.get_child(cur_parent,child_position);
-                if(child!=null){
-
-                    var sp_getter_b = sp_getter.by_product_id.bind(sp_getter.by_product_id,child.product_id,store_idb)
-                    async.waterfall([sp_getter_b],function(error,result){
-                        if(error){
-                            alert(error);
-                            return;
-                        }
-                        var sp = result;
-                        var ps = new Pending_scan(null/*key*/,1/*qty*/,sp.price,null/*discount*/,sp._id,null/*non_product_name*/);
-                        var ps_inserter_b = ps_inserter.bind(ps_inserter,store_idb,ps)
-                        var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,store_idb,STORE_PDB,table,STORE_ID,COUCH_SERVER_URL);
-                        async.waterfall([ps_inserter_b,ds_2_ui_b],function(error,result){
-                            if(error){alert(error);}
-                        });
-                    }); 
-                }
-            }
-        }
-
-
-        function refresh_row(cur_row,store_idb){
-            var tr = shortcut_table.insertRow(-1);
-            var td;
-            
-
-            //LEFT PARENT
-            var left_parent_position = cur_row;
-            var left_parent = sale_shortcut_util.get_parent(left_parent_position,shortcut_lst);
-            td = tr.insertCell(-1);
-            td.innerHTML = (left_parent == null ? null : left_parent.caption);   
-            td.addEventListener("click", function() {
-                cur_selected_parent_index = left_parent_position
-                refresh_shortcut_table(store_idb);
-            });
-
-            //MIDDLE CHILDREN
-            for(var cur_column = 0;cur_column<COLUMN_COUNT;cur_column++){
-                td = tr.insertCell(-1);
-                
-                var child = null;
-                var child_position = COLUMN_COUNT*cur_row+cur_column;
-                var cur_parent = sale_shortcut_util.get_parent(cur_selected_parent_index,shortcut_lst);
-                if(cur_parent!=null){
-                    child = sale_shortcut_util.get_child(cur_parent,child_position);
-                }
-                
-                td.innerHTML = (child == null ? null : child.caption);
-                var shortcut_press_b = shortcut_press.bind(shortcut_press,child_position,store_idb)
-                td.addEventListener("click", shortcut_press_b);
-            }
-
-
-            //RIGHT PARENT
-            var right_parent_position = cur_row + ROW_COUNT;
-            var right_parent = sale_shortcut_util.get_parent(right_parent_position,shortcut_lst);
-            td = tr.insertCell(-1);
-            td.innerHTML = (right_parent == null ? null : right_parent.caption);    
-            td.addEventListener("click", function() {
-                cur_selected_parent_index = right_parent_position
-                refresh_shortcut_table(store_idb);
-            });
-        }
-
-        function refresh_shortcut_table(store_idb){
-            while(shortcut_table.hasChildNodes())
-            {
-               shortcut_table.removeChild(shortcut_table.firstChild);
-            }  
-
-            for(var cur_row = 0;cur_row<ROW_COUNT;cur_row++){
-                refresh_row(cur_row,store_idb); 
-            }                
-        }
-
-        function init_shortcut_table(store_idb,callback){
-            async.waterfall([parent_lst_getter],function(error,result){
-                if(error){
-                    callback(error);
-                    return;
-                }
-
-                shortcut_lst = result;
-                refresh_shortcut_table(store_idb);
-                callback(null)
-            })
-        }
-
-        
         $.blockUI({ message: 'please wait for setup ...' });
         
         $( "#store_product_prompt_dialog" ).dialog({ autoOpen: false,modal:true });
@@ -351,11 +327,11 @@ require(
             hook_alone_discounter_2_ui();
             hook_voider_2_ui();
             hook_receipt_pusher_2_ui();
-            
+            display_shortcut_table();
+
             //refresh ui
             var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,STORE_IDB,STORE_PDB,table,STORE_ID,COUCH_SERVER_URL);
-            var init_shortcut_table_b = init_shortcut_table.bind(init_shortcut_table,STORE_IDB);
-            async.waterfall([init_shortcut_table_b,ds_2_ui_b],function(error,result){
+            async.waterfall([ds_2_ui_b],function(error,result){
                 if(error){
                     $.unblockUI();
                     alert("There is error displaying scan: " + error);

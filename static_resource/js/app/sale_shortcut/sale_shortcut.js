@@ -19,7 +19,6 @@ require(
     [
          'lib/misc/csrf_ajax_protection_setup'
         ,'lib/async'
-        // ,'app/sale_shortcut/parent_lst_getter'
         ,'app/sale_shortcut/parent_name_setter'
         ,'app/sale_shortcut/child_info_prompt'
         ,'app/sale_shortcut/sale_shortcut_util'
@@ -33,7 +32,6 @@ require(
     (
          csrf_ajax_protection_setup
         ,async
-        // ,parent_lst_getter
         ,parent_name_setter
         ,child_info_prompt
         ,sale_shortcut_util
@@ -42,8 +40,8 @@ require(
 {
     
     var SHORTCUT_LST = MY_SHORTCUT_LST;
-    var cur_selected_parent_index = 0;
-    var table = document.getElementById('shortcut_tbl');
+    var CUR_SELECT_PARENT_SHORTCUT = 0;
+    var shortcut_tbl = document.getElementById('shortcut_tbl');
     csrf_ajax_protection_setup();
 
 
@@ -71,14 +69,14 @@ require(
                 error_lib.alert_error(error);
             }else{
                 update_shortcut_lst(SHORTCUT_LST,result)
-                refresh_table();
+                display_shortcut_table();
             }
         });
     }
 
     function child_button_press_handler(child_pos){
         var child = null;
-        var parent = sale_shortcut_util.get_parent(cur_selected_parent_index,SHORTCUT_LST);
+        var parent = sale_shortcut_util.get_parent(CUR_SELECT_PARENT_SHORTCUT,SHORTCUT_LST);
         if(parent!=null){
             child = sale_shortcut_util.get_child(parent,child_pos);
         }
@@ -104,7 +102,7 @@ require(
                 }
             }else{
                 var data = {
-                     parent_position:cur_selected_parent_index
+                     parent_position:CUR_SELECT_PARENT_SHORTCUT
                     ,child_position: child_pos
                     ,child_caption:result.caption
                     ,product_id:result.pid
@@ -116,7 +114,7 @@ require(
                     ,data : data
                     ,success : function(data,status_str,xhr){
                         update_shortcut_lst(SHORTCUT_LST,data)
-                        refresh_table();
+                        display_shortcut_table();
                     }
                     ,error : function(xhr,status_str,err){
                         alert(xhr);
@@ -126,15 +124,15 @@ require(
         });
     }
 
-    function refresh_parent_button(tr,parent_position){
+    function refresh_shortcut_parent_button(tr,parent_position){
         var parent = sale_shortcut_util.get_parent(parent_position,SHORTCUT_LST);
 
         //MAIN
         td = tr.insertCell(-1);
         td.innerHTML = (parent == null ? null : parent.caption);   
         td.addEventListener("click", function() {
-            cur_selected_parent_index = parent_position;
-            refresh_table();
+            CUR_SELECT_PARENT_SHORTCUT = parent_position;
+            display_shortcut_table();
         });
 
         //EDIT
@@ -145,8 +143,8 @@ require(
         });
     }
 
-    function refresh_middle_children(tr,row){
-        var cur_parent = sale_shortcut_util.get_parent(cur_selected_parent_index,SHORTCUT_LST);
+    function refresh_shortcut_children(tr,row){
+        var cur_parent = sale_shortcut_util.get_parent(CUR_SELECT_PARENT_SHORTCUT,SHORTCUT_LST);
         
         for(var cur_column = 0;cur_column<COLUMN_COUNT;cur_column++){
             td = tr.insertCell(-1);
@@ -164,18 +162,18 @@ require(
         }
     }
 
-    function refresh_table(){
-        table.innerHTML = "";
+    function display_shortcut_table(){
+        shortcut_tbl.innerHTML = "";
 
         for(var cur_row = 0;cur_row<ROW_COUNT;cur_row++){
 
-            var tr = table.insertRow(-1);
+            var tr = shortcut_tbl.insertRow(-1);
 
-            refresh_parent_button(tr,cur_row);
-            refresh_middle_children(tr,cur_row);
-            refresh_parent_button(tr,cur_row + ROW_COUNT);
+            refresh_shortcut_parent_button(tr,cur_row);
+            refresh_shortcut_children(tr,cur_row);
+            refresh_shortcut_parent_button(tr,cur_row + ROW_COUNT);
         }
     }
 
-    refresh_table();
+    display_shortcut_table();
 });

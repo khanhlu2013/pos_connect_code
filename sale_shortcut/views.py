@@ -6,14 +6,8 @@ from util.couch import user_util
 from django.conf import settings
 from couch import couch_util
 from store_product.models import Store_product
-from sale_shortcut import sale_shortcut_serializer
+from sale_shortcut import sale_shortcut_serializer,shortcut_getter
 
-
-def get_shortcut(id):
-    return Parent.objects.prefetch_related('child_set').get(pk=id)
-
-def get_shorcut_lst(store_id):
-    return Parent.objects.filter(store_id=store_id).prefetch_related('child_set')
 
 class Index_view(TemplateView):
 
@@ -28,20 +22,12 @@ class Index_view(TemplateView):
 
         row_count = 5
         column_count = 3
-        shortcut_lst = get_shorcut_lst(self.cur_login_store.id)
+        shortcut_lst = shortcut_getter.get_shorcut_lst(self.cur_login_store.id)
         context['row_count'] = row_count
         context['column_count'] = column_count
         context['shortcut_lst'] = json.dumps(sale_shortcut_serializer.serialize_shortcut_lst(shortcut_lst))
 
         return context
-
-
-
-# def get_data_view(request):
-#     cur_login_store = request.session.get('cur_login_store')
-#     lst_django = Parent.objects.filter(store_id=cur_login_store.id).prefetch_related('child_set')
-
-#     return HttpResponse( json.dumps([parent.to_json() for parent in lst_django]), mimetype='application/json' )
 
 
 def set_parent_name_view(request):
@@ -77,7 +63,7 @@ def set_child_info_view(request):
             child.caption = child_caption
             child.store_product = store_product
             child.save()
-            parent = get_shortcut(parent.id)
+            parent = shortcut_getter.get_shortcut(parent.id)
 
         parent_serialized = sale_shortcut_serializer.serialize_shortcut_lst([parent,])[0]            
         return HttpResponse(json.dumps(parent_serialized),mimetype='application/json')

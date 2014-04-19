@@ -249,14 +249,9 @@ PRODUCT SEARCH ON SALE PAGE
 
 ------------------------------------------------------------------------------------------------------------------
 SHORTCUT:
-    .why do we need setup or db sync?
     css need for cur selected parent
-    the easy of setting up and use shortcut.
     .constrain: unique( business + position )
-    .display left and right parent DRY
-    .parent_lst_getter -> shortcut_lst_getter
-    . optimize sale page to include short cut data in the template, that way we will minimize another ajax trip. make sure we have the same code when we selecting the parent shortcut    
-    .review sale_shortcut_init. why do we need this and STORE_DB_NAME context need to be kill
+
 
 
 

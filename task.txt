@@ -242,22 +242,20 @@ PRODUCT SEARCH ON SALE PAGE
 . empty string for p_type, show up in report.
 . why there is a store id on sp in couch side? kill it
 . test receipt pusher liquor-staging message when internet is disconnected
+. shortcut button color
+. shortcut constrain: unique (store + position)
+. combine lib for js,css
+
+. combine amazon and google cnd, with local fallback
+    
+    . how to load jquery from google
 
 
 
+---------------------
 
-
-------------------------------------------------------------------------------------------------------------------
-SHORTCUT:
-    css need for cur selected parent
-    .constrain: unique( business + position )
-
-
-
-
-
-
-
+    . how setup jquery block ui with google jquery
+    . combine,compress,optimize custom js and css
 
 
 

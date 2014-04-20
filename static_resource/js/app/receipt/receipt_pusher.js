@@ -1,6 +1,6 @@
 define(
     [
-         'pouch_db'
+         'lib/db/pouchdb'
         ,'app/receipt/receipt_lst_getter'
         ,'constance'
         ,'lib/async'

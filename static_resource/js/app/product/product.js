@@ -130,7 +130,6 @@ require(
     }
 
     csrf_ajax_protection_setup();
-    $( "#store_product_prompt_dialog" ).dialog({ autoOpen: false,modal:true,width:600,heigh:400 });
 
     $('#sku_txt').keypress(function(event){
         var keycode = (event.keyCode ? event.keyCode : event.which);

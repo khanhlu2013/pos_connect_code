@@ -3,18 +3,18 @@ requirejs.config({
     ,paths: {
          app : 'app'
         ,lib : 'lib'
-        ,pouch_db : 'lib/db/pouchdb-2.0.1'
-        // ,jquery : 'lib/jquery/jquery-1_10_2'
-        // ,jquery_block_ui : 'lib/jquery/jquery_blockUI'
-        // ,jquery_ui : 'lib/jquery/jquery-ui'
+        // ,pouch_db : 'lib/db/pouchdb-2.0.1'
+        // // ,jquery : 'lib/jquery/jquery-1_10_2'
+        // // ,jquery_block_ui : 'lib/jquery/jquery_blockUI'
+        // // ,jquery_ui : 'lib/jquery/jquery-ui'
     }
-    ,shim: {
-         'pouch_db': {
-            exports: 'Pouch_db'
-        }
-        // ,'jquery_block_ui': ['jquery']
-        // ,'jquery_ui' : ['jquery']
-    }
+    // ,shim: {
+    //      'pouch_db': {
+    //         exports: 'Pouch_db'
+    //     }
+    //     // ,'jquery_block_ui': ['jquery']
+    //     // ,'jquery_ui' : ['jquery']
+    // }
 });
 
 require(
@@ -305,7 +305,6 @@ require(
 
         $.blockUI({ message: 'please wait for setup ...' });
         
-        $( "#store_product_prompt_dialog" ).dialog({ autoOpen: false,modal:true });
         csrf_ajax_protection_setup();
 
         var oneshot_sync_b = oneshot_sync.bind(oneshot_sync,STORE_ID,COUCH_SERVER_URL);

@@ -6,15 +6,13 @@ requirejs.config({
         ,jquery : 'lib/jquery/jquery-1_10_2'
         ,jquery_block_ui : 'lib/jquery/jquery_blockUI'
         ,jquery_ui : 'lib/jquery/jquery-ui'
-        // ,pouch_db : 'lib/db/pouchdb'
+
     }
     ,shim: {
 
          'jquery_block_ui': ['jquery']
         ,'jquery_ui' : ['jquery']
-        // ,'pouch_db': {
-        //     exports: 'Pouch_db'
-        // }        
+    
 
     }
 });

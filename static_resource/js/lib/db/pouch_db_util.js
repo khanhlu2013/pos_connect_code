@@ -1,6 +1,6 @@
 define(
 	[
-		 'pouch_db'
+		 'lib/db/pouchdb'
 		,'lib/db/db_util'
 	]
 	,function

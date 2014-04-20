@@ -254,7 +254,8 @@ PRODUCT SEARCH ON SALE PAGE
 
 ---------------------
 
-    . how setup jquery block ui with google jquery
+    . fallback to s3
+    
     . combine,compress,optimize custom js and css
 
 

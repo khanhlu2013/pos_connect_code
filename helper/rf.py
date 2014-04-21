@@ -104,7 +104,7 @@ def import_json_data(data):
 
 
     #CLEAN UP: since we only select sku = 12 or 6 in length, we clean up product and unit that does not match this sku criteria
-    Product.objects.filter(sku_lst=None).delete()
+    Product.objects.filter(sku_set=None).delete()
     Unit.objects.filter(product=None).delete()
 
 

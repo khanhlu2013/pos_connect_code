@@ -5,8 +5,24 @@ from store_product import new_sp_inserter
 from store_product.models import Store_product
 import datetime
 
+def _exe(store_id):
+    receipt_couch_lst = receipt_lst_couch_getter.exe(store_id)
+    if len(receipt_couch_lst) == 0:
+        return 0
+
+    _1_create_offline_sp = get_create_offline_sp(receipt_couch_lst,True)
+    # _1_create_offline_dic = create_new_sp(_1_create_offline_sp,store_id)
+
+    _0_create_offline_sp = get_create_offline_sp(receipt_couch_lst,False)
+    _0_create_offline_dic = get_sp_lookup(_0_create_offline_sp,store_id)
+
+    # _0_create_offline_dic.update(_1_create_offline_dic)
+    # return _0_create_offline_dic
+
+    return _1_create_offline_sp,_0_create_offline_sp;
+
 def exe(store_id):
-    
+
     #STEP1: get receipt data to process
     receipt_couch_lst = receipt_lst_couch_getter.exe(store_id)
     if len(receipt_couch_lst) == 0:

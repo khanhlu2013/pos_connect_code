@@ -3,12 +3,16 @@
 
 {% block content %}
 
-    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css" />
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.min.css" />
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.66.0-2013.10.09/jquery.blockUI.min.js"></script>
+
+
     <link rel="stylesheet" href="{{STATIC_URL}}css/app/product/product.css" />
+    
 
-
-
-
+    <script data-main = "{{ STATIC_URL }}js/app/product/product_min.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script>
 
     <input id='sku_txt' type='text'/>
     <input id='sku_btn' type='button' value="sku"/>
@@ -99,7 +103,7 @@
 
 
 
-    <script data-main = "{{ STATIC_URL }}js/app/product/product.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script>
+
 
 
 {% endblock content %}

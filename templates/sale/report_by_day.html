@@ -1,7 +1,13 @@
 {% extends 'base_regular_user.html' %}
 
 {% block content %}
-    <link rel="stylesheet" href="{{ STATIC_URL }}css/jquery-ui-themes-1.10.4/themes/smoothness/jquery-ui.css">
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.min.css" />
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.66.0-2013.10.09/jquery.blockUI.min.js"></script>
+
+    <script data-main = "{{ STATIC_URL }}js/app/sale_report/report_by_day_init_min.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script>
 
     <h2>sale report by day</h2>
 
@@ -10,7 +16,10 @@
     <input id='refresh_btn' type='button' value="refresh">
     <table id='report_tbl' border='1'></table>
 
-    <script data-main = "{{ STATIC_URL }}js/app/sale_report/report_by_day_init.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script>
+    
 
+    <script>
+        var STATIC_URL = "{{STATIC_URL}}"
+    </script>
 
 {% endblock content %}

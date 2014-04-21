@@ -10,7 +10,11 @@ SELECT pid, pg_terminate_backend(pid)
 FROM pg_stat_activity 
 WHERE datname = current_database() AND pid <> pg_backend_pid();
 
-
+(pwd:static_resource/js) 
+    node ../../../r.js -o name=app/sale/sale out=app/sale/sale_min.js baseUrl=.
+    node ../../../r.js -o name=app/product/product out=app/product/product_min.js baseUrl=.
+    node ../../../r.js -o name=app/sale_report/report_by_day_init out=app/sale_report/report_by_day_init_min.js baseUrl=.
+    node ../../../r.js -o name=app/sale_shortcut/sale_shortcut out=app/sale_shortcut/sale_shortcut_min.js baseUrl=.
 
 lsof -i :8000
 ----------------------------------------------------------------------------
@@ -200,13 +204,11 @@ CURRENT TASKS
 . how can we test since our local env is couchdb and production if bigcouch is this complicate anything?
 . we can kill some of the environment variable (couchdb_master_user_name,password,url)  and just derived on cloudant_url which is auto set.
 . when pushing receipt to server, we need to handle data that is enter wrong such as price, crv is out of range: negative or over max value. how can we make sure good data is still saved and not roll back the whole thing and loss them
+
+
 . _doc_id_rev of receipt and store product should be change to _rev
-. account number, bug number to handle bug live bug fix
-. use google to host your javascript: require js now does not use my STATIC_URL for jquery. question:  how do we combine loading multiple file?
-. report generator test
-. there is a total of 6 times when we first load the page, ds_2_ui have to run. when ever i change qty, ds_2_ui have to run twice
-. kill all related name, only use default.
-. how is current old_sp_inserter handle old product having new skus. there are 2 scenarios: they create new, or they add sku to old one.
+
+
 ------------------------------------------------------------------------------------------------------------------
 xxx reimplement test 
 
@@ -237,26 +239,23 @@ DISCOUNT THAT ATTACH TO PRODUCT
 PRODUCT SEARCH ON SALE PAGE
 ------------------------------------------------------------------------------------------------------------------
 . ask Tiep: if we give a 50% alone discounter, is that mean it is not beneficial to the owner and customer interm of tax?
+. fallback static from cdn to s3
+. what is the benefit of using requirejs with cdn (beside fallback is pretty simple with require js)
 . make sure syncing db from couch to pouch does not sync receipt documents
 . write report_getter test (integration test): this test will verify that, receipt is filter correctly based on from_date and to_date
-. empty string for p_type, show up in report.
 . why there is a store id on sp in couch side? kill it
 . test receipt pusher liquor-staging message when internet is disconnected
-. shortcut button color
-. shortcut constrain: unique (store + position)
-. combine lib for js,css
-
-. combine amazon and google cnd, with local fallback
-    
-    . how to load jquery from google
-
-
-
+. include css with js
+. how to report script loading timeout, 
+. blocking ui at all possible spot
+    . sale.scan.edit_product: it could take a long time to popup interface. block here.
 ---------------------
 
-    . fallback to s3
-    
-    . combine,compress,optimize custom js and css
+
+
+. shortcut button color
+. shortcut constrain: unique (store + position)
+. empty string for p_type, show up in report.
 
 
 

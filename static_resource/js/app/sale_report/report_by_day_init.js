@@ -1,28 +1,26 @@
 requirejs.config({
-     baseUrl: '/static/js'
+     baseUrl: STATIC_URL + 'js'
     ,paths: {
          app : 'app'
         ,lib : 'lib'
-        ,jquery : 'lib/jquery/jquery-1_10_2'
-        ,jquery_block_ui : 'lib/jquery/jquery_blockUI'
-        ,jquery_ui : 'lib/jquery/jquery-ui'
+        // ,jquery : 'lib/jquery/jquery-1_10_2'
+        // ,jquery_block_ui : 'lib/jquery/jquery_blockUI'
+        // ,jquery_ui : 'lib/jquery/jquery-ui'
 
     }
-    ,shim: {
+    // ,shim: {
 
-         'jquery_block_ui': ['jquery']
-        ,'jquery_ui' : ['jquery']
-    
-
-    }
+    //      'jquery_block_ui': ['jquery']
+    //     ,'jquery_ui' : ['jquery']
+    // }
 });
 
 require(
     [
          'lib/misc/csrf_ajax_protection_setup'
         //-----------------
-        ,'jquery_block_ui'
-        ,'jquery_ui'        
+        // ,'jquery_block_ui'
+        // ,'jquery_ui'        
     ]
     ,function
     (

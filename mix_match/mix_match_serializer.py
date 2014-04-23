@@ -8,7 +8,6 @@ class Store_product_serializer(serializers.ModelSerializer):
     product_id = serializers.Field(source='product.id')
     store_id = serializers.Field(source='store.id')
 
-
     class Meta:
         model = Store_product
         fields = ('product_id','store_id','name','p_type','p_tag','price','is_taxable','is_sale_report','crv')
@@ -23,11 +22,11 @@ class Mix_match_child_serializer(serializers.ModelSerializer):
 
 
 class Mix_match_serializer(serializers.ModelSerializer):
-    mix_match_child_lst = Mix_match_child_serializer(many=True)
+    mix_match_child_set = Mix_match_child_serializer(many=True)
 
     class Meta:
         model = Mix_match
-        fields = ('name','unit_discount','qty','mix_match_child_lst')
+        fields = ('id','name','unit_discount','qty','mix_match_child_set')
 
 
 def serialize_mix_match_lst(mix_match_lst):

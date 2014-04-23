@@ -14,6 +14,7 @@ require(
         ,'lib/error_lib'  
         ,'app/mix_match/mix_match_prompt'   
         ,'app/mix_match/mix_match_online_inserter'  
+        ,'app/mix_match/mix_match_online_updator'  
     ]
     ,function
     (
@@ -22,6 +23,7 @@ require(
         ,error_lib
         ,mm_prompt
         ,mm_inserter
+        ,mm_updator
     )
 {
     
@@ -29,13 +31,60 @@ require(
     var mix_match_tbl = document.getElementById('mix_match_tbl');
     csrf_ajax_protection_setup();
 
-    function add_mix_match_handler(){
+    function update_mix_match_lst(lst,item){
+        for(var i = 0;i<lst.length;i++){
+            if(lst[i].id == item.id){
+                lst[i] = item;
+                break;
+            }
+        }
+    }
+
+    function update_mix_match_handler(parent){
+        var mm_child_sp_lst = [];
+        for(var i = 0;i<parent.mix_match_child_set.length;i++){
+            mm_child_sp_lst.push(parent.mix_match_child_set[i].store_product);
+        }
+
+        var mm_prompt_b = mm_prompt.exe.bind(mm_prompt.exe
+            ,parent.name
+            ,parent.qty
+            ,parent.unit_discount
+            ,mm_child_sp_lst
+        );
+
+        async.waterfall([mm_prompt_b],function(error,result){
+            if(error){
+                error_lib.alert_error(error);
+                return;
+            }
+
+            var mm_updator_b = mm_updator.exe.bind(mm_updator.exe
+                ,parent.id
+                ,result.name
+                ,result.qty
+                ,result.unit_discount
+                ,result.mix_match_child_sp_lst
+            );
+
+            async.waterfall([mm_updator_b],function(error,result){
+                if(error){
+                    error_lib.alert_error(error);
+                    return;
+                }
+                update_mix_match_lst(MIX_MATCH_LST,result)
+                display_mix_match_table();
+            })
+        });        
+    }
+
+    function insert_mix_match_handler(){
 
         var mm_prompt_b = mm_prompt.exe.bind(mm_prompt.exe
             ,null//name
             ,null//qty
             ,null//unit_discount
-            ,[]//mix_match_child_lst
+            ,[]//mix_match_child_sp_lst
         )
 
         async.waterfall([mm_prompt_b],function(error,result){
@@ -48,7 +97,7 @@ require(
                 ,result.name
                 ,result.qty
                 ,result.unit_discount
-                ,result.mix_match_child_lst
+                ,result.mix_match_child_sp_lst
             );
 
             async.waterfall([mm_inserter_b],function(error,result){
@@ -68,7 +117,7 @@ require(
 
         //columns
         tr = mix_match_tbl.insertRow(-1);
-        var columns = ['name','qty','is_taxable','unit_discount','out_the_door_price','edit']
+        var columns = ['name','qty','unit_discount','out_the_door_price','edit']
         for(var i = 0;i<columns.length;i++){
             td = tr.insertCell(-1);
             td.innerHTML = columns[i];
@@ -86,10 +135,6 @@ require(
             td = tr.insertCell(-1);
             td.innerHTML = cur_mix_match.qty;
 
-            //is_taxable
-            td = tr.insertCell(-1);
-            td.innerHTML = cur_mix_match.is_taxable;  
-
             //unit_discount
             td = tr.insertCell(-1);
             td.innerHTML = cur_mix_match.unit_discount;           
@@ -100,9 +145,13 @@ require(
 
             //edit
             td = tr.insertCell(-1)
-            td.innerHTML = 'edit'                         
+            td.innerHTML = 'edit';
+            var parent = MIX_MATCH_LST[i];
+            td.addEventListener('click',function(){
+                update_mix_match_handler(parent);
+            });                      
         }
     }
-    $('#add_mix_match_btn').off('click').click(add_mix_match_handler);
+    $('#add_mix_match_btn').off('click').click(insert_mix_match_handler);
     display_mix_match_table();
 });

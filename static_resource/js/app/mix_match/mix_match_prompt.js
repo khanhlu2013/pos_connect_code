@@ -16,7 +16,7 @@ define(
         
     var ERROR_CANCEL_MIX_MATCH_PROMPT = 'ERROR_CANCEL_MIX_MATCH_PROMPT';
     var mix_match_child_tbl = document.getElementById('mix_match_child_tbl');
-    var MIX_MATCH_CHILD_LST = null;
+    var MIX_MATCH_CHILD_SP_LST = null;
 
     function cancel_btn_handler(callback){
         $("#mix_match_prompt_dlg").dialog("close");
@@ -28,10 +28,10 @@ define(
              "name"                 : $('#mix_match_name_txt').val()
             ,"qty"                  : $('#mix_match_qty_txt').val()            
             ,"unit_discount"        : $('#mix_match_unit_discount_txt').val()
-            ,"mix_match_child_lst"  : MIX_MATCH_CHILD_LST
+            ,"mix_match_child_sp_lst"  : MIX_MATCH_CHILD_SP_LST
         }
 
-        var error_lst = mix_match_validator.validate(result['name'],result['qty'],result['unit_discount'],result['mix_match_child_lst']);
+        var error_lst = mix_match_validator.validate(result['name'],result['qty'],result['unit_discount'],result['mix_match_child_sp_lst']);
         if(error_lst.length!=0){
             set_validation_indicator(error_lst)
             return null;
@@ -86,9 +86,9 @@ define(
             td.innerHTML = columns[i];
         }
         
-        for(var i = 0;i<MIX_MATCH_CHILD_LST.length;i++){
+        for(var i = 0;i<MIX_MATCH_CHILD_SP_LST.length;i++){
             tr = mix_match_child_tbl.insertRow(-1);
-            var cur_mix_match_child = MIX_MATCH_CHILD_LST[i];
+            var cur_mix_match_child = MIX_MATCH_CHILD_SP_LST[i];
 
             //name
             td = tr.insertCell(-1);
@@ -139,7 +139,7 @@ define(
                 return;
             }
             var sp = result;
-            MIX_MATCH_CHILD_LST.push(sp);
+            MIX_MATCH_CHILD_SP_LST.push(sp);
             populate_mix_match_child_tbl();
         }); 
     }
@@ -149,11 +149,11 @@ define(
          name
         ,qty
         ,unit_discount
-        ,mix_match_child_lst
+        ,mix_match_child_sp_lst
         ,callback
     ){
         //save child list to global var
-        MIX_MATCH_CHILD_LST = mix_match_child_lst;
+        MIX_MATCH_CHILD_SP_LST = mix_match_child_sp_lst;
 
         //INIT UI FUNCTIONALITY
         $('#mix_match_add_child_btn').off('click').click(add_mix_match_child_handler);

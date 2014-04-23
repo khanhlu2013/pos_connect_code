@@ -46,6 +46,17 @@ UPGRADE FEATURE
 
 REALIZATION
 -----------
+~. looping data with edit event
+    for(var i = 0;i<MIX_MATCH_LST.length;i++){
+        td = tr.insertCell(-1)
+        td.innerHTML = 'edit';
+        var parent = MIX_MATCH_LST[i];
+        td.addEventListener('click',function(){
+            edit_mix_match_handler(parent);
+            edit_mix_match_handler(MIX_MATCH_LST[i]);//DO NOT DO THIS
+        });                      
+    }
+
 ~. encourage user to scan all data first, that way, when the internet is down, the data is already located offline for them. 
 ~. no approve_product on couch = fast loading, simplify project, less code to maintain. only 1 place to lookup for approve_product and that is master.
 ~. cloudant only differ in the way they handle _security. however, we don't test if a user can successfully sync from couchdb server. for now, we assume this step. so we don't need to test security feature, we will hand test these.
@@ -249,6 +260,7 @@ PRODUCT SEARCH ON SALE PAGE
 . how to report script loading timeout, 
 . blocking ui at all possible spot
     . sale.scan.edit_product: it could take a long time to popup interface. block here.
+. i use DjangoJSONEncoder and kill get_price_str, get_crv_str when do json.dumps
 ---------------------
 . tax_rate should not be offline
 . shortcut button color
@@ -266,6 +278,7 @@ LOW PRIORITY
 ------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------
 
+
 . i only have one product and i am not going to sell it again. I just want to sell it right out with the price,tax,description. Tiep call it non-inventory. it could have a barcode or not. 
 . access previous receipt fast
 . local name search
@@ -276,7 +289,7 @@ LOW PRIORITY
 
 . remove mix-match child
 . select always select the first item
-
+. edit parent
 
 
 

@@ -250,17 +250,32 @@ PRODUCT SEARCH ON SALE PAGE
 . blocking ui at all possible spot
     . sale.scan.edit_product: it could take a long time to popup interface. block here.
 ---------------------
-
-
-
+. tax_rate should not be offline
 . shortcut button color
 . shortcut constrain: unique (store + position)
 . empty string for p_type, show up in report.
 
+--------
+LOW PRIORITY
+. print receipt
+. 1 item discount
+. up and down key to select product (for non touch screen)
+
+
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+
+. i only have one product and i am not going to sell it again. I just want to sell it right out with the price,tax,description. Tiep call it non-inventory. it could have a barcode or not. 
+. access previous receipt fast
+. local name search
+. mix and match
 
 
 
 
+. remove mix-match child
+. select always select the first item
 
 
 

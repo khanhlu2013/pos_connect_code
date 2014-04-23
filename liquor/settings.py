@@ -57,6 +57,7 @@ INSTALLED_APPS = (
     ,'sale'
     ,'tax'
     ,'sale_shortcut'
+    ,'mix_match'
 )
 
 DEBUG = os.environ.get('DEBUG')

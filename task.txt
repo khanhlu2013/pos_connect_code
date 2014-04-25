@@ -15,6 +15,7 @@ WHERE datname = current_database() AND pid <> pg_backend_pid();
     node ../../../r.js -o name=app/product/product out=app/product/product_min.js baseUrl=.
     node ../../../r.js -o name=app/sale_report/report_by_day_init out=app/sale_report/report_by_day_init_min.js baseUrl=.
     node ../../../r.js -o name=app/sale_shortcut/sale_shortcut out=app/sale_shortcut/sale_shortcut_min.js baseUrl=.
+    node ../../../r.js -o name=app/mix_match/mix_match out=app/mix_match/mix_match_min.js baseUrl=.
 
 lsof -i :8000
 ----------------------------------------------------------------------------
@@ -47,15 +48,16 @@ UPGRADE FEATURE
 REALIZATION
 -----------
 ~. looping data with edit event
-    for(var i = 0;i<MIX_MATCH_LST.length;i++){
-        td = tr.insertCell(-1)
-        td.innerHTML = 'edit';
-        var parent = MIX_MATCH_LST[i];
-        td.addEventListener('click',function(){
-            edit_mix_match_handler(parent);
-            edit_mix_match_handler(MIX_MATCH_LST[i]);//DO NOT DO THIS
-        });                      
-    }
+        for(var i = 0;i<prod_sku_assoc_set.length;i++){
+            td = tr.insertCell(-1);
+            td.innerHTML = _helper_is_sku_removable(cur_prod_sku_assoc) ? 'remove' : '';
+
+            (function(v){
+                td.addEventListener('click',function(){
+                    remove_sku_handler(v);
+                });
+            })(cur_prod_sku_assoc)
+        }
 
 ~. encourage user to scan all data first, that way, when the internet is down, the data is already located offline for them. 
 ~. no approve_product on couch = fast loading, simplify project, less code to maintain. only 1 place to lookup for approve_product and that is master.
@@ -261,6 +263,12 @@ PRODUCT SEARCH ON SALE PAGE
 . blocking ui at all possible spot
     . sale.scan.edit_product: it could take a long time to popup interface. block here.
 . i use DjangoJSONEncoder and kill get_price_str, get_crv_str when do json.dumps
+. test select correct line
+    . test sale edit
+    . test sale short cut parent, child
+    . test shortcut setup
+    . test sp creator prodStore_prodSku_1_0, prodStore_prodSku_0_0
+. why tax_rate is not included in the sale context param
 ---------------------
 . tax_rate should not be offline
 . shortcut button color
@@ -282,55 +290,11 @@ LOW PRIORITY
 . i only have one product and i am not going to sell it again. I just want to sell it right out with the price,tax,description. Tiep call it non-inventory. it could have a barcode or not. 
 . access previous receipt fast
 . local name search
-. mix and match
 
 
+------------------------
 
-
-. remove mix-match child
-. select always select the first item
-. edit parent
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
+. mix match scan
 
 
 

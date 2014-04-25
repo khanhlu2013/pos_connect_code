@@ -21,11 +21,10 @@ class Mix_match_view(TemplateView):
         mix_match_serialized_lst = mix_match_serializer.serialize_mix_match_lst(mix_match_lst)
 
         context['mix_match_lst'] = json.dumps(mix_match_serialized_lst,cls=DjangoJSONEncoder)
+        context['tax_rate'] = self.cur_login_store.tax_rate
         return context
 
 def mix_match_update_view(request):
-    print(request.POST)
-    
     if request.POST.has_key('id') and request.POST.has_key('name') and request.POST.has_key('qty') and request.POST.has_key('unit_discount') and request.POST.has_key('pid_comma_separated_lst_str'):
         cur_login_store = request.session.get('cur_login_store')
         id = request.POST['id'] 
@@ -51,7 +50,7 @@ def mix_match_update_view(request):
         #update parent
         parent.name = name
         parent.qty = qty
-        parent.utni_discount = unit_discount
+        parent.unit_discount = unit_discount
         parent.save()
 
         #update child

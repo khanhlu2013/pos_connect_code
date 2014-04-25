@@ -15,19 +15,23 @@ define(
     var ERROR_MIX_MATCH_VALIDATION_CHILD_UNIFORM = 'ERROR_MIX_MATCH_VALIDATION_CHILD_UNIFORM';
 
 
-    function validate(name,qty,unit_discount,mix_match_child_sp_lst){
+    function validate(result){
 
         var error_lst = new Array();
+        var name = result.name;
+        var qty = result.qty;
+        var unit_discount = result.unit_discount;
+        var mix_match_child_sp_lst = result.mix_match_child_sp_lst;
 
-        if(name == null || name == undefined || name.trim().length == 0){
+        if(!name){
             error_lst.push(ERROR_MIX_MATCH_VALIDATION_NAME);
         }
 
-        if(qty == null || qty == undefined || !number.is_positive_integer(qty)){
+        if(!qty || !number.is_positive_integer(qty)){
             error_lst.push(ERROR_MIX_MATCH_VALIDATION_QTY);
         }
 
-        if(unit_discount == null || unit_discount == undefined || !number.is_positive_double(unit_discount)){
+        if(!unit_discount || !number.is_positive_double(unit_discount)){
             error_lst.push(ERROR_MIX_MATCH_VALIDATION_UNIT_DISCOUNT);
         }
 

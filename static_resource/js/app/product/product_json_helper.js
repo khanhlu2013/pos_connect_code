@@ -5,6 +5,19 @@ define(
 (
 )
 {
+    function get_sp_from_sp_lst(pid,sp_lst){
+        var result = null;
+
+        for(var i = 0;i<sp_lst.length;i++){
+            if(sp_lst[i].product_id == pid){
+                result = sp_lst[i];
+                break;
+            }
+        }
+
+        return result;
+    }
+
     function get_p_from_lst(product_id,prod_lst){
         var result = null;
 
@@ -111,5 +124,6 @@ define(
         ,get_sp_from_p:get_sp_from_p
         ,extract_prod_store__prod_sku:extract_prod_store__prod_sku
         ,get_p_from_lst:get_p_from_lst
+        ,get_sp_from_sp_lst:get_sp_from_sp_lst
     };
 });

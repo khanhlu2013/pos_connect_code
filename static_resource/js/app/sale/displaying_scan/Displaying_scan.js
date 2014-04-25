@@ -7,6 +7,7 @@ define(['lib/number/number'],function(number){
 		this.price = price;
 		this.discount = discount;
         this.non_product_name = non_product_name;
+        this.mix_match_deal_id = null;
 	};
     
 	Displaying_scan.prototype = {

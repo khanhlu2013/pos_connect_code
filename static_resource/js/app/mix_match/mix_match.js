@@ -26,7 +26,7 @@ require(
         ,mm_updator
     )
 {
-    
+    var TAX_RATE = MY_TAX_RATE;
     var MIX_MATCH_LST = MY_MIX_MATCH_LST;
     var mix_match_tbl = document.getElementById('mix_match_tbl');
     csrf_ajax_protection_setup();
@@ -40,7 +40,8 @@ require(
         }
     }
 
-    function update_mix_match_handler(parent){
+    function update_mix_match_handler(index){
+        var parent = MIX_MATCH_LST[index];
         var mm_child_sp_lst = [];
         for(var i = 0;i<parent.mix_match_child_set.length;i++){
             mm_child_sp_lst.push(parent.mix_match_child_set[i].store_product);
@@ -51,6 +52,7 @@ require(
             ,parent.qty
             ,parent.unit_discount
             ,mm_child_sp_lst
+            ,TAX_RATE
         );
 
         async.waterfall([mm_prompt_b],function(error,result){
@@ -59,14 +61,7 @@ require(
                 return;
             }
 
-            var mm_updator_b = mm_updator.exe.bind(mm_updator.exe
-                ,parent.id
-                ,result.name
-                ,result.qty
-                ,result.unit_discount
-                ,result.mix_match_child_sp_lst
-            );
-
+            var mm_updator_b = mm_updator.exe.bind(mm_updator.exe ,parent.id,result);
             async.waterfall([mm_updator_b],function(error,result){
                 if(error){
                     error_lib.alert_error(error);
@@ -85,6 +80,7 @@ require(
             ,null//qty
             ,null//unit_discount
             ,[]//mix_match_child_sp_lst
+            ,TAX_RATE
         )
 
         async.waterfall([mm_prompt_b],function(error,result){
@@ -124,6 +120,7 @@ require(
         }
         
         for(var i = 0;i<MIX_MATCH_LST.length;i++){
+
             tr = mix_match_tbl.insertRow(-1);
             var cur_mix_match = MIX_MATCH_LST[i];
 
@@ -146,12 +143,15 @@ require(
             //edit
             td = tr.insertCell(-1)
             td.innerHTML = 'edit';
-            var parent = MIX_MATCH_LST[i];
-            td.addEventListener('click',function(){
-                update_mix_match_handler(parent);
-            });                      
+            (function(_i){
+                td.addEventListener('click',function(){
+                    update_mix_match_handler(_i);
+                });   
+            })(i);
         }
     }
+
     $('#add_mix_match_btn').off('click').click(insert_mix_match_handler);
     display_mix_match_table();
+
 });

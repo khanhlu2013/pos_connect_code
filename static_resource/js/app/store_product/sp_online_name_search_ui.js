@@ -82,12 +82,14 @@ define(
             td.innerHTML = sp.p_tag;  
 
             td = tr.insertCell(-1);
-            td.innerHTML = 'select'; 
-            td.addEventListener('click',function(){
-                $('#product_search_dlg').dialog('close');
-                callback(null,sp);                
-            });
-      
+            td.innerHTML = 'select';
+
+            (function(v){
+                td.addEventListener('click',function(){
+                    $('#product_search_dlg').dialog('close');
+                    callback(null,v);                
+                });
+            })(sp);
         }
     }
 

@@ -161,7 +161,7 @@ define(
 
         //table data
         for (var i = 0;i<ds_lst.length;i++){
-            _item_2_table(i,ds_lst,tax_rate,table,store_idb,store_pdb,store_id,couch_server_url)
+            _item_2_table(i,ds_lst,tax_rate,table,store_idb,store_pdb,store_id,couch_server_url);
         }
 
         //total button

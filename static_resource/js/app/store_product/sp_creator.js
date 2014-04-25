@@ -81,10 +81,12 @@ define(
  				td = tr.insertCell(-1);
  				td.innerHTML = 'sku';
 
- 				td.addEventListener('click',function(){
- 					$("#select_product_option_dialog").dialog("close");
- 					callback(null,cur_prod);
- 				});
+	            (function(v){
+	 				td.addEventListener('click',function(){
+	 					$("#select_product_option_dialog").dialog("close");
+	 					callback(null,v);
+	 				});
+	            })(cur_prod);
  			}
 
 			for(var i =0;i<prodStore_prodSku_0_0.length;i++){
@@ -98,10 +100,12 @@ define(
  				td = tr.insertCell(-1);
  				td.innerHTML = 'product';
 
- 				td.addEventListener('click',function(){
- 					$("#select_product_option_dialog").dialog("close");
- 					callback(null,cur_prod);
- 				});
+	            (function(v){
+	 				td.addEventListener('click',function(){
+	 					$("#select_product_option_dialog").dialog("close");
+	 					callback(null,v);
+	 				});
+	            })(cur_prod);
  			} 
 
 			var exit_btn_handler_b = exit_btn_handler.bind(exit_btn_handler,callback);

@@ -6,7 +6,7 @@ define(
         ,'lib/db/pouch_db_util'
         ,'lib/object_store/get_os'
         ,'constance'
-        ,'pouch_db'
+        ,'lib/db/pouchdb'
         ,'lib/db/db_util'
         ,'lib/error_lib'
     ]

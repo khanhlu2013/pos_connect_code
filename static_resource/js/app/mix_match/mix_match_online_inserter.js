@@ -13,19 +13,19 @@ define(
 {
     var ERROR_MIX_MATCH_VALIDATION_FAIL = 'ERROR_MIX_MATCH_VALIDATION_FAIL';
 
-    function exe(name,qty,unit_discount,mix_match_child_sp_lst,callback){
-        var error_lst = mm_validator.validate(name,qty,unit_discount,mix_match_child_sp_lst);
+    function exe(result,callback){
+        var error_lst = mm_validator.validate(result);
         if(error_lst.length!=0){
             callback(ERROR_MIX_MATCH_VALIDATION_FAIL);
             return;
         }
         
-        var pid_comma_separated_lst_str = mm_util.get_comma_separated_pid_lst(mix_match_child_sp_lst);
+        var pid_comma_separated_lst_str = mm_util.get_comma_separated_pid_lst(result.mix_match_child_sp_lst);
 
         var data = {
-             name:name
-            ,qty:qty
-            ,unit_discount:unit_discount
+             name:result.name
+            ,qty:result.qty
+            ,unit_discount:result.unit_discount
             ,pid_comma_separated_lst_str:pid_comma_separated_lst_str
         }        
 

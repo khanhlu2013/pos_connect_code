@@ -6,6 +6,7 @@ import datetime
 from django.core.serializers.json import DjangoJSONEncoder
 from sale import report_getter
 from sale_shortcut import sale_shortcut_serializer,shortcut_getter
+from mix_match import mix_match_getter,mix_match_serializer
 
 class Sale_view(TemplateView):
     template_name = 'sale/index.html'
@@ -23,6 +24,8 @@ class Sale_view(TemplateView):
         context['COLUMN_COUNT'] = 3     # xxx move this ugly to constance
         shortcut_lst = shortcut_getter.get_shorcut_lst(self.cur_login_store.id) 
         context['shortcut_lst'] = json.dumps(sale_shortcut_serializer.serialize_shortcut_lst(shortcut_lst))
+        mix_match_lst = mix_match_getter.get_mix_match_lst(self.cur_login_store.id)
+        context['mix_match_lst'] = json.dumps(mix_match_serializer.serialize_mix_match_lst(mix_match_lst),cls=DjangoJSONEncoder)
 
         return context
 

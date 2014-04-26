@@ -16,14 +16,17 @@ define(
         ,Discount_input
     )
 {
-    return function(store_idb,discount_input_str,callback){
+    var MM_LST;
+
+    return function(mm_lst,store_idb,discount_input_str,callback){
+        MM_LST = mm_lst;
         var discount_input = new Discount_input(discount_input_str);
         
         if(!discount_input.is_valid()){
             callback('input is not valid'/*error*/,null/*result*/);
         }else{
             if(discount_input.is_percentage){
-                var ds_lst_getter_b = ds_lst_getter.bind(ds_lst_getter,store_idb);
+                var ds_lst_getter_b = ds_lst_getter.bind(ds_lst_getter,MM_LST,store_idb);
                 async.waterfall([ds_lst_getter_b],function(error,result){
                     var ds_lst = result;
                     if(ds_lst.length == 0){

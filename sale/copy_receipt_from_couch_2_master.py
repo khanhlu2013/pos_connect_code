@@ -5,21 +5,6 @@ from store_product import new_sp_inserter
 from store_product.models import Store_product
 import datetime
 
-def _exe(store_id):
-    receipt_couch_lst = receipt_lst_couch_getter.exe(store_id)
-    if len(receipt_couch_lst) == 0:
-        return 0
-
-    _1_create_offline_sp = get_create_offline_sp(receipt_couch_lst,True)
-    # _1_create_offline_dic = create_new_sp(_1_create_offline_sp,store_id)
-
-    _0_create_offline_sp = get_create_offline_sp(receipt_couch_lst,False)
-    _0_create_offline_dic = get_sp_lookup(_0_create_offline_sp,store_id)
-
-    # _0_create_offline_dic.update(_1_create_offline_dic)
-    # return _0_create_offline_dic
-
-    return _1_create_offline_sp,_0_create_offline_sp;
 
 def exe(store_id):
 
@@ -59,6 +44,8 @@ def insert_receipt_ln_to_master(receipt_couch_lst,receipt_id_c2mLookup,sp_id_c2m
         for receipt_ln_couch in receipt_couch['ds_lst']:
 
             receipt_master_id = receipt_id_c2mLookup[receipt_couch['_id']]
+            
+            #SP
             sp_couch = receipt_ln_couch['store_product'] 
             sp_master_id = None
             sp_is_taxable = None
@@ -73,6 +60,10 @@ def insert_receipt_ln_to_master(receipt_couch_lst,receipt_id_c2mLookup,sp_id_c2m
             else:
                 sp_is_taxable = False
 
+            #MM_DEAL
+            mm_unit_discount = 0.0 if receipt_ln_couch['mix_match_deal'] == None else receipt_ln_couch['mix_match_deal']['unit_discount']
+
+
             receipt_ln_master = Receipt_ln(
                  receipt_id = receipt_master_id
                 ,qty = receipt_ln_couch['qty']
@@ -80,6 +71,7 @@ def insert_receipt_ln_to_master(receipt_couch_lst,receipt_id_c2mLookup,sp_id_c2m
                 ,price = receipt_ln_couch['price']
                 ,crv = sp_couch['crv']
                 ,discount = receipt_ln_couch['discount']
+                ,discount_mm_deal = mm_unit_discount
                 ,non_product_name = receipt_ln_couch['non_product_name']
                 ,is_taxable = sp_is_taxable
                 ,p_type = sp_p_type

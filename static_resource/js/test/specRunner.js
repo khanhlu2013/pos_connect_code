@@ -12,10 +12,9 @@
             ,'jasmine-html'     : 'lib/jasmine-2.0.0/jasmine-html'
             ,'mock-ajax'        : 'lib/jasmine-2.0.0/mock-ajax'
             ,'boot'             : 'lib/jasmine-2.0.0/boot'
-            ,'pouch_db'         : 'lib/db/pouchdb-2.0.1'
-            ,'jquery'           : 'lib/jquery/jquery-1_10_2'
-            ,'jquery_block_ui'  : 'lib/jquery/jquery_blockUI'
-            ,'jquery_ui'        : 'lib/jquery/jquery-ui'            
+            ,'jquery'           : 'lib/jquery/jquery-1.11.0.min'
+            ,'jquery_block_ui'  : 'lib/jquery/jquery.blockUI'
+            ,'jquery_ui'        : 'lib/jquery/jquery-ui-1.10.4.min'            
         },
         shim: {
             'jasmine': {
@@ -33,9 +32,6 @@
                 deps: ['jasmine', 'jasmine-html'],
                 exports: 'window.jasmineRequire'
             }
-            ,'pouch_db': {
-                exports: 'Pouch_db'
-            }
             ,'jquery_block_ui': ['jquery']
             ,'jquery_ui' : ['jquery']            
         }
@@ -48,7 +44,8 @@
         // 'spec/store_product/sp_online_updator_spec'
         // 'spec/store_product/sp_online_searcher_spec'        
         // 'spec/store_product/sp_online_creator_spec'        
-        'spec/receipt/receipt_pusher_spec'        
+        // 'spec/receipt/receipt_pusher_spec'        
+        'spec/sale/displaying_scan/displaying_scan_computer_spec'   
     ];
                
     // Load Jasmine - This will still create all of the normal Jasmine browser globals unless `boot.js` is re-written to use the

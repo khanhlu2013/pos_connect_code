@@ -89,13 +89,7 @@ require(
                 return;
             }
 
-            var mm_inserter_b = mm_inserter.exe.bind(mm_inserter.exe
-                ,result.name
-                ,result.qty
-                ,result.unit_discount
-                ,result.mix_match_child_sp_lst
-            );
-
+            var mm_inserter_b = mm_inserter.exe.bind(mm_inserter.exe,result);
             async.waterfall([mm_inserter_b],function(error,result){
                 if(error){
                     error_lib.alert_error(error);

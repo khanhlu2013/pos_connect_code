@@ -90,6 +90,7 @@ require(
 
         //shortcut
         var SHORTCUT_LST = MY_SHORTCUT_LST;
+        var MM_LST = MY_MM_LST;
         var CUR_SELECT_PARENT_SHORTCUT = 0;
         var shortcut_tbl = document.getElementById("shortcut_tbl");
 
@@ -124,8 +125,8 @@ require(
                     return;
                 }
 
-                var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,STORE_IDB,STORE_PDB,table,STORE_ID,COUCH_SERVER_URL);
-                var alone_discounter_b = alone_discounter.bind(alone_discounter,STORE_IDB,discount_input_str);
+                var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,MM_LST,STORE_IDB,STORE_PDB,table,STORE_ID,COUCH_SERVER_URL);
+                var alone_discounter_b = alone_discounter.bind(alone_discounter,MM_LST,STORE_IDB,discount_input_str);
                 async.waterfall([alone_discounter_b,ds_2_ui_b],function(error,result){
                     if(error){alert(error);}
                 });
@@ -135,7 +136,7 @@ require(
 
         function hook_sale_finalizer_2_ui(){
             function total_button_click_handler(){
-                var ds_lst_and_tax_getter_b = ds_lst_and_tax_getter.bind(ds_lst_and_tax_getter,STORE_IDB)
+                var ds_lst_and_tax_getter_b = ds_lst_and_tax_getter.bind(ds_lst_and_tax_getter,MM_LST,STORE_IDB)
                 async.waterfall([ds_lst_and_tax_getter_b],function(error,result){
                     var ds_lst = result[0];
                     var tax_rate = result[1];
@@ -149,13 +150,13 @@ require(
                                 alert('collecting amount should be at least:' + line_total);
                                 return;
                             }else if(confirm("Did you give the customer change: " + (number.trim(collect_amount - line_total)))) {
-                                var sale_finalizer_b = sale_finalizer.bind(sale_finalizer,STORE_PDB,STORE_IDB,collect_amount);
+                                var sale_finalizer_b = sale_finalizer.bind(sale_finalizer,MM_LST,STORE_PDB,STORE_IDB,collect_amount);
                                 async.waterfall([sale_finalizer_b],function(error,result){
                                     if(error){
                                         alert(error);
                                     }else{
                                         //refresh table
-                                        var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,STORE_IDB,STORE_PDB,table,STORE_ID,COUCH_SERVER_URL);
+                                        var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,MM_LST,STORE_IDB,STORE_PDB,table,STORE_ID,COUCH_SERVER_URL);
                                         async.waterfall([ds_2_ui_b],function(error,result){
                                             if(error){
                                                 alert(error);
@@ -174,17 +175,20 @@ require(
         function hook_scanner_to_ui(){
             var ENTER_KEY = 13;
             var scan_textbox = document.getElementById('scan_text');
+
             function scan_text_enter_handler( event ) {
                 if (event.keyCode !== ENTER_KEY) {
                     return;      
                 }
+
+                scan_textbox.select();
                 var scan_str = scan_textbox.value.trim();
                 if(scan_str.length == 0){
                     return;
                 }
 
                 var scanner_b = scanner.exe.bind(scanner.exe,scan_str,STORE_IDB);
-                var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,STORE_IDB,STORE_PDB,table,STORE_ID,COUCH_SERVER_URL);
+                var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,MM_LST,STORE_IDB,STORE_PDB,table,STORE_ID,COUCH_SERVER_URL);
 
                 async.waterfall([scanner_b,ds_2_ui_b],function(error,result){
                     if(error){
@@ -222,7 +226,7 @@ require(
                         var sp = result;
                         var ps = new Pending_scan(null/*key*/,1/*qty*/,sp.price,null/*discount*/,sp._id,null/*non_product_name*/);
                         var ps_inserter_b = ps_inserter.bind(ps_inserter,STORE_IDB,ps)
-                        var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,STORE_IDB,STORE_PDB,table,STORE_ID,COUCH_SERVER_URL);
+                        var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,MM_LST,STORE_IDB,STORE_PDB,table,STORE_ID,COUCH_SERVER_URL);
                         async.waterfall([ps_inserter_b,ds_2_ui_b],function(error,result){
                             if(error){alert(error);}
                         });
@@ -279,7 +283,7 @@ require(
         function hook_voider_2_ui(){
             function void_btn_click_handler(){
 
-                var ds_lst_and_tax_getter_b = ds_lst_and_tax_getter.bind(ds_lst_and_tax_getter,STORE_IDB)
+                var ds_lst_and_tax_getter_b = ds_lst_and_tax_getter.bind(ds_lst_and_tax_getter,MM_LST,STORE_IDB)
                 async.waterfall([ds_lst_and_tax_getter_b],function(error,result){
                     var ds_lst = result[0];
                     var tax_rate = result[1];
@@ -292,7 +296,7 @@ require(
                         }
                         
                         var voider_b = voider.bind(voider,STORE_IDB);
-                        var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,STORE_IDB,STORE_PDB,table,STORE_ID,COUCH_SERVER_URL);
+                        var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,MM_LST,STORE_IDB,STORE_PDB,table,STORE_ID,COUCH_SERVER_URL);
 
                         async.waterfall([voider_b,ds_2_ui_b],function(error,result){
                             if(error){alert(error);}
@@ -319,7 +323,6 @@ require(
             STORE_IDB = result;
             STORE_PDB = pouch_db_util.get_store_db(STORE_ID);
 
-
             //init ui functionality
             hook_scanner_to_ui();
             hook_sale_finalizer_2_ui();
@@ -329,7 +332,7 @@ require(
             display_shortcut_table();
 
             //refresh ui
-            var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,STORE_IDB,STORE_PDB,table,STORE_ID,COUCH_SERVER_URL);
+            var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,MM_LST,STORE_IDB,STORE_PDB,table,STORE_ID,COUCH_SERVER_URL);
             async.waterfall([ds_2_ui_b],function(error,result){
                 if(error){
                     $.unblockUI();

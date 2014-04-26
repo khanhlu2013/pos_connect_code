@@ -17,6 +17,7 @@ WHERE datname = current_database() AND pid <> pg_backend_pid();
     node ../../../r.js -o name=app/sale_shortcut/sale_shortcut out=app/sale_shortcut/sale_shortcut_min.js baseUrl=.
     node ../../../r.js -o name=app/mix_match/mix_match out=app/mix_match/mix_match_min.js baseUrl=.
 
+
 lsof -i :8000
 ----------------------------------------------------------------------------
 template
@@ -251,7 +252,7 @@ DISCOUNT THAT ATTACH TO PRODUCT
 ------------------------------------------------------------------------------------------------------------------
 PRODUCT SEARCH ON SALE PAGE
 ------------------------------------------------------------------------------------------------------------------
-. ask Tiep: if we give a 50% alone discounter, is that mean it is not beneficial to the owner and customer interm of tax?
+. alone discounter
 . fallback static from cdn to s3
 . what is the benefit of using requirejs with cdn (beside fallback is pretty simple with require js)
 . make sure syncing db from couch to pouch does not sync receipt documents
@@ -290,13 +291,13 @@ LOW PRIORITY
 . i only have one product and i am not going to sell it again. I just want to sell it right out with the price,tax,description. Tiep call it non-inventory. it could have a barcode or not. 
 . access previous receipt fast
 . local name search
-
-
+. kill alone discounter because tax purpose
+. upload sale data must create new sp right away
 ------------------------
 
 . mix match scan
-
-
+    . remove mm deal
+    . record the mm deal in receipt
 
 
 

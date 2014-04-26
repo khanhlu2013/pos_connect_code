@@ -29,10 +29,11 @@ define(
     )
 {
     var column_name = ["qty", "product", "price", "line total", "X"];
+    var MM_LST = null;
 
     function exe_instruction(store_idb,store_pdb,ds_index,instruction,ds_lst,table,tax_rate,store_id,couch_server_url){
-        var ds_modifier_b = ds_modifier.bind(ds_modifier,store_idb,ds_index,instruction);
-        var ds_lst_getter_b = ds_lst_getter.bind(ds_lst_getter,store_idb);
+        var ds_modifier_b = ds_modifier.bind(ds_modifier,MM_LST,store_idb,ds_index,instruction);
+        var ds_lst_getter_b = ds_lst_getter.bind(ds_lst_getter,MM_LST,store_idb);
         async.waterfall([ds_modifier_b,ds_lst_getter_b],function(error,result){
             if(error){
                 error_lib.alert_error(error);
@@ -113,12 +114,23 @@ define(
             msg += 'price info:' + '\n';
             msg += '---------' + '\n';
             msg += 'regular price: ' + displaying_scan.price + '\n'
+            
+            //MIX MATCH DEAL
+            if(displaying_scan.mix_match_deal){
+                msg += 'Mix match discount' + '(' + displaying_scan.mix_match_deal.name + ')' + ':' + displaying_scan.mix_match_deal.unit_discount + '\n';
+            }
+
+            //CRV
             var crv = displaying_scan.get_crv();
             if(crv){
-                msg += 'crv: ' + displaying_scan.get_crv() + '\n'
+                msg += 'crv: ' + crv + '\n'
             }
+
+            //TAX
             var tax = displaying_scan.get_tax(tax_rate);
             msg += 'tax: ' + tax + '\n'
+            
+
             msg += 'out the door price: ' + displaying_scan.get_otd_wt_price(tax_rate);
             msg += '\n\n\n';    
             msg += 'enter new ONE TIME regular price\n';
@@ -170,8 +182,9 @@ define(
         total_button.innerHTML = computed_total;
     }
 
-    return function(store_idb,store_pdb,table,store_id,couch_server_url,callback){
-        var ds_lst_and_tax_getter_b = ds_lst_and_tax_getter.bind(ds_lst_and_tax_getter,store_idb);
+    return function(mm_lst,store_idb,store_pdb,table,store_id,couch_server_url,callback){
+        MM_LST = mm_lst;
+        var ds_lst_and_tax_getter_b = ds_lst_and_tax_getter.bind(ds_lst_and_tax_getter,MM_LST,store_idb);
         async.waterfall([ds_lst_and_tax_getter_b],function(error,result){
             var ds_lst = result[0];
             var tax_rate = result[1];

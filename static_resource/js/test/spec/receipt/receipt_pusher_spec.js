@@ -110,7 +110,8 @@ define(
 
             //FINALIZE SALE
             var collect_amount = 100;
-            var sale_finalizer_b = sale_finalizer.bind(sale_finalizer,store_pdb,store_idb,collect_amount);
+            var mm_lst = [];
+            var sale_finalizer_b = sale_finalizer.bind(sale_finalizer,mm_lst,store_pdb,store_idb,collect_amount);
 
 
             //FINAL RUN EVERYTHING

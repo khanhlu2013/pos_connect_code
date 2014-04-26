@@ -7,7 +7,7 @@ define(['lib/number/number'],function(number){
 		this.price = price;
 		this.discount = discount;
         this.non_product_name = non_product_name;
-        this.mix_match_deal_id = null;
+        this.mix_match_deal = null;
 	};
     
 	Displaying_scan.prototype = {
@@ -20,11 +20,15 @@ define(['lib/number/number'],function(number){
             return this.store_product.name;
         }
     	,get_total_discount: function () {
-            if(!this.discount){
-                return 0;
+            var result = 0.0;
+            if(this.discount){
+                result += this.discount;
             }
 
-            return this.discount;
+            if(this.mix_match_deal){
+                result += this.mix_match_deal.unit_discount;
+            }
+            return result;
         }
         ,get_total_discount_price: function () {
             return this.price - this.get_total_discount();

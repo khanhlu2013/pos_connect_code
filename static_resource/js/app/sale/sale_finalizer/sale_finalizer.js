@@ -19,11 +19,13 @@ define(
 		,voider
 	)
 {
-	return function(store_pdb,store_idb,collect_amount,callback){
+	var MM_LST = null;
+	return function(mm_lst,store_pdb,store_idb,collect_amount,callback){
+		MM_LST = mm_lst;
 		if(!number.is_positive_double(collect_amount)){
 			callback('wrong input'/*error*/);
 		}else{
-			var ds_lst_and_tax_getter_b = ds_lst_and_tax_getter.bind(ds_lst_and_tax_getter,store_idb);
+			var ds_lst_and_tax_getter_b = ds_lst_and_tax_getter.bind(ds_lst_and_tax_getter,MM_LST,store_idb);
 			async.waterfall([ds_lst_and_tax_getter_b],function(error,result){
 				if(error){
 					callback(error);

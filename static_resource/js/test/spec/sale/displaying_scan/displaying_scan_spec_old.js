@@ -16,7 +16,6 @@ define
         ,new_sp_inserter
         ,scanner
         ,ds_lst_getter
-        
     )
     {
         describe("displaying scan object",function(){

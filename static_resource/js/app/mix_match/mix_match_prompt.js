@@ -195,20 +195,16 @@ define(
         TAX_RATE = tax_rate;
         init_ui_functionality(callback);
 
-        var is_create = (name == null && qty == null && unit_discount == null && ( mix_match_child_sp_lst == null || mix_match_child_sp_lst.length == 0))
-        if(!is_create){
-            $('#mix_match_name_txt').val(name);
-            $('#mix_match_qty_txt').val(qty);
-            $('#mix_match_unit_discount_txt').val(unit_discount);
-            MIX_MATCH_CHILD_SP_LST = mix_match_child_sp_lst;            
-            populate_mix_match_child_tbl();
+        $('#mix_match_name_txt').val(name);
+        $('#mix_match_qty_txt').val(qty);
+        $('#mix_match_unit_discount_txt').val(unit_discount);
+        MIX_MATCH_CHILD_SP_LST = mix_match_child_sp_lst;            
+        populate_mix_match_child_tbl();
 
-            result = get_result_from_ui();
-            var error_lst = mix_match_validator.validate(result);
-            set_validation_indicator(error_lst);
-            price = mm_util.calculate_total_price(result);
-            $('#mix_match_total_price_txt').val(price);  
-        }
+        result = get_result_from_ui();
+        price = mm_util.calculate_total_price(result);
+        $('#mix_match_total_price_txt').val(price);
+        set_validation_indicator([]);
 
         display_dialog(callback);
     }

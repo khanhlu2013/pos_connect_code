@@ -18,6 +18,8 @@ define(
         ,ds_computer
     )
 {
+    var MM_LST = null;
+    
     function calculate_begin_index(ds_lst,dynamic_,static_){
         return calculate_index(ds_lst,dynamic_ - static_) + 1;
     }
@@ -230,15 +232,15 @@ define(
         }
     }
 
-    return function(store_idb,ds_index,instruction,callback){
-
+    return function(mm_lst,store_idb,ds_index,instruction,callback){
+        MM_LST = mm_lst;
         var ps_lst_getter_b = ps_lst_getter.bind(ps_lst_getter,store_idb);
         async.waterfall([ps_lst_getter_b],function(error,result){
             if(error!=null) {
                 callback(error);
             }
             var ps_lst = result;
-            var ds_computer_b = ds_computer.bind(ds_computer,store_idb,ps_lst);
+            var ds_computer_b = ds_computer.bind(ds_computer,MM_LST,store_idb,ps_lst);
             async.waterfall([ds_computer_b],function(error,result){
                 if(error!=null){
                     callback(error);

@@ -11,10 +11,12 @@ define(
 		,get_tax
 	)
 {
-	return function (store_idb,callback){
+	var MM_LST = null;
+	return function (mm_lst,store_idb,callback){
+		MM_LST = mm_lst;
 		var return_obj = new Array();
 
-		var ds_lst_getter_b = ds_lst_getter.bind(ds_lst_getter,store_idb);
+		var ds_lst_getter_b = ds_lst_getter.bind(ds_lst_getter,MM_LST,store_idb);
         
         async.waterfall([ds_lst_getter_b],function(error,ds_result){
         	if(error==null){

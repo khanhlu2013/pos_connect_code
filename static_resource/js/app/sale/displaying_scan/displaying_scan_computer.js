@@ -17,8 +17,8 @@ define(
     function is_deal_contain_pid(mm,pid){
         var result = false;
 
-        for(var i = 0;i<mm.mix_match_child_sp_lst.length;i++){
-            if(mm.mix_match_child_sp_lst.product_id == pid){
+        for(var i = 0;i<mm.mix_match_child_set.length;i++){
+            if(mm.mix_match_child_set[i].store_product.product_id == pid){
                 result = true;
                 break;
             }
@@ -61,7 +61,7 @@ define(
         return b_lst;
     }
 
-    function get_posible_deal_from_lst(sp_distict_lst,mm_lst){
+    function get_posible_deal_from_lst(sp_distinct_lst,mm_lst){
         var result = [];
 
         for(var i = 0;i<sp_distinct_lst.length;i++){
@@ -79,7 +79,7 @@ define(
             var cur_ps = ps_lst[i];
             var associated_store_product = sp_util.get_item_based_on_doc_id(cur_ps.sp_doc_id,sp_distinct_lst);
 
-            for(j=0;j<cur_ps.qt;j++){
+            for(j=0;j<cur_ps.qty;j++){
                 var ds = new Displaying_scan(1/*qty*/,associated_store_product,cur_ps.price,cur_ps.discount,cur_ps.non_product_name);
                 result.push(ds);                
             }
@@ -89,31 +89,66 @@ define(
 
 
     function form_deal(ds_extract_lst,mm_deal){
-        var qty = 0;
+        var qty = 0;//this is the available qty in this ds_lst that we can use to form this deal. This mean no deal have been assigned to this item, and this item have to belong to this deal
 
         for(var i = 0;i<ds_extract_lst.length;i++){
             var cur_ds = ds_extract_lst[i];
             var cur_pid = (cur_ds.store_product == null ? null : cur_ds.store_product.product_id);
-            if(cur_pid != null && cur_ds.mix_match_deal_id == null && is_deal_contain_pid(mm_deal,cur_pid)){
+            if(cur_pid != null && cur_ds.mix_match_deal == null && is_deal_contain_pid(mm_deal,cur_pid)){
                 qty = qty + 1;
             }
         }
 
-        if(qty < mm_deal.qty){
+        var num_deal = Math.floor(qty / mm_deal.qty); //num_deal is the total of deal we can form. lets say the deal.qty = 3 and we have 7 item to for this deal. its mean that we can form 2 deals.
+        var mark_amount = num_deal * mm_deal.qty;
+
+        if(mark_amount == 0){
             return;
         }
 
-        for(var i = 0;i<ds_extract_lst.length;i++){
+        for(var i = 0;i<ds_extract_lst.length && mark_amount > 0;i++){
             var cur_ds = ds_extract_lst[i];
             var cur_pid = (cur_ds.store_product == null ? null : cur_ds.store_product.product_id);
-            if(cur_pid != null && cur_ds.mix_match_deal_id == null && is_deal_contain_pid(mm_deal,cur_pid)){
-                cur_ds.mix_match_deal_id = mm_deal.id;
-            }
+            if(cur_pid != null && cur_ds.mix_match_deal == null && is_deal_contain_pid(mm_deal,cur_pid)){
+                cur_ds.mix_match_deal = mm_deal;
+                mark_amount -= 1;
+            }            
         }
     }
 
-    function compute_ds(mm_lst,ps_lst,sp_distinct_lst,callback){
+    function compress(ds_lst){
+        var result = [];
 
+        for(var i = 0;i<ds_lst.length;i++){
+            if(i == 0){
+                result.push(ds_lst[0]);
+                continue;
+            }
+
+            var last_item = result[result.length-1];
+            var cur_item = ds_lst[i];
+
+            if(last_item.store_product == null || cur_item.store_product == null){
+                result.push(cur_item);
+                continue;
+            }            
+
+            if(
+                   last_item.store_product.product_id === cur_item.store_product.product_id
+                && last_item.price === cur_item.price
+                && last_item.discount === cur_item.discount
+                && last_item.mix_match_deal === cur_item.mix_match_deal
+            ){
+                last_item.qty += 1;
+            }else{
+                result.push(cur_item);
+            }
+        }
+
+        return result;
+    }
+
+    function compute_ds(mm_lst,ps_lst,sp_distinct_lst,callback){
         var possible_mm_lst = get_posible_deal_from_lst(sp_distinct_lst,mm_lst);
         var ds_extract_lst = get_ds_extract(ps_lst,sp_distinct_lst);
 

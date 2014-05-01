@@ -6,3 +6,17 @@ def expect_float(x):
     # else:
     #     return True
     pass
+
+
+def get_double_from_str(num_str):
+    """
+        if input is None, return None
+        if input is not valid float, raise exception
+        if input is valid, convert input to float and return
+    """
+    result = None
+
+    if len(num_str) != 0:
+        result = float(num_str) 
+
+    return result

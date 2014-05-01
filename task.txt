@@ -5,11 +5,18 @@
 ~. build a play ground for parakeet. how to engage with your paraket. time. 
 ~. foreman  run -e .env,test.env python manage.py test --failfast
 ~. kill pg connection to reset db
+~. lsof -i :8000
+----------------------------------------------------------------------------
+source lu/liquor_heroku/venv/bin/activate
+cd lu/liquor/liquor
+foreman start
 
+
+----------------------------------------------------------------------------
 SELECT pid, pg_terminate_backend(pid) 
 FROM pg_stat_activity 
 WHERE datname = current_database() AND pid <> pg_backend_pid();
-
+----------------------------------------------------------------------------
 (pwd:static_resource/js) 
     node ../../../r.js -o name=app/sale/sale out=app/sale/sale_min.js baseUrl=.
     node ../../../r.js -o name=app/product/product out=app/product/product_min.js baseUrl=.
@@ -18,7 +25,13 @@ WHERE datname = current_database() AND pid <> pg_backend_pid();
     node ../../../r.js -o name=app/mix_match/mix_match out=app/mix_match/mix_match_min.js baseUrl=.
 
 
-lsof -i :8000
+    node ../../../r.js -o name=app/sale/sale out=app/sale/sale_min.js baseUrl=. paths.jquery=empty: paths.jquery_ui=empty: paths.jquery_block_ui=empty: paths.jquery_hotkeys=lib/jquery/jquery.hotkeys
+
+
+
+
+http://stackoverflow.com/questions/13976022/is-there-a-way-to-highlight-all-the-special-accent-characters-in-sublime-text-or
+
 ----------------------------------------------------------------------------
 template
 
@@ -259,7 +272,7 @@ PRODUCT SEARCH ON SALE PAGE
 . write report_getter test (integration test): this test will verify that, receipt is filter correctly based on from_date and to_date
 . why there is a store id on sp in couch side? kill it
 . test receipt pusher liquor-staging message when internet is disconnected
-. include css with js
+. include css with js, and fall back
 . how to report script loading timeout, 
 . blocking ui at all possible spot
     . sale.scan.edit_product: it could take a long time to popup interface. block here.
@@ -271,7 +284,6 @@ PRODUCT SEARCH ON SALE PAGE
     . test sp creator prodStore_prodSku_1_0, prodStore_prodSku_0_0
 . why tax_rate is not included in the sale context param
 ---------------------
-. tax_rate should not be offline
 . shortcut button color
 . shortcut constrain: unique (store + position)
 . empty string for p_type, show up in report.
@@ -285,38 +297,45 @@ LOW PRIORITY
 
 ------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------------
 
-
-. i only have one product and i am not going to sell it again. I just want to sell it right out with the price,tax,description. Tiep call it non-inventory. it could have a barcode or not. 
+. load tiep data, with vendor
+. enter key on modal dialog
+. combine css
 . access previous receipt fast
 . local name search
 . kill alone discounter because tax purpose
-. upload sale data must create new sp right away
-------------------------
+. mix match : remove mm deal
+. no result prompt from product search (find out all spot)
+. buydown
+. make sure receipt in couch is not getting sync down again
+. clean up copy receipt from couch to master, no more create sp
+. update requirejs for product page loading cdn
+. internet disconnect, but when push again it said there is no sale data to push
+. move receipt out to its own app in master
+. mix match test: insert/update for client
+. delete sku test: can not delete sku when it belong to another store 
+. remove tax out of couch, and test tax. 
+. test couch acl, should we move this test into other app? i believe it would be receipt? since we can only insert receipt
+. product model test
+. store inserter test
+. receipt_document_validator_test
+. sp_getter_ajax_view: test this view
+. sp_updator in the server side: test this
+----------------------------------------------------------------------------------------
 
-. mix match scan
-    . remove mm deal
-    . record the mm deal in receipt
+. kit: is a product that is the exact grouping with other products. relation can help deal with qty. 
+    . have a barcode 
+    . track sale record, inventory
+    . example
+        . bud 15 can. pack of 3. 5 x 3 pack. pack of 3, case of 15, or unit. different price
+    . relation:
+        . a prompt to change sp for unit item
+            . share cost
+            . share crv
+        . not share price.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+. get buydown into ds and receipt.
 
 
 

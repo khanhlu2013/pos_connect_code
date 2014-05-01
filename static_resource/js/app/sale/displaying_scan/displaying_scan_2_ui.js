@@ -7,7 +7,6 @@ define(
         ,'lib/number/number'
         ,'app/sale/displaying_scan/displaying_scan_util'
         ,'app/sale/displaying_scan/displaying_scan_lst_and_tax_getter'
-        ,'app/store_product/sp_prompt'
         ,'app/store_product/sp_updator'
         ,'app/product/product_json_helper'
         ,'lib/error_lib'
@@ -21,7 +20,6 @@ define(
         ,number
         ,ds_util
         ,ds_lst_and_tax_getter
-        ,sp_prompt
         ,sp_updator
         ,product_json_helper
         ,error_lib
@@ -123,7 +121,19 @@ define(
             //CRV
             var crv = displaying_scan.get_crv();
             if(crv){
-                msg += 'crv: ' + crv + '\n'
+                msg += 'crv: ' + crv + '\n';
+            }
+
+            //BUYDOWN
+            var buydown = displaying_scan.get_buydown();
+            if(buydown){
+                msg += 'buydown discount: ' + buydown + '\n';
+            }
+
+            //BUYDOWN TAX
+            var buydown_tax = displaying_scan.get_buydown_tax(tax_rate);
+            if(buydown_tax){
+                msg += 'buydown tax: ' + buydown_tax + '\n';
             }
 
             //TAX

@@ -2,17 +2,9 @@
 
 {% block content %}
 
-
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.min.css" />
-    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.66.0-2013.10.09/jquery.blockUI.min.js"></script>
-
-
-
     <link rel="stylesheet" href="{{ STATIC_URL }}css/app/sale/sale.css">
-    <script data-main = "{{ STATIC_URL }}js/app/sale/sale_min.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script>
-
+    <script data-main = "{{ STATIC_URL }}js/app/sale/sale.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script>
 
     <script type="text/javascript">
         var STATIC_URL = "{{STATIC_URL}}"
@@ -32,7 +24,8 @@
             
             <input id="scan_text" onClick="this.select();"  placeholder="sku" autofocus>
             <!-- <input id="scan_text" onfocus="this.select();" onmouseup="return false;"  placeholder="sku" autofocus> -->
-            <button id="push_receipt_btn" type="push receipt">receipt pusher</button>
+            <button id="non_inventory_btn" type="button">non inventory</button>
+            <button id="push_receipt_btn" type="button">receipt pusher</button>
             <button id="void_btn" type="button">void</button>
             <button id="discount_button" type="button">discount</button>
             <button id="total_button" type="button">total</button>
@@ -70,11 +63,30 @@
         <label for="product_tag_txt">Tag:</label>
         <input type="text" id = "product_tag_txt">
         <br>
+        <label for="product_vendor_txt">Vendor:</label>
+        <input type="text" id = "product_vendor_txt">
+        <br>        
+        <label for="product_cost_txt">Cost:</label>
+        <input type="text" id = "product_cost_txt">
+        <br>      
+        <label for="product_buydown_txt">Buydown:</label>
+        <input type="text" id = "product_buydown_txt">
+        <br>                      
         <label for="product_sku_txt">Sku:</label>
         <input type="text" id = "product_sku_txt">
         <br>
         <input type="button" id = "sku_management_btn" value = 'manage sku'>
         <br>        
+    </div>
+
+
+    <div id="non_inventory_prompt_dialog">
+        <label for="non_inventory_price_txt">Price:</label>
+        <input type="text" id = "non_inventory_price_txt">
+        <br>
+        <label for="non_inventory_description_txt">Description:</label>
+        <input type="text" id = "non_inventory_description_txt" value='non inventory'>
+        <br>
     </div>
 
 {% endblock content %}

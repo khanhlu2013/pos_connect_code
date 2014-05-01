@@ -26,7 +26,7 @@ define(
         var result = get_result_from_ui();  
         var error_lst = mix_match_validator.validate(result);
         set_validation_indicator(error_lst);              
-        price = mm_util.calculate_total_price(result);
+        price = mm_util.calculate_total_price(result,TAX_RATE);
         $('#mix_match_total_price_txt').val(price);          
     }
 
@@ -43,7 +43,7 @@ define(
             callback(null/*error*/,result);    
         }else{
             set_validation_indicator(error_lst);
-            price = mm_util.calculate_total_price(result);
+            price = mm_util.calculate_total_price(result,TAX_RATE);
             $('#mix_match_total_price_txt').val(price);               
         }
     }
@@ -202,7 +202,7 @@ define(
         populate_mix_match_child_tbl();
 
         result = get_result_from_ui();
-        price = mm_util.calculate_total_price(result);
+        price = mm_util.calculate_total_price(result,TAX_RATE);
         $('#mix_match_total_price_txt').val(price);
         set_validation_indicator([]);
 

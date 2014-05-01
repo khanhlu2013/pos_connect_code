@@ -3,7 +3,6 @@ TRUE,721733000968,Patron 375 Anejo,15.92,21.99,0.00
 FALSE,sc508,$500 Frenzy $5,5.00,5.00,0.00
 FALSE,sc20a,$5Million Jackpot $20,20.00,20.00,0.00
 FALSE,sc503,"$75,000 Poker (851) $5",5.00,5.00,0.00
-TRUE,Non_Inventory,***** your description ******,0.00,999.00,0.00
 TRUE,group beer 05,000,0.00,4.99,0.00
 TRUE,851780002124,1.M.R 224g FruitPunch,26.96,35.99,0.00
 TRUE,851780002216,1.M.R 224g Lemon Lime,26.96,35.99,0.00

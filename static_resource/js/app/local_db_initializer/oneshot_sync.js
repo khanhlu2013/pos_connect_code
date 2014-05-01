@@ -18,16 +18,11 @@ define(
         var store_db_url = couch_db_util.get_db_url(couch_server_url,store_id)
 
         local_pouch.replicate.from(store_db_url,function(error,result){
-            local_pouch.compact(function(){
-                callback(error);
-            });
+            callback(error);
         });
     }
 
     return function (store_id,couch_server_url,callback){
-        /*
-            This is the starting point of sync process. we sync couch_db from the server to pouch_db on the browser
-        */
         var rep_store_db_b = rep_db.bind(rep_db,store_id,couch_server_url);
 
         async.waterfall([rep_store_db_b],function(error,result){

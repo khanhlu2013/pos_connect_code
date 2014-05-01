@@ -12,23 +12,37 @@ class test(WebTest):
 
     def sku_search_ajax_resultFoundInMyStore_test(self):
         """
-            Search result is found and exist in my store. No lookup_type_tag included in response
+            when search for sku, if result if found in our store, we don't include lookup type tag. this test verify that.
+            this test also verify the json response include all the sp field we need. 
         """
         #foreman  run -e .env,test.env python manage.py test test.store_product.sp_search_sku_test:test.sku_search_ajax_resultFoundInMyStore_test
 
         my_user,my_store = test_helper.create_user_then_store()
+        
+        name = 'product name'
+        price = 1.1
+        crv = 1.2
+        is_taxable = True
+        is_sale_report = False
+        p_type = 'type'
+        p_tag = 'tag'
         sku_str = '123'
-
+        cost = 1.3
+        vendor = 'pitco'
+        buydown = 1.4
         sp = new_sp_inserter.exe(
              store_id = my_store.id
-            ,name = 'my product name'
-            ,price = 1
-            ,crv = 1
-            ,is_taxable = True
-            ,is_sale_report = False
-            ,p_type = 'type'
-            ,p_tag = 'tag'
+            ,name = name
+            ,price = price
+            ,crv = crv
+            ,is_taxable = is_taxable
+            ,is_sale_report = is_sale_report
+            ,p_type = p_type
+            ,p_tag = p_tag
             ,sku_str = sku_str
+            ,cost = cost
+            ,vendor = vendor
+            ,buydown = buydown
         )
 
         res = self.app.get(
@@ -49,6 +63,16 @@ class test(WebTest):
         sp_json = sp_json_lst[0]
         self.assertEqual(sp_json['product_id'],sp.product.id)
         self.assertEqual(sp_json['store_id'],my_store.id)
+        self.assertEqual(sp_json['name'],name)
+        self.assertEqual(sp_json['price'],str(price))
+        self.assertEqual(sp_json['crv'],str(crv))
+        self.assertEqual(sp_json['is_taxable'],is_taxable)
+        self.assertEqual(sp_json['is_sale_report'],is_sale_report)
+        self.assertEqual(sp_json['p_type'],p_type)
+        self.assertEqual(sp_json['p_tag'],p_tag)
+        self.assertEqual(sp_json['cost'],str(cost))
+        self.assertEqual(sp_json['vendor'],vendor)        
+        self.assertEqual(sp_json['buydown'],str(buydown))
 
         #lookup type tag
         lookup_type_tag = res.json['lookup_type_tag']
@@ -73,7 +97,7 @@ class test(WebTest):
         type_2 = 'type_2'
         tag_2_a = 'tag_2_a'
 
-        sp = new_sp_inserter.exe(
+        new_sp_inserter.exe(
              store_id = my_store.id
             ,name = 'my product name 1'
             ,price = 1
@@ -83,9 +107,12 @@ class test(WebTest):
             ,p_type = type_1
             ,p_tag = tag_1_a
             ,sku_str = '1'
+            ,cost = None
+            ,vendor = None    
+            ,buydown = None        
         )
 
-        sp = new_sp_inserter.exe(
+        new_sp_inserter.exe(
              store_id = my_store.id
             ,name = 'my product name 1'
             ,price = 1
@@ -95,9 +122,12 @@ class test(WebTest):
             ,p_type = type_1
             ,p_tag = tag_1_b
             ,sku_str = '2'
+            ,cost = None
+            ,vendor = None 
+            ,buydown = None           
         )
 
-        sp = new_sp_inserter.exe(
+        new_sp_inserter.exe(
              store_id = my_store.id
             ,name = 'my product name 1'
             ,price = 1
@@ -107,6 +137,9 @@ class test(WebTest):
             ,p_type = type_2
             ,p_tag = tag_2_a
             ,sku_str = '3'
+            ,cost = None
+            ,vendor = None      
+            ,buydown = None      
         )
 
         #FIXTURE FOR RETURN SUGGEST PRODUCT
@@ -122,6 +155,9 @@ class test(WebTest):
             ,p_type = None
             ,p_tag = None
             ,sku_str = sku_str
+            ,cost = None
+            ,vendor = None     
+            ,buydown = None       
         )
 
         #MAKE REQUEST

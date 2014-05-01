@@ -1,102 +1,59 @@
-from django.views.generic import UpdateView
-from django.shortcuts import get_object_or_404
-from django.core.urlresolvers import reverse_lazy
-from django.forms import ModelForm
-from store_product.models import Store_product
-from store_product import update_store_product_cm,sp_serializer
+from store_product import sp_updator,sp_serializer,store_product_master_getter
 from django.http import HttpResponse
 import json
+from django.core.serializers.json import DjangoJSONEncoder
+from util import number,boolean
+
 
 def updator_ajax(request):
+    cur_login_store = request.session.get('cur_login_store')
+    
+    product_id_raw = request.POST['product_id']
+    name_raw = request.POST['name']
+    price_raw = request.POST['price']
+    crv_raw = request.POST['crv']
+    is_taxable_raw = request.POST['is_taxable']
+    is_sale_report_raw = request.POST['is_sale_report']
+    p_type_raw = request.POST['p_type']
+    p_tag_raw = request.POST['p_tag']
+    vendor_raw = request.POST['vendor']
+    cost_raw = request.POST['cost']
+    buydown_raw = request.POST['buydown']    
 
-    if all(key in request.POST for key in ('product_id','name','price','crv','is_taxable','is_sale_report','p_type','p_tag')):
-        cur_login_store = request.session.get('cur_login_store')
+    name = name_raw
+    price = number.get_double_from_str(price_raw)
+    crv = number.get_double_from_str(crv_raw)
+    is_taxable = boolean.get_boolean_from_str(is_taxable_raw)
+    is_sale_report = boolean.get_boolean_from_str(is_sale_report_raw)
+    p_type = p_type_raw
+    p_tag = p_tag_raw
+    vendor = vendor_raw
+    cost = number.get_double_from_str(cost_raw)
+    buydown = number.get_double_from_str(buydown_raw)
 
-        product_id_str = request.POST['product_id']
-        name = request.POST['name']
-        price_str = request.POST['price']
-        crv_str = request.POST['crv']
-        is_taxable_str = request.POST['is_taxable']
-        is_sale_report_str = request.POST['is_sale_report']
-        p_type_raw = request.POST['p_type']
-        p_tag_raw = request.POST['p_tag']
-        errmsg = ''
+    #verify data
+    if price == None or is_taxable == None or is_sale_report == None:
+        return
 
-        #validate
-        product_id = None
-        price = None
-        crv = None
-        is_taxable = None
-        is_sale_report = None
-        p_type = p_type_raw
-        p_tag = p_tag_raw
+    #verify sp belong to this store
+    sp = store_product_master_getter.get_item(product_id=product_id_raw,store_id=cur_login_store.id)
+    if sp == None:
+        return
 
-        #validate product_id
-        try:
-            product_id = int(product_id_str)
-        except ValueError:
-            errmsg += 'product id is not valid'
-
-        #validate name
-        if len(name) == 0:
-            errmsg += 'Name is emtpy\n'
-
-        #validate price
-        try:
-            price = float(price_str)
-            if price <=0:
-                errmsg += 'price is negative'
-        except ValueError:
-            errmsg += 'price is not valid'
-
-        #validate crv
-        if len(crv_str) != 0:
-            try:
-                crv = float(crv_str)
-                if crv < 0:
-                    errmsg += 'crv is negative'
-            except ValueError:
-                errmsg += 'crv is not valid'
-
-        #validate is_taxable
-        if is_taxable_str == 'true':
-            is_taxable = True
-        elif is_taxable_str == 'false':
-            is_taxable = False
-        else:
-            errmsg += 'taxable is not valid'
-
-        #validate is_sale_report
-        if is_sale_report_str == 'true':
-            is_sale_report = True
-        elif is_sale_report_str == 'false':
-            is_sale_report = False
-        else:
-            errmsg += 'is sale report is not valid'
-
-        product_serialized = None
-        if len(errmsg) == 0:
-            try:
-                sp = update_store_product_cm.exe( \
-                     product_id
-                    ,cur_login_store.id
-                    ,name
-                    ,price
-                    ,crv
-                    ,is_taxable
-                    ,is_sale_report
-                    ,p_type
-                    ,p_tag
-                )
-                product_serialized = sp_serializer.serialize_product_from_id(product_id=sp.product.id,store_id = cur_login_store.id,is_include_other_store = False)
-
-            except Exception,e:
-                errmsg = 'there is error updating product'
-                print(e)
-
-        return HttpResponse(json.dumps({'error_message':errmsg,'product':product_serialized}),mimetype='application/javascript')
-
-
-
-
-
+    sp_updator.exe( \
+         product_id = sp.product.id
+        ,store_id = cur_login_store.id
+        ,name = name
+        ,price = price
+        ,crv = crv
+        ,is_taxable = is_taxable
+        ,is_sale_report = is_sale_report
+        ,p_type = p_type
+        ,p_tag = p_tag
+        ,vendor = vendor
+        ,cost = cost
+        ,buydown = buydown
+    )
+    product_serialized = sp_serializer.serialize_product_from_id(product_id=sp.product.id,store_id = cur_login_store.id,is_include_other_store = False)     
+    
+    return HttpResponse(json.dumps(product_serialized,cls=DjangoJSONEncoder),content_type='application/json')

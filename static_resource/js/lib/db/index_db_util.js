@@ -24,6 +24,5 @@ define(
 
 	return{
 		 delete_item:delete_item
-
-	}
+ 	}
 });

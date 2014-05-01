@@ -2,6 +2,7 @@ from store_product import sp_serializer
 from sp_master_util import get_lookup_type_tag
 from django.http import HttpResponse
 import json
+from django.core.serializers.json import DjangoJSONEncoder
 
 def sp_getter_ajax_view(request):
     """
@@ -24,4 +25,4 @@ def sp_getter_ajax_view(request):
             if is_include_lookup_type_tag:
                 lookup_type_tag = get_lookup_type_tag(store_id)
 
-            return HttpResponse(json.dumps({'product':product_serialized,'lookup_type_tag':lookup_type_tag}),content_type='application/json')
+            return HttpResponse(json.dumps({'product':product_serialized,'lookup_type_tag':lookup_type_tag},cls=DjangoJSONEncoder),content_type='application/json')

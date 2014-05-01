@@ -44,25 +44,22 @@ define(
             
             //SP FIXTURE
             var pid = 1;
-            var name = 'product name';
-            var price = 3;
-            var crv = 1;
-            var is_taxable = true;
-            var is_sale_report = false;
-            var p_type = 'type'
-            var p_tag = 'tag'
+            var product_name = 'product name'
             var sku_str = '111';
 
             var fixture_inserter_b = sp_fixture_inserter.bind(sp_fixture_inserter
                 ,pid
-                ,name
-                ,price
-                ,crv
-                ,is_taxable
-                ,is_sale_report
-                ,p_type
-                ,p_tag
+                ,product_name
+                ,3//price
+                ,null//crv
+                ,true//is_taxable
+                ,true//is_sale_report
+                ,null//p_type
+                ,null//p_tag
                 ,sku_str
+                ,null//cost
+                ,null//vendor
+                ,null//buydown
                 ,store_pdb
             );            
 
@@ -76,13 +73,13 @@ define(
 
             //MIX MATCH FIXTURE
             var sp ={
-                 crv:crv
+                 crv:null
                 ,is_sale_report:true
                 ,is_taxable:true
-                ,name:name
-                ,p_type:p_type
-                ,p_tag:p_tag
-                ,price:price
+                ,name:product_name
+                ,p_type:null
+                ,p_tag:null
+                ,price:3
                 ,product_id:pid
                 ,store_id:1
             }

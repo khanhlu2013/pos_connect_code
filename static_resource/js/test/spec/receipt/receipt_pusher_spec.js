@@ -49,50 +49,40 @@ define(
         it('can push receipt',function(done){
             //INSERT NEW SP, expect this to be clean up later
             var new_sp_pid = null;
-            var new_sp_name = 'new product name';
-            var new_sp_price = 1;
-            var new_sp_crv = 1;
-            var new_sp_is_taxable = true;
-            var new_sp_is_sale_report = false;
-            var new_sp_p_type = 'new type'
-            var new_sp_p_tag = 'new tag'
             var new_sp_sku_str = '111';
 
             var new_sp_fixture_inserter_b = sp_fixture_inserter.bind(sp_fixture_inserter
                 ,new_sp_pid
-                ,new_sp_name
-                ,new_sp_price
-                ,new_sp_crv
-                ,new_sp_is_taxable
-                ,new_sp_is_sale_report
-                ,new_sp_p_type
-                ,new_sp_p_tag
+                ,'new product name'
+                ,1//price
+                ,null//crv
+                ,true//is_taxable
+                ,true//is_sale_report
+                ,null//type
+                ,null//tag
                 ,new_sp_sku_str
+                ,null//cost
+                ,null//vendor
+                ,null//buydown
                 ,store_pdb
             );
-            
 
             //INSERT OLD SP, expect this to be clean up later
             var old_sp_pid = 1;
-            var old_sp_name = 'product name';
-            var old_sp_price = 1;
-            var old_sp_crv = 1;
-            var old_sp_is_taxable = true;
-            var old_sp_is_sale_report = false;
-            var old_sp_p_type = 'type'
-            var old_sp_p_tag = 'tag'
             var old_sp_sku_str = '222';
-
             var old_sp_fixture_inserter_b = sp_fixture_inserter.bind(sp_fixture_inserter
                 ,old_sp_pid
-                ,old_sp_name
-                ,old_sp_price
-                ,old_sp_crv
-                ,old_sp_is_taxable
-                ,old_sp_is_sale_report
-                ,old_sp_p_type
-                ,old_sp_p_tag
+                ,'product name'
+                ,1//price
+                ,null//crv
+                ,true//is_taxable
+                ,true//is_sale_report
+                ,null//type
+                ,null//tag
                 ,old_sp_sku_str
+                ,null//cost
+                ,null//vendor
+                ,null//buydown
                 ,store_pdb
             );            
 

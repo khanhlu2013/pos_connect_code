@@ -10,7 +10,6 @@ define(
         ,'lib/db/db_util'
         ,'lib/object_store/get_os'
         ,'constance'
-        ,'app/store_product/Store_product'
         ,'lib/db/index_db_util'
 
     ],
@@ -26,7 +25,6 @@ define(
         ,db_util
         ,get_os
         ,constance
-        ,Store_product
         ,index_db_util
     )
 {
@@ -40,7 +38,7 @@ define(
             var offline_sp_lst = result;
             
             if(offline_sp_lst.length == 0){
-                callback(null);
+                callback(null,false);
                 return;
             }
 
@@ -50,7 +48,7 @@ define(
             }
 
             async.series(delete_func_lst,function(error,result){
-                callback(error);
+                callback(error,true);
             });
         });
     }
@@ -86,6 +84,26 @@ define(
         });
     }
 
+    function ask_server_to_create_sp(is_nessesary,callback){
+        if(!is_nessesary){
+            callback(null);
+            return;
+        }
+
+        $.ajax({
+             url : "/product/create_new_sp_for_receipt_ln"
+            ,type : "POST"
+            ,dataType : "json"
+            ,data : null
+            ,success: function(data,status_str,xhr){
+                callback(null,data);
+            }
+            ,error : function(xhr,status_str,err){
+                callback(xhr);
+            }
+        });
+    }
+
     function exe(store_idb,store_pdb,store_id,couch_server_url,callback){
 
         var receipt_lst_getter_b = receipt_lst_getter.bind(receipt_lst_getter,store_idb);
@@ -110,6 +128,7 @@ define(
                      sync_receipt_b
                     ,clean_up_sale_data_b
                     ,delete_local_create_sp_b
+                    ,ask_server_to_create_sp
                 ]
                 ,function(error,result){
                     callback(error,receipt_lst.length);

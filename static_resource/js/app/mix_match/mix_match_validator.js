@@ -23,7 +23,7 @@ define(
         var unit_discount = result.unit_discount;
         var mix_match_child_sp_lst = result.mix_match_child_sp_lst;
 
-        if(!name){
+        if(!name || name.trim().length == 0){
             error_lst.push(ERROR_MIX_MATCH_VALIDATION_NAME);
         }
 

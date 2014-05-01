@@ -3,18 +3,16 @@ requirejs.config({
     ,paths: {
          app : 'app'
         ,lib : 'lib'
-        // ,pouch_db : 'lib/db/pouchdb-2.0.1'
-        // // ,jquery : 'lib/jquery/jquery-1_10_2'
-        // // ,jquery_block_ui : 'lib/jquery/jquery_blockUI'
-        // // ,jquery_ui : 'lib/jquery/jquery-ui'
+        ,jquery: ['//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min', 'lib/jquery/jquery-1.11.0.min']
+        ,jquery_ui: ['//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min', 'lib/jquery/jquery-ui-1.10.4.min']
+        ,jquery_block_ui: ['//cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.66.0-2013.10.09/jquery.blockUI.min', 'lib/jquery/jquery.blockUI']
+        ,jquery_hotkeys : 'lib/jquery/jquery.hotkeys'
     }
-    // ,shim: {
-    //      'pouch_db': {
-    //         exports: 'Pouch_db'
-    //     }
-    //     // ,'jquery_block_ui': ['jquery']
-    //     // ,'jquery_ui' : ['jquery']
-    // }
+    ,shim: {
+         jquery_ui : ['jquery']
+        ,jquery_block_ui: ['jquery']
+        ,jquery_hotkeys: ['jquery']
+    }
 });
 
 require(
@@ -40,10 +38,12 @@ require(
         ,'app/sale/pending_scan/pending_scan_inserter'
         ,'app/sale/scan/sku_scan_not_found_handler'
         ,'lib/error_lib'
-
+        ,'app/sale/non_inventory/non_inventory_prompt'
         //-----------------
-        // ,'jquery_block_ui'
-        // ,'jquery_ui'
+        ,'jquery'
+        ,'jquery_block_ui'
+        ,'jquery_ui'
+        ,'jquery_hotkeys'
     ],
     function
     (
@@ -68,6 +68,7 @@ require(
         ,ps_inserter
         ,ssnf_handler
         ,error_lib
+        ,non_inventory_prompt
     )
     {
         //UI
@@ -76,6 +77,8 @@ require(
         var discount_button = document.getElementById("discount_button");
         var void_btn = document.getElementById("void_btn");
         var push_receipt_btn = document.getElementById("push_receipt_btn");
+        var non_inventory_btn = document.getElementById("non_inventory_btn");
+        var scan_textbox = document.getElementById('scan_text');
 
         //CREATE PRODUCT FORM
         var product_name_txt = document.getElementById("product_name_txt");
@@ -93,6 +96,33 @@ require(
         var MM_LST = MY_MM_LST;
         var CUR_SELECT_PARENT_SHORTCUT = 0;
         var shortcut_tbl = document.getElementById("shortcut_tbl");
+
+        function hook_non_inventory_btn_2_ui(){
+            function non_inventory_handler(){
+                async.waterfall([non_inventory_prompt.exe],function(error,result){
+                    if(error){
+                        error_lib.alert_error(error);
+                        return;
+                    }
+
+                    var amount = result.price;
+                    var inserting_ps = new Pending_scan(null/*key*/,1/*qty*/,amount,null/*discount*/,null/*sp_doc_id*/,result.description/*non_product_name*/);
+                    var ps_inserter_b = ps_inserter.bind(ps_inserter,STORE_IDB,inserting_ps);
+                    var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,MM_LST,STORE_IDB,STORE_PDB,table,STORE_ID,COUCH_SERVER_URL);
+
+                    async.waterfall([ps_inserter_b,ds_2_ui_b],function(error,result){
+                        if(error){
+                            error_lib.alert_error(error);
+                            return;
+                        }
+                    });                    
+                })
+            }
+            var ctrl_n = 'ctrl+n'
+            $(document).bind('keydown', ctrl_n, non_inventory_handler);
+            $('#scan_text').bind('keydown', ctrl_n, non_inventory_handler);
+            non_inventory_btn.addEventListener("click", non_inventory_handler);
+        }
 
         function hook_receipt_pusher_2_ui(){
             function exe(){
@@ -174,8 +204,7 @@ require(
 
         function hook_scanner_to_ui(){
             var ENTER_KEY = 13;
-            var scan_textbox = document.getElementById('scan_text');
-
+            
             function scan_text_enter_handler( event ) {
                 if (event.keyCode !== ENTER_KEY) {
                     return;      
@@ -330,6 +359,7 @@ require(
             hook_voider_2_ui();
             hook_receipt_pusher_2_ui();
             display_shortcut_table();
+            hook_non_inventory_btn_2_ui();
 
             //refresh ui
             var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,MM_LST,STORE_IDB,STORE_PDB,table,STORE_ID,COUCH_SERVER_URL);

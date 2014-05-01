@@ -8,6 +8,7 @@ from django.conf import settings
 import sale.urls
 import sale_shortcut.urls
 import tax.urls
+import group.urls
 import store_product.urls
 import mix_match.urls
 
@@ -32,6 +33,7 @@ urlpatterns = patterns('',
     url(r'^tax/',include(tax.urls,namespace='tax')),
     url(r'^product/',include(store_product.urls,namespace='store_product')),
     url(r'^mix_match/',include(mix_match.urls,namespace='mix_match')),
+    url(r'^group/',include(group.urls,namespace='group')),
 )
 
 handler500 = curry(server_error, template_name='500.html')

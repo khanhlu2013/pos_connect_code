@@ -31,9 +31,22 @@ define(
             ,"p_tag"            : $('#product_tag_txt').val()             
             ,"crv"              : $('#product_crv_txt').val()
             ,"sku_str"          : $('#product_sku_txt').val()   
+            ,"cost"             : $('#product_cost_txt').val()
+            ,"vendor"           : $('#product_vendor_txt').val()      
+            ,"buydown"          : $('#product_buydown_txt').val()   
         }
 
-        var error_lst = sp_validator.validate(result['name'],result['price'],result['crv'],result['is_taxable'],result['sku_str'],is_prompt_sku);
+        var error_lst = sp_validator.validate(
+             result['name']
+            ,result['price']
+            ,result['crv']
+            ,result['is_taxable']
+            ,result['sku_str']
+            ,is_prompt_sku
+            ,result['cost']
+            ,result['vendor']
+            ,result['buydown']            
+        );
         if(error_lst.length!=0){
             set_validation_indicator(error_lst)
             return;
@@ -48,22 +61,27 @@ define(
         $('#product_price_txt').removeClass("error");  
         $('#product_crv_txt').removeClass("error");  
         $('#product_sku_txt').removeClass("error");  
+        $('#product_cost_txt').removeClass("error");  
+        $('#product_buydown_txt').removeClass("error");  
 
         if(error_lst.indexOf(sp_validator.ERROR_STORE_PRODUCT_VALIDATION_NAME) != -1){
             $('#product_name_txt').addClass("error");  
         }
-
         if(error_lst.indexOf(sp_validator.ERROR_STORE_PRODUCT_VALIDATION_PRICE) != -1){
             $('#product_price_txt').addClass("error");  
         }
-
         if(error_lst.indexOf(sp_validator.ERROR_STORE_PRODUCT_VALIDATION_CRV) != -1){
             $('#product_crv_txt').addClass("error");  
         }
-
         if(error_lst.indexOf(sp_validator.ERROR_STORE_PRODUCT_VALIDATION_SKU) != -1){
             $('#product_sku_txt').addClass("error");  
         }
+        if(error_lst.indexOf(sp_validator.ERROR_STORE_PRODUCT_VALIDATION_COST) != -1){
+            $('#product_cost_txt').addClass("error");  
+        }
+        if(error_lst.indexOf(sp_validator.ERROR_STORE_PRODUCT_VALIDATION_BUYDOWN) != -1){
+            $('#product_buydown_txt').addClass("error");  
+        }                     
     }
 
     function helper_fill_form(
@@ -74,6 +92,9 @@ define(
         ,is_sale_report
         ,p_type
         ,p_tag
+        ,cost
+        ,vendor
+        ,buydown
     ){
         $('#product_name_txt').val(name);
         $('#product_price_txt').val(price);
@@ -81,7 +102,10 @@ define(
         $('#product_taxable_check').prop('checked', is_taxable);
         $('#product_sale_report_check').prop('checked', is_sale_report);
         $('#product_type_txt').val(p_type);
-        $('#product_tag_txt').val(p_tag);        
+        $('#product_tag_txt').val(p_tag);     
+        $('#product_cost_txt').val(cost);     
+        $('#product_vendor_txt').val(vendor);   
+        $('#product_buydown_txt').val(buydown);        
     }
 
     function populate_ui(
@@ -94,7 +118,10 @@ define(
         ,p_tag_prefill        
         ,sku_prefill
         ,is_prompt_sku
+        ,cost_prefill
+        ,vendor_prefill        
         ,is_sku_management
+        ,buydown_prefill
     ){
         if(is_sku_management){
             $('#sku_management_btn').show();
@@ -110,6 +137,9 @@ define(
             ,is_sale_report_prefill
             ,p_type_prefill
             ,p_tag_prefill
+            ,cost_prefill
+            ,vendor_prefill
+            ,buydown_prefill
         );
         set_validation_indicator([]);
         
@@ -136,6 +166,9 @@ define(
         ,p_tag_prefill        
         ,sku_prefill
         ,is_prompt_sku
+        ,cost
+        ,vendor     
+        ,buydown   
         ,lookup_type_tag
         ,is_sku_management
         ,suggest_product
@@ -167,7 +200,10 @@ define(
             ,p_tag_prefill
             ,sku_prefill
             ,is_prompt_sku
+            ,cost
+            ,vendor            
             ,is_sku_management
+            ,buydown
         );
 
         //auto complete for product type and tag

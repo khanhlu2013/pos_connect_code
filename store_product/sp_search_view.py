@@ -4,6 +4,7 @@ from product.models import Product
 import json
 from couch import couch_util
 from store_product import sp_master_util,sp_serializer
+from django.core.serializers.json import DjangoJSONEncoder
 
 class Search_view(TemplateView):
     template_name = 'store_product/product/product.html'
@@ -30,7 +31,7 @@ def Name_ajax(request):
                  'prod_lst' : sp_serializer.serialize_product_lst(prod_lst)
             }
 
-            return HttpResponse(json.dumps(data),content_type='application/json')
+            return HttpResponse(json.dumps(data,cls=DjangoJSONEncoder),content_type='application/json')
 
 
 def is_store_prod_sku_in_lst(prod_lst,store_id,sku_str):
@@ -64,5 +65,5 @@ def Sku_ajax(request):
                 ,'lookup_type_tag' : lookup_type_tag
             }
 
-            return HttpResponse(json.dumps(data),content_type='application/json')
+            return HttpResponse(json.dumps(data,cls=DjangoJSONEncoder),content_type='application/json')
         

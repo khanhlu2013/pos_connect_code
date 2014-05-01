@@ -2,13 +2,13 @@ define(
 [
      'lib/async'
     ,'app/mix_match/mix_match_validator'
-    ,'app/mix_match/mix_match_util'
+    ,'app/store_product/store_product_util'
 ]
 ,function
 (
      async
     ,mm_validator 
-    ,mm_util
+    ,sp_util
 )
 {
     var ERROR_MIX_MATCH_VALIDATION_FAIL = 'ERROR_MIX_MATCH_VALIDATION_FAIL';
@@ -20,7 +20,7 @@ define(
             return;
         }
         
-        var pid_comma_separated_lst_str = mm_util.get_comma_separated_pid_lst(result.mix_match_child_sp_lst);
+        var pid_comma_separated_lst_str = sp_util.get_comma_separated_pid_lst(result.mix_match_child_sp_lst);
 
         var data = {
              name:result.name

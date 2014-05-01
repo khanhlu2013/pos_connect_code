@@ -6,7 +6,8 @@ define(
     ,'app/sku/product_sku_online_deletor'
     ,'app/sku/product_sku_online_adder'
     ,'app/local_db_initializer/sync_if_nessesary'
-
+    ,'lib/error_lib'
+    ,'app/sku/sku_remove_clean_up_util'
 ]
 ,function
 (
@@ -16,7 +17,8 @@ define(
     ,prod_sku_del
     ,prod_sku_add
     ,sync_if_nessesary
-
+    ,error_lib
+    ,sku_remove_clean_up_util
 )
 {
     var STORE_ID = null;
@@ -48,6 +50,7 @@ define(
                         alert(error);
                     }else{
                         data_2_table(returned_product_json);
+                        sku_remove_clean_up_util.exe(prod_sku_assoc.product_id,prod_sku_assoc.sku_str);
                     }
                 })
             }
@@ -126,8 +129,13 @@ define(
 
             var add_sku_handler_b = add_sku_handler.bind(add_sku_handler,product_id);
             $('#add_sku_btn').off('click').click(add_sku_handler_b);
-
-            $('#sku_management_dialog').dialog({title:sp_json.name,buttons:[{text:'exit',click:function(){$('#sku_management_dialog').dialog('close');}}]});
+            $('#sku_management_dialog').dialog(
+                {
+                     title:sp_json.name
+                    ,buttons:[{text:'exit',click:function(){$('#sku_management_dialog').dialog('close');}}]
+                    ,modal:true
+                }
+            );
         });
     }
 

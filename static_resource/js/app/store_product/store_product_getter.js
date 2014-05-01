@@ -31,6 +31,9 @@ define(
             ,cursor.value.p_type
             ,cursor.value.p_tag
             ,cursor.value.sku_lst
+            ,cursor.value.cost
+            ,cursor.value.vendor
+            ,cursor.value.buydown
         );
         return store_product;
     }
@@ -166,6 +169,7 @@ define(
         ,by_product_id:by_product_id
         ,by_product_id_not_null:by_product_id_not_null
         ,by_product_id_is_null:by_product_id_is_null
+        ,_create_store_product_from_cursor:_create_store_product_from_cursor
     }
 });
 

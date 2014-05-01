@@ -7,6 +7,17 @@ from util.couch import master_account_util,old_security_4_test_purpose
 import json
 from couch import couch_util,couch_constance
 import requests
+from group.models import Group,Group_child
+from mix_match.models import Mix_match,Mix_match_child
+
+
+def josh_sum_function(lst):
+    result=0
+    for item in lst:
+        result=result+item
+        # print(result)
+
+    return result
 
 
 def p():
@@ -109,18 +120,17 @@ def import_json_data(data):
 
 
 def delete_data():
-    #delete master
-    print("delete product model..")
+    Group_child.objects.all().delete()
+    Group.objects.all().delete()
+    Mix_match_child.objects.all().delete()
+    Mix_match.objects.all().delete()    
     Product.objects.all().delete()
-    print("delete unit model..")
     Unit.objects.all().delete()
-    print("delete pro_sku_assoc model..")
     ProdSkuAssoc.objects.all().delete()
-    print("delete user..")
     User.objects.all().delete()
-    print("delete sku..")
     Sku.objects.all().delete()
-    
+
+
     #delete store on couch
     store_lst = list(Store.objects.all())
     for store in store_lst:

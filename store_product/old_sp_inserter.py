@@ -19,19 +19,25 @@ def exe(
     ,p_type 
     ,p_tag
     ,assoc_sku_str 
+    ,cost
+    ,vendor
+    ,buydown
 ):
 
     prod_bus_assoc = exe_master( \
-         product_id
-        ,store_id
-        ,name
-        ,price
-        ,crv
-        ,is_taxable
-        ,is_sale_report
-        ,assoc_sku_str
-        ,p_type
-        ,p_tag
+         product_id = product_id
+        ,store_id = store_id
+        ,name = name
+        ,price = price
+        ,crv = crv
+        ,is_taxable = is_taxable
+        ,is_sale_report = is_sale_report
+        ,p_type = p_type
+        ,p_tag = p_tag
+        ,assoc_sku_str = assoc_sku_str
+        ,cost = cost
+        ,vendor = vendor
+        ,buydown = buydown
     )
 
     sku_lst = [assoc_sku_str,]
@@ -47,6 +53,9 @@ def exe(
         ,p_type = p_type
         ,p_tag = p_tag
         ,sku_lst = sku_lst
+        ,cost = cost
+        ,vendor = vendor
+        ,buydown = buydown
     );
 
     return prod_bus_assoc
@@ -59,9 +68,12 @@ def exe_master(
     ,crv
     ,is_taxable
     ,is_sale_report
-    ,assoc_sku_str
     ,p_type
-    ,p_tag
+    ,p_tag    
+    ,assoc_sku_str
+    ,cost
+    ,vendor
+    ,buydown
 ):
 
     prod_bus_assoc = Store_product.objects.create( \
@@ -74,6 +86,9 @@ def exe_master(
         ,is_sale_report = is_sale_report 
         ,p_type = p_type
         ,p_tag = p_tag
+        ,cost = cost
+        ,vendor = vendor
+        ,buydown = buydown
     )
 
     prod_sku_assoc = ProdSkuAssoc.objects.get(product_id=product_id,sku__sku=assoc_sku_str)

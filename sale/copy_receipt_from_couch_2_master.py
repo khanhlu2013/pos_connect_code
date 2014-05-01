@@ -51,12 +51,16 @@ def insert_receipt_ln_to_master(receipt_couch_lst,receipt_id_c2mLookup,sp_id_c2m
             sp_is_taxable = None
             sp_p_type = None
             sp_p_tag = None
+            sp_cost = None
+            sp_buydown = None
 
             if sp_couch != None:
                 sp_master_id = sp_id_c2mLookup[sp_couch['_id']]
                 sp_is_taxable = sp_couch['is_taxable']
                 sp_p_type = sp_couch['p_type']
-                sp_p_tag = sp_couch['p_tag']                
+                sp_p_tag = sp_couch['p_tag']  
+                sp_cost = sp_couch['cost']   
+                sp_buydown = sp_couch['buydown']         
             else:
                 sp_is_taxable = False
 
@@ -76,6 +80,8 @@ def insert_receipt_ln_to_master(receipt_couch_lst,receipt_id_c2mLookup,sp_id_c2m
                 ,is_taxable = sp_is_taxable
                 ,p_type = sp_p_type
                 ,p_tag = sp_p_tag
+                ,cost = sp_cost
+                ,buydown = sp_buydown
             )
             receipt_ln_master_lst.append(receipt_ln_master)
 
@@ -149,7 +155,7 @@ def get_receipt_lst_from_master_based_on_receipt_couch_lst(receipt_couch_lst):
 def create_new_sp(sp_couch_lst,store_id):
     """
         the param list provided is a list of sp that is created offline. 
-        create sp for master since couch already have this data then update couch pid for the created pid from master. 
+        create sp for couch and master using sp_inserter. NOTICE that sp is not exist in couch. it is only exist inside couch.receipt_ln which later will be remove.
         return lookup for sp_id between couch and master
     """
     result = {}
@@ -171,6 +177,9 @@ def create_new_sp(sp_couch_lst,store_id):
             ,p_type = sp_couch['p_type']
             ,p_tag = sp_couch['p_tag']
             ,sku_str = sp_couch['sku_lst'][0]
+            ,cost = sp_couch['cost']
+            ,vendor = sp_couch['vendor']
+            ,buydown = sp_couch['buydown']
         )
         result[sp_couch['_id']] = sp_master.id
 

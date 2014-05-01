@@ -25,6 +25,8 @@ class Receipt_ln(models.Model):
     is_taxable = models.BooleanField()
     p_type = models.CharField(blank=True,null=True,max_length=100)
     p_tag = models.CharField(blank=True,null=True,max_length=100)
+    cost = models.DecimalField(max_digits=6, decimal_places=2,blank=True,null=True)
+    buydown = models.DecimalField(max_digits=6, decimal_places=2,blank=True,null=True)
 
     def get_total_out_the_door_price(self):
         discount = self.discount if self.discount!=None else decimal.Decimal(0.0)
@@ -32,4 +34,4 @@ class Receipt_ln(models.Model):
 
         crv = self.crv if self.crv!=None else decimal.Decimal('0.0')  
         
-        return (self.price - discount -discount_mm_deal + crv) * self.qty
+        return (self.price - discount - discount_mm_deal + crv) * self.qty

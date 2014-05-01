@@ -17,5 +17,4 @@ def exe(collect_amount,ds_lst,tax_rate,time_stamp,store_id,api_key_name,api_key_
 
     db = couch_util.get_store_db_use_store_account(store_id,api_key_name,api_key_pwrd)
     doc.store(db)
-
-
+    return doc

@@ -12,10 +12,15 @@ def exe(
     ,p_type
     ,p_tag
     ,sku_lst
+    ,cost
+    ,vendor
+    ,buydown
 ):
     store_product_document = Store_product_document(
 
-         d_type = couch_constance.STORE_PRODUCT_DOCUMENT_TYPE
+         store_id = store_id
+        ,product_id  = product_id
+        ,d_type = couch_constance.STORE_PRODUCT_DOCUMENT_TYPE
         ,name = name
         ,price = couch_util.decimal_2_str(price)
         ,crv = couch_util.decimal_2_str(crv)
@@ -24,8 +29,9 @@ def exe(
         ,p_type = p_type
         ,p_tag = p_tag
         ,sku_lst = sku_lst
-        ,store_id = store_id
-        ,product_id  = product_id
+        ,cost = couch_util.decimal_2_str(cost)
+        ,vendor = vendor
+        ,buydown = couch_util.decimal_2_str(buydown)
     )
 
     db = couch_util.get_store_db(store_id)

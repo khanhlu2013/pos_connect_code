@@ -27,16 +27,22 @@ class test(WebTest):
             ,p_type = None
             ,p_tag = None
             ,sku_str = '1'
+            ,cost = None
+            ,vendor = None
+            ,buydown = None
         )
 
         #FIXTURE TO CREATE PRODUCT WITH SAME NAME FOR MY STORE THAT WILL BE INCLUDED IN MY STORE SEARCH
         my_user,my_store = test_helper.create_user_then_store()
-        my_price = 1
-        my_crv = 1
+        my_price = 1.1
+        my_crv = 1.2
         my_is_taxable = False
         my_is_sale_report = False
         my_p_type = 'type'
         my_p_tag = 'tag'
+        my_cost = 1.3
+        my_vendor = 'pitco'
+        my_buydown = 1.4
         my_sp = new_sp_inserter.exe(
              store_id = my_store.id
             ,name = product_name
@@ -47,6 +53,9 @@ class test(WebTest):
             ,p_type = my_p_type
             ,p_tag = my_p_tag
             ,sku_str = '2'
+            ,cost = my_cost
+            ,vendor = my_vendor
+            ,buydown = my_buydown
         )
 
         #MAKE REQUEST TO SEARCH
@@ -69,6 +78,20 @@ class test(WebTest):
         sp_json = sp_json_lst[0]
         self.assertEqual(sp_json['product_id'],my_sp.product.id)
         self.assertEqual(sp_json['store_id'],my_store.id)
+        self.assertEqual(sp_json['name'],product_name)
+        self.assertEqual(sp_json['price'],str(my_price))
+        self.assertEqual(sp_json['crv'],str(my_crv))
+        self.assertEqual(sp_json['is_taxable'],my_is_taxable)
+        self.assertEqual(sp_json['is_sale_report'],my_is_sale_report)
+        self.assertEqual(sp_json['p_type'],my_p_type)
+        self.assertEqual(sp_json['p_tag'],my_p_tag)
+        self.assertEqual(sp_json['cost'],str(my_cost))
+        self.assertEqual(sp_json['vendor'],my_vendor)      
+        self.assertEqual(sp_json['buydown'],str(my_buydown))
 
         #lookup type tag
-        self.assertFalse('lookup_type_tag' in res.json)
+        self.assertTrue('lookup_type_tag' not in res.json)
+
+
+
+

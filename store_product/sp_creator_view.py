@@ -3,7 +3,9 @@ from django.http import HttpResponse
 from store_product import sp_serializer
 from product.models import Product
 from decimal import Decimal
+from django.core.serializers.json import DjangoJSONEncoder
 import json
+
 
 def sp_creator_ajax_view(request):
     print(request.POST)
@@ -16,7 +18,10 @@ def sp_creator_ajax_view(request):
         and request.POST.has_key('is_sale_report') \
         and request.POST.has_key('sku_str') \
         and request.POST.has_key('p_type') \
-        and request.POST.has_key('p_tag'):
+        and request.POST.has_key('p_tag') \
+        and request.POST.has_key('cost') \
+        and request.POST.has_key('vendor')\
+        and request.POST.has_key('buydown'):
 
         product_id_raw      = request.POST['product_id']
         name_raw            = request.POST['name'] 
@@ -27,7 +32,9 @@ def sp_creator_ajax_view(request):
         sku_str_raw         = request.POST['sku_str']
         p_type_raw          = request.POST['p_type']
         p_tag_raw           = request.POST['p_tag']
-
+        cost_raw            = request.POST['cost']
+        vendor_raw          = request.POST['vendor']
+        buydown_raw         = request.POST['buydown']
 
         product_id      = int(product_id_raw) if len(product_id_raw.strip()) != 0 else None
         name            = name_raw
@@ -38,7 +45,9 @@ def sp_creator_ajax_view(request):
         sku_str         = sku_str_raw
         p_type          = p_type_raw.strip() if len(p_type_raw.strip()) !=0 else None
         p_tag           = p_tag_raw.strip() if len(p_tag_raw.strip()) !=0 else None
-
+        cost            = Decimal(cost_raw) if len(cost_raw.strip()) !=0 else None 
+        vendor          = vendor_raw
+        buydown         = Decimal(buydown_raw) if len(buydown_raw.strip()) !=0 else None 
 
         sp = None
         cur_login_store = request.session
@@ -46,17 +55,19 @@ def sp_creator_ajax_view(request):
 
         if product_id:
             sp = old_sp_inserter.exe (
-                 product_id
-                ,store_id
-
-                ,name
-                ,price
-                ,crv
-                ,is_taxable
-                ,is_sale_report
-                ,p_type
-                ,p_tag
-                ,sku_str
+                 product_id = product_id
+                ,store_id = store_id
+                ,name = name
+                ,price = price
+                ,crv = crv
+                ,is_taxable = is_taxable
+                ,is_sale_report = is_sale_report
+                ,p_type = p_type
+                ,p_tag = p_tag
+                ,assoc_sku_str = sku_str
+                ,cost = cost
+                ,vendor = vendor
+                ,buydown = buydown
             )
         else:
             sp = new_sp_inserter.exe (
@@ -70,10 +81,13 @@ def sp_creator_ajax_view(request):
                 ,p_type = p_type
                 ,p_tag = p_tag
                 ,sku_str = sku_str
+                ,cost = cost
+                ,vendor = vendor
+                ,buydown = buydown
             )
 
         if sp != None:
             product_serialized = sp_serializer.serialize_product_from_id(product_id = sp.product.id,store_id=store_id,is_include_other_store = False)
-            return HttpResponse(json.dumps(product_serialized),content_type='application/json')
+            return HttpResponse(json.dumps(product_serialized,cls=DjangoJSONEncoder),content_type='application/json')
 
 

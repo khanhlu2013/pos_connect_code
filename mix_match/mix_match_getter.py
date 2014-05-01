@@ -7,4 +7,4 @@ def get_mix_match_lst(store_id):
 
 
 def get_mix_match_item(id):
-	return Mix_match.objects.prefetch_related('mix_match_child_set').get(pk=id)
+    return Mix_match.objects.prefetch_related('mix_match_child_set').get(pk=id)

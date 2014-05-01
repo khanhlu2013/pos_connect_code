@@ -1,0 +1,70 @@
+{% extends 'base_regular_user.html' %}
+
+{% block content %}
+    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.min.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/app/group/group.css">
+    
+    <script data-main = "{{ STATIC_URL }}js/app/group/group.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script>
+
+    <h2>group</h2>
+    <input type='button' id='add_group_btn' value='add'>
+    <table id='group_tbl' border='1'></table>
+
+    <script>
+        var STATIC_URL = "{{STATIC_URL}}"
+        var MY_GROUP_LST = {{group_lst|safe}};
+    </script>
+
+
+    <div id="product_search_dlg" title "search product">
+        <label for='product_search_txt'>search</label>
+        <input type='text' id = 'product_search_txt'>
+        <table id='product_search_tbl' border='1'></table>
+    </div>
+
+
+    <div id="group_prompt_dlg">
+        <label for="group_name_txt">name:</label>
+        <input type="text" id = "group_name_txt">
+        <br>
+        <br>
+        <label for="group_child_tbl"></label>
+        <input type='button' id = 'group_add_child_btn' value='add'>
+        <table id='group_child_tbl' border='1'></table>
+        <br>
+    </div>
+
+
+    <div id="group_action_prompt_dialog">
+        <label for="group_action_price_txt">Price:</label>
+        <input type="text" id = "group_action_price_txt">
+        <br>
+        <label for="group_action_crv_txt">Crv:</label>
+        <input type="text" id = "group_action_crv_txt">
+        <br>
+        <label for="group_action_is_taxable_txt">Taxable:</label>
+        <input type="text" id = "group_action_is_taxable_txt">
+        <label>type 'true' or 'false'</label>
+        <br>
+        <label for="group_action_is_sale_report_txt">Sale report:</label>
+        <input type="text" id = "group_action_is_sale_report_txt">
+        <label>type 'true' or 'false'</label>
+        <br>
+        <label for="group_action_p_type_txt">Type:</label>
+        <input type="text" id = "group_action_p_type_txt">
+        <br>
+        <label for="group_action_p_tag_txt">Tag:</label>
+        <input type="text" id = "group_action_p_tag_txt">
+        <br>
+        <label for="group_action_vendor_txt">Vendor:</label>
+        <input type="text" id = "group_action_vendor_txt">
+        <br> 
+        <label for="group_action_cost_txt">Cost:</label>
+        <input type="text" id = "group_action_cost_txt">
+        <br>      
+        <label for="group_action_buydown_txt">Buydown:</label>
+        <input type="text" id = "group_action_buydown_txt">
+        <br>          
+ </div>
+
+{% endblock content %}

@@ -12,12 +12,14 @@ define(
      'lib/async'
     ,'app/store_product/sp_online_searcher'
     ,'app/product/product_json_helper'
+    ,'lib/error_lib'
 ]
 ,function
 (
      async
     ,sp_online_searcher
     ,product_json_helper
+    ,error_lib
 )
 {
     var ERROR_CANCEL_product_search_exit_button_press = 'ERROR_CANCEL_product_search_exit_button_press'

@@ -1,7 +1,7 @@
 from django_webtest import WebTest
 from helper import test_helper
 from store_product import new_sp_inserter
-from sale.sale_couch.receipt import receipt_inserter_for_test_purpose,receipt_lst_couch_getter,receipt_ln_creator_for_test_purpose
+from sale.sale_couch.receipt import receipt_inserter_for_test_purpose,receipt_lst_couch_getter,receipt_ln_constructor_for_test_purpose
 from store_product.sp_couch import store_product_couch_getter
 from store_product.sp_couch.document import Store_product_document
 from sale.receipt import receipt_lst_master_getter
@@ -45,13 +45,14 @@ class test(WebTest):
 
         #-use new_sp_inserter to insert to master and couch a sp
         name = 'product name'
-        price = 1
-        crv = 1
+        price = 1.1             #we don't care about this price since we use override price in receipt_ln
+        crv = 1.2               #we care about this since we use this sp info for stamping
         is_taxable = True
-        is_sale_report = True
-        p_type = 'type'
-        p_tag = 'tag'
-        sku_str = '123'
+        is_sale_report = True   
+        p_type = 'type'         #we care about this since we use this sp info for stamping
+        p_tag = 'tag'           #we care about this since we use this sp info for stamping
+        cost = 1.3              #we care about this since we use this sp info for stamping
+        buydown = 1.4           #we care about this since we use this sp info for stamping
 
         sp_master = new_sp_inserter.exe(
              store_id = store.id            
@@ -62,7 +63,10 @@ class test(WebTest):
             ,is_sale_report = is_sale_report
             ,p_type = p_type
             ,p_tag = p_tag
-            ,sku_str = sku_str
+            ,sku_str = '111'
+            ,cost = cost
+            ,vendor = None
+            ,buydown = buydown
         )    
 
         #-use this sp to insert into couch a receipt with only 1 line
@@ -71,12 +75,17 @@ class test(WebTest):
         ln_1_price = 1.1
         ln_1_discount = 1.2
         ln_1_non_product_name = None
-        ln_1 = receipt_ln_creator_for_test_purpose.exe(
+        ln_1_cost = 1.3
+        ln_1_mm_deal = None
+        ln_1 = receipt_ln_constructor_for_test_purpose.exe(
              qty = ln_1_qty
             ,price = ln_1_price
             ,discount = ln_1_discount
             ,store_product = ln_1_sp
-            ,non_product_name = ln_1_non_product_name)
+            ,non_product_name = ln_1_non_product_name
+            ,cost = ln_1_cost
+            ,mix_match_deal = ln_1_mm_deal
+        )
 
         collect_amount = 1
         ds_lst = [ln_1,]
@@ -128,109 +137,6 @@ class test(WebTest):
         self.assertEqual(receipt_ln.is_taxable,is_taxable)
         self.assertEqual(receipt_ln.p_type,p_type)
         self.assertEqual(receipt_ln.p_tag,p_tag)
-
-
-    def can_create_offlineCreatedStoreProduct(self):
-        """
-            INTRO
-                copy_receipt_from_couch_2_master responsible to "re-create" created-offline-store-product. This test verify that
-
-            FIXTURE
-                create a sp couch document with null pid in memory. 
-                use that sp document to create a receip_ln document - also in memory
-                use that receipt_ln document to insert into couch a receipt  
-                run copy_receipt_from_couch_2_master
-            
-            RUN TEST CODE    
-            
-            ASSERT
-                get the supposed-to-be-created-sp from receipt.receipt_ln.sp in master
-                verify sp data
-                verify sku data for sp.product.sku            
-
-
-        """
-        #foreman  run -e .env,test.env python manage.py test test.sale.copy_receipt_from_couch_2_master_test:test.can_create_offlineCreatedStoreProduct
-
-        #-CREATE USER AND STORE
-        user,store = test_helper.create_user_then_store()
-
-        #-FIXTURE
-
-        #-create a sp couch document with null pid in memory. 
-        name = 'product name'
-        price = 1
-        crv = 1
-        is_taxable = True
-        is_sale_report = True
-        p_type = 'type'
-        p_tag = 'tag'
-        sku_str = '123'
-
-        store_product_document = {
-             '_id' : 1234 # a dummy sp._id that we pretent pouchdb created. we don't care because we delete offline create sp, and create it online to sync down again
-            ,'d_type' : couch_constance.STORE_PRODUCT_DOCUMENT_TYPE
-            ,'name' : name
-            ,'price' : price
-            ,'crv' : crv
-            ,'is_taxable' : is_taxable
-            ,'is_sale_report' : is_sale_report
-            ,'p_type' : p_type
-            ,'p_tag' : p_tag
-            ,'sku_lst' : [sku_str,]
-            ,'store_id' : store.id
-            ,'product_id'  : None
-        }
-
-        #-use that sp document to create a receip_ln document - also in memory
-        ln_1_sp = store_product_document
-        ln_1_qty = 1
-        ln_1_price = 1.1
-        ln_1_discount = 1.2
-        ln_1_non_product_name = None
-        ln_1 = receipt_ln_creator_for_test_purpose.exe(ln_1_qty,ln_1_price,ln_1_discount,ln_1_sp,ln_1_non_product_name)
-
-        #-use that receipt_ln document to insert into couch a receipt  
-        collect_amount = 1
-        ds_lst = [ln_1,]
-        tax_rate = 1
-        time_stamp = 1
-
-        receipt_inserter_for_test_purpose.exe(
-             collect_amount = collect_amount
-            ,ds_lst = ds_lst
-            ,tax_rate = tax_rate
-            ,time_stamp = time_stamp
-            ,store_id = store.id
-            ,api_key_name = store.api_key_name
-            ,api_key_pwrd = store.api_key_pwrd
-        )   
-
-
-        #-RUN TEST CODE
-        copy_receipt_from_couch_2_master.exe(store.id)
-
-        #-GETTING THE 'SUPPOSED CREATED SP' FROM RECEIPT 
-        receipt_master_lst = receipt_lst_master_getter.exe(store.id)
-        self.assertEqual(len(receipt_master_lst),1)
-        receipt = receipt_master_lst[0]
-        receipt_ln_lst = receipt.receipt_ln_set.all()
-        self.assertEqual(len(receipt_ln_lst),1)
-        receipt_ln = receipt_ln_lst[0]
-        sp_master = receipt_ln.store_product
-
-        #VERIFY SP INFO
-        self.assertEqual(sp_master.name,name)
-        self.assertEqual(sp_master.price,Decimal(str(price)))
-        self.assertEqual(sp_master.crv,Decimal(str(crv)))
-        self.assertEqual(sp_master.is_taxable,is_taxable)
-        self.assertEqual(sp_master.is_sale_report,is_sale_report)
-        self.assertEqual(sp_master.p_type,p_type)
-        self.assertEqual(sp_master.p_tag,p_tag)
-
-        #VERIFY SKU INFO
-        sku_lst = sp_master.product.sku_set.all()
-        self.assertEqual(len(sku_lst),1)
-        self.assertEqual(sku_lst[0].sku,sku_str)
-
+        self.assertEqual(receipt_ln.cost,cost)
+        self.assertEqual(receipt_ln.buydown,buydown)
 

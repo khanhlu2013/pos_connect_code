@@ -3,7 +3,6 @@ define(
 		 'lib/async'
 		,'app/store_product/sp_prompt'
 		,'app/local_db_initializer/sync_if_nessesary'
-		,'app/store_product/sp_online_creator'
 		,'app/product/product_json_helper'
 		,'app/sku/product_sku_online_adder'
 
@@ -13,7 +12,6 @@ define(
 		 async
 		,sp_prompt
 		,sync_if_nessesary
-		,sp_online_creator
 		,product_json_helper
 		,sku_adder
 	)
@@ -22,22 +20,33 @@ define(
    	
    	function _create(product_id,prompt_result,callback){
 
-		var creator_b = sp_online_creator.bind 
-		(
-			 sp_online_creator
-	        ,product_id
-	        ,prompt_result.name
-	        ,prompt_result.price
-	        ,prompt_result.crv
-	        ,prompt_result.is_taxable
-	        ,prompt_result.is_sale_report
-	        ,prompt_result.sku_str
-	        ,prompt_result.p_type
-	        ,prompt_result.p_tag
-		);
-		async.waterfall([creator_b],function(error,result){
-			callback(error,result);
-		});
+        var data = {
+             product_id : product_id
+            ,name : prompt_result.name
+            ,price : prompt_result.price
+            ,crv : prompt_result.crv
+            ,is_taxable : prompt_result.is_taxable
+            ,is_sale_report : prompt_result.is_sale_report
+            ,sku_str : prompt_result.sku_str
+            ,p_type : prompt_result.p_type
+            ,p_tag : prompt_result.p_tag
+            ,cost: prompt_result.cost
+            ,vendor: prompt_result.vendor
+            ,buydown: prompt_result.buydown
+        }
+
+        $.ajax({
+             url:'/product/sp_creator'
+            ,method: "POST" 
+            ,data : data
+            ,dataType:'json'
+            ,success:function(data,status_str,xhr){
+                callback(null/*error*/,data);
+            }
+            ,error:function(xhr,status_str,err){
+                callback(xhr);
+            }
+        });
  	}
 
     function exit_btn_handler(callback){
@@ -113,6 +122,7 @@ define(
 				{
 					 title:'create new product or select option'
 					,buttons:[{ text:'cancel',click:exit_btn_handler_b }] 
+					,modal:true
 				}
 			); 		
  		}
@@ -159,6 +169,9 @@ define(
 						,null//p_tag
 						,sku_str//sku_str
 						,true//is_prompt_sku
+						,null//cost
+						,null//vendor
+						,null//buydown
 						,lookup_type_tag
 						,false//is_sku_management
 						,selected_product

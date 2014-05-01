@@ -14,7 +14,9 @@ class Store_product(models.Model):
     is_sale_report = models.BooleanField(default=True)
     p_type = models.CharField(blank=True,null=True,max_length=100)
     p_tag = models.CharField(blank=True,null=True,max_length=100)
-
+    cost = models.DecimalField(max_digits=6, decimal_places=2,blank=True,null=True)
+    vendor = models.CharField(blank=True,null=True,max_length=100)
+    buydown = models.DecimalField(max_digits=6, decimal_places=2,blank=True,null=True)
 
     class Meta:
         unique_together = ("product","store")
@@ -27,8 +29,3 @@ class Store_product(models.Model):
         if not self.name:
             raise ValidationError("Please provide product's name")
 
-    def get_price_str(self):
-        return couch_util.decimal_2_str(self.price)
-
-    def get_crv_str(self):
-        return couch_util.decimal_2_str(self.crv)

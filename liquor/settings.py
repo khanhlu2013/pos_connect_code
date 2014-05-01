@@ -59,6 +59,8 @@ INSTALLED_APPS = (
     ,'sale_shortcut'
     ,'mix_match'
     ,'import_data'
+    ,'receipt'
+    ,'group'
 )
 
 DEBUG = os.environ.get('DEBUG')

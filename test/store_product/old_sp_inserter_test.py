@@ -4,6 +4,7 @@ from store_product.models import Store_product
 from store_product.sp_couch import store_product_couch_getter
 from model_mommy import mommy
 from helper import test_helper
+from decimal import Decimal
 
 class test(WebTest):
 
@@ -27,25 +28,30 @@ class test(WebTest):
         x_store_product = new_sp_inserter.exe(
              store_id = x_store.id            
             ,name = "x"
-            ,price = None
+            ,price = 1
             ,crv = None
             ,is_taxable = False
             ,is_sale_report = False
             ,p_type = None
             ,p_tag = None
             ,sku_str = sku_str
+            ,cost = None
+            ,vendor = None
+            ,buydown = None
         )
         
         #.insert that same product to my_store, use default approve_frequency = 2
         my_user,my_store = test_helper.create_user_then_store()
         name = 'my product name'
-        price = 1
-        crv = 1
+        price = 1.1
+        crv = 1.2
         is_taxable = True
         is_sale_report = True
         p_type = 'type'
         p_tag = 'tag'
-
+        cost = 1.3
+        vendor = 'pitco'
+        buydown =1.4
         old_sp_inserter.exe (
              product_id = x_store_product.product.id
             ,store_id = my_store.id
@@ -57,6 +63,9 @@ class test(WebTest):
             ,p_type = p_type
             ,p_tag = p_tag
             ,assoc_sku_str = sku_str
+            ,cost = cost
+            ,vendor = vendor   
+            ,buydown = buydown         
         )
 
 
@@ -64,14 +73,17 @@ class test(WebTest):
         my_store_product = Store_product.objects.get(product_id=x_store_product.product.id,store_id=my_store.id)
         self.assertTrue(my_store_product!=None)
         self.assertEqual(my_store_product.name,name)
-        self.assertEqual(my_store_product.price,price)
-        self.assertEqual(my_store_product.crv,crv)
+        self.assertEqual(my_store_product.price,Decimal(str(price)))
+        self.assertEqual(my_store_product.crv,Decimal(str(crv)))
         self.assertEqual(my_store_product.is_taxable,is_taxable)
         self.assertEqual(my_store_product.is_sale_report,is_sale_report)
         self.assertEqual(my_store_product.p_type,p_type)
         self.assertEqual(my_store_product.p_tag,p_tag)
-        self.assertEqual(len(my_store_product.product.sku_lst.all()),1)
-        self.assertEqual(my_store_product.product.sku_lst.all()[0].sku,sku_str)
+        self.assertEqual(len(my_store_product.product.sku_set.all()),1)
+        self.assertEqual(my_store_product.product.sku_set.all()[0].sku,sku_str)
+        self.assertEqual(my_store_product.cost,Decimal(str(cost)))
+        self.assertEqual(my_store_product.vendor,vendor)
+        self.assertEqual(my_store_product.buydown,Decimal(str(buydown)))
 
         #.verify my_store_product in couch.store_product
         my_store_product_couch = store_product_couch_getter.exe(x_store_product.product.id,my_store.id)
@@ -88,7 +100,8 @@ class test(WebTest):
         sku_lst = my_store_product_couch['sku_lst']
         self.assertEqual(len(sku_lst),1)
         self.assertTrue(sku_str in sku_lst)
-
-
+        self.assertEqual(my_store_product_couch['cost'],str(cost))
+        self.assertEqual(my_store_product_couch['vendor'],vendor)    
+        self.assertEqual(my_store_product_couch['buydown'],str(buydown))        
 
 

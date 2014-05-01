@@ -1,16 +1,8 @@
 from mix_match.models import Mix_match,Mix_match_child
 from rest_framework import serializers,fields
 from store_product.models import Store_product
+from store_product.sp_serializer import Store_product_serializer
 
-class Store_product_serializer(serializers.ModelSerializer):
-    price = serializers.Field(source='get_price_str')
-    crv = serializers.Field(source='get_crv_str')
-    product_id = serializers.Field(source='product.id')
-    store_id = serializers.Field(source='store.id')
-
-    class Meta:
-        model = Store_product
-        fields = ('product_id','store_id','name','p_type','p_tag','price','is_taxable','is_sale_report','crv')
 
 
 class Mix_match_child_serializer(serializers.ModelSerializer):

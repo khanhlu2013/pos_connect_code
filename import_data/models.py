@@ -4,11 +4,13 @@ import csv
 
 class Tiep_data(models.Model):
     name = models.CharField(max_length=100)
-    sku = models.CharField(max_length=100)
+    sku = models.CharField(max_length=100,unique=True)
     cost = models.DecimalField(max_digits=6, decimal_places=2)
     price = models.DecimalField(max_digits=6, decimal_places=2)
     crv = models.DecimalField(max_digits=6, decimal_places=2)
     is_taxable = models.BooleanField()
+
+
 
 def i():
     Tiep_data.objects.all().delete()

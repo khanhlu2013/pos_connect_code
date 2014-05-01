@@ -63,6 +63,8 @@ class test(WebTest):
             ,is_taxable         = False
             ,p_type             = None
             ,p_tag              = None
+            ,cost               = None
+            ,buydown            = None
         )
 
         # R1_L2_SP - receipt 1, line 2
@@ -104,6 +106,8 @@ class test(WebTest):
             ,is_taxable         = r1_l2_sp_is_taxable
             ,p_type             = r1_l2_sp_p_type
             ,p_tag              = r1_l2_sp_p_tag
+            ,cost               = None
+            ,buydown            = None            
         )        
 
 
@@ -154,7 +158,9 @@ class test(WebTest):
             ,non_product_name   = r2_l1_non_product_name
             ,is_taxable         = r2_l1_sp_is_taxable
             ,p_type             = r2_l1_sp_p_type
-            ,p_tag              = r2_l1_sp_p_tag            
+            ,p_tag              = r2_l1_sp_p_tag    
+            ,cost               = None
+            ,buydown            = None                    
         )
 
 
@@ -195,7 +201,9 @@ class test(WebTest):
             ,non_product_name   = r2_l2_non_product_name
             ,is_taxable         = r2_l2_sp_is_taxable
             ,p_type             = r2_l2_sp_p_type
-            ,p_tag              = r2_l2_sp_p_tag               
+            ,p_tag              = r2_l2_sp_p_tag   
+            ,cost               = None
+            ,buydown            = None                        
         )
 
         #---------------------------------------------------------------

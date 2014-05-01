@@ -14,14 +14,12 @@ class Prod_sku_assoc_serializer(serializers.ModelSerializer):
 
 
 class Store_product_serializer(serializers.ModelSerializer):
-    price = serializers.Field(source='get_price_str')
-    crv = serializers.Field(source='get_crv_str')
     product_id = serializers.Field(source='product.id')
     store_id = serializers.Field(source='store.id')
 
     class Meta:
         model = Store_product
-        fields = ('product_id','store_id','name','p_type','p_tag','price','is_taxable','is_sale_report','crv')
+        fields = ('product_id','store_id','name','price','crv','is_taxable','is_sale_report','p_type','p_tag','cost','vendor','buydown')
 
 
 class Product_serializer(serializers.ModelSerializer):

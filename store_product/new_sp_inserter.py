@@ -15,6 +15,9 @@ def exe( \
     ,p_type
     ,p_tag
     ,sku_str
+    ,cost
+    ,vendor
+    ,buydown
 ):
 
     prod_bus_assoc = exe_master( \
@@ -27,6 +30,9 @@ def exe( \
         ,sku_str = sku_str
         ,p_type = p_type
         ,p_tag = p_tag
+        ,cost = cost
+        ,vendor = vendor
+        ,buydown = buydown
     )
 
     sp_couch_inserter.exe(
@@ -40,6 +46,9 @@ def exe( \
         ,p_type = p_type
         ,p_tag = p_tag
         ,sku_lst = [sku_str,]
+        ,cost = cost
+        ,vendor = vendor
+        ,buydown = buydown
     )
 
     return prod_bus_assoc
@@ -54,6 +63,9 @@ def exe_master( \
     ,sku_str
     ,p_type
     ,p_tag
+    ,cost
+    ,vendor
+    ,buydown
 ):
 
     #CREATE PRODUCT
@@ -66,6 +78,7 @@ def exe_master( \
     )
 
     #CREATE PROD_BUS_ASSOC
+
     prod_bus_assoc = Store_product.objects.create(
          name = name
         ,price = price
@@ -76,6 +89,9 @@ def exe_master( \
         ,product = product
         ,p_type = p_type
         ,p_tag = p_tag
+        ,cost = cost
+        ,vendor = vendor
+        ,buydown = buydown
     )
 
     #CREATE SKU

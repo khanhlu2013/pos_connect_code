@@ -22,6 +22,9 @@ define(
         ,p_type
         ,p_tag
         ,sku_lst
+        ,cost
+        ,vendor
+        ,buydown
     )   
     {
         if(_id != null && _rev != null){
@@ -42,6 +45,9 @@ define(
         this.p_tag = p_tag;
         this.sku_lst = sku_lst;
         this.d_type = constance.STORE_PRODUCT_TYPE;
+        this.cost = (cost == null ? null : Number(cost));
+        this.vendor = vendor
+        this.buydown = (buydown == null ? null : Number(buydown));
     };
 
     return Store_product;

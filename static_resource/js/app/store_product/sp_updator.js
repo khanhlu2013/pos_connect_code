@@ -27,7 +27,9 @@ define(
         ,is_sale_report
         ,p_type
         ,p_tag
-
+        ,cost
+        ,vendor
+        ,buydown
         ,callback
     ){
         $.ajax({
@@ -43,16 +45,12 @@ define(
                 ,is_sale_report:is_sale_report
                 ,p_type:p_type
                 ,p_tag:p_tag
-
+                ,cost:cost
+                ,vendor:vendor
+                ,buydown:buydown
             }
             ,success: function(data,status_str,xhr){
-                var error_message = data.error_message;
-                var product = data.product;
-                if(error_message.length != 0){
-                    callback(error_message);
-                }else{
-                    callback(null,product);
-                }
+                callback(null,data)
             }
             ,error: function(xhr,status_str,err){
                 callback(xhr);
@@ -60,7 +58,7 @@ define(
         }); 
     }
 
-    function updator(store_id,product_id,couch_server_url,prompt_result,callback){
+    function updator(store_id,product_id,couch_server_url,result,callback){
         var sp_online_updator_b = sp_online_updator.bind
         (
              sp_online_updator
@@ -68,13 +66,16 @@ define(
             ,product_id
             ,couch_server_url
 
-            ,prompt_result.name
-            ,prompt_result.price
-            ,prompt_result.crv
-            ,prompt_result.is_taxable
-            ,prompt_result.is_sale_report
-            ,prompt_result.p_type
-            ,prompt_result.p_tag
+            ,result.name
+            ,result.price
+            ,result.crv
+            ,result.is_taxable
+            ,result.is_sale_report
+            ,result.p_type
+            ,result.p_tag
+            ,result.cost
+            ,result.vendor
+            ,result.buydown
         );
 
         async.waterfall([sp_online_updator_b],function(error,result){
@@ -99,6 +100,9 @@ define(
             ,sp.p_tag
             ,null   //prefill_sku
             ,false  //is_prompt_sku
+            ,sp.cost
+            ,sp.vendor
+            ,sp.buydown
             ,lookup_type_tag
             ,true //is_sku_management
             ,null //suggest product

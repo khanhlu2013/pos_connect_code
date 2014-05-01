@@ -45,6 +45,9 @@ define(
             ,store_product.p_tag
             ,null//sku prefill
             ,false//is_prompt_sku
+            ,store_product.cost
+            ,store_product.vendor
+            .store_product.buydown
             ,null//lookup type tag
             ,false//is_sku_management
             ,null//suggest product

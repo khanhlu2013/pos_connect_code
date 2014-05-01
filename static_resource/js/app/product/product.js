@@ -3,18 +3,14 @@ requirejs.config({
     ,paths: {
          app : 'app'
         ,lib : 'lib'
-        // ,pouch_db : 'lib/db/pouchdb-2.0.1'
-        // ,jquery : 'lib/jquery/jquery-1_10_2'
-        // ,jquery_block_ui : 'lib/jquery/jquery_blockUI'
-        // ,jquery_ui : 'lib/jquery/jquery-ui'
+        ,jquery: ['//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min', 'lib/jquery/jquery-1.11.0.min']
+        ,jquery_ui: ['//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min', 'lib/jquery/jquery-ui-1.10.4.min']
+        ,jquery_block_ui: ['//cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.66.0-2013.10.09/jquery.blockUI.min', 'lib/jquery/jquery.blockUI']
     }
-    // ,shim: {
-    //      'pouch_db': {
-    //         exports: 'Pouch_db'
-    //     }
-    //     ,'jquery_block_ui': ['jquery']
-    //     ,'jquery_ui' : ['jquery']
-    // }
+    ,shim: {
+         jquery_ui : ['jquery']
+        ,jquery_block_ui: ['jquery']
+    }
 });
 
 
@@ -23,24 +19,22 @@ require(
      'lib/async'
     ,'lib/misc/csrf_ajax_protection_setup' 
     ,'app/store_product/sp_creator'
-    ,'app/store_product/Store_product'
     ,'app/store_product/sp_updator'
     ,'app/store_product/sp_prompt'
     ,'app/store_product/sp_online_searcher'
     ,'app/product/product_json_helper'
     ,'app/sku/product_sku_manager'
     ,'lib/error_lib'
-
-    //-----------------    
-    // ,'jquery_block_ui'
-    // ,'jquery_ui'    
+    //-----------------
+    ,'jquery'
+    ,'jquery_block_ui'
+    ,'jquery_ui'
 ]
 ,function
 (
      async
     ,csrf_ajax_protection_setup
     ,sp_creator
-    ,Store_product
     ,sp_updator
     ,sp_prompt
     ,sp_online_searcher
@@ -108,7 +102,7 @@ require(
         tr = prod_tbl.insertRow();
 
         //table column
-        var column_name = [ "product" , "price" , "crv" , "taxable" , "is_sale_report" , "p_type" , "p_tag" , "edit" ];
+        var column_name = [ "product" , "price" , "crv" , "taxable" , "is_sale_report" , "p_type" , "p_tag" ,"vendor", "cost", "buydown", "edit" ];
         for( var i = 0;i<column_name.length;i++){
             td = tr.insertCell(-1);
             td.innerHTML = column_name[i];
@@ -139,6 +133,15 @@ require(
 
             td = tr.insertCell(-1);
             td.innerHTML = sp.p_tag;   
+
+            td = tr.insertCell(-1);
+            td.innerHTML = sp.vendor; 
+
+            td = tr.insertCell(-1);
+            td.innerHTML = sp.cost; 
+
+            td = tr.insertCell(-1);
+            td.innerHTML = sp.buydown; 
 
             td = tr.insertCell(-1);
             td.innerHTML = 'edit';   

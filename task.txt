@@ -335,8 +335,6 @@ LOW PRIORITY
         . not share price.
 
 
-. get buydown into ds and receipt.
-
 
 
 

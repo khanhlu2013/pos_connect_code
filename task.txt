@@ -4,8 +4,8 @@
 ~. i want to be a blues student.
 ~. build a play ground for parakeet. how to engage with your paraket. time. 
 ~. foreman  run -e .env,test.env python manage.py test --failfast
-~. kill pg connection to reset db
 ~. lsof -i :8000
+~. http://stackoverflow.com/questions/13976022/is-there-a-way-to-highlight-all-the-special-accent-characters-in-sublime-text-or
 ----------------------------------------------------------------------------
 source lu/liquor_heroku/venv/bin/activate
 cd lu/liquor/liquor
@@ -25,12 +25,16 @@ WHERE datname = current_database() AND pid <> pg_backend_pid();
     node ../../../r.js -o name=app/mix_match/mix_match out=app/mix_match/mix_match_min.js baseUrl=.
 
 
+
     node ../../../r.js -o name=app/sale/sale out=app/sale/sale_min.js baseUrl=. paths.jquery=empty: paths.jquery_ui=empty: paths.jquery_block_ui=empty: paths.jquery_hotkeys=lib/jquery/jquery.hotkeys
+    node ../../../r.js -o name=app/product/product out=app/product/product_min.js baseUrl=. paths.jquery=empty: paths.jquery_ui=empty: paths.jquery_block_ui=empty:
+    node ../../../r.js -o name=app/sale_report/report_by_day_init out=app/sale_report/report_by_day_init_min.js baseUrl=. paths.jquery=empty: paths.jquery_ui=empty: paths.jquery_block_ui=empty:
+    node ../../../r.js -o name=app/sale_shortcut/sale_shortcut out=app/sale_shortcut/sale_shortcut_min.js baseUrl=. paths.jquery=empty: paths.jquery_ui=empty: paths.jquery_block_ui=empty:
+    node ../../../r.js -o name=app/mix_match/mix_match out=app/mix_match/mix_match_min.js baseUrl=. paths.jquery=empty: paths.jquery_ui=empty: paths.jquery_block_ui=empty:
+    node ../../../r.js -o name=app/group/group out=app/group/group_min.js baseUrl=. paths.jquery=empty: paths.jquery_ui=empty: paths.jquery_block_ui=empty:
 
 
 
-
-http://stackoverflow.com/questions/13976022/is-there-a-way-to-highlight-all-the-special-accent-characters-in-sublime-text-or
 
 ----------------------------------------------------------------------------
 template

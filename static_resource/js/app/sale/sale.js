@@ -6,12 +6,12 @@ requirejs.config({
         ,jquery: ['//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min', 'lib/jquery/jquery-1.11.0.min']
         ,jquery_ui: ['//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min', 'lib/jquery/jquery-ui-1.10.4.min']
         ,jquery_block_ui: ['//cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.66.0-2013.10.09/jquery.blockUI.min', 'lib/jquery/jquery.blockUI']
-        ,jquery_hotkeys : 'lib/jquery/jquery.hotkeys'
+        // ,jquery_hotkeys : 'lib/jquery/jquery.hotkeys'
     }
     ,shim: {
          jquery_ui : ['jquery']
         ,jquery_block_ui: ['jquery']
-        ,jquery_hotkeys: ['jquery']
+        // ,jquery_hotkeys: ['jquery']
     }
 });
 
@@ -43,7 +43,7 @@ require(
         ,'jquery'
         ,'jquery_block_ui'
         ,'jquery_ui'
-        ,'jquery_hotkeys'
+        // ,'jquery_hotkeys'
     ],
     function
     (
@@ -118,10 +118,9 @@ require(
                     });                    
                 })
             }
-            var ctrl_n = 'ctrl+n'
-            $(document).bind('keydown', ctrl_n, non_inventory_handler);
-            $('#scan_text').bind('keydown', ctrl_n, non_inventory_handler);
-            non_inventory_btn.addEventListener("click", non_inventory_handler);
+            // $(document).bind('keydown', 'ctrl+n', non_inventory_handler);
+            // $('#scan_text').bind('keydown', 'ctrl+n', non_inventory_handler);
+            // non_inventory_btn.addEventListener("click", non_inventory_handler);
         }
 
         function hook_receipt_pusher_2_ui(){

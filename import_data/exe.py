@@ -11,7 +11,7 @@ def exe():
     # Dept_ID,Description,Tax_1,itemnum,Vendor,ItemName,CRV,Price,Cost
     log_file = open('log','w')
 
-    with open('_.txt', 'rb') as csvfile:
+    with open('__.txt', 'rb') as csvfile:
         # TRUE,080660953014,Pacifico 6pk,5.65,7.99,1.20
 
         spamreader = csv.reader(csvfile, delimiter=',', quotechar='"')

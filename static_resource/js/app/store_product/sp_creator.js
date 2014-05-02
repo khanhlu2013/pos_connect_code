@@ -19,10 +19,8 @@ define(
    	var ERROR_CANCEL_select_product_option = 'ERROR_CANCEL_select_product_option';
    	
    	function _create(product_id,prompt_result,callback){
-
         var data = {
-             product_id : product_id
-            ,name : prompt_result.name
+             name : prompt_result.name
             ,price : prompt_result.price
             ,crv : prompt_result.crv
             ,is_taxable : prompt_result.is_taxable
@@ -34,9 +32,17 @@ define(
             ,vendor: prompt_result.vendor
             ,buydown: prompt_result.buydown
         }
+        
+        var url = null;
+ 		if(product_id){
+        	data['product_id'] = product_id;
+        	url = '/product/insert_old_sp';
+        }else{
+        	url = '/product/insert_new_sp';
+        }   
 
         $.ajax({
-             url:'/product/sp_creator'
+             url:url
             ,method: "POST" 
             ,data : data
             ,dataType:'json'
@@ -47,7 +53,7 @@ define(
                 callback(xhr);
             }
         });
- 	}
+   	}
 
     function exit_btn_handler(callback){
         $("#select_product_option_dialog").dialog("close");

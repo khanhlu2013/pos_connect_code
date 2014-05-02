@@ -17,7 +17,7 @@ define
         }
 
         $.ajax({
-             url: '/product/search/name_ajax'
+             url: '/product/search_by_name'
             ,type: 'GET'
             ,data: {name_str:name_str}
             ,dataType: 'json'
@@ -38,7 +38,7 @@ define
         }
 
         $.ajax({
-             url: '/product/search/sku_ajax'
+             url: '/product/search_by_sku'
             ,type: 'GET'
             ,data: {sku_str:sku_str}
             ,dataType: 'json'

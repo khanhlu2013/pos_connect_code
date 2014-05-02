@@ -8,11 +8,11 @@ requirejs.config({
         ,jquery_block_ui: ['//cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.66.0-2013.10.09/jquery.blockUI.min', 'lib/jquery/jquery.blockUI']
         // ,jquery_hotkeys : 'lib/jquery/jquery.hotkeys'
     }
-    ,shim: {
-         jquery_ui : ['jquery']
-        ,jquery_block_ui: ['jquery']
-        // ,jquery_hotkeys: ['jquery']
-    }
+    // ,shim: {
+    //      jquery_ui : ['jquery']
+    //     ,jquery_block_ui: ['jquery']
+    //     // ,jquery_hotkeys: ['jquery']
+    // }
 });
 
 require(
@@ -43,7 +43,7 @@ require(
         ,'jquery'
         ,'jquery_block_ui'
         ,'jquery_ui'
-        // ,'jquery_hotkeys'
+        ,'lib/jquery/jquery.hotkeys'
     ],
     function
     (
@@ -118,9 +118,9 @@ require(
                     });                    
                 })
             }
-            // $(document).bind('keydown', 'ctrl+n', non_inventory_handler);
-            // $('#scan_text').bind('keydown', 'ctrl+n', non_inventory_handler);
-            // non_inventory_btn.addEventListener("click", non_inventory_handler);
+            $(document).bind('keydown', 'ctrl+n', non_inventory_handler);
+            $('#scan_text').bind('keydown', 'ctrl+n', non_inventory_handler);
+            non_inventory_btn.addEventListener("click", non_inventory_handler);
         }
 
         function hook_receipt_pusher_2_ui(){

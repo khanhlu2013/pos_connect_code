@@ -33,7 +33,7 @@ define(
         ,callback
     ){
         $.ajax({
-             url : '/product/updator_ajax'
+             url : '/product/update_sp'
             ,type : "POST"
             ,dataType : "json"
             ,data : {

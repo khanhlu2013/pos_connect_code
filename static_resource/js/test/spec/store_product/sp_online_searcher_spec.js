@@ -21,7 +21,7 @@ define(
             var callback = jasmine.createSpy('success');
             sp_online_searcher.name_search(name_str,callback);
             expect(callback).not.toHaveBeenCalled();
-            expect(jasmine.Ajax.requests.mostRecent().url).toBe('/product/search/name_ajax?name_str=' + name_str);
+            expect(jasmine.Ajax.requests.mostRecent().url).toBe('/product/search_by_name?name_str=' + name_str);
 
             var prod_lst = 
                 [
@@ -76,7 +76,7 @@ define(
             var callback = jasmine.createSpy('success');
             sp_online_searcher.sku_search(sku_str,callback);
             expect(callback).not.toHaveBeenCalled();
-            expect(jasmine.Ajax.requests.mostRecent().url).toBe('/product/search/sku_ajax?sku_str=' + sku_str);
+            expect(jasmine.Ajax.requests.mostRecent().url).toBe('/product/search_by_sku?sku_str=' + sku_str);
 
             var prod_lst = 
                 [

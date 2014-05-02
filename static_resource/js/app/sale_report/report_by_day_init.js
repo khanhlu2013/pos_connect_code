@@ -3,24 +3,23 @@ requirejs.config({
     ,paths: {
          app : 'app'
         ,lib : 'lib'
-        // ,jquery : 'lib/jquery/jquery-1_10_2'
-        // ,jquery_block_ui : 'lib/jquery/jquery_blockUI'
-        // ,jquery_ui : 'lib/jquery/jquery-ui'
-
+        ,jquery: ['//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min', 'lib/jquery/jquery-1.11.0.min']
+        ,jquery_ui: ['//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min', 'lib/jquery/jquery-ui-1.10.4.min']
+        ,jquery_block_ui: ['//cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.66.0-2013.10.09/jquery.blockUI.min', 'lib/jquery/jquery.blockUI']
     }
-    // ,shim: {
-
-    //      'jquery_block_ui': ['jquery']
-    //     ,'jquery_ui' : ['jquery']
-    // }
+    ,shim: {
+         jquery_ui : ['jquery']
+        ,jquery_block_ui: ['jquery']
+    }
 });
 
 require(
     [
          'lib/misc/csrf_ajax_protection_setup'
         //-----------------
-        // ,'jquery_block_ui'
-        // ,'jquery_ui'        
+        ,'jquery'
+        ,'jquery_block_ui'
+        ,'jquery_ui'       
     ]
     ,function
     (

@@ -8,7 +8,7 @@ define(
 {
     return function (product_id,is_include_other_store,is_lookup_type_tag,callback){
         $.ajax({
-             url : '/product/getter_ajax'
+             url : '/product/search_by_pid'
             ,type : 'GET'
             ,dataType : 'json'
             ,data : {

@@ -34,10 +34,11 @@ class Product_serializer(serializers.ModelSerializer):
 
 def serialize_product_from_id(product_id,store_id,is_include_other_store):
     query_set = Product.objects.filter(id=product_id)
+    query_set.prefetch_related('store_product_set','prodskuassoc_set__store_product_set')
+        
     if not is_include_other_store:
         query_set.filter(store_product__store_id = store_id)
 
-    query_set.prefetch_related('store_product_set','prodskuassoc_set__store_product_set')
     prod_lst = serialize_product_lst(query_set)
     assert(len(prod_lst)==1)
     return prod_lst[0]

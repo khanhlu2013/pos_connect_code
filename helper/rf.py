@@ -11,15 +11,6 @@ from group.models import Group,Group_child
 from mix_match.models import Mix_match,Mix_match_child
 
 
-def josh_sum_function(lst):
-    result=0
-    for item in lst:
-        result=result+item
-        # print(result)
-
-    return result
-
-
 def p():
     print("refresh fixture: production")
 

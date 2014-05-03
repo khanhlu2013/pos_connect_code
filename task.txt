@@ -18,23 +18,14 @@ FROM pg_stat_activity
 WHERE datname = current_database() AND pid <> pg_backend_pid();
 ----------------------------------------------------------------------------
 (pwd:static_resource/js) 
-    node ../../../r.js -o name=app/sale/sale out=app/sale/sale_min.js baseUrl=.
-    node ../../../r.js -o name=app/product/product out=app/product/product_min.js baseUrl=.
-    node ../../../r.js -o name=app/sale_report/report_by_day_init out=app/sale_report/report_by_day_init_min.js baseUrl=.
-    node ../../../r.js -o name=app/sale_shortcut/sale_shortcut out=app/sale_shortcut/sale_shortcut_min.js baseUrl=.
-    node ../../../r.js -o name=app/mix_match/mix_match out=app/mix_match/mix_match_min.js baseUrl=.
 
 
-
-    node ../../../r.js -o name=app/sale/sale out=app/sale/sale_min.js baseUrl=. paths.jquery=empty: paths.jquery_ui=empty: paths.jquery_block_ui=empty: paths.jquery_hotkeys=lib/jquery/jquery.hotkeys
-    node ../../../r.js -o name=app/product/product out=app/product/product_min.js baseUrl=. paths.jquery=empty: paths.jquery_ui=empty: paths.jquery_block_ui=empty:
-    node ../../../r.js -o name=app/sale_report/report_by_day_init out=app/sale_report/report_by_day_init_min.js baseUrl=. paths.jquery=empty: paths.jquery_ui=empty: paths.jquery_block_ui=empty:
-    node ../../../r.js -o name=app/sale_shortcut/sale_shortcut out=app/sale_shortcut/sale_shortcut_min.js baseUrl=. paths.jquery=empty: paths.jquery_ui=empty: paths.jquery_block_ui=empty:
-    node ../../../r.js -o name=app/mix_match/mix_match out=app/mix_match/mix_match_min.js baseUrl=. paths.jquery=empty: paths.jquery_ui=empty: paths.jquery_block_ui=empty:
-    node ../../../r.js -o name=app/group/group out=app/group/group_min.js baseUrl=. paths.jquery=empty: paths.jquery_ui=empty: paths.jquery_block_ui=empty:
-
-
-
+    node ../../../r.js -o name=app/sale/sale_entry out=app/sale/sale_entry__min__.js baseUrl=. paths.jquery=empty: paths.jquery_ui=empty: paths.jquery_block_ui=empty: 
+    node ../../../r.js -o name=app/product/product_entry out=app/product/product_entry__min__.js baseUrl=. paths.jquery=empty: paths.jquery_ui=empty: paths.jquery_block_ui=empty:
+    node ../../../r.js -o name=app/sale_report/report_by_day_entry out=app/sale_report/report_by_day_entry__min__.js baseUrl=. paths.jquery=empty: paths.jquery_ui=empty: paths.jquery_block_ui=empty:
+    node ../../../r.js -o name=app/sale_shortcut/sale_shortcut_entry out=app/sale_shortcut/sale_shortcut_entry__min__.js baseUrl=. paths.jquery=empty: paths.jquery_ui=empty: paths.jquery_block_ui=empty:
+    node ../../../r.js -o name=app/mix_match/mix_match_entry out=app/mix_match/mix_match_entry__min__.js baseUrl=. paths.jquery=empty: paths.jquery_ui=empty: paths.jquery_block_ui=empty:
+    node ../../../r.js -o name=app/group/group_entry out=app/group/group_entry__min__.js baseUrl=. paths.jquery=empty: paths.jquery_ui=empty: paths.jquery_block_ui=empty:
 
 ----------------------------------------------------------------------------
 template
@@ -300,7 +291,6 @@ LOW PRIORITY
 
 
 ------------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------------
 
 . load tiep data, with vendor
 . enter key on modal dialog
@@ -310,7 +300,6 @@ LOW PRIORITY
 . kill alone discounter because tax purpose
 . mix match : remove mm deal
 . no result prompt from product search (find out all spot)
-. buydown
 . make sure receipt in couch is not getting sync down again
 . clean up copy receipt from couch to master, no more create sp
 . update requirejs for product page loading cdn
@@ -323,8 +312,8 @@ LOW PRIORITY
 . product model test
 . store inserter test
 . receipt_document_validator_test
-. sp_getter_ajax_view: test this view
-. sp_updator in the server side: test this
+. serialize_product_from_id(product_id,store_id,is_include_other_store) revisit is_include_other_store. it does not work. may be i need to implement this with python and not with django orm filter.
+
 ----------------------------------------------------------------------------------------
 
 . kit: is a product that is the exact grouping with other products. relation can help deal with qty. 
@@ -337,6 +326,10 @@ LOW PRIORITY
             . share cost
             . share crv
         . not share price.
+
+
+
+
 
 
 

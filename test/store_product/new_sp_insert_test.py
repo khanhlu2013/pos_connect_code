@@ -15,15 +15,15 @@ class test(WebTest):
         test_helper.teardown_test_couchdb()
 
     def test(self):
-        #foreman  run -e .env,test.env python manage.py test test.store_product.new_sp_inserter_test:test.test
+        #foreman  run -e .env,test.env python manage.py test test.store_product.new_sp_test:test.test
         """
-            .insert a new store_product to my_store
+            .insert a new store_product to store
             .verify sp in master.store_product
             .verify sp in couch.store_product
             .verify sp not in couch.product
         """
-        #.insert a new store_product to my_store
-        my_user,my_store = test_helper.create_user_then_store()
+        #.insert a new store_product to store
+        user,store = test_helper.create_user_then_store()
         name = 'my product name'
         price = 1.1
         crv = 1.2
@@ -37,7 +37,7 @@ class test(WebTest):
         buydown = 1.4
 
         sp = new_sp_inserter.exe(
-             store_id = my_store.id            
+             store_id = store.id            
             ,name = name
             ,price = price
             ,crv = crv
@@ -52,7 +52,7 @@ class test(WebTest):
         )
         
         #.verify sp in master.store_product
-        sp = Store_product.objects.get(product_id=sp.product.id,store_id=my_store.id)
+        sp = Store_product.objects.get(product_id=sp.product.id,store_id=store.id)
         self.assertTrue(sp!=None)
         self.assertEqual(sp.name,name)
         self.assertEqual(sp.price,Decimal(str(price)))
@@ -68,7 +68,7 @@ class test(WebTest):
         self.assertEqual(sp.buydown,Decimal(str(buydown)))
 
         #.verify sp in couch.store_product
-        sp_couch = store_product_couch_getter.exe(sp.product.id,my_store.id)
+        sp_couch = store_product_couch_getter.exe(sp.product.id,store.id)
         self.assertTrue(sp_couch!=None)
         self.assertEqual(sp_couch['name'],name)
         self.assertEqual(sp_couch['price'],str(price))
@@ -77,7 +77,7 @@ class test(WebTest):
         self.assertEqual(sp_couch['is_sale_report'],is_sale_report)
         self.assertEqual(sp_couch['p_type'],p_type)
         self.assertEqual(sp_couch['p_tag'],p_tag)        
-        self.assertEqual(sp_couch['store_id'],my_store.id )
+        self.assertEqual(sp_couch['store_id'],store.id )
         sku_lst = sp_couch['sku_lst']
         self.assertEqual(len(sku_lst),1)
         self.assertTrue(sku_str in sku_lst)

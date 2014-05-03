@@ -5,7 +5,7 @@ from django.core.serializers.json import DjangoJSONEncoder
 from util import number,boolean
 
 
-def updator_ajax(request):
+def sp_update_view(request):
     cur_login_store = request.session.get('cur_login_store')
     
     product_id_raw = request.POST['product_id']

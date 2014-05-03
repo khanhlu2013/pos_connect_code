@@ -15,7 +15,7 @@
  * Might be useful, when you want to pass some other data to your handler
  */
 
-(function(jQuery){
+define(["jquery"], function(jQuery) {
 
 	jQuery.hotkeys = {
 		version: "0.8",
@@ -99,4 +99,4 @@
 		jQuery.event.special[ this ] = { add: keyHandler };
 	});
 
-})( this.jQuery );
+});

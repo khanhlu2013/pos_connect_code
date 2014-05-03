@@ -15,7 +15,7 @@ class test(WebTest):
             when search for sku, if result if found in our store, we don't include lookup type tag. this test verify that.
             this test also verify the json response include all the sp field we need. 
         """
-        #foreman  run -e .env,test.env python manage.py test test.store_product.sp_search_sku_test:test.sku_search_ajax_resultFoundInMyStore_test
+        #foreman  run -e .env,test.env python manage.py test test.store_product.sp_search_by_sku_view_test:test.sku_search_ajax_resultFoundInMyStore_test
 
         my_user,my_store = test_helper.create_user_then_store()
         
@@ -46,7 +46,7 @@ class test(WebTest):
         )
 
         res = self.app.get(
-             '/product/search/sku_ajax'
+             '/product/search_by_sku'
             ,params={'sku_str':sku_str}
             ,user=my_user
         )
@@ -83,7 +83,7 @@ class test(WebTest):
         """
             Search result is found but not exist in my store. Lookup_type_tag included in response
         """
-        #foreman  run -e .env,test.env python manage.py test test.store_product.sp_search_sku_test:test.sku_search_ajax_resultFoundInOtherStore_test
+        #foreman  run -e .env,test.env python manage.py test test.store_product.sp_search_by_sku_view_test:test.sku_search_ajax_resultFoundInOtherStore_test
 
         my_user,my_store = test_helper.create_user_then_store()
         
@@ -163,7 +163,7 @@ class test(WebTest):
         #MAKE REQUEST
         res = self.app.get(
              # reverse('store_product:search_sku_ajax')
-             '/product/search/sku_ajax'
+             '/product/search_by_sku'
             ,params={'sku_str':sku_str}
             ,user=my_user
         )

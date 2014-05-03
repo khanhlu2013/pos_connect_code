@@ -11,7 +11,7 @@ class test(WebTest):
         test_helper.teardown_test_couchdb()
 
     def test(self):
-        #foreman  run -e .env,test.env python manage.py test test.store_product.sp_search_name_test:test.test
+        #foreman  run -e .env,test.env python manage.py test test.store_product.sp_search_by_name_view_test:test.test
 
         product_name = 'ab'
 
@@ -61,7 +61,7 @@ class test(WebTest):
         #MAKE REQUEST TO SEARCH
         search_name_str = 'b'
         res = self.app.get(
-             '/product/search/name_ajax'
+             '/product/search_by_name'
             ,params={'name_str':search_name_str}
             ,user=my_user
         )

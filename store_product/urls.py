@@ -1,25 +1,27 @@
 from django.conf.urls import patterns,url
 from django.contrib.auth.decorators import login_required
-from store_product import sp_sku_view,sp_search_view,sp_creator_view,sp_update_view,sp_getter_view
+from store_product import sp_sku_view
 from store_product.create_new_sp_for_receipt_ln.views import create_new_sp_for_receipt_ln_view
 
-# namespace='store_product'
+from store_product.view import new_sp_insert_view,old_sp_insert_view,sp_update_view,sp_search_view
+
 
 urlpatterns = patterns('',
-
-
-    url(r'^updator_ajax$',login_required(sp_update_view.updator_ajax)),
-    url(r'^sp_creator$',login_required(sp_creator_view.sp_creator_ajax_view)),    
-    url(r'^getter_ajax$',login_required(sp_getter_view.sp_getter_ajax_view)),    
-    url(r'^create_new_sp_for_receipt_ln$',login_required(create_new_sp_for_receipt_ln_view)),   
-
+    # namespace='store_product'
+    url(r'^update_sp$',login_required(sp_update_view.sp_update_view)),
+    url(r'^insert_new_sp$',login_required(new_sp_insert_view.new_sp_insert_view)),
+    url(r'^insert_old_sp$',login_required(old_sp_insert_view.old_sp_insert_view)),
 
     #SEARCH
-    url(r'^search/$',login_required(sp_search_view.Search_view.as_view()),name='search_product'),    
-    url(r'^search/sku_ajax$',login_required(sp_search_view.Sku_ajax)),
-    url(r'^search/name_ajax$',login_required(sp_search_view.Name_ajax)),
+    url(r'^search/$',login_required(sp_search_view.sp_search_index_view.as_view()),name='search_product'),    
+    url(r'^search_by_sku$',login_required(sp_search_view.sp_search_by_sku_view)),
+    url(r'^search_by_name$',login_required(sp_search_view.sp_search_by_name_view)),
+    url(r'^search_by_pid$',login_required(sp_search_view.sp_search_by_pid_view)),    
 
     #SKU
     url(r'^sku/add$',login_required(sp_sku_view.add_ajax)),
     url(r'^sku/delete$',login_required(sp_sku_view.delete_ajax)),
+
+    #AFTER PUSH RECEIPT
+    url(r'^create_new_sp_for_receipt_ln$',login_required(create_new_sp_for_receipt_ln_view)),
 )

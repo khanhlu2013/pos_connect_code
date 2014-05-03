@@ -15,7 +15,7 @@ def p():
     print("refresh fixture: production")
 
     delete_data()
-
+    user1,store1=test_helper.create_user_then_store_detail(user_name = "x",user_password="x",store_name="x")
     print("load approve product data")
     json_file = open('./liquor.json')   
     data = json.load(json_file)

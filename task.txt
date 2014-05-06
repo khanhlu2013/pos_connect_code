@@ -299,28 +299,22 @@ UPGRADE FEATURE
 . serialize_product_from_id(product_id,store_id,is_include_other_store) revisit is_include_other_store. it does not work. may be i need to implement this with python and not with django orm filter.
 
 ----------------------------------------------------------------------------------------
-. write a get_report_test: combine copy_receipt_from_c2m and report calculator
-    . it is a pain to move fixture from receipt_calculator into fixture for report_getter. you can let it go this time, very low priority
-
 . sale_shortcut validator and responsive validation ui
-. a test for create offline sp when internet is available and data is push
 . blocking ui at all possible spot: (sale.scan.edit_product: it could take a long time to popup interface. block here)
 . how to report script loading timeout, 
 . remove tax out of couch, and test tax. 
-. no result prompt from product search (find out all spot)
-. kill alone discounter because tax purpose
-. mix match : remove mm deal
 . empty string for p_type, show up in report
 . print receipt
 . include css with js, and fall back
-. online name search
 . shortcut button color
-. shortcut constrain: unique (store + position)
-. fix sale_report view so that we don't have to have if else in response. dump into one response dictionarys
+. no result prompt from product search (find out all spot)
 
 
-. do a receipt pusher before viewing receipt, and report
 
+
+
+
+. kill alone discounter because tax purpose
 
 
 

@@ -18,6 +18,7 @@ define(
     )
 {
     var ERROR_CANCEL_MIX_MATCH_PROMPT = 'ERROR_CANCEL_MIX_MATCH_PROMPT';
+    var ERROR_DELETE_MIX_MATCH = 'ERROR_DELETE_MIX_MATCH';
     var mix_match_child_tbl = document.getElementById('mix_match_child_tbl');
     var MIX_MATCH_CHILD_SP_LST = [];
     var TAX_RATE = null;
@@ -33,6 +34,13 @@ define(
     function cancel_btn_handler(callback){
         $("#mix_match_prompt_dlg").dialog("close");
         callback(ERROR_CANCEL_MIX_MATCH_PROMPT/*error*/);
+    }
+
+    function delete_btn_handler(callback){
+        if(confirm('are you sure to delete?')){
+            $("#mix_match_prompt_dlg").dialog("close");
+            callback(ERROR_DELETE_MIX_MATCH/*error*/);            
+        }
     }
 
     function ok_btn_handler(callback){
@@ -111,6 +119,7 @@ define(
     function display_dialog(callback){
         var title = 'mix match';
         var ok_btn_handler_b = ok_btn_handler.bind(ok_btn_handler,callback);
+        var delete_btn_handler_b = delete_btn_handler.bind(delete_btn_handler,callback);
         var cancel_btn_handler_b = cancel_btn_handler.bind(cancel_btn_handler,callback);
 
         $('#mix_match_prompt_dlg').keypress(function(e) {
@@ -121,7 +130,7 @@ define(
 
         $('#mix_match_prompt_dlg').dialog({
              title:title
-            ,buttons: [ { text: "Ok", click: ok_btn_handler_b },{ text: "Cancel", click: cancel_btn_handler_b } ]
+            ,buttons: [ { text: "Ok", click: ok_btn_handler_b },{ text: "Delete", click: delete_btn_handler_b },{ text: "Cancel", click: cancel_btn_handler_b } ]
             ,modal : true
             ,width : 600
             ,heigh : 400
@@ -218,6 +227,7 @@ define(
 
     return{
          ERROR_CANCEL_MIX_MATCH_PROMPT : ERROR_CANCEL_MIX_MATCH_PROMPT
+        ,ERROR_DELETE_MIX_MATCH : ERROR_DELETE_MIX_MATCH
         ,exe:exe
     }
 

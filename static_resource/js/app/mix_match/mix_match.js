@@ -6,6 +6,7 @@ define(
     ,'app/mix_match/mix_match_prompt'   
     ,'app/mix_match/mix_match_online_inserter'  
     ,'app/mix_match/mix_match_online_updator'  
+    ,'app/mix_match/mm_online_delete'
     //-----------------
     ,'jquery'
     ,'jquery_block_ui'
@@ -20,6 +21,7 @@ define(
     ,mm_prompt
     ,mm_inserter
     ,mm_updator
+    ,mm_online_delete
 )
 {
     var TAX_RATE = MY_TAX_RATE;
@@ -34,6 +36,19 @@ define(
                 break;
             }
         }
+    }
+
+    function delete_mm(mm_id){
+        var mm_online_delete_b = mm_online_delete.exe.bind(mm_online_delete.exe,mm_id);
+        async.waterfall([mm_online_delete_b],function(error,result){
+            if(error){
+                error_lib.alert_error(error);
+                return;
+            }
+
+            MIX_MATCH_LST = result;
+            display_mix_match_table();
+        });
     }
 
     function update_mix_match_handler(index){
@@ -53,7 +68,11 @@ define(
 
         async.waterfall([mm_prompt_b],function(error,result){
             if(error){
-                error_lib.alert_error(error);
+                if(error == mm_prompt.ERROR_DELETE_MIX_MATCH){
+                    delete_mm(parent.id);
+                }else{
+                    error_lib.alert_error(error);
+                }
                 return;
             }
 
@@ -65,7 +84,7 @@ define(
                 }
                 update_mix_match_lst(MIX_MATCH_LST,result)
                 display_mix_match_table();
-            })
+            });
         });        
     }
 

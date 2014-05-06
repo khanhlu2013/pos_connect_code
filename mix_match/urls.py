@@ -6,4 +6,5 @@ urlpatterns = patterns('',
     url(r'^mix_match/$',login_required(views.Mix_match_view.as_view()),name='mix_match'),
     url(r'^insert$',login_required(views.mix_match_insert_view)),
     url(r'^update$',login_required(views.mix_match_update_view)),
+    url(r'^delete$',login_required(views.mix_match_delete_view)),
 )

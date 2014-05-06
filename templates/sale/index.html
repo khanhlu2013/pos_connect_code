@@ -25,6 +25,7 @@
             
             <input id="scan_text" onClick="this.select();"  placeholder="sku" autofocus>
             <!-- <input id="scan_text" onfocus="this.select();" onmouseup="return false;"  placeholder="sku" autofocus> -->
+            <button id="product_search_btn" type="button">search</button>
             <button id="non_inventory_btn" type="button">non inventory</button>
             <button id="push_receipt_btn" type="button">receipt pusher</button>
             <button id="void_btn" type="button">void</button>
@@ -89,6 +90,14 @@
         <input type="text" id = "non_inventory_description_txt" value='non inventory'>
         <br>
     </div>
+
+
+    <div id="product_search_dlg" title "search product">
+        <label for='product_search_txt'>search</label>
+        <input type='text' id = 'product_search_txt'>
+
+        <table id='product_search_tbl' border='1'></table>
+    </div>    
 
 {% endblock content %}
 

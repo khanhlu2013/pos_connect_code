@@ -22,6 +22,8 @@ define(
         ,'app/sale/scan/sku_scan_not_found_handler'
         ,'lib/error_lib'
         ,'app/sale/non_inventory/non_inventory_prompt'
+        ,'app/store_product/sp_online_name_search_ui'
+        ,'app/sale/scan/pid_scanner'
         //-----------------
         ,'jquery'
         ,'jquery_block_ui'
@@ -52,6 +54,8 @@ define(
         ,ssnf_handler
         ,error_lib
         ,non_inventory_prompt
+        ,sp_online_name_search_ui
+        ,pid_scanner
     )
     {
         //UI
@@ -62,6 +66,7 @@ define(
         var push_receipt_btn = document.getElementById("push_receipt_btn");
         var non_inventory_btn = document.getElementById("non_inventory_btn");
         var scan_textbox = document.getElementById('scan_text');
+        var product_search_btn = document.getElementById("product_search_btn");
 
         //CREATE PRODUCT FORM
         var product_name_txt = document.getElementById("product_name_txt");
@@ -79,6 +84,26 @@ define(
         var MM_LST = MY_MM_LST;
         var CUR_SELECT_PARENT_SHORTCUT = 0;
         var shortcut_tbl = document.getElementById("shortcut_tbl");
+
+        function hook_product_search_btn_2_ui(){
+            product_search_btn.addEventListener("click", function(){
+                var sp_online_name_search_ui_b = sp_online_name_search_ui.exe.bind(sp_online_name_search_ui.exe);
+                async.waterfall([sp_online_name_search_ui_b],function(error,result){
+                    if(error){
+                        error_lib.alert_error(error);
+                        return;
+                    }
+                    var product_json = result;
+                    var pid_scanner_b = pid_scanner.exe.bind(pid_scanner.exe,product_json.product_id,STORE_ID,STORE_IDB,STORE_PDB,COUCH_SERVER_URL,MM_LST,table);
+                    async.waterfall([pid_scanner_b],function(error,result){
+                        if(error){
+                            error_lib.alert_error(error);
+                            return;
+                        }                        
+                    });                    
+                })
+            });
+        }
 
         function hook_non_inventory_btn_2_ui(){
             function non_inventory_handler(){
@@ -222,29 +247,20 @@ define(
         }
 
         function shortcut_child_press_handler(child_position){
-
             var cur_parent = sale_shortcut_util.get_parent(CUR_SELECT_PARENT_SHORTCUT,SHORTCUT_LST);
             if(cur_parent!=null){
                 child = sale_shortcut_util.get_child(cur_parent,child_position);
                 if(child!=null){
 
-                    var sp_getter_b = sp_getter.by_product_id.bind(sp_getter.by_product_id,child.pid,STORE_IDB)
-                    async.waterfall([sp_getter_b],function(error,result){
+                    var pid_scanner_b = pid_scanner.exe.bind(pid_scanner.exe,child.pid,STORE_ID,STORE_IDB,STORE_PDB,COUCH_SERVER_URL,MM_LST,table);
+                    async.waterfall([pid_scanner_b],function(error,result){
                         if(error){
-                            error_lib.allert(error);
+                            error_lib.alert_error(error);
                             return;
-                        }
-                        var sp = result;
-                        var ps = new Pending_scan(null/*key*/,1/*qty*/,sp.price,null/*discount*/,sp._id,null/*non_product_name*/);
-                        var ps_inserter_b = ps_inserter.bind(ps_inserter,STORE_IDB,ps)
-                        var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,MM_LST,STORE_IDB,STORE_PDB,table,STORE_ID,COUCH_SERVER_URL);
-                        async.waterfall([ps_inserter_b,ds_2_ui_b],function(error,result){
-                            if(error){alert(error);}
-                        });
-                    }); 
+                        }                        
+                    });  
                 }
             }
-
         }
 
         function refresh_shortcut_parent_button(tr,parent_position){
@@ -342,6 +358,7 @@ define(
             hook_receipt_pusher_2_ui();
             display_shortcut_table();
             hook_non_inventory_btn_2_ui();
+            hook_product_search_btn_2_ui()
 
             //refresh ui
             var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,MM_LST,STORE_IDB,STORE_PDB,table,STORE_ID,COUCH_SERVER_URL);

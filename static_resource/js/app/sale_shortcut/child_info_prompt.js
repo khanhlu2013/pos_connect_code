@@ -59,7 +59,13 @@ define(
             ,width: 500
             ,height: 250                        
             ,modal:true
-        });        
+        });  
+          
+        $('#child_info_prompt_dlg').keypress(function(e) {
+            if (e.keyCode == $.ui.keyCode.ENTER) {
+                ok_handler(callback);
+            }
+        });              
     }
 
     function name_search_handler(){

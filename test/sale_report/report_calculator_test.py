@@ -1,6 +1,6 @@
 from django_webtest import WebTest
 from model_mommy import mommy
-from sale import report_calculator
+from sale_report import report_calculator
 from sale.models import Receipt,Receipt_ln
 from helper import test_helper
 from store_product.models import Store_product
@@ -30,7 +30,7 @@ class test(WebTest):
                     . r2l2: non-tax , p_type != null                (qty,price,crv,discount) = (4 , 4.4 , 4.4 , null)
         """
 
-        # foreman  run -e .env,test.env python manage.py test test.sale.report_calculator_test:test.test
+        # foreman  run -e .env,test.env python manage.py test test.sale_report.report_calculator_test:test.test
         user,store = test_helper.create_user_then_store()
         tax_rate = 9.0
 
@@ -212,31 +212,23 @@ class test(WebTest):
         receipt_lst = list(Receipt.objects.filter(store_id=store.id).prefetch_related('receipt_ln_set'))
         report_dic = report_calculator.exe(receipt_lst)
 
-        print(report_dic)
-
         #TAX
-        self.assertTrue('tax' in report_dic)
         self.assertTrue(report_dic['tax'] , Decimal('28.6')) # 2 * ( 2.2 + 2.2 ) + 3 * ( 3.3 + 3.3 ) 
         
         #NON-TAX
-        self.assertTrue('non_tax' in report_dic)
         self.assertTrue(report_dic['non_tax'] == Decimal('35.2'))
         
         #P_TYPE
-        self.assertTrue(r2_l1_sp_p_type in report_dic)
         self.assertTrue(report_dic[r2_l1_sp_p_type] == Decimal('19.8'))
-
-        #P_TYPE
-        self.assertTrue(r2_l2_sp_p_type in report_dic)
         self.assertTrue(report_dic[r2_l2_sp_p_type] == Decimal('35.2'))
 
         #UNDEFINED
-        self.assertTrue('undefined' in report_dic)
-        self.assertTrue(report_dic['undefined'] == Decimal('8.8'))
+        undefine_type = report_calculator.UNDEFINED_TYPE_STR
+        self.assertTrue(report_dic[undefine_type] == Decimal('8.8'))
 
         #NON PRODUCT NAME
-        self.assertTrue(r1_l1_non_product_name in report_dic)
-        self.assertTrue(report_dic[r1_l1_non_product_name] == Decimal('2.2'))
+        non_inv_type = report_calculator.NON_INVENTORY_TYPE_STR
+        self.assertTrue(report_dic[non_inv_type] == Decimal('2.2'))
 
 
 

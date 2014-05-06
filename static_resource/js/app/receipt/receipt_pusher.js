@@ -11,7 +11,7 @@ define(
         ,'lib/object_store/get_os'
         ,'constance'
         ,'lib/db/index_db_util'
-
+        ,'lib/db/pouch_db_util'
     ],
     function
     (
@@ -26,6 +26,7 @@ define(
         ,get_os
         ,constance
         ,index_db_util
+        ,pouch_db_util
     )
 {
     var ERROR_NO_SALE_DATA_TO_PUSH = 'There is no sale data to push';
@@ -104,6 +105,31 @@ define(
         });
     }
 
+    function exe_if_nessesary(store_id,couch_server_url,callback){
+        var is_store_idb_exist_b = db_util.is_store_idb_exist.bind(db_util.is_store_idb_exist,store_id);
+        async.waterfall([is_store_idb_exist_b],function(error,result){
+            if(error){
+                callback(error);
+            }
+
+            var store_idb = result;
+            if(store_idb == null){
+                callback(null);
+                return;
+            }
+
+            var store_pbd = pouch_db_util.get_store_db(store_id);
+            var exe_b = exe.bind(exe,store_idb,store_pbd,store_id,couch_server_url);
+            async.waterfall([exe_b],function(error,result){
+                if(error == ERROR_NO_SALE_DATA_TO_PUSH){
+                    error = null;
+                }
+
+                callback(error);
+            })
+        });
+    }
+
     function exe(store_idb,store_pdb,store_id,couch_server_url,callback){
 
         var receipt_lst_getter_b = receipt_lst_getter.bind(receipt_lst_getter,store_idb);
@@ -141,6 +167,7 @@ define(
          exe:exe    
         ,ERROR_NO_SALE_DATA_TO_PUSH :  ERROR_NO_SALE_DATA_TO_PUSH
         ,sync_receipt:sync_receipt //just to be able to spy on jasmine test
+        ,exe_if_nessesary:exe_if_nessesary
 
     }
 });

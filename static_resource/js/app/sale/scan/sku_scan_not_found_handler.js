@@ -1,22 +1,25 @@
+/*
+    when scanner can not find sku offline, it will look for sku online within the network and help user to create product
+    if internet is offline, it will create an offline sp.
+    it is not responsible for re-scanning the product.
+*/
 define(
 [
      'lib/async'
+    ,'lib/error_lib'     
     ,'app/store_product/sp_online_searcher'
     ,'app/store_product/sp_creator'
-    ,'lib/error_lib'
     ,'app/store_product/sp_prompt'
-    ,'lib/error_lib'
+    ,'app/store_product/Store_product'
 ]
 ,function
 (
      async
+    ,error_lib     
     ,sp_online_searcher
     ,sp_creator
-    ,error_lib
-    ,new_sp_inserter
     ,sp_prompt
-    ,error_lib
-
+    ,Store_product
 )
 {
     var ERROR_CANCEL_create_product_offline = 'ERROR_CANCEL_create_product_offline';

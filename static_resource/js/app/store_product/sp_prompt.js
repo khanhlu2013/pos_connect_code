@@ -186,6 +186,12 @@ define(
             ,heigh : 400
         });
 
+        $('#store_product_prompt_dialog').keypress(function(e) {
+            if (e.keyCode == $.ui.keyCode.ENTER) {
+                ok_btn_handler(is_prompt_sku,callback);
+            }
+        });
+
         var manage_sku_btn_handler_b = manage_sku_btn_handler.bind(manage_sku_btn_handler,callback);
         $('#sku_management_btn').off('click').click(manage_sku_btn_handler_b);
 

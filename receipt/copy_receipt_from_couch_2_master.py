@@ -112,7 +112,7 @@ def insert_receipt_to_master(receipt_couch_lst,store_id):
 
 def get_sp_id_c2mLookup(receipt_couch_lst,store_id):
     _1_create_offline_sp = get_create_offline_sp(receipt_couch_lst,True)
-    _1_create_offline_dic = create_new_sp(_1_create_offline_sp,store_id)
+    _1_create_offline_dic = create_new_sp(_1_create_offline_sp,store_id)# this should not nessesary unless there is a bug when pushing receipt up, and new sp is not created, this is the second defense to create new sp
 
     _0_create_offline_sp = get_create_offline_sp(receipt_couch_lst,False)
     _0_create_offline_dic = get_sp_lookup(_0_create_offline_sp,store_id)

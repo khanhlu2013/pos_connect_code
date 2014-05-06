@@ -1,3 +1,11 @@
+. finish requirement for tiep, got sofware solid before thinking about business strategy.
+. i can work with hung get some idea from him. 
+
+
+
+
+
+
 ~. july 10-11-12-13 back packing
 
 ~. parakett idea: a trypod with remote. a keyboard of there own sound
@@ -53,10 +61,16 @@ UPGRADE FEATURE
     . we need 1 more column if this feature is turned on: manual discount column
 .update approve product in couch to contain more multiple suggestion info: price, crv, tax, name. implement not only insert, but update approve product
 
+TO REMEMBER
+-----------
+
+
+    res = self.app.post(url='sale_report/get_report',{'from_date':from_date_str,'to_date':to_date_str},user=user)
+
 
 REALIZATION
 -----------
-~. looping data with edit event
+~. javascript closure for creating dynamic event handling in a creating a html table with loop
         for(var i = 0;i<prod_sku_assoc_set.length;i++){
             td = tr.insertCell(-1);
             td.innerHTML = _helper_is_sku_removable(cur_prod_sku_assoc) ? 'remove' : '';
@@ -67,7 +81,7 @@ REALIZATION
                 });
             })(cur_prod_sku_assoc)
         }
-
+~. make sure receipt in couch is not getting sync down again: magically did not get push down
 ~. encourage user to scan all data first, that way, when the internet is down, the data is already located offline for them. 
 ~. no approve_product on couch = fast loading, simplify project, less code to maintain. only 1 place to lookup for approve_product and that is master.
 ~. cloudant only differ in the way they handle _security. however, we don't test if a user can successfully sync from couchdb server. for now, we assume this step. so we don't need to test security feature, we will hand test these.
@@ -251,63 +265,33 @@ PAGE LOADING USER EXPERIENCE
         . load time out for module, including jquery. This time, we can't block ui. but must display error message when time out for loading
         . when jquery is loaded. we need to block ui for all asyc operation. 
             . scan for a product that is not found, create sp online, sync sp offline, rescan ... need to block ui for this
+
 ------------------------------------------------------------------------------------------------------------------
-MIX MATCH DEAL
-    . record discount giving from deal
-------------------------------------------------------------------------------------------------------------------
-DISCOUNT THAT ATTACH TO PRODUCT
-    . record discount giving from manual
-------------------------------------------------------------------------------------------------------------------
-PRODUCT SEARCH ON SALE PAGE
-------------------------------------------------------------------------------------------------------------------
-. alone discounter
-. fallback static from cdn to s3
-. what is the benefit of using requirejs with cdn (beside fallback is pretty simple with require js)
-. make sure syncing db from couch to pouch does not sync receipt documents
-. write report_getter test (integration test): this test will verify that, receipt is filter correctly based on from_date and to_date
-. why there is a store id on sp in couch side? kill it
-. test receipt pusher liquor-staging message when internet is disconnected
-. include css with js, and fall back
-. how to report script loading timeout, 
-. blocking ui at all possible spot
-    . sale.scan.edit_product: it could take a long time to popup interface. block here.
-. i use DjangoJSONEncoder and kill get_price_str, get_crv_str when do json.dumps
+UPGRADE FEATURE
+
+. discount that attach to item
+. offline name search
+. offline receipt lookup
+. up and down key to select product (for non touch screen)
+. kit is a product that is the exact grouping with other products. use this relation to track sale record, inventory,cost,crv
+---------------------------------------------------------------
+
+
+
+    
+
 . test select correct line
     . test sale edit
     . test sale short cut parent, child
     . test shortcut setup
     . test sp creator prodStore_prodSku_1_0, prodStore_prodSku_0_0
 . why tax_rate is not included in the sale context param
+
 ---------------------
-. shortcut button color
-. shortcut constrain: unique (store + position)
-. empty string for p_type, show up in report.
+. why there is a store id on sp in couch side? kill it
 
---------
-LOW PRIORITY
-. print receipt
-. 1 item discount
-. up and down key to select product (for non touch screen)
-
-
-------------------------------------------------------------------------------------------
-
-. load tiep data, with vendor
-. enter key on modal dialog
-. combine css
-. access previous receipt fast
-. local name search
-. kill alone discounter because tax purpose
-. mix match : remove mm deal
-. no result prompt from product search (find out all spot)
-. make sure receipt in couch is not getting sync down again
-. clean up copy receipt from couch to master, no more create sp
-. update requirejs for product page loading cdn
-. internet disconnect, but when push again it said there is no sale data to push
-. move receipt out to its own app in master
 . mix match test: insert/update for client
 . delete sku test: can not delete sku when it belong to another store 
-. remove tax out of couch, and test tax. 
 . test couch acl, should we move this test into other app? i believe it would be receipt? since we can only insert receipt
 . product model test
 . store inserter test
@@ -315,17 +299,29 @@ LOW PRIORITY
 . serialize_product_from_id(product_id,store_id,is_include_other_store) revisit is_include_other_store. it does not work. may be i need to implement this with python and not with django orm filter.
 
 ----------------------------------------------------------------------------------------
+. write a get_report_test: combine copy_receipt_from_c2m and report calculator
+    . it is a pain to move fixture from receipt_calculator into fixture for report_getter. you can let it go this time, very low priority
 
-. kit: is a product that is the exact grouping with other products. relation can help deal with qty. 
-    . have a barcode 
-    . track sale record, inventory
-    . example
-        . bud 15 can. pack of 3. 5 x 3 pack. pack of 3, case of 15, or unit. different price
-    . relation:
-        . a prompt to change sp for unit item
-            . share cost
-            . share crv
-        . not share price.
+. sale_shortcut validator and responsive validation ui
+. a test for create offline sp when internet is available and data is push
+. blocking ui at all possible spot: (sale.scan.edit_product: it could take a long time to popup interface. block here)
+. how to report script loading timeout, 
+. remove tax out of couch, and test tax. 
+. no result prompt from product search (find out all spot)
+. kill alone discounter because tax purpose
+. mix match : remove mm deal
+. empty string for p_type, show up in report
+. print receipt
+. include css with js, and fall back
+. online name search
+. shortcut button color
+. shortcut constrain: unique (store + position)
+. fix sale_report view so that we don't have to have if else in response. dump into one response dictionarys
+
+
+. do a receipt pusher before viewing receipt, and report
+
+
 
 
 

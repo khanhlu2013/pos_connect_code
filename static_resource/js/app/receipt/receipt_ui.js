@@ -17,41 +17,54 @@ define(
         ,error_lib
     )
 {
+    csrf_ajax_protection_setup();
     var STORE_ID = MY_STORE_ID;
     var COUCH_SERVER_URL = MY_COUCH_SERVER_URL;
-    csrf_ajax_protection_setup();
-    
+
     $(function() {
         $( "#from_date_txt" ).datepicker();
         $( "#to_date_txt" ).datepicker();
     });    
 
     var refresh_btn = document.getElementById('refresh_btn');
-    var report_tbl = document.getElementById('report_tbl')
+    var receipt_tbl = document.getElementById('receipt_tbl')
 
 
-    function display_report(data){
-        $(report_tbl).empty();
-        for(var key in data){
-            if(data.hasOwnProperty(key)){
-                var tr = report_tbl.insertRow(-1);
-                var td;
-                td = tr.insertCell(-1);
-                td.innerHTML = (key);
-                td = tr.insertCell(-1);
-                td.innerHTML = (data[key]);                
-            }
+    function display_receipt_table(receipt_lst){
+        receipt_tbl.innerHTML = "";
+        var tr;var td;
+
+        //columns
+        tr = receipt_tbl.insertRow(-1);
+        var columns = ['date','amount']
+        for(var i = 0;i<columns.length;i++){
+            td = tr.insertCell(-1);
+            td.innerHTML = columns[i];
+        }
+        
+        for(var i = 0;i<receipt_lst.length;i++){
+
+            tr = receipt_tbl.insertRow(-1);
+            var cur_receipt = receipt_lst[i];
+
+            //date
+            td = tr.insertCell(-1);
+            td.innerHTML = new Date(cur_receipt.time_stamp).toString();
+
+            //amount
+            td = tr.insertCell(-1);
+            td.innerHTML = cur_receipt.collect_amount;
         }
     }
 
-    function ajax_get_report(from_date,to_date,time_zone_offset,callback){
+    function ajax_get_receipt(from_date,to_date,time_zone_offset,callback){
         $.ajax({
-             url : "/sale_report/get_report"
+             url : "/receipt/get_receipt"
             ,type : "GET"
             ,dataType : "json"
             ,data : {from_date:from_date,to_date:to_date,time_zone_offset:time_zone_offset}
             ,success: function(data,status_str,xhr){
-                callback(null,data);
+                callback(null,data)
             }
             ,error : function(xhr,status_str,err){
                 callback(xhr);
@@ -65,16 +78,15 @@ define(
         var time_zone_offset = new Date().getTimezoneOffset() / 60;
 
         var push_receipt_b = receipt_pusher.exe_if_nessesary.bind(receipt_pusher.exe_if_nessesary,STORE_ID,COUCH_SERVER_URL);
-        var ajax_get_report_b = ajax_get_report.bind(ajax_get_report,from_date,to_date,time_zone_offset);
-        async.series([push_receipt_b,ajax_get_report_b],function(error,results){
+        var ajax_get_receipt_b = ajax_get_receipt.bind(ajax_get_receipt,from_date,to_date,time_zone_offset);
+        async.series([push_receipt_b,ajax_get_receipt_b],function(error,results){
             if(error){
                 error_lib.alert_error(error);
                 return;
             }
-            var report_data = results[1];
-            display_report(report_data);
-        })
-
+            var receipt_data = results[1];
+            display_receipt_table(receipt_data);
+        });
     }
 
     refresh_btn.addEventListener("click",refresh_btn_handler);

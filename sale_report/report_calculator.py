@@ -1,5 +1,5 @@
 UNDEFINED_TYPE_STR = 'undefined'
-
+NON_INVENTORY_TYPE_STR = 'non_inv'
 
 def update_dic(key,amount,dic):
     if key in dic:
@@ -32,6 +32,6 @@ def exe(receipt_lst): # xxx naming is hard to understand. subject to refactor
                 update_dic(UNDEFINED_TYPE_STR,amount,dic)
 
         elif item.store_product == None:
-            update_dic(item.non_product_name,amount,dic)
+            update_dic(NON_INVENTORY_TYPE_STR,amount,dic)
 
     return dic

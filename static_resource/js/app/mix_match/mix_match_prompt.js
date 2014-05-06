@@ -62,7 +62,7 @@ define(
             if(keycode == '13'){
                 ui_response();
             }
-        });        
+        });
     }
 
     function add_mix_match_child_handler(){
@@ -113,6 +113,12 @@ define(
         var ok_btn_handler_b = ok_btn_handler.bind(ok_btn_handler,callback);
         var cancel_btn_handler_b = cancel_btn_handler.bind(cancel_btn_handler,callback);
 
+        $('#mix_match_prompt_dlg').keypress(function(e) {
+            if (e.keyCode == $.ui.keyCode.ENTER) {
+                ok_btn_handler(callback);
+            }
+        });
+
         $('#mix_match_prompt_dlg').dialog({
              title:title
             ,buttons: [ { text: "Ok", click: ok_btn_handler_b },{ text: "Cancel", click: cancel_btn_handler_b } ]
@@ -120,6 +126,7 @@ define(
             ,width : 600
             ,heigh : 400
         });
+
         $('#mix_match_prompt_dlg').dialog('open');        
     }
 

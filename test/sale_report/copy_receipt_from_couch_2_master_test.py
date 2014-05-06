@@ -4,8 +4,8 @@ from store_product import new_sp_inserter
 from sale.sale_couch.receipt import receipt_inserter_for_test_purpose,receipt_lst_couch_getter,receipt_ln_constructor_for_test_purpose
 from store_product.sp_couch import store_product_couch_getter
 from store_product.sp_couch.document import Store_product_document
-from sale.receipt import receipt_lst_master_getter
-from sale import copy_receipt_from_couch_2_master
+from receipt import receipt_master_getter
+from receipt import copy_receipt_from_couch_2_master
 from decimal import Decimal
 from couch import couch_constance
 import time
@@ -115,7 +115,7 @@ class test(WebTest):
 
 
         #-assert receipt in master is saved correctly
-        receipt_master_lst = receipt_lst_master_getter.exe(store.id)
+        receipt_master_lst = Receipt.objects.filter(store_id=store.id).prefetch_related('receipt_ln_set')
         self.assertEqual(len(receipt_master_lst),1)
         receipt = receipt_master_lst[0]
         self.assertEqual(int(time.mktime(receipt.time_stamp.timetuple())*1000),time_stamp)

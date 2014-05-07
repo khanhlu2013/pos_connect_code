@@ -24,7 +24,7 @@ html,body {
 #shortcut{
   float: right;
   width: 550px;
-  background: #c99;
+  background: #FFFFFF;
 }
 
 #footer{
@@ -37,6 +37,9 @@ html,body {
 #sku_management_dialog{display: None;}
 #non_inventory_prompt_dialog{display: None;}
 #product_search_dlg{display: None;}
+
+.parent_selected {background-color:#CFF5B5;}
+.parent_unselected {background-color:#FFFFFF;}
 
 /* ------------------------------------------------- */
 

@@ -40,7 +40,10 @@ define(
                 async.waterfall([name_search_b],function(error,result){
                     if(error){error_lib.alert_error(error); }
                     else{
-                        product_data_2_ui(result,callback);                    
+                        product_data_2_ui(result,callback);      
+                        if(result.length == 0){
+                            alert('no result');
+                        }              
                     }
                 });
             }

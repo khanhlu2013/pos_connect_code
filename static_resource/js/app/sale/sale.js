@@ -6,7 +6,6 @@ define(
         ,'app/sale/sale_finalizer/sale_finalizer'
         ,'lib/number/number'
         ,'app/sale/displaying_scan/displaying_scan_lst_and_tax_getter'
-        ,'app/sale/discounter/alone_discounter'
         ,'lib/db/pouch_db_util'
         ,'app/sale/displaying_scan/displaying_scan_util'
         ,'constance'
@@ -38,7 +37,6 @@ define(
         ,sale_finalizer
         ,number
         ,ds_lst_and_tax_getter
-        ,alone_discounter
         ,pouch_db_util
         ,ds_util
         ,constance
@@ -61,7 +59,6 @@ define(
         //UI
         var table = document.getElementById("sale_table");
         var total_button = document.getElementById("total_button");
-        var discount_button = document.getElementById("discount_button");
         var void_btn = document.getElementById("void_btn");
         var push_receipt_btn = document.getElementById("push_receipt_btn");
         var non_inventory_btn = document.getElementById("non_inventory_btn");
@@ -152,23 +149,6 @@ define(
                 });
             }
             push_receipt_btn.addEventListener("click", exe);
-        }
-
-        function hook_alone_discounter_2_ui(){
-
-            function discount_button_function_handler(){
-                var discount_input_str = prompt('enter discount amount or discount %. e.g. 5 or 5%');
-                if(discount_input_str == null){
-                    return;
-                }
-
-                var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,MM_LST,STORE_IDB,STORE_PDB,table,STORE_ID,COUCH_SERVER_URL);
-                var alone_discounter_b = alone_discounter.bind(alone_discounter,MM_LST,STORE_IDB,discount_input_str);
-                async.waterfall([alone_discounter_b,ds_2_ui_b],function(error,result){
-                    if(error){alert(error);}
-                });
-            }
-            discount_button.addEventListener("click", discount_button_function_handler);
         }
 
         function hook_sale_finalizer_2_ui(){
@@ -265,7 +245,8 @@ define(
 
         function refresh_shortcut_parent_button(tr,parent_position){
             var parent = sale_shortcut_util.get_parent(parent_position,SHORTCUT_LST);
-
+            var class_name = parent_position == CUR_SELECT_PARENT_SHORTCUT ? 'parent_selected' : 'parent_unselected'
+            
             //MAIN
             td = tr.insertCell(-1);
             td.innerHTML = (parent == null ? null : parent.caption);   
@@ -273,6 +254,7 @@ define(
                 CUR_SELECT_PARENT_SHORTCUT = parent_position;
                 display_shortcut_table();
             });
+            td.className = class_name;
         }
 
         function refresh_shortcut_children(tr,row){
@@ -353,7 +335,6 @@ define(
             //init ui functionality
             hook_scanner_to_ui();
             hook_sale_finalizer_2_ui();
-            hook_alone_discounter_2_ui();
             hook_voider_2_ui();
             hook_receipt_pusher_2_ui();
             display_shortcut_table();

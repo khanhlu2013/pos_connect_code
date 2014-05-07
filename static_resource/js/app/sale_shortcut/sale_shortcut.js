@@ -110,7 +110,8 @@ require(
 
     function refresh_shortcut_parent_button(tr,parent_position){
         var parent = sale_shortcut_util.get_parent(parent_position,SHORTCUT_LST);
-
+        var class_name = parent_position == CUR_SELECT_PARENT_SHORTCUT ? 'parent_selected' : 'parent_unselected'
+        
         //MAIN
         td = tr.insertCell(-1);
         td.innerHTML = (parent == null ? null : parent.caption);   
@@ -118,6 +119,7 @@ require(
             CUR_SELECT_PARENT_SHORTCUT = parent_position;
             display_shortcut_table();
         });
+        td.className = class_name;
 
         //EDIT
         td = tr.insertCell(-1);

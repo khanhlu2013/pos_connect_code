@@ -302,19 +302,16 @@ UPGRADE FEATURE
 . sale_shortcut validator and responsive validation ui
 . blocking ui at all possible spot: (sale.scan.edit_product: it could take a long time to popup interface. block here)
 . how to report script loading timeout, 
-. remove tax out of couch, and test tax. 
 . empty string for p_type, show up in report
 . print receipt
 . include css with js, and fall back
-. shortcut button color
-. no result prompt from product search (find out all spot)
 
 
 
+. remove tax out of couch, and test tax. 
 
 
 
-. kill alone discounter because tax purpose
 
 
 

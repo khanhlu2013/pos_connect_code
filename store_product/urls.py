@@ -16,6 +16,7 @@ urlpatterns = patterns('',
     url(r'^search/$',login_required(sp_search_view.sp_search_index_view.as_view()),name='search_product'),    
     url(r'^search_by_sku$',login_required(sp_search_view.sp_search_by_sku_view)),
     url(r'^search_by_name$',login_required(sp_search_view.sp_search_by_name_view)),
+    url(r'^search_by_name_sku$',login_required(sp_search_view.sp_search_by_name_sku_view)),
     url(r'^search_by_pid$',login_required(sp_search_view.sp_search_by_pid_view)),    
 
     #SKU

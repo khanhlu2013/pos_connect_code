@@ -3,8 +3,6 @@ from product.models import Product
 import store.models
 import json
 import requests
-from tax.couch import tax_util
-from tax.couch.models import Tax_document
 from util.couch import master_account_util,user_util
 from couch import couch_util,couch_constance
 from sale.sale_couch.receipt import receipt_document_validator
@@ -39,7 +37,6 @@ def exe_couch(store_id,tax_rate,api_key_name):
     _couch_db_insert_db(store_id)
     _couch_db_insert_view(store_id)
     _couch_db_insert_validation(store_id)
-    _couch_db_insert_tax_rate(store_id,tax_rate)
     if test_helper.is_local_env():
         old_security_4_test_purpose.exe(store_id)
     else:
@@ -73,18 +70,6 @@ def _couch_db_grant_cloudant_access_to_api_key(api_key_name,store_id,roles):
     headers = {'content-type': 'application/x-www-form-urlencoded'}
 
     r = requests.post(url,data=data_str,headers=headers,auth=(master_account_util.get_master_user_name(),master_account_util.get_master_user_password()))    
-
-
-
-def _couch_db_insert_tax_rate(store_id,tax_rate):
-    db = couch_util.get_store_db(store_id)
-    tax_document = Tax_document(
-         id = tax_util.get_tax_document_id()
-        ,business_id = store_id
-        ,tax_rate  = tax_rate
-    )
-    db.update([tax_document,])
-
 
 def _couch_db_insert_db(store_id):
     #CREATE LIQUOR DATABASE

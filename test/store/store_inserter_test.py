@@ -3,7 +3,6 @@ from django.conf import settings
 import requests
 from model_mommy import mommy
 from util.couch import user_util
-from tax.couch import tax_util
 from helper import test_helper 
 from couch import couch_util
 from couchdb import ResourceNotFound
@@ -51,9 +50,5 @@ from util.couch import master_account_util,reader_lst_getter
 #         # self.assertTrue(['_reader','_writer'] in store_right_lst)
 
 
-#         #TEST TAX_RATE
-#         self.assertEqual(store.tax_rate,tax_rate)
-#         tax_document = tax_util.get_tax_document(store.id)
-#         self.assertTrue(tax_document!=None)
-#         self.assertEqual(tax_document["tax_rate"],str(tax_rate))
+
 

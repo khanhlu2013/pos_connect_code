@@ -6,6 +6,7 @@ from couch import couch_util
 from store_product import sp_serializer
 from django.core.serializers.json import DjangoJSONEncoder
 from store_product.sp_master_util import get_lookup_type_tag
+from django.db.models import Q
 
 class sp_search_index_view(TemplateView):
     template_name = 'store_product/product/product.html'
@@ -36,16 +37,20 @@ def is_store_prod_sku_in_lst(prod_lst,store_id,sku_str):
     return result;
 
 
+def sp_search_by_name_sku_view(request):
+    search_str = request.GET['search_str']
+    cur_login_store = request.session.get('cur_login_store')
+    prod_lst = Product.objects.filter(store_set__id = cur_login_store.id).filter(Q(sku_set__sku__exact=search_str)|Q(store_product__name__icontains=search_str)).prefetch_related('store_product_set')  
+    prod_lst_serialized = sp_serializer.serialize_product_lst(prod_lst)
+    return HttpResponse(json.dumps(prod_lst_serialized,cls=DjangoJSONEncoder),content_type='application/json')
+
+
 def sp_search_by_name_view(request):
     name_str = request.GET['name_str']
     cur_login_store = request.session.get('cur_login_store')
     prod_lst = list(Product.objects.filter(store_set__id = cur_login_store.id, store_product__name__icontains=name_str).prefetch_related('store_product_set'))  
-    
-    data = {
-         'prod_lst' : sp_serializer.serialize_product_lst(prod_lst)
-    }
-
-    return HttpResponse(json.dumps(data,cls=DjangoJSONEncoder),content_type='application/json')
+    prod_lst_serialized = sp_serializer.serialize_product_lst(prod_lst)
+    return HttpResponse(json.dumps(prod_lst_serialized,cls=DjangoJSONEncoder),content_type='application/json')
 
 
 def sp_search_by_sku_view(request):

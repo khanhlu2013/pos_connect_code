@@ -5,12 +5,12 @@ from rest_framework import serializers,fields
 class Child_serializer(serializers.ModelSerializer):
     position = serializers.Field(source='position')
     caption = serializers.Field(source='caption')
-    pid = serializers.Field(source='store_product.product.id')
+    product_id = serializers.Field(source='store_product.product.id')
     product_name = serializers.Field(source='store_product.name')
 
     class Meta:
         model = Child
-        fields = ('position','caption','pid','product_name')
+        fields = ('position','caption','product_id','product_name')
 
 
 class Parent_serializer(serializers.ModelSerializer):

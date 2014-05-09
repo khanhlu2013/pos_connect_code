@@ -5,7 +5,6 @@ define(
         ,'app/sale/displaying_scan/displaying_scan_2_ui'
         ,'app/sale/sale_finalizer/sale_finalizer'
         ,'lib/number/number'
-        ,'app/sale/displaying_scan/displaying_scan_lst_and_tax_getter'
         ,'lib/db/pouch_db_util'
         ,'app/sale/displaying_scan/displaying_scan_util'
         ,'constance'
@@ -23,6 +22,7 @@ define(
         ,'app/sale/non_inventory/non_inventory_prompt'
         ,'app/store_product/sp_online_name_search_ui'
         ,'app/sale/scan/pid_scanner'
+        ,'app/sale/displaying_scan/displaying_scan_lst_getter'
         //-----------------
         ,'jquery'
         ,'jquery_block_ui'
@@ -36,7 +36,6 @@ define(
         ,ds_2_ui
         ,sale_finalizer
         ,number
-        ,ds_lst_and_tax_getter
         ,pouch_db_util
         ,ds_util
         ,constance
@@ -54,6 +53,7 @@ define(
         ,non_inventory_prompt
         ,sp_online_name_search_ui
         ,pid_scanner
+        ,ds_lst_getter
     )
     {
         //UI
@@ -77,6 +77,7 @@ define(
         var STORE_IDB;
 
         //shortcut
+        var TAX_RATE = MY_TAX_RATE;
         var SHORTCUT_LST = MY_SHORTCUT_LST;
         var MM_LST = MY_MM_LST;
         var CUR_SELECT_PARENT_SHORTCUT = 0;
@@ -91,8 +92,9 @@ define(
                         return;
                     }
                     var product_json = result;
-                    var pid_scanner_b = pid_scanner.exe.bind(pid_scanner.exe,product_json.product_id,STORE_ID,STORE_IDB,STORE_PDB,COUCH_SERVER_URL,MM_LST,table);
-                    async.waterfall([pid_scanner_b],function(error,result){
+                    var pid_scanner_b = pid_scanner.exe.bind(pid_scanner.exe,product_json.product_id,STORE_IDB);
+                    var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,MM_LST,STORE_IDB,STORE_PDB,STORE_ID,COUCH_SERVER_URL,TAX_RATE,table,total_button);
+                    async.waterfall([pid_scanner_b,ds_2_ui_b],function(error,result){
                         if(error){
                             error_lib.alert_error(error);
                             return;
@@ -113,7 +115,7 @@ define(
                     var amount = result.price;
                     var inserting_ps = new Pending_scan(null/*key*/,1/*qty*/,amount,null/*discount*/,null/*sp_doc_id*/,result.description/*non_product_name*/);
                     var ps_inserter_b = ps_inserter.bind(ps_inserter,STORE_IDB,inserting_ps);
-                    var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,MM_LST,STORE_IDB,STORE_PDB,table,STORE_ID,COUCH_SERVER_URL);
+                    var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,MM_LST,STORE_IDB,STORE_PDB,STORE_ID,COUCH_SERVER_URL,TAX_RATE,table,total_button);
 
                     async.waterfall([ps_inserter_b,ds_2_ui_b],function(error,result){
                         if(error){
@@ -153,13 +155,12 @@ define(
 
         function hook_sale_finalizer_2_ui(){
             function total_button_click_handler(){
-                var ds_lst_and_tax_getter_b = ds_lst_and_tax_getter.bind(ds_lst_and_tax_getter,MM_LST,STORE_IDB)
-                async.waterfall([ds_lst_and_tax_getter_b],function(error,result){
-                    var ds_lst = result[0];
-                    var tax_rate = result[1];
+                var ds_lst_getter_b = ds_lst_getter.bind(ds_lst_getter,MM_LST,STORE_IDB);
+                async.waterfall([ds_lst_getter_b],function(error,result){
+                    var ds_lst = result;
 
                     if(ds_lst.length != 0){
-                        var line_total = ds_util.get_line_total(ds_lst,tax_rate);
+                        var line_total = ds_util.get_line_total(ds_lst,TAX_RATE);
                         var collect_amount = number.prompt_positive_double("amount: "/*message*/,line_total/*prefill*/,'wrong input'/*error_message*/)
 
                         if(collect_amount!=null){
@@ -167,13 +168,13 @@ define(
                                 alert('collecting amount should be at least:' + line_total);
                                 return;
                             }else if(confirm("Did you give the customer change: " + (number.trim(collect_amount - line_total)))) {
-                                var sale_finalizer_b = sale_finalizer.bind(sale_finalizer,MM_LST,STORE_PDB,STORE_IDB,collect_amount);
+                                var sale_finalizer_b = sale_finalizer.bind(sale_finalizer,MM_LST,STORE_PDB,STORE_IDB,collect_amount,TAX_RATE);
                                 async.waterfall([sale_finalizer_b],function(error,result){
                                     if(error){
                                         alert(error);
                                     }else{
                                         //refresh table
-                                        var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,MM_LST,STORE_IDB,STORE_PDB,table,STORE_ID,COUCH_SERVER_URL);
+                                        var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,MM_LST,STORE_IDB,STORE_PDB,STORE_ID,COUCH_SERVER_URL,TAX_RATE,table,total_button);
                                         async.waterfall([ds_2_ui_b],function(error,result){
                                             if(error){
                                                 alert(error);
@@ -204,7 +205,7 @@ define(
                 }
 
                 var scanner_b = scanner.exe.bind(scanner.exe,scan_str,STORE_IDB);
-                var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,MM_LST,STORE_IDB,STORE_PDB,table,STORE_ID,COUCH_SERVER_URL);
+                var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,MM_LST,STORE_IDB,STORE_PDB,STORE_ID,COUCH_SERVER_URL,TAX_RATE,table,total_button);
 
                 async.waterfall([scanner_b,ds_2_ui_b],function(error,result){
                     if(error){
@@ -232,8 +233,9 @@ define(
                 child = sale_shortcut_util.get_child(cur_parent,child_position);
                 if(child!=null){
 
-                    var pid_scanner_b = pid_scanner.exe.bind(pid_scanner.exe,child.pid,STORE_ID,STORE_IDB,STORE_PDB,COUCH_SERVER_URL,MM_LST,table);
-                    async.waterfall([pid_scanner_b],function(error,result){
+                    var pid_scanner_b = pid_scanner.exe.bind(pid_scanner.exe,child.product_id,STORE_IDB);
+                    var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,MM_LST,STORE_IDB,STORE_PDB,STORE_ID,COUCH_SERVER_URL,TAX_RATE,table,total_button);
+                    async.waterfall([pid_scanner_b,ds_2_ui_b],function(error,result){
                         if(error){
                             error_lib.alert_error(error);
                             return;
@@ -292,20 +294,19 @@ define(
         function hook_voider_2_ui(){
             function void_btn_click_handler(){
 
-                var ds_lst_and_tax_getter_b = ds_lst_and_tax_getter.bind(ds_lst_and_tax_getter,MM_LST,STORE_IDB)
-                async.waterfall([ds_lst_and_tax_getter_b],function(error,result){
-                    var ds_lst = result[0];
-                    var tax_rate = result[1];
+                var ds_lst_getter_b = ds_lst_getter.bind(ds_lst_getter,MM_LST,STORE_IDB);
+                async.waterfall([ds_lst_getter_b],function(error,result){
+                    var ds_lst = result;
 
                     if(ds_lst.length == 0){
                         return;
                     }else{
-                        if(!confirm("clear all scan?")){
+                        if(!confirm('clear all scan?')){
                             return;
                         }
-                        
+
                         var voider_b = voider.bind(voider,STORE_IDB);
-                        var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,MM_LST,STORE_IDB,STORE_PDB,table,STORE_ID,COUCH_SERVER_URL);
+                        var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,MM_LST,STORE_IDB,STORE_PDB,STORE_ID,COUCH_SERVER_URL,TAX_RATE,table,total_button);
 
                         async.waterfall([voider_b,ds_2_ui_b],function(error,result){
                             if(error){alert(error);}
@@ -342,7 +343,7 @@ define(
             hook_product_search_btn_2_ui()
 
             //refresh ui
-            var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,MM_LST,STORE_IDB,STORE_PDB,table,STORE_ID,COUCH_SERVER_URL);
+            var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,MM_LST,STORE_IDB,STORE_PDB,STORE_ID,COUCH_SERVER_URL,TAX_RATE,table,total_button);
             async.waterfall([ds_2_ui_b],function(error,result){
                 if(error){
                     $.unblockUI();

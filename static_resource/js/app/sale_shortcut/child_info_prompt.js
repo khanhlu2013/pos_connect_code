@@ -1,14 +1,12 @@
 define(
 [
      'lib/async'
-    ,'app/store_product/sp_online_searcher'
     ,'app/store_product/sp_online_name_search_ui' 
     ,'lib/error_lib'
 ]
 ,function
 (
      async
-    ,sp_online_searcher
     ,sp_online_name_search_ui
     ,error_lib
 )
@@ -30,7 +28,7 @@ define(
         }
 
         $('#child_info_prompt_dlg').dialog('close');
-        var result = {pid:RETURN_PID,caption:caption};
+        var result = {product_id:RETURN_PID,caption:caption};
         callback(null,result);
     }
 
@@ -81,9 +79,9 @@ define(
         });
     }
 
-    function exe(caption,product_name,pid,callback){
+    function exe(caption,product_name,product_id,callback){
         
-        RETURN_PID = pid;
+        RETURN_PID = product_id;
         init_ok_remove_cancel_btn(callback);
         $('#product_search_btn').off('click').click(name_search_handler);
 

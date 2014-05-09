@@ -6,14 +6,35 @@ define
 (
 )
 {
-	var NAME_SEARCH_ERROR_EMPTY = "NAME_SEARCH_ERROR_EMPTY";
-	var SKU_SEARCH_ERROR_EMPTY = "SKU_SEARCH_ERROR_EMPTY";
+    var NAME_SEARCH_ERROR_EMPTY = "NAME_SEARCH_ERROR_EMPTY";
+    var SKU_SEARCH_ERROR_EMPTY = "SKU_SEARCH_ERROR_EMPTY";
+
+    function name_sku_search(search_str,callback){
+        var search_str = search_str.trim();
+        if(!search_str){
+            callback(NAME_SEARCH_ERROR_EMPTY/*error*/);
+            return;
+        }
+
+        $.ajax({
+             url: '/product/search_by_name_sku'
+            ,type: 'GET'
+            ,data: {search_str:search_str}
+            ,dataType: 'json'
+            ,success: function(data,status_str,xhr){
+                callback(null/*error*/,data/*prod_lst*/);
+            }
+            ,error: function(xhr,status_str,err){
+                callback(xhr);
+            }
+        });         
+    }
 
     function name_search(name_str,callback){
         var name_str = name_str.trim();
         if(!name_str){
-        	callback(NAME_SEARCH_ERROR_EMPTY/*error*/);
-        	return;
+            callback(NAME_SEARCH_ERROR_EMPTY/*error*/);
+            return;
         }
 
         $.ajax({
@@ -22,7 +43,7 @@ define
             ,data: {name_str:name_str}
             ,dataType: 'json'
             ,success: function(data,status_str,xhr){
-            	callback(null/*error*/,data.prod_lst);
+                callback(null/*error*/,data/*product_lst*/);
             }
             ,error: function(xhr,status_str,err){
                 callback(xhr);
@@ -33,8 +54,8 @@ define
     function sku_search(sku_str,callback){
         var sku_str = sku_str.trim();
         if(!sku_str){
-        	callback(SKU_SEARCH_ERROR_EMPTY/*error*/);
-        	return;
+            callback(SKU_SEARCH_ERROR_EMPTY/*error*/);
+            return;
         }
 
         $.ajax({
@@ -43,7 +64,7 @@ define
             ,data: {sku_str:sku_str}
             ,dataType: 'json'
             ,success: function(data,status_str,xhr){
-            	callback(null,data);
+                callback(null,data);
             }
             ,error: function(xhr,status_str,err){
                 callback(xhr);
@@ -52,9 +73,10 @@ define
     }
 
     return{
-    	 NAME_SEARCH_ERROR_EMPTY : NAME_SEARCH_ERROR_EMPTY
-    	,SKU_SEARCH_ERROR_EMPTY:SKU_SEARCH_ERROR_EMPTY 
-    	,name_search : name_search
-    	,sku_search: sku_search
+         NAME_SEARCH_ERROR_EMPTY : NAME_SEARCH_ERROR_EMPTY
+        ,SKU_SEARCH_ERROR_EMPTY:SKU_SEARCH_ERROR_EMPTY 
+        ,name_search : name_search
+        ,sku_search: sku_search
+        ,name_sku_search:name_sku_search
     }
 });

@@ -36,8 +36,8 @@ define(
                 var name_str = $('#product_search_txt').val().trim(); 
                 if(!name_str){return;}
 
-                var name_search_b = sp_online_searcher.name_search.bind(sp_online_searcher.name_search,name_str);
-                async.waterfall([name_search_b],function(error,result){
+                var search_b = sp_online_searcher.name_sku_search.bind(sp_online_searcher.name_sku_search,name_str);
+                async.waterfall([search_b],function(error,result){
                     if(error){error_lib.alert_error(error); }
                     else{
                         product_data_2_ui(result,callback);      

@@ -6,7 +6,6 @@ define(
         ,'app/sale/displaying_scan/displaying_scan_lst_getter'
         ,'lib/number/number'
         ,'app/sale/displaying_scan/displaying_scan_util'
-        ,'app/sale/displaying_scan/displaying_scan_lst_and_tax_getter'
         ,'app/store_product/sp_updator'
         ,'app/product/product_json_helper'
         ,'lib/error_lib'
@@ -19,7 +18,6 @@ define(
         ,ds_lst_getter
         ,number
         ,ds_util
-        ,ds_lst_and_tax_getter
         ,sp_updator
         ,product_json_helper
         ,error_lib
@@ -28,23 +26,29 @@ define(
 {
     var column_name = ["qty", "product", "price", "line total", "X"];
     var MM_LST = null;
-
-    function exe_instruction(store_idb,store_pdb,ds_index,instruction,ds_lst,table,tax_rate,store_id,couch_server_url){
-        var ds_modifier_b = ds_modifier.bind(ds_modifier,MM_LST,store_idb,ds_index,instruction);
-        var ds_lst_getter_b = ds_lst_getter.bind(ds_lst_getter,MM_LST,store_idb);
+    var COUCH_SERVER_URL = null;
+    var STORE_ID = null;
+    var STORE_IDB = null;
+    var STORE_PDB = null;
+    var SALE_TABLE = null;
+    var TOTAL_BUTTON = null;
+    
+    function exe_instruction(ds_index,instruction,ds_lst){
+        var ds_modifier_b = ds_modifier.bind(ds_modifier,MM_LST,STORE_IDB,ds_index,instruction);
+        var ds_lst_getter_b = ds_lst_getter.bind(ds_lst_getter,MM_LST,STORE_IDB);
         async.waterfall([ds_modifier_b,ds_lst_getter_b],function(error,result){
             if(error){
                 error_lib.alert_error(error);
             }else{
                 var new_ds_lst = result;
-                ds_2_ui(store_idb,store_pdb,table,new_ds_lst,tax_rate,store_id,couch_server_url);
+                ds_2_ui(new_ds_lst);
             }
         });
     }
 
-    function _item_2_table(ds_index,ds_lst,tax_rate,table,store_idb,store_pdb,store_id,couch_server_url){
+    function _item_2_table(ds_index,ds_lst){
         var displaying_scan = ds_lst[ds_index];
-        var tr = table.insertRow(-1);
+        var tr = SALE_TABLE.insertRow(-1);
         var td;
         
         // ["qty", "product", "price", "line total", "X"]
@@ -58,7 +62,7 @@ define(
                 return;
             }
             var instruction = new Instruction(new_qty==0/*is_delete*/,new_qty,displaying_scan.price,displaying_scan.discount);
-            exe_instruction(store_idb,store_pdb,ds_index,instruction,ds_lst,table,tax_rate,store_id,couch_server_url);
+            exe_instruction(ds_index,instruction,ds_lst);
         });
 
         //-PRODUCT
@@ -74,7 +78,7 @@ define(
                     return;
                 }
 
-                var sp_offline_updator_b = sp_offline_updator.bind(sp_offline_updator,displaying_scan.store_product,store_pdb);
+                var sp_offline_updator_b = sp_offline_updator.bind(sp_offline_updator,displaying_scan.store_product,STORE_PDB);
                 async.waterfall([sp_offline_updator_b],function(error,result){
                     if(error){
                         error_lib.alert_error(error);
@@ -84,21 +88,21 @@ define(
                         var sp = result;
                         var hackish_new_price = sp.price;
                         var instruction = new Instruction(false/*is_delete*/,displaying_scan.qty,hackish_new_price,displaying_scan.discount);
-                        exe_instruction(store_idb,store_pdb,ds_index,instruction,ds_lst,table,tax_rate,store_id,couch_server_url);                        
+                        exe_instruction(ds_index,instruction,ds_lst);                        
                     }
                 });
             }else{
-                var sp_updator_b = sp_updator.exe.bind(sp_updator.exe,product_id,store_id,couch_server_url);
+                var sp_updator_b = sp_updator.exe.bind(sp_updator.exe,product_id,STORE_ID,COUCH_SERVER_URL);
                 async.waterfall([sp_updator_b],function(error,result){
                     if(error){
                         error_lib.alert_error(error);
                         return;
                     }else{
                         //hackish way to refresh the interface by pretending the price is change
-                        var sp_updator_return_product = product_json_helper.get_sp_from_p(result,store_id);
+                        var sp_updator_return_product = product_json_helper.get_sp_from_p(result,STORE_ID);
                         var hackish_new_price = sp_updator_return_product.price;
                         var instruction = new Instruction(false/*is_delete*/,displaying_scan.qty,hackish_new_price,displaying_scan.discount);
-                        exe_instruction(store_idb,store_pdb,ds_index,instruction,ds_lst,table,tax_rate,store_id,couch_server_url);
+                        exe_instruction(ds_index,instruction,ds_lst);
                     }
                 });                
             }
@@ -131,17 +135,17 @@ define(
             }
 
             //BUYDOWN TAX
-            var buydown_tax = displaying_scan.get_buydown_tax(tax_rate);
+            var buydown_tax = displaying_scan.get_buydown_tax(TAX_RATE);
             if(buydown_tax){
                 msg += 'buydown tax: ' + buydown_tax + '\n';
             }
 
             //TAX
-            var tax = displaying_scan.get_tax(tax_rate);
+            var tax = displaying_scan.get_tax(TAX_RATE);
             msg += 'tax: ' + tax + '\n'
             
 
-            msg += 'out the door price: ' + displaying_scan.get_otd_wt_price(tax_rate);
+            msg += 'out the door price: ' + displaying_scan.get_otd_wt_price(TAX_RATE);
             msg += '\n\n\n';    
             msg += 'enter new ONE TIME regular price\n';
             msg += '-------------------';
@@ -150,30 +154,27 @@ define(
                 return;
             }
             var instruction = new Instruction(false/*is_delete*/,displaying_scan.qty,new_price,displaying_scan.discount);
-            exe_instruction(store_idb,store_pdb,ds_index,instruction,ds_lst,table,tax_rate,store_id,couch_server_url);
+            exe_instruction(ds_index,instruction,ds_lst);
         });
 
         //-LINE TOTAL
         td = tr.insertCell(-1);
-        td.innerHTML = displaying_scan.get_line_total(tax_rate);
+        td.innerHTML = displaying_scan.get_line_total(TAX_RATE);
 
         //-REMOVE
         td = tr.insertCell(-1);
         td.innerHTML = 'x'
         td.addEventListener("click", function() {
             var instruction = new Instruction(true/*delete*/,null/*new_qty*/,null/*new_price*/,null/*new_discount*/);
-            exe_instruction(store_idb,store_pdb,ds_index,instruction,ds_lst,table,tax_rate,store_id,couch_server_url);
+            exe_instruction(ds_index,instruction,ds_lst);
         });
     }
 
-    function ds_2_ui(store_idb,store_pdb,table,ds_lst,tax_rate,store_id,couch_server_url){
+    function ds_2_ui(ds_lst){
 
-        while(table.hasChildNodes())
-        {
-           table.removeChild(table.firstChild);
-        }
+        SALE_TABLE.innerHTML = '';
 
-        var tr = table.insertRow(); var td;
+        var tr = SALE_TABLE.insertRow(); var td;
 
         //table column
         for( var i = 0;i<column_name.length;i++){
@@ -183,24 +184,31 @@ define(
 
         //table data
         for (var i = 0;i<ds_lst.length;i++){
-            _item_2_table(i,ds_lst,tax_rate,table,store_idb,store_pdb,store_id,couch_server_url);
+            _item_2_table(i,ds_lst);
         }
 
         //total button
-        total_button = document.getElementById('total_button');
-        var computed_total = ds_util.get_line_total(ds_lst,tax_rate);
-        total_button.innerHTML = computed_total;
+        var computed_total = ds_util.get_line_total(ds_lst,TAX_RATE);
+        TOTAL_BUTTON.innerHTML = computed_total;
     }
 
-    return function(mm_lst,store_idb,store_pdb,table,store_id,couch_server_url,callback){
+    return function(mm_lst,store_idb,store_pdb,store_id,couch_server_url,tax_rate,table,total_button,callback){
         MM_LST = mm_lst;
-        var ds_lst_and_tax_getter_b = ds_lst_and_tax_getter.bind(ds_lst_and_tax_getter,MM_LST,store_idb);
-        async.waterfall([ds_lst_and_tax_getter_b],function(error,result){
-            var ds_lst = result[0];
-            var tax_rate = result[1];
-            ds_2_ui(store_idb,store_pdb,table,ds_lst,tax_rate,store_id,couch_server_url);
+        COUCH_SERVER_URL = couch_server_url;
+        TAX_RATE = tax_rate;
+        STORE_ID = store_id
+        STORE_IDB = store_idb;
+        STORE_PDB = store_pdb;
+        SALE_TABLE = table;
+        TOTAL_BUTTON = total_button;
 
-            callback(error,table);
+        var ds_lst_getter_b = ds_lst_getter.bind(ds_lst_getter,MM_LST,STORE_IDB);
+        async.waterfall([ds_lst_getter_b],function(error,result){
+            var ds_lst = result;
+            ds_2_ui(ds_lst);
+
+            var result = {sale_table:SALE_TABLE,total_button:TOTAL_BUTTON}
+            callback(error,result);
         });
     }
 });

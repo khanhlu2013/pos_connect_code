@@ -61,7 +61,7 @@ define(
                 var r = {};
                 r['store_idb'] = results[2];
                 r['store_pdb'] = pouch_db_util.get_store_db(store_id);
-
+                r['store_id'] = store_id;
                 callback(error,r);
             }
         );

@@ -14,7 +14,8 @@
             ,'boot'             : 'lib/jasmine-2.0.0/boot'
             ,'jquery'           : 'lib/jquery/jquery-1.11.0.min'
             ,'jquery_block_ui'  : 'lib/jquery/jquery.blockUI'
-            ,'jquery_ui'        : 'lib/jquery/jquery-ui-1.10.4.min'            
+            ,'jquery_ui'        : 'lib/jquery/jquery-ui-1.10.4.min'     
+
         },
         shim: {
             'jasmine': {
@@ -33,7 +34,7 @@
                 exports: 'window.jasmineRequire'
             }
             ,'jquery_block_ui': ['jquery']
-            ,'jquery_ui' : ['jquery']            
+            ,'jquery_ui' : ['jquery']
         }
     });
 
@@ -45,7 +46,8 @@
         // 'spec/store_product/sp_online_searcher_spec'               
         // 'spec/receipt/receipt_pusher_spec'        
         // 'spec/sale/displaying_scan/displaying_scan_computer_spec'   
-        'spec/sale/scan/sku_scan_not_found_handler_spec' 
+        // 'spec/sale/scan/sku_scan_not_found_handler_spec' 
+        'spec/sale/displaying_scan/ds_2_ui_spec'         
 
     ];
                

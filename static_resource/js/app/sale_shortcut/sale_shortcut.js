@@ -66,15 +66,15 @@ require(
         }
         var caption = null;
         var product_name = null;
-        var pid = null;
+        var product_id = null;
 
         if(child!=null){
             caption = child.caption;
             product_name = child.product_name;
-            pid = child.pid;
+            product_id = child.product_id;
         }
 
-        var child_info_prompt_b = child_info_prompt.exe.bind(child_info_prompt.exe,caption,product_name,pid);
+        var child_info_prompt_b = child_info_prompt.exe.bind(child_info_prompt.exe,caption,product_name,product_id);
         async.waterfall([child_info_prompt_b],function(error,result){
             if(error){
                 if(error == child_info_prompt.ERROR_remove_button_pressed){
@@ -89,7 +89,7 @@ require(
                      parent_position:CUR_SELECT_PARENT_SHORTCUT
                     ,child_position: child_pos
                     ,child_caption:result.caption
-                    ,product_id:result.pid
+                    ,product_id:result.product_id
                 }
                 $.ajax({
                      url : "/sale_shortcut/set_child_info"

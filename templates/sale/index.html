@@ -3,6 +3,8 @@
 {% block content %}
 
     <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.min.css" />
+    <!-- <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" /> -->
+
     <link rel="stylesheet" href="{{ STATIC_URL }}css/app/sale/sale.css">
     <script data-main = "{{ STATIC_URL }}js/app/sale/sale_entry.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script>
     <!-- // <script data-main = "{{ STATIC_URL }}js/app/sale/sale_entry__min__.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script> -->
@@ -15,6 +17,7 @@
         var COLUMN_COUNT = {{COLUMN_COUNT}}
         var MY_SHORTCUT_LST = {{shortcut_lst|safe}};
         var MY_MM_LST = {{mix_match_lst|safe}};
+        var MY_TAX_RATE = {{tax_rate}};
     </script>
 
 

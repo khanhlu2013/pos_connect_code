@@ -4,12 +4,15 @@ import json
 from django.core.serializers.json import DjangoJSONEncoder
 from sale_shortcut import sale_shortcut_serializer,shortcut_getter
 from mix_match import mix_match_getter,mix_match_serializer
+from store.models import Store
 
 class Sale_view(TemplateView):
     template_name = 'sale/index.html'
 
     def dispatch(self,request,*args,**kwargs):
-        self.cur_login_store = self.request.session.get('cur_login_store')
+        cur_login_store = self.request.session.get('cur_login_store')
+        self.cur_login_store = Store.objects.get(pk=cur_login_store.id)
+
         return super(Sale_view,self).dispatch(request,*args,**kwargs)
 
     def get_context_data(self,**kwargs):
@@ -23,7 +26,8 @@ class Sale_view(TemplateView):
         context['shortcut_lst'] = json.dumps(sale_shortcut_serializer.serialize_shortcut_lst(shortcut_lst))
         mix_match_lst = mix_match_getter.get_mix_match_lst(self.cur_login_store.id)
         context['mix_match_lst'] = json.dumps(mix_match_serializer.serialize_mix_match_lst(mix_match_lst),cls=DjangoJSONEncoder)
-
+        context['tax_rate'] = self.cur_login_store.tax_rate
+        
         return context
 
   

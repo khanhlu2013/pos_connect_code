@@ -2,13 +2,12 @@
 
 {% block content %}
 
-    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.min.css" />
-    <!-- <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" /> -->
-
     <link rel="stylesheet" href="{{ STATIC_URL }}css/app/sale/sale.css">
-    <!-- // <script data-main = "{{ STATIC_URL }}js/app/sale/sale_entry.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script> -->
-    <script data-main = "{{ STATIC_URL }}js/app/sale/sale_entry__min__.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script>
-    
+    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.min.css" />
+
+    <script data-main = "{{ STATIC_URL }}js/app/sale/sale_entry.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script>
+    <!-- // <script data-main = "{{ STATIC_URL }}js/app/sale/sale_entry__min__.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script> -->
+
     <script type="text/javascript">
         var STATIC_URL = "{{STATIC_URL}}"
         var STORE_ID = Number("{{store_id}}")
@@ -19,8 +18,7 @@
         var MY_MM_LST = {{mix_match_lst|safe}};
         var MY_TAX_RATE = {{tax_rate}};
     </script>
-
-
+    
     <div id="wrap">
         <div id="header">my header</div>
         <div id="shortcut">  <table id = "shortcut_tbl" border="1"></table> </div>
@@ -32,6 +30,7 @@
             <button id="non_inventory_btn" type="button">non inventory</button>
             <button id="push_receipt_btn" type="button">receipt pusher</button>
             <button id="void_btn" type="button">void</button>
+
             <button id="total_button" type="button">total</button>
             <table id = "sale_table" border="1"></table>
         </div>
@@ -101,5 +100,7 @@
         <table id='product_search_tbl' border='1'></table>
     </div>    
 
+
+    <div id="block_message_label"></div>
 {% endblock content %}
 

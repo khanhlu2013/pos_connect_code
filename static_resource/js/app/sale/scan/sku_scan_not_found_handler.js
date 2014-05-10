@@ -11,6 +11,7 @@ define(
     ,'app/store_product/sp_creator'
     ,'app/store_product/sp_prompt'
     ,'app/store_product/Store_product'
+    ,'lib/ui/confirm'
 ]
 ,function
 (
@@ -20,6 +21,7 @@ define(
     ,sp_creator
     ,sp_prompt
     ,Store_product
+    ,confirm
 )
 {
     var ERROR_CANCEL_create_product_offline = 'ERROR_CANCEL_create_product_offline';
@@ -81,34 +83,37 @@ define(
                 }
 
                 //we are here because the internet is down.
-                if(!confirm('internet connection down. Do you want to create product offline?')){
-                    callback(ERROR_CANCEL_create_product_offline);
-                    return;
-                }
+                confirm.exe(
+                    'internet connection down. Do you want to create product offline?'
+                    ,function(){
+                        var sp_prompt_b = sp_prompt.show_prompt.bind(
+                             sp_prompt.show_prompt
+                            ,null//name
+                            ,null//price
+                            ,null//crv
+                            ,false//is_taxable
+                            ,true//is_sale_report
+                            ,null//p_type
+                            ,null//p_tag
+                            ,sku_str//sku_prefill
+                            ,true//is_prompt_sku
+                            ,null//cost
+                            ,null//vendor
+                            ,null//buydown
+                            ,null//lookup_type_tag
+                            ,false//is_sku_management
+                            ,null//suggest product
+                        )
+                        var create_offline_b = create_offline.bind(create_offline ,sku_str ,pouch_db );
 
-                var sp_prompt_b = sp_prompt.show_prompt.bind(
-                     sp_prompt.show_prompt
-                    ,null//name
-                    ,null//price
-                    ,null//crv
-                    ,false//is_taxable
-                    ,true//is_sale_report
-                    ,null//p_type
-                    ,null//p_tag
-                    ,sku_str//sku_prefill
-                    ,true//is_prompt_sku
-                    ,null//cost
-                    ,null//vendor
-                    ,null//buydown
-                    ,null//lookup_type_tag
-                    ,false//is_sku_management
-                    ,null//suggest product
-                )
-                var create_offline_b = create_offline.bind(create_offline ,sku_str ,pouch_db );
-
-                async.waterfall([sp_prompt_b,create_offline_b],function(error,result){
-                    callback(error);
-                });             
+                        async.waterfall([sp_prompt_b,create_offline_b],function(error,result){
+                            callback(error);
+                        });                         
+                    }
+                    ,function(){
+                        callback(ERROR_CANCEL_create_product_offline);
+                    }
+                );
             }else{
                 callback(null);
             }

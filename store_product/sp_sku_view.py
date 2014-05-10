@@ -1,6 +1,7 @@
 from store_product import delete_sku_cm,add_sku_cm,sp_serializer
 from django.http import HttpResponse
 import json
+from django.core.serializers.json import DjangoJSONEncoder
 
 def delete_ajax(request):
 
@@ -15,7 +16,7 @@ def delete_ajax(request):
                      product_id = product_id
                     ,store_id = store.id
                     ,is_include_other_store = True)  
-                return HttpResponse(json.dumps(product_serialized),content_type='application/json')
+                return HttpResponse(json.dumps(product_serialized,cls=DjangoJSONEncoder),content_type='application/json')
 
 
 def add_ajax(request):
@@ -31,5 +32,5 @@ def add_ajax(request):
                  product_id = product_id
                 ,store_id = store.id
                 ,is_include_other_store = True)  
-            return HttpResponse(json.dumps(product_serialized),content_type='application/json')            
+            return HttpResponse(json.dumps(product_serialized,cls=DjangoJSONEncoder),content_type='application/json')            
 

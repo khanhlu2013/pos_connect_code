@@ -23,11 +23,13 @@ define(
         ,'app/store_product/sp_online_name_search_ui'
         ,'app/sale/scan/pid_scanner'
         ,'app/sale/displaying_scan/displaying_scan_lst_getter'
+        ,'lib/ui/confirm'
         //-----------------
         ,'jquery'
         ,'jquery_block_ui'
         ,'jquery_ui'
         ,'lib/jquery/jquery.hotkeys'
+
     ],
     function
     (
@@ -54,6 +56,7 @@ define(
         ,sp_online_name_search_ui
         ,pid_scanner
         ,ds_lst_getter
+        ,confirm
     )
     {
         //UI
@@ -167,21 +170,30 @@ define(
                             if(collect_amount < line_total){
                                 alert('collecting amount should be at least:' + line_total);
                                 return;
-                            }else if(confirm("Did you give the customer change: " + (number.trim(collect_amount - line_total)))) {
-                                var sale_finalizer_b = sale_finalizer.bind(sale_finalizer,MM_LST,STORE_PDB,STORE_IDB,collect_amount,TAX_RATE);
-                                async.waterfall([sale_finalizer_b],function(error,result){
-                                    if(error){
-                                        alert(error);
-                                    }else{
-                                        //refresh table
-                                        var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,MM_LST,STORE_IDB,STORE_PDB,STORE_ID,COUCH_SERVER_URL,TAX_RATE,table,total_button);
-                                        async.waterfall([ds_2_ui_b],function(error,result){
+                            }else{
+                                var msg = "Did you give the customer change: " + (number.trim(collect_amount - line_total));
+                                confirm.exe(
+                                     msg
+                                    ,function(){
+                                        var sale_finalizer_b = sale_finalizer.bind(sale_finalizer,MM_LST,STORE_PDB,STORE_IDB,collect_amount,TAX_RATE);
+                                        async.waterfall([sale_finalizer_b],function(error,result){
                                             if(error){
                                                 alert(error);
+                                            }else{
+                                                //refresh table
+                                                var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,MM_LST,STORE_IDB,STORE_PDB,STORE_ID,COUCH_SERVER_URL,TAX_RATE,table,total_button);
+                                                async.waterfall([ds_2_ui_b],function(error,result){
+                                                    if(error){
+                                                        alert(error);
+                                                    }
+                                                });                                    
                                             }
-                                        });                                    
+                                        });                                         
                                     }
-                                });   
+                                    ,function(){
+
+                                    }
+                                );
                             }
                         }
                     }
@@ -301,23 +313,27 @@ define(
                     if(ds_lst.length == 0){
                         return;
                     }else{
-                        if(!confirm('clear all scan?')){
-                            return;
-                        }
+                        confirm.exe(
+                            'remove all scan?'
+                            ,function(){
+                                var voider_b = voider.bind(voider,STORE_IDB);
+                                var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,MM_LST,STORE_IDB,STORE_PDB,STORE_ID,COUCH_SERVER_URL,TAX_RATE,table,total_button);
 
-                        var voider_b = voider.bind(voider,STORE_IDB);
-                        var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,MM_LST,STORE_IDB,STORE_PDB,STORE_ID,COUCH_SERVER_URL,TAX_RATE,table,total_button);
-
-                        async.waterfall([voider_b,ds_2_ui_b],function(error,result){
-                            if(error){alert(error);}
-                        });                        
+                                async.waterfall([voider_b,ds_2_ui_b],function(error,result){
+                                    if(error){alert(error);}
+                                });                                  
+                            }
+                            ,function(){
+                                //do nothing
+                            }
+                        )
                     }
                 });
             }
             void_btn.addEventListener("click", void_btn_click_handler);            
         }
-
-        $.blockUI({ message: 'please wait for setup ...' });
+        $("#block_message_label").html('please wait for setup ...');
+        $.blockUI({ message: $('#block_message_label') });
         
         csrf_ajax_protection_setup();
 

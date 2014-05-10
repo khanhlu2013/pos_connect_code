@@ -8,6 +8,7 @@ define(
     ,'app/local_db_initializer/sync_if_nessesary'
     ,'lib/error_lib'
     ,'app/sku/sku_remove_clean_up_util'
+    ,'lib/ui/confirm'
 ]
 ,function
 (
@@ -19,6 +20,7 @@ define(
     ,sync_if_nessesary
     ,error_lib
     ,sku_remove_clean_up_util
+    ,confirm
 )
 {
     var STORE_ID = null;
@@ -33,28 +35,31 @@ define(
         if(!_helper_is_sku_removable(prod_sku_assoc)){
             return;
         }
-
-        if(!confirm('delete?')){
-            return;
-        }
-
-        var prod_sku_del_b = prod_sku_del.bind(prod_sku_del,prod_sku_assoc.product_id,prod_sku_assoc.sku_str);
-        async.waterfall([prod_sku_del_b],function(error,result){
-            if(error){
-                alert(error);
-            }else{
-                var returned_product_json = result;
-                var sync_b = sync_if_nessesary.bind(sync_if_nessesary,STORE_ID,COUCH_SERVER_URL);
-                async.waterfall([sync_b],function(error,result){
+        confirm.exe(
+            'delete sku?'
+            ,function(){
+                var prod_sku_del_b = prod_sku_del.bind(prod_sku_del,prod_sku_assoc.product_id,prod_sku_assoc.sku_str);
+                async.waterfall([prod_sku_del_b],function(error,result){
                     if(error){
                         alert(error);
                     }else{
-                        data_2_table(returned_product_json);
-                        sku_remove_clean_up_util.exe(prod_sku_assoc.product_id,prod_sku_assoc.sku_str);
+                        var returned_product_json = result;
+                        var sync_b = sync_if_nessesary.bind(sync_if_nessesary,STORE_ID,COUCH_SERVER_URL);
+                        async.waterfall([sync_b],function(error,result){
+                            if(error){
+                                alert(error);
+                            }else{
+                                data_2_table(returned_product_json);
+                                sku_remove_clean_up_util.exe(prod_sku_assoc.product_id,prod_sku_assoc.sku_str);
+                            }
+                        })
                     }
-                })
+                });                 
             }
-        });
+            ,function(){
+
+            }
+        );
     }
 
     function data_2_table(product_json){

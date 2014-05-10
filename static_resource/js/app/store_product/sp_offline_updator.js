@@ -47,7 +47,7 @@ define(
             ,false//is_prompt_sku
             ,store_product.cost
             ,store_product.vendor
-            .store_product.buydown
+            ,store_product.buydown
             ,null//lookup type tag
             ,false//is_sku_management
             ,null//suggest product

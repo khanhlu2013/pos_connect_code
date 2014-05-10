@@ -38,6 +38,9 @@ html,body {
 #non_inventory_prompt_dialog{display: None;}
 #product_search_dlg{display: None;}
 
+#block_message_label{display: None;}
+
+
 .parent_selected {background-color:#CFF5B5;}
 .parent_unselected {background-color:#FFFFFF;}
 
@@ -45,3 +48,10 @@ html,body {
 
 .error {border: solid 2px #FF0000;}
 td { min-width: 100px; height: 30}
+
+.ui-widget-overlay
+{
+  opacity: .50 !important; /* Make sure to change both of these, as IE only sees the second one */
+  filter: Alpha(Opacity=50) !important;
+  background: rgb(50, 50, 50) !important;  This will make it darker
+}

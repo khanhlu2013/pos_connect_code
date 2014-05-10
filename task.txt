@@ -288,7 +288,7 @@ UPGRADE FEATURE
 . serialize_product_from_id(product_id,store_id,is_include_other_store) revisit is_include_other_store. it does not work. may be i need to implement this with python and not with django orm filter.
 
 ----------------------------------------------------------------------------------------
-
+. sku scan not found handler spec: there is a spy on old window.confirm and now we change it. make sure test work
 . sale_shortcut validator and responsive validation ui
 . blocking ui at all possible spot: (sale.scan.edit_product: it could take a long time to popup interface. block here)
 . how to report script loading timeout, 
@@ -296,10 +296,12 @@ UPGRADE FEATURE
 . include css with js, and fall back
 
 ----------------------------------------------------------------------------------------
+. after push offline create product, we should sync it. because it right now said attempt to create a product that is already exist error
 
 
-
-
+. get extra info when searching for sku (price)
+. use the same name button when create product
+. indicator of syncing product db status
 
 
 

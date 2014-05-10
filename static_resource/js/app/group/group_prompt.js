@@ -5,6 +5,7 @@ define(
         ,'app/store_product/sp_online_name_search_ui'
         ,'lib/error_lib'
         ,'app/product/product_json_helper'
+        ,'lib/ui/confirm'
     ]
     ,function
     (
@@ -13,6 +14,7 @@ define(
         ,sp_online_name_search_ui
         ,error_lib
         ,product_json_helper
+        ,confirm
     )
 {
     var ERROR_CANCEL_GROUP_PROMPT = 'ERROR_CANCEL_GROUP_PROMPT';
@@ -96,12 +98,16 @@ define(
     }
     
     function remove_child(index){
-        if(!confirm('remove item?')){
-            return;
-        }
+        confirm.exe(
+            'remove item?'
+            ,function(){
+                GROUP_CHILD_SP_LST.splice(index, 1);
+                populate_group_child_tbl();                
+            }
+            ,function(){
 
-        GROUP_CHILD_SP_LST.splice(index, 1);
-        populate_group_child_tbl();
+            }
+        );
     }
 
     function populate_group_child_tbl(){

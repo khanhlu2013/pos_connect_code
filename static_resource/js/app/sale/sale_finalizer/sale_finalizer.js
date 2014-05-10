@@ -6,6 +6,7 @@ define(
 		,'lib/number/number'
 		,'app/sale/displaying_scan/displaying_scan_util'
 		,'app/sale/voider/voider'
+		,'app/sale/displaying_scan/displaying_scan_lst_getter'
 	]
 	,function
 	(
@@ -15,6 +16,7 @@ define(
 		,number
 		,ds_util
 		,voider
+		,ds_lst_getter
 	)
 {
 	var MM_LST = null;
@@ -25,7 +27,7 @@ define(
 			callback('wrong input'/*error*/);
 		}else{
 			var ds_lst_getter_b = ds_lst_getter.bind(ds_lst_getter,MM_LST,store_idb);
-			async.waterfall([ds_lst_and_tax_getter_b],function(error,result){
+			async.waterfall([ds_lst_getter_b],function(error,result){
 				if(error){
 					callback(error);
 				}else{

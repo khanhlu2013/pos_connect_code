@@ -25,7 +25,6 @@ define(
     ,product_json_helper
     ,product_sku_manager
     ,error_lib
-
 )
 {
     var PRODUCT_DATA_LST = null;

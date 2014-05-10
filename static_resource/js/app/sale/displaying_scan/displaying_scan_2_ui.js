@@ -10,6 +10,7 @@ define(
         ,'app/product/product_json_helper'
         ,'lib/error_lib'
         ,'app/store_product/sp_offline_updator'
+        ,'lib/ui/confirm'
     ]
     ,function(
          async
@@ -22,6 +23,7 @@ define(
         ,product_json_helper
         ,error_lib
         ,sp_offline_updator
+        ,confirm
     )
 {
     var column_name = ["qty", "product", "price", "line total", "X"];
@@ -74,23 +76,28 @@ define(
             }
             var product_id = displaying_scan.store_product.product_id;
             if(product_id == null){
-                if(!confirm('this product is created offline. Modification to this product will be saved offline until sale data is push. Continue?')){
-                    return;
-                }
 
-                var sp_offline_updator_b = sp_offline_updator.bind(sp_offline_updator,displaying_scan.store_product,STORE_PDB);
-                async.waterfall([sp_offline_updator_b],function(error,result){
-                    if(error){
-                        error_lib.alert_error(error);
-                        return;
-                    }else{
-                        //hackish way to refresh the interface by pretending the price is change
-                        var sp = result;
-                        var hackish_new_price = sp.price;
-                        var instruction = new Instruction(false/*is_delete*/,displaying_scan.qty,hackish_new_price,displaying_scan.discount);
-                        exe_instruction(ds_index,instruction,ds_lst);                        
+                confirm.exe(
+                    'this product is created offline. Modification to this product will be saved offline until sale data is push. Continue?'
+                    ,function(){
+                        var sp_offline_updator_b = sp_offline_updator.bind(sp_offline_updator,displaying_scan.store_product,STORE_PDB);
+                        async.waterfall([sp_offline_updator_b],function(error,result){
+                            if(error){
+                                error_lib.alert_error(error);
+                                return;
+                            }else{
+                                //hackish way to refresh the interface by pretending the price is change
+                                var sp = result;
+                                var hackish_new_price = sp.price;
+                                var instruction = new Instruction(false/*is_delete*/,displaying_scan.qty,hackish_new_price,displaying_scan.discount);
+                                exe_instruction(ds_index,instruction,ds_lst);                        
+                            }
+                        });                        
                     }
-                });
+                    ,function(){
+                        
+                    }
+                )
             }else{
                 var sp_updator_b = sp_updator.exe.bind(sp_updator.exe,product_id,STORE_ID,COUCH_SERVER_URL);
                 async.waterfall([sp_updator_b],function(error,result){

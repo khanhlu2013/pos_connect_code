@@ -197,3 +197,113 @@ NONE,None,FALSE,group 5hour,na,5hour - Redline 7hour,0.00,1,0.00,4.62
 065,Power Capsule,TRUE,015522810037,protein,Adept Milk Thistle 90Cap,0.00,1,4.98,6.99
 065,Power Capsule,TRUE,015522810006,protein,Adept Omega-3 90Cap,0.00,1,7.59,10.99
 025,Wine,TRUE,086891071237,coles,Adlerbrook 750 Zin,0.00,1,14.50,18.99
+021,Liquor,TRUE,088352119878,coles,Admiral Nelson 50 Coconut Rum,0.00,1,0.98,1.59
+021,Liquor,TRUE,088352116891,coles,Admiral Nelson 50 Spiced Rum,0.00,1,0.98,1.59
+021,Liquor,TRUE,088352121123,coles,Admiral Nelson 50 Vanilla Rum,0.00,1,0.98,1.59
+061,Miscellaneous,TRUE,243232,pitco,Advil 4oz Children,0.00,1,5.60,7.99
+061,Miscellaneous,TRUE,305730170307,pitco,Advil 4oz Children,0.00,1,5.60,7.99
+061,Miscellaneous,TRUE,305730169202,pitco,Advil Liquid (50Box),0.00,50,0.30,999.00
+061,Miscellaneous,TRUE,305730164559,pitco,Advil PM (50Box),0.00,50,0.31,999.00
+031,Beer,TRUE,080069002214,ww,Affligem 750 Dubbel DDD,0.00,12,5.00,999.00
+031,Beer,TRUE,080069002221,ww,Affligem 750 Triple Abbey Ale,0.00,12,6.17,999.00
+091,Phone Card,FALSE,pc80,splendor,Africa special $4.5,0.00,1,4.50,4.50
+021,Liquor,TRUE,080686281603,coles,After Shock 375,0.00,1,9.10,12.99
+021,Liquor,TRUE,080686281405,coles,After Shock 750,0.00,1,16.10,22.99
+021,Liquor,TRUE,689768111007,coles,Agavero 750,0.00,1,19.86,27.99
+021,Liquor,TRUE,088320630008,coles,Aguardiente Cristal 750,0.00,1,10.15,13.99
+061,Miscellaneous,TRUE,610466016554,ng,Air Freshner Tube 1/4oz,0.00,72,0.50,0.92
+051,Snack,FALSE,073390002206,pitco,Airhead .55z Blue Raspberry,0.00,36,0.12,0.25
+051,Snack,FALSE,073390002015,pitco,Airhead .55z Cherry,0.00,36,0.12,0.25
+051,Snack,FALSE,073390002077,pitco,Airhead .55z Green Apple,0.00,36,0.12,0.25
+051,Snack,FALSE,073390002022,pitco,Airhead .55z Orange,0.00,36,0.12,0.25
+051,Snack,FALSE,073390002053,pitco,Airhead .55z Strawberry,0.00,36,0.12,0.25
+051,Snack,FALSE,073390002039,pitco,Airhead .55z Watermelon,0.00,36,0.12,0.25
+051,Snack,FALSE,073390002213,pitco,Airhead .55z White Mystery,0.00,1,0.08,0.25
+051,Snack,FALSE,073390014360,pitco,Airhead Bites Fruit Bag 2z,0.00,24,0.60,1.09
+051,Snack,FALSE,073390008277,pitco,AirHead Xtreme 2z BlueRasp,0.00,18,0.61,1.09
+051,Snack,FALSE,073390008260,pitco,AirHead Xtreme 2z LemonadeSour,0.00,18,0.58,1.09
+051,Snack,FALSE,073390008383,pitco,AirHead Xtreme 2z Rnbw Berry,0.00,18,0.60,1.09
+051,Snack,FALSE,073390006877,pitco,AirHead Xtreme 2z sr waterm,0.00,18,0.59,1.09
+061,Miscellaneous,FALSE,079474920251,pitco,AirUp Tire Inflator,0.00,1,3.20,5.59
+031,Beer,TRUE,040850020018,dbi,Alaskan 6pk Amber Disco,0.00,4,6.00,999.00
+031,Beer,TRUE,040850020063,dbi,Alaskan 6pk Summer Ale,0.00,4,6.00,999.00
+011,Cigarrett Pack,TRUE,717519001106,pitco,Alcapone pk,0.00,10,4.67,999.00
+061,Miscellaneous,TRUE,aleve01,pitco,Aleve Dsp Box 50Cap,0.00,50,0.22,0.99
+041,Soda,FALSE,320400,Pitco,Alhambra Water .5 liter,0.00,1,0.35,999.00
+041,Soda,FALSE,320620,Pitco,Alhambra Water 1.5,0.00,1,0.67,999.00
+041,Soda,FALSE,320190,pitco,Alhambra Water 1Gallon,0.60,6,0.72,999.00
+041,Soda,FALSE,320410,Pitco,Alhambra Water 1L,0.00,1,0.67,999.00
+025,Wine,TRUE,082100012763,coles,AliceWhite 187 Chard,0.00,1,0.85,1.69
+025,Wine,TRUE,082100737031,coles,AliceWhite 4pk Chard,0.00,1,0.00,999.00
+025,Wine,TRUE,617573784451,coles,AliceWhite 750 Shiraz,0.00,1,2.77,3.99
+021,Liquor,TRUE,084692200993,coles,Alize 1L Gold Passion,0.00,1,14.25,20.99
+021,Liquor,TRUE,084692201198,coles,Alize 1L Red Passion,0.00,1,14.25,20.99
+021,Liquor,TRUE,084692204090,coles,Alize 1L Wild Passion Passion,0.00,1,14.25,20.99
+021,Liquor,TRUE,084692204236,coles,Alize 200 Red Passion,0.00,1,3.75,5.99
+021,Liquor,TRUE,084692204335,coles,Alize 200 Wild Passion,0.00,1,4.00,5.99
+021,Liquor,TRUE,084692206155,coles,Alize 375 Blue,0.00,0,6.50,9.99
+021,Liquor,TRUE,084692200955,coles,Alize 375 Gold PassionDDD,0.00,1,6.50,9.99
+021,Liquor,TRUE,084692201150,coles,Alize 375 Red Passion DDD,0.00,1,6.50,9.99
+021,Liquor,TRUE,084692207312,coles,Alize 375 RoseDDD,0.00,0,6.50,9.99
+021,Liquor,TRUE,084692204052,coles,Alize 375 Wild Passion,0.00,1,6.70,9.99
+021,Liquor,TRUE,084692206148,coles,Alize 750 Bleu,0.00,1,14.99,19.99
+021,Liquor,TRUE,084692200948,coles,Alize 750 Gold Passion,0.00,1,13.50,19.99
+021,Liquor,TRUE,084692201143,coles,Alize 750 Red Passion,0.00,1,14.99,19.99
+021,Liquor,TRUE,084692207343,coles,Alize 750 Rose,0.00,1,15.40,19.99
+021,Liquor,TRUE,084692204045,coles,Alize 750 Wild Passion,0.00,1,13.50,19.99
+021,Liquor,TRUE,084692153008,coles,Alize Cognac VS 750,0.00,1,21.17,28.99
+021,Liquor,TRUE,084692153039,coles,Alize VS 200,0.00,1,6.79,8.99
+021,Liquor,TRUE,084692153015,coles,Alize VS 375,0.00,1,12.50,16.99
+061,Miscellaneous,TRUE,016500514473,pitco,AlkaSeltzer 100Box,0.00,1,13.99,999.00
+061,Miscellaneous,FALSE,730985601717,pitco,All Nite Long ,0.00,1,0.71,1.50
+061,Miscellaneous,FALSE,730985601724,pitco,All Nite Long Women,0.00,1,0.71,1.50
+091,Phone Card,FALSE,pc207,splendor,All State $2,0.00,1,2.00,2.00
+091,Phone Card,FALSE,pc82,splendor,All State $5,0.00,1,4.50,4.50
+025,Wine,TRUE,080120501038,coles,Almaden 1.5 Burgundy,0.00,1,2.08,3.99
+025,Wine,TRUE,080120504138,coles,Almaden 1.5 Bush chablis,0.00,1,3.50,4.99
+025,Wine,TRUE,080120288304,coles,Almaden 1.5 Cab,0.00,1,3.50,4.99
+025,Wine,TRUE,080120000043,coles,Almaden 1.5 Chablis,0.00,1,3.50,4.99
+025,Wine,TRUE,080120288311,coles,Almaden 1.5 Chardonnay,0.00,1,3.50,4.99
+025,Wine,TRUE,080120304035,coles,Almaden 1.5 Chenin Blanc,0.00,1,3.50,4.99
+025,Wine,TRUE,080120115044,coles,Almaden 1.5 Merlot,0.00,1,3.50,4.99
+025,Wine,TRUE,080120000029,coles,Almaden 1.5 Mountain Rose,0.00,1,3.50,4.99
+025,Wine,TRUE,080120508037,coles,Almaden 1.5 Rhine,0.00,1,3.50,4.99
+025,Wine,TRUE,080120288915,coles,Almaden 1.5 White Zin,0.00,1,2.08,3.99
+025,Wine,TRUE,080120115075,coles,Almaden 500 Sangria,0.00,1,1.40,1.99
+025,Wine,TRUE,080120281534,coles,Almaden 5L Chardonnay,0.00,1,7.00,10.99
+051,Snack,FALSE,343200,pitco,Almond Joy (Blue),0.00,36,0.61,1.09
+051,Snack,FALSE,345220,pitco,Almond Joy King,0.00,18,1.09,1.59
+041,Soda,TRUE,648436300051,pitco,Aloe Vera 500ml ,1.00,20,0.74,999.00
+041,Soda,FALSE,087666098008,marx,Aloe Water 16oz Aloe Vera Juic,0.60,12,2.00,999.00
+041,Soda,FALSE,087666098022,marx,Aloe Water 16oz Cherry,0.60,12,2.00,999.00
+041,Soda,FALSE,087666098039,marx,Aloe Water 16oz Mix Fruit,0.60,12,2.00,999.00
+061,Miscellaneous,TRUE,011132000011,pitco,Alpo Diced Cuts Dog Food,0.00,1,0.60,1.29
+051,Snack,FALSE,059280202543,pitco,Altoids (Small) Cinnamon,0.00,9,0.81,1.49
+051,Snack,TRUE,229730,pitco,Altoids (Small) Peppermint,0.00,9,0.85,1.49
+051,Snack,TRUE,229740,pitco,Altoids (Small) Wintergreen,0.00,9,0.81,1.49
+051,Snack,FALSE,059280205063,pitco,Altoids Cinnamon Strips,0.00,1,1.20,2.49
+051,Snack,FALSE,022000159366,pitco,Altoids Ginger,0.00,1,1.25,2.49
+051,Snack,FALSE,070221888824,pitco,Altoids Gum Cherry,0.00,1,1.20,2.49
+051,Snack,FALSE,070221756086,pitco,Altoids Gum Cinnamon,0.00,1,1.20,2.49
+051,Snack,FALSE,070221756024,pitco,Altoids Gum Peppermint,0.00,1,1.20,2.49
+051,Snack,FALSE,070221888725,pitco,Altoids Gum Sour,0.00,1,1.20,2.49
+051,Snack,FALSE,059280000200,pitco,Altoids Peppermints,0.00,1,1.20,2.49
+051,Snack,FALSE,022000158734,pitco,Altoids Tangerine Sour,0.00,1,1.20,2.49
+051,Snack,FALSE,022000159335,pitco,Altoids Tin1.7z  Peppermin,0.00,12,1.51,2.49
+051,Snack,FALSE,022000159311,pitco,Altoids Tin1.7z  Spearmint,0.00,12,1.29,2.49
+051,Snack,FALSE,022000159342,pitco,Altoids Tin1.7z Wintergreen,0.00,12,1.46,2.49
+021,Liquor,TRUE,083300048729,coles,Amarula 750,0.00,1,16.08,21.99
+031,Beer,TRUE,018200009747,,Amber Bock 6pk,0.00,4,3.75,999.00
+031,Beer,TRUE,180552,,Amber Rock 12oz,0.00,1,1.50,999.00
+063,Powder,TRUE,844334001315,protein,America Protein designer whey ,0.00,1,18.00,24.99
+031,Beer,TRUE,018200149986,bottomley,American Ale 6pk,0.00,4,4.63,999.00
+012,Cigarrett Carton,TRUE,047995855178,pitco,American CT Black Box,0.00,1,0.00,999.00
+012,Cigarrett Carton,TRUE,047995855185,pitco,American CT Blue Box,0.00,1,0.00,999.00
+012,Cigarrett Carton,TRUE,047995855314,pitco,American CT Celadon Box,0.00,1,0.00,999.00
+012,Cigarrett Carton,TRUE,047995855321,pitco,American CT Dark Green Box,0.00,1,0.00,999.00
+012,Cigarrett Carton,TRUE,047995855338,pitco,American CT Orange Box,0.00,1,0.00,999.00
+012,Cigarrett Carton,TRUE,047995855192,pitco,American CT Yellow Box,0.00,1,0.00,999.00
+012,Cigarrett Carton,TRUE,047995855345,pitco,American Org CT Turquoise Box,0.00,1,0.00,999.00
+011,Cigarrett Pack,TRUE,047995855253,pitco,American Org Pk MellowGold Box,0.00,10,5.29,6.24
+011,Cigarrett Pack,TRUE,047995855246,pitco,American Org Pk Turquoise Box,0.00,10,5.27,6.24
+011,Cigarrett Pack,TRUE,047995855215,pitco,American PK BalanceTaste Box,0.00,10,5.27,6.24

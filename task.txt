@@ -269,6 +269,7 @@ UPGRADE FEATURE
 . kit is a product that is the exact grouping with other products. use this relation to track sale record, inventory,cost,crv
 . think about session. can we save mm_lst, shortcut_lst, tax_rate into session? refresh this data on page refocus or tab switching
 . shortcut setup inside sale page ( a step closer to one page web app)
+. indicator of syncing product db status
 ---------------------------------------------------------------
 . test select correct line
     . test sale edit
@@ -301,7 +302,7 @@ UPGRADE FEATURE
 
 . get extra info when searching for sku (price)
 . use the same name button when create product
-. indicator of syncing product db status
+
 
 
 

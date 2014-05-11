@@ -8,7 +8,7 @@ define(
 
 )
 {
-	function exe(message,yes_func,no_func){
+ 	function exe(message,yes_func,no_func){
 		$('<div></div>').appendTo('body')
     		.html('<div><h6>' + message + '</h6></div>')
     		.dialog(

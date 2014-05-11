@@ -1,7 +1,7 @@
 define(
 	[
 		 'lib/async'
-		,'app/store_product/sp_prompt'
+		,'app/store_product/sp_prompt_'
 		,'app/local_db_initializer/sync_if_nessesary'
 		,'app/product/product_json_helper'
 		,'app/sku/product_sku_online_adder'
@@ -128,6 +128,8 @@ define(
 				{
 					 title:'create new product or select option'
 					,buttons:[{ text:'cancel',click:exit_btn_handler_b }] 
+                    ,width: 650
+                    ,height: 250 					
 					,modal:true
 				}
 			); 		

@@ -16,6 +16,8 @@ def p():
 
     delete_data()
     user1,store1=test_helper.create_user_then_store_detail(user_name = "x",user_password="x",store_name="x")
+    user2,store2=test_helper.create_user_then_store_detail(user_name = "y",user_password="y",store_name="y")
+    user3,store3=test_helper.create_user_then_store_detail(user_name = "z",user_password="z",store_name="z") 
     print("load approve product data")
     json_file = open('./liquor.json')   
     data = json.load(json_file)

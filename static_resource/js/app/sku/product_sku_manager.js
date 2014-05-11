@@ -138,6 +138,8 @@ define(
                 {
                      title:sp_json.name
                     ,buttons:[{text:'exit',click:function(){$('#sku_management_dialog').dialog('close');}}]
+                    ,width: 500
+                    ,height: 250                     
                     ,modal:true
                 }
             );

@@ -9,7 +9,7 @@ define(
     ,'lib/error_lib'     
     ,'app/store_product/sp_online_searcher'
     ,'app/store_product/sp_creator'
-    ,'app/store_product/sp_prompt'
+    ,'app/store_product/sp_prompt_'
     ,'app/store_product/Store_product'
     ,'lib/ui/confirm'
 ]

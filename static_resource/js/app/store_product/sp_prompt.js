@@ -177,7 +177,7 @@ define(
         //ok cancel sku_management button
         var ok_btn_handler_b = ok_btn_handler.bind(ok_btn_handler,is_prompt_sku,callback);
         var cancel_btn_handler_b = cancel_btn_handler.bind(cancel_btn_handler,callback);
-        var title = (suggest_product == null ? 'create new product' : 'create product ' + suggest_product.name);
+        var title = (suggest_product == null ? 'create new product' : 'add: ' + suggest_product.name);
         $('#store_product_prompt_dialog').dialog({
              title:title
             ,buttons: [ { text: "Ok", click: ok_btn_handler_b },{ text: "Cancel", click: cancel_btn_handler_b } ]

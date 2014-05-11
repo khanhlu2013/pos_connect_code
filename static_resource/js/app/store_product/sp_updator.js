@@ -1,7 +1,7 @@
 define(
     [
          'lib/async'
-        ,'app/store_product/sp_prompt'
+        ,'app/store_product/sp_prompt_'
         ,'app/store_product/sp_online_getter'
         ,'app/local_db_initializer/sync_if_nessesary'
         ,'app/product/product_json_helper'

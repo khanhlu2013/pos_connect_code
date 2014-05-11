@@ -4,7 +4,7 @@ define(
     ,'lib/misc/csrf_ajax_protection_setup' 
     ,'app/store_product/sp_creator'
     ,'app/store_product/sp_updator'
-    ,'app/store_product/sp_prompt_'
+    ,'app/store_product/sp_prompt'
     ,'app/store_product/sp_online_searcher'
     ,'app/product/product_json_helper'
     ,'app/sku/product_sku_manager'

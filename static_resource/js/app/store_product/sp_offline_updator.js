@@ -1,7 +1,7 @@
 define(
 [
 	 'lib/async'
-	,'app/store_product/sp_prompt_'
+	,'app/store_product/sp_prompt'
 ]
 ,function
 (

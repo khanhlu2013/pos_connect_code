@@ -71,6 +71,40 @@ define(function(){
 		return intRegex.test(str)
 	}
 
+    function get_mode(array)
+    {
+        if(array.length == 0)
+            return null;
+        var modeMap = {};
+        var maxEl = array[0], maxCount = 1;
+        for(var i = 0; i < array.length; i++)
+        {
+            var el = array[i];
+            if(modeMap[el] == null)
+                modeMap[el] = 1;
+            else
+                modeMap[el]++;  
+            if(modeMap[el] > maxCount)
+            {
+                maxEl = el;
+                maxCount = modeMap[el];
+            }
+        }
+        return maxEl;
+    }
+
+    function get_median(values) {
+
+        if(values.length == 0){
+            return 0;
+        }
+
+        values.sort( function(a,b) {return a - b;} );
+        var half = Math.floor(values.length/2); 
+        if (values.length % 2) { return values[half]; } 
+        else { return (values[half-1] + values[half]) / 2.0; } 
+    } 
+
 	return {
 		 prompt_positive_integer:prompt_positive_integer
 		,is_positive_integer:is_positive_integer
@@ -79,5 +113,7 @@ define(function(){
 		,round_2_decimal:round_2_decimal
 		,trim:trim
 		,prompt_integer:prompt_integer
+		,get_mode:get_mode
+		,get_median:get_median
 	}
 })

@@ -1,7 +1,7 @@
 define(
 	[
 		 'lib/async'
-		,'app/store_product/sp_prompt_'
+		,'app/store_product/sp_prompt'
 		,'app/local_db_initializer/sync_if_nessesary'
 		,'app/product/product_json_helper'
 		,'app/sku/product_sku_online_adder'
@@ -75,14 +75,12 @@ define(
 
 			var td;
 			var tr;
-
+			var columns = ['name','price','crv','taxable','cost','add']
 			tr = product_option_tbl.insertRow(-1);
-			
-			td = tr.insertCell(-1);
-			td.innerHTML = 'product';
-
-			td = tr.insertCell(-1);
-			td.innerHTML = 'add';
+			for(var i = 0;i<columns.length;i++){
+				td = tr.insertCell(-1);
+				td.innerHTML = columns[i];		
+			}
 
 			for(var i =0;i<prodStore_prodSku_1_0.length;i++){
 				var cur_prod = prodStore_prodSku_1_0[i];
@@ -92,6 +90,18 @@ define(
 				
 				td = tr.insertCell(-1);
  				td.innerHTML = cur_sp.name;
+
+				td = tr.insertCell(-1);
+ 				td.innerHTML = cur_sp.price;
+
+				td = tr.insertCell(-1);
+ 				td.innerHTML = cur_sp.crv;
+
+				td = tr.insertCell(-1);
+ 				td.innerHTML = cur_sp.is_taxable;
+
+				td = tr.insertCell(-1);
+ 				td.innerHTML = cur_sp.cost;
 
  				td = tr.insertCell(-1);
  				td.innerHTML = 'sku';
@@ -111,6 +121,19 @@ define(
 				
 				td = tr.insertCell(-1);
  				td.innerHTML = cur_prod.name;
+
+				td = tr.insertCell(-1);
+ 				td.innerHTML = product_json_helper.get_suggest_info('price',cur_prod);
+
+				td = tr.insertCell(-1);
+				var suggest_crv = product_json_helper.get_suggest_info('crv',cur_prod);
+ 				td.innerHTML = (suggest_crv == 0.0 ? '' : suggest_crv)
+
+				td = tr.insertCell(-1);
+ 				td.innerHTML = product_json_helper.get_suggest_info('is_taxable',cur_prod);
+
+				td = tr.insertCell(-1);
+ 				td.innerHTML = product_json_helper.get_suggest_info('cost',cur_prod);
 
  				td = tr.insertCell(-1);
  				td.innerHTML = 'product';
@@ -171,8 +194,8 @@ define(
 						,null//name
 						,null//price
 						,null//crv
-						,false//is_taxable
-						,true//is_sale_report
+						,null//is_taxable
+						,null//is_sale_report
 						,null//p_type
 						,null//p_tag
 						,sku_str//sku_str

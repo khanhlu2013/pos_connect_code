@@ -1,33 +1,52 @@
 define(
 [
+    'lib/number/number'
 ]
 ,function
 (
+    number
 )
 {
+    function get_suggest_info(type,prod){
+        lst = []
+
+        for(var i = 0;i<prod.store_product_set.length;i++){
+
+            if(type == 'price'){lst.push(prod.store_product_set[i].price);}
+            else if(type == 'cost'){lst.push(prod.store_product_set[i].cost);}
+            else if(type == 'crv'){lst.push(prod.store_product_set[i].crv);}
+            else if(type == 'is_taxable'){lst.push(prod.store_product_set[i].is_taxable);}
+            else{
+                return null;
+            }
+        }
+
+        if(type == 'price' || type == 'cost'){
+            return number.get_median(lst);
+        }else if(type == 'crv' || type == 'is_taxable'){
+            return number.get_mode(lst);
+        }
+    }
+
     function get_sp_from_sp_lst(pid,sp_lst){
         var result = null;
-
         for(var i = 0;i<sp_lst.length;i++){
             if(sp_lst[i].product_id == pid){
                 result = sp_lst[i];
                 break;
             }
         }
-
         return result;
     }
 
     function get_p_from_lst(product_id,prod_lst){
         var result = null;
-
         for(var i = 0;i<prod_lst.length;i++){
             if(prod_lst[i].product_id == product_id){
                 result = prod_lst[i];
                 break;
             }
         }
-
         return result;
     }
 
@@ -125,5 +144,6 @@ define(
         ,extract_prod_store__prod_sku:extract_prod_store__prod_sku
         ,get_p_from_lst:get_p_from_lst
         ,get_sp_from_sp_lst:get_sp_from_sp_lst
+        ,get_suggest_info:get_suggest_info
     };
 });

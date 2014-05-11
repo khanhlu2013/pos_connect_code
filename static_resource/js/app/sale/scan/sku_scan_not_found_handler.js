@@ -91,8 +91,8 @@ define(
                             ,null//name
                             ,null//price
                             ,null//crv
-                            ,false//is_taxable
-                            ,true//is_sale_report
+                            ,null//is_taxable
+                            ,null//is_sale_report
                             ,null//p_type
                             ,null//p_tag
                             ,sku_str//sku_prefill

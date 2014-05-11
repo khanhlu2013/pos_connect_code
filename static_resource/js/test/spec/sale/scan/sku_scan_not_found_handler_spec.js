@@ -7,7 +7,7 @@ define(
     ,'constance'
     ,'app/sale/scan/sku_scan_not_found_handler'
     ,'app/store_product/sp_online_searcher'
-    ,'app/store_product/sp_prompt_'
+    ,'app/store_product/sp_prompt'
     ,'app/store_product/store_product_getter'
 ]
 ,function

@@ -261,6 +261,7 @@ PAGE LOADING USER EXPERIENCE
 
 ------------------------------------------------------------------------------------------------------------------
 UPGRADE FEATURE
+. how to approve name: we need a tool. to sort out all products that is mostly used among all store. 
 . print receipt
 . discount that attach to item
 . offline name search
@@ -298,10 +299,12 @@ UPGRADE FEATURE
 
 ----------------------------------------------------------------------------------------
 . after push offline create product, we should sync it. because it right now said attempt to create a product that is already exist error
+. upgrade heroku post gre
 
+. get extra info when searching for sku 
+    . test product that not exist in any store? my inital product
 
-. get extra info when searching for sku (price)
-. use the same name button when create product
+    
 
 
 

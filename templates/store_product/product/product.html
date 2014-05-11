@@ -9,7 +9,6 @@
     <script data-main = "{{ STATIC_URL }}js/app/product/product_entry.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script>
     <!-- // <script data-main = "{{ STATIC_URL }}js/app/product/product_entry__min__.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script> -->
 
-
     <input id='sku_txt' type='text'/>
     <input id='sku_btn' type='button' value="sku"/>
     <label id="sku_err_lbl"></label>
@@ -18,68 +17,12 @@
     <input id='name_btn' type='button' value="name"/>
     <label id="name_err_lbl"/>
 
-
-
-
-
     <table id=product_tbl border="1"></table>
-
-
-
-
 
     <div id="select_product_option_dialog">
         <input type="button" id = "product_option_create_new_btn" value = 'create new product'>
         <table id=select_product_option_tbl border="1"></table>
     </div>
-
-
-
-
-
-<!--     <div id="store_product_prompt_dialog">
-
-        <label for="product_name_txt">Product:</label>
-        <input type="text" id = "product_name_txt">
-        <br>
-        <label for="product_price_txt">Price:</label>
-        <input type="text" id = "product_price_txt">
-        <br>
-        <label for="product_crv_txt">Crv:</label>
-        <input type="text" id = "product_crv_txt">
-        <br>
-        <label for="product_taxable_check">Taxable:</label>
-        <input type="checkbox" id = "product_taxable_check">
-        <br>
-        <label for="product_sale_report_check">Sale report:</label>
-        <input type="checkbox" id = "product_sale_report_check">
-        <br>
-        <label for="product_type_txt">Type:</label>
-        <input type="text" id = "product_type_txt">
-        <br>
-        <label for="product_tag_txt">Tag:</label>
-        <input type="text" id = "product_tag_txt">
-        <br>
-        <label for="product_vendor_txt">Vendor:</label>
-        <input type="text" id = "product_vendor_txt">
-        <br> 
-        <label for="product_cost_txt">Cost:</label>
-        <input type="text" id = "product_cost_txt">
-        <br>      
-        <label for="product_buydown_txt">Buydown:</label>
-        <input type="text" id = "product_buydown_txt">
-        <br>          
-        <label for="product_sku_txt">Sku:</label>
-        <input type="text" id = "product_sku_txt">
-        <br>
-
-        <input type="button" id = "sku_management_btn" value = 'manage sku'>
-        <br>        
-    </div> -->
-
-
-
-
 
     <div id="sku_management_dialog" title="x Product name go here x">
         <input type="button" id = "add_sku_btn" value = 'add sku'>
@@ -87,21 +30,10 @@
         <br>        
     </div>
 
-
-
-
-
     <script type="text/javascript">
         var STATIC_URL = "{{STATIC_URL}}";
         var STORE_ID = Number("{{STORE_ID}}");
         var COUCH_SERVER_URL = "{{COUCH_SERVER_URL}}";
     </script>
-
-
-
-
-
-
-
 
 {% endblock content %}

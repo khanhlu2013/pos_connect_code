@@ -10,7 +10,7 @@ define(
         ,'app/product/product_json_helper'
         ,'lib/error_lib'
         ,'app/store_product/sp_offline_updator'
-        ,'lib/ui/confirm'
+        ,'lib/ui/ui'
     ]
     ,function(
          async
@@ -23,7 +23,7 @@ define(
         ,product_json_helper
         ,error_lib
         ,sp_offline_updator
-        ,confirm
+        ,ui
     )
 {
     var column_name = ["qty", "product", "price", "line total", "X"];
@@ -77,7 +77,7 @@ define(
             var product_id = displaying_scan.store_product.product_id;
             if(product_id == null){
 
-                confirm.exe(
+                ui.ui_confirm(
                     'this product is created offline. Modification to this product will be saved offline until sale data is push. Continue?'
                     ,function(){
                         var sp_offline_updator_b = sp_offline_updator.bind(sp_offline_updator,displaying_scan.store_product,STORE_PDB);

@@ -37,19 +37,49 @@ def is_store_prod_sku_in_lst(prod_lst,store_id,sku_str):
     return result;
 
 
+def _name_search_qs_alterer(qs,search_str):
+    words = search_str.split()
+
+    if len(words) == 1:
+        return qs.filter(store_product__name__icontains=search_str)
+    elif len(words) == 2:
+        return qs.extra(where=['store_product_store_product.name ILIKE %s'], params=['%' + words[0] + '%' + words[1] + '%'])
+    else:
+        return None
+
 def sp_search_by_name_sku_view(request):
     search_str = request.GET['search_str']
+    search_str = search_str.strip()
+    if len(search_str) == 0:
+        return
+
     cur_login_store = request.session.get('cur_login_store')
-    prod_lst = Product.objects.filter(store_set__id = cur_login_store.id).filter(Q(sku_set__sku__exact=search_str)|Q(store_product__name__icontains=search_str)).prefetch_related('store_product_set')  
-    prod_lst_serialized = sp_serializer.serialize_product_lst(prod_lst)
+    qs = Product.objects.filter(store_set__id = cur_login_store.id)
+    words = search_str.split()
+
+    if len(words) == 1:
+        qs = qs.filter(Q(sku_set__sku__exact=search_str)|Q(store_product__name__icontains=search_str))
+    elif len(words) == 2:
+        qs = _name_search_qs_alterer(qs=qs,search_str=search_str)
+    else:
+        return
+
+    qs = qs.prefetch_related('store_product_set')
+    prod_lst_serialized = sp_serializer.serialize_product_lst(qs)
     return HttpResponse(json.dumps(prod_lst_serialized,cls=DjangoJSONEncoder),content_type='application/json')
 
 
 def sp_search_by_name_view(request):
-    name_str = request.GET['name_str']
+    search_str = request.GET['name_str']
+    search_str = search_str.strip()
+    if len(search_str) == 0:
+        return
+
     cur_login_store = request.session.get('cur_login_store')
-    prod_lst = list(Product.objects.filter(store_set__id = cur_login_store.id, store_product__name__icontains=name_str).prefetch_related('store_product_set'))  
-    prod_lst_serialized = sp_serializer.serialize_product_lst(prod_lst)
+    qs = Product.objects.filter(store_set__id = cur_login_store.id)
+    qs = _name_search_qs_alterer(qs,search_str)
+    
+    prod_lst_serialized = sp_serializer.serialize_product_lst(qs)
     return HttpResponse(json.dumps(prod_lst_serialized,cls=DjangoJSONEncoder),content_type='application/json')
 
 

@@ -5,7 +5,7 @@ define(
         ,'app/store_product/sp_online_name_search_ui'
         ,'lib/error_lib'
         ,'app/product/product_json_helper'
-        ,'lib/ui/confirm'
+        ,'lib/ui/ui'
     ]
     ,function
     (
@@ -14,7 +14,7 @@ define(
         ,sp_online_name_search_ui
         ,error_lib
         ,product_json_helper
-        ,confirm
+        ,ui
     )
 {
     var ERROR_CANCEL_GROUP_PROMPT = 'ERROR_CANCEL_GROUP_PROMPT';
@@ -98,7 +98,7 @@ define(
     }
     
     function remove_child(index){
-        confirm.exe(
+        ui.ui_confirm(
             'remove item?'
             ,function(){
                 GROUP_CHILD_SP_LST.splice(index, 1);

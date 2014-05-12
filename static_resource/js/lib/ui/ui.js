@@ -8,7 +8,29 @@ define(
 
 )
 {
- 	function exe(message,yes_func,no_func){
+	function ui_alert(message){
+		$('<div></div>').appendTo('body')
+    		.html('<div><h6>' + message + '</h6></div>')
+    		.dialog(
+    		{
+		        modal: true,
+		        title: 'info',
+		        zIndex: 10000,
+		        autoOpen: true,
+		        width: 'auto',
+		        resizable: false,
+		        buttons: {
+		            Ok: function () {
+		                $(this).dialog("close");
+		            }
+        		},
+		        close: function (event, ui) {
+		            $(this).remove();
+		        }
+    		});	
+	}
+
+ 	function ui_confirm(message,yes_func,no_func){
 		$('<div></div>').appendTo('body')
     		.html('<div><h6>' + message + '</h6></div>')
     		.dialog(
@@ -36,6 +58,7 @@ define(
 	}
 
 	return {
-		exe:exe
+		ui_confirm:ui_confirm
+		,ui_alert:ui_alert
 	}
 });

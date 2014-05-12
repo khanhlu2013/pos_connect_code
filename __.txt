@@ -307,3 +307,694 @@ NONE,None,FALSE,group 5hour,na,5hour - Redline 7hour,0.00,1,0.00,4.62
 011,Cigarrett Pack,TRUE,047995855253,pitco,American Org Pk MellowGold Box,0.00,10,5.29,6.24
 011,Cigarrett Pack,TRUE,047995855246,pitco,American Org Pk Turquoise Box,0.00,10,5.27,6.24
 011,Cigarrett Pack,TRUE,047995855215,pitco,American PK BalanceTaste Box,0.00,10,5.27,6.24
+011,Cigarrett Pack,TRUE,047995855079,pitco,American Pk Black Box,0.00,10,5.29,6.24
+011,Cigarrett Pack,TRUE,047995855086,pitco,American Pk Blue Box,0.00,10,5.29,6.24
+011,Cigarrett Pack,TRUE,047995855222,pitco,American Pk Men FullBodied Box,0.00,10,5.27,6.24
+011,Cigarrett Pack,TRUE,047995855055,pitco,American Pk Men MellowTast Box,0.00,10,5.27,6.24
+011,Cigarrett Pack,TRUE,047995855239,pitco,American Pk Orange Box,0.00,10,5.27,6.24
+011,Cigarrett Pack,TRUE,047995855093,pitco,American Pk Yellow Box,0.00,10,5.29,6.24
+011,Cigarrett Pack,TRUE,047995000820,pitco,American Rolling Org Pk (Red),0.00,6,7.91,9.49
+011,Cigarrett Pack,TRUE,047995000806,pitco,American Rolling Pk (Blue),0.00,6,8.03,9.69
+011,Cigarrett Pack,TRUE,047995000837,pitco,American Rolling Pk (Purple),0.00,6,7.88,9.69
+065,Power Capsule,TRUE,811568003101,protein,Aminovol 240cap DDD,0.00,1,28.00,39.99
+041,Soda,TRUE,012000016431,pepsi,AMP 16oz DDD,0.00,12,1.33,999.00
+041,Soda,TRUE,012000033421,pepsi,AMP 16oz Lemonade DDD,0.00,12,1.33,999.00
+041,Soda,TRUE,012000021145,pepsi,AMP 16oz OverDrive DDD,0.00,12,1.33,999.00
+051,Snack,FALSE,071725701435,ng,AmPort Wasbi Peas 4z,0.00,1,1.14,1.69
+031,Beer,TRUE,728984,bottomley,Amstel Light 12oz,0.00,1,1.50,999.00
+031,Beer,TRUE,072890100160,bottomley,Amstel Light 12pk,1.20,2,11.53,13.99
+031,Beer,TRUE,072890000934,bottomley,Amstel Light 16oz,0.00,6,0.98,999.00
+031,Beer,TRUE,p072890000934,bottomley,Amstel Light 4pk,0.00,6,0.00,999.00
+031,Beer,TRUE,072890100115,bottomley,Amstel Light 6pk DDD,1.20,4,6.25,999.00
+021,Liquor,TRUE,085000014325,coles,Amsterdam Gin 375,0.00,1,4.01,6.99
+021,Liquor,TRUE,854020,coles,Amsterdam Gin 50,0.00,1,0.59,0.99
+021,Liquor,TRUE,085000014318,coles,Amsterdam Gin 750,0.00,1,8.39,12.99
+021,Liquor,TRUE,085000019481,coles,Amsterdam Vodka 375,0.00,1,4.35,7.99
+021,Liquor,TRUE,858800,coles,Amsterdam Vodka 50,0.00,1,0.59,0.99
+021,Liquor,TRUE,855965,coles,Amsterdam Vodka 50 Coconut,0.00,1,0.59,0.99
+021,Liquor,TRUE,855780,coles,Amsterdam Vodka 50 Peach,0.00,1,0.59,0.99
+021,Liquor,TRUE,855750,coles,Amsterdam Vodka 50 RedBerry,0.00,10,0.59,0.99
+021,Liquor,TRUE,085000019498,coles,Amsterdam Vodka 750,0.00,1,8.39,12.99
+021,Liquor,TRUE,085000021361,coles,Amsterdam Vodka 750 Coconut,0.00,1,8.39,12.99
+021,Liquor,TRUE,085000020333,coles,Amsterdam Vodka 750 Peach,0.00,1,8.39,12.99
+021,Liquor,TRUE,085000020326,coles,Amsterdam Vodka 750 Red Berry,0.00,1,7.98,12.99
+063,Powder,TRUE,631656700749,protein,Anabolic Halo 2.4lb Blue Ras,0.00,1,34.99,49.99
+063,Powder,TRUE,631656700633,protein,Anabolic Halo 2.4lb Fpunch,0.00,1,34.99,49.99
+063,Powder,TRUE,631656700787,protein,Anabolic Halo 2.4lb Orange,0.00,1,34.99,49.99
+065,Power Capsule,TRUE,791851111105,protein,Anabolic Xtreme Rebound 60cap,0.00,1,23.10,32.99
+061,Miscellaneous,TRUE,305730225250,pitco,Anbesol,0.00,1,5.00,6.99
+031,Beer,TRUE,727837,dbi,Anchor 12oz Liberty Ale,0.00,1,1.50,2.49
+031,Beer,TRUE,727836,dbi,Anchor 12oz Porter,0.00,1,1.50,2.49
+031,Beer,TRUE,727835,dbi,Anchor 12oz Steam,0.00,1,1.50,2.49
+031,Beer,TRUE,072783121005,dbi,Anchor 12pk Steam Beer,1.20,2,13.25,999.00
+031,Beer,TRUE,072783000508,dbi,Anchor 6pk Christmas DDD,1.20,4,8.38,999.00
+031,Beer,TRUE,072783003004,dbi,Anchor 6pk Liberty Ale,1.20,4,6.25,999.00
+031,Beer,TRUE,072783002007,dbi,Anchor 6pk Porter DDD,1.20,4,6.38,999.00
+031,Beer,TRUE,072783001000,dbi,Anchor 6pk Steam Beer,1.20,4,6.25,7.99
+031,Beer,TRUE,072783006005,dbi,Anchor 6pk Summer DDD,1.20,4,6.38,999.00
+021,Liquor,TRUE,080244002114,coles,Ancient Age 1.75,0.00,1,12.00,16.99
+021,Liquor,TRUE,080244002121,coles,Ancient Age 1L,0.00,1,7.62,10.99
+021,Liquor,TRUE,080244002152,coles,Ancient Age 200,0.00,1,1.95,2.99
+021,Liquor,TRUE,080244002176,coles,Ancient Age 375,0.00,1,3.46,5.49
+021,Liquor,TRUE,080244002138,coles,Ancient Age 750,0.00,12,7.00,9.99
+031,Beer,TRUE,091255,,Anderson 12oz Boont Amber,0.00,1,0.98,2.49
+031,Beer,TRUE,091256,,Anderson 12oz IPA,0.00,1,0.96,2.49
+031,Beer,TRUE,009125000162,ww,Anderson 6pk Boont  Amber,0.00,4,7.02,999.00
+031,Beer,TRUE,009125000568,ww,Anderson 6pk Oatmeal Stout,1.20,4,7.02,999.00
+051,Snack,FALSE,andesmint240count,pitco,Andes Mint 240 Count,0.00,240,0.04,0.10
+024,Champange,TRUE,857430,coles,Andre 750 Brut,0.00,12,3.14,3.99
+024,Champange,TRUE,857480,coles,Andre 750 Extra Dry,0.00,1,3.14,3.99
+024,Champange,TRUE,857470,coles,Andre Cold Duck,0.00,1,2.79,3.99
+051,Snack,FALSE,026200471587,,AndyCapp 3oz Cheddar Fries,0.00,12,0.73,1.29
+051,Snack,FALSE,026200471594,,AndyCapp 3oz Hot Fries,0.00,12,0.73,1.29
+061,Miscellaneous,FALSE,6921807902912,pitco,Angel 500,0.00,1,0.59,0.99
+061,Miscellaneous,TRUE,030400000485,pitco,Angel Soft TP,0.00,1,0.95,1.85
+023,Liquor - Mixer,TRUE,075496000407,coles,Angostura 4oz Aromatic Bitters,0.00,1,4.42,5.99
+031,Beer,TRUE,087692841029,Bottomley,Angry Orchard 6pk Apple Ginger,1.20,4,6.56,8.49
+031,Beer,TRUE,087692821021,Bottomley,Angry Orchard 6pk Crsp Apple,1.20,4,6.56,8.49
+031,Beer,TRUE,087692861027,Bottomley,Angry Orchard 6pk Traditnl Dry,0.00,4,6.56,8.49
+063,Powder,TRUE,039442030528,protein,Animal Flex 44pk,0.00,1,22.00,32.99
+063,Powder,TRUE,039442030253,protein,Animal Max 2.2lb Protein cho,0.00,1,24.49,34.99
+063,Powder,TRUE,039442030405,protein,Animal Nitro 16pk Grape DDD,0.00,1,24.49,34.99
+063,Powder,TRUE,039442030351,protein,Animal Nitro 44pk,0.00,1,32.96,49.99
+063,Powder,TRUE,039442030580,protein,Animal Omega 30pk DDD,0.00,1,18.21,27.99
+063,Powder,TRUE,039442030122,protein,Animal Pak 15pk,0.00,1,11.96,16.99
+063,Powder,TRUE,039442030115,protein,Animal Pak 44pk DDD,0.00,1,24.76,39.99
+063,Powder,TRUE,039442030887,protein,Animal Pak 88pk,0.00,1,42.24,54.99
+063,Powder,TRUE,039442030542,protein,Animal Pump 30pk DDD,0.00,1,25.17,39.99
+063,Powder,TRUE,039442030238,protein,Animal Stak 21pk DDD,0.00,1,28.04,36.99
+063,Powder,TRUE,039442030320,protein,Animal Test 21pk,0.00,1,55.16,69.99
+021,Liquor,FALSE,088076030060,coles,Aniversario Ron Anejo 750,0.00,1,30.00,36.99
+021,Liquor,TRUE,744607050524,coles,Antiguo 750 Anejo,0.00,1,27.30,39.99
+021,Liquor,TRUE,744607050500,coles,Antiguo 750 Repo,0.00,3,22.64,32.99
+025,Wine,TRUE,087236350253,coles,Antinori Chianti Classic 750,0.00,1,29.86,39.99
+025,Wine,TRUE,085000017746,coles,Apothic Red 750,0.00,0,7.00,9.99
+061,Miscellaneous,FALSE,apple,ng,Apple,0.00,1,0.50,0.75
+021,Liquor,TRUE,636191110404,coles,Appleton 750 Reserve Rum,0.00,3,19.71,28.99
+041,Soda,FALSE,122090,pitco,Aquafina 1.5L,1.20,12,1.14,999.00
+041,Soda,FALSE,121080,pitco,Aquafina 16oz,1.60,32,0.15,0.95
+041,Soda,FALSE,121570,pepsi,Aquafina 1L,1.50,15,1.01,999.00
+041,Soda,FALSE,121590,pitco,Aquafina 20oz,1.20,24,0.62,999.00
+041,Soda,FALSE,125890,pitco,Aquafina 24oz Cap,0.00,1,0.83,999.00
+041,Soda,TRUE,877621000210,pitco,Aquiss Diet Supp,0.00,1,1.00,999.00
+021,Liquor,TRUE,080655203643,coles,AR Morrow 1L,0.00,1,6.83,10.99
+021,Liquor,TRUE,083103098549,coles,AR Morrow 200,0.00,1,2.09,2.99
+021,Liquor,TRUE,083103098648,coles,AR Morrow 375,0.00,1,3.50,4.99
+021,Liquor,TRUE,080655203636,coles,AR Morrow 750 DDD,0.00,1,5.60,7.99
+025,Wine,TRUE,082100179022,coles,Arbor Mist 750 Exotic Fruit,0.00,1,2.63,3.99
+025,Wine,TRUE,082100179015,coles,Arbor Mist 750 Peach,0.00,1,2.63,3.99
+051,Snack,FALSE,028400036030,pitco,Arcoiris,0.00,1,0.34,0.99
+021,Liquor,TRUE,083300072106,coles,Ardbeg 10yr 750,0.00,1,52.00,64.99
+021,Liquor,TRUE,080686749028,coles,Ardmore 750 Traditional Cask,0.00,1,36.40,42.99
+061,Miscellaneous,TRUE,6924180010205,ng,Ariel Toilet Paper,0.00,24,0.54,0.99
+041,Soda,FALSE,613008722869,7up,Arizona 20oz Can Black & White,0.00,1,0.62,0.99
+041,Soda,FALSE,893322001134,pitco,Arizona 20oz Can Cintron DDD,0.00,0,0.62,0.99
+041,Soda,FALSE,613008727826,pitco,Arizona 20oz Can Cranberry,0.00,0,0.62,0.99
+041,Soda,FALSE,613008721954,pitco,Arizona 20oz Can Energy,0.00,1,0.62,0.99
+041,Soda,FALSE,613008718763,pitco,Arizona 20oz Can Fruit Punch,1.20,24,0.60,0.99
+041,Soda,FALSE,613008722883,pitco,Arizona 20oz Can Georgia Gtea,0.00,24,0.64,0.99
+041,Soda,FALSE,613008719296,pitco,Arizona 20oz Can Grapeade,1.20,24,0.60,0.99
+041,Soda,FALSE,613008715267,pitco,Arizona 20oz Can Green Tea,1.20,24,0.60,0.99
+041,Soda,FALSE,613008725853,pitco,Arizona 20oz Can HalfMango&IT,1.20,24,0.58,0.99
+041,Soda,FALSE,073360709494,pitco,Arizona 20oz Can Kiwi Straw,1.20,24,0.60,0.99
+041,Soda,FALSE,088130994635,pitco,Arizona 20oz Can Lemon Tea,1.20,24,0.58,0.99
+041,Soda,FALSE,613008726096,pitco,Arizona 20oz Can Lemonade,1.20,24,0.60,0.99
+041,Soda,FALSE,073360709258,pitco,Arizona 20oz Can Mucho Mango,1.20,24,0.60,0.99
+041,Soda,FALSE,613008715625,pitco,Arizona 20oz Can Orangeade,1.20,24,0.60,0.99
+041,Soda,FALSE,613008719524,pitco,Arizona 20oz Can Peach IT,1.20,24,0.60,0.99
+041,Soda,FALSE,613008722395,pitco,Arizona 20oz Can RApple Gtea,1.20,24,0.58,0.99
+041,Soda,FALSE,088130994642,pitco,Arizona 20oz Can Raspberry Tea,1.20,24,0.60,0.99
+041,Soda,FALSE,613008718459,pitco,Arizona 20oz Can RX Energy,1.20,24,0.58,0.99
+041,Soda,FALSE,613008717711,pitco,Arizona 20oz Can Sweet Tea,1.20,24,0.60,0.99
+041,Soda,FALSE,613008720209,pitco,Arizona 20oz Can Watermelon,1.20,24,0.60,0.99
+041,Soda,FALSE,613008722111,pitco,Arizona Lite Half GTea&Lemon,1.20,24,0.58,0.99
+041,Soda,FALSE,613008728571,pitco,Arizona Zero HHalf IT Lemonade,1.20,24,0.58,0.99
+061,Miscellaneous,TRUE,033200011101,pitco,Arm & Hammer Baking Soda,0.00,1,0.55,0.99
+021,Liquor,TRUE,083664867103,coles,Armadale 750,0.00,1,23.08,29.99
+031,Beer,TRUE,636251780004,dbi,Arrogant Bastard 24oz Ale,0.60,12,3.35,4.99
+041,Soda,FALSE,071142000500,pitco,Arrowhead 0.5L DDD,0.00,1,0.22,999.00
+041,Soda,FALSE,071142000159,pitco,Arrowhead 1.5 L,0.00,1,0.80,999.00
+041,Soda,FALSE,071142000012,pitco,Arrowhead 1L,0.00,1,0.71,999.00
+041,Soda,FALSE,071142000029,pitco,Arrowhead 24oz,0.00,1,0.40,999.00
+041,Soda,FALSE,071142643370,pitco,Arrowhead 700,0.00,1,0.63,999.00
+021,Liquor,TRUE,856365000380,coles,Asom Broso 750 Repo,0.00,0,43.00,54.99
+021,Liquor,TRUE,856365000212,coles,Asom Broso 750 Silver,0.00,0,42.00,53.99
+031,Beer,TRUE,878003,,Aspen Edge 12oz,0.00,1,1.50,999.00
+063,Powder,TRUE,736211052476,coles,Assault 1.6lb Blue Rasp,0.00,1,30.40,35.99
+063,Powder,TRUE,736211052575,coles,Assault 1.6lb FP,0.00,1,30.40,35.99
+063,Powder,TRUE,736211051172,coles,Assault 1.6lb Watermelon,0.00,1,30.40,35.99
+051,Snack,FALSE,sugar wafers,pitco,Assorted Sugar Wafers 3.5oz,0.00,1,0.37,1.09
+023,Liquor - Mixer,TRUE,083960460015,coles,Asti 750 Cinzano,0.00,1,5.00,8.79
+091,Phone Card,FALSE,pc217,splendor,Atlas $2,0.00,1,2.00,2.00
+091,Phone Card,FALSE,pc95,splendor,Atlas $4.5,0.00,1,4.50,4.50
+065,Power Capsule,TRUE,652908000011,protein,ATP Cretine Serum 5oz,0.00,1,21.00,29.99
+021,Liquor,TRUE,850483000024,coles,Auchentoshan 10yrs,0.00,1,17.94,23.99
+031,Beer,TRUE,710168001022,chrissa,Augustijn 24oz Ale,0.00,6,7.16,999.00
+061,Miscellaneous,TRUE,030000050200,,Aunt Jemima 16oz Panck&Waffle,0.00,1,1.74,2.49
+061,Miscellaneous,FALSE,030000059500,pitco,Aunt Jemimaoriginal 12oz,0.00,1,2.55,3.69
+051,Snack,FALSE,660973116551,pitco,AuSome Ironman,0.00,1,0.64,1.49
+051,Snack,FALSE,079783406194,pitco,Austin Chedda Cheese,0.00,1,0.40,0.89
+051,Snack,FALSE,079783406408,pitco,Austin Choco Creme,0.00,1,0.40,0.89
+051,Snack,FALSE,079783406354,pitco,Austin Cookie Lemon Creme,0.00,1,0.25,0.89
+051,Snack,FALSE,079783406125,pitco,Austin Peanut Butter,0.00,1,0.35,0.89
+051,Snack,FALSE,079783406507,pitco,Austin Vanilla Creme,0.00,1,0.40,0.89
+021,Liquor,TRUE,736040519348,coles,Avion 750 Silver,0.00,1,33.50,45.99
+041,Soda,TRUE,781870,pitco,AW 12oz Root Beer,0.00,1,0.32,0.79
+041,Soda,TRUE,078000053166,Pitco,AW 12pk Diet Root Beer,0.60,1,3.45,4.99
+041,Soda,TRUE,078000052169,ng,AW 12pk Root Beer,0.00,1,3.69,4.99
+041,Soda,TRUE,078000052428,ng,AW 16oz Bottle,0.00,1,0.71,1.29
+041,Soda,TRUE,078000052459,pitco,AW 1L,0.00,1,0.94,999.00
+041,Soda,TRUE,058000070738,7up,AW 20oz 99cent,0.00,24,0.69,999.00
+041,Soda,TRUE,078000054408,7up,AW 20oz Cream,1.20,24,0.67,999.00
+041,Soda,TRUE,078000053401,7up,AW 20oz Diet RootBeer,1.20,24,0.92,999.00
+041,Soda,TRUE,078000052404,7up,AW 20oz RootBeer DDD,1.20,24,0.67,999.00
+041,Soda,TRUE,078000052466,pitco,AW 2L RootBeer,0.80,8,1.34,2.49
+041,Soda,TRUE,p702025,Pitco,AW 6pk Rootbeer,0.00,1,1.75,2.99
+021,Liquor,TRUE,082422020347,coles,Azteca De Oro 750,0.00,1,18.48,24.99
+021,Liquor,TRUE,811538014519,coles,Azul 750 Repo,0.00,1,12.78,16.99
+021,Liquor,TRUE,080480545604,coles,B&B 375,0.00,1,13.58,19.99
+021,Liquor,TRUE,089540334691,coles,B&B 375 Dom,0.00,1,14.00,19.99
+021,Liquor,TRUE,080480545406,coles,B&B 750,0.00,1,23.33,32.99
+025,Wine,TRUE,087000345072,coles,B&G 750 Bistro Pinot Noir,0.00,12,6.50,7.99
+025,Wine,TRUE,087000109070,coles,B&G 750 Cab,0.00,1,5.00,7.99
+022,Liquor - Cocktail,TRUE,852450,coles,B&J 12oz Berry,1.20,24,0.70,1.36
+022,Liquor - Cocktail,TRUE,854460,coles,B&J 12oz Blue Hawaiian,0.00,24,0.70,1.36
+022,Liquor - Cocktail,TRUE,852080,coles,B&J 12oz Fuzzy Navel,1.20,24,0.70,1.36
+022,Liquor - Cocktail,TRUE,851270,coles,B&J 12oz Margarita,1.20,24,0.70,1.36
+022,Liquor - Cocktail,TRUE,851090,coles,B&J 12oz Melon Splash,0.00,1,0.70,1.36
+022,Liquor - Cocktail,TRUE,858850,coles,B&J 12oz Mojito,0.00,24,0.61,1.36
+022,Liquor - Cocktail,TRUE,852240,coles,B&J 12oz Original,0.00,1,0.70,1.36
+022,Liquor - Cocktail,TRUE,851390,coles,B&J 12oz Pina Colada,0.00,24,0.61,1.36
+022,Liquor - Cocktail,TRUE,858960,coles,B&J 12oz Pome Raspberry,0.00,24,0.61,1.36
+022,Liquor - Cocktail,TRUE,854860,coles,B&J 12oz Sangria,1.20,24,0.70,1.36
+022,Liquor - Cocktail,TRUE,851310,coles,B&J 12oz Straw Daiquiri,1.20,24,0.70,1.36
+022,Liquor - Cocktail,TRUE,854710,coles,B&J 12oz Tropical Mango,0.00,1,0.70,1.36
+022,Liquor - Cocktail,TRUE,085000002469,coles,B&J 4pk Berry,0.00,6,0.00,4.49
+022,Liquor - Cocktail,TRUE,085000044469,coles,B&J 4pk Blue Hawaiian,0.00,1,0.00,999.00
+022,Liquor - Cocktail,TRUE,085000002056,coles,B&J 4pk Fuzzy Navel,0.00,1,0.00,999.00
+022,Liquor - Cocktail,TRUE,085000001264,coles,B&J 4pk Margarita,0.00,1,0.00,999.00
+022,Liquor - Cocktail,TRUE,085000011812,coles,B&J 4pk Melon Splash,0.00,1,0.00,999.00
+022,Liquor - Cocktail,TRUE,085000048856,coles,B&J 4pk Mojito,0.00,1,0.61,999.00
+022,Liquor - Cocktail,TRUE,085000002254,coles,B&J 4pk Original,0.00,1,0.00,999.00
+022,Liquor - Cocktail,TRUE,085000001387,coles,B&J 4pk Pina Colada,0.00,6,0.00,999.00
+022,Liquor - Cocktail,TRUE,085000048962,coles,B&J 4pk Pome Raspberry,0.00,1,0.00,999.00
+022,Liquor - Cocktail,TRUE,085000044865,coles,B&J 4pk Sangria,0.00,1,0.00,999.00
+022,Liquor - Cocktail,TRUE,085000001301,coles,B&J 4pk Straw Daiquiri,0.00,1,0.00,999.00
+022,Liquor - Cocktail,TRUE,085000044711,coles,B&J 4pk Tropical Mango,0.00,1,0.00,999.00
+051,Snack,FALSE,041116006524,pitco,Baby Bottle Pop,0.00,18,0.85,1.49
+051,Snack,FALSE,041116005954,pitco,Baby Bottle Pop Blue Raspberry,0.00,18,0.86,1.49
+051,Snack,FALSE,686464493000,pitco,Baby Flash Pop 1.5oz BlueRasp,0.00,12,0.75,1.75
+051,Snack,FALSE,028000010775,pitco,BabyRuth,0.00,24,0.55,1.09
+051,Snack,FALSE,028000001414,pitco,BabyRuth KingSize,0.00,18,0.98,1.59
+031,Beer,TRUE,183822,bottomley,Bacardi 12oz Blt Limon,0.00,1,1.50,999.00
+031,Beer,TRUE,183722,bottomley,Bacardi 12oz Blt Raz,0.00,1,1.50,999.00
+031,Beer,TRUE,183562,bottomley,Bacardi 12oz O,0.00,1,1.50,999.00
+031,Beer,TRUE,183332,bottomley,Bacardi 12oz Silver,0.00,1,1.50,999.00
+021,Liquor,TRUE,080480095703,coles,Bacardi 151P 200,0.00,1,5.74,8.99
+021,Liquor,TRUE,080480095604,coles,Bacardi 151P 375,0.00,24,10.46,14.99
+021,Liquor,TRUE,080480095406,coles,Bacardi 151P 750,0.00,1,18.52,26.99
+021,Liquor,TRUE,080480401054,coles,Bacardi 200 Apple,0.00,24,3.49,4.99
+021,Liquor,TRUE,080480001001,coles,Bacardi 200 Cherry,0.00,6,3.49,4.99
+021,Liquor,TRUE,080480000295,coles,Bacardi 200 Dragon Berry,0.00,24,3.49,4.99
+021,Liquor,TRUE,080480401566,coles,Bacardi 200 Grand Melon,0.00,24,3.68,4.99
+021,Liquor,TRUE,080480355708,coles,Bacardi 200 Limon,0.00,1,3.31,4.99
+021,Liquor,TRUE,080480400354,coles,Bacardi 200 Razz,0.00,24,2.80,4.99
+021,Liquor,TRUE,080480055707,coles,Bacardi 200 Select,0.00,1,2.79,4.99
+021,Liquor,TRUE,080480401047,coles,Bacardi 375 Big Apple,0.00,12,5.59,7.99
+021,Liquor,TRUE,080480000998,coles,Bacardi 375 Cherry,0.00,4,5.59,7.99
+021,Liquor,TRUE,080480400644,coles,Bacardi 375 Coco,0.00,4,5.35,7.99
+021,Liquor,TRUE,080480000288,coles,Bacardi 375 Dragon Berry,0.00,12,6.35,7.99
+021,Liquor,TRUE,080480401559,coles,Bacardi 375 Grand Melon,0.00,12,5.59,7.99
+021,Liquor,TRUE,080480355609,coles,Bacardi 375 Limon,0.00,1,5.59,8.99
+021,Liquor,TRUE,080480400033,coles,Bacardi 375 O,0.00,12,5.59,7.99
+021,Liquor,TRUE,080480402051,coles,Bacardi 375 Peach Red,0.00,12,5.59,7.99
+021,Liquor,TRUE,080480400347,coles,Bacardi 375 Razz,0.00,12,5.59,7.99
+021,Liquor,TRUE,080480400842,coles,Bacardi 375 Vanila,0.00,1,5.35,7.99
+021,Liquor,TRUE,080480401061,coles,Bacardi 50 Apple,0.00,120,0.65,0.99
+021,Liquor,TRUE,080480001018,coles,Bacardi 50 Cherry,0.00,1,0.65,0.99
+021,Liquor,TRUE,080480400668,coles,Bacardi 50 Coco,0.00,1,0.67,0.99
+021,Liquor,TRUE,080480000301,coles,Bacardi 50 DragonBerry,0.00,1,0.50,0.99
+021,Liquor,TRUE,080480401573,coles,Bacardi 50 Grand Melon,0.00,1,0.47,0.99
+021,Liquor,TRUE,080480356200,coles,Bacardi 50 Limon,0.00,1,0.70,0.99
+021,Liquor,TRUE,080480400057,coles,Bacardi 50 O,0.00,120,0.65,0.99
+021,Liquor,TRUE,080480001551,coles,Bacardi 50 OakHeart Spiced,0.00,1,0.70,0.99
+021,Liquor,TRUE,080480402075,coles,Bacardi 50 Peach Red,0.00,120,0.65,0.99
+021,Liquor,TRUE,080480400361,coles,Bacardi 50 Razz,0.00,120,0.69,0.99
+021,Liquor,TRUE,080480400866,coles,Bacardi 50 Vanila,0.00,1,0.67,0.99
+021,Liquor,TRUE,080480401030,coles,Bacardi 750 Apple,0.00,12,8.33,12.99
+021,Liquor,TRUE,080480401719,coles,Bacardi 750 Artic Grape,0.00,1,9.04,12.99
+021,Liquor,TRUE,080480000981,coles,Bacardi 750 Cherry,0.00,1,8.33,12.99
+021,Liquor,TRUE,080480400637,coles,Bacardi 750 Coco,0.00,12,8.96,12.99
+021,Liquor,TRUE,080480000271,coles,Bacardi 750 Dragon Berry,0.00,3,9.50,12.99
+021,Liquor,TRUE,080480401542,coles,Bacardi 750 Grand Melon,0.00,1,9.04,12.99
+021,Liquor,TRUE,080480355401,coles,Bacardi 750 Limon,0.00,1,8.24,12.99
+021,Liquor,TRUE,080480400026,coles,Bacardi 750 O,0.00,12,8.33,12.99
+021,Liquor,TRUE,080480402044,coles,Bacardi 750 Peach Red,0.00,12,8.33,12.99
+021,Liquor,TRUE,080480400330,coles,Bacardi 750 Razz,0.00,12,8.33,12.99
+021,Liquor,TRUE,080480400835,coles,Bacardi 750 Vanila,0.00,1,9.80,12.99
+021,Liquor,TRUE,080480505400,coles,Bacardi 8 750,0.00,1,15.00,19.99
+021,Liquor,TRUE,080480185305,coles,Bacardi Anejo 1L,0.00,1,13.00,15.99
+021,Liquor,TRUE,080480185404,coles,Bacardi Anejo 750,0.00,12,10.54,13.99
+021,Liquor,TRUE,080480400651,coles,Bacardi Coco 200,0.00,1,2.84,3.99
+021,Liquor,TRUE,080480025304,coles,Bacardi Dark 1L,0.00,1,9.77,13.99
+021,Liquor,TRUE,080480026219,coles,Bacardi Dark 50,0.00,1,0.81,1.39
+021,Liquor,TRUE,080480025205,coles,Bacardi Gold 1.75,0.00,1,15.53,20.99
+021,Liquor,TRUE,080480025809,coles,Bacardi Gold 100,0.00,1,1.25,1.85
+021,Liquor,TRUE,080480025700,coles,Bacardi Gold 200,0.00,1,2.90,4.49
+021,Liquor,TRUE,080480025601,coles,Bacardi Gold 375,0.00,1,5.72,8.99
+021,Liquor,TRUE,080480025403,coles,Bacardi Gold 750,0.00,1,8.53,10.99
+021,Liquor,TRUE,080480015206,coles,Bacardi Light 1.75,0.00,1,15.53,20.99
+021,Liquor,TRUE,080480015800,coles,Bacardi Light 100,0.00,1,1.25,1.85
+021,Liquor,TRUE,080480015305,coles,Bacardi Light 1L,0.00,1,10.50,13.99
+021,Liquor,TRUE,080480015701,coles,Bacardi Light 200,0.00,1,2.90,4.49
+021,Liquor,TRUE,080480015602,coles,Bacardi Light 375,0.00,1,5.77,8.99
+021,Liquor,TRUE,080480016210,coles,Bacardi Light 50,0.00,1,0.74,1.49
+021,Liquor,TRUE,080480015404,coles,Bacardi Light 750,0.00,1,8.53,10.99
+021,Liquor,TRUE,080480400040,coles,Bacardi O 200,0.00,1,2.84,3.99
+021,Liquor,TRUE,080480001520,coles,Bacardi OakHeart 750,0.00,1,8.43,10.99
+021,Liquor,TRUE,080480175405,coles,Bacardi Reserve 750,0.00,1,10.00,12.99
+021,Liquor,TRUE,080480015114,coles,Bacardi RTD 1.75 Mojito,0.00,1,14.00,19.99
+022,Liquor - Cocktail,TRUE,080480806019,coles,Bacardi RTD 750 Hurricane,0.00,6,6.99,9.99
+022,Liquor - Cocktail,TRUE,080480806033,coles,Bacardi RTD 750 Long Island IT,0.00,6,6.99,9.99
+021,Liquor,TRUE,080480015176,coles,Bacardi RTD 750 Mojito,0.00,1,10.00,12.99
+021,Liquor,TRUE,080480000479,coles,Bacardi RTD 750 Mojito Raspber,0.00,1,9.59,12.99
+022,Liquor - Cocktail,TRUE,080480001056,coles,Bacardi RTD 750 Pina Colada,0.00,6,9.59,12.99
+022,Liquor - Cocktail,TRUE,080480806194,coles,Bacardi RTD 750 Rum Runner,0.00,12,6.99,12.99
+022,Liquor - Cocktail,TRUE,080480001049,coles,Bacardi RTD 750 Straw Daiquiri,0.00,6,9.59,12.99
+022,Liquor - Cocktail,TRUE,080480806163,coles,Bacardi RTD 750 Zombie,0.00,6,7.02,10.99
+021,Liquor,TRUE,080480055202,coles,Bacardi Select 1.75,0.00,1,16.59,18.99
+021,Liquor,TRUE,080480055608,coles,Bacardi Select 375,0.00,1,4.56,7.99
+021,Liquor,TRUE,080480055400,coles,Bacardi Select 750,0.00,12,9.80,10.99
+021,Liquor,TRUE,080480345402,coles,Bacardi Solera 750,0.00,12,13.39,16.99
+021,Liquor,TRUE,080480395407,coles,Bacardi Spice 750,0.00,1,10.00,14.99
+021,Liquor,TRUE,080480400859,coles,Bacardi Vanila 200,0.00,1,2.84,3.99
+012,Cigarrett Carton,TRUE,071610300170,pitco,Backwood CT Black n Sweet,0.00,1,0.00,999.00
+012,Cigarrett Carton,TRUE,071610300187,pitco,Backwood CT Sweet Aromatic,0.00,1,0.00,999.00
+011,Cigarrett Pack,TRUE,071610300064,pitco,Backwood Pk Black n Sweet,0.00,8,3.85,4.69
+011,Cigarrett Pack,TRUE,071610300026,pitco,Backwood Pk SweetAromatic (Red,0.00,8,4.28,5.39
+011,Cigarrett Pack,TRUE,071610301320,pitco,Backwood Pk Vanilla,0.00,1,6.26,999.00
+011,Cigarrett Pack,TRUE,071610301955,pitco,Backwood Single Original,0.00,12,0.80,1.25
+011,Cigarrett Pack,TRUE,071610301986,pitco,Backwood Single SweetAromatic,0.00,12,0.80,1.25
+051,Snack,FALSE,028400085090,pitco,Bacon Chedder Cheetos,0.00,1,0.18,0.50
+021,Liquor,TRUE,083664990429,coles,Bad Apfel 50,0.00,1,1.83,2.99
+021,Liquor,TRUE,677053346111,coles,Bafferts Gin 750,0.00,1,18.25,24.99
+021,Liquor,TRUE,086767701756,coles,Bailey 50 Caramel,0.00,1,1.00,1.49
+021,Liquor,TRUE,bailey 50 flavor,coles,Bailey 50 Flavor,0.00,1,0.65,0.99
+021,Liquor,TRUE,086767210104,coles,Baileys 200,0.00,1,5.48,8.99
+021,Liquor,TRUE,086767210098,coles,Baileys 375,0.00,1,8.79,12.99
+021,Liquor,TRUE,086767702272,coles,Baileys 375 Coffee,0.00,1,9.50,12.99
+021,Liquor,TRUE,086767701367,coles,Baileys 4pk Minis,0.00,1,10.40,13.99
+021,Liquor,TRUE,086767210128,coles,Baileys 50,0.00,1,1.50,2.54
+021,Liquor,TRUE,086767210067,coles,Baileys 750,0.00,1,14.50,19.99
+021,Liquor,TRUE,086767701763,coles,Baileys 750 Caramel,0.00,12,12.52,17.99
+021,Liquor,TRUE,086767701787,coles,Baileys 750 Chocolate Mint,0.00,12,12.52,17.99
+021,Liquor,TRUE,086767702289,coles,Baileys 750 Coffee,0.00,12,12.52,17.99
+021,Liquor,TRUE,089708001151,coles,Baja Rosa 750,0.00,1,12.00,17.99
+021,Liquor,TRUE,083103088571,coles,Baja Tequilla 200,0.00,1,1.57,2.99
+021,Liquor,TRUE,080686015406,coles,Baker 7yr 750,0.00,1,32.00,45.99
+012,Cigarrett Carton,TRUE,761073043751,pitco,Bali Shag CT Golden Shag,0.00,1,0.00,999.00
+012,Cigarrett Carton,TRUE,090600530878,pitco,Bali Shag CT Halfzware Shag,0.00,1,0.00,999.00
+011,Cigarrett Pack,TRUE,761073243755,pitco,Bali Shag Pk Golden Shag (Red),0.00,6,3.43,999.00
+011,Cigarrett Pack,TRUE,090600530861,pitco,Bali Shag Pk Halfzware Shag,0.00,6,3.43,999.00
+051,Snack,FALSE,660973115134,pitco,Ball Dart Candies ,0.00,1,0.72,1.49
+021,Liquor,TRUE,089540352817,coles,Ballantines Scotch 1.75,0.00,33,17.08,22.99
+031,Beer,TRUE,672438000039,dbi,Ballast Point 24oz BigEye IPA,0.60,12,3.21,999.00
+031,Beer,TRUE,672438000213,dbi,BallastPoint 24oz Sculpin IPA,1.20,12,3.26,999.00
+024,Champange,TRUE,08500007570,coles,Ballatore 750 Gran Spumante,0.00,1,5.60,7.99
+024,Champange,TRUE,085000011379,coles,Ballatore 750 Spumante Rosso,0.00,1,5.60,7.99
+061,Miscellaneous,TRUE,736206000017,pitco,Ban Banna Head Gear,0.00,1,2.75,4.99
+061,Miscellaneous,FALSE,banana,ng,Banana,0.00,0,0.25,0.65
+051,Snack,FALSE,072665719610,pitco,Banana Sandwich Cremes,0.00,1,0.18,0.50
+061,Miscellaneous,TRUE,381370047544,pitco,Band-Aid 8pieces,0.00,1,0.69,1.29
+021,Liquor,TRUE,7503010658108,coles,Bandolon 750 Anejo,0.00,6,24.00,31.99
+021,Liquor,TRUE,7503010658092,coles,Bandolon 750 Blanco,0.00,6,20.00,29.99
+021,Liquor,TRUE,7503010658085,coles,Bandolon 750 Repo,0.00,6,22.00,28.99
+042,Energy Drink,TRUE,610764840356,allpro,Bang 16oz Black Cherry DDD,0.00,1,2.85,3.99
+042,Energy Drink,TRUE,610764840325,allpro,Bang 16oz Exotic Fruit DDD,0.00,1,2.85,3.99
+042,Energy Drink,TRUE,610764860095,allpro,Bang 16oz Mandarin Orange DDD,0.00,1,2.85,3.99
+042,Energy Drink,TRUE,610764840639,allpro,Bang 16oz Watermelon DDD,0.00,1,2.85,3.99
+042,Energy Drink,TRUE,610764840332,,Bang 4pk Exotic Fruit,0.00,1,0.00,999.00
+042,Energy Drink,TRUE,610764840646,,Bang 4pk Watermelon,0.00,1,0.00,999.00
+051,Snack,FALSE,Barcel 149,Trumex,Barcel 149,0.00,1,0.89,1.49
+051,Snack,FALSE,Barcel 299,Trumex,Barcel 299,0.00,1,1.78,2.99
+051,Snack,FALSE,757528009120,Trumex,Barcel 3.2oz Tostachos,0.00,1,0.85,1.49
+051,Snack,FALSE,074323079869,Trumex,Barcel 3.5oz Chicharron Pork R,0.00,1,1.48,1.99
+051,Snack,FALSE,074323014990,trumex,Barcel Hot&Nut 3z Chile&Lime,0.00,1,0.89,1.29
+051,Snack,FALSE,074323047530,trumex,Barcel Peanut 3z Haranero Chil,0.00,1,0.89,1.29
+051,Snack,FALSE,074323024760,trumex,Barcel Peanut 3z Hot Chili Pep,0.00,1,0.89,1.29
+051,Snack,FALSE,074323060041,trumex,Barcel Peanut 3z Salt&Lime,0.00,1,0.89,1.29
+051,Snack,FALSE,757528009779,Trumex,Barcel Takis 9.9oz BBQ picante,0.00,1,1.78,2.99
+051,Snack,FALSE,757528005764,trumex,Barcel Takis 9.9oz Fuego,0.00,1,1.78,2.99
+051,Snack,FALSE,757528008697,Trumex,Barcel Takis 9.9oz Nitro,0.00,1,1.78,2.99
+051,Snack,FALSE,074323075083,Trumex,Barcel Takis Mini Fuego,0.00,1,0.33,0.50
+025,Wine,TRUE,018341151015,coles,Barefoot 1.5 Cab,0.00,6,7.69,9.99
+025,Wine,TRUE,018341151053,coles,Barefoot 1.5 Chard,0.00,6,7.69,9.99
+025,Wine,TRUE,018341151107,coles,Barefoot 1.5 Merlot,0.00,6,7.69,9.99
+025,Wine,TRUE,085000014431,coles,Barefoot 1.5 Pinot Grigio,0.00,1,7.69,9.99
+025,Wine,TRUE,018341151022,coles,Barefoot 1.5 Sau Blanc,0.00,6,7.69,9.99
+025,Wine,TRUE,018341151060,coles,Barefoot 1.5 White Zin,0.00,1,6.30,8.99
+025,Wine,TRUE,855360,coles,Barefoot 187 Chard,0.00,24,0.88,1.59
+025,Wine,TRUE,855460,coles,Barefoot 187 Merlot,0.00,24,0.88,1.59
+025,Wine,TRUE,855280,coles,Barefoot 187 Pinot Grigio,0.00,24,0.88,1.59
+025,Wine,TRUE,855310,coles,Barefoot 187 White Zin,0.00,24,0.88,1.59
+025,Wine,TRUE,085000045367,coles,BareFoot 4pk Chard,0.00,6,0.00,999.00
+025,Wine,TRUE,085000045466,coles,BareFoot 4pk Merlot,0.00,6,0.00,999.00
+025,Wine,TRUE,085000045282,coles,BareFoot 4pk Pinot Grigio,0.00,6,0.00,999.00
+025,Wine,TRUE,085000045312,coles,BareFoot 4pk White Zin,0.00,1,0.00,999.00
+025,Wine,TRUE,018341751017,coles,BareFoot 750 Cabernet,0.00,1,4.89,6.99
+025,Wine,TRUE,018341751055,coles,Barefoot 750 Chard,0.00,1,4.54,6.99
+025,Wine,TRUE,018341751109,coles,Barefoot 750 Merlot,0.00,1,4.89,6.99
+025,Wine,TRUE,085000016688,coles,Barefoot 750 Moscato,0.00,1,4.89,6.99
+025,Wine,TRUE,085000020456,coles,Barefoot 750 Pink Moscato,0.00,1,4.89,6.99
+025,Wine,TRUE,085000014448,coles,Barefoot 750 Pinot Grigio,0.00,12,4.89,6.99
+025,Wine,TRUE,018341751024,coles,Barefoot 750 Sau Blanc,0.00,1,4.89,6.99
+025,Wine,TRUE,085000018491,coles,Barefoot 750 Sweet Red,0.00,1,4.89,6.99
+025,Wine,TRUE,018341751062,coles,Barefoot 750 White Zin,0.00,12,4.54,6.99
+024,Champange,TRUE,018341751260,coles,BarefootBubbly 750 Brut,0.00,12,5.59,7.99
+024,Champange,TRUE,085000017593,coles,BarefootBubbly 750 MoscatoSpum,0.00,1,5.59,7.99
+024,Champange,TRUE,085000019658,coles,BarefootBubbly 750 PinkMoscato,0.00,1,5.59,7.99
+024,Champange,TRUE,085000021019,coles,BarefootBubbly 750 Red Moscato,0.00,12,5.60,7.99
+024,Champange,TRUE,085000016039,coles,BarefootBubbly 750 Rose Cuvee,0.00,12,5.60,7.99
+021,Liquor,TRUE,083089500005,coles,Barenjager 750,0.00,1,17.78,24.99
+091,Phone Card,FALSE,pc48,splendor,Barkada $4.5,0.00,1,4.50,4.50
+025,Wine,TRUE,087752002544,coles,Baron Herzog 750 White Zin,0.00,1,4.90,6.99
+022,Liquor - Cocktail,TRUE,084380428067,coles,Bartenders 200 Dry Gin Martini,0.00,1,0.70,1.99
+022,Liquor - Cocktail,TRUE,084380428364,coles,Bartenders 200 Long Island,0.00,1,0.70,1.99
+022,Liquor - Cocktail,TRUE,084380428265,coles,Bartenders 200 Manhattan,0.00,1,1.45,1.99
+022,Liquor - Cocktail,TRUE,084380428760,coles,Bartenders 200 Margarita,0.00,1,1.45,1.99
+022,Liquor - Cocktail,TRUE,084380428562,coles,Bartenders 200 Screwdriver,0.00,1,1.45,1.99
+022,Liquor - Cocktail,TRUE,084380428166,coles,Bartenders 200 Vodka Martini,0.00,1,0.70,1.99
+022,Liquor - Cocktail,TRUE,084380428661,coles,Bartenders 200 Whiskey Sour,0.00,1,1.00,1.99
+025,Wine,TRUE,087000101302,coles,Barton& Guesier 750 Beaujolais,0.00,1,2.80,3.99
+111,Coupons & CRV,FALSE,bbdc,,Basic Buy Down Carton,0.00,1,0.00,0.00
+111,Coupons & CRV,TRUE,bbdct,,Basic Buy Down Carton Tax,0.00,1,0.00,0.00
+111,Coupons & CRV,FALSE,bbdp,,Basic Buy Down Pack,0.00,1,0.00,0.00
+111,Coupons & CRV,TRUE,bbdpt,,Basic Buy Down Pack,0.00,1,0.00,0.00
+012,Cigarrett Carton,TRUE,028200304018,pitco,Basic CT 100 Box,0.00,1,0.00,999.00
+012,Cigarrett Carton,TRUE,028200303714,pitco,Basic CT Box,0.00,1,0.00,999.00
+012,Cigarrett Carton,TRUE,028200304612,pitco,Basic CT Gold 100 Box,0.00,1,0.00,999.00
+012,Cigarrett Carton,TRUE,028200304315,pitco,Basic CT Gold Box,0.00,1,0.00,999.00
+012,Cigarrett Carton,TRUE,028200304513,pitco,Basic CT MenGold 100 Soft,0.00,1,0.00,999.00
+012,Cigarrett Carton,TRUE,028200304216,pitco,Basic CT MenGold Box,0.00,1,0.00,999.00
+012,Cigarrett Carton,TRUE,028200304810,pitco,Basic CT MenSil 100 Box,0.00,1,0.00,999.00
+012,Cigarrett Carton,TRUE,028200305312,pitco,Basic CT Menthol Box,0.00,1,0.00,999.00
+012,Cigarrett Carton,TRUE,028200305411,pitco,Basic CT Nonfilter Soft,0.00,1,0.00,999.00
+012,Cigarrett Carton,TRUE,028200303615,pitco,Basic CT Silver 100 Box,0.00,1,0.00,999.00
+012,Cigarrett Carton,TRUE,028200305015,pitco,Basic CT Silver Box,0.00,1,0.00,999.00
+011,Cigarrett Pack,TRUE,028200304025,pitco,Basic Pk 100 Box,0.00,10,4.79,5.60
+011,Cigarrett Pack,TRUE,028200303622,pitco,Basic Pk Blue 100 Box,0.00,10,4.81,5.60
+011,Cigarrett Pack,TRUE,028200305022,pitco,Basic Pk Blue Box,0.00,10,4.79,5.60
+011,Cigarrett Pack,TRUE,028200303721,pitco,Basic Pk Box,0.00,10,4.79,5.60
+011,Cigarrett Pack,TRUE,028200304629,pitco,Basic Pk Gold 100 Box,0.00,10,4.79,5.60
+011,Cigarrett Pack,TRUE,028200304322,pitco,Basic Pk Gold Box,0.00,10,4.79,5.60
+011,Cigarrett Pack,TRUE,028200304520,pitco,Basic Pk MenGold 100 Box,0.00,10,4.79,5.60
+011,Cigarrett Pack,TRUE,028200304223,pitco,Basic Pk MenGold Box DDD,0.00,10,4.79,5.60
+011,Cigarrett Pack,TRUE,028200304827,pitco,Basic Pk MenSil 100 Box,0.00,10,4.79,5.60
+011,Cigarrett Pack,TRUE,028200305121,pitco,Basic Pk MenSil Box,0.00,10,4.79,5.60
+011,Cigarrett Pack,TRUE,028200303929,pitco,Basic Pk Menthol 100 Soft,0.00,10,4.79,5.60
+011,Cigarrett Pack,TRUE,028200305329,pitco,Basic Pk Menthol Box,0.00,10,4.81,5.60
+011,Cigarrett Pack,TRUE,028200305428,pitco,Basic Pk Nonfilter Soft,0.00,10,4.79,5.60
+021,Liquor,TRUE,080686012405,coles,Basil Haydens 750,0.00,1,28.00,36.99
+031,Beer,TRUE,762274072311,bottomley,Bass 12oz,0.00,1,1.50,999.00
+031,Beer,TRUE,762274075312,bottomley,Bass 12pk,0.00,2,9.63,999.00
+031,Beer,TRUE,762274071413,bottomley,Bass 20oz,0.00,12,2.17,999.00
+031,Beer,TRUE,762274071314,bottomley,Bass 6pk DDD,1.20,4,5.64,999.00
+031,Beer,TRUE,636251830006,dbi,Bastard 24oz Dbl Bastard Ale,0.60,12,4.55,999.00
+061,Miscellaneous,TRUE,096619159895,pitco,Bath Tissue,0.00,40,0.35,1.00
+061,Miscellaneous,TRUE,639277500717,ng,Bath Tissue Paper 4pk,0.00,1,1.10,1.99
+061,Miscellaneous,TRUE,battery 9v 2pk,pitco,Battery 9V 2pk,0.00,1,3.00,3.99
+061,Miscellaneous,TRUE,battery aa 2pk,ng,Battery AA 2pk,0.00,12,1.20,1.99
+061,Miscellaneous,TRUE,battery aa 4pk,pitco,Battery AA 4pk,0.00,12,1.67,3.99
+061,Miscellaneous,TRUE,battery aaa 2pk,ng,Battery AAA 2pk,0.00,12,0.75,1.99
+061,Miscellaneous,TRUE,battery aaa 4pk,ng,Battery AAA 4pk,0.00,1,2.00,3.49
+061,Miscellaneous,TRUE,battery c 2pk,pitco,Battery C 2pk,0.00,1,3.00,3.99
+061,Miscellaneous,TRUE,battery d 2pk,pitco,Battery D 2pk,0.00,6,2.97,3.79
+051,Snack,FALSE,875754002279,,Bauducco Wafer 4.9oz Hazelnut,0.00,0,1.00,1.79
+051,Snack,FALSE,875754002286,,Bauducco Wafer 4.9oz Lime,0.00,0,1.00,1.79
+051,Snack,FALSE,875754000756,ng,Bauducco Wafer 4.9oz TripleCho,0.00,18,1.00,1.79
+051,Snack,FALSE,875754000589,ng,Bauducco Wafer 5.8oz Cho Hazel,0.00,18,1.00,1.79
+051,Snack,FALSE,875754000015,ng,Bauducco Wafer 5.8oz Chocolate,0.00,18,1.00,1.79
+051,Snack,FALSE,875754000053,ng,Bauducco Wafer 5.8oz Coconut,0.00,18,1.00,1.79
+051,Snack,FALSE,875754000046,ng,Bauducco Wafer 5.8oz Dulce Lec,0.00,18,1.00,1.79
+051,Snack,FALSE,875754000022,ng,Bauducco Wafer 5.8oz Straw,0.00,18,1.00,1.79
+051,Snack,FALSE,875754000039,ng,Bauducco Wafer 5.8oz Vanilla,0.00,18,1.00,1.79
+061,Miscellaneous,TRUE,310119001066,pitco,Bausch & Lomb Saline 8oz ,0.00,1,2.99,3.69
+031,Beer,TRUE,081986001199,ww,Bavaria 6pk DDD,0.00,4,5.60,999.00
+042,Energy Drink,TRUE,590151,es,Bawls 10oz Guarana,0.00,1,1.21,2.26
+042,Energy Drink,TRUE,637910113898,es,Bawls 10oz Guaranaxx,0.00,1,1.50,2.26
+061,Miscellaneous,FALSE,200071,pitco,Beach Cliff Sardines Mustard ,0.00,1,0.62,1.00
+051,Snack,FALSE,884623510210,pitco,BearNKD TrailM 4.5oz ChoChery,0.00,8,2.28,4.09
+051,Snack,FALSE,884623510289,pitco,BearNKD TrailM 4.5oz Cran Almd,0.00,8,2.28,4.09
+051,Snack,FALSE,884623510258,pitco,BearNKD TrailM 4.5oz PeacanApp,0.00,8,2.28,4.09
+025,Wine,TRUE,084692400249,coles,Beaujolais 750 Louis Jadot,0.00,1,7.70,10.99
+025,Wine,TRUE,892138000409,coles,Beauregard 750 Chard,0.00,1,14.00,17.99
+025,Wine,TRUE,080696920899,coles,Beauzeaux 750 Red Wine,0.00,1,7.08,9.99
+021,Liquor,TRUE,85901513,coles,Becher 50 herbal liqueur,0.00,1,1.25,1.79
+031,Beer,TRUE,824888,bottomley,Beck 12oz,0.00,1,1.50,2.49
+031,Beer,TRUE,082488123006,bottomley,Beck 12pk,1.20,2,10.38,999.00
+031,Beer,TRUE,824886,bottomley,Beck 24oz Bottle,0.60,12,1.88,999.00
+031,Beer,TRUE,082488123457,bottomley,Beck 6pk,1.20,4,5.64,999.00
+031,Beer,TRUE,082488123563,bottomley,Beck 6pk Dark DDD,1.20,4,5.64,999.00
+031,Beer,TRUE,082488128308,bottomley,Beck 6pk Light,1.20,4,5.64,999.00
+031,Beer,TRUE,018200189968,bottomley,Beck 6pk Sapphire,1.20,4,5.94,7.99
+051,Snack,FALSE,017082000088,pitco,Beef & Cheese,0.00,1,0.56,1.29
+051,Snack,FALSE,648036202625,pitco,Beef Jerky,0.00,1,4.00,6.49
+051,Snack,FALSE,Beef Jerky 1,pitco,Beef Jerky ,0.00,1,2.75,3.99
+051,Snack,FALSE,bj109,pitco,Beef Jerky 109,0.00,21,0.57,1.09
+051,Snack,FALSE,bj125,pitco,Beef Jerky 125,0.00,1,0.80,1.25
+051,Snack,FALSE,bj149,pitco,Beef Jerky 149,0.00,1,1.00,1.49
+051,Snack,FALSE,bj179,pitco,Beef Jerky 179,0.00,1,1.10,1.79
+051,Snack,FALSE,bj200,pitco,Beef Jerky 200,0.00,15,1.27,2.00
+051,Snack,FALSE,bj35,pitco,Beef Jerky 35,0.00,80,0.15,0.35
+051,Snack,FALSE,bj59,pitco,Beef Jerky 59,0.00,24,0.32,0.59
+051,Snack,FALSE,026200581705,pitco,Beef Jerky Mesquite BBQ,0.00,1,3.50,6.49
+051,Snack,FALSE,079694222029,pitco,Beef Jerky Old Trapper Peppere,0.00,1,1.33,2.99
+051,Snack,FALSE,020501792051,pitco,Beef Jerky Package 2oz,0.00,1,2.00,2.49
+051,Snack,FALSE,079694225020,pitco,Beef Jerky Spicy,0.00,1,1.33,2.99
+021,Liquor,TRUE,089540333472,coles,Beefeater Gin 1.75,0.00,1,21.00,29.99
+021,Liquor,TRUE,089540333526,coles,Beefeater Gin 200,0.00,1,4.90,6.99
+021,Liquor,TRUE,089540334837,coles,Beefeater Gin 375,0.00,1,8.74,12.49
+021,Liquor,TRUE,089540333496,coles,Beefeater Gin 750,0.00,1,10.50,14.99
+031,Beer,TRUE,beer,n/a,Beer 12oz,0.00,0,0.80,0.99
+NONE,None,FALSE,Group beer 07,,Beer 18pk,0.00,1,0.00,21.99
+NONE,None,FALSE,Group corona 24oz,na,Beer 2/5,0.00,1,0.00,5.00
+031,Beer,TRUE,beerb,n/a,Beer 24oz,0.00,0,0.80,0.99
+NONE,None,FALSE,group beer 02,,Beer 3/4.99,0.00,0,0.00,4.99
+NONE,None,FALSE,Group Beer 01,na,beer 3/5,0.00,1,0.00,5.99
+NONE,None,FALSE,group beer 06,,Beer 4 for 4.99,0.00,1,0.00,4.99
+NONE,None,FALSE,Group Bud 24oz,na,Beer Bud,0.00,1,0.00,4.32
+NONE,None,FALSE,group beer 04,,Beer mike hard16oz,0.00,0,0.00,4.99
+051,Snack,FALSE,070842000131,pitco,Beer Nut .75oz Almond,0.00,1,0.40,1.09
+051,Snack,FALSE,070842000124,pitco,Beer Nut .75oz Cashew,0.00,1,0.35,0.79
+051,Snack,FALSE,070842000063,pitco,Beer Nut .75oz Peanuts,0.00,1,0.35,0.79
+051,Snack,FALSE,070842441002,pitco,BeerNut 2.75oz Peanut,0.00,12,0.92,1.49
+051,Snack,FALSE,070842001688,pitco,BeerNut Almond 2.0oz,0.00,12,1.22,1.79
+051,Snack,FALSE,070842306004,pitco,BeerNut Bar mix 3.25 oz,0.00,12,1.16,1.79
+051,Snack,FALSE,070842001671,pitco,BeerNut Cashew 2z,0.00,12,1.22,1.79
+051,Snack,FALSE,070842001664,pitco,BeerNut Original Peanut 3oz,0.00,12,0.92,1.39
+031,Beer,TRUE,089826230105,dbi,BeerofMexico 12pk Bottle,1.20,2,10.00,11.99
+031,Beer,TRUE,089826230167,dbi,BeerofMexico 12pk Can,1.20,2,8.25,9.99
+025,Wine,TRUE,856060,coles,Bella Sera 187 Pinot Grigio,0.00,1,1.22,1.79
+025,Wine,TRUE,085000046067,coles,Bella Sera 4pk Pinot Grigio,0.00,1,0.00,999.00
+025,Wine,TRUE,085000004456,coles,Bella Sera 750 Cab,0.00,1,5.60,7.99
+025,Wine,TRUE,085000010778,coles,Bella Sera 750 Merlot,0.00,1,4.89,6.99
+025,Wine,TRUE,085000004449,coles,Bella Sera 750 Pinot Grigio,0.00,1,5.60,7.99
+025,Wine,TRUE,085000010754,coles,Bella Sera 750 Sangiovese,0.00,1,4.89,6.99
+021,Liquor,TRUE,087116069732,coles,Belvedere 1.75,0.00,3,45.35,59.99
+021,Liquor,TRUE,081753814458,coles,Belvedere 1.75 100Proof,0.00,1,62.99,79.99
+021,Liquor,TRUE,087116069794,coles,Belvedere 200,0.00,1,7.92,11.99
+021,Liquor,TRUE,087116069657,coles,Belvedere 375,0.00,1,10.50,19.99
+021,Liquor,TRUE,087116069978,coles,Belvedere 375 Cytrus,0.00,1,12.67,17.99
+021,Liquor,TRUE,087116069985,coles,Belvedere 375 Orange,0.00,1,12.67,17.99
+021,Liquor,TRUE,087116069688,coles,Belvedere 750,0.00,1,18.75,28.99
+021,Liquor,TRUE,081753815738,coles,Belvedere 750 Blk Raspberry,0.00,6,19.50,28.99
+021,Liquor,TRUE,081753820206,coles,Belvedere 750 Bloody Mary,0.00,6,19.50,28.99
+021,Liquor,TRUE,087116069954,coles,Belvedere 750 Citrus,0.00,6,19.50,28.99
+021,Liquor,TRUE,087116069961,coles,Belvedere 750 Orange,0.00,6,19.50,28.99
+053,Ice Cream,FALSE,ben & jerry bar,ic,Ben & Jerry Bar,0.00,12,2.10,2.99
+053,Ice Cream,FALSE,ben & jerry pint,ic,Ben & Jerry Pint,0.00,1,3.28,4.39
+053,Ice Cream,FALSE,076840081301,ic,Ben&J Bar IC Fudgy Brownies,0.00,12,2.15,2.99
+053,Ice Cream,FALSE,076840200160,ic,Ben&J Cup IC Cho Fudge Brownie,0.00,12,0.81,2.50
+053,Ice Cream,FALSE,076840200276,ic,Ben&J Cup IC Cookie Dough,0.00,12,0.81,2.50
+053,Ice Cream,FALSE,076840043132,ic,Ben&J Cup IC Mint Cho Cookie,0.00,12,0.81,2.50
+021,Liquor,TRUE,089540334332,coles,Benedictine 750,0.00,1,0.00,999.00
+012,Cigarrett Carton,TRUE,028200172907,pitco,Benson CT Deluxe 100 Box,0.00,1,0.00,999.00
+012,Cigarrett Carton,TRUE,028200172709,pitco,Benson CT Luxury 100 Box,0.00,1,0.00,999.00
+012,Cigarrett Carton,TRUE,028200172365,pitco,Benson CT Men Premium 100 Box,0.00,1,0.00,999.00
+012,Cigarrett Carton,TRUE,028200173003,pitco,Benson CT MenDeluxe 100 Box,0.00,1,0.00,999.00
+012,Cigarrett Carton,TRUE,028200172808,pitco,Benson CT MenLuxury 100 Box,0.00,1,0.00,999.00
+012,Cigarrett Carton,TRUE,028200172266,pitco,Benson CT Premium 100 Box,0.00,1,0.00,999.00
+011,Cigarrett Pack,TRUE,287292,pitco,Benson Pk Deluxe 100 Box,0.00,10,5.71,6.99
+011,Cigarrett Pack,TRUE,287272,pitco,Benson Pk Luxury 100  Box,0.00,10,5.71,6.99
+011,Cigarrett Pack,TRUE,288422,pitco,Benson Pk Men Premium 100 Box,0.00,10,5.90,6.99
+011,Cigarrett Pack,TRUE,287302,pitco,Benson Pk MenDeluxe 100 Box,0.00,10,5.90,6.99
+011,Cigarrett Pack,TRUE,287282,pitco,Benson Pk MenLuxury 100 Box,0.00,10,5.90,6.99
+011,Cigarrett Pack,TRUE,287222,pitco,Benson Pk Premium 100 Box,0.00,10,5.89,6.99
+025,Wine,TRUE,785774000394,coles,Benziger 750 Cab,0.00,1,17.00,20.79
+025,Wine,TRUE,785774000219,coles,Benziger 750 Chard,0.00,1,9.00,12.99
+025,Wine,TRUE,785774000455,coles,Benziger 750 Merlot,0.00,1,15.00,19.99
+025,Wine,TRUE,089819095865,coles,Beringer 1.5 chenin,0.00,1,7.00,9.99
+025,Wine,TRUE,089819026937,coles,Beringer 750 LVS,0.00,1,1.17,3.99
+025,Wine,TRUE,089819067206,coles,Beringer 750 Mascato,0.00,12,4.31,5.99
+025,Wine,TRUE,089819760091,coles,Beringer 750 Pinot Grigio,0.00,1,4.20,5.99
+025,Wine,TRUE,089819068227,coles,Beringer Cali 750 Cab,0.00,1,4.13,5.99
+025,Wine,TRUE,089819001712,coles,Beringer Cali 750 Chard,0.00,1,4.12,5.99
+025,Wine,TRUE,089819068241,coles,Beringer Cali 750 Merlot,0.00,1,4.12,5.99
+025,Wine,TRUE,089819002085,coles,Beringer California 750,0.00,1,5.00,7.99
+025,Wine,TRUE,088586625848,coles,Beringer California 750,0.00,1,5.00,7.99
+025,Wine,TRUE,089819102235,coles,Beringer Founder 1.5 Chard,0.00,1,12.60,17.99
+025,Wine,TRUE,089819001705,coles,Beringer Founder 750 Cab,0.00,1,6.50,7.99
+025,Wine,TRUE,089819028504,coles,Beringer Founder 750 Chard,0.00,1,5.52,7.99
+025,Wine,TRUE,089819008728,coles,Beringer Founder 750 Merlot,0.00,1,5.59,7.99
+025,Wine,TRUE,089819001972,coles,Beringer Founder 750 Pnt Noir,0.00,12,6.09,8.99
+025,Wine,TRUE,089819006038,coles,Beringer Founder 750 Sau Blanc,0.00,12,5.59,7.99
+025,Wine,TRUE,089819003471,coles,Beringer Knight 750 Cab,0.00,1,14.55,19.99
+025,Wine,TRUE,089819072965,coles,Beringer Napa 750 Chard,0.00,1,9.10,12.99
+025,Wine,TRUE,089819714629,coles,Beringer Napa 750 Merlot,0.00,1,10.25,14.99
+025,Wine,TRUE,089819011506,coles,Beringer Napa 750 Viognier,0.00,1,11.20,15.99
+025,Wine,TRUE,089819090303,coles,Beringer White Merlot 1.5,0.00,1,5.25,7.99
+025,Wine,TRUE,089819090297,coles,Beringer White Merlot 750,0.00,1,3.00,5.99
+025,Wine,TRUE,089819038428,coles,Beringer White Zin 1.5,0.00,1,6.99,10.99
+025,Wine,TRUE,089819000999,coles,Beringer White Zin 187,0.00,1,0.65,1.59
+025,Wine,TRUE,089819784639,coles,Beringer White Zin 4pk,0.00,1,0.00,999.00
+025,Wine,TRUE,089819006526,coles,Beringer White Zin 750,0.00,1,3.83,5.99
+025,Wine,TRUE,089819038992,coles,Beringer Zin 750,0.00,1,4.58,6.99
+061,Miscellaneous,FALSE,072935012205,pitco,Berkeley Farms Half&Half 16oz,0.00,1,1.00,1.59
+041,Soda,FALSE,072935043605,pitco,Berkeley Milk 12oz 2% Reduce F,0.00,0,1.14,999.00
+041,Soda,FALSE,072935043506,pitco,Berkeley Milk 12oz Vitamin D,0.00,1,0.79,999.00
+041,Soda,FALSE,072935034504,pitco,Berkeley Orange Juice 1/2G,0.00,1,2.49,999.00
+041,Soda,FALSE,072935032500,pitco,BerkleyFarms Butter 8oz,0.00,1,1.15,1.99
+061,Miscellaneous,FALSE,048001265523,pitco,Best Foods real Mayonnaise 8oz,0.00,1,1.91,2.69
+091,Phone Card,FALSE,pc87,splendor,Best Link $4.5,0.00,1,4.50,4.50
+091,Phone Card,FALSE,pc219,splendor,Beto $2,0.00,1,2.00,2.00
+091,Phone Card,FALSE,pc99,splendor,Beto $4.5 DDD,0.00,1,4.50,4.50
+025,Wine,TRUE,739958024058,coles,Bianco 750 Pinot Grigio,0.00,1,7.00,9.99
+011,Cigarrett Pack,TRUE,bic large,pitco,Bic Lighter Large,0.00,50,0.74,1.49
+011,Cigarrett Pack,TRUE,070330617667,pitco,Bic Lighter Large Special,0.00,50,0.83,1.99
+011,Cigarrett Pack,TRUE,bic small,pitco,Bic Lighter Small,0.00,50,0.60,1.09
+061,Miscellaneous,TRUE,070330608450,pitco,Bic Multi Purpose Lighter,0.00,1,3.19,4.99
+021,Liquor,TRUE,611472010017,coles,Bierschnaps 750,0.00,1,23.00,32.99
+051,Snack,FALSE,349510,pitco,Big Cat,0.00,1,0.58,1.09
+031,Beer,TRUE,690926000361,Bottomley,Big Daddy 6pk,1.20,4,6.88,9.99
+053,Ice Cream,FALSE,732205000027,ic,Big Ed,0.00,1,1.17,2.00
+025,Wine,TRUE,769434201260,coles,Big House 750 Red,0.00,1,7.50,9.99
+025,Wine,TRUE,769434207200,coles,Big House 750 White,0.00,1,7.50,9.99
+051,Snack,FALSE,070602739004,pitco,Big Hunk,0.00,24,0.54,1.09
+041,Soda,TRUE,071817000378,7up,Big Red 20oz  DDD,0.00,24,0.69,999.00
+061,Miscellaneous,FALSE,077567404411,pitco,Big Stick,0.00,1,0.45,0.75
+052,Energy Bar,TRUE,786560050012,protein,Big100 Bar ChChpCkieDough,0.00,12,2.09,3.79
+052,Energy Bar,TRUE,786560071017,protein,Big100 Bar ChoChipGramCracker,0.00,1,1.60,3.79
+052,Energy Bar,TRUE,786560159357,protein,Big100 Bar Clssl CApple Pie,0.00,12,2.09,3.79
+052,Energy Bar,TRUE,786560149501,protein,Big100 Bar Clssl PB Cara Crun,0.00,1,1.60,3.79
+052,Energy Bar,TRUE,786560181402,protein,Big100 Bar Clssl PB Pretzel,0.00,1,1.60,3.79
+052,Energy Bar,TRUE,786560153126,protein,Big100 Bar Clssl SuperCkCrnch,0.00,12,2.09,3.79
+052,Energy Bar,TRUE,786560180658,protein,Big100 Bar PB Delight,0.00,1,2.00,3.79
+052,Energy Bar,TRUE,186560181402,protein,Big100 Bar PB Pretzel,0.00,1,1.60,3.79
+052,Energy Bar,TRUE,786560040013,protein,Big100 Bar PeaButteCookieDough,0.00,12,2.00,3.79
+052,Energy Bar,TRUE,786560181006,protein,Big100 Bar Super Chocola Fudge,0.00,1,1.60,3.79
+052,Energy Bar,TRUE,786560050128,coles,Big100 BarBox Cchip Cookies Do,0.00,1,0.00,999.00
+052,Energy Bar,TRUE,786560071123,coles,Big100 BarBox Cchip Graham Cra,0.00,1,0.00,999.00
+052,Energy Bar,TRUE,786560181426,coles,Big100 BarBox Colssl PB Pretze,0.00,1,0.00,999.00
+052,Energy Bar,TRUE,786560040129,coles,Big100 BarBox PB CookieDough,0.00,1,0.00,999.00
+052,Energy Bar,TRUE,786560153133,coles,Big100 BarBox Super Cook Crunc,0.00,1,0.00,999.00
+042,Energy Drink,TRUE,786560178709,protein,Big100 Col 15oz Apple Pie,0.00,1,2.63,3.69
+042,Energy Drink,TRUE,786560190107,protein,Big100 Col 15oz Cho MilkShk,0.00,1,2.63,3.69
+042,Energy Drink,TRUE,786560178655,protein,Big100 Col 15oz CnC,0.00,1,2.63,3.69
+042,Energy Drink,TRUE,786560178600,protein,Big100 Col 15oz Peanut Caramel,0.00,1,2.63,3.69
+061,Miscellaneous,TRUE,014657812015,pitco,Binaca Fast Blast .5oz Pepperm,0.00,1,1.40,1.99
+081,Scratchers,FALSE,sc509,lotto,Bingo Big6 $5,0.00,80,5.00,5.00
+081,Scratchers,FALSE,sc312,lotto,Bingo Boxes $3,0.00,100,3.00,3.00
+081,Scratchers,FALSE,sc302,lotto,Bingo Twist (1114) $3,0.00,100,3.00,3.00
+061,Miscellaneous,FALSE,084652009079,pitco,Bio Bright Tooth Brush,0.00,1,0.75,1.50
+031,Beer,TRUE,719751201030,ww,Birra Moretti 6pk,1.20,4,6.10,999.00
+031,Beer,TRUE,787143100230,chrissa,Bison 24oz Choco Stout,0.60,12,3.15,999.00
+031,Beer,TRUE,787143100452,chrissa,Bison 6pk Choco Stout,1.20,4,7.19,999.00
+051,Snack,FALSE,028000087005,pitco,Bit O Honey,0.00,36,0.58,1.09
+031,Beer,TRUE,639736007306,chrissa,Bitch Creek 6pk ESB,1.20,4,6.38,999.00
+061,Miscellaneous,TRUE,639277755131,ng,Bithday Candles (80stick),0.00,1,1.20,2.49
+051,Snack,FALSE,c051943250588,pitco,bj109 Tillamook Stick HotPepni,0.00,21,0.62,1.09
+051,Snack,FALSE,bj051943250540,pitco,bj109 Tillamook Stick Pepperon,0.00,21,0.60,1.09
+051,Snack,FALSE,c051943250557,pitco,bj109 Tillamook Stick Teriyaki,0.00,21,0.60,1.09
+051,Snack,FALSE,c051943419947,pitco,bj200 Tillamook Slab Hot,0.00,15,1.35,2.00
+051,Snack,FALSE,c051943419916,pitco,bj200 Tillamook Slab OldFashio,0.00,15,1.35,2.00
+051,Snack,FALSE,bj051943419923,pitco,bj200 Tillamook Slab Teriyaki,0.00,15,1.35,2.00
+021,Liquor,TRUE,083300083287,coles,Black Bush 750,0.00,1,22.33,29.99
+021,Liquor,TRUE,086767810090,coles,Black Haus Blackberry Schnapps,0.00,1,8.66,10.99
+025,Wine,TRUE,098137002028,coles,Black Opal 750 Cab,0.00,1,3.43,4.99
+025,Wine,TRUE,098137002042,coles,Black Opal 750 Cab,0.00,1,4.80,6.99
+025,Wine,TRUE,098137002004,coles,Black Opal 750 Chardonnay,0.00,1,4.20,5.99
+025,Wine,TRUE,098137002080,coles,Black Opal 750 Shiraz,0.00,1,4.20,5.99
+025,Wine,TRUE,098137002066,coles,Black Opal 750 Shiraz Cab,0.00,1,3.43,4.99
+063,Powder,TRUE,633012640003,protein,Black Powder 1.76lb Fruit Expl,0.00,1,29.58,44.99
+063,Powder,TRUE,633012057818,protein,Black Powder 1.76lb Grape,0.00,1,33.79,44.99
+025,Wine,TRUE,085000011171,coles,Black Swan 1.5 Cab,0.00,6,6.29,9.99
+025,Wine,TRUE,085000011218,coles,Black Swan 1.5 Chard,0.00,6,6.29,9.99
+025,Wine,TRUE,085000011157,coles,Black Swan 1.5 Merlot,0.00,1,6.29,9.99
+025,Wine,TRUE,085000011188,coles,Black Swan 750 Cab,0.00,1,4.20,5.99
+025,Wine,TRUE,085000012130,coles,Black Swan 750 Cab-Shiraz,0.00,1,3.50,5.99
+025,Wine,TRUE,085000012093,coles,Black Swan 750 Chard,0.00,12,3.50,5.99
+025,Wine,TRUE,085000011225,coles,Black Swan 750 Chardonnay,0.00,1,3.50,5.99
+025,Wine,TRUE,085000011164,coles,Black Swan 750 Merlot,0.00,12,3.50,5.99
+025,Wine,TRUE,085000011201,coles,Black Swan 750 Shiraz,0.00,12,3.50,5.99
+025,Wine,TRUE,085000012116,coles,Black Swan 750 Shiraz &Merlot,0.00,1,3.50,5.99
+021,Liquor,TRUE,088100134511,coles,Black Velvet 1.75,0.00,1,14.02,18.99
+021,Liquor,TRUE,088100134535,coles,Black Velvet 1L,0.00,1,8.44,11.99
+021,Liquor,TRUE,088100134580,coles,Black Velvet 200,0.00,48,2.50,3.69
+021,Liquor,TRUE,088100134573,coles,Black Velvet 375,0.00,1,4.31,6.49
+021,Liquor,TRUE,088100134696,coles,Black Velvet 50,0.00,1,0.69,0.99
+021,Liquor,TRUE,088100134894,coles,Black Velvet 50 Caramel,0.00,1,0.61,0.99
+021,Liquor,TRUE,088100134658,coles,Black Velvet 750 DDD,0.00,1,8.50,10.99
+011,Cigarrett Pack,TRUE,070137210917,pitco,Black&Mild 2pk Classic 1.29,0.00,15,0.96,1.29
+011,Cigarrett Pack,TRUE,070137210634,pitco,Black&Mild 2pk Classic 99c,0.00,15,0.72,0.99
+011,Cigarrett Pack,TRUE,070137800828,pitco,Black&Mild 2pk Royale,0.00,10,0.73,1.09
+011,Cigarrett Pack,TRUE,070137210924,pitco,Black&Mild 2pk Sweet 1.29,0.00,15,0.99,1.29
+011,Cigarrett Pack,TRUE,070137210641,pitco,Black&Mild 2pk Sweets 99c,0.00,15,0.71,0.99
+011,Cigarrett Pack,TRUE,070137210658,pitco,Black&Mild 2pk Wine 99c,0.00,15,0.70,0.99
+011,Cigarrett Pack,TRUE,070137806929,pitco,Black&Mild 3pk Wine,0.00,20,1.10,999.00
+011,Cigarrett Pack,TRUE,070137807025,pitco,Black&Mild 3pk WoodTip Wine,0.00,20,1.10,999.00
+011,Cigarrett Pack,TRUE,070137801122,pitco,Black&Mild 5for4price Regular,0.00,10,3.02,999.00
+011,Cigarrett Pack,TRUE,070137801221,pitco,Black&Mild 5for4price Wine,0.00,10,3.13,4.39
+011,Cigarrett Pack,TRUE,070137000181,pitco,Black&Mild 5Pk,0.00,10,3.86,4.79
+011,Cigarrett Pack,TRUE,070137000884,pitco,Black&Mild 5Pk Apple,0.00,10,3.92,4.79
+011,Cigarrett Pack,TRUE,070137000426,pitco,Black&Mild 5Pk Cream,0.00,10,3.88,4.79
+011,Cigarrett Pack,TRUE,070137000389,pitco,Black&Mild 5Pk Mild,0.00,10,3.88,4.79
+011,Cigarrett Pack,TRUE,070137210184,pitco,Black&Mild 5Pk Royale,0.00,10,3.88,4.79
+011,Cigarrett Pack,TRUE,070137000235,pitco,Black&Mild 5Pk Wine,0.00,10,3.86,4.79
+011,Cigarrett Pack,TRUE,070137005254,pitco,Black&Mild 5Pk Wtip,0.00,10,4.22,5.49
+011,Cigarrett Pack,TRUE,070137210375,pitco,Black&Mild 5Pk WTip Royale,0.00,10,4.27,5.49
+011,Cigarrett Pack,TRUE,070137005292,pitco,Black&Mild 5Pk WTip Wine,0.00,10,4.26,5.49
+011,Cigarrett Pack,TRUE,070137111139,pitco,Black&Mild 79c DarkBlend,0.00,25,0.63,0.79
+011,Cigarrett Pack,TRUE,070137111276,pitco,Black&Mild 79c Jazz,0.00,25,0.41,0.79
+011,Cigarrett Pack,TRUE,070137806325,pitco,Black&Mild 79c Wtip,0.00,25,0.48,0.79
+011,Cigarrett Pack,TRUE,070137111146,pitco,Black&Mild 79c WTip Dark,0.00,25,0.41,0.79
+011,Cigarrett Pack,TRUE,070137111290,pitco,Black&Mild 79c Wtip Jazz,0.00,25,0.46,0.79
+011,Cigarrett Pack,TRUE,070137100188,pitco,Black&Mild Single,0.00,25,0.77,0.99
+011,Cigarrett Pack,TRUE,070137801320,pitco,Black&Mild Single 25Cent OFF,0.00,25,0.29,0.79
+011,Cigarrett Pack,TRUE,070137110972,pitco,Black&Mild Single SummerBlend,0.00,25,0.63,0.79
+011,Cigarrett Pack,TRUE,070137105237,pitco,Black&Mild Single Wine,0.00,25,0.78,0.99
+011,Cigarrett Pack,TRUE,070137105251,pitco,Black&Mild Single WoodTip,0.00,25,0.84,1.39
+011,Cigarrett Pack,TRUE,070137105299,pitco,Black&Mild Single WoodTip Wine,0.00,25,0.85,1.39
+011,Cigarrett Pack,TRUE,070137110989,pitco,Black&Mild Single WoodTiSummer,0.00,25,0.63,0.79
+021,Liquor,TRUE,096749011698,coles,BlackHeart 50 Rum,0.00,1,0.69,0.99
+042,Energy Drink,TRUE,610764010742,es,BlackPearl 8oz,0.00,1,2.00,999.00
+031,Beer,TRUE,883431000142,dbi,BlackStar 6pk Golden Larger,1.20,4,4.20,999.00
+025,Wine,TRUE,081434500175,coles,BlackStone 1.5 Merlot,0.00,1,12.00,15.99
+025,Wine,TRUE,081434500090,coles,BlackStone 750 Cab,0.00,1,6.65,9.99
+025,Wine,TRUE,081434000590,coles,BlackStone 750 Chard,0.00,12,6.99,9.99
+025,Wine,TRUE,081434500151,coles,BlackStone 750 Merlot,0.00,12,6.99,10.99
+025,Wine,TRUE,081434500267,coles,BlackStone 750 Pinot Noir,0.00,12,7.99,10.99
+021,Liquor,TRUE,080888308061,coles,Blanco Madero 750,0.00,1,9.95,14.99
+031,Beer,TRUE,071250000768,dbi,Blast 24oz Grape,0.60,12,1.65,999.00
+051,Snack,FALSE,686464480000,pitco,Blink Pop Candy,0.00,12,0.75,1.75
+061,Miscellaneous,TRUE,041388220550,pitco,Blistex ,0.00,1,1.44,2.49
+025,Wine,TRUE,080720919035,coles,Blossom Hill 1.5 Symphony,0.00,1,5.00,7.99
+025,Wine,TRUE,080720703634,coles,Blossom Hill 1.5 White Zin,0.00,1,6.56,7.99
+025,Wine,TRUE,080720283372,coles,Blossom Hill 750 White Zin,0.00,1,1.67,3.99
+013,E-Cig,TRUE,851418005701,pitco,Blow 2go pk Chrome,0.00,12,41.58,89.99
+051,Snack,FALSE,01406922,pitco,Blow Pop,0.00,1,0.10,0.25
+051,Snack,FALSE,140692,pitco,Blow Pop (Champ 180ct),0.00,180,0.10,0.25
+013,E-Cig,TRUE,851418005466,pitco,Blow T2 Tank Black,0.00,1,2.97,9.99
+013,E-Cig,TRUE,851418005503,pitco,Blow T2 Tank Green,0.00,1,2.97,9.99
+013,E-Cig,TRUE,851418005527,pitco,Blow T2 Tank Purple,0.00,1,2.97,9.99
+013,E-Cig,TRUE,851418005510,pitco,Blow T2 Tank Red / Blue,0.00,1,2.97,9.99
+013,E-Cig,TRUE,856866004702,pitco,BlowOne Pk Blue,0.00,1,9.50,24.99

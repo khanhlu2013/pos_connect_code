@@ -298,11 +298,13 @@ UPGRADE FEATURE
 . include css with js, and fall back
 
 ----------------------------------------------------------------------------------------
-. after push offline create product, we should sync it. because it right now said attempt to create a product that is already exist error
-. upgrade heroku post gre
+. create another staging to play, with some sample data
 
-. get extra info when searching for sku 
-    . test product that not exist in any store? my inital product
+. after push offline create product, we should sync it. because it right now said attempt to create a product that is already exist error
+    . what happend if product is created offline, but never got scan (or be void)
+
+. take a look at receipt pusher
+
 
     
 

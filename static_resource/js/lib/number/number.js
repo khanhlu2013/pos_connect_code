@@ -75,6 +75,7 @@ define(function(){
     {
         if(array.length == 0)
             return null;
+        
         var modeMap = {};
         var maxEl = array[0], maxCount = 1;
         for(var i = 0; i < array.length; i++)
@@ -96,7 +97,7 @@ define(function(){
     function get_median(values) {
 
         if(values.length == 0){
-            return 0;
+            return null;
         }
 
         values.sort( function(a,b) {return a - b;} );

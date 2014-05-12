@@ -12,7 +12,7 @@ def exe():
     # Dept_ID,Description,Tax_1,itemnum,Vendor,ItemName,CRV,Price,Cost
     log_file = open('log','w')
 
-    with open('_.txt', 'rb') as csvfile:
+    with open('__.txt', 'rb') as csvfile:
         # Dept_ID,Description,Tax_1,itemnum,Vendor,ItemName,CRV,Quan_In_Case,Cost,Price
 
         spamreader = csv.reader(csvfile, delimiter=',', quotechar='"')

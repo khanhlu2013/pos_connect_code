@@ -13,6 +13,7 @@ define(
     ,'app/store_product/sp_online_searcher'
     ,'app/product/product_json_helper'
     ,'lib/error_lib'
+    ,'lib/ui/ui'
 ]
 ,function
 (
@@ -20,6 +21,7 @@ define(
     ,sp_online_searcher
     ,product_json_helper
     ,error_lib
+    ,ui
 )
 {
     var ERROR_CANCEL_product_search_exit_button_press = 'ERROR_CANCEL_product_search_exit_button_press'
@@ -36,13 +38,18 @@ define(
                 var name_str = $('#product_search_txt').val().trim(); 
                 if(!name_str){return;}
 
+                if(name_str.split(' ').length > 2){
+                    ui.ui_alert('2 words maximum search');
+                    return;
+                }
+
                 var search_b = sp_online_searcher.name_sku_search.bind(sp_online_searcher.name_sku_search,name_str);
                 async.waterfall([search_b],function(error,result){
                     if(error){error_lib.alert_error(error); }
                     else{
                         product_data_2_ui(result,callback);      
                         if(result.length == 0){
-                            alert('no result');
+                            ui.ui_alert('no result');
                         }              
                     }
                 });

@@ -29,18 +29,11 @@ define(
         var local_pouch = pouch_db_util.get_store_db(store_id);
         var store_db_url = couch_db_util.get_db_url(couch_server_url,store_id)
 
-        // local_pouch.changes
-        // ({
-        //     onChange: function (change) {
-        //         $("#block_message_label").html(change.id);
-        //         console.log(change.id);
-        //     }
-        // });
-
-
-        local_pouch.replicate.from(store_db_url,function(error,result){
-            callback(error);
-        });
+        local_pouch.replicate.from(
+            store_db_url
+            ,{batch_size:200,batches_limit:10}
+            ,function(error,result){callback(error);}
+        );
     }
 
     return function (store_id,couch_server_url,callback){

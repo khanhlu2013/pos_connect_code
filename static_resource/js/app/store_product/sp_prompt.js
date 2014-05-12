@@ -170,34 +170,42 @@ define(
 
 							//price
 							var suggest_price = product_json_helper.get_suggest_info('price',suggest_product);
-							$('#suggest_price_btn').val(suggest_price);				
-							$('#suggest_price_btn').click(function(){
-								$('#product_price_txt').val(suggest_price);								
-							}); 								
+							if(suggest_price){
+								$('#suggest_price_btn').val(suggest_price);				
+								$('#suggest_price_btn').click(function(){
+									$('#product_price_txt').val(suggest_price);								
+								}); 								
+							}else{
+								$('#suggest_price_btn').hide();
+							}
+								
 							//crv
 							var suggest_crv = product_json_helper.get_suggest_info('crv',suggest_product);
-							if(suggest_crv == 0.0){
-								$('#suggest_crv_btn').hide();
-							}else{
+							if(suggest_crv){
 								$('#suggest_crv_btn').val(suggest_crv);
 								$('#suggest_crv_btn').click(function(){
 									$('#product_crv_txt').val(suggest_crv);								
-								}); 								
+								});								
+ 							}else{
+ 								$('#suggest_crv_btn').hide();
  							}
 
  							//cost
  							var suggest_cost = product_json_helper.get_suggest_info('cost',suggest_product);
-							$('#suggest_cost_btn').val(suggest_cost);
-							$('#suggest_cost_btn').click(function(){
-								$('#product_cost_txt').val(suggest_cost);								
-							});  							
+ 							if(suggest_cost){
+								$('#suggest_cost_btn').val(suggest_cost);
+								$('#suggest_cost_btn').click(function(){
+									$('#product_cost_txt').val(suggest_cost);								
+								});   								
+ 							}else{
+								$('#suggest_cost_btn').hide();
+ 							}
  						}else{
 							$('#suggest_name_btn').hide();
 							$('#suggest_price_btn').hide();
 							$('#suggest_crv_btn').hide();
 							$('#suggest_cost_btn').hide();
 						}
-    
 
  						$('#store_product_prompt_dialog').keypress(function(e) {
 				            if (e.keyCode == $.ui.keyCode.ENTER) {

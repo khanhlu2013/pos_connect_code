@@ -12,6 +12,7 @@ define(
         ,'constance'
         ,'lib/db/index_db_util'
         ,'lib/db/pouch_db_util'
+        ,'app/local_db_initializer/oneshot_sync'
     ],
     function
     (
@@ -27,9 +28,13 @@ define(
         ,constance
         ,index_db_util
         ,pouch_db_util
+        ,oneshot_sync
+
     )
 {
     var ERROR_NO_SALE_DATA_TO_PUSH = 'There is no sale data to push';
+    var STORE_ID = null;
+    var COUCH_SERVER_URL = null;
 
     function delete_local_create_sp(store_idb,callback){
         var sp_getter_b = sp_getter.by_product_id_is_null.bind(sp_getter.by_product_id_is_null,store_idb);
@@ -97,7 +102,17 @@ define(
             ,dataType : "json"
             ,data : null
             ,success: function(data,status_str,xhr){
-                callback(null,data);
+                var new_create_sp_count = data;
+
+                if(new_create_sp_count>0){
+                    var oneshot_sync_b = oneshot_sync.bind(oneshot_sync,STORE_ID,COUCH_SERVER_URL);
+                    async.waterfall([oneshot_sync_b],function(error,result){
+                        callback(error,new_create_sp_count);
+                    });
+                }else{
+                    callback('Bug: no offline product is created');
+                }
+                
             }
             ,error : function(xhr,status_str,err){
                 callback(xhr);
@@ -106,6 +121,13 @@ define(
     }
 
     function exe_if_nessesary(store_id,couch_server_url,callback){
+
+        /*
+            when view receipt record, we will check if receipt pushing is nessesary based on if we have local db or not.
+        */
+        STORE_ID = store_id;
+        COUCH_SERVER_URL = couch_server_url;
+
         var is_store_idb_exist_b = db_util.is_store_idb_exist.bind(db_util.is_store_idb_exist,store_id);
         async.waterfall([is_store_idb_exist_b],function(error,result){
             if(error){
@@ -131,6 +153,8 @@ define(
     }
 
     function exe(store_idb,store_pdb,store_id,couch_server_url,callback){
+        STORE_ID = store_id;
+        COUCH_SERVER_URL = couch_server_url;
 
         var receipt_lst_getter_b = receipt_lst_getter.bind(receipt_lst_getter,store_idb);
         async.waterfall([receipt_lst_getter_b],function(error,result){
@@ -169,5 +193,5 @@ define(
         ,sync_receipt:sync_receipt //just to be able to spy on jasmine test
         ,exe_if_nessesary:exe_if_nessesary
 
-    }
+    };
 });

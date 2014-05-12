@@ -9,6 +9,7 @@ define(
     ,'app/product/product_json_helper'
     ,'app/sku/product_sku_manager'
     ,'lib/error_lib'
+    ,'lib/ui/ui'
     //-----------------
     ,'jquery'
     ,'jquery_block_ui'
@@ -25,6 +26,7 @@ define(
     ,product_json_helper
     ,product_sku_manager
     ,error_lib
+    ,ui
 )
 {
     var PRODUCT_DATA_LST = null;
@@ -171,13 +173,22 @@ define(
             var name_str = $('#name_txt').val().trim(); 
             if(!name_str){return;}
 
+            var lst = name_str.split(' ');
+            if(lst.length >2){
+                ui.ui_alert('2 words maximum search');
+                return;
+            }
+
             SEARCH_SKU_STR = null; //reset
             var name_search_b = sp_online_searcher.name_search.bind(sp_online_searcher.name_search,name_str);
             async.waterfall([name_search_b],function(error,result){
                 if(error){error_lib.alert_error(error); }
                 else{
                     PRODUCT_DATA_LST = result;
-                    product_data_2_ui();                    
+                    product_data_2_ui();
+                    if(PRODUCT_DATA_LST.length == 0){
+                        ui.ui_alert('no result');
+                    }                    
                 }
             });
         }

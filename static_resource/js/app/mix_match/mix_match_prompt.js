@@ -6,7 +6,7 @@ define(
         ,'lib/error_lib'
         ,'app/product/product_json_helper'
         ,'app/mix_match/mix_match_util'
-        ,'lib/ui/confirm'
+        ,'lib/ui/ui'
     ]
     ,function
     (
@@ -16,7 +16,7 @@ define(
         ,error_lib
         ,product_json_helper
         ,mm_util
-        ,confirm
+        ,ui
     )
 {
     var ERROR_CANCEL_MIX_MATCH_PROMPT = 'ERROR_CANCEL_MIX_MATCH_PROMPT';
@@ -39,7 +39,7 @@ define(
     }
 
     function delete_btn_handler(callback){
-        confirm.exe(
+        ui.ui_confirm(
             'delete mix match deal?'
             ,function(){
                 $("#mix_match_prompt_dlg").dialog("close");
@@ -163,7 +163,7 @@ define(
     }
     
     function remove_child(index){
-        confirm.exe(
+        ui.ui_confirm(
             'remove item?'
             ,function(){
                 MIX_MATCH_CHILD_SP_LST.splice(index, 1);

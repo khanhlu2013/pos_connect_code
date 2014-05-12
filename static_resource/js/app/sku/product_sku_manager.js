@@ -8,7 +8,7 @@ define(
     ,'app/local_db_initializer/sync_if_nessesary'
     ,'lib/error_lib'
     ,'app/sku/sku_remove_clean_up_util'
-    ,'lib/ui/confirm'
+    ,'lib/ui/ui'
 ]
 ,function
 (
@@ -20,7 +20,7 @@ define(
     ,sync_if_nessesary
     ,error_lib
     ,sku_remove_clean_up_util
-    ,confirm
+    ,ui
 )
 {
     var STORE_ID = null;
@@ -35,7 +35,7 @@ define(
         if(!_helper_is_sku_removable(prod_sku_assoc)){
             return;
         }
-        confirm.exe(
+        ui.ui_confirm(
             'delete sku?'
             ,function(){
                 var prod_sku_del_b = prod_sku_del.bind(prod_sku_del,prod_sku_assoc.product_id,prod_sku_assoc.sku_str);

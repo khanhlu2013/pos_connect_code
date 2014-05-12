@@ -9,9 +9,9 @@ define(
     ,'lib/error_lib'     
     ,'app/store_product/sp_online_searcher'
     ,'app/store_product/sp_creator'
-    ,'app/store_product/sp_prompt_'
+    ,'app/store_product/sp_prompt'
     ,'app/store_product/Store_product'
-    ,'lib/ui/confirm'
+    ,'lib/ui/ui'
 ]
 ,function
 (
@@ -21,7 +21,7 @@ define(
     ,sp_creator
     ,sp_prompt
     ,Store_product
-    ,confirm
+    ,ui
 )
 {
     var ERROR_CANCEL_create_product_offline = 'ERROR_CANCEL_create_product_offline';
@@ -83,7 +83,7 @@ define(
                 }
 
                 //we are here because the internet is down.
-                confirm.exe(
+                ui.ui_confirm(
                     'internet connection down. Do you want to create product offline?'
                     ,function(){
                         var sp_prompt_b = sp_prompt.show_prompt.bind(

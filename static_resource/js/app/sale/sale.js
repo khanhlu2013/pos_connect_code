@@ -23,7 +23,7 @@ define(
         ,'app/store_product/sp_online_name_search_ui'
         ,'app/sale/scan/pid_scanner'
         ,'app/sale/displaying_scan/displaying_scan_lst_getter'
-        ,'lib/ui/confirm'
+        ,'lib/ui/ui'
         //-----------------
         ,'jquery'
         ,'jquery_block_ui'
@@ -56,7 +56,7 @@ define(
         ,sp_online_name_search_ui
         ,pid_scanner
         ,ds_lst_getter
-        ,confirm
+        ,ui
     )
     {
         //UI
@@ -134,7 +134,7 @@ define(
         }
 
         function hook_receipt_pusher_2_ui(){
-            function exe(){
+            push_receipt_btn.addEventListener("click", function(){
                 var receipt_pusher_b = receipt_pusher.exe.bind(receipt_pusher.exe,STORE_IDB,STORE_PDB,STORE_ID,COUCH_SERVER_URL);
                                                                                 
                 $.blockUI({ message: 'saving sale data ...' });
@@ -152,8 +152,7 @@ define(
                     }
                     $.unblockUI();
                 });
-            }
-            push_receipt_btn.addEventListener("click", exe);
+            });
         }
 
         function hook_sale_finalizer_2_ui(){
@@ -172,7 +171,7 @@ define(
                                 return;
                             }else{
                                 var msg = "Did you give the customer change: " + (number.trim(collect_amount - line_total));
-                                confirm.exe(
+                                ui.ui_confirm(
                                      msg
                                     ,function(){
                                         var sale_finalizer_b = sale_finalizer.bind(sale_finalizer,MM_LST,STORE_PDB,STORE_IDB,collect_amount,TAX_RATE);
@@ -313,7 +312,7 @@ define(
                     if(ds_lst.length == 0){
                         return;
                     }else{
-                        confirm.exe(
+                        ui.ui_confirm(
                             'remove all scan?'
                             ,function(){
                                 var voider_b = voider.bind(voider,STORE_IDB);

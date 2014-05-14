@@ -4,6 +4,7 @@ define(
         ,'app/receipt/receipt_pusher' 
         ,'lib/async'
         ,'lib/error_lib'
+        ,'lib/ui/ui'
         //-----------------
         ,'jquery'
         ,'jquery_block_ui'
@@ -15,6 +16,7 @@ define(
         ,receipt_pusher
         ,async
         ,error_lib
+        ,ui
     )
 {
     var STORE_ID = MY_STORE_ID;
@@ -45,15 +47,18 @@ define(
     }
 
     function ajax_get_report(from_date,to_date,time_zone_offset,callback){
+        ui.ui_block('getting report data ...')
         $.ajax({
              url : "/sale_report/get_report"
             ,type : "GET"
             ,dataType : "json"
             ,data : {from_date:from_date,to_date:to_date,time_zone_offset:time_zone_offset}
             ,success: function(data,status_str,xhr){
+                ui.ui_unblock();
                 callback(null,data);
             }
             ,error : function(xhr,status_str,err){
+                ui.ui_unblock();
                 callback(xhr);
             }
         });        

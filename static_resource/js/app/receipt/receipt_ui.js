@@ -4,6 +4,7 @@ define(
         ,'app/receipt/receipt_pusher' 
         ,'lib/async'
         ,'lib/error_lib'
+        ,'lib/ui/ui'
         //-----------------
         ,'jquery'
         ,'jquery_block_ui'
@@ -15,6 +16,7 @@ define(
         ,receipt_pusher
         ,async
         ,error_lib
+        ,ui
     )
 {
     csrf_ajax_protection_setup();
@@ -58,15 +60,18 @@ define(
     }
 
     function ajax_get_receipt(from_date,to_date,time_zone_offset,callback){
+        ui.ui_block('get receipts data');
         $.ajax({
              url : "/receipt/get_receipt"
             ,type : "GET"
             ,dataType : "json"
             ,data : {from_date:from_date,to_date:to_date,time_zone_offset:time_zone_offset}
             ,success: function(data,status_str,xhr){
+                ui.ui_unblock();
                 callback(null,data)
             }
             ,error : function(xhr,status_str,err){
+                ui.ui_unblock();
                 callback(xhr);
             }
         });        

@@ -1,8 +1,10 @@
 define(
 [
+	'lib/ui/ui'
 ]
 ,function
 (
+	ui
 )
 {
 	var INTERNET_DISCONNECTED_ERROR_STR = 'Internet is disconnected. Try again later.';
@@ -37,7 +39,7 @@ define(
 			alert(INTERNET_DISCONNECTED_ERROR_STR);
 		}
 		else{
-			alert('There is untreated error:' + error);
+			ui.ui_alert('There is untreated error:' + error);
 		}
  	}
 

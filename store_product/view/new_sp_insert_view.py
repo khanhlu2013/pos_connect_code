@@ -31,16 +31,16 @@ def new_sp_insert_view(request):
         vendor_raw          = request.POST['vendor']
         buydown_raw         = request.POST['buydown']
 
-        name            = name_raw
+        name            = name_raw.strip()
         price           = Decimal(price_raw)
         crv             = Decimal(crv_raw) if len(crv_raw.strip()) !=0 else None 
         is_taxable      = boolean.get_boolean_from_str(is_taxable_raw)
         is_sale_report  = boolean.get_boolean_from_str(is_sale_report_raw)
-        sku_str         = sku_str_raw
+        sku_str         = sku_str_raw.strip() if len(sku_str_raw.strip()) !=0 else None
         p_type          = p_type_raw.strip() if len(p_type_raw.strip()) !=0 else None
         p_tag           = p_tag_raw.strip() if len(p_tag_raw.strip()) !=0 else None
         cost            = Decimal(cost_raw) if len(cost_raw.strip()) !=0 else None 
-        vendor          = vendor_raw
+        vendor          = vendor_raw.strip() if len(vendor_raw.strip()) !=0 else None
         buydown         = Decimal(buydown_raw) if len(buydown_raw.strip()) !=0 else None 
 
         cur_login_store = request.session

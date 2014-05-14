@@ -3,7 +3,7 @@ from django.http import HttpResponse
 import json
 from django.core.serializers.json import DjangoJSONEncoder
 from util import number,boolean
-
+from decimal import Decimal
 
 def sp_update_view(request):
     cur_login_store = request.session.get('cur_login_store')
@@ -19,15 +19,16 @@ def sp_update_view(request):
     vendor_raw = request.POST['vendor']
     cost_raw = request.POST['cost']
     buydown_raw = request.POST['buydown']    
-
-    name = name_raw
-    price = number.get_double_from_str(price_raw)
+    
+    product_id  = int(product_id_raw)
+    name = name_raw.strip()
+    price = Decimal(price_raw)
     crv = number.get_double_from_str(crv_raw)
     is_taxable = boolean.get_boolean_from_str(is_taxable_raw)
     is_sale_report = boolean.get_boolean_from_str(is_sale_report_raw)
-    p_type = p_type_raw
-    p_tag = p_tag_raw
-    vendor = vendor_raw
+    p_type = p_type_raw.strip() if len(p_type_raw.strip()) !=0 else None
+    p_tag = p_tag_raw.strip() if len(p_tag_raw.strip()) !=0 else None
+    vendor = vendor_raw.strip() if len(vendor_raw.strip()) !=0 else None
     cost = number.get_double_from_str(cost_raw)
     buydown = number.get_double_from_str(buydown_raw)
 
@@ -36,7 +37,7 @@ def sp_update_view(request):
         return
 
     #verify sp belong to this store
-    sp = store_product_master_getter.get_item(product_id=product_id_raw,store_id=cur_login_store.id)
+    sp = store_product_master_getter.get_item(product_id=product_id,store_id=cur_login_store.id)
     if sp == None:
         return
 

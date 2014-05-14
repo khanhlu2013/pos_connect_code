@@ -8,6 +8,14 @@ define(
 
 )
 {
+	function ui_block(message){
+        $.blockUI({message:'<h1>' + message + '</h1>'});
+	}
+
+	function ui_unblock(){
+        $.unblockUI()
+	}
+
 	function ui_alert(message){
 		$('<div></div>').appendTo('body')
     		.html('<div><h6>' + message + '</h6></div>')
@@ -58,7 +66,9 @@ define(
 	}
 
 	return {
-		ui_confirm:ui_confirm
+		 ui_confirm:ui_confirm
 		,ui_alert:ui_alert
+		,ui_block:ui_block
+		,ui_unblock:ui_unblock
 	}
 });

@@ -32,11 +32,10 @@ html,body {
   background: #19e;
 }
 
-#store_product_prompt_dialog{display: None;}
+
 #select_product_option_dialog{display: None;}
 #sku_management_dialog{display: None;}
 #non_inventory_prompt_dialog{display: None;}
-#product_search_dlg{display: None;}
 
 #block_message_label{display: None;}
 

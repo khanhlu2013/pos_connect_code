@@ -2,7 +2,7 @@ define(
     [
          'lib/async'
         ,'app/group/group_validator'
-        ,'app/store_product/sp_online_name_search_ui'
+        ,'app/store_product/sp_online_name_search_ui_'
         ,'lib/error_lib'
         ,'app/product/product_json_helper'
         ,'lib/ui/ui'
@@ -40,7 +40,8 @@ define(
 
 
     function add_group_child_handler(){
-        async.waterfall([sp_online_name_search_ui.exe],function(error,result){
+        var search_b = sp_online_name_search_ui.exe.bind(sp_online_name_search_ui.exe,false/*multiple_selection*/);
+        async.waterfall([search_b],function(error,result){
             if(error){
                 error_lib.alert_error(error);
                 return;

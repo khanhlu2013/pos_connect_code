@@ -17,5 +17,7 @@ requirejs.config({
         }        
     }    
 });
-
+requirejs.onError = function (err) {
+    alert('there is error loading page: ' + err.requireType);
+};
 requirejs(["app/product/product"]);

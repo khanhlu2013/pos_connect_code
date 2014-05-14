@@ -138,6 +138,15 @@ define(
         return result;
     }
 
+    function remove_sp_from_sp_lst(sp,sp_lst){
+        for(var i = 0;i<sp_lst.length;i++){
+            if(sp_lst[i].product_id == sp.product_id){
+                sp_lst.splice(i,1);
+                break;
+            }
+        }
+    }
+
     return{
          get_prod_sku_assoc_set: get_prod_sku_assoc_set
         ,get_sp_from_p:get_sp_from_p
@@ -145,5 +154,6 @@ define(
         ,get_p_from_lst:get_p_from_lst
         ,get_sp_from_sp_lst:get_sp_from_sp_lst
         ,get_suggest_info:get_suggest_info
+        ,remove_sp_from_sp_lst:remove_sp_from_sp_lst
     };
 });

@@ -62,7 +62,6 @@ def exe_couch(
     ,cost
     ,buydown
 ):
-
     #retrieve
     sp = store_product_couch_getter.exe(product_id,store_id)
     

@@ -10,7 +10,6 @@ define(
         ,'jquery'
         ,'jquery_block_ui'
         ,'jquery_ui'
-        // ,'lib/jquery/jquery.hotkeys'
     ]
     ,function
     (

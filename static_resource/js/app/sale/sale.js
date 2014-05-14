@@ -137,7 +137,6 @@ define(
             push_receipt_btn.addEventListener("click", function(){
                 var receipt_pusher_b = receipt_pusher.exe.bind(receipt_pusher.exe,STORE_IDB,STORE_PDB,STORE_ID,COUCH_SERVER_URL);
                                                                                 
-                $.blockUI({ message: 'saving sale data ...' });
                 async.waterfall([receipt_pusher_b],function(error,result){
                     if(error){
                         if(error == receipt_pusher.ERROR_NO_SALE_DATA_TO_PUSH){
@@ -150,7 +149,6 @@ define(
                         var receipt_saved_count = result;
                         alert(receipt_saved_count + ' receipt(s) are saved.');
                     }
-                    $.unblockUI();
                 });
             });
         }
@@ -331,16 +329,13 @@ define(
             }
             void_btn.addEventListener("click", void_btn_click_handler);            
         }
-        $("#block_message_label").html('please wait for setup ...');
-        $.blockUI({ message: $('#block_message_label') });
-        
+       
         csrf_ajax_protection_setup();
 
         var oneshot_sync_b = oneshot_sync.bind(oneshot_sync,STORE_ID,COUCH_SERVER_URL);
         var customize_db_b =  customize_db.bind(customize_db,STORE_ID);
         async.waterfall([oneshot_sync_b,customize_db_b],function(error,result){
             if(error){
-                $.unblockUI();
                 alert("There is error initializing db: " + error);
                 return;
             }
@@ -361,11 +356,9 @@ define(
             var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,MM_LST,STORE_IDB,STORE_PDB,STORE_ID,COUCH_SERVER_URL,TAX_RATE,table,total_button);
             async.waterfall([ds_2_ui_b],function(error,result){
                 if(error){
-                    $.unblockUI();
                     alert("There is error displaying scan: " + error);
                     return;
                 } 
-                $.unblockUI();
             });
         });
     }

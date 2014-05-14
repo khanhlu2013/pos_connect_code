@@ -42,7 +42,10 @@ define(
 {
 
 });
-
+KNOWN ISSUE
+-----------
+. receipt pusher: offline product is created due to disconnected internet. when the internet back on, we ready to push receipt. Receipt pusher will sync receipt, clean up sale data and offline created sp then ask master to recreate these sp. assume couch work but postgre does not. this will cause new sp to be stuck on couch untill the next push.
+    
 UPGRADE FEATURE
 ---------------
 . deal
@@ -271,6 +274,19 @@ UPGRADE FEATURE
 . think about session. can we save mm_lst, shortcut_lst, tax_rate into session? refresh this data on page refocus or tab switching
 . shortcut setup inside sale page ( a step closer to one page web app)
 . indicator of syncing product db status
+. type of business: convenient store. 
+. zip code:
+. base on profit best selling db
+. pass the server cost to customer
+. clean out dead inventory
+
+
+------------------------------------------------------------------------------------------------------------------
+SKILL IMPROVEMENT
+. should i load css inside the head? is it matter?
+. should i load js inside the head? is it matter? where should i put js file at? at the end of the file?
+. net tut: how to put buiding script into a batch file? work your way into a build procedure? including test. and push. even js file.
+
 ---------------------------------------------------------------
 . test select correct line
     . test sale edit
@@ -288,22 +304,31 @@ UPGRADE FEATURE
 . store inserter test
 . receipt_document_validator_test
 . serialize_product_from_id(product_id,store_id,is_include_other_store) revisit is_include_other_store. it does not work. may be i need to implement this with python and not with django orm filter.
-
-----------------------------------------------------------------------------------------
 . sku scan not found handler spec: there is a spy on old window.confirm and now we change it. make sure test work
-. sale_shortcut validator and responsive validation ui
-. blocking ui at all possible spot: (sale.scan.edit_product: it could take a long time to popup interface. block here)
-. how to report script loading timeout, 
-. empty string for p_type, show up in report
-. include css with js, and fall back
 
 ----------------------------------------------------------------------------------------
-. create another staging to play, with some sample data
+. add the last info that is change about the group. ask Tony more about how the group should work.
+. print  sale report
+. sale_shortcut validator and responsive validation ui
+. sync status
+. remove all alert
+. add group to an item
+. when add item to mixmatch, it trigger validation. which i don't think we should do it. we only remove red validation if it is exist. 
+. add group into mix match
+. add multiple item to group
 
-. after push offline create product, we should sync it. because it right now said attempt to create a product that is already exist error
-    . what happend if product is created offline, but never got scan (or be void)
 
-. take a look at receipt pusher
+
+
+
+
+
+
+
+
+
+
+
 
 
     

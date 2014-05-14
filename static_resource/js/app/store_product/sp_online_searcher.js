@@ -1,9 +1,11 @@
 define
 (
 [
+    'lib/ui/ui'
 ]
 ,function
 (
+    ui
 )
 {
     var NAME_SEARCH_ERROR_EMPTY = "NAME_SEARCH_ERROR_EMPTY";
@@ -15,16 +17,18 @@ define
             callback(NAME_SEARCH_ERROR_EMPTY/*error*/);
             return;
         }
-
+        ui.ui_block('searching product ...');
         $.ajax({
              url: '/product/search_by_name_sku'
             ,type: 'GET'
             ,data: {search_str:search_str}
             ,dataType: 'json'
             ,success: function(data,status_str,xhr){
+                ui.ui_unblock();
                 callback(null/*error*/,data/*prod_lst*/);
             }
             ,error: function(xhr,status_str,err){
+                ui.ui_unblock();
                 callback(xhr);
             }
         });         
@@ -36,16 +40,18 @@ define
             callback(NAME_SEARCH_ERROR_EMPTY/*error*/);
             return;
         }
-
+        ui.ui_block('name searching ...');
         $.ajax({
              url: '/product/search_by_name'
             ,type: 'GET'
             ,data: {name_str:name_str}
             ,dataType: 'json'
             ,success: function(data,status_str,xhr){
+                ui.ui_unblock();
                 callback(null/*error*/,data/*product_lst*/);
             }
             ,error: function(xhr,status_str,err){
+                ui.ui_unblock();
                 callback(xhr);
             }
         });           
@@ -57,16 +63,18 @@ define
             callback(SKU_SEARCH_ERROR_EMPTY/*error*/);
             return;
         }
-
+        ui.ui_block('sku searching ...');
         $.ajax({
              url: '/product/search_by_sku'
             ,type: 'GET'
             ,data: {sku_str:sku_str}
             ,dataType: 'json'
             ,success: function(data,status_str,xhr){
+                ui.ui_unblock();
                 callback(null,data);
             }
             ,error: function(xhr,status_str,err){
+                ui.ui_unblock();
                 callback(xhr);
             }
         });           

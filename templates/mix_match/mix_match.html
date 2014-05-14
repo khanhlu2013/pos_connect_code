@@ -2,8 +2,8 @@
 
 {% block content %}
 
-    <link rel="stylesheet" href="{{ STATIC_URL }}css/app/mix_match/mix_match.css">
     <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.min.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/app/mix_match/mix_match.css">
 
     <script data-main = "{{ STATIC_URL }}js/app/mix_match/mix_match_entry.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script>
     <!-- // <script data-main = "{{ STATIC_URL }}js/app/mix_match/mix_match_entry__min__.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script> -->
@@ -17,14 +17,6 @@
         var MY_MIX_MATCH_LST = {{mix_match_lst|safe}};
         var MY_TAX_RATE = {{tax_rate}};
     </script>
-
-
-    <div id="product_search_dlg" title "search product">
-        <label for='product_search_txt'>search</label>
-        <input type='text' id = 'product_search_txt'>
-
-        <table id='product_search_tbl' border='1'></table>
-    </div>
 
     <div id="mix_match_prompt_dlg">
 

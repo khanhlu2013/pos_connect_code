@@ -6,6 +6,7 @@ define(
         ,'lib/async'
         ,'lib/db/pouchdb'
         ,'lib/db/db_util'
+        ,'lib/ui/ui'
     ],
     function
     (
@@ -15,6 +16,7 @@ define(
         ,async
         ,Pouch_db
         ,db_util
+        ,ui
     )
 {
     function onChange(){
@@ -25,22 +27,20 @@ define(
 
     }
 
-    function rep_db(store_id,couch_server_url,callback){
+
+
+    return function (store_id,couch_server_url,callback){
         var local_pouch = pouch_db_util.get_store_db(store_id);
         var store_db_url = couch_db_util.get_db_url(couch_server_url,store_id)
 
+        ui.ui_block('sync product data');
         local_pouch.replicate.from(
             store_db_url
             ,{batch_size:200,batches_limit:10}
-            ,function(error,result){callback(error);}
+            ,function(error,result){
+                ui.ui_unblock();
+                callback(error);
+            }
         );
-    }
-
-    return function (store_id,couch_server_url,callback){
-        var rep_store_db_b = rep_db.bind(rep_db,store_id,couch_server_url);
-
-        async.waterfall([rep_store_db_b],function(error,result){
-            callback(error);
-        });
     };
 });

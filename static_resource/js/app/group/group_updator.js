@@ -3,12 +3,14 @@ define(
 	 'lib/async'
 	,'app/group/group_prompt'
     ,'app/store_product/store_product_util'
+    ,'lib/ui/ui'
 ]
 ,function
 (
 	 async
 	,group_prompt
     ,sp_util
+    ,ui
 )
 {
     function ajax_update(id,result,callback){
@@ -21,16 +23,18 @@ define(
             ,unit_discount:result.unit_discount
             ,pid_comma_separated_lst_str:pid_comma_separated_lst_str
         }        
-
+        ui.ui_block('updating group ...');
         $.ajax({
              url : "/group/update"
             ,type : "POST"
             ,dataType: "json"
             ,data : data
             ,success : function(data,status_str,xhr) {
+                ui.ui_unblock();
                 callback(null,data);
             }
             ,error : function(xhr,status_str,err) {
+                ui.ui_unblock();
                 callback(xhr);
             }
         });        

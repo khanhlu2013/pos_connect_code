@@ -8,5 +8,7 @@ requirejs.config({
         ,jquery_block_ui: ['//cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.66.0-2013.10.09/jquery.blockUI.min', 'lib/jquery/jquery.blockUI']
     }
 });
-
+requirejs.onError = function (err) {
+    alert('there is error loading page: ' + err.requireType);
+};
 requirejs(["app/receipt/receipt_ui"]);

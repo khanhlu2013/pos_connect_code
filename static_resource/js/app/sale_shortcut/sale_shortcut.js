@@ -6,7 +6,7 @@ require(
         ,'app/sale_shortcut/child_info_prompt'
         ,'app/sale_shortcut/sale_shortcut_util'
         ,'lib/error_lib'
-
+        ,'lib/ui/ui'
         //-----------------
         ,'jquery'
         ,'jquery_block_ui'
@@ -20,6 +20,7 @@ require(
         ,child_info_prompt
         ,sale_shortcut_util
         ,error_lib
+        ,ui
     )
 {
     
@@ -91,16 +92,19 @@ require(
                     ,child_caption:result.caption
                     ,product_id:result.product_id
                 }
+                ui.ui_block('saving shortcut ...')
                 $.ajax({
                      url : "/sale_shortcut/set_child_info"
                     ,type : "POST"
                     ,dataType: "json"
                     ,data : data
                     ,success : function(data,status_str,xhr){
+                        ui.ui_unblock();
                         update_shortcut_lst(SHORTCUT_LST,data)
                         display_shortcut_table();
                     }
                     ,error : function(xhr,status_str,err){
+                        ui.ui_unblock();
                         alert(xhr);
                     }
                 });  

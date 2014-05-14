@@ -13,6 +13,7 @@ define(
         ,'lib/db/index_db_util'
         ,'lib/db/pouch_db_util'
         ,'app/local_db_initializer/oneshot_sync'
+        ,'lib/ui/ui'
     ],
     function
     (
@@ -29,7 +30,7 @@ define(
         ,index_db_util
         ,pouch_db_util
         ,oneshot_sync
-
+        ,ui
     )
 {
     var ERROR_NO_SALE_DATA_TO_PUSH = 'There is no sale data to push';
@@ -84,8 +85,10 @@ define(
             //we only send sale data to server.        
             return doc.d_type === constance.RECEIPT_TYPE;
         }
+        ui.ui_block('save sale data ...');
         var store_db_url = couch_db_util.get_db_url(couch_server_url,store_id);
         Pouch_db.replicate(db_util.get_store_db_name(store_id)/*from local source*/, store_db_url/*to remote target*/,{filter:receipt_filter},function(err,resp){
+            ui.ui_unblock();
             callback(err);                
         });
     }
@@ -95,13 +98,14 @@ define(
             callback(null);
             return;
         }
-
+        ui.ui_block('save product to server');
         $.ajax({
              url : "/product/create_new_sp_for_receipt_ln"
             ,type : "POST"
             ,dataType : "json"
             ,data : null
             ,success: function(data,status_str,xhr){
+                ui.ui_unblock();
                 var new_create_sp_count = data;
 
                 if(new_create_sp_count>0){
@@ -110,6 +114,7 @@ define(
                         callback(error,new_create_sp_count);
                     });
                 }else{
+                    ui.ui_unblock();
                     callback('Bug: no offline product is created');
                 }
                 

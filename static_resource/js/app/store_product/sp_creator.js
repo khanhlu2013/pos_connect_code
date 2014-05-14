@@ -5,6 +5,7 @@ define(
 		,'app/local_db_initializer/sync_if_nessesary'
 		,'app/product/product_json_helper'
 		,'app/sku/product_sku_online_adder'
+		,'lib/ui/ui'
 
 	]
 	,function
@@ -14,6 +15,7 @@ define(
 		,sync_if_nessesary
 		,product_json_helper
 		,sku_adder
+		,ui
 	)
 {
    	var ERROR_CANCEL_select_product_option = 'ERROR_CANCEL_select_product_option';
@@ -40,16 +42,18 @@ define(
         }else{
         	url = '/product/insert_new_sp';
         }   
-
+        ui.ui_block('creating product ...');
         $.ajax({
              url:url
             ,method: "POST" 
             ,data : data
             ,dataType:'json'
             ,success:function(data,status_str,xhr){
+            	ui.ui_unblock();
                 callback(null/*error*/,data);
             }
             ,error:function(xhr,status_str,err){
+            	ui.ui_unblock();
                 callback(xhr);
             }
         });

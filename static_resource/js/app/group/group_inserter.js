@@ -4,6 +4,7 @@ define(
 	,'lib/error_lib' 
 	,'app/group/group_prompt'
 	,'app/store_product/store_product_util'
+    ,'lib/ui/ui'
 ]
 ,function
 (
@@ -11,6 +12,7 @@ define(
 	,error_lib 
 	,group_prompt
 	,sp_util
+    ,ui
 )
 {
 	function ajax_insert(result,callback){
@@ -20,16 +22,18 @@ define(
              name:result.name
             ,pid_comma_separated_lst_str:pid_comma_separated_lst_str
         }        
-
+        ui.ui_block('inserting group ...')
         $.ajax({
              url : "/group/insert"
             ,type : "POST"
             ,dataType: "json"
             ,data : data
             ,success : function(data,status_str,xhr) {
+                ui.ui_unblock();
                 callback(null,data);
             }
             ,error : function(xhr,status_str,err) {
+                ui.ui_unblock();
                 callback(xhr);
             }
         });		

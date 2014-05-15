@@ -209,6 +209,7 @@ define(
 						,null//buydown
 						,lookup_type_tag
 						,false//is_sku_management
+						,false//is_group_management
 						,selected_product
 					); 		
 					var product_id = (selected_product == null ? null : selected_product.product_id);

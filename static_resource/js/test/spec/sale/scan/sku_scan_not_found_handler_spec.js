@@ -97,6 +97,7 @@ define(
 		        ,buydown   
 		        ,lookup_type_tag
 		        ,is_sku_management
+		        ,is_group_management
 		        ,suggest_product
 		        ,callback
             ){

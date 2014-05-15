@@ -72,6 +72,7 @@ define(
             ,sp.buydown
             ,lookup_type_tag
             ,true //is_sku_management
+            ,true //is_group_management            
             ,null //suggest product
         );    
 

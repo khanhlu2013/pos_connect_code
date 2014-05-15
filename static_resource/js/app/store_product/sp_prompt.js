@@ -9,15 +9,11 @@ define(
 ){
     var ERROR_CANCEL_STORE_PRODUCT_PROMPT = 'ERROR_CANCEL_STORE_PRODUCT_PROMPT';
     var MANAGE_SKU_BUTTON_PRESS = 'MANAGE_SKU_BUTTON_PRESS';
-    
+    var MANAGE_GROUP_BUTTON_PRESS = 'MANAGE_GROUP_BUTTON_PRESS';
+
     function cancel_btn_handler(callback){
         $("#store_product_prompt_dialog").dialog("close");
         callback(ERROR_CANCEL_STORE_PRODUCT_PROMPT/*error*/);
-    }
-
-    function manage_sku_btn_handler(callback){
-        $("#store_product_prompt_dialog").dialog("close");
-        callback(MANAGE_SKU_BUTTON_PRESS/*error*/,null);         
     }
 
     function ok_btn_handler(is_prompt_sku,callback){
@@ -123,6 +119,7 @@ define(
             ,buydown_prefill   
             ,lookup_type_tag
             ,is_sku_management
+            ,is_group_management
             ,suggest_product
             ,callback
         ){
@@ -169,6 +166,7 @@ define(
                     '<input type="text" id = "product_sku_txt">' +
                     '<br>' +
                     '<input type="button" id = "sku_management_btn" value = "manage sku">' +
+                    '<input type="button" id = "group_management_btn" value = "manage group">' +
                     '<br>' +
                 '</div>';
             
@@ -237,10 +235,21 @@ define(
                             }
                         });
 
-                        var manage_sku_btn_handler_b = manage_sku_btn_handler.bind(manage_sku_btn_handler,callback);
-                        $('#sku_management_btn').click(manage_sku_btn_handler_b);        
+                        if(is_group_management){
+                            $('#group_management_btn').click(function(){
+                                $("#store_product_prompt_dialog").dialog("close");
+                                callback(MANAGE_GROUP_BUTTON_PRESS);                                  
+                            });                            
+                            $('#group_management_btn').show();
+                        }else{
+                            $('#group_management_btn').hide();
+                        }
 
                         if(is_sku_management){
+                            $('#sku_management_btn').click(function(){
+                                $("#store_product_prompt_dialog").dialog("close");
+                                callback(MANAGE_SKU_BUTTON_PRESS);                                  
+                            });                            
                             $('#sku_management_btn').show();
                         }else{
                             $('#sku_management_btn').hide();
@@ -316,6 +325,7 @@ define(
     return{
          ERROR_CANCEL_STORE_PRODUCT_PROMPT : ERROR_CANCEL_STORE_PRODUCT_PROMPT
         ,MANAGE_SKU_BUTTON_PRESS : MANAGE_SKU_BUTTON_PRESS
-        ,show_prompt:show_prompt
+        ,MANAGE_GROUP_BUTTON_PRESS : MANAGE_GROUP_BUTTON_PRESS
+        ,show_prompt : show_prompt
     }
 });

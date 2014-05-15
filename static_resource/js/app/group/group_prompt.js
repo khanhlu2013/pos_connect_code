@@ -2,7 +2,7 @@ define(
     [
          'lib/async'
         ,'app/group/group_validator'
-        ,'app/store_product/sp_online_name_search_ui_'
+        ,'app/store_product/sp_search_ui'
         ,'lib/error_lib'
         ,'app/product/product_json_helper'
         ,'lib/ui/ui'
@@ -11,7 +11,7 @@ define(
     (
          async
         ,group_validator
-        ,sp_online_name_search_ui
+        ,sp_search_ui
         ,error_lib
         ,product_json_helper
         ,ui
@@ -40,19 +40,19 @@ define(
 
 
     function add_group_child_handler(){
-        var search_b = sp_online_name_search_ui.exe.bind(sp_online_name_search_ui.exe,false/*multiple_selection*/);
+        var search_b = sp_search_ui.exe.bind(sp_search_ui.exe,true/*multiple_selection*/);
         async.waterfall([search_b],function(error,result){
             if(error){
                 error_lib.alert_error(error);
                 return;
             }
-            var sp = result;
-            if(product_json_helper.get_sp_from_sp_lst(sp.product_id,GROUP_CHILD_SP_LST) == null){
-                GROUP_CHILD_SP_LST.push(sp);
-                populate_group_child_tbl();
-            }else{
-                alert('product is already in list');
+            var sp_lst = result;
+            for(var i = 0;i<sp_lst.length;i++){
+                if(product_json_helper.get_sp_from_sp_lst(sp_lst[i].product_id,GROUP_CHILD_SP_LST) == null){
+                    GROUP_CHILD_SP_LST.push(sp_lst[i]);
+                }                
             }
+            populate_group_child_tbl();
         });
     }
 

@@ -20,7 +20,7 @@ define(
         ,'app/sale/scan/sku_scan_not_found_handler'
         ,'lib/error_lib'
         ,'app/sale/non_inventory/non_inventory_prompt'
-        ,'app/store_product/sp_online_name_search_ui'
+        ,'app/store_product/sp_search_ui'
         ,'app/sale/scan/pid_scanner'
         ,'app/sale/displaying_scan/displaying_scan_lst_getter'
         ,'lib/ui/ui'
@@ -53,7 +53,7 @@ define(
         ,ssnf_handler
         ,error_lib
         ,non_inventory_prompt
-        ,sp_online_name_search_ui
+        ,sp_search_ui
         ,pid_scanner
         ,ds_lst_getter
         ,ui
@@ -88,8 +88,8 @@ define(
 
         function hook_product_search_btn_2_ui(){
             product_search_btn.addEventListener("click", function(){
-                var sp_online_name_search_ui_b = sp_online_name_search_ui.exe.bind(sp_online_name_search_ui.exe);
-                async.waterfall([sp_online_name_search_ui_b],function(error,result){
+                var sp_search_ui_b = sp_search_ui.exe.bind(sp_search_ui.exe,false);
+                async.waterfall([sp_search_ui_b],function(error,result){
                     if(error){
                         error_lib.alert_error(error);
                         return;

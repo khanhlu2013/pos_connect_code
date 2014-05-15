@@ -10,6 +10,7 @@ define(
     ,'app/sku/product_sku_manager'
     ,'lib/error_lib'
     ,'lib/ui/ui'
+    ,'app/store_product/sp_group_manage_ui'
     //-----------------
     ,'jquery'
     ,'jquery_block_ui'
@@ -27,6 +28,7 @@ define(
     ,product_sku_manager
     ,error_lib
     ,ui
+    ,sp_group_manage_ui
 )
 {
     var PRODUCT_DATA_LST = null;
@@ -54,6 +56,14 @@ define(
             if(error){
                 if(error == sp_prompt.MANAGE_SKU_BUTTON_PRESS){
                     product_sku_manager(pid,STORE_ID,COUCH_SERVER_URL);
+                }else if(error == sp_prompt.MANAGE_GROUP_BUTTON_PRESS){
+                    var sp_group_manage_b = sp_group_manage_ui.exe.bind(sp_group_manage_ui.exe,pid)
+                    async.waterfall([sp_group_manage_b],function(error,result){
+                        if(error){
+                            error_lib.alert_error(error);
+                            return;
+                        }
+                    });
                 }
                 else{
                     error_lib.alert_error(error);

@@ -50,6 +50,7 @@ define(
             ,store_product.buydown
             ,null//lookup type tag
             ,false//is_sku_management
+            ,false//is_group_management
             ,null//suggest product
         );		
 

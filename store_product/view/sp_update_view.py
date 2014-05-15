@@ -56,5 +56,4 @@ def sp_update_view(request):
         ,buydown = buydown
     )
     product_serialized = sp_serializer.serialize_product_from_id(product_id=sp.product.id,store_id = cur_login_store.id,is_include_other_store = False)     
-    
     return HttpResponse(json.dumps(product_serialized,cls=DjangoJSONEncoder),content_type='application/json')

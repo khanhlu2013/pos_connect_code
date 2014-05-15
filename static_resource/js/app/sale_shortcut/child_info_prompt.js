@@ -1,13 +1,13 @@
 define(
 [
      'lib/async'
-    ,'app/store_product/sp_online_name_search_ui' 
+    ,'app/store_product/sp_search_ui' 
     ,'lib/error_lib'
 ]
 ,function
 (
      async
-    ,sp_online_name_search_ui
+    ,sp_search_ui
     ,error_lib
 )
 {
@@ -67,7 +67,8 @@ define(
     }
 
     function name_search_handler(){
-        async.waterfall([sp_online_name_search_ui.exe],function(error,result){
+        var sp_search_ui_b = sp_search_ui.exe.bind(sp_search_ui.exe,false/*single selection*/)
+        async.waterfall([sp_search_ui_b],function(error,result){
             if(error){
                 error_lib.alert_error(error);
                 return;

@@ -102,6 +102,7 @@ define(
                             ,null//buydown
                             ,null//lookup_type_tag
                             ,false//is_sku_management
+                            ,false//is_group_management
                             ,null//suggest product
                         )
                         var create_offline_b = create_offline.bind(create_offline ,sku_str ,pouch_db );

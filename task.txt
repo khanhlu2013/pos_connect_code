@@ -293,29 +293,31 @@ SKILL IMPROVEMENT
     . test sale short cut parent, child
     . test shortcut setup
     . test sp creator prodStore_prodSku_1_0, prodStore_prodSku_0_0
-. why tax_rate is not included in the sale context param
----------------------
-. why there is a store id on sp in couch side? kill it
-
 . mix match test: insert/update for client
 . delete sku test: can not delete sku when it belong to another store 
 . test couch acl, should we move this test into other app? i believe it would be receipt? since we can only insert receipt
 . product model test
 . store inserter test
 . receipt_document_validator_test
-. serialize_product_from_id(product_id,store_id,is_include_other_store) revisit is_include_other_store. it does not work. may be i need to implement this with python and not with django orm filter.
 . sku scan not found handler spec: there is a spy on old window.confirm and now we change it. make sure test work
-
-----------------------------------------------------------------------------------------
+---------------------
+. why there is a store id on sp in couch side? kill it
+. serialize_product_from_id(product_id,store_id,is_include_other_store) revisit is_include_other_store. it does not work. may be i need to implement this with python and not with django orm filter.
+. why tax_rate is not included in the sale context param
 . add the last info that is change about the group. ask Tony more about how the group should work.
 . print  sale report
 . sale_shortcut validator and responsive validation ui
-. sync status
 . remove all alert
+. remove group. test alert no group is defined
+. change title of sp prompt when edit product
+. display sku and group in sp_prompt
 . add group to an item
-. when add item to mixmatch, it trigger validation. which i don't think we should do it. we only remove red validation if it is exist. 
-. add group into mix match
-. add multiple item to group
+
+
+
+
+
+
 
 
 

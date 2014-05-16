@@ -1,4 +1,4 @@
-from group.models import Group,Group_child
+from group.models import Group
 from store_product import store_product_master_getter,sp_serializer
 from django.http import HttpResponse
 import json
@@ -24,12 +24,12 @@ def sp_group_update_view(request):
             return
 
     #remove all group from sp
-    sp.group_set.through.objects.all().delete()
+    sp.group_set.clear()
 
     #add group
     if len(group_lst) != 0:
-        sp.group_set.add(*[group_lst])
+        sp.group_set.add(*group_lst)
 
-    product_serialized = sp_serializer.serialize_product_from_id(product_id=product.id,store_id = cur_login_store.id,is_include_other_store = False)     
+    product_serialized = sp_serializer.serialize_product_from_id(product_id=product_id,store_id = cur_login_store.id,is_include_other_store = False)     
     return HttpResponse(json.dumps(product_serialized,cls=DjangoJSONEncoder),content_type='application/json')    
 

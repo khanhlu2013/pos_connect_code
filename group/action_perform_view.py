@@ -48,13 +48,13 @@ def group_action_perform_view(request):
         return #i need to validate this on client side so that no update is not ajax request the server
 
 
-    #validate parent id 
-    parent = group_getter.get_group_item(id=id_raw)
-    if parent.store.id != cur_login_store.id:
+    #validate group id 
+    group = group_getter.get_group_item(id=id_raw)
+    if group.store.id != cur_login_store.id:
         return
 
     #validate group is not empty
-    pid_lst = [item.store_product.product.id for item in parent.group_child_set.all()]
+    pid_lst = [item.product.id for item in group.store_product_set.all()]
     if len(pid_lst) == 0:
         return
 

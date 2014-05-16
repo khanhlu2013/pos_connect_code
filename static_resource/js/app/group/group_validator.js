@@ -14,7 +14,6 @@ define(
 
         var error_lst = new Array();
         var name = result.name;
-        var group_child_sp_lst = result.group_child_sp_lst;
 
         if(!name || name.trim().length == 0){
             error_lst.push(ERROR_GROUP_VALIDATION_NAME);

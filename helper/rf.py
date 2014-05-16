@@ -7,7 +7,7 @@ from util.couch import master_account_util,old_security_4_test_purpose
 import json
 from couch import couch_util,couch_constance
 import requests
-from group.models import Group,Group_child
+from group.models import Group
 from mix_match.models import Mix_match,Mix_match_child
 
 
@@ -113,7 +113,6 @@ def import_json_data(data):
 
 
 def delete_data():
-    Group_child.objects.all().delete()
     Group.objects.all().delete()
     Mix_match_child.objects.all().delete()
     Mix_match.objects.all().delete()    

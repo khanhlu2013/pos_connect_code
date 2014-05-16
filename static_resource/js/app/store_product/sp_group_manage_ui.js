@@ -123,17 +123,17 @@ define(
                 height: 500,
                 buttons : 
                 [
-                    {text:'ok', 
+                    {
+                        text:'ok', 
                         click: function(){
-                            var set_group_b = set_group.bind(set_group,callback);
-                            async.waterfall([set_group_b],function(error,result){
+                            async.waterfall([set_group],function(error,result){
                                 if(error){
                                     error_lib.alert_error(error);
                                     return;
                                 }
                                 $('#sp_group_manage_dlg').dialog('close');
                                 callback(null);
-                            })                            
+                            });                            
                         }
                     },
                     {

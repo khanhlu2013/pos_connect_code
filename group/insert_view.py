@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.core.serializers.json import DjangoJSONEncoder
-from group.models import Group,Group_child,serialize_group_lst
+from group.models import Group,serialize_group_lst
 from group import group_getter
 import json
 from store_product.models import Store_product
@@ -22,18 +22,13 @@ def group_insert_view(request):
     if len(sp_lst) != len(pid_lst):
         return
 
-    #create parent
-    parent = Group.objects.create(store_id=cur_login_store.id,name=name)
+    #create group
+    group = Group.objects.create(store_id=cur_login_store.id,name=name)
     
-    #create child
-    child_lst = []
-    for sp in sp_lst:
-        child_lst.append(Group_child(group_id=parent.id,store_product_id=sp.id))
-    if len(child_lst) != 0:
-        Group_child.objects.bulk_create(child_lst)
+    #insert sp
+    if len(sp_lst) !=0:
+        group.store_product_set.add(*sp_lst)
 
     #response
-    parent = group_getter.get_group_item(id=parent.id)
-    parent_serialized = serialize_group_lst([parent,])[0]
-
-    return HttpResponse(json.dumps(parent_serialized,cls=DjangoJSONEncoder), mimetype='application/json')
+    group_serialized = serialize_group_lst([group,])[0]
+    return HttpResponse(json.dumps(group_serialized,cls=DjangoJSONEncoder), mimetype='application/json')

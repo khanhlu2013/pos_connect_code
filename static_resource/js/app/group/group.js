@@ -35,7 +35,7 @@ define(
     }
 
     function action_group_handler(group){
-        if(group.group_child_set.length == 0){
+        if(group.store_product_set.length == 0){
             alert('group is empty');
             return;
         }

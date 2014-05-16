@@ -8,31 +8,14 @@ class Group(models.Model):
 	store = models.ForeignKey(Store)
 	name = models.CharField(max_length=100)
 
-
-class Group_child(models.Model):
-	group = models.ForeignKey(Group)
-	store_product = models.ForeignKey(Store_product)
-
-	class Meta:
-		unique_together = ('group','store_product')
-
 #-SERIALIZER-------------------------------------------------------------------------------------------------
 
-
-class Group_child_serializer(serializers.ModelSerializer):
-    store_product = Store_product_serializer(many=False)
-
-    class Meta:
-        model = Group_child
-        fields = ('id','store_product')
-
-
 class Group_serializer(serializers.ModelSerializer):
-    group_child_set = Group_child_serializer(many=True)
+    store_product_set = Store_product_serializer(many=True)
 
     class Meta:
         model = Group
-        fields = ('id','name','group_child_set')
+        fields = ('id','name','store_product_set')
 
 
 def serialize_group_lst(group_lst):

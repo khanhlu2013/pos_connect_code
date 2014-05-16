@@ -310,17 +310,9 @@ SKILL IMPROVEMENT
 . remove all alert
 . remove group. test alert no group is defined
 . change title of sp prompt when edit product
+
+
 . display sku and group in sp_prompt
-. add group to an item
-
-
-
-
-
-
-
-
-
 
 
 

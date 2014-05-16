@@ -95,7 +95,7 @@ define(
 
                                 if(!is_empty_group_allow){
                                     for(var i = 0;i<result_lst.length;i++){
-                                        if(result_lst[i].group_child_set.length == 0){
+                                        if(result_lst[i].store_product_set.length == 0){
                                             ui.ui_alert('group is emtpy');
                                             return;
                                         }

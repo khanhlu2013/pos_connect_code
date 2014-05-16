@@ -51,12 +51,12 @@ define(
         });
 
         it('can insert group',function(done){
-            spyOn(group_prompt,'exe').and.callFake(function(name ,group_child_sp_lst ,callback){
+            spyOn(group_prompt,'exe').and.callFake(function(name ,group_sp_lst ,callback){
                 
                 var sp_lst = [{product_id:1}];
                 var result = {
-                     name                   : 'Marboro group'
-                    ,group_child_sp_lst     : sp_lst
+                     name             : 'Marboro group'
+                    ,group_sp_lst     : sp_lst
                 }                
                 calback(null,result);
             });

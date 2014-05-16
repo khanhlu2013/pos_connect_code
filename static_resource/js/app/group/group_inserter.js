@@ -15,11 +15,11 @@ define(
     ,ui
 )
 {
-	function ajax_insert(result,callback){
- 		var pid_comma_separated_lst_str = sp_util.get_comma_separated_pid_lst(result.group_child_sp_lst);
+	function ajax_insert(prompt_info,callback){
+ 		var pid_comma_separated_lst_str = sp_util.get_comma_separated_pid_lst(prompt_info.group_sp_lst);
 
         var data = {
-             name:result.name
+             name:prompt_info.name
             ,pid_comma_separated_lst_str:pid_comma_separated_lst_str
         }        
         ui.ui_block('inserting group ...')
@@ -42,7 +42,7 @@ define(
     function exe(callback){
         var group_prompt_b = group_prompt.exe.bind(group_prompt.exe
             ,null//name
-            ,[]//group_child_sp_lst
+            ,[]//group_sp_lst
         );
 
         async.waterfall([group_prompt_b,ajax_insert],function(error,result){

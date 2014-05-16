@@ -59,15 +59,20 @@ define(
     }
 
     function add_mix_match_group_handler(){
-        var group_select_b = group_select_ui.exe.bind(group_select_ui.exe,false/*single_selection*/,false/*empty group is not allow*/)
+        var group_select_b = group_select_ui.exe.bind(group_select_ui.exe,true/*single_selection*/,true/*empty group is not allow*/)
         async.waterfall([group_select_b],function(error,result){
             if(error){
                 error_lib.alert_error(error);
                 return;
             }
             var sp_lst = [];
-            for(var i = 0;i<result.group_child_set.length;i++){
-                sp_lst.push(result.group_child_set[i].store_product);
+            var group_lst = result;
+            for(var i = 0;i<group_lst.length;i++){
+                var group = group_lst[i];
+                for(var j = 0;j<group.store_product_set.length;j++){
+                    sp_lst.push(group.store_product_set[j]);
+                }
+                
             }
             add_sp_lst_to_ui(sp_lst);
         });

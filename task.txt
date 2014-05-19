@@ -271,21 +271,19 @@ UPGRADE FEATURE
 . offline receipt lookup
 . up and down key to select product (for non touch screen)
 . kit is a product that is the exact grouping with other products. use this relation to track sale record, inventory,cost,crv
-. think about session. can we save mm_lst, shortcut_lst, tax_rate into session? refresh this data on page refocus or tab switching
+. until we have a 1 page app, changing info in one page such as tax, deal, ... should affect other pages without refresh. we need a global varable between page and that is session. refresh this ui on refocus or tab switching using session global var
 . shortcut setup inside sale page ( a step closer to one page web app)
-. indicator of syncing product db status
-. type of business: convenient store. 
-. zip code:
-. base on profit best selling db
-. pass the server cost to customer
+. type of business: convenient store. data collecting
+. zip code: geographic corporation
+. base on profit best selling product 
+. pass the server cost to customer: logs
 . clean out dead inventory
-
-
+. more or less info in sp prompt
+. menu system: move setting such as mixmatch, group, tax, report ... into menu
+. heroku log: how to warn user about usage. how to charge user on extra full db loading.
 ------------------------------------------------------------------------------------------------------------------
 SKILL IMPROVEMENT
-. should i load css inside the head? is it matter?
-. should i load js inside the head? is it matter? where should i put js file at? at the end of the file?
-. net tut: how to put buiding script into a batch file? work your way into a build procedure? including test. and push. even js file.
+. continuous test->build->deploy
 
 ---------------------------------------------------------------
 . test select correct line
@@ -301,23 +299,21 @@ SKILL IMPROVEMENT
 . receipt_document_validator_test
 . sku scan not found handler spec: there is a spy on old window.confirm and now we change it. make sure test work
 ---------------------
+
 . why there is a store id on sp in couch side? kill it
 . serialize_product_from_id(product_id,store_id,is_include_other_store) revisit is_include_other_store. it does not work. may be i need to implement this with python and not with django orm filter.
 . why tax_rate is not included in the sale context param
 . add the last info that is change about the group. ask Tony more about how the group should work.
 . print  sale report
-. sale_shortcut validator and responsive validation ui
-. remove all alert
-. remove group. test alert no group is defined
-. change title of sp prompt when edit product
+. pos
+    . sale_shortcut validator and responsive validation ui
+    . remove all alert
+. remove group. test alert no group is defined when selecting group
 
 
-. display sku and group in sp_prompt
-
-
-
-
-
+-----------------------
+when set taxrate, remember to update session.cur_login_store
+refactor tax out. local storage, and refresh page based on tab refocus
 
 
 
@@ -325,7 +321,10 @@ SKILL IMPROVEMENT
 
 
 
-    
+
+
+
+
 
 
 

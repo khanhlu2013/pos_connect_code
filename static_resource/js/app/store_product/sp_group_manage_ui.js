@@ -36,7 +36,7 @@ define(
 
     function set_group(callback){
         var group_id_comma_separated_lst_str = get_group_id_comma_separate_str();
-        
+        ui.ui_block('updating group ...');
         $.ajax({
              url : '/product/group/update'
             ,type : "POST"
@@ -104,7 +104,7 @@ define(
         });             
     }
 
-    function exe(product_id,callback){
+    function exe(product_id,product_name,callback){
         PRODUCT_ID = product_id;
 
         var html_str = 
@@ -116,7 +116,7 @@ define(
             .dialog(
             {
                 modal: true,
-                title : 'manage group',
+                title : product_name,
                 zIndex: 10000,
                 autoOpen: true,
                 width: 800,

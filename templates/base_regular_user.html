@@ -3,12 +3,12 @@
 {% block menu %}
     <a href="{% url 'sale:index' %}" target="_blank">sale</a>
     <a href="{% url 'store_product:search_product' %}">product</a>
-    <a href="{% url 'tax:detail' request.session.cur_login_store.id %}">tax</a>
     <a href="{% url 'sale_shortcut:index' %}">sale shortcut</a>
     <a href="{% url 'sale_report:index' %}">sale report</a>
     <a href="{% url 'mix_match:mix_match' %}">mix match</a>
     <a href="{% url 'group:group' %}">group</a>
     <a href="{% url 'receipt:index' %}">receipt</a>
+
 {% endblock %}
 
 

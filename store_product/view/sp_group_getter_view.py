@@ -1,5 +1,5 @@
 from store_product.models import Store_product
-from group.models import serialize_group_lst
+from group.group_serializer import serialize_group_lst
 from django.http import HttpResponse
 from django.core.serializers.json import DjangoJSONEncoder
 import json

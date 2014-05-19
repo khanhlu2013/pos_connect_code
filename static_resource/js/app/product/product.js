@@ -11,6 +11,8 @@ define(
     ,'lib/error_lib'
     ,'lib/ui/ui'
     ,'app/store_product/sp_group_manage_ui'
+    ,'lib/ui/menu'
+    ,'app/tax/tax_manage_ui'
     //-----------------
     ,'jquery'
     ,'jquery_block_ui'
@@ -29,6 +31,8 @@ define(
     ,error_lib
     ,ui
     ,sp_group_manage_ui
+    ,menu
+    ,tax_manage_ui
 )
 {
     var PRODUCT_DATA_LST = null;
@@ -50,14 +54,14 @@ define(
         }
     }
 
-    function update_sp(pid){
+    function update_sp(pid,product_name){
         var sp_updator_b = sp_updator.exe.bind(sp_updator.exe,pid,STORE_ID,COUCH_SERVER_URL);
         async.waterfall([sp_updator_b],function(error,result){
             if(error){
                 if(error == sp_prompt.MANAGE_SKU_BUTTON_PRESS){
                     product_sku_manager(pid,STORE_ID,COUCH_SERVER_URL);
                 }else if(error == sp_prompt.MANAGE_GROUP_BUTTON_PRESS){
-                    var sp_group_manage_b = sp_group_manage_ui.exe.bind(sp_group_manage_ui.exe,pid)
+                    var sp_group_manage_b = sp_group_manage_ui.exe.bind(sp_group_manage_ui.exe,pid,product_name)
                     async.waterfall([sp_group_manage_b],function(error,result){
                         if(error){
                             error_lib.alert_error(error);
@@ -140,11 +144,11 @@ define(
 
             td = tr.insertCell(-1);
             td.innerHTML = 'edit';   
-            (function(pid){
+            (function(pid,product_name){
                 td.addEventListener('click',function(){
-                    update_sp(pid);
+                    update_sp(pid,product_name);
                 });  
-            })(sp.product_id);
+            })(sp.product_id,sp.name);
         }
     }
 
@@ -202,6 +206,15 @@ define(
                 }
             });
         }
+    });
+
+    menu.init_menu();
+
+    $('#tax_menu').click(function(e) 
+    { 
+        async.waterfall([tax_manage_ui.exe],function(error,result){
+
+        });
     });
 });
 

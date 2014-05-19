@@ -9,31 +9,47 @@
     <script data-main = "{{ STATIC_URL }}js/app/product/product_entry.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script>
     <!-- // <script data-main = "{{ STATIC_URL }}js/app/product/product_entry__min__.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script> -->
 
-    <input id='sku_txt' type='text'/>
-    <input id='sku_btn' type='button' value="sku"/>
-    <label id="sku_err_lbl"></label>
-    <br/>
-    <input id='name_txt' type='text'/>
-    <input id='name_btn' type='button' value="name"/>
-    <label id="name_err_lbl"/>
+    <div id='cssmenu'>
+        <ul>
+           <li><a href='#'><span>pos connect</span></a></li>
+           <li class='has-sub'><a href='#'><span>setting</span></a>
+              <ul>
+                 <li id='tax_menu'><a href='#'><span>tax</span></a></li>
+                 <li><a href='#'><span>shortcut</span></a></li>
+                 <li><a href='#'><span>mix match</span></a></li>
+                 <li class='last'><a href='#'><span>group</span></a></li>
+              </ul>
+           </li>
+           <li class='has-sub last'><a href='#'><span>report</span></a>
+              <ul>
+                 <li><a href='#'><span>date range</span></a></li>
+                 <li class='last'><a href='#'><span>receipt</span></a></li>
+              </ul>
+           </li>
+        </ul>
+    </div>
 
-    <table id=product_tbl border="1"></table>
+    <div id='wrap'>
+        <input id='sku_txt' type='text'/>
+        <input id='sku_btn' type='button' value="sku"/>
+        <label id="sku_err_lbl"></label>
+        <br/>
+        <input id='name_txt' type='text'/>
+        <input id='name_btn' type='button' value="name"/>
+        <label id="name_err_lbl"/>
+        <table id=product_tbl border="1"></table>
+    </div>
 
     <div id="select_product_option_dialog">
         <input type="button" id = "product_option_create_new_btn" value = 'create new product'>
         <table id=select_product_option_tbl border="1"></table>
     </div>
 
-    <div id="sku_management_dialog" title="x Product name go here x">
-        <input type="button" id = "add_sku_btn" value = 'add sku'>
-        <table id=sku_tbl border="1"></table>
-        <br>        
-    </div>
-
     <script type="text/javascript">
         var STATIC_URL = "{{STATIC_URL}}";
         var STORE_ID = Number("{{STORE_ID}}");
         var COUCH_SERVER_URL = "{{COUCH_SERVER_URL}}";
+        localStorage.setItem('tax_rate',Number("{{TAX_RATE}}"));
     </script>
 
 {% endblock content %}

@@ -36,22 +36,14 @@ define(
         var sp_prompt_b = sp_prompt.show_prompt.bind
         (
              sp_prompt.show_prompt
-            ,store_product.name 
-            ,store_product.price
-            ,store_product.crv
-            ,store_product.is_taxable
-            ,store_product.is_sale_report
-            ,store_product.p_type 
-            ,store_product.p_tag
-            ,null//sku prefill
+
+            ,store_product//sp_prefill
             ,false//is_prompt_sku
-            ,store_product.cost
-            ,store_product.vendor
-            ,store_product.buydown
-            ,null//lookup type tag
+            ,null//sku_prefill
+            ,null//lookup_type_tag
             ,false//is_sku_management
             ,false//is_group_management
-            ,null//suggest product
+            ,null//suggest_product
         );		
 
         var update_b = update.bind(update,store_product,pouch_db);

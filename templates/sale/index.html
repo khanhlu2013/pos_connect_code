@@ -4,7 +4,7 @@
 
     <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.min.css" />
     <link rel="stylesheet" href="{{ STATIC_URL }}css/app/sale/sale.css">
-    
+
     <script data-main = "{{ STATIC_URL }}js/app/sale/sale_entry.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script>
     <!-- // <script data-main = "{{ STATIC_URL }}js/app/sale/sale_entry__min__.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script> -->
 
@@ -16,7 +16,7 @@
         var COLUMN_COUNT = {{COLUMN_COUNT}}
         var MY_SHORTCUT_LST = {{shortcut_lst|safe}};
         var MY_MM_LST = {{mix_match_lst|safe}};
-        var MY_TAX_RATE = {{tax_rate}};
+        localStorage.setItem('tax_rate',Number("{{tax_rate}}"));
     </script>
     
     <div id="wrap">
@@ -25,7 +25,6 @@
         <div id="scan"> 
             
             <input id="scan_text" onClick="this.select();"  placeholder="sku" autofocus>
-            <!-- <input id="scan_text" onfocus="this.select();" onmouseup="return false;"  placeholder="sku" autofocus> -->
             <button id="product_search_btn" type="button">search</button>
             <button id="non_inventory_btn" type="button">non inventory</button>
             <button id="push_receipt_btn" type="button">receipt pusher</button>
@@ -51,6 +50,12 @@
         <input type="text" id = "non_inventory_description_txt" value='non inventory'>
         <br>
     </div>
+
+
+
+
+
+
 
 {% endblock content %}
 

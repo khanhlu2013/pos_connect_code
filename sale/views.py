@@ -10,9 +10,7 @@ class Sale_view(TemplateView):
     template_name = 'sale/index.html'
 
     def dispatch(self,request,*args,**kwargs):
-        cur_login_store = self.request.session.get('cur_login_store')
-        self.cur_login_store = Store.objects.get(pk=cur_login_store.id)
-
+        self.cur_login_store = self.request.session.get('cur_login_store')
         return super(Sale_view,self).dispatch(request,*args,**kwargs)
 
     def get_context_data(self,**kwargs):

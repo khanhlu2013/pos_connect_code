@@ -58,23 +58,15 @@ define(
         var sp_prompt_b = sp_prompt.show_prompt.bind
         (
              sp_prompt.show_prompt
-            ,sp.name
-            ,sp.price
-            ,sp.crv
-            ,sp.is_taxable
-            ,sp.is_sale_report
-            ,sp.p_type
-            ,sp.p_tag
-            ,null   //prefill_sku
-            ,false  //is_prompt_sku
-            ,sp.cost
-            ,sp.vendor
-            ,sp.buydown
+
+            ,sp//sp_prefill
+            ,false//is_prompt_sku
+            ,null//sku_prefill
             ,lookup_type_tag
-            ,true //is_sku_management
-            ,true //is_group_management            
-            ,null //suggest product
-        );    
+            ,true//is_sku_management
+            ,true//is_group_management
+            ,null//suggest_product
+        );
 
         async.waterfall([sp_prompt_b],function(error,result){
             callback(error,result);

@@ -11,6 +11,9 @@ define(
         ,'lib/error_lib'
         ,'app/store_product/sp_offline_updator'
         ,'lib/ui/ui'
+        ,'app/store_product/sp_group_manage_ui'  
+        ,'app/sku/product_sku_manager'  
+        ,'app/store_product/sp_prompt'
     ]
     ,function(
          async
@@ -24,6 +27,9 @@ define(
         ,error_lib
         ,sp_offline_updator
         ,ui
+        ,sp_group_manage_ui
+        ,product_sku_manager
+        ,sp_prompt
     )
 {
     var column_name = ["qty", "product", "price", "line total", "X"];
@@ -34,7 +40,8 @@ define(
     var STORE_PDB = null;
     var SALE_TABLE = null;
     var TOTAL_BUTTON = null;
-    
+    var TAX_RATE = null;
+
     function exe_instruction(ds_index,instruction,ds_lst){
         var ds_modifier_b = ds_modifier.bind(ds_modifier,MM_LST,STORE_IDB,ds_index,instruction);
         var ds_lst_getter_b = ds_lst_getter.bind(ds_lst_getter,MM_LST,STORE_IDB);
@@ -102,15 +109,26 @@ define(
                 var sp_updator_b = sp_updator.exe.bind(sp_updator.exe,product_id,STORE_ID,COUCH_SERVER_URL);
                 async.waterfall([sp_updator_b],function(error,result){
                     if(error){
-                        error_lib.alert_error(error);
+                        if(error == sp_prompt.MANAGE_SKU_BUTTON_PRESS){
+                            product_sku_manager(product_id,STORE_ID,COUCH_SERVER_URL);
+                        }else if(error == sp_prompt.MANAGE_GROUP_BUTTON_PRESS){
+                            var sp_group_manage_b = sp_group_manage_ui.exe.bind(sp_group_manage_ui.exe,product_id,displaying_scan.store_product.name);
+                            async.waterfall([sp_group_manage_b],function(error,result){
+                                if(error){
+                                    error_lib.alert_error(error);
+                                }
+                            });
+                        }else{
+                            error_lib.alert_error(error);
+                        }
                         return;
-                    }else{
-                        //hackish way to refresh the interface by pretending the price is change
-                        var sp_updator_return_product = product_json_helper.get_sp_from_p(result,STORE_ID);
-                        var hackish_new_price = sp_updator_return_product.price;
-                        var instruction = new Instruction(false/*is_delete*/,displaying_scan.qty,hackish_new_price,displaying_scan.discount);
-                        exe_instruction(ds_index,instruction,ds_lst);
                     }
+
+                    //hackish way to refresh the interface by pretending the price is change
+                    var sp_updator_return_product = product_json_helper.get_sp_from_p(result,STORE_ID);
+                    var hackish_new_price = sp_updator_return_product.price;
+                    var instruction = new Instruction(false/*is_delete*/,displaying_scan.qty,hackish_new_price,displaying_scan.discount);
+                    exe_instruction(ds_index,instruction,ds_lst);
                 });                
             }
         });
@@ -199,16 +217,16 @@ define(
         TOTAL_BUTTON.innerHTML = computed_total;
     }
 
-    return function(mm_lst,store_idb,store_pdb,store_id,couch_server_url,tax_rate,table,total_button,callback){
+    return function(mm_lst,store_idb,store_pdb,store_id,couch_server_url,table,total_button,callback){
         MM_LST = mm_lst;
         COUCH_SERVER_URL = couch_server_url;
-        TAX_RATE = tax_rate;
         STORE_ID = store_id
         STORE_IDB = store_idb;
         STORE_PDB = store_pdb;
         SALE_TABLE = table;
         TOTAL_BUTTON = total_button;
-
+        TAX_RATE = localStorage.getItem('tax_rate');
+        
         var ds_lst_getter_b = ds_lst_getter.bind(ds_lst_getter,MM_LST,STORE_IDB);
         async.waterfall([ds_lst_getter_b],function(error,result){
             var ds_lst = result;

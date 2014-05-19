@@ -1,7 +1,7 @@
 from rest_framework import serializers,fields
 from product.models import Product,ProdSkuAssoc
 from store_product.models import Store_product
-
+from group.models import Group
 
 class Prod_sku_assoc_serializer(serializers.ModelSerializer):
     product_id = serializers.Field(source='product.id')
@@ -13,13 +13,23 @@ class Prod_sku_assoc_serializer(serializers.ModelSerializer):
         fields = ('sku_str','store_set','creator_id','product_id')
 
 
+class Group_serializer(serializers.ModelSerializer):
+    """
+        this group serializer does not contain sp to prevent infinite recursive sp -> group -> sp ...
+    """
+    class Meta:
+        model = Group
+        fields = ('id','name')
+
+
 class Store_product_serializer(serializers.ModelSerializer):
     product_id = serializers.Field(source='product.id')
     store_id = serializers.Field(source='store.id')
+    group_set = Group_serializer(many=True)
 
     class Meta:
         model = Store_product
-        fields = ('product_id','store_id','name','price','crv','is_taxable','is_sale_report','p_type','p_tag','cost','vendor','buydown')
+        fields = ('product_id','store_id','name','price','crv','is_taxable','is_sale_report','p_type','p_tag','cost','vendor','buydown','group_set')
 
 
 class Product_serializer(serializers.ModelSerializer):
@@ -31,6 +41,7 @@ class Product_serializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = ('name','product_id','store_product_set','prodskuassoc_set')
+
 
 def serialize_product_from_id(product_id,store_id,is_include_other_store):
     query_set = Product.objects.filter(id=product_id)

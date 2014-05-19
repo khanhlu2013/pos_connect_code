@@ -195,22 +195,14 @@ define(
 					//ajax to create
 					var sp_prompt_b = sp_prompt.show_prompt.bind(
 						 sp_prompt.show_prompt
-						,null//name
-						,null//price
-						,null//crv
-						,null//is_taxable
-						,null//is_sale_report
-						,null//p_type
-						,null//p_tag
-						,sku_str//sku_str
-						,true//is_prompt_sku
-						,null//cost
-						,null//vendor
-						,null//buydown
-						,lookup_type_tag
-						,false//is_sku_management
-						,false//is_group_management
-						,selected_product
+
+			            ,null//sp_prefill
+			            ,true//is_prompt_sku
+			            ,sku_str//sku_prefill
+			            ,lookup_type_tag
+			            ,false//is_sku_management
+			            ,false//is_group_management
+			            ,selected_product//suggest_product
 					); 		
 					var product_id = (selected_product == null ? null : selected_product.product_id);
 					var create_b = _create.bind(_create,product_id);

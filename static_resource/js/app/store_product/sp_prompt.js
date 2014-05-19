@@ -104,28 +104,43 @@ define(
         }                     
     }
 
+    function display_group_data(sp_prefill){
+
+        if(sp_prefill.group_set.length == 0){
+            return;
+        }
+
+        var tbl = document.getElementById('group_tbl');
+        tbl.innertHTML = "";
+        var tr;var td;
+
+        var columns = ['group'];
+        tr = tbl.insertRow(-1);
+        for(var i = 0;i<columns.length;i++){
+            td = tr.insertCell(-1);
+            td.innerHTML = columns[i];
+        }
+
+        for(var i = 0;i<sp_prefill.group_set.length;i++){
+            var tr = tbl.insertRow(-1);
+            var group = sp_prefill.group_set[i];
+
+            var td = tr.insertCell(-1);
+            td.innerHTML = group.name;
+        }
+    }
+
     function show_prompt(
-             name_prefill
-            ,price_prefill
-            ,crv_prefill
-            ,is_taxable_prefill
-            ,is_sale_report_prefill
-            ,p_type_prefill
-            ,p_tag_prefill        
-            ,sku_prefill
+             sp_prefill
             ,is_prompt_sku
-            ,cost_prefill
-            ,vendor_prefill     
-            ,buydown_prefill   
+            ,sku_prefill
             ,lookup_type_tag
             ,is_sku_management
             ,is_group_management
             ,suggest_product
             ,callback
         ){
-            var ok_btn_handler_b = ok_btn_handler.bind(ok_btn_handler,is_prompt_sku,callback);
-            var cancel_btn_handler_b = cancel_btn_handler.bind(cancel_btn_handler,callback);
-
+            //HTML
             var html_str = 
                 '<div id="store_product_prompt_dialog">' +
                     '<label for="product_name_txt">Name:</label>' +
@@ -164,23 +179,57 @@ define(
                     '<br>' +
                     '<label for="product_sku_txt">Sku:</label>' +
                     '<input type="text" id = "product_sku_txt">' +
-                    '<br>' +
-                    '<input type="button" id = "sku_management_btn" value = "manage sku">' +
-                    '<input type="button" id = "group_management_btn" value = "manage group">' +
-                    '<br>' +
+                    '<br>' +                    
+                    '<table id="group_tbl" border="1"></table>' +                    
                 '</div>';
-            
+
+            //TITLE
+            var title = null;
+            if(sp_prefill){
+                title = 'edit ' + sp_prefill.name;
+            }else{
+                if(suggest_product){
+                    'add: ' + suggest_product.name
+                }else{
+                    title = 'create new product';
+                }
+            }
+
+            //BUTTONS
+            var ok_btn_handler_b = ok_btn_handler.bind(ok_btn_handler,is_prompt_sku,callback);
+            var cancel_btn_handler_b = cancel_btn_handler.bind(cancel_btn_handler,callback);
+            var buttons =
+            {
+                Ok: ok_btn_handler_b,
+                Cancel: cancel_btn_handler_b
+            }
+
+            if(is_sku_management){
+                buttons['Manage sku'] = function(){
+                    $("#store_product_prompt_dialog").dialog("close");
+                    callback(MANAGE_SKU_BUTTON_PRESS);                       
+                }
+            }
+
+            if(is_group_management){
+                buttons['Manage group'] = function(){
+                    $("#store_product_prompt_dialog").dialog("close");
+                    callback(MANAGE_GROUP_BUTTON_PRESS);                       
+                }
+            }
+                  
             $(html_str).appendTo('body')
                 .dialog(
                 {
                     modal: true,
-                    title: (suggest_product == null ? 'create new product' : 'add: ' + suggest_product.name),
+                    title: title,
                     zIndex: 10000,
                     autoOpen: true,
                     width: 650,
-                    buttons: {
-                        Yes: ok_btn_handler_b,
-                        No: cancel_btn_handler_b
+                    buttons: buttons,
+                    create   : function(ev, ui) {
+                        $(this).parent().find('.ui-dialog-buttonset').css({'width':'100%','text-align':'right'});
+                        $(this).parent().find('button:contains("Manage")').css({'float':'left'});
                     },
                     open: function( event, ui ) 
                     {
@@ -235,50 +284,29 @@ define(
                             }
                         });
 
-                        if(is_group_management){
-                            $('#group_management_btn').click(function(){
-                                $("#store_product_prompt_dialog").dialog("close");
-                                callback(MANAGE_GROUP_BUTTON_PRESS);                                  
-                            });                            
-                            $('#group_management_btn').show();
+                        if(sp_prefill!=null){
+                            $('#product_name_txt').val(sp_prefill.name);
+                            $('#product_price_txt').val(sp_prefill.price);
+                            $('#product_crv_txt').val(sp_prefill.crv);
+                            $('#product_taxable_check').prop('checked', sp_prefill.is_taxable);
+                            $('#product_sale_report_check').prop('checked', sp_prefill.is_sale_report);
+                            $('#product_type_txt').val(sp_prefill.p_type);
+                            $('#product_tag_txt').val(sp_prefill.p_tag);     
+                            $('#product_cost_txt').val(sp_prefill.cost);     
+                            $('#product_vendor_txt').val(sp_prefill.vendor);   
+                            $('#product_buydown_txt').val(sp_prefill.buydown);                             
                         }else{
-                            $('#group_management_btn').hide();
-                        }
-
-                        if(is_sku_management){
-                            $('#sku_management_btn').click(function(){
-                                $("#store_product_prompt_dialog").dialog("close");
-                                callback(MANAGE_SKU_BUTTON_PRESS);                                  
-                            });                            
-                            $('#sku_management_btn').show();
-                        }else{
-                            $('#sku_management_btn').hide();
-                        }
-
-                        if(is_sale_report_prefill == null){
-                            is_sale_report_prefill = true;
-                        }
-
-                        if(is_taxable_prefill == null){
+                            var is_taxable_prefill = null;
                             if(suggest_product){
                                 is_taxable_prefill = product_json_helper.get_suggest_info('is_taxable',suggest_product);
                             }else{
                                 is_taxable_prefill = false;
                             }
+
+                            $('#product_taxable_check').prop('checked', is_taxable_prefill);
+                            $('#product_sale_report_check').prop('checked', true);                         
                         }
 
-                        $('#product_name_txt').val(name_prefill);
-                        $('#product_price_txt').val(price_prefill);
-                        $('#product_crv_txt').val(crv_prefill);
-                        $('#product_taxable_check').prop('checked', is_taxable_prefill);
-                        $('#product_sale_report_check').prop('checked', is_sale_report_prefill);
-                        $('#product_type_txt').val(p_type_prefill);
-                        $('#product_tag_txt').val(p_tag_prefill);     
-                        $('#product_cost_txt').val(cost_prefill);     
-                        $('#product_vendor_txt').val(vendor_prefill);   
-                        $('#product_buydown_txt').val(buydown_prefill); 
-
-                    
                         //SKU INFO
                         if(is_prompt_sku){
                             $('#product_sku_txt').show();
@@ -288,6 +316,12 @@ define(
                         }else{
                             $('#product_sku_txt').hide();
                             $('label[for="product_sku_txt"]').hide();
+                        }
+
+                        if(is_group_management){
+                            if(sp_prefill != null){
+                                display_group_data(sp_prefill);
+                            }
                         }
 
                         //auto complete for product type and tag
@@ -314,8 +348,7 @@ define(
                                 $(this).autocomplete("search");
                             });            
                         }
-
-                    },              
+                    },
                     close: function (event, ui) {
                         $(this).remove();
                     }

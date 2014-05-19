@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.core.serializers.json import DjangoJSONEncoder
-from group.models import serialize_group_lst
+from group.group_serializer import serialize_group_lst
 from group import group_getter
 import json
 from store_product.models import Store_product

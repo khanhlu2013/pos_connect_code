@@ -25,8 +25,7 @@ define(
 {
     var STORE_ID = null;
     var COUCH_SERVER_URL = null;
-    var SKU_TBL = document.getElementById('sku_tbl');
-
+    
     function _helper_is_sku_removable(prod_sku_assoc_json){
         return prod_sku_assoc_json.store_set.length == 1 && prod_sku_assoc_json.creator_id == STORE_ID;
     }
@@ -64,11 +63,12 @@ define(
 
     function data_2_table(product_json){
         var prod_sku_assoc_set = product_json_helper.get_prod_sku_assoc_set(product_json);
-        SKU_TBL.innerHTML="";
+        var tbl = document.getElementById('sku_tbl');        
+        tbl.innerHTML="";
 
         var tr;var td;
 
-        tr = SKU_TBL.insertRow();
+        tr = tbl.insertRow();
         td = tr.insertCell(-1);
         td.innerHTML = 'sku';
 
@@ -77,7 +77,7 @@ define(
 
         for(var i = 0;i<prod_sku_assoc_set.length;i++){
             var cur_prod_sku_assoc = prod_sku_assoc_set[i];
-            tr = SKU_TBL.insertRow(-1);
+            tr = tbl.insertRow(-1);
 
             td = tr.insertCell(-1);
             td.innerHTML = cur_prod_sku_assoc.sku_str;
@@ -120,30 +120,46 @@ define(
     return function (product_id,store_id,couch_server_url){
         STORE_ID = store_id;
         COUCH_SERVER_URL = couch_server_url;
+        var html_str = 
+            '<div id="sku_management_dialog">' +
+                '<input type="button" id = "add_sku_btn" value = "add sku">' +
+                '<table id=sku_tbl border="1"></table>' +
+                '<br>' +        
+            '</div>'
+        ;
 
-        var sp_getter = sp_online_getter.bind(sp_online_getter,product_id,true/*is_include_other_store*/,false/*is_lookup_type_tag*/);
-        async.waterfall([sp_getter],function(error,result){
+        $(html_str).appendTo('body')
+            .dialog(
+            {
+                modal: true,
+                title : null,
+                zIndex: 10000,
+                autoOpen: true,
+                width: 300,
+                height: 500, 
+                buttons:[{text:'exit',click:function(){$('#sku_management_dialog').dialog('close');}}],
+                open: function( event, ui ){
+                    var sp_getter = sp_online_getter.bind(sp_online_getter,product_id,true/*is_include_other_store*/,false/*is_lookup_type_tag*/);
+                    async.waterfall([sp_getter],function(error,result){
 
-            if(error){
-                alert(error);
-                return;
-            }
-            var product_json = result.product;
-            var sp_json = product_json_helper.get_sp_from_p(product_json,STORE_ID);
-            data_2_table(product_json);
+                        if(error){
+                            alert(error);
+                            return;
+                        }
+                        var product_json = result.product;
+                        $('#sku_management_dialog').dialog( "option" , "title" ,product_json.name);
+                        var sp_json = product_json_helper.get_sp_from_p(product_json,STORE_ID);
+                        data_2_table(product_json);
 
-            var add_sku_handler_b = add_sku_handler.bind(add_sku_handler,product_id);
-            $('#add_sku_btn').off('click').click(add_sku_handler_b);
-            $('#sku_management_dialog').dialog(
-                {
-                     title:sp_json.name
-                    ,buttons:[{text:'exit',click:function(){$('#sku_management_dialog').dialog('close');}}]
-                    ,width: 500
-                    ,height: 250                     
-                    ,modal:true
+                        var add_sku_handler_b = add_sku_handler.bind(add_sku_handler,product_id);
+                        $('#add_sku_btn').click(add_sku_handler_b);
+
+                    });
+                },
+                close: function (event, ui) {
+                    $(this).remove();
                 }
-            );
-        });
+            }); 
     }
 
 });

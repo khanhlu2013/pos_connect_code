@@ -88,22 +88,14 @@ define(
                     ,function(){
                         var sp_prompt_b = sp_prompt.show_prompt.bind(
                              sp_prompt.show_prompt
-                            ,null//name
-                            ,null//price
-                            ,null//crv
-                            ,null//is_taxable
-                            ,null//is_sale_report
-                            ,null//p_type
-                            ,null//p_tag
-                            ,sku_str//sku_prefill
+
+                            ,null//sp_prefill
                             ,true//is_prompt_sku
-                            ,null//cost
-                            ,null//vendor
-                            ,null//buydown
+                            ,sku_str//sku_prefill
                             ,null//lookup_type_tag
                             ,false//is_sku_management
                             ,false//is_group_management
-                            ,null//suggest product
+                            ,null//suggest_product
                         )
                         var create_offline_b = create_offline.bind(create_offline ,sku_str ,pouch_db );
 

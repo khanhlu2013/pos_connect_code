@@ -19,6 +19,7 @@ class sp_search_index_view(TemplateView):
         context = super(sp_search_index_view,self).get_context_data(**kwargs)
         context['STORE_ID'] = self.cur_login_store.id #when we search, we search for product which include all other store product info. we need to know our current store to pull our store product info
         context['COUCH_SERVER_URL'] = couch_util.get_couch_url(self.cur_login_store.api_key_name,self.cur_login_store.api_key_pwrd) #when search for sku, and product is not found, we will create product and sycn to pouch if nessesary when current local data exist in browser. when sync, we need couch_url
+        context['TAX_RATE'] = self.cur_login_store.tax_rate
         return context
 
 

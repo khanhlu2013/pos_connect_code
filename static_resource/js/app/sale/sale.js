@@ -67,24 +67,17 @@ define(
         var non_inventory_btn = document.getElementById("non_inventory_btn");
         var scan_textbox = document.getElementById('scan_text');
         var product_search_btn = document.getElementById("product_search_btn");
-
-        //CREATE PRODUCT FORM
-        var product_name_txt = document.getElementById("product_name_txt");
-        var product_price_txt = document.getElementById("product_price_txt");
-        var product_taxable_check = document.getElementById("product_taxable_check");
-        var product_crv_txt = document.getElementById("product_crv_txt");
-        var product_sku_txt = document.getElementById("product_sku_txt");
+        var shortcut_tbl = document.getElementById("shortcut_tbl");
 
         //DB
         var STORE_PDB;
         var STORE_IDB;
 
-        //shortcut
-        var TAX_RATE = MY_TAX_RATE;
-        var SHORTCUT_LST = MY_SHORTCUT_LST;
-        var MM_LST = MY_MM_LST;
+        //GLOBAL
         var CUR_SELECT_PARENT_SHORTCUT = 0;
-        var shortcut_tbl = document.getElementById("shortcut_tbl");
+        TAX_RATE = localStorage.getItem('tax_rate');
+        SHORTCUT_LST = MY_SHORTCUT_LST;
+        MM_LST = MY_MM_LST; 
 
         function hook_product_search_btn_2_ui(){
             product_search_btn.addEventListener("click", function(){
@@ -96,7 +89,7 @@ define(
                     }
                     var product_json = result;
                     var pid_scanner_b = pid_scanner.exe.bind(pid_scanner.exe,product_json.product_id,STORE_IDB);
-                    var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,MM_LST,STORE_IDB,STORE_PDB,STORE_ID,COUCH_SERVER_URL,TAX_RATE,table,total_button);
+                    var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,MM_LST,STORE_IDB,STORE_PDB,STORE_ID,COUCH_SERVER_URL,table,total_button);
                     async.waterfall([pid_scanner_b,ds_2_ui_b],function(error,result){
                         if(error){
                             error_lib.alert_error(error);
@@ -118,7 +111,7 @@ define(
                     var amount = result.price;
                     var inserting_ps = new Pending_scan(null/*key*/,1/*qty*/,amount,null/*discount*/,null/*sp_doc_id*/,result.description/*non_product_name*/);
                     var ps_inserter_b = ps_inserter.bind(ps_inserter,STORE_IDB,inserting_ps);
-                    var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,MM_LST,STORE_IDB,STORE_PDB,STORE_ID,COUCH_SERVER_URL,TAX_RATE,table,total_button);
+                    var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,MM_LST,STORE_IDB,STORE_PDB,STORE_ID,COUCH_SERVER_URL,table,total_button);
 
                     async.waterfall([ps_inserter_b,ds_2_ui_b],function(error,result){
                         if(error){
@@ -178,7 +171,7 @@ define(
                                                 alert(error);
                                             }else{
                                                 //refresh table
-                                                var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,MM_LST,STORE_IDB,STORE_PDB,STORE_ID,COUCH_SERVER_URL,TAX_RATE,table,total_button);
+                                                var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,MM_LST,STORE_IDB,STORE_PDB,STORE_ID,COUCH_SERVER_URL,table,total_button);
                                                 async.waterfall([ds_2_ui_b],function(error,result){
                                                     if(error){
                                                         alert(error);
@@ -214,7 +207,7 @@ define(
                 }
 
                 var scanner_b = scanner.exe.bind(scanner.exe,scan_str,STORE_IDB);
-                var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,MM_LST,STORE_IDB,STORE_PDB,STORE_ID,COUCH_SERVER_URL,TAX_RATE,table,total_button);
+                var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,MM_LST,STORE_IDB,STORE_PDB,STORE_ID,COUCH_SERVER_URL,table,total_button);
 
                 async.waterfall([scanner_b,ds_2_ui_b],function(error,result){
                     if(error){
@@ -243,7 +236,7 @@ define(
                 if(child!=null){
 
                     var pid_scanner_b = pid_scanner.exe.bind(pid_scanner.exe,child.product_id,STORE_IDB);
-                    var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,MM_LST,STORE_IDB,STORE_PDB,STORE_ID,COUCH_SERVER_URL,TAX_RATE,table,total_button);
+                    var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,MM_LST,STORE_IDB,STORE_PDB,STORE_ID,COUCH_SERVER_URL,table,total_button);
                     async.waterfall([pid_scanner_b,ds_2_ui_b],function(error,result){
                         if(error){
                             error_lib.alert_error(error);
@@ -314,7 +307,7 @@ define(
                             'remove all scan?'
                             ,function(){
                                 var voider_b = voider.bind(voider,STORE_IDB);
-                                var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,MM_LST,STORE_IDB,STORE_PDB,STORE_ID,COUCH_SERVER_URL,TAX_RATE,table,total_button);
+                                var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,MM_LST,STORE_IDB,STORE_PDB,STORE_ID,COUCH_SERVER_URL,table,total_button);
 
                                 async.waterfall([voider_b,ds_2_ui_b],function(error,result){
                                     if(error){alert(error);}
@@ -329,9 +322,18 @@ define(
             }
             void_btn.addEventListener("click", void_btn_click_handler);            
         }
-       
-        csrf_ajax_protection_setup();
+        
+        function refresh_sale_table(){
+            var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,MM_LST,STORE_IDB,STORE_PDB,STORE_ID,COUCH_SERVER_URL,table,total_button);
+            async.waterfall([ds_2_ui_b],function(error,result){
+                if(error){
+                    alert("There is error displaying scan: " + error);
+                    return;
+                } 
+            });            
+        }
 
+        csrf_ajax_protection_setup();
         var oneshot_sync_b = oneshot_sync.bind(oneshot_sync,STORE_ID,COUCH_SERVER_URL);
         var customize_db_b =  customize_db.bind(customize_db,STORE_ID);
         async.waterfall([oneshot_sync_b,customize_db_b],function(error,result){
@@ -339,7 +341,6 @@ define(
                 alert("There is error initializing db: " + error);
                 return;
             }
-
             STORE_IDB = result;
             STORE_PDB = pouch_db_util.get_store_db(STORE_ID);
 
@@ -351,15 +352,7 @@ define(
             display_shortcut_table();
             hook_non_inventory_btn_2_ui();
             hook_product_search_btn_2_ui()
-
-            //refresh ui
-            var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,MM_LST,STORE_IDB,STORE_PDB,STORE_ID,COUCH_SERVER_URL,TAX_RATE,table,total_button);
-            async.waterfall([ds_2_ui_b],function(error,result){
-                if(error){
-                    alert("There is error displaying scan: " + error);
-                    return;
-                } 
-            });
+            refresh_sale_table();
         });
     }
 );

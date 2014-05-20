@@ -11,17 +11,18 @@ define(
     ,'lib/error_lib'
     ,'lib/ui/ui'
     ,'app/store_product/sp_group_manage_ui'
-    ,'lib/ui/menu'
     ,'app/tax/tax_manage_ui'
     ,'app/group/group_manage_ui'
     ,'app/sale_shortcut/sale_shortcut_manage_ui'
     ,'app/mix_match/mix_match_manage_ui'
     ,'app/sale_report/date_range_report_ui'
     ,'app/receipt/receipt_report_ui'
+    ,'dropit'
     //-----------------
     ,'jquery'
     ,'jquery_block_ui'
     ,'jquery_ui'
+
 ]
 ,function
 (
@@ -36,13 +37,13 @@ define(
     ,error_lib
     ,ui
     ,sp_group_manage_ui
-    ,menu
     ,tax_manage_ui
     ,group_manage_ui
     ,sale_shortcut_manage_ui
     ,mix_match_manage_ui
     ,date_range_report_ui
     ,receipt_report_ui
+    ,dropit
 )
 {
     var PRODUCT_DATA_LST = null;
@@ -217,8 +218,7 @@ define(
             });
         }
     });
-
-    menu.init_menu();
+    $('.menu').dropit();
 
     $('#tax_menu').click(function(e) 
     { 

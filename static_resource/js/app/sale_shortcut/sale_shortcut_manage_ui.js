@@ -1,34 +1,31 @@
-require(
-    [
-         'lib/misc/csrf_ajax_protection_setup'
-        ,'lib/async'
-        ,'app/sale_shortcut/parent_name_setter'
-        ,'app/sale_shortcut/child_info_prompt'
-        ,'app/sale_shortcut/sale_shortcut_util'
-        ,'lib/error_lib'
-        ,'lib/ui/ui'
-        //-----------------
-        ,'jquery'
-        ,'jquery_block_ui'
-        ,'jquery_ui'      
-    ]
-    ,function
-    (
-         csrf_ajax_protection_setup
-        ,async
-        ,parent_name_setter
-        ,child_info_prompt
-        ,sale_shortcut_util
-        ,error_lib
-        ,ui
-    )
+define(
+[
+     'lib/async'
+    ,'lib/error_lib'
+    ,'lib/ui/ui'
+    ,'app/sale_shortcut/sale_shortcut_get'
+    ,'app/sale_shortcut/parent_name_setter'
+    ,'app/sale_shortcut/child_info_prompt'
+    ,'app/sale_shortcut/sale_shortcut_util'    
+    ,'lib/ajax_helper'
+]
+,function
+(
+     async
+    ,error_lib
+    ,ui
+    ,sale_shortcut_get
+    ,parent_name_setter
+    ,child_info_prompt
+    ,sale_shortcut_util    
+    ,ajax_helper
+)
 {
-    
-    var SHORTCUT_LST = MY_SHORTCUT_LST;
+    var SHORTCUT_LST = null;
+    var ROW_COUNT = 5
+    var COLUMN_COUNT = 3;
     var CUR_SELECT_PARENT_SHORTCUT = 0;
-    var shortcut_tbl = document.getElementById('shortcut_tbl');
-    csrf_ajax_protection_setup();
-
+    var sale_shortcut_tbl = document.getElementById('sale_shortcut_tbl');
 
     function update_shortcut_lst(lst,shortcut){
         for(var i = 0;i<lst.length;i++){
@@ -37,7 +34,6 @@ require(
                 return;
             }
         }
-
         lst.push(shortcut);
     }
 
@@ -47,7 +43,6 @@ require(
         if(name == null){
             return;
         }
-
         var parent_name_setter_b = parent_name_setter.bind(parent_name_setter,name,parent_position)
         async.waterfall([parent_name_setter_b],function(error,result){
             if(error){
@@ -57,6 +52,25 @@ require(
                 display_shortcut_table();
             }
         });
+    }
+
+    function remove_child(child){
+        var ajax_b = ajax_helper.exe.bind(ajax_helper.exe,'/sale_shortcut/delete_child','POST','deleting shortcut ...',{id:child.id});
+        async.waterfall([ajax_b],function(error,result){
+            if(error){
+                error_lib.alert_error(error);
+                return;
+            }
+            
+            var cur_parent = SHORTCUT_LST[CUR_SELECT_PARENT_SHORTCUT];
+            for(var i = 0;i<cur_parent.child_set.length;i++){
+                if(cur_parent.child_set[i].id == child.id){
+                    cur_parent.child_set.splice(i,1);
+                    break;
+                }
+            }
+            display_shortcut_table();
+        })        
     }
 
     function child_button_press_handler(child_pos){
@@ -80,7 +94,7 @@ require(
             if(error){
                 if(error == child_info_prompt.ERROR_remove_button_pressed){
                     if(child != null){
-                        alert('remove code go here');                        
+                        remove_child(child);      
                     }
                 }else{
                     error_lib.alert_error(error);
@@ -114,7 +128,7 @@ require(
 
     function refresh_shortcut_parent_button(tr,parent_position){
         var parent = sale_shortcut_util.get_parent(parent_position,SHORTCUT_LST);
-        var class_name = parent_position == CUR_SELECT_PARENT_SHORTCUT ? 'parent_selected' : 'parent_unselected'
+        var class_name = parent_position == CUR_SELECT_PARENT_SHORTCUT ? 'sale_shortcut_parent_selected' : 'sale_shortcut_parent_unselected'
         
         //MAIN
         td = tr.insertCell(-1);
@@ -153,11 +167,11 @@ require(
     }
 
     function display_shortcut_table(){
-        shortcut_tbl.innerHTML = "";
+        sale_shortcut_tbl.innerHTML = "";
 
         for(var cur_row = 0;cur_row<ROW_COUNT;cur_row++){
 
-            var tr = shortcut_tbl.insertRow(-1);
+            var tr = sale_shortcut_tbl.insertRow(-1);
 
             refresh_shortcut_parent_button(tr,cur_row);
             refresh_shortcut_children(tr,cur_row);
@@ -165,5 +179,38 @@ require(
         }
     }
 
-    display_shortcut_table();
+    function exe(){
+        
+        var html_str = 
+            '<div id="sale_shortcut_manage_dlg">' +
+                '<table id="sale_shortcut_tbl" border="1"></table>' +
+            '</div>';
+
+        $(html_str).appendTo('body')
+            .dialog(
+            {
+                modal: true,
+                title : 'shortcut',
+                zIndex: 10000,
+                autoOpen: true,
+                width: 800,
+                height: 500,
+                buttons : [{text:'exit', click: function(){$('#sale_shortcut_manage_dlg').dialog('close'); } } ],
+                open: function( event, ui ) 
+                {
+                    sale_shortcut_tbl = document.getElementById('sale_shortcut_tbl');
+                    async.waterfall([sale_shortcut_get.exe],function(error,result){
+                        SHORTCUT_LST = result;
+                        display_shortcut_table();
+                    })
+                },
+                close: function (event, ui) {
+                    $(this).remove();
+                }
+            });  
+    }
+
+    return{
+         exe:exe
+    }
 });

@@ -18,13 +18,19 @@ define(
     )
 {
     var ERROR_CANCEL_GROUP_PROMPT = 'ERROR_CANCEL_GROUP_PROMPT';
-    var group_sp_tbl = document.getElementById('group_sp_tbl');
+    var ERROR_REMOVE_GROUP_PROMPT = 'ERROR_REMOVE_GROUP_PROMPT';
+    var group_sp_tbl = null;
     var GROUP_SP_LST = [];
 
 
     function cancel_btn_handler(callback){
         $("#group_prompt_dlg").dialog("close");
         callback(ERROR_CANCEL_GROUP_PROMPT/*error*/);
+    }
+
+    function remove_btn_handler(callback){
+        $("#group_prompt_dlg").dialog("close");
+        callback(ERROR_REMOVE_GROUP_PROMPT/*error*/);
     }
 
     function ok_btn_handler(callback){
@@ -64,27 +70,6 @@ define(
         if(error_lst.indexOf(group_validator.ERROR_GROUP_VALIDATION_NAME) != -1){
             $('#group_name_txt').addClass("error");  
         }
-    }
-
-    function display_dialog(callback){
-        var title = 'group';
-        var ok_btn_handler_b = ok_btn_handler.bind(ok_btn_handler,callback);
-        var cancel_btn_handler_b = cancel_btn_handler.bind(cancel_btn_handler,callback);
-
-        $('#group_prompt_dlg').keypress(function(e) {
-            if (e.keyCode == $.ui.keyCode.ENTER) {
-                ok_btn_handler(callback);
-            }
-        });
-        
-        $('#group_prompt_dlg').dialog({
-             title:title
-            ,buttons: [ { text: "Ok", click: ok_btn_handler_b },{ text: "Cancel", click: cancel_btn_handler_b } ]
-            ,modal : true
-            ,width : 600
-            ,heigh : 400
-        });
-        $('#group_prompt_dlg').dialog('open');        
     }
 
     function get_result_from_ui(){
@@ -154,19 +139,62 @@ define(
         }
     }
 
-    function exe (name ,group_sp_lst        ,callback ){
-        $('#group_add_child_btn').off('click').click(add_group_sp_handler);
-        $('#group_name_txt').val(name);
-        GROUP_SP_LST = group_sp_lst                   
-        populate_group_sp_tbl();
+    function exe (name ,group_sp_lst,callback ){
+        var html_str =
+            '<div id="group_prompt_dlg">' +
+                '<label for="group_name_txt">name:</label>' +
+                '<input type="text" id = "group_name_txt">' +
+                '<br>' +
+                '<br>' +
+                '<label for="group_sp_tbl"></label>' +
+                '<input type="button" id = "group_add_child_btn" value="add">' +
+                '<table id="group_sp_tbl" border="1"></table>' +
+                '<br>' +
+            '</div>';
 
-        set_validation_indicator([]);
+        var ok_btn_handler_b = ok_btn_handler.bind(ok_btn_handler,callback);
+        var remove_btn_handler_b = remove_btn_handler.bind(remove_btn_handler,callback);
+        var cancel_btn_handler_b = cancel_btn_handler.bind(cancel_btn_handler,callback);
 
-        display_dialog(callback);
+        $(html_str).appendTo('body')
+            .dialog(
+            {
+                modal: true,
+                title : 'group',
+                zIndex: 10000,
+                autoOpen: true,
+                width: 700,
+                height: 500,
+                buttons : 
+                [
+                    {text:'ok', click:ok_btn_handler_b},
+                    {text:'remove', click:remove_btn_handler_b},
+                    {text:'cancel', click:cancel_btn_handler_b}
+
+                ],
+                open: function( event, ui ) 
+                {
+                    $('#group_add_child_btn').click(add_group_sp_handler);
+                    $('#group_name_txt').val(name);
+                    group_sp_tbl = document.getElementById('group_sp_tbl');
+                    GROUP_SP_LST = group_sp_lst
+                    populate_group_sp_tbl();
+
+                    $('#group_prompt_dlg').keypress(function(e) {
+                        if (e.keyCode == $.ui.keyCode.ENTER) {
+                            ok_btn_handler(callback);
+                        }
+                    });
+                },
+                close: function (event, ui) {
+                    $(this).remove();
+                }
+            });  
     }
 
     return{
          ERROR_CANCEL_GROUP_PROMPT : ERROR_CANCEL_GROUP_PROMPT
+        ,ERROR_REMOVE_GROUP_PROMPT : ERROR_REMOVE_GROUP_PROMPT
         ,exe:exe
     }
 });

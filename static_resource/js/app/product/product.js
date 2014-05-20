@@ -13,6 +13,11 @@ define(
     ,'app/store_product/sp_group_manage_ui'
     ,'lib/ui/menu'
     ,'app/tax/tax_manage_ui'
+    ,'app/group/group_manage_ui'
+    ,'app/sale_shortcut/sale_shortcut_manage_ui'
+    ,'app/mix_match/mix_match_manage_ui'
+    ,'app/sale_report/date_range_report_ui'
+    ,'app/receipt/receipt_report_ui'
     //-----------------
     ,'jquery'
     ,'jquery_block_ui'
@@ -33,6 +38,11 @@ define(
     ,sp_group_manage_ui
     ,menu
     ,tax_manage_ui
+    ,group_manage_ui
+    ,sale_shortcut_manage_ui
+    ,mix_match_manage_ui
+    ,date_range_report_ui
+    ,receipt_report_ui
 )
 {
     var PRODUCT_DATA_LST = null;
@@ -213,9 +223,37 @@ define(
     $('#tax_menu').click(function(e) 
     { 
         async.waterfall([tax_manage_ui.exe],function(error,result){
-
+            if(error){
+                error_lib.alert_error(error);
+                return;
+            }
         });
     });
+    
+    $('#group_menu').click(function(e) 
+    { 
+        group_manage_ui.exe();
+    });
+
+    $('#sale_shortcut_menu').click(function(e) 
+    { 
+        sale_shortcut_manage_ui.exe();
+    });
+
+    $('#mix_match_menu').click(function(e) 
+    { 
+        mix_match_manage_ui.exe();
+    });    
+
+    $('#date_range_report_menu').click(function(e) 
+    { 
+        date_range_report_ui.exe(STORE_ID,COUCH_SERVER_URL);
+    });        
+
+    $('#receipt_report_menu').click(function(e) 
+    { 
+        receipt_report_ui.exe(STORE_ID,COUCH_SERVER_URL);
+    });      
 });
 
 /*

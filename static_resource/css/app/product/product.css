@@ -7,10 +7,7 @@
   background: rgb(50, 50, 50) !important;  This will make it darker
 }
 
-
-
-
-
+/* MENU --------------------------------------------------------------------*/
 #cssmenu {
   position: relative;
   height: 44px;
@@ -290,4 +287,16 @@
     border-color: #fff;
   }
 }
+
+
+
+/* SHORTCUT ----------------------------------------------------------*/
+#sale_shortcut_tbl td { min-width: 100px; height: 30}
+.sale_shortcut_parent_selected {background-color:#CFF5B5;}
+.sale_shortcut_parent_unselected {background-color:#FFFFFF;}
+
+
+
+
+
 

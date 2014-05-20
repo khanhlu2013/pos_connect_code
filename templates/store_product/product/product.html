@@ -6,8 +6,8 @@
     <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.min.css" />
     <link rel="stylesheet" href="{{STATIC_URL}}css/app/product/product.css" />
 
-    <!-- // <script data-main = "{{ STATIC_URL }}js/app/product/product_entry.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script> -->
-    <script data-main = "{{ STATIC_URL }}js/app/product/product_entry__min__.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script>
+    <script data-main = "{{ STATIC_URL }}js/app/product/product_entry.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script>
+    <!-- // <script data-main = "{{ STATIC_URL }}js/app/product/product_entry__min__.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script> -->
 
     <div id='cssmenu'>
         <ul>
@@ -15,15 +15,15 @@
            <li class='has-sub'><a href='#'><span>setting</span></a>
               <ul>
                  <li id='tax_menu'><a href='#'><span>tax</span></a></li>
-                 <li><a href='#'><span>shortcut</span></a></li>
-                 <li><a href='#'><span>mix match</span></a></li>
-                 <li class='last'><a href='#'><span>group</span></a></li>
+                 <li id='group_menu'><a href='#'><span>group</span></a></li>                 
+                 <li id='sale_shortcut_menu'><a href='#'><span>shortcut</span></a></li>
+                 <li id='mix_match_menu'><a href='#'><span>mix match</span></a></li>
               </ul>
            </li>
            <li class='has-sub last'><a href='#'><span>report</span></a>
               <ul>
-                 <li><a href='#'><span>date range</span></a></li>
-                 <li class='last'><a href='#'><span>receipt</span></a></li>
+                 <li id='date_range_report_menu'><a href='#'><span>date range</span></a></li>
+                 <li id='receipt_report_menu'><a href='#'><span>receipt</span></a></li>
               </ul>
            </li>
         </ul>

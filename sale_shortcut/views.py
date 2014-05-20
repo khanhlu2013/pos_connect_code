@@ -1,33 +1,15 @@
 from sale_shortcut.models import Parent,Child
-from django.views.generic import TemplateView
 from django.http import HttpResponse
 import json
-from util.couch import user_util
-from django.conf import settings
-from couch import couch_util
 from store_product.models import Store_product
 from sale_shortcut import sale_shortcut_serializer,shortcut_getter
 
 
-class Index_view(TemplateView):
-
-    template_name = 'sale_shortcut/index.html'
-
-    def dispatch(self,request,*args,**kwargs):
-        self.cur_login_store = self.request.session.get('cur_login_store')
-        return super(Index_view,self).dispatch(request,*args,**kwargs)
-
-    def get_context_data(self,**kwargs):
-        context = super(Index_view,self).get_context_data(**kwargs)
-
-        row_count = 5
-        column_count = 3
-        shortcut_lst = shortcut_getter.get_shorcut_lst(self.cur_login_store.id)
-        context['row_count'] = row_count
-        context['column_count'] = column_count
-        context['shortcut_lst'] = json.dumps(sale_shortcut_serializer.serialize_shortcut_lst(shortcut_lst))
-
-        return context
+def get_view(request):
+    cur_login_store = request.session.get('cur_login_store')
+    shortcut_lst = shortcut_getter.get_shorcut_lst(cur_login_store.id)
+    lst_serialized = sale_shortcut_serializer.serialize_shortcut_lst(shortcut_lst)
+    return HttpResponse(json.dumps(lst_serialized), mimetype='application/json')
 
 
 def set_parent_name_view(request):
@@ -42,7 +24,6 @@ def set_parent_name_view(request):
 
     parent_serialized = sale_shortcut_serializer.serialize_shortcut_lst([parent,])[0]
     return HttpResponse(json.dumps(parent_serialized), mimetype='application/json')
-
 
 
 def set_child_info_view(request):
@@ -67,7 +48,12 @@ def set_child_info_view(request):
     return HttpResponse(json.dumps(parent_serialized),mimetype='application/json')
 
 
-
+def delete_child_view(request):
+    cur_login_store = request.session.get('cur_login_store')
+    id = request.POST['id'] 
+    child = Child.objects.get(pk=id,parent__store__id=cur_login_store.id)
+    child.delete()
+    return HttpResponse(json.dumps(True), mimetype='application/json')
 
 
 

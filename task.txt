@@ -1,5 +1,6 @@
 
 ~. july 10-11-12-13 back packing
+fri noon: deep
 
 ~. parakett idea: a trypod with remote. a keyboard of there own sound
 ~. i want to be a blues student.
@@ -281,6 +282,7 @@ UPGRADE FEATURE
 . more or less info in sp prompt
 . menu system: move setting such as mixmatch, group, tax, report ... into menu
 . heroku log: how to warn user about usage. how to charge user on extra full db loading.
+. void log
 ------------------------------------------------------------------------------------------------------------------
 SKILL IMPROVEMENT
 . continuous test->build->deploy
@@ -308,16 +310,6 @@ SKILL IMPROVEMENT
 . pos
     . sale_shortcut validator and responsive validation ui
     . remove all alert
-. remove group. test alert no group is defined when selecting group
-
-
------------------------
-when set taxrate, remember to update session.cur_login_store
-refactor tax out. local storage, and refresh page based on tab refocus
-
-
-
-
 
 
 

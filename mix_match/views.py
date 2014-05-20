@@ -6,22 +6,11 @@ from mix_match import mix_match_getter,mix_match_serializer
 import json
 from store_product.models import Store_product
 
-class Mix_match_view(TemplateView):
-    template_name = 'mix_match/mix_match.html'
-
-    def dispatch(self,request,*args,**kwargs):
-        self.cur_login_store = self.request.session.get('cur_login_store')
-        return super(Mix_match_view,self).dispatch(request,*args,**kwargs)
-
-    def get_context_data(self,**kwargs):
-        context = super(Mix_match_view,self).get_context_data(**kwargs)
-
-        mix_match_lst = mix_match_getter.get_mix_match_lst(self.cur_login_store.id)
-        mix_match_serialized_lst = mix_match_serializer.serialize_mix_match_lst(mix_match_lst)
-
-        context['mix_match_lst'] = json.dumps(mix_match_serialized_lst,cls=DjangoJSONEncoder)
-        context['tax_rate'] = self.cur_login_store.tax_rate
-        return context
+def get_view(request):
+    cur_login_store = request.session.get('cur_login_store')
+    mix_match_lst = mix_match_getter.get_mix_match_lst(cur_login_store.id)
+    mix_match_serialized_lst = mix_match_serializer.serialize_mix_match_lst(mix_match_lst)    
+    return HttpResponse(json.dumps(mix_match_serialized_lst,cls=DjangoJSONEncoder), mimetype='application/json')  
 
 def mix_match_update_view(request):
     cur_login_store = request.session.get('cur_login_store')

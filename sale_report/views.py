@@ -1,24 +1,8 @@
-from django.views.generic import TemplateView
 from django.http import HttpResponse
 import datetime
 from django.core.serializers.json import DjangoJSONEncoder
 from sale_report import report_getter
 import json
-from couch import couch_util
-
-class report_view(TemplateView):
-    template_name = 'sale/report_by_day.html'
-
-    def dispatch(self,request,*args,**kwargs):
-        self.cur_login_store = self.request.session.get('cur_login_store')
-        return super(report_view,self).dispatch(request,*args,**kwargs)
-
-    def get_context_data(self,**kwargs):
-        context = super(report_view,self).get_context_data(**kwargs)
-        context['store_id'] = str(self.cur_login_store.id)
-        context['couch_server_url'] = couch_util.get_couch_url(self.cur_login_store.api_key_name,self.cur_login_store.api_key_pwrd)
-        return context
-
 
 def get_report_by_day_view(request):
     cur_login_store = request.session.get('cur_login_store')

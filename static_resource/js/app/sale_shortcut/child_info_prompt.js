@@ -11,12 +11,12 @@ define(
     ,error_lib
 )
 {
-    var RETURN_PID = null;
+    var PRODUCT_ID = null;
     var ERROR_CANCEL_shortcut_setup_cancel = 'ERROR_CANCEL_shortcut_setup_cancel';
     var ERROR_remove_button_pressed = 'ERROR_remove_button_pressed';
 
     function ok_handler(callback){
-        if(RETURN_PID == null){
+        if(PRODUCT_ID == null){
             alert('Product is emtpy. Please select product.');
             return;
         }
@@ -28,7 +28,7 @@ define(
         }
 
         $('#child_info_prompt_dlg').dialog('close');
-        var result = {product_id:RETURN_PID,caption:caption};
+        var result = {product_id:PRODUCT_ID,caption:caption};
         callback(null,result);
     }
 
@@ -42,29 +42,7 @@ define(
         callback(ERROR_remove_button_pressed);
     }
 
-    function init_ok_remove_cancel_btn(callback){
-        var ok_handler_b = ok_handler.bind(ok_handler,callback);
-        var cancel_handler_b = cancel_handler.bind(cancel_handler,callback);
-        var remove_handler_b = remove_handler.bind(remove_handler,callback);
 
-        $('#child_info_prompt_dlg').dialog({
-             title:'shortcut setup'
-            ,buttons:   [
-                             {text:'ok',click:ok_handler_b}
-                            ,{text:'remove',click:remove_handler_b}
-                            ,{text:'cancel',click:cancel_handler_b}
-                        ]
-            ,width: 500
-            ,height: 250                        
-            ,modal:true
-        });  
-          
-        $('#child_info_prompt_dlg').keypress(function(e) {
-            if (e.keyCode == $.ui.keyCode.ENTER) {
-                ok_handler(callback);
-            }
-        });              
-    }
 
     function name_search_handler(){
         var sp_search_ui_b = sp_search_ui.exe.bind(sp_search_ui.exe,false/*single selection*/)
@@ -75,21 +53,58 @@ define(
             }
 
             var sp = result;
-            RETURN_PID = sp.product_id;
+            PRODUCT_ID = sp.product_id;
             $('#product_name_txt').val(sp.name);
         });
     }
 
     function exe(caption,product_name,product_id,callback){
-        
-        RETURN_PID = product_id;
-        init_ok_remove_cancel_btn(callback);
-        $('#product_search_btn').off('click').click(name_search_handler);
 
-        $('#child_caption_txt').val(caption);
-        $('#product_name_txt').val(product_name);
-        
-        $('#child_info_prompt_dlg').dialog('open');
+        var html_str =     
+            '<div id="child_info_prompt_dlg">' +
+                '<label for="child_caption_txt">caption:</label>' +
+                '<input type="text" id = "child_caption_txt">' +
+                '<br>' + 
+                '<label for="product_name_txt">product:</label>' +
+                '<input type="text" id = "product_name_txt" readonly>' +
+                '<input type="button" id = "product_search_btn" value="search">' +
+                '<br>' +
+            '</div>';
+
+        var ok_handler_b = ok_handler.bind(ok_handler,callback);
+        var cancel_handler_b = cancel_handler.bind(cancel_handler,callback);
+        var remove_handler_b = remove_handler.bind(remove_handler,callback);
+
+        $(html_str).appendTo('body')
+            .dialog(
+            {
+                modal: true,
+                title : 'shortcut setup',
+                zIndex: 10000,
+                autoOpen: true,
+                width: 500,
+                height: 250,   
+                buttons:   [
+                     {text:'ok',click:ok_handler_b}
+                    ,{text:'remove',click:remove_handler_b}
+                    ,{text:'cancel',click:cancel_handler_b}
+                ],
+                open: function( event, ui ) 
+                {
+                    PRODUCT_ID = product_id;
+                    $('#product_search_btn').click(name_search_handler);
+                    $('#child_caption_txt').val(caption);
+                    $('#product_name_txt').val(product_name);        
+                    $('#child_info_prompt_dlg').keypress(function(e) {
+                        if (e.keyCode == $.ui.keyCode.ENTER) {
+                            ok_handler(callback);
+                        }
+                    });                                   
+                },
+                close: function (event, ui) {
+                    $(this).remove();
+                }
+            }); 
     }
 
     return {

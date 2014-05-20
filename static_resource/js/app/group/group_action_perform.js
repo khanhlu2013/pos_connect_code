@@ -17,7 +17,7 @@ define(
         ui.ui_confirm(
             'action apply to all products in group! continue?',
             function(){
-                ui.ui_block('updating products in group ...');
+                ui.ui_block('updating products ...');
 
                 var data = {
                      id:id

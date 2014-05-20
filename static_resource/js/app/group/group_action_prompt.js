@@ -87,35 +87,63 @@ define(
         }
     }
 
-    function reset_ui(){
-        set_validation_indicator([]);
-
-        $('#group_action_price_txt').val('');
-        $('#group_action_crv_txt').val('');
-        $('#group_action_is_taxable_txt').val('');
-        $('#group_action_is_sale_report_txt').val('');
-        $('#group_action_p_type_txt').val('');
-        $('#group_action_p_tag_txt').val('');
-        $('#group_action_vendor_txt').val('');
-        $('#group_action_cost_txt').val('');
-        $('#group_action_buydown_txt').val('');                
-    }
-
     function exe (callback ){
-        reset_ui();
-        set_validation_indicator([]);
-        var title = 'perform group action';
+
+        var html_str = 
+            '<div id="group_action_prompt_dialog">' +
+                '<label for="group_action_price_txt">Price:</label>' +
+                '<input type="text" id = "group_action_price_txt">' +
+                '<br>' +
+                '<label for="group_action_crv_txt">Crv:</label>' +
+                '<input type="text" id = "group_action_crv_txt">' +
+                '<br>' +
+                '<label for="group_action_is_taxable_txt">Taxable:</label>' +
+                '<input type="text" id = "group_action_is_taxable_txt">' +
+                '<label>type "true" or "false"</label>' +
+                '<br>' +
+                '<label for="group_action_is_sale_report_txt">Sale report:</label>' +
+                '<input type="text" id = "group_action_is_sale_report_txt">' +
+                '<label>type "true" or "false"</label>' +
+                '<br>' +
+                '<label for="group_action_p_type_txt">Type:</label>' +
+                '<input type="text" id = "group_action_p_type_txt">' +
+                '<br>' +
+                '<label for="group_action_p_tag_txt">Tag:</label>' +
+                '<input type="text" id = "group_action_p_tag_txt">' +
+                '<br>' +
+                '<label for="group_action_vendor_txt">Vendor:</label>' +
+                '<input type="text" id = "group_action_vendor_txt">' +
+                '<br>' + 
+                '<label for="group_action_cost_txt">Cost:</label>' +
+                '<input type="text" id = "group_action_cost_txt">' +
+                '<br>' +      
+                '<label for="group_action_buydown_txt">Buydown:</label>' +
+                '<input type="text" id = "group_action_buydown_txt">' +
+                '<br>' +          
+        '</div>' ;
+
+
         var ok_btn_handler_b = ok_btn_handler.bind(ok_btn_handler,callback);
         var cancel_btn_handler_b = cancel_btn_handler.bind(cancel_btn_handler,callback);
-
-        $('#group_action_prompt_dialog').dialog({
-             title:title
-            ,buttons: [ { text: "Ok", click: ok_btn_handler_b },{ text: "Cancel", click: cancel_btn_handler_b } ]
-            ,modal : true
-            ,width : 600
-            ,heigh : 400
-        });
-        $('#group_action_prompt_dialog').dialog('open');  
+        $(html_str).appendTo('body')
+            .dialog(
+            {
+                modal: true,
+                title : 'perform group action',
+                zIndex: 10000,
+                autoOpen: true,
+                width: 600,
+                height: 600,
+                buttons: [ { text: "Ok", click: ok_btn_handler_b },{ text: "Cancel", click: cancel_btn_handler_b } ],
+                open: function( event, ui ) 
+                {
+                    var tax_rate = localStorage.getItem('tax_rate');
+                    $('#tax_rate_txt').val(tax_rate);
+                },
+                close: function (event, ui) {
+                    $(this).remove();
+                }
+            });  
     }
 
     return{

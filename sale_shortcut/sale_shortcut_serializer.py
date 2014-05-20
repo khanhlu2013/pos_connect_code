@@ -3,6 +3,7 @@ from rest_framework import serializers,fields
 
 
 class Child_serializer(serializers.ModelSerializer):
+
     position = serializers.Field(source='position')
     caption = serializers.Field(source='caption')
     product_id = serializers.Field(source='store_product.product.id')
@@ -10,7 +11,7 @@ class Child_serializer(serializers.ModelSerializer):
 
     class Meta:
         model = Child
-        fields = ('position','caption','product_id','product_name')
+        fields = ('id','position','caption','product_id','product_name')
 
 
 class Parent_serializer(serializers.ModelSerializer):

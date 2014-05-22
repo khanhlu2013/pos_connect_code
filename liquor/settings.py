@@ -61,6 +61,7 @@ INSTALLED_APPS = (
     ,'import_data'
     ,'receipt'
     ,'group'
+    ,'payment_type'
 )
 
 DEBUG = os.environ.get('DEBUG')

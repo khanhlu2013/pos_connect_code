@@ -1,6 +1,6 @@
 from django.conf.urls import patterns,url
 from django.contrib.auth.decorators import login_required
-from group import index_view,update_view,insert_view,action_perform_view,get_lst_view,remove_view
+from group import update_view,insert_view,action_perform_view,get_lst_view,remove_view
 
 urlpatterns = patterns('',
     url(r'^get_lst$',login_required(get_lst_view.get_lst_view)),    

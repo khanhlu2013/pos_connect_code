@@ -37,7 +37,7 @@ define(
         ui.ui_confirm(
             'delete sku?'
             ,function(){
-                var prod_sku_del_b = prod_sku_del.bind(prod_sku_del,prod_sku_assoc.product_id,prod_sku_assoc.sku_str);
+                var prod_sku_del_b = prod_sku_del.bind(prod_sku_del,prod_sku_assoc.product_id,prod_sku_assoc.sku_str,COUCH_SERVER_URL,STORE_ID);
                 async.waterfall([prod_sku_del_b],function(error,result){
                     if(error){
                         alert(error);
@@ -98,8 +98,8 @@ define(
         if(!sku_str){
             return;
         }
-        
-        var prod_sku_add_b = prod_sku_add.bind(prod_sku_add,product_id,sku_str);
+
+        var prod_sku_add_b = prod_sku_add.bind(prod_sku_add,product_id,sku_str,COUCH_SERVER_URL,STORE_ID);
         async.waterfall([prod_sku_add_b],function(error,result){
             if(error){
                 alert(error);

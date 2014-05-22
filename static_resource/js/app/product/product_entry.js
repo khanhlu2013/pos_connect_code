@@ -11,8 +11,7 @@ requirejs.config({
     ,shim:{
          jquery_ui :{deps:["jquery"]}
         ,jquery_block_ui :{deps:["jquery"]}
-        ,dropit :{ deps: ["jquery"]}     
-    }    
+    }
 });
 requirejs.onError = function (err) {
     alert('there is error loading page: ' + err.requireType);

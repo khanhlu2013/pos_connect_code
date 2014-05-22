@@ -67,7 +67,7 @@ define(
                 '<br>' + 
                 '<label for="product_name_txt">product:</label>' +
                 '<input type="text" id = "product_name_txt" readonly>' +
-                '<input type="button" id = "product_search_btn" value="search">' +
+                '<input type="button" id = "mm_child_prompt_product_search_btn" value="search">' +
                 '<br>' +
             '</div>';
 
@@ -92,7 +92,7 @@ define(
                 open: function( event, ui ) 
                 {
                     PRODUCT_ID = product_id;
-                    $('#product_search_btn').click(name_search_handler);
+                    $('#mm_child_prompt_product_search_btn').click(name_search_handler);
                     $('#child_caption_txt').val(caption);
                     $('#product_name_txt').val(product_name);        
                     $('#child_info_prompt_dlg').keypress(function(e) {

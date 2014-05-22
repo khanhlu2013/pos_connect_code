@@ -154,8 +154,7 @@ USE_TZ = True
 #AUTH_USER_MODEL = 'liqUser.LiqUser'
 LOGIN_URL = 'liquor_login_named_url'
 LOGOUT_URL = 'liquor_logout_named_url'
-LOGIN_REDIRECT_URL  = 'liquor_home'
-DEFAULT_TEMPLATE_FORM = 'liquor/default_template_form.html'
+LOGIN_REDIRECT_URL  = 'sp_search'
 
 #COUCHDB-
 #URL

@@ -1,35 +1,32 @@
 define(
 [
-    'lib/ui/ui'
+     'lib/ui/ui'
+    ,'lib/ajax_helper'
+    ,'app/local_db_initializer/sync_if_nessesary'
+    ,'lib/async'
 ]
 ,function
 (
-    ui
+     ui
+    ,ajax_helper
+    ,sync_if_nessesary
+    ,async
 )
 {
     return function (
          product_id 
         ,sku_str
+        ,couch_server_url
+        ,store_id        
         ,callback
     ){
-        ui.ui_block('deleting sku from product ...')
-        $.ajax({
-             url : '/product/sku/delete'
-            ,type : "POST"
-            ,dataType : "json"
-            ,data : {
-                 product_id:product_id
-                ,sku_str:sku_str
-            }
-            ,success: function(data,status_str,xhr){
-                ui.ui_unblock();
-                var product = data;
-            	callback(null,product);
-            }
-            ,error: function(xhr,status_str,err){
-                ui.ui_unblock();
-                callback(xhr);
-            }
-        }); 
+        var data = {product_id:product_id ,sku_str:sku_str }
+        var ajax_b = ajax_helper.exe.bind(ajax_helper.exe,'/product/sku/delete','POST','deleting sku ...',data);
+        var sync_if_nessesary_b = sync_if_nessesary.bind(sync_if_nessesary,store_id,couch_server_url);
+
+        async.series([ajax_b,sync_if_nessesary_b],function(error,results){
+            var product = results == null ? null : results[0];
+            callback(error,product);
+        });
     }	
 });

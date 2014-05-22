@@ -1,0 +1,72 @@
+{% load staticfiles %}
+
+<html>
+    <head>
+        <title>Pos Connect </title>
+     </head>
+
+    <body>
+
+        <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.min.css" />
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/share.css">
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/menu.css">
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/sale.css">
+
+        <!-- // <script data-main = "{{ STATIC_URL }}js/app/sale/sale_entry.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script> -->
+        <script data-main = "{{ STATIC_URL }}js/app/sale/sale_entry__min__.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script>
+
+        <script type="text/javascript">
+            var STATIC_URL = "{{STATIC_URL}}"
+            var STORE_ID = Number("{{store_id}}")
+            var COUCH_SERVER_URL = "{{couch_server_url}}"
+            var ROW_COUNT = {{ROW_COUNT}}
+            var COLUMN_COUNT = {{COLUMN_COUNT}}
+            var MY_SHORTCUT_LST = {{shortcut_lst|safe}};
+            var MY_MM_LST = {{mix_match_lst|safe}};
+            localStorage.setItem('tax_rate',Number("{{tax_rate}}"));
+        </script>
+
+        <ul class="menu">
+            <li class="menu_item">
+                <a href="#">setting</a>
+                <ul>
+                    <li id='tax_menu'><a href='#'>tax</a></li>
+                    <li id='group_menu'><a href='#'>group</a></li>                 
+                    <li id='sale_shortcut_menu'><a href='#'>shortcut</a></li>
+                    <li id='mix_match_menu'><a href='#'>mix match</a></li>
+                </ul>
+            </li>
+            <li class="menu_item">
+                <a href="#">report</a>
+                <ul>
+                    <li id='date_range_report_menu'><a href='#'>date range</a></li>
+                    <li id='receipt_report_menu'><a href='#'>receipt</a></li>                 
+                </ul>
+            </li>      
+            <li class="menu_item">
+                {{ request.session.cur_login_store }} - {{ user }}
+            </li>  
+            <li class="menu_item">
+                <a href="{% url "liquor_logout_named_url" %}">logout</a>
+            </li>             
+        </ul>    
+
+        <div id="wrap">
+            <br/>
+            <div id="shortcut">  <table id = "sale_shortcut_tbl" border="1"></table> </div>
+            <div id="scan">
+                
+                <input id="scan_text" onClick="this.select();"  placeholder="sku" autofocus>
+                <button id="product_search_btn" type="button">search</button>
+                <button id="non_inventory_btn" type="button">non inventory</button>
+                <button id="push_receipt_btn" type="button">receipt pusher</button>
+                <button id="void_btn" type="button">void</button>
+                <button id="total_button" type="button">total</button>
+                <br/>
+                <table id = "sale_table" border="1"></table>
+            </div>
+        </div>
+
+    </body>
+</html>
+

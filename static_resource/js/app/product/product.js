@@ -17,8 +17,9 @@ define(
     ,'app/mix_match/mix_match_manage_ui'
     ,'app/sale_report/date_range_report_ui'
     ,'app/receipt/receipt_report_ui'
-    ,'dropit'
+
     //-----------------
+    ,'dropit'
     ,'jquery'
     ,'jquery_block_ui'
     ,'jquery_ui'
@@ -43,7 +44,6 @@ define(
     ,mix_match_manage_ui
     ,date_range_report_ui
     ,receipt_report_ui
-    ,dropit
 )
 {
     var PRODUCT_DATA_LST = null;
@@ -219,8 +219,7 @@ define(
         }
     });
     $('.menu').dropit();
-
-    $('#tax_menu').click(function(e) 
+    $('#tax_menu').click(function(e)
     { 
         async.waterfall([tax_manage_ui.exe],function(error,result){
             if(error){
@@ -229,31 +228,28 @@ define(
             }
         });
     });
-    
-    $('#group_menu').click(function(e) 
+    $('#group_menu').click(function(e)
     { 
         group_manage_ui.exe();
     });
-
-    $('#sale_shortcut_menu').click(function(e) 
+    $('#sale_shortcut_menu').click(function(e)
     { 
-        sale_shortcut_manage_ui.exe();
+        async.waterfall([sale_shortcut_manage_ui.exe()],function(error,result){
+            
+        });
     });
-
-    $('#mix_match_menu').click(function(e) 
+    $('#mix_match_menu').click(function(e)
     { 
         mix_match_manage_ui.exe();
     });    
-
-    $('#date_range_report_menu').click(function(e) 
+    $('#date_range_report_menu').click(function(e)
     { 
         date_range_report_ui.exe(STORE_ID,COUCH_SERVER_URL);
     });        
-
-    $('#receipt_report_menu').click(function(e) 
+    $('#receipt_report_menu').click(function(e)
     { 
         receipt_report_ui.exe(STORE_ID,COUCH_SERVER_URL);
-    });      
+    });   
 });
 
 /*

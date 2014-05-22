@@ -9,7 +9,7 @@ from store_product.sp_master_util import get_lookup_type_tag
 from django.db.models import Q
 
 class sp_search_index_view(TemplateView):
-    template_name = 'store_product/product/product.html'
+    template_name = 'product.html'
     
     def dispatch(self,request,*args,**kwargs):
         self.cur_login_store = self.request.session.get('cur_login_store')

@@ -49,6 +49,7 @@ def insert_receipt_ln_to_master(receipt_couch_lst,receipt_id_c2mLookup,sp_id_c2m
             sp_couch = receipt_ln_couch['store_product'] 
             sp_master_id = None
             sp_is_taxable = None
+            sp_crv = None
             sp_p_type = None
             sp_p_tag = None
             sp_cost = None
@@ -57,6 +58,7 @@ def insert_receipt_ln_to_master(receipt_couch_lst,receipt_id_c2mLookup,sp_id_c2m
             if sp_couch != None:
                 sp_master_id = sp_id_c2mLookup[sp_couch['_id']]
                 sp_is_taxable = sp_couch['is_taxable']
+                sp_crv = sp_couch['crv']
                 sp_p_type = sp_couch['p_type']
                 sp_p_tag = sp_couch['p_tag']  
                 sp_cost = sp_couch['cost']   
@@ -73,7 +75,7 @@ def insert_receipt_ln_to_master(receipt_couch_lst,receipt_id_c2mLookup,sp_id_c2m
                 ,qty = receipt_ln_couch['qty']
                 ,store_product_id = sp_master_id
                 ,price = receipt_ln_couch['price']
-                ,crv = sp_couch['crv']
+                ,crv = sp_crv
                 ,discount = receipt_ln_couch['discount']
                 ,discount_mm_deal = mm_unit_discount
                 ,non_product_name = receipt_ln_couch['non_product_name']

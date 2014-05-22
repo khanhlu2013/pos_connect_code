@@ -7,8 +7,7 @@
  * http://www.opensource.org/licenses/mit-license.php
  */
 
-;(function($) {
-
+define(['jquery'],function($){
     $.fn.dropit = function(method) {
 
         var methods = {
@@ -93,7 +92,4 @@
     };
 
     $.fn.dropit.settings = {};
-
-})(jQuery);
-
-
+})

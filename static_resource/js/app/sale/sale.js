@@ -24,7 +24,17 @@ define(
         ,'app/sale/scan/pid_scanner'
         ,'app/sale/displaying_scan/displaying_scan_lst_getter'
         ,'lib/ui/ui'
+        ,'app/tax/tax_manage_ui'
+        ,'app/group/group_manage_ui'
+        ,'app/sale_shortcut/sale_shortcut_manage_ui'
+        ,'app/mix_match/mix_match_manage_ui'
+        ,'app/sale_report/date_range_report_ui'
+        ,'app/receipt/receipt_report_ui'        
+        ,'app/sale_shortcut/sale_shortcut_get'
+        ,'app/mix_match/mix_match_get'
+
         //-----------------
+        ,'dropit'
         ,'jquery'
         ,'jquery_block_ui'
         ,'jquery_ui'
@@ -57,6 +67,14 @@ define(
         ,pid_scanner
         ,ds_lst_getter
         ,ui
+        ,tax_manage_ui
+        ,group_manage_ui
+        ,sale_shortcut_manage_ui
+        ,mix_match_manage_ui
+        ,date_range_report_ui
+        ,receipt_report_ui        
+        ,sale_shortcut_get
+        ,mm_get
     )
     {
         //UI
@@ -67,7 +85,7 @@ define(
         var non_inventory_btn = document.getElementById("non_inventory_btn");
         var scan_textbox = document.getElementById('scan_text');
         var product_search_btn = document.getElementById("product_search_btn");
-        var shortcut_tbl = document.getElementById("shortcut_tbl");
+        var shortcut_tbl = document.getElementById("sale_shortcut_tbl");
 
         //DB
         var STORE_PDB;
@@ -249,7 +267,7 @@ define(
 
         function refresh_shortcut_parent_button(tr,parent_position){
             var parent = sale_shortcut_util.get_parent(parent_position,SHORTCUT_LST);
-            var class_name = parent_position == CUR_SELECT_PARENT_SHORTCUT ? 'parent_selected' : 'parent_unselected'
+            var class_name = parent_position == CUR_SELECT_PARENT_SHORTCUT ? 'sale_shortcut_parent_selected' : 'sale_shortcut_parent_unselected'
             
             //MAIN
             td = tr.insertCell(-1);
@@ -332,6 +350,49 @@ define(
                 } 
             });            
         }
+
+        $('.menu').dropit();
+        $('#tax_menu').click(function(e)
+        { 
+            async.waterfall([tax_manage_ui.exe],function(error,result){
+                if(error){
+                    error_lib.alert_error(error);
+                    return;
+                }
+                refresh_sale_table();
+            });
+        });
+        $('#group_menu').click(function(e)
+        { 
+            group_manage_ui.exe();
+        });
+        $('#sale_shortcut_menu').click(function(e)
+        { 
+            async.series([sale_shortcut_manage_ui.exe,sale_shortcut_get.exe],function(error,results){
+                SHORTCUT_LST = results[1];
+                display_shortcut_table();                
+            });
+        });
+        $('#mix_match_menu').click(function(e)
+        { 
+            async.series([mix_match_manage_ui.exe,mm_get.exe],function(error,results){
+                if(error){
+                    error_lib.alert_error(error);
+                    return;
+                }
+
+                MM_LST = results[1];
+                refresh_sale_table();
+            })             
+        });    
+        $('#date_range_report_menu').click(function(e)
+        { 
+            date_range_report_ui.exe(STORE_ID,COUCH_SERVER_URL);
+        });        
+        $('#receipt_report_menu').click(function(e)
+        { 
+            receipt_report_ui.exe(STORE_ID,COUCH_SERVER_URL);
+        });   
 
         csrf_ajax_protection_setup();
         var oneshot_sync_b = oneshot_sync.bind(oneshot_sync,STORE_ID,COUCH_SERVER_URL);

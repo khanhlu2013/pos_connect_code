@@ -4,11 +4,11 @@ define(
     ,'lib/error_lib'
     ,'lib/ui/ui'
     ,'lib/ajax_helper'
-    ,'app/mix_match/mix_match_prompt'   
-    ,'app/mix_match/mix_match_online_inserter'  
-    ,'app/mix_match/mix_match_online_updator'  
-    ,'app/mix_match/mm_online_delete'    
-    ,'app/mix_match/mix_match_get'
+    ,'app/payment_type/payment_type_prompt'   
+    ,'app/payment_type/payment_type_insert'  
+    ,'app/payment_type/payment_type_update'  
+    ,'app/payment_type/payment_type_delete'    
+    ,'app/payment_type/payment_type_get'
 ]
 ,function
 (
@@ -17,17 +17,15 @@ define(
     ,ui
     ,ajax_helper
     ,mm_prompt
-    ,mm_inserter
-    ,mm_updator
-    ,mm_online_delete    
-    ,mm_get
+    ,mm_insert
+    ,mm_update
+    ,pt_delete    
+    ,pt_get
 )
 {
-    var TAX_RATE = localStorage.getItem('tax_rate');
-    var MIX_MATCH_LST = null;
-    var mix_match_tbl = null;
+    var PAYMENT_TYPE_LST = null;
 
-    function update_mix_match_lst(lst,item){
+    function update_payment_type_lst(lst,item){
         for(var i = 0;i<lst.length;i++){
             if(lst[i].id == item.id){
                 lst[i] = item;

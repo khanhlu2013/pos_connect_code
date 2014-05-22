@@ -1,0 +1,71 @@
+{% load staticfiles %}
+
+<html>
+<head>
+    <title>Pos Connect </title>
+
+</head>
+<body>
+
+    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.min.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/share.css">
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/menu.css">
+    
+    <!-- // <script data-main = "{{ STATIC_URL }}js/app/product/product_entry.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script> -->
+    <script data-main = "{{ STATIC_URL }}js/app/product/product_entry__min__.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script>
+
+    <ul class="menu">
+        <li class="menu_item">
+            <a href="{% url 'sale:index' %}" target="_blank">sale</a>
+        </li>      
+        <li class="menu_item">
+            <a href="#">setting</a>
+            <ul>
+                <li id='tax_menu'><a href='#'>tax</a></li>
+                <li id='group_menu'><a href='#'>group</a></li>                 
+                <li id='sale_shortcut_menu'><a href='#'>shortcut</a></li>
+                <li id='mix_match_menu'><a href='#'>mix match</a></li>
+            </ul>
+        </li>
+        <li class="menu_item">
+            <a href="#">report</a>
+            <ul>
+                <li id='date_range_report_menu'><a href='#'>date range</a></li>
+                <li id='receipt_report_menu'><a href='#'>receipt</a></li>                 
+            </ul>
+        </li>      
+        <li class="menu_item">
+            {{ request.session.cur_login_store }} - {{ user }}
+        </li>  
+        <li class="menu_item">
+            <a href="{% url "liquor_logout_named_url" %}">logout</a>
+        </li>             
+    </ul>
+
+    <div id='wrap'>
+        <br/>
+        <input id='sku_txt' type='text' placeholder='sku'/>
+        <input id='name_txt' type='text'placeholder='name'/>
+        </br/>
+        <table id=product_tbl border="1"></table>
+    </div>
+
+    <script type="text/javascript">
+        var STATIC_URL = "{{STATIC_URL}}";
+        var STORE_ID = Number("{{STORE_ID}}");
+        var COUCH_SERVER_URL = "{{COUCH_SERVER_URL}}";
+        localStorage.setItem('tax_rate',Number("{{TAX_RATE}}"));
+    </script>
+
+
+
+
+
+
+
+
+</body>
+</html>
+
+
+

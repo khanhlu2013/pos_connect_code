@@ -7,7 +7,7 @@ from mix_match import mix_match_getter,mix_match_serializer
 from store.models import Store
 
 class Sale_view(TemplateView):
-    template_name = 'sale/index.html'
+    template_name = 'sale.html'
 
     def dispatch(self,request,*args,**kwargs):
         self.cur_login_store = self.request.session.get('cur_login_store')

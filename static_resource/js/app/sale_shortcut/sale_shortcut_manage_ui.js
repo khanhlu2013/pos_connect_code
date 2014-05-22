@@ -25,7 +25,7 @@ define(
     var ROW_COUNT = 5
     var COLUMN_COUNT = 3;
     var CUR_SELECT_PARENT_SHORTCUT = 0;
-    var sale_shortcut_tbl = document.getElementById('sale_shortcut_tbl');
+    var TABLE = null;
 
     function update_shortcut_lst(lst,shortcut){
         for(var i = 0;i<lst.length;i++){
@@ -128,7 +128,7 @@ define(
 
     function refresh_shortcut_parent_button(tr,parent_position){
         var parent = sale_shortcut_util.get_parent(parent_position,SHORTCUT_LST);
-        var class_name = parent_position == CUR_SELECT_PARENT_SHORTCUT ? 'sale_shortcut_parent_selected' : 'sale_shortcut_parent_unselected'
+        var class_name = parent_position == CUR_SELECT_PARENT_SHORTCUT ? 'sale_shortcut_setup_parent_selected' : 'sale_shortcut_setup_parent_unselected'
         
         //MAIN
         td = tr.insertCell(-1);
@@ -167,11 +167,11 @@ define(
     }
 
     function display_shortcut_table(){
-        sale_shortcut_tbl.innerHTML = "";
+        TABLE.innerHTML = "";
 
         for(var cur_row = 0;cur_row<ROW_COUNT;cur_row++){
 
-            var tr = sale_shortcut_tbl.insertRow(-1);
+            var tr = TABLE.insertRow(-1);
 
             refresh_shortcut_parent_button(tr,cur_row);
             refresh_shortcut_children(tr,cur_row);
@@ -179,11 +179,10 @@ define(
         }
     }
 
-    function exe(){
-        
+    function exe(callback){
         var html_str = 
             '<div id="sale_shortcut_manage_dlg">' +
-                '<table id="sale_shortcut_tbl" border="1"></table>' +
+                '<table id="sale_shortcut_setup_tbl" border="1"></table>' +
             '</div>';
 
         $(html_str).appendTo('body')
@@ -195,10 +194,10 @@ define(
                 autoOpen: true,
                 width: 800,
                 height: 500,
-                buttons : [{text:'exit', click: function(){$('#sale_shortcut_manage_dlg').dialog('close'); } } ],
+                buttons : [{text:'exit', click: function(){callback(null);$('#sale_shortcut_manage_dlg').dialog('close'); } } ],
                 open: function( event, ui ) 
                 {
-                    sale_shortcut_tbl = document.getElementById('sale_shortcut_tbl');
+                    TABLE = document.getElementById('sale_shortcut_setup_tbl');
                     async.waterfall([sale_shortcut_get.exe],function(error,result){
                         SHORTCUT_LST = result;
                         display_shortcut_table();

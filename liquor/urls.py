@@ -1,6 +1,5 @@
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf.urls import patterns, include, url
-import liquor.views 
 from django.contrib import admin
 from django.utils.functional import curry
 from django.views.defaults import server_error
@@ -13,12 +12,13 @@ import store_product.urls
 import mix_match.urls
 import sale_report.urls
 import receipt.urls
+from store_product.view import sp_search_view
+from django.contrib.auth.decorators import login_required
 
 admin.autodiscover()
 
 urlpatterns = patterns('',
-
-    url(r'^$',liquor.views.home_page_view,name='liquor_home'),
+    url(r'^$',login_required(sp_search_view.sp_search_index_view.as_view()),name='sp_search'),   
     url(r'^admin/', include(admin.site.urls)), 
     url(r'^account/login/$','django.contrib.auth.views.login',{'template_name':'login.html'},name = 'liquor_login_named_url'),
     url(r'^account/logout/$','django.contrib.auth.views.logout_then_login',name = 'liquor_logout_named_url'),

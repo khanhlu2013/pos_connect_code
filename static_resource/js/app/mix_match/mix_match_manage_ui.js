@@ -187,6 +187,7 @@ define(
                     });
                 },
                 close: function (event, ui) {
+                    localStorage.setItem('mix_match_lst',MIX_MATCH_LST);
                     $(this).remove();
                 }
             });  

@@ -31,7 +31,6 @@ define(
         ,'app/sale_report/date_range_report_ui'
         ,'app/receipt/receipt_report_ui'        
         ,'app/sale_shortcut/sale_shortcut_get'
-        ,'app/mix_match/mix_match_get'
 
         //-----------------
         ,'dropit'
@@ -74,7 +73,6 @@ define(
         ,date_range_report_ui
         ,receipt_report_ui        
         ,sale_shortcut_get
-        ,mm_get
     )
     {
         //UI
@@ -375,13 +373,11 @@ define(
         });
         $('#mix_match_menu').click(function(e)
         { 
-            async.series([mix_match_manage_ui.exe,mm_get.exe],function(error,results){
+            async.waterfall([mix_match_manage_ui.exe],function(error,result){
                 if(error){
                     error_lib.alert_error(error);
                     return;
                 }
-
-                MM_LST = results[1];
                 refresh_sale_table();
             })             
         });    

@@ -4,11 +4,11 @@ define(
     ,'lib/error_lib'
     ,'lib/ui/ui'
     ,'lib/ajax_helper'
-    ,'app/payment_type/payment_type_prompt'   
-    ,'app/payment_type/payment_type_insert'  
-    ,'app/payment_type/payment_type_update'  
-    ,'app/payment_type/payment_type_delete'    
-    ,'app/payment_type/payment_type_get'
+    ,'app/payment_type/pt_delete'    
+    ,'app/payment_type/pt_get'
+    ,'app/payment_type/pt_update'  
+    ,'app/payment_type/pt_insert'
+    ,'app/payment_type/pt_prompt'
 ]
 ,function
 (
@@ -16,14 +16,15 @@ define(
     ,error_lib
     ,ui
     ,ajax_helper
-    ,mm_prompt
-    ,mm_insert
-    ,mm_update
     ,pt_delete    
     ,pt_get
+    ,pt_update
+    ,pt_insert
+    ,pt_prompt
 )
 {
     var PAYMENT_TYPE_LST = null;
+    var payment_type_tbl = null;
 
     function update_payment_type_lst(lst,item){
         for(var i = 0;i<lst.length;i++){
@@ -34,154 +35,135 @@ define(
         }
     }
 
-    function delete_mm(mm_id){
-        var mm_online_delete_b = mm_online_delete.exe.bind(mm_online_delete.exe,mm_id);
-        async.waterfall([mm_online_delete_b],function(error,result){
+    function delete_pt(pt_id){
+        var pt_delete_b = pt_delete.exe.bind(pt_delete.exe,pt_id);
+        async.waterfall([pt_delete_b],function(error,result){
             if(error){
                 error_lib.alert_error(error);
                 return;
             }
 
-            MIX_MATCH_LST = result;
-            display_mix_match_table();
+            PAYMENT_TYPE_LST = result;
+            display_pt_table();
         });
     }
 
-    function update_mix_match_handler(index){
-        var parent = MIX_MATCH_LST[index];
-        var mm_child_sp_lst = [];
-        for(var i = 0;i<parent.mix_match_child_set.length;i++){
-            mm_child_sp_lst.push(parent.mix_match_child_set[i].store_product);
-        }
-
-        var mm_prompt_b = mm_prompt.exe.bind(mm_prompt.exe
-            ,parent.name
-            ,parent.qty
-            ,parent.unit_discount
-            ,mm_child_sp_lst
-            ,TAX_RATE
-        );
-
-        async.waterfall([mm_prompt_b],function(error,result){
+    function update_pt_handler(index){
+        var pt = PAYMENT_TYPE_LST[index];
+        var prompt_b = pt_prompt.exe.bind(pt_prompt.exe,pt.name);
+        async.waterfall([prompt_b],function(error,result){
             if(error){
-                if(error == mm_prompt.ERROR_DELETE_MIX_MATCH){
-                    delete_mm(parent.id);
+                if(error == pt_prompt.ERROR_DELETE_PAYMENT_TYPE){
+                    delete_pt(pt.id);
                 }else{
                     error_lib.alert_error(error);
-                }
+                }                
                 return;
             }
+            var new_pt_name = result;
 
-            var mm_updator_b = mm_updator.exe.bind(mm_updator.exe ,parent.id,result);
-            async.waterfall([mm_updator_b],function(error,result){
+            var update_b = pt_update.exe.bind(pt_update.exe,pt.id,new_pt_name);
+            async.waterfall([update_b],function(error,result){
                 if(error){
-                    error_lib.alert_error(error);
+                    error_lib.alert_error(error);            
                     return;
-                }
-                update_mix_match_lst(MIX_MATCH_LST,result)
-                display_mix_match_table();
+                }        
+                var new_pt = result;
+                update_payment_type_lst(PAYMENT_TYPE_LST,new_pt);
+                display_pt_table();                        
             });
-        });        
-    }
-
-    function insert_mix_match_handler(){
-
-        var mm_prompt_b = mm_prompt.exe.bind(mm_prompt.exe
-            ,null//name
-            ,null//qty
-            ,null//unit_discount
-            ,[]//mix_match_child_sp_lst
-            ,TAX_RATE
-        )
-
-        async.waterfall([mm_prompt_b],function(error,result){
-            if(error){
-                error_lib.alert_error(error);
-                return;
-            }
-
-            var mm_inserter_b = mm_inserter.exe.bind(mm_inserter.exe,result);
-            async.waterfall([mm_inserter_b],function(error,result){
-                if(error){
-                    error_lib.alert_error(error);
-                    return;
-                }
-                MIX_MATCH_LST.push(result);
-                display_mix_match_table();
-            })
         });
     }
 
-    function display_mix_match_table(){
-        mix_match_tbl.innerHTML = "";
+    function insert_pt_handler(){
+        var prompt_b = pt_prompt.exe.bind(pt_prompt.exe,null/*prefill*/);
+        async.waterfall([prompt_b],function(error,result){
+            if(error){
+                if(error == pt_prompt.ERROR_DELETE_PAYMENT_TYPE){
+                    //do nothing
+                }else{
+                    error_lib.alert_error(error);
+                }                
+                return;
+            }
+            var new_pt_name = result;
+            var insert_b = pt_insert.exe.bind(pt_insert.exe,new_pt_name);
+            async.waterfall([insert_b],function(error,result){
+                if(error){
+                    if(error == pt_prompt.ERROR_DELETE_PAYMENT_TYPE){
+                        return;
+                    }
+                    else{
+                        error_lib.alert_error(error);
+                    }
+                    return;
+                }        
+                var new_pt = result;
+                PAYMENT_TYPE_LST.push(new_pt);
+                display_pt_table();                        
+            });
+        });
+
+    }
+
+    function display_pt_table(){
+        payment_type_tbl.innerHTML = "";
         var tr;var td;
 
         //columns
-        tr = mix_match_tbl.insertRow(-1);
-        var columns = ['name','qty','unit_discount','out_the_door_price','edit']
+        tr = payment_type_tbl.insertRow(-1);
+        var columns = ['name','edit'];
         for(var i = 0;i<columns.length;i++){
             td = tr.insertCell(-1);
             td.innerHTML = columns[i];
         }
         
-        for(var i = 0;i<MIX_MATCH_LST.length;i++){
+        for(var i = 0;i<PAYMENT_TYPE_LST.length;i++){
 
-            tr = mix_match_tbl.insertRow(-1);
-            var cur_mix_match = MIX_MATCH_LST[i];
+            tr = payment_type_tbl.insertRow(-1);
+            var cur_pt = PAYMENT_TYPE_LST[i];
 
             //name
             td = tr.insertCell(-1);
-            td.innerHTML = cur_mix_match.name;
-
-            //qty
-            td = tr.insertCell(-1);
-            td.innerHTML = cur_mix_match.qty;
-
-            //unit_discount
-            td = tr.insertCell(-1);
-            td.innerHTML = cur_mix_match.unit_discount;           
-
-            //out_the_door_price
-            td = tr.insertCell(-1);
-            td.innerHTML = 'xx';
+            td.innerHTML = cur_pt.name;
 
             //edit
             td = tr.insertCell(-1)
             td.innerHTML = 'edit';
-            (function(_i){
+            (function(index){
                 td.addEventListener('click',function(){
-                    update_mix_match_handler(_i);
+                    update_pt_handler(index);
                 });   
             })(i);
         }
     }
 
-    function exe(callback){
+    function exe(){
         
         var html_str = 
-            '<div id="mix_match_manage_dlg">' +
-                '<input type="button" id="add_mix_match_btn" value="add">' +
-                '<table id="mix_match_tbl" border="1"></table>' +
+            '<div id="payment_type_dlg">' +
+                '<input type="button" id="add_payment_type_btn" value="add">' +
+                '<table id="payment_type_tbl" border="1"></table>' +
             '</div>';
 
         $(html_str).appendTo('body')
             .dialog(
             {
                 modal: true,
-                title : 'mix match',
+                title : 'payment type',
                 zIndex: 10000,
                 autoOpen: true,
                 width: 700,
                 height: 500,
                 buttons : 
-                [{text:'exit', click: function(){callback(null);$('#mix_match_manage_dlg').dialog('close');}}],
+                [{text:'exit', click: function(){$('#payment_type_dlg').dialog('close');}}],
                 open: function( event, ui ) 
                 {
-                    $('#add_mix_match_btn').click(insert_mix_match_handler);
-                    mix_match_tbl = document.getElementById('mix_match_tbl');
-                    async.waterfall([mm_get.exe],function(error,result){
-                        MIX_MATCH_LST = result;
-                        display_mix_match_table();
+                    $('#add_payment_type_btn').click(insert_pt_handler);
+                    payment_type_tbl = document.getElementById('payment_type_tbl');
+                    async.waterfall([pt_get.exe],function(error,result){
+                        PAYMENT_TYPE_LST = result;
+                        display_pt_table();
                     });
                 },
                 close: function (event, ui) {

@@ -109,10 +109,7 @@ define(
             $("label[for='mix_match_child_tbl']").addClass("error");  
             $("label[for='mix_match_child_tbl']").text("items is emtpy");
         }
-        if(error_lst.indexOf(mix_match_validator.ERROR_MIX_MATCH_VALIDATION_CHILD_UNIFORM) != -1){
-            $("label[for='mix_match_child_tbl']").addClass("error");  
-            $("label[for='mix_match_child_tbl']").text("items must have same price,crv,taxable");
-        }        
+    
     }
 
     function get_result_from_ui(){

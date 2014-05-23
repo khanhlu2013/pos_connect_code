@@ -21,29 +21,38 @@ WHERE datname = current_database() AND pid <> pg_backend_pid();
 ----------------------------------------------------------------------------
 (pwd:static_resource/js) 
 
-    node ../../../r.js -o name=app/sale/sale_entry out=app/sale/sale_entry__min__.js baseUrl=. paths.jquery=empty: paths.jquery_ui=empty: paths.jquery_block_ui=empty: paths.dropit=lib/ui/dropit paths.hotkeys=lib/jquery/jquery.hotkeys
-    node ../../../r.js -o name=app/product/product_entry out=app/product/product_entry__min__.js baseUrl=. paths.jquery=empty: paths.jquery_ui=empty: paths.jquery_block_ui=empty: paths.dropit=lib/ui/dropit
-
-
 
     node ../../../r.js -o name=app/sale/sale_entry out=app/sale/sale_entry__min__.js baseUrl=. paths.jquery=empty: paths.jquery_ui=empty: paths.jquery_block_ui=empty: paths.dropit=lib/ui/dropit
     
     node ../../../r.js -o name=app/product/product_entry out=app/product/product_entry__min__.js baseUrl=. paths.jquery=empty: paths.jquery_ui=empty: paths.jquery_block_ui=empty: paths.dropit=lib/ui/dropit
 
 ----------------------------------------------------------------------------
-template
+TEMPLATE
 
 define(
-    [
+[
+     'lib/error_lib'
+    ,'lib/async'
+    ,'lib/ajax_helper'
 
-    ]
-    ,function
-    (
-
-    )
+]
+,function
+(
+     error_lib
+    ,async
+    ,ajax_helper
+)
 {
+    function exe(){
+        
+    }
 
-});
+    return{
+        exe:exe
+    }
+})
+
+
 KNOWN ISSUE
 -----------
 . receipt pusher: offline product is created due to disconnected internet. when the internet back on, we ready to push receipt. Receipt pusher will sync receipt, clean up sale data and offline created sp then ask master to recreate these sp. assume couch work but postgre does not. this will cause new sp to be stuck on couch untill the next push.
@@ -313,7 +322,24 @@ SKILL IMPROVEMENT
 
 
 
+. sale table, 100% stretch for product name
+. payment type: incorporate with sale
 
-. payment type
+
 ------------------------
+
+. optimize localStorage to save an extra query after manage tax,group,mm,shortcut,payment type
+    . mm and shortcut
+
+
+
+
+
+
+
+
+
+
+
+
 

@@ -40,7 +40,7 @@ define(
     var STORE_PDB = null;
     var SALE_TABLE = null;
     var TOTAL_BUTTON = null;
-    var TAX_RATE = null;
+    var TAX_RATE = localStorage.getItem('tax_rate');
 
     function exe_instruction(ds_index,instruction,ds_lst){
         var ds_modifier_b = ds_modifier.bind(ds_modifier,MM_LST,STORE_IDB,ds_index,instruction);
@@ -225,7 +225,7 @@ define(
         STORE_PDB = store_pdb;
         SALE_TABLE = table;
         TOTAL_BUTTON = total_button;
-        TAX_RATE = localStorage.getItem('tax_rate');
+        
         
         var ds_lst_getter_b = ds_lst_getter.bind(ds_lst_getter,MM_LST,STORE_IDB);
         async.waterfall([ds_lst_getter_b],function(error,result){

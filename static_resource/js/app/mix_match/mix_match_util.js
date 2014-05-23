@@ -13,7 +13,6 @@ define(
                error_lst.indexOf(mix_match_validator.ERROR_MIX_MATCH_VALIDATION_QTY) != -1
             || error_lst.indexOf(mix_match_validator.ERROR_MIX_MATCH_VALIDATION_UNIT_DISCOUNT) != -1
             || error_lst.indexOf(mix_match_validator.ERROR_MIX_MATCH_VALIDATION_CHILD_EMPTY) != -1
-            || error_lst.indexOf(mix_match_validator.ERROR_MIX_MATCH_VALIDATION_CHILD_UNIFORM) != -1
         ){
             return null;
         }   

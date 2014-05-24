@@ -11,7 +11,7 @@ define(
 		,Receipt
 	)
 {
-	return function(store_pdb,ds_lst,tax_rate,collect_amount,callback){
+	return function(store_pdb,ds_lst,tax_rate,tender_lst,callback){
  		var receipt = new Receipt
         (
              null//_id
@@ -21,7 +21,7 @@ define(
             ,new Date().getTime()//time_stamp
             ,tax_rate
             ,ds_lst
-            ,collect_amount
+            ,tender_lst
         );
 
 		store_pdb.post(receipt, function(err, response) {

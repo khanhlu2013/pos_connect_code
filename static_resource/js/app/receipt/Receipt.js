@@ -1,10 +1,12 @@
 define(
 	[
-		'constance'
+		 'constance'
+		,'app/sale/displaying_scan/displaying_scan_util'
 	]
 	,function
 	(
-		constance
+		 constance
+		,ds_util
 	)
 {
  	function Receipt
@@ -16,7 +18,7 @@ define(
  		,time_stamp
  		,tax_rate
  		,ds_lst
- 		,collect_amount
+ 		,tender_lst
  	)
  	{
  		if(_id != null && _rev != null && _doc_id_rev != null){
@@ -31,9 +33,16 @@ define(
         this.time_stamp = time_stamp;
         this.tax_rate = tax_rate;
 		this.ds_lst = ds_lst;
-		this.collect_amount = collect_amount
+		this.tender_lst = tender_lst
 		this.d_type = constance.RECEIPT_TYPE
 	};
     
+	Receipt.prototype = {
+		constructor:Receipt,
+		get_total_line: function(){
+			return ds_util.get_total_line(this.ds_lst,this.tax_rate)
+		}
+	}
+
     return Receipt;
 });

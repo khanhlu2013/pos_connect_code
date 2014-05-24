@@ -4,6 +4,8 @@ import json
 from django.core.serializers.json import DjangoJSONEncoder
 from sale_shortcut import sale_shortcut_serializer,shortcut_getter
 from mix_match import mix_match_getter,mix_match_serializer
+from payment_type import payment_type_serializer
+from payment_type.models import Payment_type
 from store.models import Store
 
 class Sale_view(TemplateView):
@@ -25,7 +27,12 @@ class Sale_view(TemplateView):
         mix_match_lst = mix_match_getter.get_mix_match_lst(self.cur_login_store.id)
         context['mix_match_lst'] = json.dumps(mix_match_serializer.serialize_mix_match_lst(mix_match_lst),cls=DjangoJSONEncoder)
         context['tax_rate'] = self.cur_login_store.tax_rate
-        
+
+        #payment type
+        pt_lst = Payment_type.objects.filter(store_id=self.cur_login_store.id)
+        pt_lst_serialized = payment_type_serializer.serialize_payment_type_lst(pt_lst)
+        context['payment_type_lst'] = json.dumps(pt_lst_serialized,cls=DjangoJSONEncoder)
+
         return context
 
   

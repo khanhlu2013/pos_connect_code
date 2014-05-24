@@ -1,17 +1,17 @@
 define(['lib/number/number'],function(number){
 
-	function Displaying_scan(qty,store_product,price,discount,non_product_name){
-		//this object is use for display purpose and not persistable. there is no id.
-		this.qty = qty;
-		this.store_product = store_product;
-		this.price = price;
-		this.discount = discount;
+    function Displaying_scan(qty,store_product,price,discount,non_product_name){
+        //this object is use for display purpose and not persistable. there is no id.
+        this.qty = qty;
+        this.store_product = store_product;
+        this.price = price;
+        this.discount = discount;
         this.non_product_name = non_product_name;
         this.mix_match_deal = null;
-	};
+    };
     
-	Displaying_scan.prototype = {
-    	 constructor: Displaying_scan
+    Displaying_scan.prototype = {
+         constructor: Displaying_scan
         ,get_name: function(){
             if(this.store_product == null){
                 return this.non_product_name;
@@ -28,7 +28,7 @@ define(['lib/number/number'],function(number){
 
             return result;
         }        
-    	,get_total_discount: function () {
+        ,get_total_discount: function () {
             var result = 0.0;
             if(this.discount){
                 result += this.discount;
@@ -75,7 +75,8 @@ define(['lib/number/number'],function(number){
             return this.get_otd_wot_price() + this.get_tax(tax_rate) + this.get_buydown_tax(tax_rate);
         }
         ,get_line_total: function(tax_rate){
-            return this.get_otd_wt_price(tax_rate) * this.qty;
+            var result =  this.get_otd_wt_price(tax_rate) * this.qty;
+            return number.round_2_decimal(result);
         }
     };
 

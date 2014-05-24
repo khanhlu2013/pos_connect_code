@@ -321,21 +321,19 @@ SKILL IMPROVEMENT
     . remove all alert
 
 
-
+. kit
 . sale table, 100% stretch for product name
 . payment type: incorporate with sale
-
-
-------------------------
-
-. optimize localStorage to save an extra query after manage tax,group,mm,shortcut,payment type
-    . mm and shortcut
+    . add payment type into sale page
+    . recording
 
 
 
 
 
 
+. replace collect amount with payment_type_lst
+. check 
 
 
 

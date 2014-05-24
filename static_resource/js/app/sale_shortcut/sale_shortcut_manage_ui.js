@@ -194,7 +194,7 @@ define(
                 autoOpen: true,
                 width: 800,
                 height: 500,
-                buttons : [{text:'exit', click: function(){callback(null);$('#sale_shortcut_manage_dlg').dialog('close'); } } ],
+                buttons : [{text:'exit', click: function(){callback(null,SHORTCUT_LST);$('#sale_shortcut_manage_dlg').dialog('close'); } } ],
                 open: function( event, ui ) 
                 {
                     TABLE = document.getElementById('sale_shortcut_setup_tbl');

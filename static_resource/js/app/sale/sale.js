@@ -30,8 +30,7 @@ define(
         ,'app/mix_match/mix_match_manage_ui'
         ,'app/sale_report/date_range_report_ui'
         ,'app/receipt/receipt_report_ui'        
-        ,'app/sale_shortcut/sale_shortcut_get'
-
+        ,'app/sale/tender/tender_manage_ui'
         //-----------------
         ,'dropit'
         ,'jquery'
@@ -71,8 +70,8 @@ define(
         ,sale_shortcut_manage_ui
         ,mix_match_manage_ui
         ,date_range_report_ui
-        ,receipt_report_ui        
-        ,sale_shortcut_get
+        ,receipt_report_ui   
+        ,tender_manage_ui     
     )
     {
         //UI
@@ -91,9 +90,10 @@ define(
 
         //GLOBAL
         var CUR_SELECT_PARENT_SHORTCUT = 0;
-        TAX_RATE = localStorage.getItem('tax_rate');
-        SHORTCUT_LST = MY_SHORTCUT_LST;
-        MM_LST = MY_MM_LST; 
+        var TAX_RATE = localStorage.getItem('tax_rate');
+        var SHORTCUT_LST = MY_SHORTCUT_LST;
+        var MM_LST = MY_MM_LST; 
+        var PAYMENT_TYPE_LST = MY_PAYMENT_TYPE_LST;
 
         function hook_product_search_btn_2_ui(){
             product_search_btn.addEventListener("click", function(){
@@ -163,49 +163,29 @@ define(
         }
 
         function hook_sale_finalizer_2_ui(){
-            function total_button_click_handler(){
+            total_button.addEventListener("click", function(){
+
                 var ds_lst_getter_b = ds_lst_getter.bind(ds_lst_getter,MM_LST,STORE_IDB);
                 async.waterfall([ds_lst_getter_b],function(error,result){
                     var ds_lst = result;
-
-                    if(ds_lst.length != 0){
-                        var line_total = ds_util.get_line_total(ds_lst,TAX_RATE);
-                        var collect_amount = number.prompt_positive_double("amount: "/*message*/,line_total/*prefill*/,'wrong input'/*error_message*/)
-
-                        if(collect_amount!=null){
-                            if(collect_amount < line_total){
-                                alert('collecting amount should be at least:' + line_total);
-                                return;
-                            }else{
-                                var msg = "Did you give the customer change: " + (number.trim(collect_amount - line_total));
-                                ui.ui_confirm(
-                                     msg
-                                    ,function(){
-                                        var sale_finalizer_b = sale_finalizer.bind(sale_finalizer,MM_LST,STORE_PDB,STORE_IDB,collect_amount,TAX_RATE);
-                                        async.waterfall([sale_finalizer_b],function(error,result){
-                                            if(error){
-                                                alert(error);
-                                            }else{
-                                                //refresh table
-                                                var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,MM_LST,STORE_IDB,STORE_PDB,STORE_ID,COUCH_SERVER_URL,table,total_button);
-                                                async.waterfall([ds_2_ui_b],function(error,result){
-                                                    if(error){
-                                                        alert(error);
-                                                    }
-                                                });                                    
-                                            }
-                                        });                                         
-                                    }
-                                    ,function(){
-
-                                    }
-                                );
-                            }
-                        }
+                    if(ds_lst.length == 0){
+                        return;
                     }
+
+                    var due_amount = ds_util.get_line_total(ds_lst,TAX_RATE);
+                    var tender_b = tender_manage_ui.exe.bind(tender_manage_ui.exe,PAYMENT_TYPE_LST,due_amount);
+                    var sale_finalizer_b = sale_finalizer.bind(sale_finalizer,MM_LST,STORE_PDB,STORE_IDB,TAX_RATE);
+                    async.waterfall([tender_b,sale_finalizer_b],function(error,result){
+                        if(error){
+                            error_lib.alert_error(error);
+                            return;
+                        }
+
+                        refresh_sale_table();
+                    })
+
                 });
-            }
-            total_button.addEventListener("click", total_button_click_handler);
+            });
         }
 
         function hook_scanner_to_ui(){
@@ -366,9 +346,14 @@ define(
         });
         $('#sale_shortcut_menu').click(function(e)
         { 
-            async.series([sale_shortcut_manage_ui.exe,sale_shortcut_get.exe],function(error,results){
-                SHORTCUT_LST = results[1];
-                display_shortcut_table();                
+            async.waterfall([sale_shortcut_manage_ui.exe],function(error,result){
+                if(error){
+                    error_lib.alert_error(error);
+                    return;
+                }
+
+                SHORTCUT_LST = result;
+                display_shortcut_table();     
             });
         });
         $('#mix_match_menu').click(function(e)
@@ -378,6 +363,8 @@ define(
                     error_lib.alert_error(error);
                     return;
                 }
+
+                MM_LST = result;
                 refresh_sale_table();
             })             
         });    

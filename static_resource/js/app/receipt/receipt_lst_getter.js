@@ -30,7 +30,7 @@ define(
                     ,cursor.value.time_stamp
                     ,cursor.value.tax_rate
                     ,cursor.value.ds_lst
-                    ,cursor.value.collect_amount
+                    ,cursor.value.tender_lst
                 );
 
                 receipt_lst.push(receipt);

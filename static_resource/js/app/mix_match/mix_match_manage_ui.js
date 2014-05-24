@@ -176,7 +176,7 @@ define(
                 width: 700,
                 height: 500,
                 buttons : 
-                [{text:'exit', click: function(){callback(null);$('#mix_match_manage_dlg').dialog('close');}}],
+                [{text:'exit', click: function(){callback(null,MIX_MATCH_LST);$('#mix_match_manage_dlg').dialog('close');}}],
                 open: function( event, ui ) 
                 {
                     $('#add_mix_match_btn').click(insert_mix_match_handler);
@@ -187,7 +187,6 @@ define(
                     });
                 },
                 close: function (event, ui) {
-                    localStorage.setItem('mix_match_lst',MIX_MATCH_LST);
                     $(this).remove();
                 }
             });  

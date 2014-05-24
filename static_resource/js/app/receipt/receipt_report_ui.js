@@ -5,6 +5,7 @@ define(
     ,'lib/ui/ui'
     ,'lib/ajax_helper'
     ,'app/receipt/receipt_pusher' 
+    ,'app/sale/displaying_scan/displaying_scan_util'
 ]
 ,function
 (
@@ -13,6 +14,7 @@ define(
     ,ui
     ,ajax_helper
     ,receipt_pusher
+    ,ds_util
 )
 {
     var STORE_ID = null;
@@ -44,7 +46,7 @@ define(
 
             //amount
             td = tr.insertCell(-1);
-            td.innerHTML = cur_receipt.collect_amount;
+            td.innerHTML = cur_receipt.get_total_line();
         }
     }
 

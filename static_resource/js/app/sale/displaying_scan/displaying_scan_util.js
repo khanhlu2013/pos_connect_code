@@ -1,11 +1,11 @@
 define(
-	[
-
-	]
-	,function
-	(
-
-	)
+[
+	'lib/number/number'
+]
+,function
+(
+	number
+)
 {
 
 	function get_line_total(ds_lst,tax_rate){
@@ -15,7 +15,7 @@ define(
 			total += ds_lst[i].get_line_total(tax_rate);
 		}
 
-		return total;
+		return number.round_2_decimal(total);
 	}
 
 	return{

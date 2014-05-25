@@ -138,7 +138,7 @@ define(
         }
     }
 
-    function exe(){
+    function exe(callback){
         
         var html_str = 
             '<div id="payment_type_dlg">' +
@@ -156,7 +156,7 @@ define(
                 width: 700,
                 height: 500,
                 buttons : 
-                [{text:'exit', click: function(){$('#payment_type_dlg').dialog('close');}}],
+                [{text:'exit', click: function(){callback(null,PAYMENT_TYPE_LST);$('#payment_type_dlg').dialog('close');}}],
                 open: function( event, ui ) 
                 {
                     $('#add_payment_type_btn').click(insert_pt_handler);

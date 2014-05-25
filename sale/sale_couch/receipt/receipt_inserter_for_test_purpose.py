@@ -5,10 +5,11 @@ from couchdb import Server
 from store.models import Store
 
 
-def exe(ds_lst,tax_rate,time_stamp,store_id,api_key_name,api_key_pwrd):
+def exe(tender_lst,ds_lst,tax_rate,time_stamp,store_id,api_key_name,api_key_pwrd):
 
     doc = Receipt_document(
          d_type = couch_constance.RECEIPT_DOCUMENT_TYPE
+        ,tender_lst = tender_lst 
         ,ds_lst = ds_lst
         ,tax_rate = tax_rate
         ,time_stamp = time_stamp

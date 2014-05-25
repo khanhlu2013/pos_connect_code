@@ -9,6 +9,7 @@ from receipt import copy_receipt_from_couch_2_master
 from decimal import Decimal
 from couch import couch_constance
 import time
+from receipt.models import Receipt
 
 
 class test(WebTest):
@@ -37,7 +38,7 @@ class test(WebTest):
                 assert receipt in master is saved correctly
                 assert receipt ln in master is saved correctly
         """
-        #foreman  run -e .env,test.env python manage.py test test.sale.copy_receipt_from_couch_2_master_test:test.can_cut_paste_receipt_from_couch_to_master
+        #foreman  run -e .env,test.env python manage.py test test.sale_report.copy_receipt_from_couch_2_master_test:test.can_cut_paste_receipt_from_couch_to_master
 
         #-FIXTURE
 
@@ -86,8 +87,7 @@ class test(WebTest):
             ,cost = ln_1_cost
             ,mix_match_deal = ln_1_mm_deal
         )
-
-        tender_lst = []
+        tender_lst = [{"name":None,"amount":1},{"name":"credit card","amount":2}]
         ds_lst = [ln_1,]
         tax_rate = 1
         time_stamp = 32 * 1000
@@ -115,14 +115,20 @@ class test(WebTest):
 
 
         #-assert receipt in master is saved correctly
-        receipt_master_lst = Receipt.objects.filter(store_id=store.id).prefetch_related('receipt_ln_set')
+        receipt_master_lst = Receipt.objects.filter(store_id=store.id).prefetch_related('receipt_ln_set').prefetch_related('tender_ln_set')
         self.assertEqual(len(receipt_master_lst),1)
         receipt = receipt_master_lst[0]
         self.assertEqual(int(time.mktime(receipt.time_stamp.timetuple())*1000),time_stamp)
-        self.assertEqual(receipt.collect_amount,Decimal(collect_amount))
         self.assertEqual(receipt.tax_rate,Decimal(tax_rate))
         self.assertEqual(receipt.store.id,store.id)
-
+        tender_ln_lst = receipt.tender_ln_set.all()
+        self.assertEqual(len(tender_ln_lst),2)
+        tender_ln_1 = tender_ln_lst[0]
+        tender_ln_2 = tender_ln_lst[1]
+        self.assertEqual(tender_ln_1.name,None)
+        self.assertEqual(tender_ln_1.amount,1)
+        self.assertEqual(tender_ln_2.name,'credit card')
+        self.assertEqual(tender_ln_2.amount,2)
 
         #-assert receipt ln in master is saved correct
         receipt_ln_lst = receipt.receipt_ln_set.all()
@@ -137,6 +143,6 @@ class test(WebTest):
         self.assertEqual(receipt_ln.is_taxable,is_taxable)
         self.assertEqual(receipt_ln.p_type,p_type)
         self.assertEqual(receipt_ln.p_tag,p_tag)
-        self.assertEqual(receipt_ln.cost,cost)
-        self.assertEqual(receipt_ln.buydown,buydown)
+        self.assertEqual(receipt_ln.cost,Decimal(str(cost)))
+        self.assertEqual(receipt_ln.buydown,Decimal(str(buydown)))
 

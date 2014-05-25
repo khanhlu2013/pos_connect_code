@@ -1,7 +1,17 @@
+. craving cause suffering
+    .craving for approval to aquire happiness is a delusion and not the reality. 
+
+. happiness must be earn. (cause and effect) 
+    . right thought to promote love, compassion, honesty and eliminate ill-will. 
+    . right action: thought alone is like a pretty flower without sense and fruit.
+
+. HOW method: midfulness, constance effort to reach happiness: end suffering by end craving and earn your salvation by right thought and action
+
+--------------------------------------------------------------------------
+
+
 
 ~. july 10-11-12-13 back packing
-fri noon: deep
-
 ~. parakett idea: a trypod with remote. a keyboard of there own sound
 ~. i want to be a blues student.
 ~. build a play ground for parakeet. how to engage with your paraket. time. 
@@ -320,18 +330,27 @@ SKILL IMPROVEMENT
     . sale_shortcut validator and responsive validation ui
     . remove all alert
 
-
-. kit
-. sale table, 100% stretch for product name
-. payment type: incorporate with sale
-    . add payment type into sale page
-    . recording
-
 . max_digits=7, decimal_places=2
+. sale table, 100% stretch for product name
+
+. payment type
+    . report of pt
+    . change name stamp into id
+    . hide pt, but can't remove pt that is already used
+
+. kit (buydown,crv,cost)
+    . implement it in couch level but a list of pid
 
 
 
-. tender_lst implementation on server side 
+
+
+
+
+
+
+
+
 
 
 

@@ -31,6 +31,7 @@ define(
         ,'app/sale_report/date_range_report_ui'
         ,'app/receipt/receipt_report_ui'        
         ,'app/sale/tender/tender_manage_ui'
+        ,'app/payment_type/payment_type_manage_ui'
         //-----------------
         ,'dropit'
         ,'jquery'
@@ -71,7 +72,8 @@ define(
         ,mix_match_manage_ui
         ,date_range_report_ui
         ,receipt_report_ui   
-        ,tender_manage_ui     
+        ,tender_manage_ui   
+        ,payment_type_manage_ui  
     )
     {
         //UI
@@ -376,6 +378,17 @@ define(
         { 
             receipt_report_ui.exe(STORE_ID,COUCH_SERVER_URL);
         });   
+        $('#payment_type_menu').click(function(e)
+        { 
+            async.waterfall([payment_type_manage_ui.exe],function(error,result){
+                if(error){
+                    error_lib.alert_error(error);
+                    return;
+                }
+
+                PAYMENT_TYPE_LST = result;
+            });
+        });  
 
         csrf_ajax_protection_setup();
         var oneshot_sync_b = oneshot_sync.bind(oneshot_sync,STORE_ID,COUCH_SERVER_URL);

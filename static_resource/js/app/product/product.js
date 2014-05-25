@@ -235,15 +235,11 @@ define(
     });
     $('#sale_shortcut_menu').click(function(e)
     { 
-        async.waterfall([sale_shortcut_manage_ui.exe],function(error,result){
-            
-        });
+        async.waterfall([sale_shortcut_manage_ui.exe],function(error,result){});
     });
     $('#mix_match_menu').click(function(e)
     {
-        async.waterfall([mix_match_manage_ui.exe],function(error,result){
-            
-        });     
+        async.waterfall([mix_match_manage_ui.exe],function(error,result){});
     });    
     $('#date_range_report_menu').click(function(e)
     { 
@@ -255,7 +251,7 @@ define(
     });   
     $('#payment_type_menu').click(function(e)
     { 
-        payment_type_manage_ui.exe();
+        async.waterfall([payment_type_manage_ui.exe],function(error,result){});
     });       
 });
 

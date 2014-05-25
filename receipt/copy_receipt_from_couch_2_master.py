@@ -34,11 +34,12 @@ def exe(store_id):
 
 def insert_tender_ln_to_master(receipt_couch_lst,receipt_id_c2mLookup):
     tender_ln_lst = []
-    for receipt in receipt_couch_lst:
-        for tender_ln in receipt.tender_lst:
-            receipt_id = receipt_id_c2mLookup[receipt['_id']
-            tender_ln = Tender_ln(receipt_id = receipt_id,amount = tender_ln.amount,name=tender_ln.name)
-            tender_ln_lst.append(tender_ln)
+    for receipt_c in receipt_couch_lst:
+        for tender_ln_c in receipt_c['tender_lst']:
+            receipt_id = receipt_id_c2mLookup[receipt_c['_id']]
+            tender_ln_m = Tender_ln(receipt_id=receipt_id,amount=tender_ln_c["amount"],name=tender_ln_c["name"])
+            tender_ln_lst.append(tender_ln_m)
+
     Tender_ln.objects.bulk_create(tender_ln_lst)
 
 
@@ -113,6 +114,7 @@ def insert_receipt_to_master(receipt_couch_lst,store_id):
             ,_receipt_doc_id = receipt_couch['_id']
         )
         receipt_master_lst.append(receipt_master)
+
     Receipt.objects.bulk_create(receipt_master_lst)
 
     #retrieve ids for create receipt in master

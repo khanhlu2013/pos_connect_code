@@ -1,5 +1,5 @@
 from receipt import copy_receipt_from_couch_2_master
-from sale.models import Receipt 
+from receipt.models import Receipt 
 from receipt import receipt_master_getter
 from sale_report import report_calculator
 

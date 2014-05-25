@@ -83,7 +83,8 @@ define(
 
             if(amount_str.length !=0){
                 var amount = parseFloat(amount_str);
-                var obj = {name:pt.name,amount:amount};
+                var name = (pt.id == CASH_PT_ID ? null : pt.name)
+                var obj = {name:name,amount:amount};
                 lst_result.push(obj);
             }
         }
@@ -112,7 +113,7 @@ define(
 
     function exe(payment_type_lst,due_amount,callback){
         /*
-            return a list of objects, each obj containing 2 fields: name(string) and amount(float)
+            return a list of objects, each obj containing 2 fields: name(string;if null it is 'cash') and amount(float)
         */
         PT_LST = new Array();
         for(var i = 0;i<payment_type_lst.length;i++){

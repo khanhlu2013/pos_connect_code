@@ -1,10 +1,10 @@
 from sale.sale_couch.receipt import receipt_lst_couch_getter
-from sale.models import Receipt,Receipt_ln
+from receipt.models import Receipt,Receipt_ln
 from couch import couch_util
 from store_product import new_sp_inserter
 from store_product.models import Store_product
 import datetime
-
+from receipt.models import Tender_ln
 
 def exe(store_id):
 
@@ -19,22 +19,34 @@ def exe(store_id):
     #STEP3: insert receipt
     receipt_id_c2mLookup = insert_receipt_to_master(receipt_couch_lst,store_id)
 
-    #STEP4: insert receipt ln
+    #STEP4: insert receipt ln 
     insert_receipt_ln_to_master(receipt_couch_lst,receipt_id_c2mLookup,sp_id_c2mLookup)
 
-    #STEP5: clean up sale data in couch after process
+    #STEP5: insert receipt tender_lst
+    insert_tender_ln_to_master(receipt_couch_lst,receipt_id_c2mLookup)
+
+    #STEP6: clean up sale data in couch after process
     delete_couch_receipt(receipt_couch_lst,store_id)
 
     return len(receipt_couch_lst)
 
 #------------------------------------------------------------------------------------------
 
+def insert_tender_ln_to_master(receipt_couch_lst,receipt_id_c2mLookup):
+    tender_ln_lst = []
+    for receipt in receipt_couch_lst:
+        for tender_ln in receipt.tender_lst:
+            receipt_id = receipt_id_c2mLookup[receipt['_id']
+            tender_ln = Tender_ln(receipt_id = receipt_id,amount = tender_ln.amount,name=tender_ln.name)
+            tender_ln_lst.append(tender_ln)
+    Tender_ln.objects.bulk_create(tender_ln_lst)
+
+
 def delete_couch_receipt(receipt_couch_lst,store_id):
     for receipt in receipt_couch_lst:
         receipt['_deleted'] = True
     db = couch_util.get_store_db(store_id)
     db.update(receipt_couch_lst)
-
 
 
 def insert_receipt_ln_to_master(receipt_couch_lst,receipt_id_c2mLookup,sp_id_c2mLookup):
@@ -90,14 +102,12 @@ def insert_receipt_ln_to_master(receipt_couch_lst,receipt_id_c2mLookup,sp_id_c2m
     Receipt_ln.objects.bulk_create(receipt_ln_master_lst)
 
 
-
 def insert_receipt_to_master(receipt_couch_lst,store_id):
     #bulk create receipt
     receipt_master_lst = []
     for receipt_couch in receipt_couch_lst:
         receipt_master = Receipt(
              time_stamp = datetime.datetime.fromtimestamp(receipt_couch['time_stamp']/1000.0)
-            ,collect_amount = receipt_couch['collect_amount']
             ,tax_rate = receipt_couch['tax_rate']
             ,store_id = store_id
             ,_receipt_doc_id = receipt_couch['_id']

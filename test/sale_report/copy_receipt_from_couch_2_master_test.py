@@ -87,13 +87,13 @@ class test(WebTest):
             ,mix_match_deal = ln_1_mm_deal
         )
 
-        collect_amount = 1
+        tender_lst = []
         ds_lst = [ln_1,]
         tax_rate = 1
         time_stamp = 32 * 1000
 
         receipt_inserter_for_test_purpose.exe(
-             collect_amount = collect_amount
+             tender_lst = tender_lst
             ,ds_lst = ds_lst
             ,tax_rate = tax_rate
             ,time_stamp = time_stamp

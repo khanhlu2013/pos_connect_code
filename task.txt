@@ -327,14 +327,11 @@ SKILL IMPROVEMENT
     . add payment type into sale page
     . recording
 
+. max_digits=7, decimal_places=2
 
 
 
-
-
-. replace collect amount with payment_type_lst
-. check 
-
+. tender_lst implementation on server side 
 
 
 

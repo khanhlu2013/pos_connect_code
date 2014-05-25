@@ -3,7 +3,7 @@ from model_mommy import mommy
 from helper import test_helper
 from decimal import Decimal
 import datetime
-from sale.models import Receipt,Receipt_ln
+from receipt.models import Receipt,Receipt_ln
 from store_product.models import Store_product
 
 class test(WebTest):

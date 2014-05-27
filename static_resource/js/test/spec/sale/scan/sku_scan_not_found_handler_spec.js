@@ -89,6 +89,7 @@ define(
 	            ,lookup_type_tag
 	            ,is_sku_management
 	            ,is_group_management
+	            ,is_kit_management
 	            ,suggest_product
 		        ,callback
             ){

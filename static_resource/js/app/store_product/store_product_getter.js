@@ -5,6 +5,7 @@ define(
         ,'lib/object_store/get_os'
         ,'lib/async'
         ,'constance'
+        ,'lib/error_lib'
     ]
     ,function(
          Store_product
@@ -12,7 +13,7 @@ define(
         ,get_os
         ,async
         ,constance
-
+        ,error_lib
     )
 {
     function _create_store_product_from_cursor(cursor){
@@ -34,8 +35,14 @@ define(
             ,cursor.value.cost
             ,cursor.value.vendor
             ,cursor.value.buydown
+            ,cursor.value.kit_child_bare_lst//kit_child_bare_lst
+            ,[]//kit_child_lst
         );
         return store_product;
+    }
+
+    function _populate_kit_child_lst(){
+
     }
 
     function _generic_search(index_name,search_param,is_unique_result_expected,store_idb,callback){
@@ -46,7 +53,7 @@ define(
         index.openCursor(IDBKeyRange.only(search_param)).onsuccess = function(event) {
             var cursor = event.target.result;
             if (cursor) {
-                product_lst.push(_create_store_product_from_cursor(cursor));
+                product_lst.push(_create_store_product_from_cursor(cursor,store_idb));
                 cursor.continue();
             }else{
                 var filtered_result_lst = couch_db_util.filter_old_rev(product_lst);
@@ -86,41 +93,41 @@ define(
             ,callback
         );
     }
-
-    function search_by_doc_id(doc_id_index,doc_id,callback){
-        var sp_lst = new Array();
-        doc_id_index.openCursor(IDBKeyRange.only(doc_id)).onsuccess = function(event) {
-            var cursor = event.target.result;
-            if (cursor) {
-                sp_lst.push(_create_store_product_from_cursor(cursor));
-                cursor.continue();
-            }else{
-                var filtered_result_lst = couch_db_util.filter_old_rev(sp_lst);
-                if(filtered_result_lst.length==1){
-                    callback(null/*error*/,filtered_result_lst[0]);
-                }else{
-                    callback('Bug: expect one result',null/*result*/)
-                }
-            }
-        };
+    
+    function search_by_doc_id(doc_id,store_idb,callback){
+        _generic_search(
+             constance.DOCUMENT_ID_INDEX_NAME//index_name
+            ,doc_id//search_param
+            ,true//is_unique_result_expected
+            ,store_idb
+            ,callback
+        );
     }
 
     function search_by_doc_id_lst(doc_id_lst,store_idb,callback){
-        var store_os = get_os.get_main_os(true/*readonly*/,store_idb);
-        var doc_id_index = store_os.index(constance.DOCUMENT_ID_INDEX_NAME);
         var search_func_array = new Array();
 
         for(var i = 0;i<doc_id_lst.length;i++){
-            var search_func_b = search_by_doc_id.bind(search_by_doc_id,doc_id_index,doc_id_lst[i]);
+            var search_func_b = search_by_doc_id.bind(search_by_doc_id,doc_id_lst[i],store_idb);
             search_func_array.push(search_func_b);
         }
 
         async.series(search_func_array,function(error,results){
             callback(error,results);
         });
-        
     }
 
+    function search_by_pid_lst(pid_lst,store_idb,callback){
+        var func_lst = []
+        for(var i = 0;i<pid_lst.length;i++){
+            var func = by_product_id.bind(by_product_id,pid_lst[i],store_idb);  
+            func_lst.push(func); 
+        }
+        
+        async.series(func_lst,function(error,results){
+            callback(error,results)
+        });
+    }
 
     function by_product_id_is_null(store_idb,callback){
         var store_os = get_os.get_main_os(true/*is_read_only*/,store_idb)
@@ -131,7 +138,7 @@ define(
             var cursor = event.target.result;
             if (cursor) {
                 if(cursor.value.product_id==null){
-                    product_lst.push(_create_store_product_from_cursor(cursor));
+                    product_lst.push(_create_store_product_from_cursor(cursor,store_idb));
                 }
                 cursor.continue();
             }else{
@@ -151,7 +158,7 @@ define(
             var cursor = event.target.result;
             if (cursor) {
                 if(cursor.value.product_id!=null){
-                    product_lst.push(_create_store_product_from_cursor(cursor));
+                    product_lst.push(_create_store_product_from_cursor(cursor,store_idb));
                 }
                 cursor.continue();
             }else{
@@ -164,12 +171,12 @@ define(
 
     return {
          search_by_sku:search_by_sku
-        ,search_by_doc_id:search_by_doc_id 
         ,search_by_doc_id_lst:search_by_doc_id_lst
         ,by_product_id:by_product_id
         ,by_product_id_not_null:by_product_id_not_null
         ,by_product_id_is_null:by_product_id_is_null
         ,_create_store_product_from_cursor:_create_store_product_from_cursor
+        ,search_by_pid_lst:search_by_pid_lst//test purpose, don't need to publish this
     }
 });
 

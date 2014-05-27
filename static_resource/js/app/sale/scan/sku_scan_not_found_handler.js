@@ -46,6 +46,8 @@ define(
             ,prompt_result.cost
             ,prompt_result.vendor
             ,prompt_result.buydown
+            ,[]//kit_child_bare_lst
+            ,[]//kit_child_lst
         );
 
         pouch_db.post(store_product, function(err, response) {
@@ -95,6 +97,7 @@ define(
                             ,null//lookup_type_tag
                             ,false//is_sku_management
                             ,false//is_group_management
+                            ,false//is_kit_management
                             ,null//suggest_product
                         )
                         var create_offline_b = create_offline.bind(create_offline ,sku_str ,pouch_db );

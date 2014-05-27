@@ -218,6 +218,7 @@ define(
                         ,lookup_type_tag
                         ,false//is_sku_management
                         ,false//is_group_management
+                        ,false//is_kit_management
                         ,selected_product//suggest_product
                     );      
                     var product_id = (selected_product == null ? null : selected_product.product_id);

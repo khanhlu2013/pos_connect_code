@@ -126,7 +126,7 @@ define(
                         }
                     }
                 ],
-                open: function( event, ui ) 
+                open: function( event, ui_ ) 
                 {
                     async.waterfall([group_lst_getter.exe],function(error,result){
                         if(error){
@@ -135,9 +135,6 @@ define(
                         }else{
                             GROUP_LST = result;
                             group_data_2_ui();
-                            if(GROUP_LST.length == 0){
-                                ui.ui_alert('no group defined');
-                            }
                         }
                     })
                 },

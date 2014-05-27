@@ -165,7 +165,7 @@ define(
                 open: function( event, ui ) 
                 {
                     group_tbl = document.getElementById('group_tbl');
-                    $('#add_group_btn').off('click').click(insert_group_handler);
+                    $('#add_group_btn').click(insert_group_handler);
                     async.waterfall([group_lst_getter.exe],function(error,result){
                         GROUP_LST = result;
                         display_group_table();

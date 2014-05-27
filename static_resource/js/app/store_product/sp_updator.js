@@ -65,6 +65,7 @@ define(
             ,lookup_type_tag
             ,true//is_sku_management
             ,true//is_group_management
+            ,true//is_kit_management
             ,null//suggest_product
         );
 

@@ -1,7 +1,8 @@
 from rest_framework import serializers,fields
 from product.models import Product,ProdSkuAssoc
-from store_product.models import Store_product
+from store_product.models import Store_product,Kit_breakdown_assoc
 from group.models import Group
+
 
 class Prod_sku_assoc_serializer(serializers.ModelSerializer):
     product_id = serializers.Field(source='product.id')
@@ -22,14 +23,32 @@ class Group_serializer(serializers.ModelSerializer):
         fields = ('id','name')
 
 
-class Store_product_serializer(serializers.ModelSerializer):
+class Store_product_without_breakdown_serializer(serializers.ModelSerializer):
     product_id = serializers.Field(source='product.id')
     store_id = serializers.Field(source='store.id')
     group_set = Group_serializer(many=True)
 
     class Meta:
         model = Store_product
-        fields = ('product_id','store_id','name','price','crv','is_taxable','is_sale_report','p_type','p_tag','cost','vendor','buydown','group_set')
+        fields = ('id','product_id','store_id','name','price','crv','is_taxable','is_sale_report','p_type','p_tag','cost','vendor','buydown','group_set')
+
+
+class Kit_breakdown_assoc_serializer():
+    breakdown = Store_product_without_breakdown_serializer(many=False)
+    class Meta:
+        model = Kit_breakdown_assoc
+        fields = ('breakdown','qty')
+
+
+class Store_product_serializer(serializers.ModelSerializer):
+    product_id = serializers.Field(source='product.id')
+    store_id = serializers.Field(source='store.id')
+    group_set = Group_serializer(many=True)
+    kit_breakdown_assoc_set = Kit_breakdown_assoc_serializer(many=True)
+
+    class Meta:
+        model = Store_product
+        fields = ('id','product_id','store_id','name','price','crv','is_taxable','is_sale_report','p_type','p_tag','cost','vendor','buydown','group_set','kit_breakdown_assoc_set')
 
 
 class Product_serializer(serializers.ModelSerializer):
@@ -45,7 +64,7 @@ class Product_serializer(serializers.ModelSerializer):
 
 def serialize_product_from_id(product_id,store_id,is_include_other_store):
     query_set = Product.objects.filter(id=product_id)
-    query_set.prefetch_related('store_product_set','prodskuassoc_set__store_product_set')
+    query_set.prefetch_related('store_product_set__kit_breakdown_assoc_set','prodskuassoc_set__store_product_set')
         
     if not is_include_other_store:
         query_set.filter(store_product__store_id = store_id)

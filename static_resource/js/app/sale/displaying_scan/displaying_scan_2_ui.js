@@ -14,6 +14,7 @@ define(
         ,'app/store_product/sp_group_manage_ui'  
         ,'app/sku/product_sku_manager'  
         ,'app/store_product/sp_prompt'
+        ,'app/store_product/kit_manage_ui'
     ]
     ,function(
          async
@@ -30,6 +31,7 @@ define(
         ,sp_group_manage_ui
         ,product_sku_manager
         ,sp_prompt
+        ,kit_manage_ui
     )
 {
     var column_name = ["qty", "product", "price", "line total", "X"];
@@ -118,7 +120,15 @@ define(
                                     error_lib.alert_error(error);
                                 }
                             });
-                        }else{
+                        }else if(error == sp_prompt.MANAGE_KIT_BUTTON_PRESS){
+                            var kit_manage_b = kit_manage_ui.exe.bind(kit_manage_ui.exe,product_id,displaying_scan.store_product.name,STORE_ID,COUCH_SERVER_URL);
+                            async.waterfall([kit_manage_b],function(error,result){
+                                if(error){
+                                    error_lib.alert_error(error);
+                                }
+                            });
+                        }
+                        else{
                             error_lib.alert_error(error);
                         }
                         return;

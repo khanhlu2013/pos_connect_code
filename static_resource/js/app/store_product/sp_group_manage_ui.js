@@ -91,17 +91,6 @@ define(
                 });
             })(group)
         }
-
-        $(".checkbox_class").each(function()
-        {
-            $(this).change(function()
-            {
-                if(!IS_MULTIPLE_SELECTION){
-                    $(".checkbox_class").prop('checked',false);
-                    $(this).prop('checked',true);
-                }
-            });
-        });             
     }
 
     function exe(product_id,product_name,callback){
@@ -116,7 +105,7 @@ define(
             .dialog(
             {
                 modal: true,
-                title : product_name,
+                title : 'group manage ' + product_name,
                 zIndex: 10000,
                 autoOpen: true,
                 width: 800,

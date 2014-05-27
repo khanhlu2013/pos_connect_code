@@ -2,7 +2,7 @@ from django.conf.urls import patterns,url
 from django.contrib.auth.decorators import login_required
 from store_product import sp_sku_view
 from store_product.create_new_sp_for_receipt_ln.views import create_new_sp_for_receipt_ln_view
-from store_product.view import new_sp_insert_view,old_sp_insert_view,sp_update_view,sp_search_view,sp_group_getter_view,sp_group_update_view
+from store_product.view import new_sp_insert_view,old_sp_insert_view,sp_update_view,sp_search_view,sp_group_getter_view,sp_group_update_view,sp_kit_update_view
 
 urlpatterns = patterns('',
     # namespace='store_product'
@@ -26,4 +26,7 @@ urlpatterns = patterns('',
 
     #AFTER PUSH RECEIPT
     url(r'^create_new_sp_for_receipt_ln$',login_required(create_new_sp_for_receipt_ln_view)),
+
+    #UPDATE KIT
+    url(r'^kit/update$',login_required(sp_kit_update_view.sp_kit_update_view)),
 )

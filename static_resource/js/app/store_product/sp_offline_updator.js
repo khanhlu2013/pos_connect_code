@@ -43,6 +43,7 @@ define(
             ,null//lookup_type_tag
             ,false//is_sku_management
             ,false//is_group_management
+            ,false//is_kit_management
             ,null//suggest_product
         );		
 

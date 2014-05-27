@@ -36,13 +36,6 @@ define(
 		this.tender_lst = tender_lst
 		this.d_type = constance.RECEIPT_TYPE
 	};
-    
-	Receipt.prototype = {
-		constructor:Receipt,
-		get_total_line: function(){
-			return ds_util.get_total_line(this.ds_lst,this.tax_rate)
-		}
-	}
 
     return Receipt;
 });

@@ -147,6 +147,29 @@ define(
         }
     }
 
+    function compute_kit_amount(sp,field){
+        if(sp.kit_child_set == undefined || sp.kit_child_set.length == 0){
+            return 0.0;
+        }
+
+        var result = 0.0;
+        for(var i = 0;i<sp.kit_child_set.length;i++){
+
+            var child = sp.kit_child_set[i];
+            if(field == 'crv'){
+                result += (child.crv == null ? 0.0 : parseFloat(child.crv));
+            }else if(field == 'buydown'){
+                result += (child.buydown == null ? 0.0 : parseFloat(child.buydown));
+            }else if(field == 'cost'){
+                result += (child.cost == null ? 0.0 : parseFloat(child.cost));
+            }else{
+                result = NaN;
+            }
+        }
+
+        return result;
+    }
+
     return{
          get_prod_sku_assoc_set: get_prod_sku_assoc_set
         ,get_sp_from_p:get_sp_from_p
@@ -155,5 +178,6 @@ define(
         ,get_sp_from_sp_lst:get_sp_from_sp_lst
         ,get_suggest_info:get_suggest_info
         ,remove_sp_from_sp_lst:remove_sp_from_sp_lst
+        ,compute_kit_amount:compute_kit_amount
     };
 });

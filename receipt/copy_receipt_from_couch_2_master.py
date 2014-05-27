@@ -50,6 +50,25 @@ def delete_couch_receipt(receipt_couch_lst,store_id):
     db.update(receipt_couch_lst)
 
 
+def compute_kit_amount(sp_lst,field):
+    if len(sp_lst) == 0:
+        return 0.0
+
+    result = 0.0
+    for item in sp_lst:
+        if field == 'crv':
+            result += (item['crv'] if item['crv'] != None else 0.0)
+        elif field == 'cost':
+            result += (item['cost'] if item['cost'] != None else 0.0)
+        elif field == 'buydown':
+            result += (item['buydown'] if item['buydown'] != None else 0.0)
+        else:
+            result = None
+            break
+    
+    return result
+
+
 def insert_receipt_ln_to_master(receipt_couch_lst,receipt_id_c2mLookup,sp_id_c2mLookup):
     receipt_ln_master_lst = []
 
@@ -67,15 +86,23 @@ def insert_receipt_ln_to_master(receipt_couch_lst,receipt_id_c2mLookup,sp_id_c2m
             sp_p_tag = None
             sp_cost = None
             sp_buydown = None
+            sp_kit_child_lst = None
 
             if sp_couch != None:
                 sp_master_id = sp_id_c2mLookup[sp_couch['_id']]
                 sp_is_taxable = sp_couch['is_taxable']
-                sp_crv = sp_couch['crv']
                 sp_p_type = sp_couch['p_type']
                 sp_p_tag = sp_couch['p_tag']  
-                sp_cost = sp_couch['cost']   
-                sp_buydown = sp_couch['buydown']         
+                sp_kit_child_lst = sp_couch['kit_child_lst']
+
+                if sp_kit_child_lst != None or len(sp_kit_child_lst) != 0:
+                    sp_crv = compute_kit_amount(sp_kit_child_lst,'crv')             
+                    sp_cost = compute_kit_amount(sp_kit_child_lst,'cost')      
+                    sp_buydown = compute_kit_amount(sp_kit_child_lst,'buydown')      
+                else:
+                    sp_crv = sp_couch['crv']                
+                    sp_cost = sp_couch['cost']   
+                    sp_buydown = sp_couch['buydown']         
             else:
                 sp_is_taxable = False
 

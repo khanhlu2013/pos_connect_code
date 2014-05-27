@@ -26,7 +26,7 @@ define(
         index.openCursor(IDBKeyRange.only(sku)).onsuccess = function(event) {
             var cursor = event.target.result;
             if (cursor) {
-                product_lst.push(sp_getter._create_store_product_from_cursor(cursor));
+                product_lst.push(sp_getter._create_store_product_from_cursor(cursor,store_idb));
                 cursor.continue();
             }else{
                 callback(null/*error*/,product_lst);

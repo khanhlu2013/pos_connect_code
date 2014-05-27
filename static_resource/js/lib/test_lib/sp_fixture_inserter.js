@@ -40,6 +40,8 @@ define(
 	        ,cost
 	        ,vendor
 	        ,buydown
+	        ,[]//kit_child_bare_lst
+	        ,[]//kit_child_lst
 	    );
 
 		pouch_db.post(store_product, function(err, response) {

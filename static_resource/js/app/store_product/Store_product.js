@@ -25,6 +25,8 @@ define(
         ,cost
         ,vendor
         ,buydown
+        ,kit_child_bare_lst
+        ,kit_child_lst
     )   
     {
         if(_id != null && _rev != null){
@@ -48,6 +50,8 @@ define(
         this.cost = (cost == null ? null : Number(cost));
         this.vendor = vendor
         this.buydown = (buydown == null ? null : Number(buydown));
+        this.kit_child_bare_lst = kit_child_bare_lst;
+        this.kit_child_lst = kit_child_lst;
     };
 
     return Store_product;

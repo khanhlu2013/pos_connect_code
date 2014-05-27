@@ -18,6 +18,7 @@ class Store_product(models.Model):
     vendor = models.CharField(blank=True,null=True,max_length=100)
     buydown = models.DecimalField(max_digits=6, decimal_places=2,blank=True,null=True)
     group_set = models.ManyToManyField('group.Group')
+    breakdown_set = models.ManyToManyField("self",symmetrical=False,through='Kit_breakdown_assoc',related_name='kit_set')
 
     class Meta:
         unique_together = ("product","store")
@@ -29,4 +30,10 @@ class Store_product(models.Model):
         self.name = self.name.strip()
         if not self.name:
             raise ValidationError("Please provide product's name")
+
+
+class Kit_breakdown_assoc(models.Model):
+    kit = models.ForeignKey(Store_product,related_name='kit_assoc_set')
+    breakdown = models.ForeignKey(Store_product,related_name='breakdown_assoc_set')
+    qty = models. IntegerField()
 

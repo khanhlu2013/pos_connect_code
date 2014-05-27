@@ -8,7 +8,7 @@
 . HOW method: midfulness, constance effort to reach happiness: end suffering by end craving and earn your salvation by right thought and action
 
 --------------------------------------------------------------------------
-x
+
 
 
 ~. july 10-11-12-13 back packing
@@ -330,6 +330,8 @@ SKILL IMPROVEMENT
     . sale_shortcut validator and responsive validation ui
     . remove all alert
 
+. group select ui can create and edit group right there
+
 . max_digits=7, decimal_places=2
 . sale table, 100% stretch for product name
 
@@ -338,16 +340,22 @@ SKILL IMPROVEMENT
     . change name stamp into id
     . hide pt, but can't remove pt that is already used
 
-. kit (buydown,crv,cost)
-    . implement it in couch level but a list of pid
+. when we adding product from another store, title is blank
+. add kit manage ui into product page
+. excel
+
+----------------------
+.receipt_json_helper to calculate total
+
+. recording kit:
+    .when sp update a kit product on the server side, always record: cost,crv,buydown as null
+    .when record sale, compute and stamp cost,crv,bd
+
+    .when sp_prompt a kit product, always compute cost,crv,bd and disable the text field
 
 
 
-
-
-
-
-
+_create_store_product_from_cursor
 
 
 

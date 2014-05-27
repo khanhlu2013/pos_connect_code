@@ -10,6 +10,7 @@ define(
     var ERROR_CANCEL_STORE_PRODUCT_PROMPT = 'ERROR_CANCEL_STORE_PRODUCT_PROMPT';
     var MANAGE_SKU_BUTTON_PRESS = 'MANAGE_SKU_BUTTON_PRESS';
     var MANAGE_GROUP_BUTTON_PRESS = 'MANAGE_GROUP_BUTTON_PRESS';
+    var MANAGE_KIT_BUTTON_PRESS = 'MANAGE_KIT_BUTTON_PRESS';
 
     function cancel_btn_handler(callback){
         $("#store_product_prompt_dialog").dialog("close");
@@ -104,6 +105,36 @@ define(
         }                     
     }
 
+    function display_kit_data(sp_prefill){
+
+        if(sp_prefill.kit_child_set === undefined){
+            return;
+        }
+
+        if(sp_prefill.kit_child_set.length == 0){
+            return;
+        }
+
+        var tbl = document.getElementById('kit_tbl');
+        tbl.innertHTML = "";
+        var tr;var td;
+
+        var columns = ['kit'];
+        tr = tbl.insertRow(-1);
+        for(var i = 0;i<columns.length;i++){
+            td = tr.insertCell(-1);
+            td.innerHTML = columns[i];
+        }
+
+        for(var i = 0;i<sp_prefill.kit_child_set.length;i++){
+            var tr = tbl.insertRow(-1);
+            var sp = sp_prefill.kit_child_set[i];
+
+            var td = tr.insertCell(-1);
+            td.innerHTML = sp.name;
+        }
+    }
+
     function display_group_data(sp_prefill){
 
         if(sp_prefill.group_set.length == 0){
@@ -137,6 +168,7 @@ define(
             ,lookup_type_tag
             ,is_sku_management
             ,is_group_management
+            ,is_kit_management
             ,suggest_product
             ,callback
         ){
@@ -149,18 +181,20 @@ define(
                     '<br>' +
                     '<label for="product_price_txt">Price:</label>' +
                     '<input type="text" id = "product_price_txt">' +
-                    '<input type="button" id = "suggest_price_btn">' +                      
+                    '<input type="button" id = "suggest_price_btn">' +     
                     '<br>' +
                     '<label for="product_crv_txt">Crv:</label>' +
                     '<input type="text" id = "product_crv_txt">' +
-                    '<input type="button" id = "suggest_crv_btn">' +                    
+                    '<input type="button" id = "suggest_crv_btn">' +     
+                    '<label id="_compute_crv_lbl"></label>' +                   
                     '<br>' +
                     '<label for="product_taxable_check">Taxable:</label>' +
                     '<input type="checkbox" id = "product_taxable_check">' +
                     '<br>' +
                     '<label for="product_cost_txt">Cost:</label>' +
                     '<input type="text" id = "product_cost_txt">' +
-                    '<input type="button" id = "suggest_cost_btn">' +                   
+                    '<input type="button" id = "suggest_cost_btn">' +     
+                    '<label id="_compute_cost_lbl"></label>' +                                        
                     '<br>' +                        
                     '<label for="product_sale_report_check">Sale report:</label>' +
                     '<input type="checkbox" id = "product_sale_report_check">' +
@@ -176,11 +210,13 @@ define(
                     '<br>' +
                     '<label for="product_buydown_txt">Buydown:</label>' +
                     '<input type="text" id = "product_buydown_txt">' +
+                    '<label id="_compute_buydown_lbl"></label>' +                     
                     '<br>' +
                     '<label for="product_sku_txt">Sku:</label>' +
                     '<input type="text" id = "product_sku_txt">' +
-                    '<br>' +                    
-                    '<table id="group_tbl" border="1"></table>' +                    
+                    '<br>' +           
+                    '<table id="group_tbl" border="1"></table>' +       
+                    '<table id="kit_tbl" border="1"></table>' +                
                 '</div>';
 
             //TITLE
@@ -189,7 +225,7 @@ define(
                 title = 'edit ' + sp_prefill.name;
             }else{
                 if(suggest_product){
-                    'add: ' + suggest_product.name
+                    'add: ' + suggest_product.name;
                 }else{
                     title = 'create new product';
                 }
@@ -205,19 +241,26 @@ define(
             }
 
             if(is_sku_management){
-                buttons['Manage sku'] = function(){
+                buttons['sku'] = function(){
                     $("#store_product_prompt_dialog").dialog("close");
                     callback(MANAGE_SKU_BUTTON_PRESS);                       
                 }
             }
 
             if(is_group_management){
-                buttons['Manage group'] = function(){
+                buttons['group'] = function(){
                     $("#store_product_prompt_dialog").dialog("close");
                     callback(MANAGE_GROUP_BUTTON_PRESS);                       
                 }
             }
                   
+            if(is_kit_management){
+                buttons['kit'] = function(){
+                    $("#store_product_prompt_dialog").dialog("close");
+                    callback(MANAGE_KIT_BUTTON_PRESS);                       
+                }
+            }
+
             $(html_str).appendTo('body')
                 .dialog(
                 {
@@ -229,7 +272,9 @@ define(
                     buttons: buttons,
                     create   : function(ev, ui) {
                         $(this).parent().find('.ui-dialog-buttonset').css({'width':'100%','text-align':'right'});
-                        $(this).parent().find('button:contains("Manage")').css({'float':'left'});
+                        $(this).parent().find('button:contains("sku")').css({'float':'left'});
+                        $(this).parent().find('button:contains("group")').css({'float':'left'});
+                        $(this).parent().find('button:contains("kit")').css({'float':'left'});
                     },
                     open: function( event, ui ) 
                     {
@@ -294,7 +339,25 @@ define(
                             $('#product_tag_txt').val(sp_prefill.p_tag);     
                             $('#product_cost_txt').val(sp_prefill.cost);     
                             $('#product_vendor_txt').val(sp_prefill.vendor);   
-                            $('#product_buydown_txt').val(sp_prefill.buydown);                             
+                            $('#product_buydown_txt').val(sp_prefill.buydown);              
+
+                            if(sp_prefill.kit_child_set != undefined && sp_prefill.kit_child_set.length != 0){
+                                $('#product_crv_txt').attr('readonly', 'readonly');
+                                $('#product_cost_txt').attr('readonly', 'readonly');
+                                $('#product_buydown_txt').attr('readonly', 'readonly');
+
+                                $('#product_crv_txt').val(""); //does not matter what is the value, we will override this to empty
+                                $('#product_cost_txt').val(""); //does not matter what is the value, we will override this to empty
+                                $('#product_buydown_txt').val(""); //does not matter what is the value, we will override this to empty   
+
+                                $('#_compute_cost_lbl').text(product_json_helper.compute_kit_amount(sp_prefill,'cost'));
+                                $('#_compute_crv_lbl').text(product_json_helper.compute_kit_amount(sp_prefill,'crv'));
+                                $('#_compute_buydown_lbl').text(product_json_helper.compute_kit_amount(sp_prefill,'buydown'));
+                            }else{
+                                $('#_compute_cost_lbl').hide();
+                                $('#_compute_crv_lbl').hide();
+                                $('#_compute_buydown_lbl').hide();
+                            }
                         }else{
                             var is_taxable_prefill = null;
                             if(suggest_product){
@@ -321,6 +384,12 @@ define(
                         if(is_group_management){
                             if(sp_prefill != null){
                                 display_group_data(sp_prefill);
+                            }
+                        }
+
+                        if(is_kit_management){
+                            if(sp_prefill != null){
+                                display_kit_data(sp_prefill);
                             }
                         }
 
@@ -359,6 +428,7 @@ define(
          ERROR_CANCEL_STORE_PRODUCT_PROMPT : ERROR_CANCEL_STORE_PRODUCT_PROMPT
         ,MANAGE_SKU_BUTTON_PRESS : MANAGE_SKU_BUTTON_PRESS
         ,MANAGE_GROUP_BUTTON_PRESS : MANAGE_GROUP_BUTTON_PRESS
+        ,MANAGE_KIT_BUTTON_PRESS : MANAGE_KIT_BUTTON_PRESS
         ,show_prompt : show_prompt
     }
 });

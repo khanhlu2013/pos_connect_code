@@ -56,7 +56,7 @@ define(
             breakdown_assoc_lst.push({breakdown_id:cur_assoc.breakdown.product_id,qty:cur_assoc.qty})
         }
         var data = {kit_id:KIT.product_id,breakdown_assoc_lst:breakdown_assoc_lst};
-        var ajax_b = ajax_helper.exe.bind(ajax_helper.exe,'/product/kit/update','POST','updating kit ...',data);
+        var ajax_b = ajax_helper.exe.bind(ajax_helper.exe,'/product/kit/update','POST','updating kit ...',JSON.stringify(data));
         var sync_if_nessesary_b = sync_if_nessesary.bind(sync_if_nessesary,STORE_ID,COUCH_SERVER_URL);
         async.series([ajax_b,sync_if_nessesary_b],function(error,results){
             var product_json_serialized = (results ? results[0] : null)

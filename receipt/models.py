@@ -36,9 +36,10 @@ class Receipt_ln(models.Model):
 
     def get_total_out_the_door_price(self):
         discount = self.discount if self.discount!=None else decimal.Decimal(0.0)
+        buydown = self.buydown if self.buydown!=None else decimal.Deciaml(0.0)
         discount_mm_deal = self.discount_mm_deal if self.discount_mm_deal != None else decimal.Decimal(0.0)
         crv = self.crv if self.crv!=None else decimal.Decimal('0.0')
-        return (self.price - discount - discount_mm_deal + crv) * self.qty
+        return (self.price - discount - buydown - discount_mm_deal + crv) * self.qty
 
 
 class Tender_ln_serializer(serializers.ModelSerializer):

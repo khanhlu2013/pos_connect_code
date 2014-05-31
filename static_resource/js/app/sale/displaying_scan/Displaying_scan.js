@@ -21,11 +21,9 @@ define(['lib/number/number'],function(number){
         }
         ,get_buydown: function(){
             var result = 0.0;
-
             if(this.store_product != null){
-                result = (this.store_product.buydown == null ? 0.0 : this.store_product.buydown)
+                result = (this.store_product.get_buydown())
             }
-
             return result;
         }        
         ,get_total_discount: function () {
@@ -46,20 +44,20 @@ define(['lib/number/number'],function(number){
             return this.price - this.get_total_discount();
         }
         ,get_crv: function(){
-            if(!this.store_product){
-                return 0;
+            var result = 0.0;
+            if(this.store_product != null){
+                result = (this.store_product.get_crv())
             }
-
-            if(!this.store_product.crv){
-                return 0;
-            }
-
-            return this.store_product.crv;
+            return result;
         }
         ,get_otd_wot_price: function(){
             return this.get_total_discount_price() + this.get_crv();
         }
         ,get_buydown_tax: function(tax_rate){
+            if(this.store_product == null || this.store_product.is_taxable == false){
+                return 0;
+            }
+                        
             var result = this.get_buydown() * tax_rate/100.0
             return number.round_2_decimal(result);
         }

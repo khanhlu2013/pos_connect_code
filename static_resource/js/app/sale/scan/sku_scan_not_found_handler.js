@@ -46,8 +46,7 @@ define(
             ,prompt_result.cost
             ,prompt_result.vendor
             ,prompt_result.buydown
-            ,[]//kit_child_bare_lst
-            ,[]//kit_child_lst
+            ,[]//breakdown_assoc_lst
         );
 
         pouch_db.post(store_product, function(err, response) {

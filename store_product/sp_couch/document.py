@@ -1,7 +1,6 @@
 from couchdb.mapping import Document,TextField,DecimalField,ListField,IntegerField,BooleanField,DictField
 
 class Store_product_document(Document):
-    
     store_id = IntegerField()
     product_id = IntegerField()    
     d_type = TextField()

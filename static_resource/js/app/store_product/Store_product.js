@@ -1,10 +1,12 @@
 define(
     [
-        'constance'
+         'constance'
+        ,'lib/number/number'
     ]
     ,function
     (
-        constance
+         constance
+        ,number
     )
 {
     function Store_product
@@ -25,8 +27,7 @@ define(
         ,cost
         ,vendor
         ,buydown
-        ,kit_child_bare_lst
-        ,kit_child_lst
+        ,breakdown_assoc_lst
     )   
     {
         if(_id != null && _rev != null){
@@ -50,8 +51,36 @@ define(
         this.cost = (cost == null ? null : Number(cost));
         this.vendor = vendor
         this.buydown = (buydown == null ? null : Number(buydown));
-        this.kit_child_bare_lst = kit_child_bare_lst;
-        this.kit_child_lst = kit_child_lst;
+        this.breakdown_assoc_lst = breakdown_assoc_lst;
+    };
+
+
+    Store_product.prototype = {
+         constructor: Store_product
+        ,get_buydown: function(){
+            if(this.breakdown_assoc_lst == undefined || this.breakdown_assoc_lst.length == 0){
+                return this.buydown;
+            }
+
+            var result = 0.0;
+            for(var i = 0;i<this.breakdown_assoc_lst.length;i++){
+                var assoc = this.breakdown_assoc_lst[i];
+                result += (assoc.breakdown.get_buydown() * assoc.qty);
+            }
+            return number.round_2_decimal(result);
+        }        
+        ,get_crv: function(){
+            if(this.breakdown_assoc_lst == undefined || this.breakdown_assoc_lst.length == 0){
+                return this.crv;
+            }
+
+            var result = 0.0;
+            for(var i = 0;i<this.breakdown_assoc_lst.length;i++){
+                var assoc = this.breakdown_assoc_lst[i];
+                result += (assoc.breakdown.get_crv() * assoc.qty);
+            }
+            return number.round_2_decimal(result);
+        }
     };
 
     return Store_product;

@@ -348,8 +348,7 @@ SKILL IMPROVEMENT
 ----------------------
 . recording kit:
     . update breakdown on client side
-    . test a recursive on server that is not immediate child    
-    . kit validation on server side, during update: recursive
+    . kit recursive validation on server side
 
     . json recursive calculating helper
         . when record sale, compute and stamp cost,crv,bd

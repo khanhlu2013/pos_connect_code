@@ -3,6 +3,7 @@ define(
      'lib/error_lib'
     ,'lib/async'
     ,'lib/ajax_helper'
+    ,'lib/number/number'
 
 ]
 ,function
@@ -10,6 +11,7 @@ define(
      error_lib
     ,async
     ,ajax_helper
+    ,number
 )
 {
     function compute_amount(sp,field){
@@ -27,7 +29,7 @@ define(
             result += (compute_amount(assoc.breakdown,field) * assoc.qty);
         }
 
-        return result;
+        return number.round_2_decimal(result);
     }
 
     function get_recursive_pid_lst(cur_sp,is_bd_or_kit){

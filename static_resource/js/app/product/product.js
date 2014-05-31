@@ -18,6 +18,8 @@ define(
     ,'app/sale_report/date_range_report_ui'
     ,'app/receipt/receipt_report_ui'
     ,'app/payment_type/payment_type_manage_ui'
+    ,'app/kit/kit_manage_ui'
+    ,'app/store_product/sp_json_helper'
     //-----------------
     ,'dropit'
     ,'jquery'
@@ -45,6 +47,8 @@ define(
     ,date_range_report_ui
     ,receipt_report_ui
     ,payment_type_manage_ui
+    ,kit_manage_ui
+    ,sp_json_helper
 )
 {
     var PRODUCT_DATA_LST = null;
@@ -80,8 +84,12 @@ define(
                             return;
                         }
                     });
-                }
-                else{
+                }else if(error == sp_prompt.MANAGE_KIT_BUTTON_PRESS){
+                    var kit_manage_ui_b = kit_manage_ui.exe.bind(kit_manage_ui.exe,pid,product_name,STORE_ID,COUCH_SERVER_URL);
+                    async.waterfall([kit_manage_ui_b],function(error,result){
+                        //todo refresh the page here xxx
+                    });                    
+                }else{
                     error_lib.alert_error(error);
                 }
                 return;
@@ -122,7 +130,7 @@ define(
         for(var i = 0;i<prodStore_prodSku_1_1.length;i++){
             var tr = prod_tbl.insertRow(-1);
             var td;
-            sp = product_json_helper.get_sp_from_p(prodStore_prodSku_1_1[i],STORE_ID);
+            var sp = product_json_helper.get_sp_from_p(prodStore_prodSku_1_1[i],STORE_ID);
             
             td = tr.insertCell(-1);
             td.innerHTML = sp.name;
@@ -131,7 +139,7 @@ define(
             td.innerHTML = sp.price;            
 
             td = tr.insertCell(-1);
-            td.innerHTML = sp.crv; 
+            td.innerHTML = sp_json_helper.compute_amount(sp,'crv')
 
             td = tr.insertCell(-1);
             td.innerHTML = sp.is_taxable;      
@@ -149,10 +157,10 @@ define(
             td.innerHTML = sp.vendor; 
 
             td = tr.insertCell(-1);
-            td.innerHTML = sp.cost; 
+            td.innerHTML = sp_json_helper.compute_amount(sp,'cost')
 
             td = tr.insertCell(-1);
-            td.innerHTML = sp.buydown; 
+            td.innerHTML = sp_json_helper.compute_amount(sp,'buydown')
 
             td = tr.insertCell(-1);
             td.innerHTML = 'edit';   
@@ -252,7 +260,8 @@ define(
     $('#payment_type_menu').click(function(e)
     { 
         async.waterfall([payment_type_manage_ui.exe],function(error,result){});
-    });       
+    });     
+
 });
 
 /*

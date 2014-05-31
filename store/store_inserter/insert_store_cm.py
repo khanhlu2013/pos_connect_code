@@ -9,7 +9,6 @@ from sale.sale_couch.receipt import receipt_document_validator
 from util.couch import couch_acl_validator,old_security_4_test_purpose
 import hashlib
 import os
-from helper import test_helper
 from couch import couch_util
 
 def exe(store):
@@ -18,14 +17,14 @@ def exe(store):
 
 
 def exe_master(store):
-    if test_helper.is_local_env():
+    if _is_local_env():
         store.api_key_name,store.api_key_pwrd = (1,1)        
     else:
         store.api_key_name,store.api_key_pwrd = get_cloudant_api_key()
     store.save(by_pass_cm=True)
 
     #overwrite key_name and password under local env
-    if test_helper.is_local_env():
+    if _is_local_env():
         store_db_name = couch_util._get_store_db_name(store.id)
         store.api_key_name,store.api_key_pwrd = store_db_name,store_db_name
         store.save(by_pass_cm=True)
@@ -37,7 +36,7 @@ def exe_couch(store_id,tax_rate,api_key_name):
     _couch_db_insert_db(store_id)
     _couch_db_insert_view(store_id)
     _couch_db_insert_validation(store_id)
-    if test_helper.is_local_env():
+    if _is_local_env():
         old_security_4_test_purpose.exe(store_id)
     else:
         _couch_db_grant_cloudant_access_to_api_key(api_key_name,store_id,['_reader','_writer'])
@@ -127,6 +126,7 @@ def _couch_db_insert_validation(business_id):
 
 
 
-
+def _is_local_env():
+    return 'LOCAL_ENVIRONMENT' in os.environ.keys()
 
 

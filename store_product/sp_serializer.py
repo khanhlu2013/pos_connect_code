@@ -22,33 +22,71 @@ class Group_serializer(serializers.ModelSerializer):
         model = Group
         fields = ('id','name')
 
-
-class Store_product_without_breakdown_serializer(serializers.ModelSerializer):
+class Store_product_serializer(serializers.ModelSerializer):
     product_id = serializers.Field(source='product.id')
     store_id = serializers.Field(source='store.id')
     group_set = Group_serializer(many=True)
+
+    def to_native(self,obj):
+        if not self.fields.has_key('breakdown_assoc_lst'):
+            self.fields['breakdown_assoc_lst'] = Breakdown_assoc_serializer()
+
+        if not self.fields.has_key('kit_assoc_lst'):
+            self.fields['kit_assoc_lst'] = Kit_assoc_serializer()
+
+        return super(Store_product_serializer,self).to_native(obj)
 
     class Meta:
         model = Store_product
         fields = ('id','product_id','store_id','name','price','crv','is_taxable','is_sale_report','p_type','p_tag','cost','vendor','buydown','group_set')
 
 
-class Kit_breakdown_assoc_serializer():
-    breakdown = Store_product_without_breakdown_serializer(many=False)
-    class Meta:
-        model = Kit_breakdown_assoc
-        fields = ('breakdown','qty')
-
-
-class Store_product_serializer(serializers.ModelSerializer):
+class Store_product_kit_serializer(serializers.ModelSerializer):
     product_id = serializers.Field(source='product.id')
     store_id = serializers.Field(source='store.id')
     group_set = Group_serializer(many=True)
-    kit_breakdown_assoc_set = Kit_breakdown_assoc_serializer(many=True)
+
+    def to_native(self,obj):
+        if not self.fields.has_key('kit_assoc_lst'):
+            self.fields['kit_assoc_lst'] = Kit_assoc_serializer()
+
+        return super(Store_product_kit_serializer,self).to_native(obj)
 
     class Meta:
         model = Store_product
-        fields = ('id','product_id','store_id','name','price','crv','is_taxable','is_sale_report','p_type','p_tag','cost','vendor','buydown','group_set','kit_breakdown_assoc_set')
+        fields = ('id','product_id','store_id','name','price','crv','is_taxable','is_sale_report','p_type','p_tag','cost','vendor','buydown','group_set')
+
+
+class Store_product_breakdown_serializer(serializers.ModelSerializer):
+    product_id = serializers.Field(source='product.id')
+    store_id = serializers.Field(source='store.id')
+    group_set = Group_serializer(many=True)
+
+    def to_native(self,obj):
+        if not self.fields.has_key('breakdown_assoc_lst'):
+            self.fields['breakdown_assoc_lst'] = Breakdown_assoc_serializer()
+
+        return super(Store_product_breakdown_serializer,self).to_native(obj)
+
+    class Meta:
+        model = Store_product
+        fields = ('id','product_id','store_id','name','price','crv','is_taxable','is_sale_report','p_type','p_tag','cost','vendor','buydown','group_set')
+
+
+class Kit_assoc_serializer(serializers.ModelSerializer):
+    kit = Store_product_kit_serializer(many=False)
+
+    class Meta:
+        model = Kit_breakdown_assoc
+        fields = ('kit',)
+
+
+class Breakdown_assoc_serializer(serializers.ModelSerializer):
+    breakdown = Store_product_breakdown_serializer(many=False)
+
+    class Meta:
+        model = Kit_breakdown_assoc
+        fields = ('breakdown','qty')
 
 
 class Product_serializer(serializers.ModelSerializer):
@@ -64,7 +102,7 @@ class Product_serializer(serializers.ModelSerializer):
 
 def serialize_product_from_id(product_id,store_id,is_include_other_store):
     query_set = Product.objects.filter(id=product_id)
-    query_set.prefetch_related('store_product_set__kit_breakdown_assoc_set','prodskuassoc_set__store_product_set')
+    query_set.prefetch_related('store_product_set__breakdown_assoc_lst','prodskuassoc_set__store_product_set')
         
     if not is_include_other_store:
         query_set.filter(store_product__store_id = store_id)

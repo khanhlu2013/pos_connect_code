@@ -4,9 +4,24 @@ from couch import couch_util
 from couchdb import ResourceNotFound
 from django.contrib.auth.models import User
 import os
+from store_product import new_sp_inserter
 
-def is_local_env():
-    return 'LOCAL_ENVIRONMENT' in os.environ.keys()
+def create_bare_sp(store_id):
+    return new_sp_inserter.exe(
+         store_id = store_id
+        ,name = 'x'
+        ,price = 1
+        ,crv = None
+        ,is_taxable = False
+        ,is_sale_report = False
+        ,p_type = None
+        ,p_tag = None
+        ,sku_str = None
+        ,cost = None
+        ,vendor = None
+        ,buydown = None
+    )
+
 
 def create_sp(store,product):
     return mommy.make('store_product.Store_product',product=product,store=store,is_taxable=False)

@@ -13,7 +13,7 @@ define(
              url : url
             ,type : type
             ,dataType : 'json'
-            ,data : data
+            ,data : JSON.stringify(data)
             ,success : function(data,status_str,xhr){
                 ui.ui_unblock();
                 callback(null/*error*/,data);

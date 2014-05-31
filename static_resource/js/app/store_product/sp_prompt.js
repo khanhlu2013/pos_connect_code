@@ -2,10 +2,12 @@ define(
 [
      'app/store_product/store_product_validator'
     ,'app/product/product_json_helper' 
+    ,'app/store_product/sp_json_helper'
 ]
 ,function (
      sp_validator
     ,product_json_helper
+    ,sp_json_helper
 ){
     var ERROR_CANCEL_STORE_PRODUCT_PROMPT = 'ERROR_CANCEL_STORE_PRODUCT_PROMPT';
     var MANAGE_SKU_BUTTON_PRESS = 'MANAGE_SKU_BUTTON_PRESS';
@@ -107,11 +109,11 @@ define(
 
     function display_kit_data(sp_prefill){
 
-        if(sp_prefill.kit_child_set === undefined){
+        if(sp_prefill.breakdown_assoc_lst === undefined){
             return;
         }
 
-        if(sp_prefill.kit_child_set.length == 0){
+        if(sp_prefill.breakdown_assoc_lst.length == 0){
             return;
         }
 
@@ -119,19 +121,22 @@ define(
         tbl.innertHTML = "";
         var tr;var td;
 
-        var columns = ['kit'];
+        var columns = ['kit','qty'];
         tr = tbl.insertRow(-1);
         for(var i = 0;i<columns.length;i++){
             td = tr.insertCell(-1);
             td.innerHTML = columns[i];
         }
 
-        for(var i = 0;i<sp_prefill.kit_child_set.length;i++){
+        for(var i = 0;i<sp_prefill.breakdown_assoc_lst.length;i++){
             var tr = tbl.insertRow(-1);
-            var sp = sp_prefill.kit_child_set[i];
+            var assoc = sp_prefill.breakdown_assoc_lst[i];
 
             var td = tr.insertCell(-1);
-            td.innerHTML = sp.name;
+            td.innerHTML = assoc.breakdown.name;
+
+            var td = tr.insertCell(-1);
+            td.innerHTML = assoc.qty;            
         }
     }
 
@@ -341,7 +346,7 @@ define(
                             $('#product_vendor_txt').val(sp_prefill.vendor);   
                             $('#product_buydown_txt').val(sp_prefill.buydown);              
 
-                            if(sp_prefill.kit_child_set != undefined && sp_prefill.kit_child_set.length != 0){
+                            if(sp_prefill.breakdown_assoc_lst != undefined && sp_prefill.breakdown_assoc_lst.length != 0){
                                 $('#product_crv_txt').attr('readonly', 'readonly');
                                 $('#product_cost_txt').attr('readonly', 'readonly');
                                 $('#product_buydown_txt').attr('readonly', 'readonly');
@@ -350,9 +355,9 @@ define(
                                 $('#product_cost_txt').val(""); //does not matter what is the value, we will override this to empty
                                 $('#product_buydown_txt').val(""); //does not matter what is the value, we will override this to empty   
 
-                                $('#_compute_cost_lbl').text(product_json_helper.compute_kit_amount(sp_prefill,'cost'));
-                                $('#_compute_crv_lbl').text(product_json_helper.compute_kit_amount(sp_prefill,'crv'));
-                                $('#_compute_buydown_lbl').text(product_json_helper.compute_kit_amount(sp_prefill,'buydown'));
+                                $('#_compute_cost_lbl').text(sp_json_helper.compute_amount(sp_prefill,'cost'));
+                                $('#_compute_crv_lbl').text(sp_json_helper.compute_amount(sp_prefill,'crv'));
+                                $('#_compute_buydown_lbl').text(sp_json_helper.compute_amount(sp_prefill,'buydown'));
                             }else{
                                 $('#_compute_cost_lbl').hide();
                                 $('#_compute_crv_lbl').hide();

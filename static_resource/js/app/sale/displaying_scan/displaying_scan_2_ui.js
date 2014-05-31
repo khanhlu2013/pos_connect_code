@@ -14,7 +14,7 @@ define(
         ,'app/store_product/sp_group_manage_ui'  
         ,'app/sku/product_sku_manager'  
         ,'app/store_product/sp_prompt'
-        ,'app/store_product/kit_manage_ui'
+        ,'app/kit/kit_manage_ui'
     ]
     ,function(
          async

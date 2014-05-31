@@ -1,4 +1,5 @@
-from store_product import sp_updator,sp_serializer,store_product_master_getter
+from store_product import sp_updator,sp_serializer
+from store_product.models import Store_product
 from django.http import HttpResponse
 import json
 from django.core.serializers.json import DjangoJSONEncoder
@@ -36,9 +37,12 @@ def sp_update_view(request):
     if price == None or is_taxable == None or is_sale_report == None:
         return
 
-    #verify sp belong to this store
-    sp = store_product_master_getter.get_item(product_id=product_id,store_id=cur_login_store.id)
-    if sp == None:
+    #verify sp belong to this store, and crv,cost,bd param is blank if it is a kit: we can not directly editing these info for kit. it is calculated based on breakdown
+    sp =  Store_product.objects.prefetch_related('breakdown_lst').get(product_id=product_id,store_id=cur_login_store.id)
+    print(cost)
+    print(crv)
+    print(buydown)
+    if sp.breakdown_lst.count() != 0 and (cost != None or crv != None or buydown != None):
         return
 
     sp_updator.exe( \

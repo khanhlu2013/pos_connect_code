@@ -18,7 +18,7 @@ class Store_product(models.Model):
     vendor = models.CharField(blank=True,null=True,max_length=100)
     buydown = models.DecimalField(max_digits=6, decimal_places=2,blank=True,null=True)
     group_set = models.ManyToManyField('group.Group')
-    breakdown_set = models.ManyToManyField("self",symmetrical=False,through='Kit_breakdown_assoc',related_name='kit_set')
+    breakdown_lst = models.ManyToManyField('self',symmetrical=False,through='Kit_breakdown_assoc',related_name='kit_lst')
 
     class Meta:
         unique_together = ("product","store")
@@ -33,7 +33,6 @@ class Store_product(models.Model):
 
 
 class Kit_breakdown_assoc(models.Model):
-    kit = models.ForeignKey(Store_product,related_name='kit_assoc_set')
-    breakdown = models.ForeignKey(Store_product,related_name='breakdown_assoc_set')
-    qty = models. IntegerField()
-
+    kit = models.ForeignKey(Store_product,related_name='breakdown_assoc_lst')
+    breakdown = models.ForeignKey(Store_product,related_name='kit_assoc_lst')
+    qty = models.IntegerField()

@@ -14,7 +14,7 @@ class Store_product_document(Document):
     p_type = TextField()
     p_tag = TextField()
     sku_lst = ListField(TextField())
-    kit_child_bare_lst = ListField(DictField())
+    breakdown_assoc_lst = ListField(DictField())
     cost = DecimalField()
     vendor = TextField()
     buydown = DecimalField()

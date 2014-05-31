@@ -82,11 +82,8 @@ TO REMEMBER
 -----------
 
 
-    res = self.app.post(url='sale_report/get_report',{'from_date':from_date_str,'to_date':to_date_str},user=user)
+~. res = self.app.post(url='sale_report/get_report',{'from_date':from_date_str,'to_date':to_date_str},user=user)
 
-
-REALIZATION
------------
 ~. javascript closure for creating dynamic event handling in a creating a html table with loop
         for(var i = 0;i<prod_sku_assoc_set.length;i++){
             td = tr.insertCell(-1);
@@ -98,6 +95,9 @@ REALIZATION
                 });
             }) (cur_prod_sku_assoc)
         }
+REALIZATION
+-----------
+~. kit: in couch and pouch, sp contain breakdown_assoc_lst {breakdown_id,qty}. when server response sp json, we sp also have breakdown_assoc_lst{breakdown(recursive serialize sp here),qty}
 ~. make sure receipt in couch is not getting sync down again: magically did not get push down
 ~. encourage user to scan all data first, that way, when the internet is down, the data is already located offline for them. 
 ~. no approve_product on couch = fast loading, simplify project, less code to maintain. only 1 place to lookup for approve_product and that is master.
@@ -331,7 +331,7 @@ SKILL IMPROVEMENT
     . remove all alert
 
 . group select ui can create and edit group right there
-
+. refresh ui after kit_manage_ui @ product and @ sale pages
 . max_digits=7, decimal_places=2
 . sale table, 100% stretch for product name
 
@@ -341,21 +341,22 @@ SKILL IMPROVEMENT
     . hide pt, but can't remove pt that is already used
 
 . when we adding product from another store, title is blank
-. add kit manage ui into product page
 . excel
+. sp_util.get_sp_json_from_product_json: can i make it to be uniform with the client code: put it in product app, and uniform method naming
+. receipt_json_helper to calculate total
 
 ----------------------
-.receipt_json_helper to calculate total
-
 . recording kit:
-    .when sp update a kit product on the server side, always record: cost,crv,buydown as null
-    .when record sale, compute and stamp cost,crv,bd
+    . update breakdown on client side
+    . test a recursive on server that is not immediate child    
+    . kit validation on server side, during update: recursive
 
-    .when sp_prompt a kit product, always compute cost,crv,bd and disable the text field
+    . json recursive calculating helper
+        . when record sale, compute and stamp cost,crv,bd
 
 
 
-_create_store_product_from_cursor
+
 
 
 

@@ -74,7 +74,7 @@ define(
             var scan_helper_b = scan_helper.bind(scan_helper,scan_str_lst,store_idb);
 
             //DS_2_UI
-			var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,[]/*mm_lst*/,store_idb,store_pdb,store_id,null/*couch_server_url*/,tax_rate,tbl,btn)
+			var ds_2_ui_b = ds_2_ui.exe.bind(ds_2_ui.exe,[]/*mm_lst*/,store_idb,store_pdb,store_id,null/*couch_server_url*/,tax_rate,tbl,btn)
  			
 
             //EXE

@@ -19,8 +19,7 @@ def sp_kit_update_view(request):
     cur_login_store = request.session.get('cur_login_store')
 
     #update
-    sp_kit_update_cm.exe(kit_id=kit_id,store_id=cur_login_store.id,breakdown_assoc_lst=breakdown_assoc_lst)
+    product_serialized = sp_kit_update_cm.exe(kit_id=kit_id,store_id=cur_login_store.id,breakdown_assoc_lst=breakdown_assoc_lst)
 
     #response
-    product_serialized = sp_serializer.serialize_product_from_id(product_id=kit_id,store_id = cur_login_store.id,is_include_other_store = False)
-    return HttpResponse(json.dumps(product_serialized,cls=DjangoJSONEncoder),content_type='application/json')    
+    return HttpResponse(json.dumps(product_serialized,cls=DjangoJSONEncoder),content_type='application/json')

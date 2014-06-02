@@ -5,6 +5,7 @@ define(
     ,'lib/ui/ui'
     ,'lib/ajax_helper'
     ,'app/receipt/receipt_pusher' 
+    ,'app/receipt/Receipt_json'
 ]
 ,function
 (
@@ -13,15 +14,17 @@ define(
     ,ui
     ,ajax_helper
     ,receipt_pusher
+    ,Receipt_json
 )
 {
     var STORE_ID = null;
     var COUCH_SERVER_URL = null;
-    
+    var RECEIPT_JSON_LST = null;/*Receipt_json list*/
+
     var refresh_btn = null;
     var receipt_tbl = null;
 
-    function display_receipt_table(receipt_lst){
+    function display_receipt_table(){
         receipt_tbl.innerHTML = "";
         var tr;var td;
 
@@ -33,10 +36,10 @@ define(
             td.innerHTML = columns[i];
         }
         
-        for(var i = 0;i<receipt_lst.length;i++){
+        for(var i = 0;i<RECEIPT_JSON_LST.length;i++){
 
             tr = receipt_tbl.insertRow(-1);
-            var cur_receipt = receipt_lst[i];
+            var cur_receipt = RECEIPT_JSON_LST[i];
 
             //date
             td = tr.insertCell(-1);
@@ -44,7 +47,7 @@ define(
 
             //amount
             td = tr.insertCell(-1);
-            td.innerHTML = 'xxx'
+            td.innerHTML = cur_receipt.get_total();
         }
     }
 
@@ -61,8 +64,12 @@ define(
                 error_lib.alert_error(error);
                 return;
             }
-            var receipt_data = results[1];
-            display_receipt_table(receipt_data);
+            var receipt_json_lst = results[1];
+            RECEIPT_JSON_LST = [];
+            for(var i = 0;i<receipt_json_lst.length;i++){
+                RECEIPT_JSON_LST.push(new Receipt_json(receipt_json_lst[i]));
+            }
+            display_receipt_table();
         });
     }
 

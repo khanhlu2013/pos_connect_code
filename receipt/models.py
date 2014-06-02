@@ -49,10 +49,9 @@ class Tender_ln_serializer(serializers.ModelSerializer):
 
 class Receipt_ln_serializer(serializers.ModelSerializer):
     store_product = Store_product_serializer(many=False)
-
     class Meta:
         model = Receipt_ln
-        fields = ('id','store_product','price','crv','discount','discount_mm_deal','non_product_name','is_taxable','p_type','p_tag','cost','buydown')
+        fields = ('id','qty','store_product','price','crv','discount','discount_mm_deal','non_product_name','is_taxable','p_type','p_tag','cost','buydown')
 
 
 class Receipt_serializer(serializers.ModelSerializer):

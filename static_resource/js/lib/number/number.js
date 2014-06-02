@@ -106,6 +106,21 @@ define(function(){
         else { return (values[half-1] + values[half]) / 2.0; } 
     } 
 
+    function str_2_float(str){
+    	/*
+			if null return 0
+			if "" return 0
+			return parseFloat
+    	*/
+ 		if(str == null){
+    		return 0.0;
+    	}
+ 		if(str.trim().length == 0){
+    		return 0.0;
+    	}
+ 		return parseFloat(str.trim())
+ 	}
+
 	return {
 		 prompt_positive_integer:prompt_positive_integer
 		,is_positive_integer:is_positive_integer
@@ -116,5 +131,6 @@ define(function(){
 		,prompt_integer:prompt_integer
 		,get_mode:get_mode
 		,get_median:get_median
+		,str_2_float:str_2_float
 	}
 })

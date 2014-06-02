@@ -125,7 +125,9 @@ define(
                             async.waterfall([kit_manage_b],function(error,result){
                                 if(error){
                                     error_lib.alert_error(error);
+                                    return;
                                 }
+                                refresh_ui();                             
                             });
                         }
                         else{
@@ -227,7 +229,15 @@ define(
         TOTAL_BUTTON.innerHTML = computed_total;
     }
 
-    return function(mm_lst,store_idb,store_pdb,store_id,couch_server_url,table,total_button,callback){
+    function refresh_ui(){
+        var ds_lst_getter_b = ds_lst_getter.bind(ds_lst_getter,MM_LST,STORE_IDB);
+        async.waterfall([ds_lst_getter_b],function(error,result){
+            var ds_lst = result;
+            ds_2_ui(ds_lst);
+        });           
+    }
+
+    function exe(mm_lst,store_idb,store_pdb,store_id,couch_server_url,table,total_button,callback){
         MM_LST = mm_lst;
         COUCH_SERVER_URL = couch_server_url;
         STORE_ID = store_id
@@ -236,7 +246,6 @@ define(
         SALE_TABLE = table;
         TOTAL_BUTTON = total_button;
         
-        
         var ds_lst_getter_b = ds_lst_getter.bind(ds_lst_getter,MM_LST,STORE_IDB);
         async.waterfall([ds_lst_getter_b],function(error,result){
             var ds_lst = result;
@@ -244,7 +253,11 @@ define(
 
             var result = {sale_table:SALE_TABLE,total_button:TOTAL_BUTTON}
             callback(error,result);
-        });
+        });    
+    }
+
+    return{
+        exe:exe
     }
 });
 

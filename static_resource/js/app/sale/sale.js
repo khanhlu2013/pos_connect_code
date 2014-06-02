@@ -107,7 +107,7 @@ define(
                     }
                     var product_json = result;
                     var pid_scanner_b = pid_scanner.exe.bind(pid_scanner.exe,product_json.product_id,STORE_IDB);
-                    var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,MM_LST,STORE_IDB,STORE_PDB,STORE_ID,COUCH_SERVER_URL,table,total_button);
+                    var ds_2_ui_b = ds_2_ui.exe.bind(ds_2_ui.exe,MM_LST,STORE_IDB,STORE_PDB,STORE_ID,COUCH_SERVER_URL,table,total_button);
                     async.waterfall([pid_scanner_b,ds_2_ui_b],function(error,result){
                         if(error){
                             error_lib.alert_error(error);
@@ -129,7 +129,7 @@ define(
                     var amount = result.price;
                     var inserting_ps = new Pending_scan(null/*key*/,1/*qty*/,amount,null/*discount*/,null/*sp_doc_id*/,result.description/*non_product_name*/);
                     var ps_inserter_b = ps_inserter.bind(ps_inserter,STORE_IDB,inserting_ps);
-                    var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,MM_LST,STORE_IDB,STORE_PDB,STORE_ID,COUCH_SERVER_URL,table,total_button);
+                    var ds_2_ui_b = ds_2_ui.exe.bind(ds_2_ui.exe,MM_LST,STORE_IDB,STORE_PDB,STORE_ID,COUCH_SERVER_URL,table,total_button);
 
                     async.waterfall([ps_inserter_b,ds_2_ui_b],function(error,result){
                         if(error){
@@ -205,7 +205,7 @@ define(
                 }
 
                 var scanner_b = scanner.exe.bind(scanner.exe,scan_str,STORE_IDB);
-                var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,MM_LST,STORE_IDB,STORE_PDB,STORE_ID,COUCH_SERVER_URL,table,total_button);
+                var ds_2_ui_b = ds_2_ui.exe.bind(ds_2_ui.exe,MM_LST,STORE_IDB,STORE_PDB,STORE_ID,COUCH_SERVER_URL,table,total_button);
 
                 async.waterfall([scanner_b,ds_2_ui_b],function(error,result){
                     if(error){
@@ -234,7 +234,7 @@ define(
                 if(child!=null){
 
                     var pid_scanner_b = pid_scanner.exe.bind(pid_scanner.exe,child.product_id,STORE_IDB);
-                    var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,MM_LST,STORE_IDB,STORE_PDB,STORE_ID,COUCH_SERVER_URL,table,total_button);
+                    var ds_2_ui_b = ds_2_ui.exe.bind(ds_2_ui.exe,MM_LST,STORE_IDB,STORE_PDB,STORE_ID,COUCH_SERVER_URL,table,total_button);
                     async.waterfall([pid_scanner_b,ds_2_ui_b],function(error,result){
                         if(error){
                             error_lib.alert_error(error);
@@ -305,7 +305,7 @@ define(
                             'remove all scan?'
                             ,function(){
                                 var voider_b = voider.bind(voider,STORE_IDB);
-                                var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,MM_LST,STORE_IDB,STORE_PDB,STORE_ID,COUCH_SERVER_URL,table,total_button);
+                                var ds_2_ui_b = ds_2_ui.exe.bind(ds_2_ui.exe,MM_LST,STORE_IDB,STORE_PDB,STORE_ID,COUCH_SERVER_URL,table,total_button);
 
                                 async.waterfall([voider_b,ds_2_ui_b],function(error,result){
                                     if(error){alert(error);}
@@ -322,7 +322,7 @@ define(
         }
         
         function refresh_sale_table(){
-            var ds_2_ui_b = ds_2_ui.bind(ds_2_ui,MM_LST,STORE_IDB,STORE_PDB,STORE_ID,COUCH_SERVER_URL,table,total_button);
+            var ds_2_ui_b = ds_2_ui.exe.bind(ds_2_ui.exe,MM_LST,STORE_IDB,STORE_PDB,STORE_ID,COUCH_SERVER_URL,table,total_button);
             async.waterfall([ds_2_ui_b],function(error,result){
                 if(error){
                     alert("There is error displaying scan: " + error);

@@ -1,5 +1,6 @@
 from store_product.models import Store_product,Kit_breakdown_assoc
 from store_product.sp_couch import store_product_couch_getter
+from store_product import sp_serializer
 from couch import couch_util
 
 
@@ -9,8 +10,9 @@ def exe(kit_id,store_id,breakdown_assoc_lst):
             .kit_id : a pid for kit
             .breakdown_assoc_lst: a list of {breakdown_id(pid),qty}
     """
-    exe_master(kit_id=kit_id,store_id=store_id,breakdown_assoc_lst=breakdown_assoc_lst)
+    sp_serialized = exe_master(kit_id=kit_id,store_id=store_id,breakdown_assoc_lst=breakdown_assoc_lst)
     exe_couch(kit_id=kit_id,store_id=store_id,breakdown_assoc_lst=breakdown_assoc_lst)
+    return sp_serialized
 
 
 def exe_master(kit_id,store_id,breakdown_assoc_lst):
@@ -36,6 +38,7 @@ def exe_master(kit_id,store_id,breakdown_assoc_lst):
         assoc_django_lst.append(assoc)
 
     Kit_breakdown_assoc.objects.bulk_create(assoc_django_lst)
+    return sp_serializer.serialize_product_from_id(product_id=kit_id,store_id = store_id,is_include_other_store = False) #the reason i return a serialized product here have to do with infinite loop validation and master/couch transaction. if infinite loop occur(breakdown containing kit), serializing will failed here causing couch not to execute. If we exit exe_cm here without cauching infinite loop, couch will be exe and can not be roll back alter since there is no transaction for couch.
 
 
 def exe_couch(kit_id,store_id,breakdown_assoc_lst):

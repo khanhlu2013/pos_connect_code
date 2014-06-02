@@ -263,18 +263,6 @@ CURRENT TASKS
 
 
 ------------------------------------------------------------------------------------------------------------------
-xxx reimplement test 
-
-couch_acl_validator_test: client have write permission that follow these 4 rules. is big couch follow the same syntax as couchdb?
-    . client can insert receipt. 
-    . client can not insert non-receipt
-    . client can not update
-    . client can not delete
-
-
-
-
-------------------------------------------------------------------------------------------------------------------
 PAGE LOADING USER EXPERIENCE
     . block ui when, and report require.js time out
 
@@ -297,10 +285,8 @@ UPGRADE FEATURE
 . type of business: convenient store. data collecting
 . zip code: geographic corporation
 . base on profit best selling product 
-. pass the server cost to customer: logs
 . clean out dead inventory
 . more or less info in sp prompt
-. menu system: move setting such as mixmatch, group, tax, report ... into menu
 . heroku log: how to warn user about usage. how to charge user on extra full db loading.
 . void log
 ------------------------------------------------------------------------------------------------------------------
@@ -308,6 +294,12 @@ SKILL IMPROVEMENT
 . continuous test->build->deploy
 
 ---------------------------------------------------------------
+TEST
+couch_acl_validator_test: client have write permission that follow these 4 rules. is big couch follow the same syntax as couchdb?
+    . client can insert receipt. 
+    . client can not insert non-receipt
+    . client can not update
+    . client can not delete
 . test select correct line
     . test sale edit
     . test sale short cut parent, child
@@ -320,20 +312,21 @@ SKILL IMPROVEMENT
 . store inserter test
 . receipt_document_validator_test
 . sku scan not found handler spec: there is a spy on old window.confirm and now we change it. make sure test work
+
 ---------------------
 
 . why there is a store id on sp in couch side? kill it
 . serialize_product_from_id(product_id,store_id,is_include_other_store) revisit is_include_other_store. it does not work. may be i need to implement this with python and not with django orm filter.
 . why tax_rate is not included in the sale context param
+
+
 . print  sale report
 . pos
     . sale_shortcut validator and responsive validation ui
     . remove all alert
-
-. group select ui can create and edit group right there
-. refresh ui after kit_manage_ui @ product and @ sale pages
 . max_digits=7, decimal_places=2
 . sale table, 100% stretch for product name
+
 
 . payment type
     . report of pt
@@ -343,21 +336,19 @@ SKILL IMPROVEMENT
 . when we adding product from another store, title is blank
 . excel
 . sp_util.get_sp_json_from_product_json: can i make it to be uniform with the client code: put it in product app, and uniform method naming
-. receipt_json_helper to calculate total
 
-----------------------
-. recording kit:
-    . update breakdown on client side
-    . kit recursive validation on server side
-
-    . json recursive calculating helper
-        . when record sale, compute and stamp cost,crv,bd
+---------------------
+. a quicker way to get to receipt, up down key to get to previous receipt (inline viewing)
 
 
 
 
+---------------------
 
-
+. sample true staging data
+    . keep it extream simple
+    . 400 product
+    . heroku?
 
 
 

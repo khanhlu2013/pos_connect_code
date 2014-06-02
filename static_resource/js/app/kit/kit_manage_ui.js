@@ -115,7 +115,7 @@ define(
             DESC: it take kit_id, then ajax server to init KIT and use KIT.assoc_breakdown_lst as temporary storage to display,remove and post server
             RETURN: product_json serialized in callback
         */
-        STORE_ID = STORE_ID;
+        STORE_ID = store_id;
         COUCH_SERVER_URL = couch_server_url;
 
         var html_str = 

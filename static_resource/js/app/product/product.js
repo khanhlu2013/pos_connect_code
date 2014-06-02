@@ -70,6 +70,15 @@ define(
         }
     }
 
+    function update_sp_lst(sp,lst){
+        for(var i = 0;i<lst.length;i++){
+            if(lst[i].product_id == sp.product_id){
+                lst[i] = sp;
+                break;
+            }
+        }        
+    }
+
     function update_sp(pid,product_name){
         var sp_updator_b = sp_updator.exe.bind(sp_updator.exe,pid,STORE_ID,COUCH_SERVER_URL);
         async.waterfall([sp_updator_b],function(error,result){
@@ -87,20 +96,19 @@ define(
                 }else if(error == sp_prompt.MANAGE_KIT_BUTTON_PRESS){
                     var kit_manage_ui_b = kit_manage_ui.exe.bind(kit_manage_ui.exe,pid,product_name,STORE_ID,COUCH_SERVER_URL);
                     async.waterfall([kit_manage_ui_b],function(error,result){
-                        //todo refresh the page here xxx
+                        if(error){
+                            error_lib.alert_error(error);
+                            return;
+                        }
+                        update_sp_lst(result/*product_serialized containing updated sp*/,PRODUCT_DATA_LST)
+                        product_data_2_ui();
                     });                    
                 }else{
                     error_lib.alert_error(error);
                 }
                 return;
             }else{
-                var update_product = result;
-                for(var i = 0;i<PRODUCT_DATA_LST.length;i++){
-                    if(PRODUCT_DATA_LST[i].product_id == update_product.product_id){
-                        PRODUCT_DATA_LST[i] = update_product;
-                        break;
-                    }
-                }
+                update_sp_lst(result/*updated_sp*/,PRODUCT_DATA_LST)
                 product_data_2_ui();
             }
         });

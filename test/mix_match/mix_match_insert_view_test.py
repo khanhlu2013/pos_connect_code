@@ -36,14 +36,14 @@ class test(WebTest):
         #MAKE REQUEST
         mix_match_name = '3 for $5'
         mix_match_qty = 2
-        mix_match_unit_discount = 2
+        mix_match_otd_price = 2
 
         res = self.app.post(
              '/mix_match/insert'
             ,{
                  'name':mix_match_name
                 ,'qty':mix_match_qty
-                ,'unit_discount':mix_match_unit_discount
+                ,'otd_price':mix_match_otd_price
                 ,'pid_comma_separated_lst_str':str(sp.product.id)
             }
             ,user=user)
@@ -55,7 +55,7 @@ class test(WebTest):
         self.assertTrue(mm!=None)
 
         self.assertEqual(mm['name'],mix_match_name)
-        self.assertEqual(mm['unit_discount'],str(mix_match_unit_discount))
+        self.assertEqual(mm['otd_price'],str(mix_match_otd_price))
         self.assertEqual(mm['qty'],mix_match_qty)
         #assert mm child
         mm_child_set = mm['mix_match_child_set']

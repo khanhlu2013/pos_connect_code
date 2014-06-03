@@ -356,11 +356,15 @@ ALGORITHM to imput data
 -----------------------
 . value customer pricing
 . create visual tool
+. change pt after the fact
+. hold
+. report for un-checked
 ------------------------
 
 . mix and match
+    . receipt.discount_mm_deal -> mm_unit_discount
 
 
-
-
+. from otd_price we need to calculate what is the unit discount. the way we do this , we need to calculate the actual price. unit_discount = actual_price - otd_price / qty
+. actual price: 
 

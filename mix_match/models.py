@@ -6,7 +6,7 @@ class Mix_match(models.Model):
     store = models.ForeignKey(Store)
     name = models.CharField(max_length=100)
     qty = models.IntegerField()
-    unit_discount = models.DecimalField(max_digits=6, decimal_places=2)
+    otd_price = models.DecimalField(max_digits=6, decimal_places=2)
 
 
 class Mix_match_child(models.Model):

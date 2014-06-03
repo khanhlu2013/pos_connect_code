@@ -17,7 +17,7 @@ def mix_match_update_view(request):
     id = request.POST['id'] 
     name = request.POST['name'] 
     qty = request.POST['qty'] 
-    unit_discount = request.POST['unit_discount'] 
+    otd_price = request.POST['otd_price'] 
     mix_match_child_pid_lst = request.POST['pid_comma_separated_lst_str'].split(",")
 
     #validate child is not emtpy
@@ -37,7 +37,7 @@ def mix_match_update_view(request):
     #update parent
     parent.name = name
     parent.qty = qty
-    parent.unit_discount = unit_discount
+    parent.otd_price = otd_price
     parent.save()
 
     #update child
@@ -59,7 +59,7 @@ def mix_match_insert_view(request):
     cur_login_store = request.session.get('cur_login_store')
     name = request.POST['name'] 
     qty = request.POST['qty'] 
-    unit_discount = request.POST['unit_discount'] 
+    otd_price = request.POST['otd_price'] 
     mix_match_child_pid_lst = request.POST['pid_comma_separated_lst_str'].split(",")
 
     #validate child is not emtpy
@@ -72,7 +72,7 @@ def mix_match_insert_view(request):
         return
 
     #create parent
-    parent = Mix_match.objects.create(store_id=cur_login_store.id,name=name,qty=qty,unit_discount=unit_discount)
+    parent = Mix_match.objects.create(store_id=cur_login_store.id,name=name,qty=qty,otd_price=otd_price)
     
     #create child
     child_lst = []

@@ -19,8 +19,6 @@ define(
         var data = {
              id:id
             ,name:result.name
-            ,qty:result.qty
-            ,unit_discount:result.unit_discount
             ,pid_comma_separated_lst_str:pid_comma_separated_lst_str
         }        
         ui.ui_block('updating group ...');

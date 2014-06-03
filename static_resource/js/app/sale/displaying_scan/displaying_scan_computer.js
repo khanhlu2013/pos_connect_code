@@ -89,7 +89,7 @@ define(
 
 
     function form_deal(ds_extract_lst,mm_deal){
-        var qty = 0;//this is the available qty in this ds_lst that we can use to form this deal. This mean no deal have been assigned to this item, and this item have to belong to this deal
+        var qty = 0;//this is the total available item in this ds_lst that we can use to form this deal. An available item is an item that curentlly have no deal assigned to, and this item have to belong to this deal's chilren
 
         for(var i = 0;i<ds_extract_lst.length;i++){
             var cur_ds = ds_extract_lst[i];

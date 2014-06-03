@@ -5,7 +5,6 @@ define(
         ,'app/store_product/sp_search_ui'
         ,'lib/error_lib'
         ,'app/product/product_json_helper'
-        ,'app/mix_match/mix_match_util'
         ,'lib/ui/ui'
         ,'app/group/group_select_ui'
     ]
@@ -16,7 +15,6 @@ define(
         ,sp_search_ui
         ,error_lib
         ,product_json_helper
-        ,mm_util
         ,ui
         ,group_select_ui
     )
@@ -31,8 +29,6 @@ define(
         var result = get_result_from_ui();  
         var error_lst = mix_match_validator.validate(result);
         set_validation_indicator(error_lst);              
-        price = mm_util.calculate_total_price(result,TAX_RATE);
-        $('#mix_match_total_price_txt').val(price);          
     }
 
     function ok_btn_handler(callback){
@@ -43,8 +39,6 @@ define(
             callback(null/*error*/,result);    
         }else{
             set_validation_indicator(error_lst);
-            price = mm_util.calculate_total_price(result,TAX_RATE);
-            $('#mix_match_total_price_txt').val(price);               
         }
     }
 
@@ -92,7 +86,7 @@ define(
     function set_validation_indicator(error_lst){
         $('#mix_match_name_txt').removeClass("error");  
         $('#mix_match_qty_txt').removeClass("error");  
-        $('#mix_match_unit_discount_txt').removeClass("error");  
+        $('#mix_match_otd_price_txt').removeClass("error");  
         $("label[for='mix_match_child_tbl']").removeClass("error");
         $("label[for='mix_match_child_tbl']").text("");
 
@@ -102,8 +96,8 @@ define(
         if(error_lst.indexOf(mix_match_validator.ERROR_MIX_MATCH_VALIDATION_QTY) != -1){
             $('#mix_match_qty_txt').addClass("error");  
         }
-        if(error_lst.indexOf(mix_match_validator.ERROR_MIX_MATCH_VALIDATION_UNIT_DISCOUNT) != -1){
-            $('#mix_match_unit_discount_txt').addClass("error");  
+        if(error_lst.indexOf(mix_match_validator.ERROR_MIX_MATCH_VALIDATION_OTD_PRICE) != -1){
+            $('#mix_match_otd_price_txt').addClass("error");  
         }
         if(error_lst.indexOf(mix_match_validator.ERROR_MIX_MATCH_VALIDATION_CHILD_EMPTY) != -1){
             $("label[for='mix_match_child_tbl']").addClass("error");  
@@ -115,12 +109,12 @@ define(
     function get_result_from_ui(){
         var name = $('#mix_match_name_txt').val();
         var qty = $('#mix_match_qty_txt').val();       
-        var unit_discount = $('#mix_match_unit_discount_txt').val();
+        var otd_price = $('#mix_match_otd_price_txt').val();
         
         var result = {
              name                       : name
             ,qty                        : qty     
-            ,unit_discount              : unit_discount
+            ,otd_price                  : otd_price
             ,mix_match_child_sp_lst     : MIX_MATCH_CHILD_SP_LST
         }
 
@@ -183,7 +177,7 @@ define(
         }
     }
 
-    function exe (name ,qty ,unit_discount ,mix_match_child_sp_lst ,tax_rate,callback ){
+    function exe (name ,qty ,otd_price ,mix_match_child_sp_lst ,tax_rate,callback ){
         TAX_RATE = tax_rate;        
         var html_str = 
 
@@ -196,12 +190,8 @@ define(
                 '<input type="text" id = "mix_match_qty_txt">' +
                 '<br>' +
 
-                '<label for="mix_match_unit_discount_txt">unit discount $:</label>' +
-                '<input type="text" id = "mix_match_unit_discount_txt">' +
-                '<br>' +
-
-                '<label for="mix_match_total_price_txt">total price:</label>' +
-                '<input type="text" id = "mix_match_total_price_txt" readonly>' +
+                '<label for="mix_match_otd_price_txt">unit discount $:</label>' +
+                '<input type="text" id = "mix_match_otd_price_txt">' +
                 '<br>' +
 
                 '<br>' +
@@ -266,7 +256,7 @@ define(
                             ui_response();
                         }
                     });
-                    $('#mix_match_unit_discount_txt').keypress(function(event){
+                    $('#mix_match_otd_price_txt').keypress(function(event){
                         var keycode = (event.keyCode ? event.keyCode : event.which);
                         if(keycode == '13'){
                             ui_response();
@@ -275,12 +265,10 @@ define(
 
                     $('#mix_match_name_txt').val(name);
                     $('#mix_match_qty_txt').val(qty);
-                    $('#mix_match_unit_discount_txt').val(unit_discount);
+                    $('#mix_match_otd_price_txt').val(otd_price);
                     MIX_MATCH_CHILD_SP_LST = mix_match_child_sp_lst;            
                     populate_mix_match_child_tbl();
                     result = get_result_from_ui();
-                    price = mm_util.calculate_total_price(result,TAX_RATE);
-                    $('#mix_match_total_price_txt').val(price);
                     set_validation_indicator([]);
 
                 },

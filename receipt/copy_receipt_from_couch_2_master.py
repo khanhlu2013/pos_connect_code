@@ -80,7 +80,7 @@ def insert_receipt_ln_to_master(receipt_couch_lst,receipt_id_c2mLookup,sp_id_c2m
                 sp_is_taxable = False
 
             #MM_DEAL
-            mm_unit_discount = 0.0 if receipt_ln_couch['mix_match_deal'] == None else receipt_ln_couch['mix_match_deal']['unit_discount']
+            mm_unit_discount = receipt_ln_couch['mm_unit_discount']
 
             receipt_ln_master = Receipt_ln(
                  receipt_id = receipt_master_id

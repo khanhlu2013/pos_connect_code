@@ -59,7 +59,7 @@ define(
         var mm_prompt_b = mm_prompt.exe.bind(mm_prompt.exe
             ,parent.name
             ,parent.qty
-            ,parent.unit_discount
+            ,parent.otd_price
             ,mm_child_sp_lst
             ,TAX_RATE
         );
@@ -91,7 +91,7 @@ define(
         var mm_prompt_b = mm_prompt.exe.bind(mm_prompt.exe
             ,null//name
             ,null//qty
-            ,null//unit_discount
+            ,null//otd_price
             ,[]//mix_match_child_sp_lst
             ,TAX_RATE
         )
@@ -120,7 +120,7 @@ define(
 
         //columns
         tr = mix_match_tbl.insertRow(-1);
-        var columns = ['name','qty','unit_discount','out_the_door_price','edit']
+        var columns = ['name','qty','out_the_door_price','edit']
         for(var i = 0;i<columns.length;i++){
             td = tr.insertCell(-1);
             td.innerHTML = columns[i];
@@ -139,13 +139,9 @@ define(
             td = tr.insertCell(-1);
             td.innerHTML = cur_mix_match.qty;
 
-            //unit_discount
+            //otd_price
             td = tr.insertCell(-1);
-            td.innerHTML = cur_mix_match.unit_discount;           
-
-            //out_the_door_price
-            td = tr.insertCell(-1);
-            td.innerHTML = 'xx';
+            td.innerHTML = cur_mix_match.otd_price;           
 
             //edit
             td = tr.insertCell(-1)

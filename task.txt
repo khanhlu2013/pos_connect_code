@@ -354,13 +354,11 @@ ALGORITHM to imput data
 . load multiple sku file. we have to select one by one here. to get the pid we want to use. we don't select, we can create new pid.
 
 -----------------------
-. tiep crv : make sure html for sale and product is min , add all, commit, push liq_sta, run shell, fix_tiep_crv.exe
-. mix and match
 . value customer pricing
 . create visual tool
-
 ------------------------
 
+. mix and match
 
 
 

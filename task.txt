@@ -336,20 +336,30 @@ couch_acl_validator_test: client have write permission that follow these 4 rules
 . when we adding product from another store, title is blank
 . excel
 . sp_util.get_sp_json_from_product_json: can i make it to be uniform with the client code: put it in product app, and uniform method naming
-
----------------------
 . a quicker way to get to receipt, up down key to get to previous receipt (inline viewing)
 
-
-
-
 ---------------------
+ALGORITHM to imput data
 
-. sample true staging data
-    . keep it extream simple
-    . 400 product
-    . heroku?
+. take a file, each line with this format: pid,sku,name,price,crv,is_taxable,p_type,p_tag,cost,buydown
+. go through each line
+. check if current line's pid is already recored inside vendor field, prefixed by store id. if it is, add this sku into this product,
+. otherwise, there are 3 cases for prod_sku_assoc list.length
+    . length = 0 -> create new
+    . length = 1 -> log to single file
+    . length > 1 -> log to multiple file
 
+. load single sku to an interface. showing what is the product name in our system, and what is the product name the customer gave us. check box the name that is not the same. we will create new pid for these checked line.
+
+. load multiple sku file. we have to select one by one here. to get the pid we want to use. we don't select, we can create new pid.
+
+-----------------------
+. tiep crv
+. mix and match
+. value customer pricing
+. create visual tool
+
+------------------------
 
 
 

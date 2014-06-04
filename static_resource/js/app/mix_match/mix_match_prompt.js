@@ -190,7 +190,7 @@ define(
                 '<input type="text" id = "mix_match_qty_txt">' +
                 '<br>' +
 
-                '<label for="mix_match_otd_price_txt">unit discount $:</label>' +
+                '<label for="mix_match_otd_price_txt">out the door price $:</label>' +
                 '<input type="text" id = "mix_match_otd_price_txt">' +
                 '<br>' +
 

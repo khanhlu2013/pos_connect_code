@@ -26,7 +26,7 @@ define(
     return function(mm_lst,store_pdb,store_idb,tax_rate,tender_lst,callback){
         MM_LST = mm_lst;
 
-        var ds_lst_getter_b = ds_lst_getter.bind(ds_lst_getter,MM_LST,store_idb);
+        var ds_lst_getter_b = ds_lst_getter.bind(ds_lst_getter,tax_rate,MM_LST,store_idb);
         async.waterfall([ds_lst_getter_b],function(error,result){
             if(error){
                 callback(error);

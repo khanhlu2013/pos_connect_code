@@ -7,7 +7,7 @@ define(['lib/number/number'],function(number){
         this.price = price;
         this.discount = discount;
         this.non_product_name = non_product_name;
-        this.mix_match_deal = null;
+        this.mm_deal_info = null;
     };
     
     Displaying_scan.prototype = {
@@ -32,8 +32,8 @@ define(['lib/number/number'],function(number){
                 result += this.discount;
             }
 
-            if(this.mix_match_deal){
-                result += this.mix_match_deal.unit_discount;
+            if(this.mm_deal_info){
+                result += this.mm_deal_info.unit_discount;
             }
 
             result += this.get_buydown()

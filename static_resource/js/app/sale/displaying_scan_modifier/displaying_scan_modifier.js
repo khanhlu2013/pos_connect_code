@@ -81,6 +81,9 @@ define(
     }
 
     function _match(ds_lst,ps_lst,callback){
+        /*
+            return a dictionary : key is pending scan, and value is the associated ds_lst
+        */
         var result = new Array();
 
         var dynamic_ = 0;
@@ -161,7 +164,14 @@ define(
     function execute(store_idb,ds_index,instruction,matched_lst,callback){
         /*
             NOTE: it is a rare operation that this code should be solid for a good user experience
-            DESC:
+            DESC: 
+                Some fact to consider to make it easier to understand what is going on:
+                    . pending scan is store in compressed form (it doesnt make sens to store 100 line in indexeddb when we scan 100 item)
+                    . displaying scan (calculated on the fly for displaying purpose, and receipt_ln purpose) also in compressed form. however, because of the mm deal,
+                        lets say 100 pending scan item which is store with 1 line can be break-up to  3 line forexample (50 for line1, 40 for line2, and 10 for line 3
+                        corresponding to the deal.)
+                    . when we modify ds_lst, we have an ds_index, which need to be calculated to ps_index
+    
             PRE: this algorithm only cover the case where (ps:ds) is (1:1)
                     the case of (ps:ds) = (1:n) only take place when we implement the deal feature. 
                     by then we will come back here to take care of possible bug causing from removal/insert operation 
@@ -232,7 +242,7 @@ define(
         }
     }
 
-    return function(mm_lst,store_idb,ds_index,instruction,callback){
+    return function(tax_rate,mm_lst,store_idb,ds_index,instruction,callback){
         MM_LST = mm_lst;
         var ps_lst_getter_b = ps_lst_getter.bind(ps_lst_getter,store_idb);
         async.waterfall([ps_lst_getter_b],function(error,result){
@@ -240,7 +250,7 @@ define(
                 callback(error);
             }
             var ps_lst = result;
-            var ds_computer_b = ds_computer.bind(ds_computer,MM_LST,store_idb,ps_lst);
+            var ds_computer_b = ds_computer.bind(ds_computer,tax_rate,MM_LST,store_idb,ps_lst);
             async.waterfall([ds_computer_b],function(error,result){
                 if(error!=null){
                     callback(error);

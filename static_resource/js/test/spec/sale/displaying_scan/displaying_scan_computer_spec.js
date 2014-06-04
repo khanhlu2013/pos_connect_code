@@ -88,7 +88,7 @@ define(
                  id:1
                 ,name:'3 for $5'
                 ,qty:3
-                ,unit_discount:0.5
+                ,otd_price:0.5
                 ,mix_match_child_set:[{id:1,store_product:sp}] 
             }
 

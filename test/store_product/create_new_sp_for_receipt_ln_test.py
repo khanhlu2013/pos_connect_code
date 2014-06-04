@@ -115,15 +115,15 @@ class test(WebTest):
         time_stamp = 1
 
         #RECEIPT 1
-        r1_l1 = receipt_ln_constructor_for_test_purpose.exe(qty=1,price=1,discount=1,non_product_name=None,cost=1,mix_match_deal=None,store_product = sp_a_doc)
+        r1_l1 = receipt_ln_constructor_for_test_purpose.exe(qty=1,price=1,discount=1,non_product_name=None,cost=1,mm_deal_info=None,store_product = sp_a_doc)
         receipt_inserter_for_test_purpose.exe(collect_amount=1,tax_rate=tax_rate,time_stamp=time_stamp,store_id=store.id,api_key_name=store.api_key_name,api_key_pwrd=store.api_key_pwrd
             ,ds_lst = [r1_l1,])
 
 
         #RECEIPT 2
-        r2_l1 = receipt_ln_constructor_for_test_purpose.exe(qty=1,price=1,discount=1,non_product_name=None,cost=1,mix_match_deal=None,store_product = sp_a_doc)
-        r2_l2 = receipt_ln_constructor_for_test_purpose.exe(qty=1,price=1,discount=1,non_product_name=None,cost=1,mix_match_deal=None,store_product = sp_b_doc)
-        r2_l3 = receipt_ln_constructor_for_test_purpose.exe(qty=1,price=1,discount=1,non_product_name=None,cost=1,mix_match_deal=None,store_product = sp_a_doc)
+        r2_l1 = receipt_ln_constructor_for_test_purpose.exe(qty=1,price=1,discount=1,non_product_name=None,cost=1,mm_deal_info=None,store_product = sp_a_doc)
+        r2_l2 = receipt_ln_constructor_for_test_purpose.exe(qty=1,price=1,discount=1,non_product_name=None,cost=1,mm_deal_info=None,store_product = sp_b_doc)
+        r2_l3 = receipt_ln_constructor_for_test_purpose.exe(qty=1,price=1,discount=1,non_product_name=None,cost=1,mm_deal_info=None,store_product = sp_a_doc)
         receipt_inserter_for_test_purpose.exe(collect_amount=1,tax_rate=tax_rate,time_stamp=time_stamp,store_id=store.id,api_key_name=store.api_key_name,api_key_pwrd=store.api_key_pwrd
             ,ds_lst = [r2_l1,r2_l2,r2_l3])
 

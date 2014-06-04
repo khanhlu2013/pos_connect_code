@@ -116,7 +116,7 @@ from store_product.sp_couch import store_product_couch_getter
 #         ln_1_discount = 1.2
 #         ln_1_non_product_name = None
 #         ln_1_cost = 1.3
-#         ln_1_mm_deal = None
+#         ln_1_mm_deal_info = None
 
 #         ln_1 = receipt_ln_constructor_for_test_purpose.exe(
 #              qty = ln_1_qty
@@ -125,7 +125,7 @@ from store_product.sp_couch import store_product_couch_getter
 #             ,store_product = ln_1_sp
 #             ,non_product_name = ln_1_non_product_name
 #             ,cost = ln_1_cost
-#             ,mix_match_deal = ln_1_mm_deal
+#             ,mm_deal_info = ln_1_mm_deal_info
 #         )
 
 

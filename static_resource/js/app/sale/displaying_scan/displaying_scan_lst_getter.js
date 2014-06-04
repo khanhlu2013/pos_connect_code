@@ -11,9 +11,9 @@ define(
 		,ds_computer
 	)
 {
-	return function(mm_lst,store_idb,callback){
+	return function(tax_rate,mm_lst,store_idb,callback){
 		var ps_lst_getter_b = ps_lst_getter.bind(ps_lst_getter,store_idb);
-		var ds_computer_b = ds_computer.bind(ds_computer,mm_lst,store_idb);
+		var ds_computer_b = ds_computer.bind(ds_computer,tax_rate,mm_lst,store_idb);
 		async.waterfall([ps_lst_getter_b,ds_computer_b],function(error,result){
 			callback(error,result);
 		});

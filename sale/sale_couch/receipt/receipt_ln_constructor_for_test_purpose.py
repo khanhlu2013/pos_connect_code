@@ -1,4 +1,4 @@
-def exe(qty,price,discount,store_product,non_product_name,cost,mix_match_deal):
+def exe(qty,price,discount,store_product,non_product_name,cost,mm_deal_info):
     return {
          'qty':qty
         ,'store_product':store_product
@@ -7,6 +7,6 @@ def exe(qty,price,discount,store_product,non_product_name,cost,mix_match_deal):
         ,'discount':discount
         ,'non_product_name':non_product_name
         ,'cost':cost
-        ,'mix_match_deal' : mix_match_deal
+        ,'mm_deal_info' : mm_deal_info
 
     } 

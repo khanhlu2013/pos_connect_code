@@ -45,8 +45,8 @@ define(
     var TAX_RATE = localStorage.getItem('tax_rate');
 
     function exe_instruction(ds_index,instruction,ds_lst){
-        var ds_modifier_b = ds_modifier.bind(ds_modifier,MM_LST,STORE_IDB,ds_index,instruction);
-        var ds_lst_getter_b = ds_lst_getter.bind(ds_lst_getter,MM_LST,STORE_IDB);
+        var ds_modifier_b = ds_modifier.bind(ds_modifier,TAX_RATE,MM_LST,STORE_IDB,ds_index,instruction);
+        var ds_lst_getter_b = ds_lst_getter.bind(ds_lst_getter,TAX_RATE,MM_LST,STORE_IDB);
         async.waterfall([ds_modifier_b,ds_lst_getter_b],function(error,result){
             if(error){
                 error_lib.alert_error(error);
@@ -155,8 +155,8 @@ define(
             msg += 'regular price: ' + displaying_scan.price + '\n'
             
             //MIX MATCH DEAL
-            if(displaying_scan.mix_match_deal){
-                msg += 'Mix match discount' + '(' + displaying_scan.mix_match_deal.name + ')' + ':' + displaying_scan.mix_match_deal.unit_discount + '\n';
+            if(displaying_scan.mm_deal_info){
+                msg += 'Mix match discount' + '(' + displaying_scan.mm_deal_info.deal.name + ')' + ':' + displaying_scan.mm_deal_info.unit_discount + '\n';
             }
 
             //CRV
@@ -230,7 +230,7 @@ define(
     }
 
     function refresh_ui(){
-        var ds_lst_getter_b = ds_lst_getter.bind(ds_lst_getter,MM_LST,STORE_IDB);
+        var ds_lst_getter_b = ds_lst_getter.bind(ds_lst_getter,TAX_RATE,MM_LST,STORE_IDB);
         async.waterfall([ds_lst_getter_b],function(error,result){
             var ds_lst = result;
             ds_2_ui(ds_lst);
@@ -246,7 +246,7 @@ define(
         SALE_TABLE = table;
         TOTAL_BUTTON = total_button;
         
-        var ds_lst_getter_b = ds_lst_getter.bind(ds_lst_getter,MM_LST,STORE_IDB);
+        var ds_lst_getter_b = ds_lst_getter.bind(ds_lst_getter,TAX_RATE,MM_LST,STORE_IDB);
         async.waterfall([ds_lst_getter_b],function(error,result){
             var ds_lst = result;
             ds_2_ui(ds_lst);

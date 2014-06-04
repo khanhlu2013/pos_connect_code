@@ -289,6 +289,7 @@ UPGRADE FEATURE
 . more or less info in sp prompt
 . heroku log: how to warn user about usage. how to charge user on extra full db loading.
 . void log
+. search pagination
 ------------------------------------------------------------------------------------------------------------------
 SKILL IMPROVEMENT
 . continuous test->build->deploy
@@ -365,6 +366,10 @@ ALGORITHM to imput data
     . receipt.discount_mm_deal -> mm_unit_discount
 
 
-. from otd_price we need to calculate what is the unit discount. the way we do this , we need to calculate the actual price. unit_discount = actual_price - otd_price / qty
-. actual price: 
+. compute_ds need tax_rate
+
+
+ds_lst_getter need tax_rate
+ds_modifier need tax_rate
+
 

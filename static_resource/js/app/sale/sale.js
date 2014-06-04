@@ -167,7 +167,7 @@ define(
         function hook_sale_finalizer_2_ui(){
             total_button.addEventListener("click", function(){
 
-                var ds_lst_getter_b = ds_lst_getter.bind(ds_lst_getter,MM_LST,STORE_IDB);
+                var ds_lst_getter_b = ds_lst_getter.bind(ds_lst_getter,TAX_RATE,MM_LST,STORE_IDB);
                 async.waterfall([ds_lst_getter_b],function(error,result){
                     var ds_lst = result;
                     if(ds_lst.length == 0){
@@ -294,7 +294,7 @@ define(
         function hook_voider_2_ui(){
             function void_btn_click_handler(){
 
-                var ds_lst_getter_b = ds_lst_getter.bind(ds_lst_getter,MM_LST,STORE_IDB);
+                var ds_lst_getter_b = ds_lst_getter.bind(ds_lst_getter,TAX_RATE,MM_LST,STORE_IDB);
                 async.waterfall([ds_lst_getter_b],function(error,result){
                     var ds_lst = result;
 

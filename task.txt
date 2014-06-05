@@ -338,7 +338,7 @@ couch_acl_validator_test: client have write permission that follow these 4 rules
 . excel
 . sp_util.get_sp_json_from_product_json: can i make it to be uniform with the client code: put it in product app, and uniform method naming
 . a quicker way to get to receipt, up down key to get to previous receipt (inline viewing)
-
+. change tax on sale page should refresh sale table
 ---------------------
 ALGORITHM to imput data
 
@@ -355,21 +355,16 @@ ALGORITHM to imput data
 . load multiple sku file. we have to select one by one here. to get the pid we want to use. we don't select, we can create new pid.
 
 -----------------------
+. create visual tool to import data
 . value customer pricing
-. create visual tool
 . change pt after the fact
-. hold
-. report for un-checked
 ------------------------
-
-. mix and match
-    . receipt.discount_mm_deal -> mm_unit_discount
-
-
-. compute_ds need tax_rate
+. hold: non_inventory scanner and hold non inventory item
+    . hung scanning a list, then customer said let me get some more stuff
+    . hung then click action -> save to hold, if the list is emtpy, save to hold will complain
+    . when the list is blank, hung can retrieve from hold. if there is 1 holding list, it will auto select it without prompting. it will prompt if there is multiple hold. if the list is not blank, hung have to save to hold first.
 
 
-ds_lst_getter need tax_rate
-ds_modifier need tax_rate
+
 
 

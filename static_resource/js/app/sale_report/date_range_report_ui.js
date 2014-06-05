@@ -17,6 +17,7 @@ define(
 {
     var STORE_ID = null;
     var COUCH_SERVER_URL = null;
+    var IS_SALE_REPORT = null;
     var refresh_btn = null;
     var report_tbl = null;
 
@@ -41,7 +42,7 @@ define(
         var time_zone_offset = new Date().getTimezoneOffset() / 60;
 
         var push_receipt_b = receipt_pusher.exe_if_nessesary.bind(receipt_pusher.exe_if_nessesary,STORE_ID,COUCH_SERVER_URL);
-        var data = {from_date:from_date,to_date:to_date,time_zone_offset:time_zone_offset};
+        var data = {from_date:from_date,to_date:to_date,time_zone_offset:time_zone_offset,is_sale_report:IS_SALE_REPORT};
         var ajax_b = ajax_helper.exe.bind(ajax_helper.exe,'/sale_report/date_range','GET','getting report data ...',data)
 
         async.series([push_receipt_b,ajax_b],function(error,results){
@@ -55,8 +56,11 @@ define(
 
     }
 
-    function exe(store_id,couch_server_url){
-        
+    function exe(store_id,couch_server_url,is_sale_report){
+        IS_SALE_REPORT = is_sale_report;
+        STORE_ID = store_id;
+        COUCH_SERVER_URL =couch_server_url;
+
         var html_str = 
             '<div id="date_range_report_dlg">' +
                 '<label for="from_date_txt">from</label>' +
@@ -72,7 +76,7 @@ define(
             .dialog(
             {
                 modal: true,
-                title : 'date range report',
+                title : is_sale_report ? 'sale report' : 'non-sale report',
                 zIndex: 10000,
                 autoOpen: true,
                 width: 600,
@@ -80,8 +84,6 @@ define(
                 buttons : [{text:'exit', click: function(){$('#date_range_report_dlg').dialog('close');}}],
                 open: function( event, ui ) 
                 {
-                    STORE_ID = store_id;
-                    COUCH_SERVER_URL =couch_server_url;
                     refresh_btn = document.getElementById('refresh_btn');
                     report_tbl = document.getElementById('report_tbl');    
                     $(function() {

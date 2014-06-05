@@ -12,8 +12,8 @@
         <link rel="stylesheet" href="{{ STATIC_URL }}css/menu.css">
         <link rel="stylesheet" href="{{ STATIC_URL }}css/sale.css">
 
-        <script data-main = "{{ STATIC_URL }}js/app/sale/sale_entry.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script>
-        <!-- // <script data-main = "{{ STATIC_URL }}js/app/sale/sale_entry__min__.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script> -->
+        <!-- // <script data-main = "{{ STATIC_URL }}js/app/sale/sale_entry.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script> -->
+        <script data-main = "{{ STATIC_URL }}js/app/sale/sale_entry__min__.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script>
 
         <script type="text/javascript">
             var STATIC_URL = "{{STATIC_URL}}"
@@ -41,10 +41,19 @@
             <li class="menu_item">
                 <a href="#">report</a>
                 <ul>
-                    <li id='date_range_report_menu'><a href='#'>date range</a></li>
+                    <li id='sale_report_menu'><a href='#'>sale report</a></li>
+                    <li id='non_sale_report_menu'><a href='#'>non-sale report</a></li>
                     <li id='receipt_report_menu'><a href='#'>receipt</a></li>                 
                 </ul>
-            </li>      
+            </li>    
+            <li class="menu_item">
+                <a href="#">action</a>
+                <ul>
+                    <li id='push_receipt_menu'><a href='#'>push receipt</a></li>
+                    <li id='save_to_hold_menu'><a href='#'>hold</a></li>
+                    <li id='get_from_hold_menu'><a href='#'>get hold</a></li>                 
+                </ul>
+            </li>                  
             <li class="menu_item">
                 {{ request.session.cur_login_store }} - {{ user }}
             </li>  
@@ -61,7 +70,6 @@
                 <input id="scan_text" onClick="this.select();"  placeholder="sku" autofocus>
                 <button id="product_search_btn" type="button">search</button>
                 <button id="non_inventory_btn" type="button">non inventory</button>
-                <button id="push_receipt_btn" type="button">receipt pusher</button>
                 <button id="void_btn" type="button">void</button>
                 <button id="total_button" type="button">total</button>
                 <br/>

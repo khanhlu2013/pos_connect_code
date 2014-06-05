@@ -257,10 +257,14 @@ define(
     {
         async.waterfall([mix_match_manage_ui.exe],function(error,result){});
     });    
-    $('#date_range_report_menu').click(function(e)
+    $('#sale_report_menu').click(function(e)
     { 
-        date_range_report_ui.exe(STORE_ID,COUCH_SERVER_URL);
-    });        
+        date_range_report_ui.exe(STORE_ID,COUCH_SERVER_URL,true/*is_sale_report = true*/);
+    }); 
+    $('#non_sale_report_menu').click(function(e)
+    { 
+        date_range_report_ui.exe(STORE_ID,COUCH_SERVER_URL,false/*is_sale_report = false*/);
+    });             
     $('#receipt_report_menu').click(function(e)
     { 
         receipt_report_ui.exe(STORE_ID,COUCH_SERVER_URL);

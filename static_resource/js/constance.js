@@ -21,5 +21,8 @@ define(function(){
 
 		//TEST
 		,TEST_STORE_ID : 0
+
+		//LOCAL STORAGE ITEM
+		,HOLD_LST : 'pending_scan_hold_lst'
  	}
 });

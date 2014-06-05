@@ -42,7 +42,7 @@ define(
     var STORE_PDB = null;
     var SALE_TABLE = null;
     var TOTAL_BUTTON = null;
-    var TAX_RATE = localStorage.getItem('tax_rate');
+    var TAX_RATE = parseFloat(localStorage.getItem('tax_rate'));
 
     function exe_instruction(ds_index,instruction,ds_lst){
         var ds_modifier_b = ds_modifier.bind(ds_modifier,TAX_RATE,MM_LST,STORE_IDB,ds_index,instruction);

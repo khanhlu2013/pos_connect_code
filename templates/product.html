@@ -11,8 +11,8 @@
     <link rel="stylesheet" href="{{ STATIC_URL }}css/share.css">
     <link rel="stylesheet" href="{{ STATIC_URL }}css/menu.css">
     
-    <script data-main = "{{ STATIC_URL }}js/app/product/product_entry.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script>
-    <!-- // <script data-main = "{{ STATIC_URL }}js/app/product/product_entry__min__.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script> -->
+    <!-- // <script data-main = "{{ STATIC_URL }}js/app/product/product_entry.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script> -->
+    <script data-main = "{{ STATIC_URL }}js/app/product/product_entry__min__.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script>
 
     <ul class="menu">
         <li class="menu_item">
@@ -31,7 +31,8 @@
         <li class="menu_item">
             <a href="#">report</a>
             <ul>
-                <li id='date_range_report_menu'><a href='#'>date range</a></li>
+                <li id='sale_report_menu'><a href='#'>sale report</a></li>
+                <li id='non_sale_report_menu'><a href='#'>non-sale report</a></li>
                 <li id='receipt_report_menu'><a href='#'>receipt</a></li>                 
             </ul>
         </li>      

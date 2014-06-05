@@ -6,6 +6,7 @@ define(
         ,'app/store_product/store_product_util'
         ,'app/sale/displaying_scan/Displaying_scan'
         ,'app/sale/displaying_scan/displaying_scan_util'
+        ,'lib/number/number'
     ],function
     (
          async
@@ -14,6 +15,7 @@ define(
         ,sp_util
         ,Displaying_scan
         ,ds_util
+        ,number
     )
 {
     function is_deal_contain_pid(mm,pid){
@@ -190,7 +192,7 @@ define(
             -
             (100.0 * otd_price) / ((100.0 + tax_rate) * qty)
         ;
-        return result;
+        return number.round_2_decimal(result);
     }
 
     function compress(ds_lst){
@@ -242,7 +244,7 @@ define(
         callback(null,compress_ds_lst);
     }
 
-	function get_distinct_store_product_lst(store_idb,ps_lst,callback){
+    function get_distinct_store_product_lst(store_idb,ps_lst,callback){
         /*
             PARAM:
                 store_idb:
@@ -268,14 +270,14 @@ define(
         var get_distinct_store_product_lst_b = get_distinct_store_product_lst.bind(get_distinct_store_product_lst,store_idb,ps_lst);
         var compute_ds_b = compute_ds.bind(compute_ds,tax_rate,mm_lst,ps_lst);
         async.waterfall
- 		(
- 			[
- 				 get_distinct_store_product_lst_b
- 				,compute_ds_b
- 			]
- 			,function(error,result){
- 				callback(error,result);
- 			}
- 		);
+        (
+            [
+                 get_distinct_store_product_lst_b
+                ,compute_ds_b
+            ]
+            ,function(error,result){
+                callback(error,result);
+            }
+        );
     }
 });

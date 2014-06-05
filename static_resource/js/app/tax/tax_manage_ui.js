@@ -73,7 +73,7 @@ define(
                 ],
                 open: function( event, ui ) 
                 {
-                    var tax_rate = localStorage.getItem('tax_rate');
+                    var tax_rate = parseFloat(localStorage.getItem('tax_rate'));
                     $('#tax_rate_txt').val(tax_rate);
                 },
                 close: function (event, ui) {

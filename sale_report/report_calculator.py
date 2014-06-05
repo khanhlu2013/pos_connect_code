@@ -8,7 +8,7 @@ def update_dic(key,amount,dic):
         dic[key] = amount
 
 
-def exe(receipt_lst): # xxx naming is hard to understand. subject to refactor
+def exe(receipt_lst,is_sale_report):
     """
         RETURN: a dictionary, with keys such as: tax, non_tax, different kind of p_type, different type of non_product_name, used for sale report.
     """
@@ -21,7 +21,7 @@ def exe(receipt_lst): # xxx naming is hard to understand. subject to refactor
     for item in receipt_ln_lst:
         amount = item.get_total_out_the_door_price()
 
-        if item.store_product != None and item.store_product.is_sale_report:
+        if item.store_product != None and item.store_product.is_sale_report == is_sale_report:
             #TAX - NON_TAX
             key = 'tax' if item.is_taxable else 'non_tax'
             update_dic(key,amount,dic)

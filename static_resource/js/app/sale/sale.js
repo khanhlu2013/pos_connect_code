@@ -32,6 +32,8 @@ define(
         ,'app/receipt/receipt_report_ui'        
         ,'app/sale/tender/tender_manage_ui'
         ,'app/payment_type/payment_type_manage_ui'
+        ,'app/sale/hold/save_to_hold'
+        ,'app/sale/hold/get_from_hold'
         //-----------------
         ,'dropit'
         ,'jquery'
@@ -74,13 +76,14 @@ define(
         ,receipt_report_ui   
         ,tender_manage_ui   
         ,payment_type_manage_ui  
+        ,save_to_hold
+        ,get_from_hold
     )
     {
         //UI
         var table = document.getElementById("sale_table");
         var total_button = document.getElementById("total_button");
         var void_btn = document.getElementById("void_btn");
-        var push_receipt_btn = document.getElementById("push_receipt_btn");
         var non_inventory_btn = document.getElementById("non_inventory_btn");
         var scan_textbox = document.getElementById('scan_text');
         var product_search_btn = document.getElementById("product_search_btn");
@@ -92,7 +95,7 @@ define(
 
         //GLOBAL
         var CUR_SELECT_PARENT_SHORTCUT = 0;
-        var TAX_RATE = localStorage.getItem('tax_rate');
+        var TAX_RATE = parseFloat(localStorage.getItem('tax_rate'));
         var SHORTCUT_LST = MY_SHORTCUT_LST;
         var MM_LST = MY_MM_LST; 
         var PAYMENT_TYPE_LST = MY_PAYMENT_TYPE_LST;
@@ -106,7 +109,7 @@ define(
                         return;
                     }
                     var product_json = result;
-                    var pid_scanner_b = pid_scanner.exe.bind(pid_scanner.exe,product_json.product_id,STORE_IDB);
+                    var pid_scanner_b = pid_scanner.exe.bind(pid_scanner.exe,product_json.product_id,1/*qty*/,STORE_IDB);
                     var ds_2_ui_b = ds_2_ui.exe.bind(ds_2_ui.exe,MM_LST,STORE_IDB,STORE_PDB,STORE_ID,COUCH_SERVER_URL,table,total_button);
                     async.waterfall([pid_scanner_b,ds_2_ui_b],function(error,result){
                         if(error){
@@ -142,26 +145,6 @@ define(
             $(document).bind('keydown', 'ctrl+n', non_inventory_handler);
             $('#scan_text').bind('keydown', 'ctrl+n', non_inventory_handler);
             non_inventory_btn.addEventListener("click", non_inventory_handler);
-        }
-
-        function hook_receipt_pusher_2_ui(){
-            push_receipt_btn.addEventListener("click", function(){
-                var receipt_pusher_b = receipt_pusher.exe.bind(receipt_pusher.exe,STORE_IDB,STORE_PDB,STORE_ID,COUCH_SERVER_URL);
-                                                                                
-                async.waterfall([receipt_pusher_b],function(error,result){
-                    if(error){
-                        if(error == receipt_pusher.ERROR_NO_SALE_DATA_TO_PUSH){
-                            alert(receipt_pusher.ERROR_NO_SALE_DATA_TO_PUSH)
-                        }else{
-                            error_lib.alert_error(error);
-                        }   
-                        
-                    }else{
-                        var receipt_saved_count = result;
-                        alert(receipt_saved_count + ' receipt(s) are saved.');
-                    }
-                });
-            });
         }
 
         function hook_sale_finalizer_2_ui(){
@@ -233,7 +216,7 @@ define(
                 child = sale_shortcut_util.get_child(cur_parent,child_position);
                 if(child!=null){
 
-                    var pid_scanner_b = pid_scanner.exe.bind(pid_scanner.exe,child.product_id,STORE_IDB);
+                    var pid_scanner_b = pid_scanner.exe.bind(pid_scanner.exe,child.product_id,1/*qty*/,STORE_IDB);
                     var ds_2_ui_b = ds_2_ui.exe.bind(ds_2_ui.exe,MM_LST,STORE_IDB,STORE_PDB,STORE_ID,COUCH_SERVER_URL,table,total_button);
                     async.waterfall([pid_scanner_b,ds_2_ui_b],function(error,result){
                         if(error){
@@ -370,10 +353,14 @@ define(
                 refresh_sale_table();
             })             
         });    
-        $('#date_range_report_menu').click(function(e)
+        $('#sale_report_menu').click(function(e)
         { 
-            date_range_report_ui.exe(STORE_ID,COUCH_SERVER_URL);
-        });        
+            date_range_report_ui.exe(STORE_ID,COUCH_SERVER_URL,true/*is_sale_report = true*/);
+        });     
+        $('#non_sale_report_menu').click(function(e)
+        { 
+            date_range_report_ui.exe(STORE_ID,COUCH_SERVER_URL,false/*is_sale_report = false*/);
+        });             
         $('#receipt_report_menu').click(function(e)
         { 
             receipt_report_ui.exe(STORE_ID,COUCH_SERVER_URL);
@@ -389,6 +376,62 @@ define(
                 PAYMENT_TYPE_LST = result;
             });
         });  
+        $('#save_to_hold_menu').click(function(e)
+        { 
+            var save_to_hold_b = save_to_hold.exe.bind(save_to_hold.exe,TAX_RATE,MM_LST,STORE_IDB);
+            async.waterfall([save_to_hold_b],function(error,result){
+                if(error){
+                    if(error == save_to_hold.ERROR_nothing_to_hold){
+                        ui.ui_alert('there is nothing to hold');
+                    }else{
+                        error_lib.alert_error(error);
+                    }
+                    return;
+                }
+
+                refresh_sale_table();
+                ui.ui_alert('successfully saved hold');
+            })
+        }); 
+        $('#get_from_hold_menu').click(function(e)
+        { 
+            var get_from_hold_b = get_from_hold.exe.bind(get_from_hold.exe,TAX_RATE,MM_LST,STORE_IDB);
+            async.waterfall([get_from_hold_b],function(error,result){
+                if(error){
+                    if(error == get_from_hold.ERROR_ds_lst_is_not_empty){
+                        ui.ui_alert('current scan list must be empty');
+                    }
+                    else if(error == get_from_hold.ERROR_hold_lst_is_empty){
+                        ui.ui_alert('there is nothing on hold');
+                    }
+                    else{
+                        error_lib.alert_error(error);
+                    }
+                    return;
+                }
+
+                refresh_sale_table();
+                ui.ui_alert('succesfully loaded hold');
+            })            
+        });
+        $('#push_receipt_menu').click(function(e)
+        { 
+            var receipt_pusher_b = receipt_pusher.exe.bind(receipt_pusher.exe,STORE_IDB,STORE_PDB,STORE_ID,COUCH_SERVER_URL);
+                                                                            
+            async.waterfall([receipt_pusher_b],function(error,result){
+                if(error){
+                    if(error == receipt_pusher.ERROR_NO_SALE_DATA_TO_PUSH){
+                        ui.ui_alert(receipt_pusher.ERROR_NO_SALE_DATA_TO_PUSH)
+                    }else{
+                        error_lib.alert_error(error);
+                    }   
+                    
+                }else{
+                    var receipt_saved_count = result;
+                    ui.ui_alert(receipt_saved_count + ' receipt(s) are saved.')
+                }
+            });
+        });          
 
         csrf_ajax_protection_setup();
         var oneshot_sync_b = oneshot_sync.bind(oneshot_sync,STORE_ID,COUCH_SERVER_URL);
@@ -405,7 +448,6 @@ define(
             hook_scanner_to_ui();
             hook_sale_finalizer_2_ui();
             hook_voider_2_ui();
-            hook_receipt_pusher_2_ui();
             display_shortcut_table();
             hook_non_inventory_btn_2_ui();
             hook_product_search_btn_2_ui()

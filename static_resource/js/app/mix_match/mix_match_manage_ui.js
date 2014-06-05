@@ -23,7 +23,7 @@ define(
     ,mm_get
 )
 {
-    var TAX_RATE = localStorage.getItem('tax_rate');
+    var TAX_RATE = parseFloat(localStorage.getItem('tax_rate'));
     var MIX_MATCH_LST = null;
     var mix_match_tbl = null;
 

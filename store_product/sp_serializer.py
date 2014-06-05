@@ -38,7 +38,7 @@ class Store_product_serializer(serializers.ModelSerializer):
 
     class Meta:
         model = Store_product
-        fields = ('id','product_id','store_id','name','price','crv','is_taxable','is_sale_report','p_type','p_tag','cost','vendor','buydown','group_set')
+        fields = ('id','product_id','store_id','name','price','value_customer_price','crv','is_taxable','is_sale_report','p_type','p_tag','cost','vendor','buydown','group_set')
 
 
 class Store_product_kit_serializer(serializers.ModelSerializer):
@@ -54,7 +54,7 @@ class Store_product_kit_serializer(serializers.ModelSerializer):
 
     class Meta:
         model = Store_product
-        fields = ('id','product_id','store_id','name','price','crv','is_taxable','is_sale_report','p_type','p_tag','cost','vendor','buydown','group_set')
+        fields = ('id','product_id','store_id','name','price','value_customer_price','crv','is_taxable','is_sale_report','p_type','p_tag','cost','vendor','buydown','group_set')
 
 
 class Store_product_breakdown_serializer(serializers.ModelSerializer):
@@ -70,7 +70,7 @@ class Store_product_breakdown_serializer(serializers.ModelSerializer):
 
     class Meta:
         model = Store_product
-        fields = ('id','product_id','store_id','name','price','crv','is_taxable','is_sale_report','p_type','p_tag','cost','vendor','buydown','group_set')
+        fields = ('id','product_id','store_id','name','price','value_customer_price','crv','is_taxable','is_sale_report','p_type','p_tag','cost','vendor','buydown','group_set')
 
 
 class Kit_assoc_serializer(serializers.ModelSerializer):

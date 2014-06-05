@@ -7,6 +7,7 @@ class Store_product_document(Document):
 
     name = TextField()
     price = DecimalField()
+    value_customer_price = DecimalField()
     crv = DecimalField()
     is_taxable = BooleanField() 
     is_sale_report = BooleanField()

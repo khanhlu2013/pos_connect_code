@@ -6,6 +6,7 @@ def exe(
     ,product_id
     ,name
     ,price
+    ,value_customer_price
     ,crv
     ,is_taxable
     ,is_sale_report
@@ -23,6 +24,7 @@ def exe(
         ,d_type = couch_constance.STORE_PRODUCT_DOCUMENT_TYPE
         ,name = name
         ,price = couch_util.decimal_2_str(price)
+        ,value_customer_price = couch_util.decimal_2_str(value_customer_price)
         ,crv = couch_util.decimal_2_str(crv)
         ,is_taxable = is_taxable
         ,is_sale_report = is_sale_report

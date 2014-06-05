@@ -24,6 +24,7 @@ define(
                  product_id:product_id
                 ,name:result.name
                 ,price:result.price
+                ,value_customer_price:result.value_customer_price
                 ,crv:result.crv
                 ,is_taxable:result.is_taxable
                 ,is_sale_report:result.is_sale_report

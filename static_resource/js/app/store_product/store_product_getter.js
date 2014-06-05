@@ -87,6 +87,7 @@ define(
             ,cursor.value.product_id
             ,cursor.value.name
             ,cursor.value.price
+            ,cursor.value.value_customer_price
             ,cursor.value.crv
             ,cursor.value.is_taxable
             ,cursor.value.is_sale_report

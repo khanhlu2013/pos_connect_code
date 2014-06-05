@@ -1,4 +1,4 @@
-from store_product import sp_updator,sp_serializer,store_product_master_getter,sp_kit_update_cm
+from store_product import sp_serializer,store_product_master_getter,sp_kit_update_cm
 from store_product.models import Store_product
 from django.http import HttpResponse
 import json

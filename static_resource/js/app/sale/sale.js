@@ -34,6 +34,8 @@ define(
         ,'app/payment_type/payment_type_manage_ui'
         ,'app/sale/hold/save_to_hold'
         ,'app/sale/hold/get_from_hold'
+        ,'app/sale/scan/non_inventory_scanner'
+        ,'app/sale/use_value_customer_price'
         //-----------------
         ,'dropit'
         ,'jquery'
@@ -78,6 +80,8 @@ define(
         ,payment_type_manage_ui  
         ,save_to_hold
         ,get_from_hold
+        ,non_inventory_scanner
+        ,use_value_customer_price
     )
     {
         //UI
@@ -128,13 +132,10 @@ define(
                         error_lib.alert_error(error);
                         return;
                     }
-
-                    var amount = result.price;
-                    var inserting_ps = new Pending_scan(null/*key*/,1/*qty*/,amount,null/*discount*/,null/*sp_doc_id*/,result.description/*non_product_name*/);
-                    var ps_inserter_b = ps_inserter.bind(ps_inserter,STORE_IDB,inserting_ps);
+                    var non_inventory_scanner_b = non_inventory_scanner.exe.bind(non_inventory_scanner.exe,result.price,result.description,STORE_IDB)
                     var ds_2_ui_b = ds_2_ui.exe.bind(ds_2_ui.exe,MM_LST,STORE_IDB,STORE_PDB,STORE_ID,COUCH_SERVER_URL,table,total_button);
 
-                    async.waterfall([ps_inserter_b,ds_2_ui_b],function(error,result){
+                    async.waterfall([non_inventory_scanner_b,ds_2_ui_b],function(error,result){
                         if(error){
                             error_lib.alert_error(error);
                             return;
@@ -390,7 +391,6 @@ define(
                 }
 
                 refresh_sale_table();
-                ui.ui_alert('successfully saved hold');
             })
         }); 
         $('#get_from_hold_menu').click(function(e)
@@ -411,13 +411,11 @@ define(
                 }
 
                 refresh_sale_table();
-                ui.ui_alert('succesfully loaded hold');
             })            
         });
         $('#push_receipt_menu').click(function(e)
         { 
             var receipt_pusher_b = receipt_pusher.exe.bind(receipt_pusher.exe,STORE_IDB,STORE_PDB,STORE_ID,COUCH_SERVER_URL);
-                                                                            
             async.waterfall([receipt_pusher_b],function(error,result){
                 if(error){
                     if(error == receipt_pusher.ERROR_NO_SALE_DATA_TO_PUSH){
@@ -432,6 +430,30 @@ define(
                 }
             });
         });          
+        $('#use_value_customer_price_menu').click(function(e)
+        { 
+            ui.ui_confirm(
+                'use value customer price ?',
+                function(){
+                    var use_value_customer_price_b = use_value_customer_price.exe.bind(use_value_customer_price.exe,TAX_RATE,MM_LST,STORE_IDB);
+                    async.waterfall([use_value_customer_price_b],function(error,result){
+                        if(error){
+                            if(error = use_value_customer_price.ERROR_ds_lst_is_empty){
+                                return;
+                            }else{
+                                error_lib.alert_error(error);
+                            }
+                            return;
+                        }
+
+                        refresh_sale_table();
+                    });                    
+                },
+                function(){
+
+                }
+            );
+        });
 
         csrf_ajax_protection_setup();
         var oneshot_sync_b = oneshot_sync.bind(oneshot_sync,STORE_ID,COUCH_SERVER_URL);

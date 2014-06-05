@@ -9,6 +9,7 @@ def exe( \
      store_id
     ,name
     ,price
+    ,value_customer_price
     ,crv
     ,is_taxable
     ,is_sale_report
@@ -23,6 +24,7 @@ def exe( \
     prod_bus_assoc = exe_master( \
          name = name
         ,price = price
+        ,value_customer_price = value_customer_price
         ,crv = crv
         ,is_taxable = is_taxable
         ,is_sale_report = is_sale_report
@@ -40,6 +42,7 @@ def exe( \
         ,product_id = prod_bus_assoc.product.id
         ,name = name
         ,price = price
+        ,value_customer_price = value_customer_price
         ,crv = crv
         ,is_taxable = is_taxable
         ,is_sale_report = is_sale_report
@@ -56,6 +59,7 @@ def exe( \
 def exe_master( \
      name
     ,price
+    ,value_customer_price
     ,crv
     ,is_taxable
     ,is_sale_report
@@ -82,6 +86,7 @@ def exe_master( \
     prod_bus_assoc = Store_product.objects.create(
          name = name
         ,price = price
+        ,value_customer_price = value_customer_price
         ,crv = crv
         ,is_taxable = is_taxable
         ,is_sale_report = is_sale_report

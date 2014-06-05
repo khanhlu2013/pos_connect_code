@@ -20,54 +20,59 @@ define(
     }
 
     function ok_btn_handler(is_prompt_sku,callback){
-            var name_raw             = $('#product_name_txt').val()
-            var price_raw            = $('#product_price_txt').val()
-            var is_taxable_raw       = $('#product_taxable_check').is(':checked')
-            var is_sale_report_raw   = $('#product_sale_report_check').is(':checked')
-            var p_type_raw           = $('#product_type_txt').val()   
-            var p_tag_raw            = $('#product_tag_txt').val()             
-            var crv_raw              = $('#product_crv_txt').val()
-            var sku_str_raw          = $('#product_sku_txt').val()   
-            var cost_raw             = $('#product_cost_txt').val()
-            var vendor_raw           = $('#product_vendor_txt').val()      
-            var buydown_raw          = $('#product_buydown_txt').val()  
+            var name_raw                    = $('#product_name_txt').val()
+            var price_raw                   = $('#product_price_txt').val()
+            var value_customer_price_raw    = $('#product_value_customer_price_txt').val()             
+            var is_taxable_raw              = $('#product_taxable_check').is(':checked')
+            var is_sale_report_raw          = $('#product_sale_report_check').is(':checked')
+            var p_type_raw                  = $('#product_type_txt').val()   
+            var p_tag_raw                   = $('#product_tag_txt').val()             
+            var crv_raw                     = $('#product_crv_txt').val()
+            var sku_str_raw                 = $('#product_sku_txt').val()   
+            var cost_raw                    = $('#product_cost_txt').val()
+            var vendor_raw                  = $('#product_vendor_txt').val()      
+            var buydown_raw                 = $('#product_buydown_txt').val()  
 
-            var name             = name_raw.trim().length == 0 ? null : name_raw.trim();
-            var price            = price_raw.trim().length == 0 ? null : price_raw.trim();
-            var is_taxable       = is_taxable_raw;
-            var is_sale_report   = is_sale_report_raw;
-            var p_type           = p_type_raw.trim().length == 0 ? null : p_type_raw.trim();
-            var p_tag            = p_tag_raw.trim().length == 0 ? null : p_tag_raw.trim();       
-            var crv              = crv_raw.trim().length == 0 ? null : crv_raw.trim();
-            var sku_str          = sku_str_raw.trim().length == 0 ? null : sku_str_raw.trim();
-            var cost             = cost_raw.trim().length == 0 ? null : cost_raw.trim();
-            var vendor           = vendor_raw.trim().length == 0 ? null : vendor_raw.trim();  
-            var buydown          = buydown_raw.trim().length == 0 ? null : buydown_raw.trim();
+            var name                    = name_raw.trim().length == 0 ? null : name_raw.trim();
+            var price                   = price_raw.trim().length == 0 ? null : price_raw.trim();
+            var value_customer_price    = value_customer_price_raw.trim().length == 0 ? null : value_customer_price_raw.trim();            
+            var is_taxable              = is_taxable_raw;
+            var is_sale_report          = is_sale_report_raw;
+            var p_type                  = p_type_raw.trim().length == 0 ? null : p_type_raw.trim();
+            var p_tag                   = p_tag_raw.trim().length == 0 ? null : p_tag_raw.trim();       
+            var crv                     = crv_raw.trim().length == 0 ? null : crv_raw.trim();
+            var sku_str                 = sku_str_raw.trim().length == 0 ? null : sku_str_raw.trim();
+            var cost                    = cost_raw.trim().length == 0 ? null : cost_raw.trim();
+            var vendor                  = vendor_raw.trim().length == 0 ? null : vendor_raw.trim();  
+            var buydown                 = buydown_raw.trim().length == 0 ? null : buydown_raw.trim();
 
         var result = {
-             "name"             : name
-            ,"price"            : price
-            ,"is_taxable"       : is_taxable
-            ,"is_sale_report"   : is_sale_report
-            ,"p_type"           : p_type
-            ,"p_tag"            : p_tag           
-            ,"crv"              : crv
-            ,"sku_str"          : sku_str
-            ,"cost"             : cost
-            ,"vendor"           : vendor   
-            ,"buydown"          : buydown
+             "name"                 : name
+            ,"price"                : price
+            ,"value_customer_price" : value_customer_price            
+            ,"is_taxable"           : is_taxable
+            ,"is_sale_report"       : is_sale_report
+            ,"p_type"               : p_type
+            ,"p_tag"                : p_tag           
+            ,"crv"                  : crv
+            ,"sku_str"              : sku_str
+            ,"cost"                 : cost
+            ,"vendor"               : vendor   
+            ,"buydown"              : buydown
+
         }
 
         var error_lst = sp_validator.validate(
              result['name']
             ,result['price']
+            ,result['value_customer_price']               
             ,result['crv']
             ,result['is_taxable']
             ,result['sku_str']
             ,is_prompt_sku
             ,result['cost']
             ,result['vendor']
-            ,result['buydown']            
+            ,result['buydown']      
         );
 
         if(error_lst.length!=0){
@@ -86,6 +91,7 @@ define(
         $('#product_sku_txt').removeClass("error");  
         $('#product_cost_txt').removeClass("error");  
         $('#product_buydown_txt').removeClass("error");  
+        $('#product_value_customer_price_txt').removeClass("error");  
 
         if(error_lst.indexOf(sp_validator.ERROR_STORE_PRODUCT_VALIDATION_NAME) != -1){
             $('#product_name_txt').addClass("error");  
@@ -104,7 +110,10 @@ define(
         }
         if(error_lst.indexOf(sp_validator.ERROR_STORE_PRODUCT_VALIDATION_BUYDOWN) != -1){
             $('#product_buydown_txt').addClass("error");  
-        }                     
+        }         
+        if(error_lst.indexOf(sp_validator.ERROR_STORE_PRODUCT_VALIDATION_VALUE_CUSTOMER_PRICE) != -1){
+            $('#product_value_customer_price_txt').addClass("error");  
+        }                      
     }
 
     function display_kit_data(sp_prefill){
@@ -216,6 +225,9 @@ define(
                     '<label for="product_buydown_txt">Buydown:</label>' +
                     '<input type="text" id = "product_buydown_txt">' +
                     '<label id="_compute_buydown_lbl"></label>' +                     
+                    '<br>' +
+                    '<label for="product_value_customer_price_txt">value customer price:</label>' +
+                    '<input type="text" id = "product_value_customer_price_txt">' +
                     '<br>' +
                     '<label for="product_sku_txt">Sku:</label>' +
                     '<input type="text" id = "product_sku_txt">' +
@@ -337,6 +349,7 @@ define(
                         if(sp_prefill!=null){
                             $('#product_name_txt').val(sp_prefill.name);
                             $('#product_price_txt').val(sp_prefill.price);
+                            $('#product_value_customer_price_txt').val(sp_prefill.value_customer_price);                             
                             $('#product_crv_txt').val(sp_prefill.crv);
                             $('#product_taxable_check').prop('checked', sp_prefill.is_taxable);
                             $('#product_sale_report_check').prop('checked', sp_prefill.is_sale_report);
@@ -344,7 +357,7 @@ define(
                             $('#product_tag_txt').val(sp_prefill.p_tag);     
                             $('#product_cost_txt').val(sp_prefill.cost);     
                             $('#product_vendor_txt').val(sp_prefill.vendor);   
-                            $('#product_buydown_txt').val(sp_prefill.buydown);              
+                            $('#product_buydown_txt').val(sp_prefill.buydown); 
 
                             if(sp_prefill.breakdown_assoc_lst != undefined && sp_prefill.breakdown_assoc_lst.length != 0){
                                 $('#product_crv_txt').attr('readonly', 'readonly');

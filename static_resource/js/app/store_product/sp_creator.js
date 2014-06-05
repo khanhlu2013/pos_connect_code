@@ -24,6 +24,7 @@ define(
         var data = {
              name : prompt_result.name
             ,price : prompt_result.price
+            ,value_customer_price : prompt_result.value_customer_price
             ,crv : prompt_result.crv
             ,is_taxable : prompt_result.is_taxable
             ,is_sale_report : prompt_result.is_sale_report

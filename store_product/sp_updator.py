@@ -7,6 +7,7 @@ def exe(
     ,store_id
     ,name
     ,price
+    ,value_customer_price
     ,crv
     ,is_taxable
     ,is_sale_report 
@@ -22,6 +23,7 @@ def exe(
         ,store_id = store_id
         ,name = name
         ,price = price
+        ,value_customer_price = value_customer_price
         ,crv = crv
         ,is_taxable = is_taxable
         ,is_sale_report = is_sale_report
@@ -37,6 +39,7 @@ def exe(
         ,store_id = store_id
         ,name = name
         ,price = price
+        ,value_customer_price = value_customer_price
         ,crv = crv
         ,is_taxable = is_taxable
         ,is_sale_report = is_sale_report
@@ -53,6 +56,7 @@ def exe_couch(
     ,store_id
     ,name
     ,price
+    ,value_customer_price
     ,crv
     ,is_taxable
     ,is_sale_report
@@ -68,6 +72,7 @@ def exe_couch(
     #update
     sp['name'] = name
     sp['price'] = couch_util.decimal_2_str(price)
+    sp['value_customer_price'] = couch_util.decimal_2_str(value_customer_price)
     sp['crv'] = couch_util.decimal_2_str(crv)
     sp['is_taxable'] = is_taxable
     sp['is_sale_report'] = is_sale_report
@@ -86,6 +91,7 @@ def exe_master( \
     ,store_id
     ,name
     ,price
+    ,value_customer_price
     ,crv
     ,is_taxable
     ,is_sale_report
@@ -99,6 +105,7 @@ def exe_master( \
     sp = Store_product.objects.get(product_id=product_id,store_id=store_id)
     sp.name = name
     sp.price = price
+    sp.value_customer_price = value_customer_price
     sp.crv = crv
     sp.is_taxable = is_taxable
     sp.p_type = p_type

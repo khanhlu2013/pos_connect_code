@@ -18,6 +18,7 @@ define(
         ,product_id
         ,name
         ,price
+        ,value_customer_price
         ,crv
         ,is_taxable
         ,is_sale_report
@@ -41,6 +42,7 @@ define(
         this.product_id = product_id;
         this.name = name;
         this.price = (price == null ? null : Number(price));
+        this.value_customer_price = (value_customer_price == null ? null : Number(value_customer_price));
         this.crv = (crv == null ? null : Number(crv));
         this.is_taxable = is_taxable;
         this.is_sale_report = is_sale_report;

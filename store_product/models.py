@@ -9,6 +9,7 @@ class Store_product(models.Model):
     store = models.ForeignKey(Store)
     name = models.CharField(max_length=100)
     price = models.DecimalField(max_digits=6, decimal_places=2)
+    value_customer_price = models.DecimalField(max_digits=6, decimal_places=2,blank=True,null=True)
     crv = models.DecimalField(max_digits=6, decimal_places=3,blank=True,null=True)
     is_taxable = models.BooleanField()
     is_sale_report = models.BooleanField(default=True)

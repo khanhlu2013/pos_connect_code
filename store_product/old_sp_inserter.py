@@ -13,6 +13,7 @@ def exe(
     ,store_id
     ,name
     ,price
+    ,value_customer_price
     ,crv
     ,is_taxable
     ,is_sale_report
@@ -29,6 +30,7 @@ def exe(
         ,store_id = store_id
         ,name = name
         ,price = price
+        ,value_customer_price = value_customer_price
         ,crv = crv
         ,is_taxable = is_taxable
         ,is_sale_report = is_sale_report
@@ -47,6 +49,7 @@ def exe(
         ,product_id = product_id
         ,name = name
         ,price = couch_util.decimal_2_str(price)
+        ,value_customer_price = couch_util.decimal_2_str(value_customer_price)
         ,crv = couch_util.decimal_2_str(crv)
         ,is_taxable = is_taxable
         ,is_sale_report = is_sale_report
@@ -65,6 +68,7 @@ def exe_master(
     ,store_id
     ,name
     ,price
+    ,value_customer_price
     ,crv
     ,is_taxable
     ,is_sale_report
@@ -81,6 +85,7 @@ def exe_master(
         ,store_id = store_id
         ,name = name
         ,price = price
+        ,value_customer_price = value_customer_price
         ,crv = crv
         ,is_taxable = is_taxable
         ,is_sale_report = is_sale_report 

@@ -6,6 +6,8 @@ define(
     ,'app/sale/displaying_scan/displaying_scan_lst_getter'
     ,'app/sale/scan/pid_scanner'
     ,'constance'
+    ,'app/sale/scan/non_inventory_scanner'
+    ,'app/sale/hold/hold_select_ui'
 ]
 ,function
 (
@@ -15,6 +17,8 @@ define(
     ,ds_lst_getter
     ,pid_scanner
     ,constance
+    ,non_inventory_scanner
+    ,hold_select_ui
 )
 {
     var STORE_IDB = null;
@@ -30,10 +34,13 @@ define(
         for(var i = 0;i<hold_item.data.length;i++){
             var ds = hold_item.data[i];
             if(ds.store_product == null){
-                continue;
+                var non_inventory_scanner_b = non_inventory_scanner.exe.bind(non_inventory_scanner.exe,ds.price,ds.non_product_name,STORE_IDB);
+                func_lst.push(non_inventory_scanner_b);
+            }else{
+                var pid_scanner_b = pid_scanner.exe.bind(pid_scanner.exe,ds.store_product.product_id,ds.qty,STORE_IDB);
+                func_lst.push(pid_scanner_b);                
             }
-            var pid_scanner_b = pid_scanner.exe.bind(pid_scanner.exe,ds.store_product.product_id,ds.qty,STORE_IDB);
-            func_lst.push(pid_scanner_b);
+
         }
 
         async.series(func_lst,function(error,results){
@@ -46,6 +53,18 @@ define(
             localStorage.setItem(constance.HOLD_LST,JSON.stringify(hold_lst));
             callback(null);
         });
+    }
+
+    function get_hold_index(hold,hold_lst){
+        var result = null;
+
+        for(var i = 0;i<hold_lst.length;i++){
+            if(hold_lst[i].date === hold.date){
+                result = i;
+                break;
+            }
+        }
+        return result;
     }
 
     function exe(tax_rate,mm_lst,store_idb,callback){
@@ -71,17 +90,23 @@ define(
                 callback(ERROR_hold_lst_is_empty);
                 return;                
             }
-            
             var ds_lst = result;
             if(ds_lst.length != 0){
                 callback(ERROR_ds_lst_is_not_empty);
                 return;
             }
-
             if(hold_lst.length == 1){
                 load_hold(hold_lst,0/*index*/,callback);
             }else{
-                callback('tobe implemented');
+                var hold_select_ui_b = hold_select_ui.exe.bind(hold_select_ui.exe,hold_lst);
+                async.waterfall([hold_select_ui_b],function(error,result){
+                    if(error){
+                        callback(error);
+                        return;
+                    }
+
+                    load_hold(hold_lst,get_hold_index(result,hold_lst),callback)
+                })
             }
         });
     }

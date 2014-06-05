@@ -9,13 +9,15 @@ define(
 {
     var ERROR_STORE_PRODUCT_VALIDATION_NAME = 'ERROR_STORE_PRODUCT_VALIDATION_NAME';
     var ERROR_STORE_PRODUCT_VALIDATION_PRICE = 'ERROR_STORE_PRODUCT_VALIDATION_PRICE';
+    var ERROR_STORE_PRODUCT_VALIDATION_VALUE_CUSTOMER_PRICE = 'ERROR_STORE_PRODUCT_VALIDATION_VALUE_CUSTOMER_PRICE';    
     var ERROR_STORE_PRODUCT_VALIDATION_CRV = 'ERROR_STORE_PRODUCT_VALIDATION_CRV';
     var ERROR_STORE_PRODUCT_VALIDATION_TAXABLE = 'ERROR_STORE_PRODUCT_VALIDATION_TAXABLE';
     var ERROR_STORE_PRODUCT_VALIDATION_SKU = 'ERROR_STORE_PRODUCT_VALIDATION_SKU';
     var ERROR_STORE_PRODUCT_VALIDATION_COST = 'ERROR_STORE_PRODUCT_VALIDATION_COST';
     var ERROR_STORE_PRODUCT_VALIDATION_BUYDOWN = 'ERROR_STORE_PRODUCT_VALIDATION_BUYDOWN';
 
-    function validate(name,price,crv,is_taxable,sku_str,is_prompt_sku,cost,vendor,buydown){
+
+    function validate(name,price,value_customer_price,crv,is_taxable,sku_str,is_prompt_sku,cost,vendor,buydown){
         var error_lst = new Array();
 
         if(name == null || name == undefined || name.trim().length == 0){
@@ -24,6 +26,9 @@ define(
         if(price == null || price == undefined || !number.is_positive_double(price)){
             error_lst.push(ERROR_STORE_PRODUCT_VALIDATION_PRICE);
         }
+        if(value_customer_price != null && value_customer_price != undefined && typeof(value_customer_price) == 'string' && value_customer_price.trim().length != 0 && !number.is_positive_double(value_customer_price)){
+            error_lst.push(ERROR_STORE_PRODUCT_VALIDATION_VALUE_CUSTOMER_PRICE);
+        }          
         if(crv != null && crv != undefined && typeof(crv) == 'string' && crv.trim().length != 0 && !number.is_positive_double(crv)){
             error_lst.push(ERROR_STORE_PRODUCT_VALIDATION_CRV);
         }
@@ -41,6 +46,7 @@ define(
         if(buydown != null && buydown != undefined && typeof(buydown) == 'string' && buydown.trim().length != 0 && !number.is_positive_double(buydown)){
             error_lst.push(ERROR_STORE_PRODUCT_VALIDATION_BUYDOWN);
         }
+      
         return error_lst;
     }
 
@@ -48,10 +54,12 @@ define(
          validate:validate
         ,ERROR_STORE_PRODUCT_VALIDATION_NAME:ERROR_STORE_PRODUCT_VALIDATION_NAME 
         ,ERROR_STORE_PRODUCT_VALIDATION_PRICE:ERROR_STORE_PRODUCT_VALIDATION_PRICE
+        ,ERROR_STORE_PRODUCT_VALIDATION_VALUE_CUSTOMER_PRICE:ERROR_STORE_PRODUCT_VALIDATION_VALUE_CUSTOMER_PRICE        
         ,ERROR_STORE_PRODUCT_VALIDATION_CRV:ERROR_STORE_PRODUCT_VALIDATION_CRV
         ,ERROR_STORE_PRODUCT_VALIDATION_TAXABLE:ERROR_STORE_PRODUCT_VALIDATION_TAXABLE
         ,ERROR_STORE_PRODUCT_VALIDATION_SKU:ERROR_STORE_PRODUCT_VALIDATION_SKU
         ,ERROR_STORE_PRODUCT_VALIDATION_COST:ERROR_STORE_PRODUCT_VALIDATION_COST
         ,ERROR_STORE_PRODUCT_VALIDATION_BUYDOWN:ERROR_STORE_PRODUCT_VALIDATION_BUYDOWN
+
     }
 });

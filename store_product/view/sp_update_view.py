@@ -12,6 +12,7 @@ def sp_update_view(request):
     product_id_raw = request.POST['product_id']
     name_raw = request.POST['name']
     price_raw = request.POST['price']
+    value_customer_price_raw = request.POST['value_customer_price']
     crv_raw = request.POST['crv']
     is_taxable_raw = request.POST['is_taxable']
     is_sale_report_raw = request.POST['is_sale_report']
@@ -24,6 +25,7 @@ def sp_update_view(request):
     product_id  = int(product_id_raw)
     name = name_raw.strip()
     price = Decimal(price_raw)
+    value_customer_price = number.get_double_from_str(value_customer_price_raw)
     crv = number.get_double_from_str(crv_raw)
     is_taxable = boolean.get_boolean_from_str(is_taxable_raw)
     is_sale_report = boolean.get_boolean_from_str(is_sale_report_raw)
@@ -39,9 +41,6 @@ def sp_update_view(request):
 
     #verify sp belong to this store, and crv,cost,bd param is blank if it is a kit: we can not directly editing these info for kit. it is calculated based on breakdown
     sp =  Store_product.objects.prefetch_related('breakdown_lst').get(product_id=product_id,store_id=cur_login_store.id)
-    print(cost)
-    print(crv)
-    print(buydown)
     if sp.breakdown_lst.count() != 0 and (cost != None or crv != None or buydown != None):
         return
 
@@ -50,6 +49,7 @@ def sp_update_view(request):
         ,store_id = cur_login_store.id
         ,name = name
         ,price = price
+        ,value_customer_price = value_customer_price
         ,crv = crv
         ,is_taxable = is_taxable
         ,is_sale_report = is_sale_report

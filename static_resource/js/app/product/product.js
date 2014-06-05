@@ -129,7 +129,7 @@ define(
         tr = prod_tbl.insertRow();
 
         //table column
-        var column_name = [ "product" , "price" , "crv" , "taxable" , "is_sale_report" , "p_type" , "p_tag" ,"vendor", "cost", "buydown", "edit" ];
+        var column_name = ["product","price","crv","taxable","is_sale_report","p_type","p_tag","vendor","cost","buydown","vc_price","edit" ];
         for( var i = 0;i<column_name.length;i++){
             td = tr.insertCell(-1);
             td.innerHTML = column_name[i];
@@ -169,6 +169,9 @@ define(
 
             td = tr.insertCell(-1);
             td.innerHTML = sp_json_helper.compute_amount(sp,'buydown')
+
+            td = tr.insertCell(-1);
+            td.innerHTML = sp.value_customer_price; 
 
             td = tr.insertCell(-1);
             td.innerHTML = 'edit';   

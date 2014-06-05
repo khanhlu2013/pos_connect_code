@@ -5,8 +5,12 @@ define(function(){
 	}
 
 	function round_2_decimal(number){
-		return +number.toFixed(2);
-	}
+		if(number == null){
+			return null;
+		}else{
+			return +number.toFixed(2);
+		}
+ 	}
 
 	function prompt_integer(message,prefill,error_message){
 		var str = prompt(message,prefill);

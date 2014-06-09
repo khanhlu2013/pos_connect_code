@@ -16,6 +16,7 @@ requirejs.config({
 });
 requirejs.onError = function (err) {
     alert('there is error loading page: ' + err.requireType);
+    throw err;
 };
 requirejs(["app/sale/sale"]);
 

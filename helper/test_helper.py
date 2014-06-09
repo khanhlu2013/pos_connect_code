@@ -11,6 +11,7 @@ def create_bare_sp(store_id):
          store_id = store_id
         ,name = 'x'
         ,price = 1
+        ,value_customer_price = None
         ,crv = None
         ,is_taxable = False
         ,is_sale_report = False

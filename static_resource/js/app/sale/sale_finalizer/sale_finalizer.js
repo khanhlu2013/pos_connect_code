@@ -8,6 +8,7 @@ define(
         ,'app/sale/voider/voider'
         ,'app/sale/displaying_scan/displaying_scan_lst_getter'
         ,'app/sale/tender/tender_manage_ui'
+
     ]
     ,function
     (
@@ -19,6 +20,7 @@ define(
         ,voider
         ,ds_lst_getter
         ,tender_manage_ui
+
     )
 {
     var MM_LST = null;
@@ -46,7 +48,7 @@ define(
             }
 
             var receipt_inserter_b = receipt_inserter.bind(receipt_inserter,store_pdb,ds_lst,tax_rate,tender_lst);
-            var voider_b = voider.bind(voider,store_idb);
+            var voider_b = voider.bind(voider,store_idb,true/*reset is_use_value_customer_price*/);
             async.waterfall([receipt_inserter_b,voider_b],function(error,result){
                 callback(error);
             });  

@@ -1,18 +1,16 @@
-from django.db import models
 from store_product.models import Store_product
 import csv
-from helper import test_helper
 from product.models import Sku,Product,ProdSkuAssoc
 from store.models import Store
 from store_product import new_sp_inserter,old_sp_inserter
 
 def exe():
-    store = Store.objects.get(name='x')
+    store = Store.objects.get(name = "x")
     
     # Dept_ID,Description,Tax_1,itemnum,Vendor,ItemName,CRV,Price,Cost
     log_file = open('log','w')
 
-    with open('__.txt', 'rb') as csvfile:
+    with open('id/data_full_tiep.txt', 'rb') as csvfile:
         # Dept_ID,Description,Tax_1,itemnum,Vendor,ItemName,CRV,Quan_In_Case,Cost,Price
 
         spamreader = csv.reader(csvfile, delimiter=',', quotechar='"')
@@ -69,6 +67,7 @@ def record(log_file,store,name,sku,cost,price,crv,is_taxable,vendor,buydown,p_ty
              store_id=store.id
             ,name=name
             ,price=price
+            ,value_customer_price = None
             ,crv=crv
             ,is_taxable=is_taxable
             ,is_sale_report=is_sale_report
@@ -93,6 +92,7 @@ def record(log_file,store,name,sku,cost,price,crv,is_taxable,vendor,buydown,p_ty
                      store_id=store.id
                     ,name=name
                     ,price=price
+                    ,value_customer_price = None
                     ,crv=crv
                     ,is_taxable=is_taxable
                     ,is_sale_report=is_sale_report
@@ -109,6 +109,7 @@ def record(log_file,store,name,sku,cost,price,crv,is_taxable,vendor,buydown,p_ty
                     ,store_id=store.id
                     ,name=name
                     ,price=price
+                    ,value_customer_price = None
                     ,crv=crv
                     ,is_taxable=is_taxable
                     ,is_sale_report=is_sale_report

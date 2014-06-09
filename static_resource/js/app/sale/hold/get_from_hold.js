@@ -95,19 +95,15 @@ define(
                 callback(ERROR_ds_lst_is_not_empty);
                 return;
             }
-            if(hold_lst.length == 1){
-                load_hold(hold_lst,0/*index*/,callback);
-            }else{
-                var hold_select_ui_b = hold_select_ui.exe.bind(hold_select_ui.exe,hold_lst);
-                async.waterfall([hold_select_ui_b],function(error,result){
-                    if(error){
-                        callback(error);
-                        return;
-                    }
+            var hold_select_ui_b = hold_select_ui.exe.bind(hold_select_ui.exe,hold_lst);
+            async.waterfall([hold_select_ui_b],function(error,result){
+                if(error){
+                    callback(error);
+                    return;
+                }
 
-                    load_hold(hold_lst,get_hold_index(result,hold_lst),callback)
-                })
-            }
+                load_hold(hold_lst,get_hold_index(result,hold_lst),callback)
+            })
         });
     }
 

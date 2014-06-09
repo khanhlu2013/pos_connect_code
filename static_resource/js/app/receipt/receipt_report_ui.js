@@ -22,6 +22,7 @@ define(
     var RECEIPT_JSON_LST = null;/*Receipt_json list*/
 
     var refresh_btn = null;
+    var today_btn = null;
     var receipt_tbl = null;
 
     function display_receipt_table(){
@@ -51,9 +52,7 @@ define(
         }
     }
 
-    function refresh_btn_handler(){
-        var from_date = $( "#from_date_txt" ).val();
-        var to_date = $( "#to_date_txt" ).val();
+    function ajax_exe(from_date,to_date){
         var time_zone_offset = new Date().getTimezoneOffset() / 60;
 
         var push_receipt_b = receipt_pusher.exe_if_nessesary.bind(receipt_pusher.exe_if_nessesary,STORE_ID,COUCH_SERVER_URL);
@@ -70,7 +69,13 @@ define(
                 RECEIPT_JSON_LST.push(new Receipt_json(receipt_json_lst[i]));
             }
             display_receipt_table();
-        });
+        });        
+    }
+
+    function refresh_btn_handler(){
+        var from_date = $( "#from_date_txt" ).val();
+        var to_date = $( "#to_date_txt" ).val();
+        ajax_exe(from_date,to_date);
     }
 
     function exe(store_id,couch_server_url){
@@ -79,8 +84,9 @@ define(
             '<div id="receipt_report_dlg">' +
                 '<label for="from_date_txt">from</label><input id="from_date_txt" type="text">' +
                 '<label for="to_date_txt">to</label><input id="to_date_txt" type="text">' +
-                '<input id="refresh_btn" type="button" value="refresh">' +
-                '<table id="receipt_tbl" border="1"></table>' +
+                '<input id="_refresh_btn" type="button" value="refresh">' +
+                '<input id="_today_btn" type="button" value="today">' +
+                '<table id="_receipt_tbl" border="1"></table>' +
             '</div>';
 
         $(html_str).appendTo('body')
@@ -90,7 +96,7 @@ define(
                 title : 'receipt report',
                 zIndex: 10000,
                 autoOpen: true,
-                width: 600,
+                width: 650,
                 height: 600,
                 buttons : [{text:'cancel', click: function(){$('#receipt_report_dlg').dialog('close');}}],
                 open: function( event, ui ) 
@@ -103,9 +109,18 @@ define(
                         $( "#to_date_txt" ).datepicker();
                     });    
 
-                    refresh_btn = document.getElementById('refresh_btn');
-                    receipt_tbl = document.getElementById('receipt_tbl');            
-                    refresh_btn.addEventListener("click",refresh_btn_handler);        
+                    today_btn = document.getElementById('_today_btn');
+                    refresh_btn = document.getElementById('_refresh_btn');
+                    receipt_tbl = document.getElementById('_receipt_tbl');            
+                    refresh_btn.addEventListener("click",refresh_btn_handler);      
+                    today_btn.addEventListener("click",function(){
+                        var today = new Date();
+                        var dd = today.getDate();
+                        var mm = today.getMonth()+1; //January is 0!
+                        var yyyy = today.getFullYear();     
+                        var today_str = mm + '/' + dd + '/' + yyyy;                   
+                        ajax_exe(today_str,today_str);                        
+                    });       
                 },
                 close: function (event, ui) {
                     $(this).remove();

@@ -56,7 +56,7 @@ define(
                     var cur_hold = {date:new Date().getTime(),data:ds_lst};
                     hold_lst.push(cur_hold);
                     localStorage.setItem(constance.HOLD_LST,JSON.stringify(hold_lst))
-                    var voider_b = voider.bind(voider,STORE_IDB);
+                    var voider_b = voider.bind(voider,STORE_IDB,true/*reset is_use_value_customer_price*/);
                     async.waterfall([voider_b],function(error,result){
                         callback(error);
                     });                     

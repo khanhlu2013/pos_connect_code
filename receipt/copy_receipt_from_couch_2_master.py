@@ -184,6 +184,7 @@ def create_new_sp(sp_couch_lst,store_id):
              store_id = store_id
             ,name = sp_couch['name']
             ,price = sp_couch['price']
+            ,value_customer_price = sp_couch['value_customer_price']
             ,crv = sp_couch['crv']
             ,is_taxable = sp_couch['is_taxable']
             ,is_sale_report = sp_couch['is_sale_report']

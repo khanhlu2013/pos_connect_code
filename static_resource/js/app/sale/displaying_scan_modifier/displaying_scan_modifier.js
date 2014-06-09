@@ -83,7 +83,7 @@ define(
 
         //CLEAR PS
         var func_lst = [];
-        var voider_b = voider.bind(voider,STORE_IDB);
+        var voider_b = voider.bind(voider,STORE_IDB,false/*not toogle is_use_value_customer_price*/);
         async.waterfall([voider_b],function(error,result){
             if(error){
                 error_lib.alert_error(error);

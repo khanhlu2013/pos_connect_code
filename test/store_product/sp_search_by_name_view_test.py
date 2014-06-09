@@ -21,6 +21,7 @@ class test(WebTest):
              store_id = other_store.id
             ,name = product_name
             ,price = 1
+            ,value_customer_price = None
             ,crv = 1
             ,is_taxable = True
             ,is_sale_report = False
@@ -47,6 +48,7 @@ class test(WebTest):
              store_id = my_store.id
             ,name = product_name
             ,price = my_price
+            ,value_customer_price = None
             ,crv = my_crv
             ,is_taxable = my_is_taxable
             ,is_sale_report = my_is_sale_report

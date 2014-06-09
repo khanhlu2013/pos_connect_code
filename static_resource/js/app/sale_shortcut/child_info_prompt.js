@@ -3,42 +3,51 @@ define(
      'lib/async'
     ,'app/store_product/sp_search_ui' 
     ,'lib/error_lib'
+    ,'app/sale_shortcut/sale_shortcut_validate'
 ]
 ,function
 (
      async
     ,sp_search_ui
     ,error_lib
+    ,sale_shortcut_validate
 )
 {
     var PRODUCT_ID = null;
     var ERROR_CANCEL_shortcut_setup_cancel = 'ERROR_CANCEL_shortcut_setup_cancel';
     var ERROR_remove_button_pressed = 'ERROR_remove_button_pressed';
 
+    function validate_ui(error_lst){
+        $('#_product_name_txt').removeClass('error');
+        $('#_child_caption_txt').removeClass('error');
+
+        if(error_lst.indexOf(sale_shortcut_validate.ERROR_SALE_SHORTCUT_PRODUCT_EMTPY)!= -1){
+            $('#_product_name_txt').addClass('error');
+        }
+        if(error_lst.indexOf(sale_shortcut_validate.ERROR_SALE_SHORTCUT_CAPTION_EMTPY)!= -1){
+            $('#_child_caption_txt').addClass('error');
+        }
+    }
+
     function ok_handler(callback){
-        if(PRODUCT_ID == null){
-            alert('Product is emtpy. Please select product.');
-            return;
+        var caption = $('#_child_caption_txt').val().trim();
+        var error_lst = sale_shortcut_validate.exe(PRODUCT_ID,caption)
+        if(error_lst.length != 0){
+            validate_ui(error_lst);
+        }else{
+            $('#_child_info_prompt_dlg').dialog('close');
+            var result = {product_id:PRODUCT_ID,caption:caption};
+            callback(null,result);            
         }
-
-        var caption = $('#child_caption_txt').val().trim();
-        if(caption.length == 0){
-            alert('Caption is emtpy. Please enter caption.');
-            return;            
-        }
-
-        $('#child_info_prompt_dlg').dialog('close');
-        var result = {product_id:PRODUCT_ID,caption:caption};
-        callback(null,result);
     }
 
     function cancel_handler(callback){
-        $('#child_info_prompt_dlg').dialog('close');
+        $('#_child_info_prompt_dlg').dialog('close');
         callback(ERROR_CANCEL_shortcut_setup_cancel);
     }
 
     function remove_handler(callback){
-        $('#child_info_prompt_dlg').dialog('close');
+        $('#_child_info_prompt_dlg').dialog('close');
         callback(ERROR_remove_button_pressed);
     }
 
@@ -54,20 +63,20 @@ define(
 
             var sp = result;
             PRODUCT_ID = sp.product_id;
-            $('#product_name_txt').val(sp.name);
+            $('#_product_name_txt').val(sp.name);
         });
     }
 
     function exe(caption,product_name,product_id,callback){
 
         var html_str =     
-            '<div id="child_info_prompt_dlg">' +
-                '<label for="child_caption_txt">caption:</label>' +
-                '<input type="text" id = "child_caption_txt">' +
+            '<div id="_child_info_prompt_dlg">' +
+                '<label for="_child_caption_txt">caption:</label>' +
+                '<input type="text" id = "_child_caption_txt">' +
                 '<br>' + 
-                '<label for="product_name_txt">product:</label>' +
-                '<input type="text" id = "product_name_txt" readonly>' +
-                '<input type="button" id = "mm_child_prompt_product_search_btn" value="search">' +
+                '<label for="_product_name_txt">product:</label>' +
+                '<input type="text" id = "_product_name_txt" readonly>' +
+                '<input type="button" id = "_mm_child_prompt_product_search_btn" value="search">' +
                 '<br>' +
             '</div>';
 
@@ -92,10 +101,10 @@ define(
                 open: function( event, ui ) 
                 {
                     PRODUCT_ID = product_id;
-                    $('#mm_child_prompt_product_search_btn').click(name_search_handler);
-                    $('#child_caption_txt').val(caption);
-                    $('#product_name_txt').val(product_name);        
-                    $('#child_info_prompt_dlg').keypress(function(e) {
+                    $('#_mm_child_prompt_product_search_btn').click(name_search_handler);
+                    $('#_child_caption_txt').val(caption);
+                    $('#_product_name_txt').val(product_name);        
+                    $('#_child_info_prompt_dlg').keypress(function(e) {
                         if (e.keyCode == $.ui.keyCode.ENTER) {
                             ok_handler(callback);
                         }

@@ -19,7 +19,7 @@ def p():
     user2,store2=test_helper.create_user_then_store_detail(user_name = "y",user_password="y",store_name="y")
     user3,store3=test_helper.create_user_then_store_detail(user_name = "z",user_password="z",store_name="z") 
     print("load approve product data")
-    json_file = open('./liquor.json')   
+    json_file = open('./id/liquor.json')   
     data = json.load(json_file)
     import_json_data(data)
     json_file.close()

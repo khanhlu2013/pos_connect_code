@@ -22,6 +22,7 @@ class test(WebTest):
              store_id = other_store.id
             ,name = 'x'
             ,price = 1
+            ,value_customer_price = None
             ,crv = None
             ,is_taxable = True
             ,is_sale_report = True

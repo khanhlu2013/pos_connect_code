@@ -34,6 +34,7 @@ class test(WebTest):
              store_id = my_store.id
             ,name = name
             ,price = price
+            ,value_customer_price = None
             ,crv = crv
             ,is_taxable = is_taxable
             ,is_sale_report = is_sale_report
@@ -101,6 +102,7 @@ class test(WebTest):
              store_id = my_store.id
             ,name = 'my product name 1'
             ,price = 1
+            ,value_customer_price = None
             ,crv = 1
             ,is_taxable = True
             ,is_sale_report = False
@@ -116,6 +118,7 @@ class test(WebTest):
              store_id = my_store.id
             ,name = 'my product name 1'
             ,price = 1
+            ,value_customer_price = None
             ,crv = 1
             ,is_taxable = True
             ,is_sale_report = False
@@ -131,6 +134,7 @@ class test(WebTest):
              store_id = my_store.id
             ,name = 'my product name 1'
             ,price = 1
+            ,value_customer_price = None
             ,crv = 1
             ,is_taxable = True
             ,is_sale_report = False
@@ -149,6 +153,7 @@ class test(WebTest):
              store_id = other_store.id
             ,name = 'other store product name'
             ,price = 1
+            ,value_customer_price = None
             ,crv = 1
             ,is_taxable = True
             ,is_sale_report = False

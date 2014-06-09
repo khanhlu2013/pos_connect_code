@@ -24,5 +24,7 @@ define(function(){
 
 		//LOCAL STORAGE ITEM
 		,HOLD_LST : 'pending_scan_hold_lst'
+
+		,IS_USE_VALUE_CUSTOMER_PRICE : 'IS_USE_VALUE_CUSTOMER_PRICE'
  	}
 });

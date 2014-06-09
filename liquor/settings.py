@@ -58,7 +58,6 @@ INSTALLED_APPS = (
     ,'tax'
     ,'sale_shortcut'
     ,'mix_match'
-    ,'import_data'
     ,'receipt'
     ,'group'
     ,'payment_type'

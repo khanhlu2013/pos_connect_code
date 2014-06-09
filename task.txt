@@ -28,6 +28,7 @@ foreman start
 SELECT pid, pg_terminate_backend(pid) 
 FROM pg_stat_activity 
 WHERE datname = current_database() AND pid <> pg_backend_pid();
+
 ----------------------------------------------------------------------------
 (pwd:static_resource/js) 
 
@@ -261,8 +262,9 @@ CURRENT TASKS
 
 
 . _doc_id_rev of receipt and store product should be change to _rev
-
-
+. why there is a store id on sp in couch side? kill it
+. serialize_product_from_id(product_id,store_id,is_include_other_store) revisit is_include_other_store. it does not work. may be i need to implement this with python and not with django orm filter.
+. why tax_rate is not included in the sale context param
 ------------------------------------------------------------------------------------------------------------------
 PAGE LOADING USER EXPERIENCE
     . block ui when, and report require.js time out
@@ -291,6 +293,7 @@ UPGRADE FEATURE
 . heroku log: how to warn user about usage. how to charge user on extra full db loading.
 . void log
 . search pagination
+. remove all alert
 ------------------------------------------------------------------------------------------------------------------
 SKILL IMPROVEMENT
 . continuous test->build->deploy
@@ -316,49 +319,24 @@ couch_acl_validator_test: client have write permission that follow these 4 rules
 . sku scan not found handler spec: there is a spy on old window.confirm and now we change it. make sure test work
 
 ---------------------
-
-. why there is a store id on sp in couch side? kill it
-. serialize_product_from_id(product_id,store_id,is_include_other_store) revisit is_include_other_store. it does not work. may be i need to implement this with python and not with django orm filter.
-. why tax_rate is not included in the sale context param
-
-
+. hold: inline display displaying scan
+. change pt after the fact
 . print  sale report
-. pos
-    . sale_shortcut validator and responsive validation ui
-    . remove all alert
 . max_digits=7, decimal_places=2
+. sp_util.get_sp_json_from_product_json: can i make it to be uniform with the client code: put it in product app, and uniform method naming
+. excel
+. a quicker way to get to receipt, up down key to get to previous receipt (inline viewing)
 . sale table, 100% stretch for product name
-
-
 . payment type
     . report of pt
     . change name stamp into id
     . hide pt, but can't remove pt that is already used
 
-. when we adding product from another store, title is blank
-. excel
-. sp_util.get_sp_json_from_product_json: can i make it to be uniform with the client code: put it in product app, and uniform method naming
-. a quicker way to get to receipt, up down key to get to previous receipt (inline viewing)
-. change tax on sale page should refresh sale table
-. hold: short-cut for hold and get_hold. format date. may be even display the detail.
-. change pt after the fact
----------------------
-ALGORITHM to imput data
 
-. take a file, each line with this format: pid,sku,name,price,crv,is_taxable,p_type,p_tag,cost,buydown
-. go through each line
-. check if current line's pid is already recored inside vendor field, prefixed by store id. if it is, add this sku into this product,
-. otherwise, there are 3 cases for prod_sku_assoc list.length
-    . length = 0 -> create new
-    . length = 1 -> log to single file
-    . length > 1 -> log to multiple file
 
-. load single sku to an interface. showing what is the product name in our system, and what is the product name the customer gave us. check box the name that is not the same. we will create new pid for these checked line.
-
-. load multiple sku file. we have to select one by one here. to get the pid we want to use. we don't select, we can create new pid.
-
------------------------
-. create visual tool to import data
+----
+import data:
+    . deal with multiple
 
 
 

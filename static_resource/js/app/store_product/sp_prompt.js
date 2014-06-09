@@ -242,7 +242,7 @@ define(
                 title = 'edit ' + sp_prefill.name;
             }else{
                 if(suggest_product){
-                    'add: ' + suggest_product.name;
+                    title = 'add: ' + suggest_product.name;
                 }else{
                     title = 'create new product';
                 }

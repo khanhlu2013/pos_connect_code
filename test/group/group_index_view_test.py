@@ -37,6 +37,7 @@ class test(WebTest):
              store_id = store.id            
             ,name = product_name
             ,price = price
+            ,value_customer_price = None
             ,crv = crv
             ,is_taxable = is_taxable
             ,is_sale_report = is_sale_report

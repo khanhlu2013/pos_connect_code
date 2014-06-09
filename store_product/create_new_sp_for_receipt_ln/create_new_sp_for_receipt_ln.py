@@ -67,6 +67,7 @@ def create_new_sp(new_sp_lst,store_id):
              store_id = store_id
             ,name = sp['name']
             ,price = sp['price']
+            ,value_customer_price = sp['value_customer_price']
             ,crv = sp['crv']
             ,is_taxable = sp['is_taxable']
             ,is_sale_report = sp['is_sale_report']

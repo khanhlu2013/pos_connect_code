@@ -22,6 +22,7 @@ class test(WebTest):
              store_id = store.id            
             ,name = "Jack Daniel"
             ,price = 1
+            ,value_customer_price = None
             ,crv = None
             ,is_taxable = True
             ,is_sale_report = True
@@ -72,6 +73,7 @@ class test(WebTest):
              store_id = store.id            
             ,name = "Product 1"
             ,price = 1
+            ,value_customer_price = None
             ,crv = None
             ,is_taxable = True
             ,is_sale_report = True
@@ -87,6 +89,7 @@ class test(WebTest):
              store_id = store.id            
             ,name = "Product 2"
             ,price = 1
+            ,value_customer_price = None
             ,crv = None
             ,is_taxable = True
             ,is_sale_report = True
@@ -136,6 +139,7 @@ class test(WebTest):
              store_id = store.id            
             ,name = "Product 1"
             ,price = 1
+            ,value_customer_price = None
             ,crv = None
             ,is_taxable = True
             ,is_sale_report = True

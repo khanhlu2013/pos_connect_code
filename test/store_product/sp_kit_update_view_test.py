@@ -1,7 +1,7 @@
 from django_webtest import WebTest
 from django.core.urlresolvers import reverse
 from helper import test_helper
-from store_product import new_sp_inserter,sp_util
+from store_product import sp_util
 from util import boolean
 import json
 

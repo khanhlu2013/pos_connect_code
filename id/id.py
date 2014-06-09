@@ -27,10 +27,10 @@ def exe_single_file(store_id):
                 is_exe = data[2]
                 dic = json.loads(data[3])
                 if is_exe == '1\n':
-                    print('exe_1_ ' + dic['name'])
+                    print('old_sp_inserter ' + dic['name'])
                     try:
                         old_sp_inserter.exe(
-                            product_id = dic["pid"],
+                            product_id = dic["our_pid"],
                             store_id = store_id,
                             name=dic["name"],
                             price=dic["price"],
@@ -47,10 +47,11 @@ def exe_single_file(store_id):
                         )
                     except IntegrityError:
                         #we found out that the current sku only assoc with one product so we attemp to use this ond pid for insert. However, we got a contrain error here because previously, we process 
-                        #a different sku that also assoc with this pid and we already use this pid/store combo. right now we dont need to insert this pid but update the db to say that this prod_sku_assoc
+                        #a different sku that also assoc with this pid and this pid/store is inserted. right now we dont need to insert this pid but update the db to say that this prod_sku_assoc
                         #is supported by this store
-                        sp = Store_product.objects.get(store_id=store_id,product_id=dic['pid'])
-                        prod_sku_assoc = ProdSkuAssoc.objects.get(product_id=dic['pid'],sku__sku=dic['sku'])
+                        sp = Store_product.objects.get(store_id=store_id,product_id=dic['our_pid'])
+                        sku = Sku.objects.get(sku=dic['sku'])#when we log into single file, this sku must be assoc with 1 pid ( special case will be more) so it mean sku is already exist. so we use get here to get sku
+                        prod_sku_assoc,is_create_prod_sku_assoc = ProdSkuAssoc.objects.get(product_id=dic['pid_our'],sku__sku=dic['sku'])
                         prod_sku_assoc.store_product_set.add(sp)
                         log_error_single.write('WARNING: 1 pid multiple sku : ' + 'our pid: ' + str(dic['pid']) + ' ,sku: ' + dic['sku'] + ', name: ' + dic['name'] + '\n')  
 
@@ -58,7 +59,7 @@ def exe_single_file(store_id):
                     except Exception:
                         log_error_single.write('ERROR: insert old error anyway: ' + 'pid: ' + str(dic['pid']) + ' ,sku: ' + dic['sku'] + ', name: ' + dic['name'] + '\n')    
                 elif is_exe == '0\n':
-                    print('exe_0_ ' + dic['name'])
+                    print('new_sp_inserter ' + dic['name'])
                     new_sp_inserter.exe(
                         store_id = store_id,
                         name = dic['name'],
@@ -104,7 +105,6 @@ def exe():
     # "PID-1","010986002226","Kenwood Cab 750ml","14.99","0","1","Liquors","Red Wine","11.67"
     # pid,sku,name,price,crv,is_taxable,p_type,p_tag,cost
 
-    log_error_main = open('./id/log_error_main','w')
     log_data_single = open('./id/log_data_single','w')
     log_data_multiple = open('./id/log_data_multiple','w')
     log_activity = open('./id/log_activity','w')
@@ -112,7 +112,7 @@ def exe():
     with open('./id/data_full_long.txt', 'rb') as csvfile:
         line = csv.reader(csvfile, delimiter=',', quotechar='"')
         for raw in line:
-            pid_raw = raw[0]
+            their_pid_raw = raw[0]
             sku_raw = raw[1]
             name_raw = raw[2]
             price_raw = raw[3]
@@ -122,7 +122,7 @@ def exe():
             p_tag_raw = raw[7]
             cost_raw = raw[8]
 
-            pid = pid_raw
+            their_pid = their_pid_raw
             sku = sku_raw.strip()
             name = name_raw
             price = 9999.99 if price_raw == 'NULL' else float(price_raw)
@@ -139,21 +139,20 @@ def exe():
             #SAME PID
             sp = None
             try:
-                sp = Store_product.objects.get(store_id=store.id,vendor = _form_vendor(store.id,pid))
+                sp = Store_product.objects.get(store_id=store.id,vendor = _form_vendor(store.id,their_pid))
             except Store_product.DoesNotExist:
                 pass
 
             if sp != None:
                 try:
                     prod_sku_assoc = ProdSkuAssoc.objects.get(product_id=sp.product.id,sku__sku=sku)
-                    log_error_main.write('WARNING: duplicate pid-sku in data: ' + 'pid: ' + str(pid) + ' ,sku: ' + sku + '\n')
-                    log_activity.write('WARNING: duplicate pid-sku in data: ' + 'pid: ' + str(pid) + ' ,sku: ' + sku + '\n')
+                    log_activity.write('WARNING: duplicate their_pid-sku in data: ' + 'their_pid: ' + str(their_pid) + ' ,sku: ' + sku + '\n')
                     continue
                 except ProdSkuAssoc.DoesNotExist:
                     sku_obj,is_create = Sku.objects.get_or_create(sku=sku,defaults={'creator_id':store.id,'is_approved':False,})
                     prod_sku_assoc = ProdSkuAssoc.objects.create(sku=sku_obj,product=sp.product,creator=store,is_approve_override=False)
                     prod_sku_assoc.store_product_set.add(sp); 
-                    log_activity.write('new sku for old pid found through vendor field: updated prod_sku_assoc.store_product_set. sku: ' + sku + ', pid: ' + str(pid) + '\n')
+                    log_activity.write('new sku for old pid found through vendor field: updated prod_sku_assoc.store_product_set. sku: ' + sku + ', their_pid: ' + str(their_pid) + '\n')
                
             else:
                 #NEW PID
@@ -175,13 +174,12 @@ def exe():
                             p_tag = p_tag,
                             sku_str = sku,
                             cost = cost,
-                            vendor = _form_vendor(store.id,pid),
+                            vendor = _form_vendor(store.id,their_pid),
                             buydown = None
                         )      
-                        log_activity.write('new_sp_inserter ' + 'pid: ' + str(pid) + ' ,sku: ' + sku + '\n')
+                        log_activity.write('new_sp_inserter ' + 'their_pid: ' + str(their_pid) + ' ,sku: ' + sku + '\n')
                     except Exception:
-                        log_error_main.write('ERROR: insert new error anyway: ' + 'pid: ' + str(pid) + ' ,sku: ' + sku + ', name: ' + name + '\n')
-                        log_activity.write('ERROR: insert new error anyway: ' + 'pid: ' + str(pid) + ' ,sku: ' + sku + ', name: ' + name + '\n')
+                        log_activity.write('ERROR: insert new error anyway: ' + 'their_pid: ' + str(their_pid) + ' ,sku: ' + sku + ', name: ' + name + '\n')
 
                 elif length == 1:
                     prod_sku_assoc = prod_sku_assoc_lst[0]
@@ -193,7 +191,7 @@ def exe():
                     log_data_single.write(their_name + '\n')
                     log_data_single.write("1" + '\n')
                     dic = {
-                        "pid" : prod_sku_assoc.product.id,
+                        "our_pid" : prod_sku_assoc.product.id,
                         "sku" : sku,
                         "name" : name,
                         "price" : price,
@@ -210,7 +208,6 @@ def exe():
                     log_data_multiple.write(str(line) + '\n')
                     log_activity.write('multiple file logged' + '\n')
     
-    log_error_main.close()
     log_data_single.close()
     log_data_multiple.close()
     log_activity.close()

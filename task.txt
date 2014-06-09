@@ -265,6 +265,8 @@ CURRENT TASKS
 . why there is a store id on sp in couch side? kill it
 . serialize_product_from_id(product_id,store_id,is_include_other_store) revisit is_include_other_store. it does not work. may be i need to implement this with python and not with django orm filter.
 . why tax_rate is not included in the sale context param
+. sp_util.get_sp_json_from_product_json: can i make it to be uniform with the client code: put it in product app, and uniform method naming
+. max_digits=7, decimal_places=2
 ------------------------------------------------------------------------------------------------------------------
 PAGE LOADING USER EXPERIENCE
     . block ui when, and report require.js time out
@@ -294,6 +296,7 @@ UPGRADE FEATURE
 . void log
 . search pagination
 . remove all alert
+. export to excel
 ------------------------------------------------------------------------------------------------------------------
 SKILL IMPROVEMENT
 . continuous test->build->deploy
@@ -320,23 +323,30 @@ couch_acl_validator_test: client have write permission that follow these 4 rules
 
 ---------------------
 . hold: inline display displaying scan
-. change pt after the fact
 . print  sale report
-. max_digits=7, decimal_places=2
-. sp_util.get_sp_json_from_product_json: can i make it to be uniform with the client code: put it in product app, and uniform method naming
-. excel
+. few ui font bigger 
 . a quicker way to get to receipt, up down key to get to previous receipt (inline viewing)
 . sale table, 100% stretch for product name
 . payment type
     . report of pt
     . change name stamp into id
     . hide pt, but can't remove pt that is already used
-
+    . change pt after the fact
 
 
 ----
 import data:
     . deal with multiple
+--------------
+
+NEW IMPORT DATA ALGORITHM: run customer file to group by sku and pid.Loop though each customer pid
+    . if customer pid has only 1 sku and when look that sku up in our system we found 3 case:
+        . this sku does not link with any product (sku is not exist): create new on the spot with new_sp_inserter
+        . sku link with only 1 product: log into single file
+        . sku link with many product: log into multiple file
+
+    . if customer pid has many sku: we only process if many sku also link to exact 1 pid or none in our system and we use this pid to process customer data
+
 
 
 

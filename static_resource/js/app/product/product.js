@@ -174,7 +174,7 @@ define(
             td.innerHTML = sp.value_customer_price; 
 
             td = tr.insertCell(-1);
-            td.innerHTML = 'edit';   
+            td.innerHTML = '<span class="glyphicon glyphicon-pencil"></span>';   
             (function(pid,product_name){
                 td.addEventListener('click',function(){
                     update_sp(pid,product_name);

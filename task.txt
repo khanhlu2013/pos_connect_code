@@ -322,6 +322,7 @@ couch_acl_validator_test: client have write permission that follow these 4 rules
 . sku scan not found handler spec: there is a spy on old window.confirm and now we change it. make sure test work
 
 ---------------------
+
 . hold: inline display displaying scan
 . print  sale report
 . few ui font bigger 
@@ -333,23 +334,11 @@ couch_acl_validator_test: client have write permission that follow these 4 rules
     . hide pt, but can't remove pt that is already used
     . change pt after the fact
 
+---------------------
 
-----
-import data:
-    . deal with multiple
---------------
+deal: out the door or not
 
-NEW IMPORT DATA ALGORITHM: run customer file to group by sku and pid.Loop though each customer pid
-    . if customer pid has only 1 sku and when look that sku up in our system we found 3 case:
-        . this sku does not link with any product (sku is not exist): create new on the spot with new_sp_inserter
-        . sku link with only 1 product: log into single file
-        . sku link with many product: log into multiple file
+---------------------
 
-    . if customer pid has many sku: we only process if many sku also link to exact 1 pid or none in our system and we use this pid to process customer data
-
-
-
-
-
-
+i want to incorporate angular js into this project. also want to learn about bootstrap.
 

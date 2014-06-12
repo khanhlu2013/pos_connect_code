@@ -11,7 +11,18 @@ define(
     var ERROR_CANCEL_PROMPT = 'ERROR_CANCEL_PROMPT';
 
     function ui_block(message){
-        $.blockUI({message:'<h1>' + message + '</h1>'});
+        $.blockUI({
+            message: '<h2>' + message + '</h2>',
+            css: {
+                border: 'none', 
+                padding: '15px', 
+                backgroundColor: '#000', 
+                '-webkit-border-radius': '10px', 
+                '-moz-border-radius': '10px', 
+                opacity: .5, 
+                color: '#fff' 
+            } 
+        });         
     }
 
     function ui_unblock(){

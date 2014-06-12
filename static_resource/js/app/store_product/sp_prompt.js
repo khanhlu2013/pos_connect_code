@@ -18,6 +18,18 @@ define(
         $("#store_product_prompt_dialog").dialog("close");
         callback(ERROR_CANCEL_STORE_PRODUCT_PROMPT/*error*/);
     }
+    function sku_click_handler(callback){
+        $("#store_product_prompt_dialog").dialog("close");
+        callback(MANAGE_SKU_BUTTON_PRESS);                       
+    }
+    function group_click_handler(callback){
+        $("#store_product_prompt_dialog").dialog("close");
+        callback(MANAGE_GROUP_BUTTON_PRESS);                       
+    }
+    function kit_click_handler(callback){
+        $("#store_product_prompt_dialog").dialog("close");
+        callback(MANAGE_KIT_BUTTON_PRESS);                       
+    }
 
     function ok_btn_handler(is_prompt_sku,callback){
             var name_raw                    = $('#product_name_txt').val()
@@ -189,51 +201,102 @@ define(
             //HTML
             var html_str = 
                 '<div id="store_product_prompt_dialog">' +
-                    '<label for="product_name_txt">Name:</label>' +
-                    '<input type="text" id = "product_name_txt" style="width:500px;">' +
-                    '<input type="button" id = "suggest_name_btn" value = "same">' +
-                    '<br>' +
-                    '<label for="product_price_txt">Price:</label>' +
-                    '<input type="text" id = "product_price_txt">' +
-                    '<input type="button" id = "suggest_price_btn">' +     
-                    '<br>' +
-                    '<label for="product_crv_txt">Crv:</label>' +
-                    '<input type="text" id = "product_crv_txt">' +
-                    '<input type="button" id = "suggest_crv_btn">' +     
-                    '<label id="_compute_crv_lbl"></label>' +                   
-                    '<br>' +
-                    '<label for="product_taxable_check">Taxable:</label>' +
-                    '<input type="checkbox" id = "product_taxable_check">' +
-                    '<br>' +
-                    '<label for="product_cost_txt">Cost:</label>' +
-                    '<input type="text" id = "product_cost_txt">' +
-                    '<input type="button" id = "suggest_cost_btn">' +     
-                    '<label id="_compute_cost_lbl"></label>' +                                        
-                    '<br>' +                        
-                    '<label for="product_sale_report_check">Sale report:</label>' +
-                    '<input type="checkbox" id = "product_sale_report_check">' +
-                    '<br>' +
-                    '<label for="product_type_txt">Type:</label>' +
-                    '<input type="text" id = "product_type_txt">' +
-                    '<br>' +
-                    '<label for="product_tag_txt">Tag:</label>' +
-                    '<input type="text" id = "product_tag_txt">' +
-                    '<br>' +
-                    '<label for="product_vendor_txt">Vendor:</label>' +
-                    '<input type="text" id = "product_vendor_txt">' +
-                    '<br>' +
-                    '<label for="product_buydown_txt">Buydown:</label>' +
-                    '<input type="text" id = "product_buydown_txt">' +
-                    '<label id="_compute_buydown_lbl"></label>' +                     
-                    '<br>' +
-                    '<label for="product_value_customer_price_txt">value customer price:</label>' +
-                    '<input type="text" id = "product_value_customer_price_txt">' +
-                    '<br>' +
-                    '<label for="product_sku_txt">Sku:</label>' +
-                    '<input type="text" id = "product_sku_txt">' +
-                    '<br>' +           
-                    '<table id="group_tbl" border="1"></table>' +       
-                    '<table id="kit_tbl" border="1"></table>' +                
+                    '<form class="form-horizontal" role="form">' +
+
+                        '<div class="form-group">' +
+                            '<label for="product_name_txt" class="col-sm-4 control-label" >Name:</label>' +
+                            '<div class="col-sm-8">' +
+                                '<input type="text" id = "product_name_txt">' +
+                                '<input type="button" id = "suggest_name_btn" value = "same">' +                            
+                            '</div>' +
+                        '</div>' +
+
+                        '<div class="form-group">' +
+                            '<label for="product_price_txt" class="col-sm-4 control-label">Price:</label>' +
+                            '<div class="col-sm-8">' +
+                                '<input type="text" id = "product_price_txt">' +
+                                '<input type="button" id = "suggest_price_btn">' +                                 
+                            '</div>' +
+                        '</div>' +
+   
+                        '<div class="form-group">' +
+                            '<label for="product_crv_txt" class="col-sm-4 control-label">Crv:</label>' +
+                            '<div class="col-sm-8">' +
+                                '<input type="text" id = "product_crv_txt">' +
+                                '<input type="button" id = "suggest_crv_btn">' +     
+                                '<label id="_compute_crv_lbl"></label>' +                             
+                            '</div>' +
+                        '</div>' +
+
+                        '<div class="form-group">' +
+                            '<label for="product_taxable_check" class="col-sm-4 control-label">Taxable:</label>' +
+                            '<div class="col-sm-8">' +
+                                '<input type="checkbox" id = "product_taxable_check">' +
+                            '</div>' +
+                        '</div>' +
+
+                        '<div class="form-group">' +
+                            '<label for="product_cost_txt" class="col-sm-4 control-label">Cost:</label>' +
+                            '<div class="col-sm-8">' +
+                                '<input type="text" id = "product_cost_txt">' +
+                                '<input type="button" id = "suggest_cost_btn">' +     
+                                '<label id="_compute_cost_lbl"></label>' +                             
+                            '</div>' +
+                        '</div>' +
+
+                        '<div class="form-group">' +
+                            '<label for="product_sale_report_check" class="col-sm-4 control-label">Sale report:</label>' +
+                            '<div class="col-sm-8">' +
+                                '<input type="checkbox" id = "product_sale_report_check">' +
+                            '</div>' +
+                        '</div>' +
+
+                        '<div class="form-group">' +
+                            '<label for="product_type_txt" class="col-sm-4 control-label">Type:</label>' +
+                            '<div class="col-sm-8">' +
+                                '<input type="text" id = "product_type_txt">' +
+                            '</div>' +
+                        '</div>' +
+
+                        '<div class="form-group">' +
+                            '<label for="product_tag_txt" class="col-sm-4 control-label">Tag:</label>' +
+                            '<div class="col-sm-8">' +
+                                '<input type="text" id = "product_tag_txt">' +
+                            '</div>' +
+                        '</div>' +
+
+                        '<div class="form-group">' +
+                            '<label for="product_vendor_txt" class="col-sm-4 control-label">Vendor:</label>' +
+                            '<div class="col-sm-8">' +
+                                '<input type="text" id = "product_vendor_txt">' +
+                            '</div>' +    
+                        '</div>' +
+
+                        '<div class="form-group">' +
+                            '<label for="product_buydown_txt" class="col-sm-4 control-label">Buydown:</label>' +
+                            '<div class="col-sm-8">' +
+                                '<input type="text" id = "product_buydown_txt">' +
+                                '<label id="_compute_buydown_lbl"></label>' +                     
+                            '</div>' +
+                        '</div>' +
+
+                        '<div class="form-group">' +
+                            '<label for="product_value_customer_price_txt" class="col-sm-4 control-label">value customer price:</label>' +
+                            '<div class="col-sm-8">' +
+                                '<input type="text" id = "product_value_customer_price_txt">' +
+                            '</div>' +
+                        '</div>' +
+
+                        '<div class="form-group">' +
+                            '<label for="product_sku_txt" class="col-sm-4 control-label">Sku:</label>' +
+                            '<div class="col-sm-8">' +
+                                '<input type="text" id = "product_sku_txt">' +
+                            '</div>' +
+                        '</div>' +
+
+                        '<table id="group_tbl" border="1"></table>' +       
+                        '<table id="kit_tbl" border="1"></table>' +   
+                    '</form>' +                                 
                 '</div>';
 
             //TITLE
@@ -251,31 +314,23 @@ define(
             //BUTTONS
             var ok_btn_handler_b = ok_btn_handler.bind(ok_btn_handler,is_prompt_sku,callback);
             var cancel_btn_handler_b = cancel_btn_handler.bind(cancel_btn_handler,callback);
+            var sku_click_handler_b = sku_click_handler.bind(sku_click_handler,callback);
+            var group_click_handler_b = group_click_handler.bind(group_click_handler,callback);
+            var kit_click_handler_b = kit_click_handler.bind(group_click_handler,callback);
+
             var buttons =
-            {
-                Ok: ok_btn_handler_b,
-                Cancel: cancel_btn_handler_b
-            }
-
+            [
+                {text:'ok', click:ok_btn_handler_b},
+                {text:'cancel', click:cancel_btn_handler_b}
+            ]
             if(is_sku_management){
-                buttons['sku'] = function(){
-                    $("#store_product_prompt_dialog").dialog("close");
-                    callback(MANAGE_SKU_BUTTON_PRESS);                       
-                }
+                buttons.push({text:'sku',click:sku_click_handler_b});
             }
-
             if(is_group_management){
-                buttons['group'] = function(){
-                    $("#store_product_prompt_dialog").dialog("close");
-                    callback(MANAGE_GROUP_BUTTON_PRESS);                       
-                }
+                buttons.push({text:'group',click:group_click_handler_b});
             }
-                  
             if(is_kit_management){
-                buttons['kit'] = function(){
-                    $("#store_product_prompt_dialog").dialog("close");
-                    callback(MANAGE_KIT_BUTTON_PRESS);                       
-                }
+                buttons.push({text:'kit',click:kit_click_handler_b});
             }
 
             $(html_str).appendTo('body')

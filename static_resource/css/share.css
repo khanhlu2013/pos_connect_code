@@ -5,3 +5,7 @@
   filter: Alpha(Opacity=50) !important;
   background: rgb(50, 50, 50) !important;  This will make it darker
 }
+
+.form-horizontal .form-group {
+    margin-bottom: 4px;
+}

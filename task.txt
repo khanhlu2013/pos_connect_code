@@ -31,9 +31,9 @@ WHERE datname = current_database() AND pid <> pg_backend_pid();
 (pwd:static_resource/js) 
 
 
-    node ../../../r.js -o name=app/sale/sale_entry out=app/sale/sale_entry__min__.js baseUrl=. paths.jquery=empty: paths.jquery_ui=empty: paths.jquery_block_ui=empty: paths.dropit=lib/ui/dropit
+    node ../../../r.js -o name=app/sale/sale_entry out=app/sale/sale_entry__min__.js baseUrl=. paths.jquery=empty: paths.jquery_ui=empty: paths.jquery_block_ui=empty: paths.bootstrap=empty: 
     
-    node ../../../r.js -o name=app/product/product_entry out=app/product/product_entry__min__.js baseUrl=. paths.jquery=empty: paths.jquery_ui=empty: paths.jquery_block_ui=empty: paths.dropit=lib/ui/dropit
+    node ../../../r.js -o name=app/product/product_entry out=app/product/product_entry__min__.js baseUrl=. paths.jquery=empty: paths.jquery_ui=empty: paths.jquery_block_ui=empty: paths.bootstrap=empty: 
 
 ----------------------------------------------------------------------------
 TEMPLATE
@@ -313,4 +313,5 @@ upgrade app
 load long
 load tony
 change tiep logged in
+
 

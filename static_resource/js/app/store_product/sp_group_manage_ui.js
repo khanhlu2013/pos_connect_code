@@ -6,6 +6,8 @@ define(
     ,'app/store_product/sp_group_getter'
     ,'app/group/group_select_ui'
     ,'app/group/group_json_helper'
+    ,'lib/ui/table'
+    ,'lib/ui/button'
 ]
 ,function
 (
@@ -15,6 +17,8 @@ define(
     ,sp_group_getter
     ,group_select_ui
     ,group_json_helper
+    ,ui_table
+    ,ui_button
 )
 {
     var ERROR_CANCEL_sp_group_manage_cancel_button_pressed = 'ERROR_CANCEL_sp_group_manage_cancel_button_pressed';
@@ -58,16 +62,8 @@ define(
 
     function refresh_table(){
         var tbl = document.getElementById('sp_group_manage_tbl');
-        tbl.innerHTML = '';
-
         var tr;var td;
-
-        var column_name = ['group','remove']
-        tr = tbl.insertRow(-1);        
-        for(var i = 0;i<column_name.length;i++){
-            td = tr.insertCell(-1);
-            td.innerHTML = column_name[i];
-        }
+        tbl.innerHTML = "";
 
         for(var i = 0;i<GROUP_LST.length;i++){
             var group = GROUP_LST[i];
@@ -77,20 +73,28 @@ define(
             td.innerHTML = group.name;
 
             td = tr.insertCell(-1);
-            td.innerHTML = 'remove';
-
+            td.innerHTML = '<span class="glyphicon glyphicon-trash"></span>';
+            td.className = 'danger';
             (function(group){
                 td.addEventListener('click',function(){
-                    for(var i = 0;i<GROUP_LST.length;i++){
-                        if(GROUP_LST[i].id == group.id){
-                            GROUP_LST.splice(i,1);
-                            refresh_table();
-                            break;
+                    ui.ui_confirm('remove?',function(){
+                        for(var i = 0;i<GROUP_LST.length;i++){
+                            if(GROUP_LST[i].id == group.id){
+                                GROUP_LST.splice(i,1);
+                                refresh_table();
+                                break;
+                            }
                         }
-                    }
+                    });
                 });
             })(group)
         }
+        var col_info_lst = 
+        [
+            {caption:"group",width:70},
+            {caption:"remove",width:10},
+        ];
+        ui_table.set_header(col_info_lst,tbl);
     }
 
     function exe(product_id,product_name,callback){
@@ -98,22 +102,25 @@ define(
 
         var html_str = 
             '<div id="sp_group_manage_dlg">' +
-                '<input type="button" id="add_group_2_sp_btn" value="add group">' +            
-                '<table id="sp_group_manage_tbl" border="1"></table>' +
+                '<button type="button" id="_add_group_2_sp_btn" class="btn btn-primary">' +
+                    '<span class="glyphicon glyphicon-plus"></span>'+
+                '</button>' +
+                '<table id="sp_group_manage_tbl" class="table table-striped table-bordered table-hover table-condensed"></table>' +
+                '</table>' +
             '</div>';
         $(html_str).appendTo('body')
             .dialog(
             {
                 modal: true,
-                title : 'group manage ' + product_name,
+                title : 'manage group for: ' + product_name,
                 zIndex: 10000,
                 autoOpen: true,
-                width: 800,
+                width: 500,
                 height: 500,
                 buttons : 
-                [
-                    {
-                        text:'ok', 
+                {
+                    ok_btn:{
+                        id:'_sp_group_manage_ok_btn', 
                         click: function(){
                             async.waterfall([set_group],function(error,result){
                                 if(error){
@@ -125,23 +132,25 @@ define(
                             });                            
                         }
                     },
-                    {
-                        text:'cancel',
+                    cancel_btn:{
+                        id:'_sp_group_manage_cancel_btn', 
                         click: function(){
                             $('#sp_group_manage_dlg').dialog('close');
                             callback(ERROR_CANCEL_sp_group_manage_cancel_button_pressed);                        
                         }
                     }
-                ],
+                },
                 open: function( event, ui ) 
                 {
+                    ui_button.set_css('_sp_group_manage_ok_btn','green','ok',true);
+                    ui_button.set_css('_sp_group_manage_cancel_btn','orange','remove',true);
                     var sp_group_getter_b = sp_group_getter.exe.bind(sp_group_getter.exe,product_id)
                     async.waterfall([sp_group_getter_b],function(error,result){
                         GROUP_LST = result;
                         refresh_table();
                     });
 
-                    $('#add_group_2_sp_btn').click(function(){
+                    $('#_add_group_2_sp_btn').click(function(){
                         var group_select_b = group_select_ui.exe.bind(group_select_ui.exe,true/*multiple_selection*/,true/*empty_group_allow*/);
                         async.waterfall([group_select_b],function(error,result){
                             if(error){

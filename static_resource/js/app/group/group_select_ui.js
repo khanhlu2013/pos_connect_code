@@ -5,7 +5,8 @@ define(
     ,'app/group/group_lst_getter'    
     ,'lib/error_lib'
     ,'lib/ui/ui'
-
+    ,'lib/ui/table'
+    ,'lib/ui/button'
 ]
 ,function
 (
@@ -14,6 +15,8 @@ define(
     ,group_lst_getter
     ,error_lib
     ,ui
+    ,ui_table
+    ,ui_button
 )
 {
     var ERROR_CANCEL_group_select_cancel_button_press = 'ERROR_CANCEL_group_select_cancel_button_press';
@@ -24,15 +27,7 @@ define(
     function group_data_2_ui(){
         var tbl = document.getElementById('group_select_tbl');
         tbl.innerHTML = '';
-
         var tr;var td;
-
-        var column_name = ['name','select']
-        tr = tbl.insertRow(-1);        
-        for(var i = 0;i<column_name.length;i++){
-            td = tr.insertCell(-1);
-            td.innerHTML = column_name[i];
-        }
 
         for(var i = 0;i<GROUP_LST.length;i++){
             var tr = tbl.insertRow(-1);
@@ -43,6 +38,12 @@ define(
             td = tr.insertCell(-1);
             td.innerHTML = '<input type="checkbox" class="checkbox_class" id=' + '"' + GROUP_LST[i].id + '"' + '>';
         }
+        ui_table.set_header(
+            [
+                {caption:'name',width:60},
+                {caption:'select',width:20}
+            ],tbl
+        );
 
         $(".checkbox_class").each(function()
         {
@@ -60,7 +61,7 @@ define(
         IS_MULTIPLE_SELECTION = is_multiple_selection; //callback return will be lst or object depend on this param
         var html_str = 
             '<div id="group_select_dlg">' +
-                '<table id="group_select_tbl" border="1"></table>' +
+                '<table id="group_select_tbl" class="table table-hover table-bordered table-condensed table-striped"></table>' +
             '</div>';
 
         $(html_str).appendTo('body')
@@ -73,9 +74,9 @@ define(
                 width: 800,
                 height: 500,
                 buttons : 
-                [
-                    {
-                        text:'ok',
+                {
+                    ok_btn: {
+                        id: '_group_select_ok_btn',
                         click:function(){
                             var result_lst = [];
 
@@ -118,16 +119,18 @@ define(
                             }
                         }
                     },                
-                    {
-                        text:'cancel',
+                    cancel_btn: {
+                        id:'_group_select_cancel_btn',
                         click: function(){
                             $('#group_select_dlg').dialog('close');
                             callback(ERROR_CANCEL_group_select_cancel_button_press);                        
                         }
                     }
-                ],
+                },
                 open: function( event, ui_ ) 
                 {
+                    ui_button.set_css('_group_select_ok_btn','green','ok',true);
+                    ui_button.set_css('_group_select_cancel_btn','orange','remove',true); 
                     async.waterfall([group_lst_getter.exe],function(error,result){
                         if(error){
                             error_lib.alert_error(error);

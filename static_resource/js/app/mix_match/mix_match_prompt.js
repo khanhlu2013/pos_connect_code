@@ -7,6 +7,7 @@ define(
         ,'app/product/product_json_helper'
         ,'lib/ui/ui'
         ,'app/group/group_select_ui'
+        ,'lib/ui/button'
     ]
     ,function
     (
@@ -17,6 +18,7 @@ define(
         ,product_json_helper
         ,ui
         ,group_select_ui
+        ,ui_button
     )
 {
     var ERROR_CANCEL_MIX_MATCH_PROMPT = 'ERROR_CANCEL_MIX_MATCH_PROMPT';
@@ -86,7 +88,7 @@ define(
     function set_validation_indicator(error_lst){
         $('#mix_match_name_txt').removeClass("error");  
         $('#mix_match_qty_txt').removeClass("error");  
-        $('#mix_match_otd_price_txt').removeClass("error");  
+        $('#mix_match_price_txt').removeClass("error");  
         $("label[for='mix_match_child_tbl']").removeClass("error");
         $("label[for='mix_match_child_tbl']").text("");
 
@@ -96,8 +98,8 @@ define(
         if(error_lst.indexOf(mix_match_validator.ERROR_MIX_MATCH_VALIDATION_QTY) != -1){
             $('#mix_match_qty_txt').addClass("error");  
         }
-        if(error_lst.indexOf(mix_match_validator.ERROR_MIX_MATCH_VALIDATION_OTD_PRICE) != -1){
-            $('#mix_match_otd_price_txt').addClass("error");  
+        if(error_lst.indexOf(mix_match_validator.ERROR_MIX_MATCH_VALIDATION_MM_PRICE) != -1){
+            $('#mix_match_price_txt').addClass("error");  
         }
         if(error_lst.indexOf(mix_match_validator.ERROR_MIX_MATCH_VALIDATION_CHILD_EMPTY) != -1){
             $("label[for='mix_match_child_tbl']").addClass("error");  
@@ -109,12 +111,14 @@ define(
     function get_result_from_ui(){
         var name = $('#mix_match_name_txt').val();
         var qty = $('#mix_match_qty_txt').val();       
-        var otd_price = $('#mix_match_otd_price_txt').val();
-        
+        var mm_price = $('#mix_match_price_txt').val();
+        var is_include_crv_tax = $('#mix_match_is_include_crv_tax_check').is(':checked')
+
         var result = {
              name                       : name
             ,qty                        : qty     
-            ,otd_price                  : otd_price
+            ,mm_price                   : mm_price
+            ,is_include_crv_tax         : is_include_crv_tax
             ,mix_match_child_sp_lst     : MIX_MATCH_CHILD_SP_LST
         }
 
@@ -166,9 +170,10 @@ define(
             td = tr.insertCell(-1);
             td.innerHTML = cur_mix_match_child.is_taxable;           
 
-            //edit
+            //remove
             td = tr.insertCell(-1);
-            td.innerHTML = 'remove';
+            td.innerHTML = '<span class="glyphicon glyphicon-trash"></span>';
+            td.className = 'danger';
             (function(index){
                 td.addEventListener('click',function(){
                     remove_child(index);
@@ -177,30 +182,52 @@ define(
         }
     }
 
-    function exe (name ,qty ,otd_price ,mix_match_child_sp_lst ,tax_rate,callback ){
+    function exe (name ,qty ,mm_price,is_include_crv_tax ,mix_match_child_sp_lst ,tax_rate,callback ){
         TAX_RATE = tax_rate;        
         var html_str = 
 
             '<div id="mix_match_prompt_dlg">' +
-                '<label for="mix_match_name_txt">name:</label>' +
-                '<input type="text" id = "mix_match_name_txt">' +
-                '<br>' +
+                '<div class="form-horizontal">' +
+                    '<div class="form-group">' +
+                        '<label for="mix_match_name_txt" class="col-sm-4 control-label">name:</label>' +
+                        '<div class="col-sm-8">' +
+                            '<input type="text" id = "mix_match_name_txt">' +
+                        '</div>' +
+                    '</div>' +
 
-                '<label for="mix_match_qty_txt">qty:</label>' +
-                '<input type="text" id = "mix_match_qty_txt">' +
-                '<br>' +
+                    '<div class="form-group">' +
+                        '<label for="mix_match_qty_txt" class="col-sm-4 control-label">qty:</label>' +
+                        '<div class="col-sm-8">' +
+                            '<input type="text" id = "mix_match_qty_txt">' +
+                        '</div>' +
+                    '</div>' +
 
-                '<label for="mix_match_otd_price_txt">out the door price $:</label>' +
-                '<input type="text" id = "mix_match_otd_price_txt">' +
-                '<br>' +
+                    '<div class="form-group">' +
+                        '<label for="mix_match_price_txt" class="col-sm-4 control-label">price:</label>' +
+                        '<div class="col-sm-8">' +
+                            '<input type="text" id = "mix_match_price_txt">' +
+                        '</div>' +
+                    '</div>' +
 
-                '<br>' +
-                '<label for="mix_match_child_tbl"></label>' +
-                '<input type="button" id = "mix_match_add_child_btn" value="add item">' +
-                '<input type="button" id = "mix_match_add_group_btn" value="add group">' +
-                '<table id="mix_match_child_tbl" border="1"></table>' +
-                '<br>' +
-            '</div>';
+                    '<div class="form-group">' +
+                        '<label for="mix_match_is_include_crv_tax_check" class="col-sm-4 control-label">include crv&tax:</label>' +
+                        '<div class="col-sm-8">' +
+                            '<input type="checkbox" id = "mix_match_is_include_crv_tax_check">' +
+                        '</div>' +
+                    '</div>' +
+
+                    '<label for="mix_match_child_tbl"></label>' +
+
+                    '<button id="mix_match_add_child_btn" class="btn btn-primary table-side-by-side">' +
+                        '<span class="glyphicon glyphicon-plus"> product</span>' +
+                    '</button>' +
+                    '<button id="mix_match_add_group_btn" class="btn btn-primary table-side-by-side">' +
+                        '<span class="glyphicon glyphicon-plus"> group</span>' +
+                    '</button>' +
+                    '<table id="mix_match_child_tbl" class="table table-hover table-bordered table-condensed table-striped"></table>' +
+                '</div>' +
+            '</div>'
+        ;
 
         var ok_btn_handler_b = ok_btn_handler.bind(ok_btn_handler,callback)
         $(html_str).appendTo('body')
@@ -211,12 +238,16 @@ define(
                 zIndex: 10000,
                 autoOpen: true,
                 width : 600,
-                heigh : 400,
                 buttons : 
-                [
-                    {text:'ok', click:ok_btn_handler_b},
+                {
+                    ok_btn : 
                     {
-                        text:'delete',
+                        id:'_mm_prompt_ok_btn',
+                        click:ok_btn_handler_b
+                    },
+                    delete_btn:
+                    {
+                        id:'_mm_prompt_delete_btn',
                         click:function(){
                             ui.ui_confirm(
                                 'delete mix match deal?'
@@ -230,16 +261,21 @@ define(
                             )                            
                         }
                     },
+                    cancel_btn:
                     {
-                        text:'cancel',
+                        id: '_mm_prompt_cancel_btn',
                         click: function(){
                             $("#mix_match_prompt_dlg").dialog("close");
                             callback(ERROR_CANCEL_MIX_MATCH_PROMPT/*error*/);                       
                         }
                     }
-                ],
+                },
                 open: function( event, ui ) 
                 {
+                    ui_button.set_css('_mm_prompt_ok_btn','green','ok',true);
+                    ui_button.set_css('_mm_prompt_delete_btn','red','trash',true);
+                    ui_button.set_css('_mm_prompt_cancel_btn','orange','remove',true);
+                    $('#_mm_prompt_delete_btn').prop('disabled',name == null);
                     mix_match_child_tbl = document.getElementById('mix_match_child_tbl');
                     $('#mix_match_prompt_dlg').keypress(function(e) {
                         if (e.keyCode == $.ui.keyCode.ENTER) {
@@ -256,7 +292,7 @@ define(
                             ui_response();
                         }
                     });
-                    $('#mix_match_otd_price_txt').keypress(function(event){
+                    $('#mix_match_price_txt').keypress(function(event){
                         var keycode = (event.keyCode ? event.keyCode : event.which);
                         if(keycode == '13'){
                             ui_response();
@@ -265,7 +301,8 @@ define(
 
                     $('#mix_match_name_txt').val(name);
                     $('#mix_match_qty_txt').val(qty);
-                    $('#mix_match_otd_price_txt').val(otd_price);
+                    $('#mix_match_price_txt').val(mm_price);
+                    $('#mix_match_is_include_crv_tax_check').prop('checked',is_include_crv_tax)
                     MIX_MATCH_CHILD_SP_LST = mix_match_child_sp_lst;            
                     populate_mix_match_child_tbl();
                     result = get_result_from_ui();

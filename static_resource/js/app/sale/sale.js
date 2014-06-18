@@ -37,11 +37,11 @@ define(
         ,'app/sale/scan/non_inventory_scanner'
         ,'app/sale/value_customer_price/toggle_value_customer_price'
         //-----------------
-        ,'dropit'
         ,'jquery'
         ,'jquery_block_ui'
         ,'jquery_ui'
         ,'lib/jquery/jquery.hotkeys'
+        ,'bootstrap'
 
     ],
     function
@@ -314,8 +314,7 @@ define(
                 } 
             });            
         }
-
-        $('.menu').dropit();
+        $('.dropdown-toggle').dropdown();
         $('#tax_menu').click(function(e)
         { 
             async.waterfall([tax_manage_ui.exe],function(error,result){

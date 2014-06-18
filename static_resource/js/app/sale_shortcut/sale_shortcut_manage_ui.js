@@ -8,6 +8,8 @@ define(
     ,'app/sale_shortcut/child_info_prompt'
     ,'app/sale_shortcut/sale_shortcut_util'    
     ,'lib/ajax_helper'
+    ,'lib/ui/table'
+    ,'lib/ui/button'
 ]
 ,function
 (
@@ -19,6 +21,8 @@ define(
     ,child_info_prompt
     ,sale_shortcut_util    
     ,ajax_helper
+    ,ui_table
+    ,ui_button
 )
 {
     var SHORTCUT_LST = null;
@@ -38,19 +42,23 @@ define(
     }
 
     function set_parent_name(parent_position){
-        var parent = sale_shortcut_util.get_parent(parent_position,SHORTCUT_LST)
-        var name = prompt("Enter name",parent == null ? '' : parent.caption);
-        if(name == null){
-            return;
-        }
-        var parent_name_setter_b = parent_name_setter.bind(parent_name_setter,name,parent_position)
-        async.waterfall([parent_name_setter_b],function(error,result){
+        var parent = sale_shortcut_util.get_parent(parent_position,SHORTCUT_LST);
+        var name_prefill = parent == null ? '' : parent.caption;
+        ui.ui_prompt('enter group name:',name_prefill,false/*null is not allow*/,function(error,result){
             if(error){
-                error_lib.alert_error(error);
-            }else{
-                update_shortcut_lst(SHORTCUT_LST,result)
-                display_shortcut_table();
+                error_lib.alert(error);
+                return;
             }
+            var name = result;
+            var parent_name_setter_b = parent_name_setter.bind(parent_name_setter,name,parent_position)
+            async.waterfall([parent_name_setter_b],function(error,result){
+                if(error){
+                    error_lib.alert_error(error);
+                }else{
+                    update_shortcut_lst(SHORTCUT_LST,result)
+                    display_shortcut_table();
+                }
+            });
         });
     }
 
@@ -62,15 +70,9 @@ define(
                 return;
             }
             
-            var cur_parent = SHORTCUT_LST[CUR_SELECT_PARENT_SHORTCUT];
-            for(var i = 0;i<cur_parent.child_set.length;i++){
-                if(cur_parent.child_set[i].id == child.id){
-                    cur_parent.child_set.splice(i,1);
-                    break;
-                }
-            }
+            SHORTCUT_LST = result;
             display_shortcut_table();
-        })        
+        });        
     }
 
     function child_button_press_handler(child_pos){
@@ -128,7 +130,7 @@ define(
 
     function refresh_shortcut_parent_button(tr,parent_position){
         var parent = sale_shortcut_util.get_parent(parent_position,SHORTCUT_LST);
-        var class_name = parent_position == CUR_SELECT_PARENT_SHORTCUT ? 'sale_shortcut_setup_parent_selected' : 'sale_shortcut_setup_parent_unselected'
+        var class_name = parent_position == CUR_SELECT_PARENT_SHORTCUT ? 'sale_shortcut_parent_selected' : 'sale_shortcut_parent_unselected'
         
         //MAIN
         td = tr.insertCell(-1);
@@ -141,7 +143,7 @@ define(
 
         //EDIT
         td = tr.insertCell(-1);
-        td.innerHTML = ('edit');  
+        td.innerHTML = '<span class="glyphicon glyphicon-pencil"></span>';
         td.addEventListener("click", function() {
             set_parent_name(parent_position);
         });
@@ -177,12 +179,24 @@ define(
             refresh_shortcut_children(tr,cur_row);
             refresh_shortcut_parent_button(tr,cur_row + ROW_COUNT);
         }
+
+        ui_table.set_header(
+            [
+                {caption:'group',width:60},
+                {caption:'edit',width:5},
+                {caption:'',width:60},
+                {caption:'',width:60},      
+                {caption:'',width:60},      
+                {caption:'group',width:60},  
+                {caption:'edit',width:5},
+            ],TABLE
+        );
     }
 
     function exe(callback){
         var html_str = 
             '<div id="sale_shortcut_manage_dlg">' +
-                '<table id="sale_shortcut_setup_tbl" border="1"></table>' +
+                '<table id="sale_shortcut_setup_tbl" class="table table-bordered sale_shortcut_tbl"></table>' +
             '</div>';
 
         $(html_str).appendTo('body')
@@ -193,10 +207,12 @@ define(
                 zIndex: 10000,
                 autoOpen: true,
                 width: 800,
-                height: 500,
-                buttons : [{text:'exit', click: function(){callback(null,SHORTCUT_LST);$('#sale_shortcut_manage_dlg').dialog('close'); } } ],
+                buttons : {
+                    exit_btn :{id: '_shortcut_setup_exit_btn',click: function(){callback(null,SHORTCUT_LST);$('#sale_shortcut_manage_dlg').dialog('close'); } }
+                },
                 open: function( event, ui ) 
                 {
+                    ui_button.set_css('_shortcut_setup_exit_btn','orange','remove',true);
                     TABLE = document.getElementById('sale_shortcut_setup_tbl');
                     async.waterfall([sale_shortcut_get.exe],function(error,result){
                         SHORTCUT_LST = result;

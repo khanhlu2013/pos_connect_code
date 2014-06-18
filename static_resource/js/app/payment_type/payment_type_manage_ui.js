@@ -9,6 +9,8 @@ define(
     ,'app/payment_type/pt_update'  
     ,'app/payment_type/pt_insert'
     ,'app/payment_type/pt_prompt'
+    ,'lib/ui/table'
+    ,'lib/ui/button'
 ]
 ,function
 (
@@ -21,6 +23,8 @@ define(
     ,pt_update
     ,pt_insert
     ,pt_prompt
+    ,ui_table
+    ,ui_button
 )
 {
     var PAYMENT_TYPE_LST = null;
@@ -109,14 +113,6 @@ define(
     function display_pt_table(){
         payment_type_tbl.innerHTML = "";
         var tr;var td;
-
-        //columns
-        tr = payment_type_tbl.insertRow(-1);
-        var columns = ['name','edit'];
-        for(var i = 0;i<columns.length;i++){
-            td = tr.insertCell(-1);
-            td.innerHTML = columns[i];
-        }
         
         for(var i = 0;i<PAYMENT_TYPE_LST.length;i++){
 
@@ -129,21 +125,31 @@ define(
 
             //edit
             td = tr.insertCell(-1)
-            td.innerHTML = 'edit';
+            td.innerHTML = '<span class="glyphicon glyphicon-pencil"></span>';
+            td.className = 'info';
             (function(index){
                 td.addEventListener('click',function(){
                     update_pt_handler(index);
                 });   
             })(i);
         }
+        ui_table.set_header(
+            [
+                {caption:'name',width:60},
+                {caption:'edit',width:20},
+            ],payment_type_tbl
+        );        
     }
 
     function exe(callback){
         
         var html_str = 
             '<div id="payment_type_dlg">' +
-                '<input type="button" id="add_payment_type_btn" value="add">' +
-                '<table id="payment_type_tbl" border="1"></table>' +
+                '<button id="add_payment_type_btn" class="btn btn-primary">' +
+                    '<span class="glyphicon glyphicon-plus"></span>' +
+                '</button>' +
+
+                '<table id="payment_type_tbl" class="table table-hover table-bordered table-condensed table-striped"></table>' +
             '</div>';
 
         $(html_str).appendTo('body')
@@ -153,12 +159,15 @@ define(
                 title : 'payment type',
                 zIndex: 10000,
                 autoOpen: true,
-                width: 700,
+                width: 500,
                 height: 500,
                 buttons : 
-                [{text:'exit', click: function(){callback(null,PAYMENT_TYPE_LST);$('#payment_type_dlg').dialog('close');}}],
+                {
+                    exit_btn: {id:'_manage_payemnt_type_exit_btn', click: function(){callback(null,PAYMENT_TYPE_LST);$('#payment_type_dlg').dialog('close');}}
+                },
                 open: function( event, ui ) 
                 {
+                    ui_button.set_css('_manage_payemnt_type_exit_btn','orange','remove',true);
                     $('#add_payment_type_btn').click(insert_pt_handler);
                     payment_type_tbl = document.getElementById('payment_type_tbl');
                     async.waterfall([pt_get.exe],function(error,result){

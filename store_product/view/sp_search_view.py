@@ -64,7 +64,7 @@ def sp_search_by_name_sku_view(request):
         qs = _name_search_qs_alterer(qs=qs,search_str=search_str)
     else:
         return
-
+    qs = qs.distinct() #since we are joining with sku db and if a product have many sku, we could end up with duplicate result. (lets say product with name 'a' have 3 sku, and we search for name 'a' which comeout 3 results)        
     qs = qs.prefetch_related('store_product_set')
     prod_lst_serialized = sp_serializer.serialize_product_lst(qs)
     return HttpResponse(json.dumps(prod_lst_serialized,cls=DjangoJSONEncoder),content_type='application/json')
@@ -79,7 +79,7 @@ def sp_search_by_name_view(request):
     cur_login_store = request.session.get('cur_login_store')
     qs = Product.objects.filter(store_set__id = cur_login_store.id)
     qs = _name_search_qs_alterer(qs,search_str)
-    
+
     prod_lst_serialized = sp_serializer.serialize_product_lst(qs)
     return HttpResponse(json.dumps(prod_lst_serialized,cls=DjangoJSONEncoder),content_type='application/json')
 

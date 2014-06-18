@@ -15,6 +15,8 @@ define(
         ,'app/sku/product_sku_manager'  
         ,'app/store_product/sp_prompt'
         ,'app/kit/kit_manage_ui'
+        ,'lib/ui/table'
+        ,'app/sale/displaying_scan/displaying_scan_price_info_ui'
     ]
     ,function(
          async
@@ -32,9 +34,11 @@ define(
         ,product_sku_manager
         ,sp_prompt
         ,kit_manage_ui
+        ,ui_table
+        ,ds_price_info_ui
     )
 {
-    var column_name = ["qty", "product", "price", "line total", "X"];
+
     var MM_LST = null;
     var COUCH_SERVER_URL = null;
     var STORE_ID = null;
@@ -68,12 +72,18 @@ define(
         td = tr.insertCell(-1);
         td.innerHTML = displaying_scan.qty;
         td.addEventListener("click", function() {
-            var new_qty = number.prompt_integer('enter qty',displaying_scan.qty,'wrong input');
-            if(new_qty == null){
-                return;
-            }
-            var instruction = new Instruction(new_qty==0/*is_delete*/,new_qty,displaying_scan.price,displaying_scan.discount);
-            exe_instruction(ds_index,instruction,ds_lst);
+            var new_qty = number.prompt_integer('enter qty',displaying_scan.qty,false/*not is not allow*/,function(error,result){
+                if(error){
+                    error_lib.alert_error(error);
+                    return;
+                }
+                var new_qty = result;
+                if(new_qty == null){
+                    return;
+                }
+                var instruction = new Instruction(new_qty==0/*is_delete*/,new_qty,displaying_scan.price,displaying_scan.discount);
+                exe_instruction(ds_index,instruction,ds_lst);
+            });
         });
 
         //-PRODUCT
@@ -149,58 +159,64 @@ define(
         td = tr.insertCell(-1);
         td.innerHTML = displaying_scan.get_total_discount_price();
         td.addEventListener("click", function() {
-            var msg = ""
-            msg += 'price info:' + '\n';
-            msg += '---------' + '\n';
-            msg += 'regular price: ' + displaying_scan.price + '\n'
+            var ds_price_info_ui_b = ds_price_info_ui.exe.bind(ds_price_info_ui.exe,displaying_scan,TAX_RATE);
+            async.waterfall([ds_price_info_ui_b],function(error,result){
+                if(result != null){
+                    var new_price = result;
+                    var instruction = new Instruction(false/*is_delete*/,displaying_scan.qty,new_price,displaying_scan.discount);
+                    exe_instruction(ds_index,instruction,ds_lst);                    
+                }
+            });
+
+            // var msg = ""
+            // msg += 'price info:' + '\n';
+            // msg += '---------' + '\n';
+            // msg += 'regular price: ' + displaying_scan.price + '\n'
             
-            //MIX MATCH DEAL
-            if(displaying_scan.mm_deal_info){
-                msg += 'Mix match discount' + '(' + displaying_scan.mm_deal_info.deal.name + ')' + ':' + displaying_scan.mm_deal_info.unit_discount + '\n';
-            }
+            // //MIX MATCH DEAL
+            // if(displaying_scan.mm_deal_info){
+            //     msg += 'Mix match discount' + '(' + displaying_scan.mm_deal_info.deal.name + ')' + ':' + displaying_scan.mm_deal_info.unit_discount + '\n';
+            // }
 
-            //CRV
-            var crv = displaying_scan.get_crv();
-            if(crv){
-                msg += 'crv: ' + crv + '\n';
-            }
+            // //CRV
+            // var crv = displaying_scan.get_crv();
+            // if(crv){
+            //     msg += 'crv: ' + crv + '\n';
+            // }
 
-            //BUYDOWN
-            var buydown = displaying_scan.get_buydown();
-            if(buydown){
-                msg += 'buydown discount: ' + buydown + '\n';
-            }
+            // //BUYDOWN
+            // var buydown = displaying_scan.get_buydown();
+            // if(buydown){
+            //     msg += 'buydown discount: ' + buydown + '\n';
+            // }
 
-            //BUYDOWN TAX
-            var buydown_tax = displaying_scan.get_buydown_tax(TAX_RATE);
-            if(buydown_tax){
-                msg += 'buydown tax: ' + buydown_tax + '\n';
-            }
+            // //BUYDOWN TAX
+            // var buydown_tax = displaying_scan.get_buydown_tax(TAX_RATE);
+            // if(buydown_tax){
+            //     msg += 'buydown tax: ' + buydown_tax + '\n';
+            // }
 
-            //TAX
-            var tax = displaying_scan.get_tax(TAX_RATE);
-            msg += 'tax: ' + tax + '\n'
+            // //TAX
+            // var tax = displaying_scan.get_tax(TAX_RATE);
+            // msg += 'tax: ' + tax + '\n'
             
 
-            msg += 'out the door price: ' + displaying_scan.get_otd_wt_price(TAX_RATE);
-            msg += '\n\n\n';    
-            msg += 'enter new ONE TIME regular price\n';
-            msg += '-------------------';
-            var new_price = number.prompt_positive_double(msg,displaying_scan.price,'wrong input');
-            if(new_price == null){
-                return;
-            }
-            var instruction = new Instruction(false/*is_delete*/,displaying_scan.qty,new_price,displaying_scan.discount);
-            exe_instruction(ds_index,instruction,ds_lst);
+            // msg += 'out the door price: ' + displaying_scan.get_otd_wt_price(TAX_RATE);
+            // msg += '\n\n\n';    
+            // msg += 'enter new ONE TIME regular price\n';
+            // msg += '-------------------';
+            // var new_price = number.prompt_positive_double(msg,displaying_scan.price,'wrong input');
+            // if(new_price == null){
+            //     return;
+            // }
+            // var instruction = new Instruction(false/*is_delete*/,displaying_scan.qty,new_price,displaying_scan.discount);
+            // exe_instruction(ds_index,instruction,ds_lst);
         });
-
-        //-LINE TOTAL
-        td = tr.insertCell(-1);
-        td.innerHTML = displaying_scan.get_line_total(TAX_RATE);
 
         //-REMOVE
         td = tr.insertCell(-1);
-        td.innerHTML = 'x'
+        td.innerHTML = '<span class="glyphicon glyphicon-trash"></span>';
+        td.className = 'danger';
         td.addEventListener("click", function() {
             var instruction = new Instruction(true/*delete*/,null/*new_qty*/,null/*new_price*/,null/*new_discount*/);
             exe_instruction(ds_index,instruction,ds_lst);
@@ -211,18 +227,20 @@ define(
 
         SALE_TABLE.innerHTML = '';
 
-        var tr = SALE_TABLE.insertRow(); var td;
-
-        //table column
-        for( var i = 0;i<column_name.length;i++){
-            td = tr.insertCell(-1);
-            td.innerHTML = column_name[i];
-        }
-
         //table data
         for (var i = 0;i<ds_lst.length;i++){
             _item_2_table(i,ds_lst);
         }
+
+        //table header
+        ui_table.set_header(
+            [
+                {caption:'qty',width:10},
+                {caption:'product',width:60},
+                {caption:'price',width:10},
+                {caption:'remove',width:5},
+            ],SALE_TABLE
+        );
 
         //total button
         var computed_total = ds_util.get_line_total(ds_lst,TAX_RATE);

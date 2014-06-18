@@ -27,7 +27,8 @@ define(
         var data = {
              name:result.name
             ,qty:result.qty
-            ,otd_price:result.otd_price
+            ,mm_price:result.mm_price
+            ,is_include_crv_tax:result.is_include_crv_tax
             ,pid_comma_separated_lst_str:pid_comma_separated_lst_str
         }        
         ui.ui_block('inserting deal ...');

@@ -2,11 +2,15 @@ define(
     [
          'lib/async'
         ,'app/group/group_action_validator'
+        ,'lib/ui/button'
+        ,'lib/ui/ui'
     ]
     ,function
     (
          async
         ,group_action_validator
+        ,ui_button
+        ,ui
     )
 {
     var ERROR_CANCEL_GROUP_ACTION_PROMPT = 'ERROR_CANCEL_GROUP_ACTION_PROMPT';
@@ -24,7 +28,7 @@ define(
         $('#group_action_buydown_txt').removeClass("error");   
 
         if(error_lst.indexOf(group_action_validator.ERROR_GROUP_ACTION_VALIDATION_EMPTY_ACTION) != -1){
-            alert('specify action to perform');
+            ui.ui_alert('specify action to perform');
         }
         if(error_lst.indexOf(group_action_validator.ERROR_GROUP_ACTION_VALIDATION_PRICE) != -1){
             $('#group_action_price_txt').addClass("error");  
@@ -91,36 +95,75 @@ define(
 
         var html_str = 
             '<div id="group_action_prompt_dialog">' +
-                '<label for="group_action_price_txt">Price:</label>' +
-                '<input type="text" id = "group_action_price_txt">' +
-                '<br>' +
-                '<label for="group_action_crv_txt">Crv:</label>' +
-                '<input type="text" id = "group_action_crv_txt">' +
-                '<br>' +
-                '<label for="group_action_is_taxable_txt">Taxable:</label>' +
-                '<input type="text" id = "group_action_is_taxable_txt">' +
-                '<label>type "true" or "false"</label>' +
-                '<br>' +
-                '<label for="group_action_is_sale_report_txt">Sale report:</label>' +
-                '<input type="text" id = "group_action_is_sale_report_txt">' +
-                '<label>type "true" or "false"</label>' +
-                '<br>' +
-                '<label for="group_action_p_type_txt">Type:</label>' +
-                '<input type="text" id = "group_action_p_type_txt">' +
-                '<br>' +
-                '<label for="group_action_p_tag_txt">Tag:</label>' +
-                '<input type="text" id = "group_action_p_tag_txt">' +
-                '<br>' +
-                '<label for="group_action_vendor_txt">Vendor:</label>' +
-                '<input type="text" id = "group_action_vendor_txt">' +
-                '<br>' + 
-                '<label for="group_action_cost_txt">Cost:</label>' +
-                '<input type="text" id = "group_action_cost_txt">' +
-                '<br>' +      
-                '<label for="group_action_buydown_txt">Buydown:</label>' +
-                '<input type="text" id = "group_action_buydown_txt">' +
-                '<br>' +          
-        '</div>' ;
+                '<div class="form-horizontal">' +
+                    '<div class="form-group">' +
+                        '<label for="group_action_price_txt" class="col-sm-4 control-label" >price:</label>' +
+                        '<div class="col-sm-8">' +
+                            '<input type="text" id = "group_action_price_txt">' +
+                        '</div>' +
+                    '</div>' +
+
+                    '<div class="form-group">' +
+                        '<label for="group_action_crv_txt" class="col-sm-4 control-label">crv:</label>' +
+                        '<div class="col-sm-8">' +
+                            '<input type="text" id = "group_action_crv_txt">' +
+                        '</div>' +
+                    '</div>' +
+
+                    '<div class="form-group">' +
+                        '<label for="group_action_is_taxable_txt" class="col-sm-4 control-label" >taxable:</label>' +
+                        '<div class="col-sm-8">' +
+                            '<input type="text" id = "group_action_is_taxable_txt">' +
+                            '<label>type "true" or "false"</label>' +
+                        '</div>' +
+                    '</div>' +
+
+                    '<div class="form-group">' +
+                        '<label for="group_action_is_sale_report_txt" class="col-sm-4 control-label">sale report:</label>' +
+                        '<div class="col-sm-8">' +
+                            '<input type="text" id = "group_action_is_sale_report_txt">' +
+                            '<label>type "true" or "false"</label>' +
+                        '</div>' +
+                    '</div>' +
+
+                    '<div class="form-group">' +
+                        '<label for="group_action_p_type_txt" class="col-sm-4 control-label" >type:</label>' +
+                        '<div class="col-sm-8">' +
+                            '<input type="text" id = "group_action_p_type_txt">' +
+                        '</div>' +
+                    '</div>' +
+
+                    '<div class="form-group">' +
+                        '<label for="group_action_p_tag_txt" class="col-sm-4 control-label">tag:</label>' +
+                        '<div class="col-sm-8">' +
+                            '<input type="text" id = "group_action_p_tag_txt">' +
+                        '</div>' +
+                    '</div>' +
+
+                    '<div class="form-group">' +
+                        '<label for="group_action_vendor_txt" class="col-sm-4 control-label" >vendor:</label>' +
+                        '<div class="col-sm-8">' +
+                            '<input type="text" id = "group_action_vendor_txt">' +
+                        '</div>' +
+                    '</div>' +
+
+                    '<div class="form-group">' +
+                        '<label for="group_action_cost_txt" class="col-sm-4 control-label">cost:</label>' +
+                        '<div class="col-sm-8">' +
+                            '<input type="text" id = "group_action_cost_txt">' +
+                        '</div>' +
+                    '</div>' +
+
+                    '<div class="form-group">' +
+                        '<label for="group_action_buydown_txt" class="col-sm-4 control-label">buydown:</label>' +
+                        '<div class="col-sm-8">' +
+                            '<input type="text" id = "group_action_buydown_txt">' +
+                        '</div>' +
+                    '</div>' +
+
+                '</div>'+
+            '</div>' 
+        ;
 
 
         var ok_btn_handler_b = ok_btn_handler.bind(ok_btn_handler,callback);
@@ -132,11 +175,16 @@ define(
                 title : 'perform group action',
                 zIndex: 10000,
                 autoOpen: true,
-                width: 600,
-                height: 600,
-                buttons: [ { text: "Ok", click: ok_btn_handler_b },{ text: "Cancel", click: cancel_btn_handler_b } ],
+                width: 650,
+                // height: 500,
+                buttons: { 
+                    ok_btn: { id: '_group_perform_action_ok_btn', click: ok_btn_handler_b },
+                    cancel_btn: { id: '_group_perform_action_cancel_btn', click: cancel_btn_handler_b } 
+                },
                 open: function( event, ui ) 
                 {
+                    ui_button.set_css('_group_perform_action_ok_btn','green','ok',true);
+                    ui_button.set_css('_group_perform_action_cancel_btn','orange','remove',true);
                     var tax_rate = parseFloat(localStorage.getItem('tax_rate'));
                     $('#tax_rate_txt').val(tax_rate);
                 },

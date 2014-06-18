@@ -37,6 +37,7 @@ define(
             ,null//product_id
             ,prompt_result.name
             ,prompt_result.price
+            ,prompt_result.value_customer_price
             ,prompt_result.crv
             ,prompt_result.is_taxable
             ,prompt_result.is_sale_report

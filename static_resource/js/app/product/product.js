@@ -20,11 +20,12 @@ define(
     ,'app/payment_type/payment_type_manage_ui'
     ,'app/kit/kit_manage_ui'
     ,'app/store_product/sp_json_helper'
+    ,'lib/ui/table'
     //-----------------
-    ,'dropit'
     ,'jquery'
     ,'jquery_block_ui'
     ,'jquery_ui'
+    ,'bootstrap'
 
 ]
 ,function
@@ -49,6 +50,7 @@ define(
     ,payment_type_manage_ui
     ,kit_manage_ui
     ,sp_json_helper
+    ,ui_table
 )
 {
     var PRODUCT_DATA_LST = null;
@@ -123,18 +125,7 @@ define(
             return;
         }
 
-        var tr;
-        var td;
-
-        tr = prod_tbl.insertRow();
-
-        //table column
-        var column_name = ["product","price","crv","taxable","is_sale_report","p_type","p_tag","vendor","cost","buydown","vc_price","edit" ];
-        for( var i = 0;i<column_name.length;i++){
-            td = tr.insertCell(-1);
-            td.innerHTML = column_name[i];
-        }
-
+        var tr; var td;
         for(var i = 0;i<prodStore_prodSku_1_1.length;i++){
             var tr = prod_tbl.insertRow(-1);
             var td;
@@ -175,16 +166,33 @@ define(
 
             td = tr.insertCell(-1);
             td.innerHTML = '<span class="glyphicon glyphicon-pencil"></span>';   
+            td.className = 'info';
             (function(pid,product_name){
                 td.addEventListener('click',function(){
                     update_sp(pid,product_name);
                 });  
             })(sp.product_id,sp.name);
         }
+
+        var col_info_lst = 
+        [
+            {caption:"product",width:70},
+            {caption:"price",width:5},
+            {caption:"crv",width:5},
+            {caption:"taxable",width:5},
+            {caption:"is_sale_report",width:5},
+            {caption:"p_type",width:20},
+            {caption:"p_tag",width:20},
+            {caption:"vendor",width:20},
+            {caption:"cost",width:5},
+            {caption:"buydown",width:5},
+            {caption:"vc_price",width:5},
+            {caption:"edit",width:5},                                                                
+        ];
+        ui_table.set_header(col_info_lst,prod_tbl);
     }
 
     csrf_ajax_protection_setup();
-
     $('#sku_txt').keypress(function(event){
         var keycode = (event.keyCode ? event.keyCode : event.which);
         if(keycode == '13'){
@@ -211,7 +219,6 @@ define(
             });
         }
     });
-
     $('#name_txt').keypress(function(event){
         var keycode = (event.keyCode ? event.keyCode : event.which);
         if(keycode == '13'){
@@ -238,7 +245,7 @@ define(
             });
         }
     });
-    $('.menu').dropit();
+    $('.dropdown-toggle').dropdown();
     $('#tax_menu').click(function(e)
     { 
         async.waterfall([tax_manage_ui.exe],function(error,result){

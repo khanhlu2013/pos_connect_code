@@ -9,3 +9,9 @@ def get_boolean_from_str(bool_str):
         raise Exception('bug')
 
     return result
+
+def py_2_js_str(py_bool_var):
+	if py_bool_var:
+		return 'true'
+	else:
+		return 'false'

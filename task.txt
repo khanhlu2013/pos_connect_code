@@ -9,8 +9,6 @@
 
 --------------------------------------------------------------------------
 
-
-
 ~. july 10-11-12-13 back packing
 ~. parakett idea: a trypod with remote. a keyboard of there own sound
 ~. i want to be a blues student.
@@ -40,29 +38,7 @@ WHERE datname = current_database() AND pid <> pg_backend_pid();
 ----------------------------------------------------------------------------
 TEMPLATE
 
-define(
-[
-     'lib/error_lib'
-    ,'lib/async'
-    ,'lib/ajax_helper'
-    ,'lib/ui/ui'
-]
-,function
-(
-     error_lib
-    ,async
-    ,ajax_helper
-    ,ui
-)
-{
-    function exe(){
-        
-    }
 
-    return{
-        exe:exe
-    }
-})
 
 
 KNOWN ISSUE
@@ -297,10 +273,12 @@ UPGRADE FEATURE
 . search pagination
 . remove all alert
 . export to excel
+. profit page
 ------------------------------------------------------------------------------------------------------------------
 SKILL IMPROVEMENT
 . continuous test->build->deploy
-
+. inline html inside javascript: disadvantage: can't write normal html since we have to wrap it inside quote
+. angular
 ---------------------------------------------------------------
 TEST
 couch_acl_validator_test: client have write permission that follow these 4 rules. is big couch follow the same syntax as couchdb?
@@ -322,23 +300,17 @@ couch_acl_validator_test: client have write permission that follow these 4 rules
 . sku scan not found handler spec: there is a spy on old window.confirm and now we change it. make sure test work
 
 ---------------------
-
-. hold: inline display displaying scan
-. print  sale report
-. few ui font bigger 
-. a quicker way to get to receipt, up down key to get to previous receipt (inline viewing)
-. sale table, 100% stretch for product name
+. hold: show master detail 
+. receipt: show master detail, updown key
 . payment type
     . report of pt
-    . change name stamp into id
-    . hide pt, but can't remove pt that is already used
     . change pt after the fact
 
----------------------
 
-deal: out the door or not
+---
 
----------------------
-
-i want to incorporate angular js into this project. also want to learn about bootstrap.
+upgrade app
+load long
+load tony
+change tiep logged in
 

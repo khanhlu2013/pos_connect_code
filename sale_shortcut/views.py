@@ -53,7 +53,9 @@ def delete_child_view(request):
     id = request.POST['id'] 
     child = Child.objects.get(pk=id,parent__store__id=cur_login_store.id)
     child.delete()
-    return HttpResponse(json.dumps(True), mimetype='application/json')
+    shortcut_lst = shortcut_getter.get_shorcut_lst(cur_login_store.id)
+    lst_serialized = sale_shortcut_serializer.serialize_shortcut_lst(shortcut_lst)
+    return HttpResponse(json.dumps(lst_serialized), mimetype='application/json')
 
 
 

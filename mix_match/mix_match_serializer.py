@@ -18,7 +18,7 @@ class Mix_match_serializer(serializers.ModelSerializer):
 
     class Meta:
         model = Mix_match
-        fields = ('id','name','otd_price','qty','mix_match_child_set')
+        fields = ('id','name','mm_price','is_include_crv_tax','qty','mix_match_child_set')
 
 
 def serialize_mix_match_lst(mix_match_lst):

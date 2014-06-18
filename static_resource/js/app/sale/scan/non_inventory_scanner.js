@@ -4,6 +4,7 @@ define(
     ,'lib/async'
     ,'lib/ajax_helper'
     ,'app/sale/pending_scan/pending_scan_inserter'
+    ,'app/sale/pending_scan/Pending_scan'
 ]
 ,function
 (
@@ -11,6 +12,7 @@ define(
     ,async
     ,ajax_helper
     ,ps_inserter
+    ,Pending_scan
 )
 {
     var STORE_IDB = null;

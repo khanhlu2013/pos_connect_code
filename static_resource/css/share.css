@@ -1,11 +1,40 @@
+html,body {
+  margin: 0 auto;
+  padding: 0 auto;
+  color: #4d4d4d;
+}
+
 .error {border: solid 2px #FF0000;}
 .ui-widget-overlay
 {
+  /*control darkness of overley*/
   opacity: .50 !important; /* Make sure to change both of these, as IE only sees the second one */
   filter: Alpha(Opacity=50) !important;
   background: rgb(50, 50, 50) !important;  This will make it darker
 }
 
 .form-horizontal .form-group {
-    margin-bottom: 4px;
+  /*control space between form element vertically */
+  margin-bottom: 4px;
 }
+
+.navbar-nav > div{
+  /*sku and name search in nav bar move closer to the left*/
+  padding-left:0px;
+  padding-right:0px;
+}
+
+.navbar {
+  /*element below nav bar have a little space*/
+  margin-bottom: 0;
+}
+
+.table-side-by-side{ 
+  float : left;
+  margin-right: 10px;
+  width: auto;
+}
+
+.sale_shortcut_tbl td { min-width: 100px; height: 50}
+.sale_shortcut_parent_selected {background-color:#CFF5B5;}
+.sale_shortcut_parent_unselected {background-color:#FFFFFF;}

@@ -4,6 +4,7 @@ define(
     ,'app/store_product/sp_search_ui' 
     ,'lib/error_lib'
     ,'app/sale_shortcut/sale_shortcut_validate'
+    ,'lib/ui/button'
 ]
 ,function
 (
@@ -11,6 +12,7 @@ define(
     ,sp_search_ui
     ,error_lib
     ,sale_shortcut_validate
+    ,ui_button
 )
 {
     var PRODUCT_ID = null;
@@ -18,11 +20,11 @@ define(
     var ERROR_remove_button_pressed = 'ERROR_remove_button_pressed';
 
     function validate_ui(error_lst){
-        $('#_product_name_txt').removeClass('error');
+        $('#_shortcut_child_prompt_product_search_btn').removeClass('error');
         $('#_child_caption_txt').removeClass('error');
 
         if(error_lst.indexOf(sale_shortcut_validate.ERROR_SALE_SHORTCUT_PRODUCT_EMTPY)!= -1){
-            $('#_product_name_txt').addClass('error');
+            $('#_shortcut_child_prompt_product_search_btn').addClass('error');
         }
         if(error_lst.indexOf(sale_shortcut_validate.ERROR_SALE_SHORTCUT_CAPTION_EMTPY)!= -1){
             $('#_child_caption_txt').addClass('error');
@@ -71,13 +73,22 @@ define(
 
         var html_str =     
             '<div id="_child_info_prompt_dlg">' +
-                '<label for="_child_caption_txt">caption:</label>' +
-                '<input type="text" id = "_child_caption_txt">' +
-                '<br>' + 
-                '<label for="_product_name_txt">product:</label>' +
-                '<input type="text" id = "_product_name_txt" readonly>' +
-                '<input type="button" id = "_mm_child_prompt_product_search_btn" value="search">' +
-                '<br>' +
+                '<div class="form-horizontal">' +
+                    '<div class="form-group">' +
+                        '<label for="_child_caption_txt" class="col-sm-4 control-label" >caption:</label>' +
+                        '<div class="col-sm-8">' +
+                            '<input type="text" id = "_child_caption_txt">' +
+                        '</div>' +
+                    '</div>' +
+
+                    '<div class="form-group">' +
+                        '<label for="_product_name_txt" class="col-sm-4 control-label">product:</label>' +
+                        '<div class="col-sm-8">' +
+                            '<input type="text" id = "_product_name_txt" readonly>' +
+                            '<button id="_shortcut_child_prompt_product_search_btn"></button>' + 
+                        '</div>' +
+                    '</div>' +
+                '</div>' +
             '</div>';
 
         var ok_handler_b = ok_handler.bind(ok_handler,callback);
@@ -92,16 +103,22 @@ define(
                 zIndex: 10000,
                 autoOpen: true,
                 width: 500,
-                height: 250,   
-                buttons:   [
-                     {text:'ok',click:ok_handler_b}
-                    ,{text:'remove',click:remove_handler_b}
-                    ,{text:'cancel',click:cancel_handler_b}
-                ],
+                buttons:   
+                {
+                     ok_btn: {id:'_shortcut_child_info_prompt_ok_btn',click:ok_handler_b}
+                    ,remove_btn: {id:'_shortcut_child_info_prompt_remove_btn',click:remove_handler_b}
+                    ,cancel_btn: {id:'_shortcut_child_info_prompt_cancel_btn',click:cancel_handler_b}
+                },
                 open: function( event, ui ) 
                 {
+                    ui_button.set_css('_shortcut_child_info_prompt_ok_btn','green','ok',true);
+                    ui_button.set_css('_shortcut_child_info_prompt_remove_btn','red','trash',true);
+                    ui_button.set_css('_shortcut_child_info_prompt_cancel_btn','orange','remove',true);
+                    ui_button.set_css('_shortcut_child_prompt_product_search_btn','blue','search',false);
+                    $('#_shortcut_child_info_prompt_remove_btn').prop('disabled',product_id == null);
+
                     PRODUCT_ID = product_id;
-                    $('#_mm_child_prompt_product_search_btn').click(name_search_handler);
+                    $('#_shortcut_child_prompt_product_search_btn').click(name_search_handler);
                     $('#_child_caption_txt').val(caption);
                     $('#_product_name_txt').val(product_name);        
                     $('#_child_info_prompt_dlg').keypress(function(e) {

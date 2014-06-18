@@ -4,6 +4,7 @@ define(
     ,'app/store_product/sp_search_ui' 
     ,'lib/error_lib'
     ,'app/kit/kit_breakdown_assoc_validate'
+    ,'lib/ui/button'
 ]
 ,function
 (
@@ -11,6 +12,7 @@ define(
     ,sp_search_ui
     ,error_lib
     ,kit_breakdown_assoc_validate
+    ,ui_button
 )
 {
     var RET_SP = null;
@@ -67,13 +69,26 @@ define(
 
         var html_str =     
             '<div id="_kit_breakdown_assoc_prompt_dlg">' +
-                '<label for="_kit_breakdown_assoc_qty_txt">qty:</label>' +
-                '<input type="text" id = "_kit_breakdown_assoc_qty_txt">' +
-                '<br>' + 
-                '<label for="_kit_breakdown_assoc_sp_txt">product:</label>' +
-                '<input type="text" id = "_kit_breakdown_assoc_sp_txt" readonly>' +
-                '<input type="button" id = "_kit_breakdown_assoc_sp_btn" value="search">' +
-                '<br>' +
+                '<div class="form-horizontal">' +
+
+                    '<div class="form-group">' +
+                        '<label for="_kit_breakdown_assoc_qty_txt" class="col-sm-4 control-label" >qty:</label>' +
+                        '<div class="col-sm-8">' +
+                            '<input type="text" id = "_kit_breakdown_assoc_qty_txt">' +
+                        '</div>' +
+                    '</div>' +
+
+                    '<div class="form-group">' +
+                        '<label for="_kit_breakdown_assoc_sp_txt" class="col-sm-4 control-label">product:</label>' +
+                        '<div class="col-sm-8">' +
+                            '<input type="text" id = "_kit_breakdown_assoc_sp_txt" readonly>' +
+                            '<button id = "_kit_breakdown_assoc_sp_btn" class="btn btn-primary">' +
+                                '<span class="glyphicon glyphicon-search"></span>' +
+                            '</button>' +
+                        '</div>' +
+                    '</div>' +
+
+                '</div>' +
             '</div>';
 
         var ok_handler_b = ok_handler.bind(ok_handler,callback);
@@ -89,13 +104,18 @@ define(
                 autoOpen: true,
                 width: 500,
                 height: 250,   
-                buttons:   [
-                     {text:'ok',click:ok_handler_b}
-                    ,{text:'remove',click:remove_handler_b}
-                    ,{text:'cancel',click:cancel_handler_b}
-                ],
+                buttons:   
+                {
+                     ok_btn:{id:'_kit_breakdown_prompt_ok_btn',click:ok_handler_b}
+                    ,remove_btn:{id:'_kit_breakdown_prompt_remove_btn',click:remove_handler_b}
+                    ,cancel_btn:{id:'_kit_breakdown_prompt_cancel_btn',click:cancel_handler_b}
+                },
                 open: function( event, ui ) 
                 {
+                    ui_button.set_css('_kit_breakdown_prompt_ok_btn','green','ok',true);
+                    ui_button.set_css('_kit_breakdown_prompt_remove_btn','red','trash',true);
+                    ui_button.set_css('_kit_breakdown_prompt_cancel_btn','orange','remove',true);
+                    $('#_kit_breakdown_prompt_remove_btn').prop('disabled',sp==null)
                     RET_SP = sp;
                     $('#_kit_breakdown_assoc_sp_btn').click(name_search_handler);
                     $('#_kit_breakdown_assoc_sp_txt').val(sp == null ? "" : sp.name);

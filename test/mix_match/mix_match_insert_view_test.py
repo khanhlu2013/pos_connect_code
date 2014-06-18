@@ -4,6 +4,7 @@ from model_mommy import mommy
 from store_product import new_sp_inserter
 from helper import test_helper
 import json
+from util import boolean
 
 class test(WebTest):   
     csrf_checks = False
@@ -18,33 +19,21 @@ class test(WebTest):
         #foreman  run -e .env,test.env python manage.py test test.mix_match.mix_match_insert_view_test:test.test       
 
         user,store = test_helper.create_user_then_store()
-        sp = new_sp_inserter.exe( \
-             store_id = store.id            
-            ,name = "Jack Daniel"
-            ,price = 1
-            ,value_customer_price = None
-            ,crv = None
-            ,is_taxable = True
-            ,is_sale_report = True
-            ,p_type = None
-            ,p_tag = None
-            ,sku_str = '123' 
-            ,cost = None
-            ,vendor = None
-            ,buydown = None
-        )
+        sp = test_helper.create_bare_sp(store_id=store.id)
 
         #MAKE REQUEST
         mix_match_name = '3 for $5'
         mix_match_qty = 2
-        mix_match_otd_price = 2
+        mm_price = 2
+        is_include_crv_tax = True
 
         res = self.app.post(
              '/mix_match/insert'
             ,{
                  'name':mix_match_name
                 ,'qty':mix_match_qty
-                ,'otd_price':mix_match_otd_price
+                ,'mm_price':mm_price
+                ,'is_include_crv_tax': boolean.py_2_js_str(is_include_crv_tax)
                 ,'pid_comma_separated_lst_str':str(sp.product.id)
             }
             ,user=user)
@@ -56,7 +45,9 @@ class test(WebTest):
         self.assertTrue(mm!=None)
 
         self.assertEqual(mm['name'],mix_match_name)
-        self.assertEqual(mm['otd_price'],str(mix_match_otd_price))
+        self.assertEqual(mm['mm_price'],str(mm_price))
+        self.assertEqual(mm['is_include_crv_tax'],is_include_crv_tax)
+
         self.assertEqual(mm['qty'],mix_match_qty)
         #assert mm child
         mm_child_set = mm['mix_match_child_set']

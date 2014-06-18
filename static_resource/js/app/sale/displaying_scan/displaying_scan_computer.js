@@ -162,37 +162,50 @@ define(
 
             for(var j=0;j<cur_x.length;j++){
                 var cur_ds = cur_x[j];
-                var unit_discount = get_unit_discount(cur_x,parseFloat(mm_deal.otd_price),mm_deal.qty,tax_rate);
+                var unit_discount = get_unit_discount(cur_x,parseFloat(mm_deal.mm_price),mm_deal.is_include_crv_tax,mm_deal.qty,tax_rate);
                 cur_ds.mm_deal_info = {deal:mm_deal,/*data:cur_x,*/unit_discount:unit_discount} 
             }
         }        
     }
 
-    function get_unit_discount(ds_lst,otd_price,qty,tax_rate){
-        //CALCULATE IS_TAXABLE
-        var is_taxable = false;
-        for(var i = 0;i<ds_lst.length;i++){
-            if(ds_lst[i].store_product.is_taxable){
-                is_taxable = true;
-                break;
+    function get_unit_discount(ds_lst,mm_price,is_include_crv_tax,qty,tax_rate){
+        if(is_include_crv_tax){
+            //CALCULATE IS_TAXABLE
+            var is_taxable = false;
+            for(var i = 0;i<ds_lst.length;i++){
+                if(ds_lst[i].store_product.is_taxable){
+                    is_taxable = true;
+                    break;
+                }
             }
-        }
-        if(is_taxable == false){
-            tax_rate = 0.0;
-        }
+            if(is_taxable == false){
+                tax_rate = 0.0;
+            }
 
-        //CALCULATE TOTAL REGULAR PRICE
-        var total_reg_price = 0.0;
-        for(var i = 0;i<ds_lst.length;i++){
-            var ds = ds_lst[i];
-            total_reg_price += (ds.store_product.price + ds.store_product.crv)
+            //CALCULATE TOTAL REGULAR PRICE: we are including crv here
+            var total_reg_price = 0.0;
+            for(var i = 0;i<ds_lst.length;i++){
+                var ds = ds_lst[i];
+                total_reg_price += (ds.store_product.price + ds.store_product.crv)
+            }
+
+            //UNIT DISCOUNT
+            result = 
+                (total_reg_price / qty)
+                -
+                (100.0 * mm_price) / ((100.0 + tax_rate) * qty)
+            ;
+            return number.round_2_decimal(result);            
+        }else{
+            //CALCULATE TOTAL REGULAR PRICE: we are NOT including crv here
+            var total_reg_price = 0.0;
+            for(var i = 0;i<ds_lst.length;i++){
+                var ds = ds_lst[i];
+                total_reg_price += ds.store_product.price;
+            }   
+
+            return number.round_2_decimal((total_reg_price - mm_price) / qty)                
         }
-        result = 
-            (total_reg_price / qty)
-            -
-            (100.0 * otd_price) / ((100.0 + tax_rate) * qty)
-        ;
-        return number.round_2_decimal(result);
     }
 
     function compress(ds_lst){

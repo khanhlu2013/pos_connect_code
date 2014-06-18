@@ -5,6 +5,7 @@ define(
     ,'lib/ui/ui'
     ,'app/tax/tax_validate'
     ,'app/tax/tax_set'
+    ,'lib/ui/button'
 ]
 ,function
 (
@@ -13,6 +14,7 @@ define(
     ,ui
     ,tax_validate
     ,tax_set
+    ,ui_button
 )
 {
     var ERROR_CANCEL_tax_manage_ui_cancel_button_press = 'ERROR_CANCEL_tax_manage_ui_cancel_button_press';
@@ -36,15 +38,14 @@ define(
             .dialog(
             {
                 modal: true,
-                title : 'set tax',
+                title : 'set tax (%)',
                 zIndex: 10000,
                 autoOpen: true,
                 width: 300,
-                height: 200,
                 buttons : 
-                [
-                    {
-                        text:'ok',
+                {
+                    ok_btn: {
+                        id : '_tax_manage_ok_btn',
                         click:function(){
                             var tax_rate_str = $('#tax_rate_txt').val();
                             var error_lst = tax_validate.exe(tax_rate_str);
@@ -63,16 +64,18 @@ define(
                             }
                         }
                     },                
-                    {
-                        text:'cancel',
+                    cancel_btn: {
+                        id : '_tax_manage_cancel_btn',
                         click: function(){
                             $('#set_tax_rate_dlg').dialog('close');
                             callback(ERROR_CANCEL_tax_manage_ui_cancel_button_press);
                         }
                     }
-                ],
+                },
                 open: function( event, ui ) 
                 {
+                    ui_button.set_css('_tax_manage_ok_btn','green','ok',true);
+                    ui_button.set_css('_tax_manage_cancel_btn','orange','remove',true);
                     var tax_rate = parseFloat(localStorage.getItem('tax_rate'));
                     $('#tax_rate_txt').val(tax_rate);
                 },

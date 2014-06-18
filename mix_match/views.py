@@ -5,6 +5,7 @@ from mix_match.models import Mix_match,Mix_match_child
 from mix_match import mix_match_getter,mix_match_serializer
 import json
 from store_product.models import Store_product
+from util import boolean 
 
 def get_view(request):
     cur_login_store = request.session.get('cur_login_store')
@@ -17,7 +18,8 @@ def mix_match_update_view(request):
     id = request.POST['id'] 
     name = request.POST['name'] 
     qty = request.POST['qty'] 
-    otd_price = request.POST['otd_price'] 
+    mm_price = request.POST['mm_price'] 
+    is_include_crv_tax = boolean.get_boolean_from_str(request.POST['is_include_crv_tax'])
     mix_match_child_pid_lst = request.POST['pid_comma_separated_lst_str'].split(",")
 
     #validate child is not emtpy
@@ -37,7 +39,8 @@ def mix_match_update_view(request):
     #update parent
     parent.name = name
     parent.qty = qty
-    parent.otd_price = otd_price
+    parent.mm_price = mm_price
+    parent.is_include_crv_tax = is_include_crv_tax
     parent.save()
 
     #update child
@@ -59,7 +62,8 @@ def mix_match_insert_view(request):
     cur_login_store = request.session.get('cur_login_store')
     name = request.POST['name'] 
     qty = request.POST['qty'] 
-    otd_price = request.POST['otd_price'] 
+    mm_price = request.POST['mm_price'] 
+    is_include_crv_tax = boolean.get_boolean_from_str(request.POST['is_include_crv_tax'])
     mix_match_child_pid_lst = request.POST['pid_comma_separated_lst_str'].split(",")
 
     #validate child is not emtpy
@@ -72,7 +76,7 @@ def mix_match_insert_view(request):
         return
 
     #create parent
-    parent = Mix_match.objects.create(store_id=cur_login_store.id,name=name,qty=qty,otd_price=otd_price)
+    parent = Mix_match.objects.create(store_id=cur_login_store.id,name=name,qty=qty,mm_price=mm_price,is_include_crv_tax=is_include_crv_tax)
     
     #create child
     child_lst = []

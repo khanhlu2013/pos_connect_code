@@ -5,6 +5,8 @@ define(
     ,'app/product/product_json_helper'
     ,'lib/error_lib'
     ,'lib/ui/ui'
+    ,'lib/ui/table'
+    ,'lib/ui/button'
 ]
 ,function
 (
@@ -13,6 +15,8 @@ define(
     ,product_json_helper
     ,error_lib
     ,ui
+    ,ui_table
+    ,ui_button
 )
 {
     var ERROR_CANCEL_product_search_exit_button_press = 'ERROR_CANCEL_product_search_exit_button_press';
@@ -54,13 +58,6 @@ define(
 
         var tr;var td;
 
-        var column_name = ['product','price','crv','taxable','type','tag','select']
-        tr = tbl.insertRow(-1);        
-        for(var i = 0;i<column_name.length;i++){
-            td = tr.insertCell(-1);
-            td.innerHTML = column_name[i];
-        }
-
         for(var i = 0;i<product_lst.length;i++){
             var tr = tbl.insertRow(-1);
             var store_id = null;//when we search by name, we only limit to the current store. so, we don't need to supply what store we are looking at
@@ -88,6 +85,17 @@ define(
             td.innerHTML = '<input type="checkbox" class="checkbox_class" id=' + '"' + sp.product_id + '"' + '>';
         }
 
+        ui_table.set_header(
+            [
+                {caption:'product',width:50},
+                {caption:'price',width:10},
+                {caption:'crv',width:10},
+                {caption:'taxable',width:10},    
+                {caption:'type',width:10},
+                {caption:'tag',width:10},
+                {caption:'select',width:10},                    
+            ],tbl
+        );
         $(".checkbox_class").each(function()
         {
             $(this).change(function()
@@ -104,9 +112,8 @@ define(
         IS_MULTIPLE_SELECTION = is_multiple_selection; //callback return will be lst or object depend on this param
         var html_str = 
             '<div id="product_search_dlg">' +
-                '<label for="product_search_txt">search</label>' +
-                '<input type="text" id = "product_search_txt">' +
-                '<table id="product_search_tbl" border="1"></table>' +
+                '<input type="text" id = "product_search_txt" placeholder="name/sku">' +
+                '<table id="product_search_tbl" class="table table-hover table-bordered table-condensed table-striped"></table>' +
             '</div>';
 
         $(html_str).appendTo('body')
@@ -119,9 +126,9 @@ define(
                 width: 800,
                 height: 500,
                 buttons : 
-                [
-                    {
-                        text:'ok',
+                {
+                    ok_btn:{
+                        id: '_sp_search_ok_btn',
                         click:function(){
                             var result_lst = [];
 
@@ -154,16 +161,18 @@ define(
                             }
                         }
                     },                
-                    {
-                        text:'cancel',
+                    cancel_btn:{
+                        id : '_sp_search_cancel_btn',
                         click: function(){
                             $('#product_search_dlg').dialog('close');
                             callback(ERROR_CANCEL_product_search_exit_button_press);                        
                         }
                     }
-                ],
+                },
                 open: function( event, ui ) 
                 {
+                    ui_button.set_css('_sp_search_ok_btn','green','ok',true);
+                    ui_button.set_css('_sp_search_cancel_btn','orange','remove',true);
                     init_search_text_enter();
                     product_data_2_ui([]);
                 },

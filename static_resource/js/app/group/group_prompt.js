@@ -6,6 +6,8 @@ define(
         ,'lib/error_lib'
         ,'app/product/product_json_helper'
         ,'lib/ui/ui'
+        ,'lib/ui/table'
+        ,'lib/ui/button'
     ]
     ,function
     (
@@ -15,6 +17,8 @@ define(
         ,error_lib
         ,product_json_helper
         ,ui
+        ,ui_table
+        ,ui_button
     )
 {
     var ERROR_CANCEL_GROUP_PROMPT = 'ERROR_CANCEL_GROUP_PROMPT';
@@ -29,8 +33,13 @@ define(
     }
 
     function remove_btn_handler(callback){
-        $("#group_prompt_dlg").dialog("close");
-        callback(ERROR_REMOVE_GROUP_PROMPT/*error*/);
+        ui.ui_confirm(
+            'remove group?',
+            function(){
+                $("#group_prompt_dlg").dialog("close");
+                callback(ERROR_REMOVE_GROUP_PROMPT/*error*/);
+            }
+        );
     }
 
     function ok_btn_handler(callback){
@@ -100,14 +109,6 @@ define(
         group_sp_tbl.innerHTML = "";
         var tr;var td;
 
-        //columns
-        tr = group_sp_tbl.insertRow(-1);
-        var columns = ['name','reg price','crv','is_taxable','remove']
-        for(var i = 0;i<columns.length;i++){
-            td = tr.insertCell(-1);
-            td.innerHTML = columns[i];
-        }
-        
         for(var i = 0;i<GROUP_SP_LST.length;i++){
             tr = group_sp_tbl.insertRow(-1);
             var cur_group_sp = GROUP_SP_LST[i];
@@ -128,28 +129,42 @@ define(
             td = tr.insertCell(-1);
             td.innerHTML = cur_group_sp.is_taxable;           
 
-            //edit
+            //remove
             td = tr.insertCell(-1);
-            td.innerHTML = 'remove';
+            td.innerHTML = '<span class="glyphicon glyphicon-trash"></span>';
+            td.className = 'danger';
             (function(index){
                 td.addEventListener('click',function(){
                     remove_child(index);
                 });
             })(i)                         
         }
+
+        ui_table.set_header(
+            [
+                {caption:'name',width:60},
+                {caption:'reg price',width:20},
+                {caption:'crv',width:20},
+                {caption:'taxable',width:20},   
+                {caption:'remove',width:20},     
+            ],group_sp_tbl
+        );
     }
 
     function exe (name ,group_sp_lst,callback ){
         var html_str =
             '<div id="group_prompt_dlg">' +
-                '<label for="group_name_txt">name:</label>' +
+                '<label for="group_name_txt">group name:</label>' +
                 '<input type="text" id = "group_name_txt">' +
                 '<br>' +
                 '<br>' +
                 '<label for="group_sp_tbl"></label>' +
-                '<input type="button" id = "group_add_child_btn" value="add">' +
-                '<table id="group_sp_tbl" border="1"></table>' +
-                '<br>' +
+
+                '<button id = "group_add_child_btn" class="btn btn-success">' +
+                    '<span class="glyphicon glyphicon-plus"></span>' +
+                '</button>' +                
+
+                '<table id="group_sp_tbl" class="table table-hover table-bordered table-condensed table-striped"></table>' +
             '</div>';
 
         var ok_btn_handler_b = ok_btn_handler.bind(ok_btn_handler,callback);
@@ -160,18 +175,18 @@ define(
             .dialog(
             {
                 modal: true,
-                title : 'group',
+                title : name == null ? 'add new group' : 'edit group: ' + name,
                 zIndex: 10000,
                 autoOpen: true,
                 width: 700,
                 height: 500,
                 buttons : 
-                [
-                    {text:'ok', click:ok_btn_handler_b},
-                    {text:'remove', click:remove_btn_handler_b},
-                    {text:'cancel', click:cancel_btn_handler_b}
+                {
+                    'ok_btn' : {click:ok_btn_handler_b,id:'_group_prompt_ok_btn_id'},
+                    'remove_btn' : {click:remove_btn_handler_b,id:'_group_prompt_remove_btn_id'},
+                    'cancel_btn':{click:cancel_btn_handler_b,id:'_group_prompt_cancel_btn_id'}
 
-                ],
+                },
                 open: function( event, ui ) 
                 {
                     $('#group_add_child_btn').click(add_group_sp_handler);
@@ -185,6 +200,10 @@ define(
                             ok_btn_handler(callback);
                         }
                     });
+                    ui_button.set_css('_group_prompt_remove_btn_id','red','trash',true)
+                    $('#_group_prompt_remove_btn_id').prop('disabled',name == null );
+                    ui_button.set_css('_group_prompt_ok_btn_id','green','ok',true)
+                    ui_button.set_css('_group_prompt_cancel_btn_id','orange','remove',true)
                 },
                 close: function (event, ui) {
                     $(this).remove();

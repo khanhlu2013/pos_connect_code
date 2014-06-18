@@ -10,7 +10,8 @@ define(
     ,'app/local_db_initializer/sync_if_nessesary'
     ,'app/kit/kit_breakdown_assoc_prompt_ui'
     ,'app/store_product/sp_json_helper'
-
+    ,'lib/ui/table'
+    ,'lib/ui/button'
 ]
 ,function
 (
@@ -24,6 +25,8 @@ define(
     ,sync_if_nessesary
     ,kit_breakdown_assoc_prompt_ui
     ,sp_json_helper
+    ,ui_table
+    ,ui_button
 )
 {
     var KIT = null; //serialized json from server which is a sp containing breakdown_assoc_lst {breakdown(sp),qty}
@@ -32,8 +35,6 @@ define(
     var COUCH_SERVER_URL = null;
 
     function validate_recursive(sp){
-        var ret = true;
-
         var bd_pid_lst = sp_json_helper.get_recursive_pid_lst(sp,true/*breakdown*/);
         var kit_pid_lst = sp_json_helper.get_recursive_pid_lst(sp,false/*kit*/);
 
@@ -41,11 +42,17 @@ define(
             return kit_pid_lst.indexOf(n) != -1
         });
 
-        return intersection_lst.length == 0;
+        var result =  
+            intersection_lst.length == 0 
+            && bd_pid_lst.indexOf(sp.product_id)==-1 
+            && kit_pid_lst.indexOf(sp.product_id) == -1;
+
+        return result;
     }
 
     function set_kit(callback){
-        if(!validate_recursive(KIT)){
+        var validate_result = validate_recursive(KIT);
+        if(!validate_result){
             ui.ui_alert('Error: remove breakdown that contain kit.')
             return;
         }
@@ -78,15 +85,7 @@ define(
 
     function refresh_table(){
         ASSOC_TBL.innerHTML = '';
-
         var tr;var td;
-
-        var column_name = ['name', 'qty', 'remove'];
-        tr = ASSOC_TBL.insertRow(-1);        
-        for(var i = 0;i<column_name.length;i++){
-            td = tr.insertCell(-1);
-            td.innerHTML = column_name[i];
-        }
 
         for(var i = 0;i<KIT.breakdown_assoc_lst.length;i++){
             var assoc = KIT.breakdown_assoc_lst[i];
@@ -99,15 +98,24 @@ define(
             td.innerHTML = assoc.qty
 
             td = tr.insertCell(-1);
-            td.innerHTML = 'remove';
-
+            td.innerHTML = '<span class="glyphicon glyphicon-trash"></span>';
+            td.className = 'danger';
             (function(index){
                 td.addEventListener('click',function(){
-                    KIT.breakdown_assoc_lst.splice(index,1);
-                    refresh_table();
+                    ui.ui_confirm('remove?',function(){
+                        KIT.breakdown_assoc_lst.splice(index,1);
+                        refresh_table();                        
+                    });
                 });
             })(i)
         }        
+        ui_table.set_header(
+            [
+                {caption:'name',width:60},
+                {caption:'qty',width:20},
+                {caption:'remove',width:20},
+            ],ASSOC_TBL
+        );
     }
 
     function exe(kit_id,kit_name,store_id,couch_server_url,callback){
@@ -120,8 +128,10 @@ define(
 
         var html_str = 
             '<div id="_kit_manage_dlg">' +
-                '<input type="button" id="_breakdown_assoc_add_btn" value="add product">' +            
-                '<table id="_breakdown_assoc_tbl" border="1"></table>' +
+                '<button id="_breakdown_assoc_add_btn" class="btn btn-primary">' +
+                    '<span class="glyphicon glyphicon-plus"></span>' +
+                '</button>' +
+                '<table id="_breakdown_assoc_tbl" class="table table-hover table-bordered table-condensed table-striped"></table>' +
             '</div>';
 
         $(html_str).appendTo('body')
@@ -134,9 +144,9 @@ define(
                 width: 800,
                 height: 500,
                 buttons : 
-                [
-                    {
-                        text:'ok', 
+                {
+                    ok_btn: {
+                        id:'_sp_kit_manage_ok_btn', 
                         click: function(){
                             async.waterfall([set_kit],function(error,result){
                                 if(error){
@@ -148,16 +158,18 @@ define(
                             });                            
                         }
                     },
-                    {
-                        text:'cancel',
+                    cancel_btn: {
+                        id:'_sp_kit_manage_cancel_btn', 
                         click: function(){
                             $('#_kit_manage_dlg').dialog('close');
                             callback('ERROR_CANCEL_');                        
                         }
                     }
-                ],
+                },
                 open: function( event, ui ) 
                 {
+                    ui_button.set_css('_sp_kit_manage_ok_btn','green','ok',true);
+                    ui_button.set_css('_sp_kit_manage_cancel_btn','orange','remove',true);
                     ASSOC_TBL = document.getElementById("_breakdown_assoc_tbl");
                     $('#_breakdown_assoc_add_btn').click(insert_assoc_handler);
 

@@ -9,6 +9,8 @@ define(
     ,'app/group/group_action_perform'    
     ,'app/group/group_prompt'
     ,'app/group/group_remove'
+    ,'lib/ui/table'
+    ,'lib/ui/button'
 ]
 ,function
 (
@@ -21,6 +23,8 @@ define(
     ,group_action_perform    
     ,group_prompt
     ,group_remove
+    ,ui_table
+    ,ui_button
 )
 {
     var group_tbl = null;
@@ -99,14 +103,6 @@ define(
         group_tbl.innerHTML = "";
         var tr;var td;
 
-        //columns
-        tr = group_tbl.insertRow(-1);
-        var columns = ['name','action','edit']
-        for(var i = 0;i<columns.length;i++){
-            td = tr.insertCell(-1);
-            td.innerHTML = columns[i];
-        }
-        
         for(var i = 0;i<GROUP_LST.length;i++){
 
             tr = group_tbl.insertRow(-1);
@@ -118,7 +114,8 @@ define(
 
             //action
             td = tr.insertCell(-1);
-            td.innerHTML = 'action';   
+            td.innerHTML = '<span class="glyphicon glyphicon-play"></span>';   
+            td.className = 'info';
             (function(group){
                 td.addEventListener('click',function(){
                     action_group_handler(group);
@@ -127,21 +124,30 @@ define(
 
             //edit
             td = tr.insertCell(-1)
-            td.innerHTML = 'edit';
+            td.innerHTML = '<span class="glyphicon glyphicon-pencil"></span>';
+            td.className = 'info';
             (function(group){
                 td.addEventListener('click',function(){
                     update_group_handler(group);
                 });   
             })(GROUP_LST[i]);
         }
+        
+        ui_table.set_header(
+            [
+                {caption:'name',width:60},
+                {caption:'action',width:20},
+                {caption:'edit',width:20},
+            ],group_tbl
+        );
     }
 
     function exe(){
         
         var html_str = 
             '<div id="group_manage_dlg">' +
-                '<input type="button" id="add_group_btn" value="add">' +
-                '<table id="group_tbl" border="1"></table>' +
+                '<button id="_manage_group_add_group_btn" class="btn"></button>' +
+                '<table id="group_tbl" class="table table-hover table-bordered table-condensed table-striped"></table>' +
             '</div>';
 
         $(html_str).appendTo('body')
@@ -154,18 +160,21 @@ define(
                 width: 500,
                 height: 500,
                 buttons : 
-                [
-                    {
-                        text:'exit',
+                {
+                    cancel_btn: {
                         click: function(){
                             $('#group_manage_dlg').dialog('close');
-                        }
+                        },
+                        id : '_manage_group_cancel_btn'
                     }
-                ],
+                },
                 open: function( event, ui ) 
                 {
                     group_tbl = document.getElementById('group_tbl');
-                    $('#add_group_btn').click(insert_group_handler);
+                    ui_button.set_css('_manage_group_add_group_btn','blue','plus',false);
+                    ui_button.set_css('_manage_group_cancel_btn','orange','remove',true);
+
+                    $('#_manage_group_add_group_btn').click(insert_group_handler);
                     async.waterfall([group_lst_getter.exe],function(error,result){
                         GROUP_LST = result;
                         display_group_table();

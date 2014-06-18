@@ -30,7 +30,6 @@ def exe_master( \
 ):
     #GET STORE_PRODUCT
     sp = Store_product.objects.get(store_id=store_id,product_id=product_id)
-    print(sku_str)
     #CREATE SKU
     sku,created_sku = Sku.objects.get_or_create(
         sku__exact=sku_str,

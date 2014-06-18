@@ -6,8 +6,8 @@ class Mix_match(models.Model):
     store = models.ForeignKey(Store)
     name = models.CharField(max_length=100)
     qty = models.IntegerField()
-    otd_price = models.DecimalField(max_digits=6, decimal_places=2)
-
+    mm_price = models.DecimalField(max_digits=6, decimal_places=2)
+    is_include_crv_tax = models.BooleanField()
 
 class Mix_match_child(models.Model):
     parent = models.ForeignKey(Mix_match)

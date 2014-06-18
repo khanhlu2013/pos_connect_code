@@ -9,6 +9,8 @@ define(
     ,'app/mix_match/mix_match_online_updator'  
     ,'app/mix_match/mm_online_delete'    
     ,'app/mix_match/mix_match_get'
+    ,'lib/ui/table'
+    ,'lib/ui/button'
 ]
 ,function
 (
@@ -21,6 +23,8 @@ define(
     ,mm_updator
     ,mm_online_delete    
     ,mm_get
+    ,ui_table
+    ,ui_button
 )
 {
     var TAX_RATE = parseFloat(localStorage.getItem('tax_rate'));
@@ -59,7 +63,8 @@ define(
         var mm_prompt_b = mm_prompt.exe.bind(mm_prompt.exe
             ,parent.name
             ,parent.qty
-            ,parent.otd_price
+            ,parent.mm_price
+            ,parent.is_include_crv_tax
             ,mm_child_sp_lst
             ,TAX_RATE
         );
@@ -91,7 +96,8 @@ define(
         var mm_prompt_b = mm_prompt.exe.bind(mm_prompt.exe
             ,null//name
             ,null//qty
-            ,null//otd_price
+            ,null//mm_price
+            ,true//is_include_crv_tax
             ,[]//mix_match_child_sp_lst
             ,TAX_RATE
         )
@@ -120,12 +126,6 @@ define(
 
         //columns
         tr = mix_match_tbl.insertRow(-1);
-        var columns = ['name','qty','out_the_door_price','edit']
-        for(var i = 0;i<columns.length;i++){
-            td = tr.insertCell(-1);
-            td.innerHTML = columns[i];
-        }
-        
         for(var i = 0;i<MIX_MATCH_LST.length;i++){
 
             tr = mix_match_tbl.insertRow(-1);
@@ -139,27 +139,42 @@ define(
             td = tr.insertCell(-1);
             td.innerHTML = cur_mix_match.qty;
 
-            //otd_price
+            //mm_price
             td = tr.insertCell(-1);
-            td.innerHTML = cur_mix_match.otd_price;           
+            td.innerHTML = cur_mix_match.mm_price;           
+
+            //is_include_crv_tax
+            td = tr.insertCell(-1);
+            td.innerHTML = cur_mix_match.is_include_crv_tax;   
 
             //edit
             td = tr.insertCell(-1)
-            td.innerHTML = 'edit';
+            td.innerHTML = '<span class="glyphicon glyphicon-pencil"></span>';
+            td.className = 'info';
             (function(_i){
                 td.addEventListener('click',function(){
                     update_mix_match_handler(_i);
                 });   
             })(i);
         }
+
+        ui_table.set_header(
+            [
+                {caption:'name',width:40},
+                {caption:'qty',width:20},
+                {caption:'price',width:20},
+                {caption:'is_include_crv_tax',width:20},
+                {caption:'edit',width:10},
+            ],mix_match_tbl
+        );
     }
 
     function exe(callback){
         
         var html_str = 
             '<div id="mix_match_manage_dlg">' +
-                '<input type="button" id="add_mix_match_btn" value="add">' +
-                '<table id="mix_match_tbl" border="1"></table>' +
+                '<button id="_mm_manage_add_btn"></button>' +
+                '<table id="mix_match_tbl" class="table table-hover table-bordered table-condensed table-striped"></table>' +
             '</div>';
 
         $(html_str).appendTo('body')
@@ -172,10 +187,14 @@ define(
                 width: 700,
                 height: 500,
                 buttons : 
-                [{text:'exit', click: function(){callback(null,MIX_MATCH_LST);$('#mix_match_manage_dlg').dialog('close');}}],
+                {
+                    exit_btn: {id:'_mm_manage_exit_btn', click: function(){callback(null,MIX_MATCH_LST);$('#mix_match_manage_dlg').dialog('close');}}
+                },
                 open: function( event, ui ) 
                 {
-                    $('#add_mix_match_btn').click(insert_mix_match_handler);
+                    ui_button.set_css('_mm_manage_add_btn','blue','plus',false);
+                    ui_button.set_css('_mm_manage_exit_btn','orange','remove',true);
+                    $('#_mm_manage_add_btn').click(insert_mix_match_handler);
                     mix_match_tbl = document.getElementById('mix_match_tbl');
                     async.waterfall([mm_get.exe],function(error,result){
                         MIX_MATCH_LST = result;

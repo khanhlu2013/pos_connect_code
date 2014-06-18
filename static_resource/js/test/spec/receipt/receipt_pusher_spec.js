@@ -55,6 +55,7 @@ define(
                 ,new_sp_pid
                 ,'new product name'
                 ,1//price
+                ,null//value customer price
                 ,null//crv
                 ,true//is_taxable
                 ,true//is_sale_report
@@ -74,6 +75,7 @@ define(
                 ,old_sp_pid
                 ,'product name'
                 ,1//price
+                ,null//value customer price
                 ,null//crv
                 ,true//is_taxable
                 ,true//is_sale_report

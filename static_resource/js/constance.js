@@ -20,7 +20,7 @@ define(function(){
 		,TAX_DOCUMENT_ID : 'tax_document'
 
 		//TEST
-		,TEST_STORE_ID : 0
+		,TEST_STORE_ID : 9999
 
 		//LOCAL STORAGE ITEM
 		,HOLD_LST : 'pending_scan_hold_lst'

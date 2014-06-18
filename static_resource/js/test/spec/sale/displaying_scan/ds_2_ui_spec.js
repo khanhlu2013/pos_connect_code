@@ -55,6 +55,7 @@ define(
                 ,pid
                 ,product_name
                 ,3//price
+                ,null//value customer price
                 ,null//crv
                 ,true//is_taxable
                 ,true//is_sale_report

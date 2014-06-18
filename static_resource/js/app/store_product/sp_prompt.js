@@ -3,11 +3,15 @@ define(
      'app/store_product/store_product_validator'
     ,'app/product/product_json_helper' 
     ,'app/store_product/sp_json_helper'
+    ,'lib/ui/table'
+    ,'lib/ui/button'
 ]
 ,function (
      sp_validator
     ,product_json_helper
     ,sp_json_helper
+    ,ui_table
+    ,ui_button
 ){
     var ERROR_CANCEL_STORE_PRODUCT_PROMPT = 'ERROR_CANCEL_STORE_PRODUCT_PROMPT';
     var MANAGE_SKU_BUTTON_PRESS = 'MANAGE_SKU_BUTTON_PRESS';
@@ -142,13 +146,6 @@ define(
         tbl.innertHTML = "";
         var tr;var td;
 
-        var columns = ['kit','qty'];
-        tr = tbl.insertRow(-1);
-        for(var i = 0;i<columns.length;i++){
-            td = tr.insertCell(-1);
-            td.innerHTML = columns[i];
-        }
-
         for(var i = 0;i<sp_prefill.breakdown_assoc_lst.length;i++){
             var tr = tbl.insertRow(-1);
             var assoc = sp_prefill.breakdown_assoc_lst[i];
@@ -159,25 +156,21 @@ define(
             var td = tr.insertCell(-1);
             td.innerHTML = assoc.qty;            
         }
+        var col_info_lst = 
+        [
+            {caption:"kit",width:60},
+            {caption:"qty",width:20},
+        ];
+        ui_table.set_header(col_info_lst,tbl);
     }
 
     function display_group_data(sp_prefill){
-
         if(sp_prefill.group_set.length == 0){
             return;
         }
 
         var tbl = document.getElementById('group_tbl');
-        tbl.innertHTML = "";
         var tr;var td;
-
-        var columns = ['group'];
-        tr = tbl.insertRow(-1);
-        for(var i = 0;i<columns.length;i++){
-            td = tr.insertCell(-1);
-            td.innerHTML = columns[i];
-        }
-
         for(var i = 0;i<sp_prefill.group_set.length;i++){
             var tr = tbl.insertRow(-1);
             var group = sp_prefill.group_set[i];
@@ -185,6 +178,11 @@ define(
             var td = tr.insertCell(-1);
             td.innerHTML = group.name;
         }
+        var col_info_lst = 
+        [
+            {caption:"group",width:70},
+        ];
+        ui_table.set_header(col_info_lst,tbl);        
     }
 
     function show_prompt(
@@ -201,7 +199,7 @@ define(
             //HTML
             var html_str = 
                 '<div id="store_product_prompt_dialog">' +
-                    '<form class="form-horizontal" role="form">' +
+                    '<div class="form-horizontal">' +
 
                         '<div class="form-group">' +
                             '<label for="product_name_txt" class="col-sm-4 control-label" >Name:</label>' +
@@ -293,10 +291,9 @@ define(
                                 '<input type="text" id = "product_sku_txt">' +
                             '</div>' +
                         '</div>' +
-
-                        '<table id="group_tbl" border="1"></table>' +       
-                        '<table id="kit_tbl" border="1"></table>' +   
-                    '</form>' +                                 
+                        '<table id="group_tbl" class="table table-hover table-bordered table-condensed table-striped table-side-by-side"></table>' +
+                        '<table id="kit_tbl" class="table table-hover table-bordered table-condensed table-striped table-side-by-side"></table>' +
+                    '</div>' +                                 
                 '</div>';
 
             //TITLE
@@ -319,18 +316,18 @@ define(
             var kit_click_handler_b = kit_click_handler.bind(group_click_handler,callback);
 
             var buttons =
-            [
-                {text:'ok', click:ok_btn_handler_b},
-                {text:'cancel', click:cancel_btn_handler_b}
-            ]
+            {
+                ok_btn : {id: '_sp_prompt_ok_btn', click:ok_btn_handler_b},
+                cancel_btn : {id: '_sp_prompt_cancel_btn', click:cancel_btn_handler_b}
+            }
             if(is_sku_management){
-                buttons.push({text:'sku',click:sku_click_handler_b});
+                buttons['sku_btn'] = {id: '_sp_prompt_sku_btn',click:sku_click_handler_b,text:'sku'};
             }
             if(is_group_management){
-                buttons.push({text:'group',click:group_click_handler_b});
+                buttons['group_btn'] = {id: '_sp_prompt_group_btn',click:group_click_handler_b, text:'group'};
             }
             if(is_kit_management){
-                buttons.push({text:'kit',click:kit_click_handler_b});
+                buttons['kit_btn'] = {id: '_sp_prompt_kit_btn',click:kit_click_handler_b, text:'kit'};
             }
 
             $(html_str).appendTo('body')
@@ -350,6 +347,17 @@ define(
                     },
                     open: function( event, ui ) 
                     {
+                        ui_button.set_css('_sp_prompt_ok_btn','green','ok',true);
+                        ui_button.set_css('_sp_prompt_cancel_btn','orange','remove',true);
+                        if(is_sku_management){
+                            ui_button.set_css('_sp_prompt_sku_btn','blue',null/*glyphicon*/,true);
+                        }
+                        if(is_group_management){
+                            ui_button.set_css('_sp_prompt_group_btn','blue',null/*glyphicon*/,true);
+                        }         
+                        if(is_kit_management){
+                            ui_button.set_css('_sp_prompt_kit_btn','blue',null/*glyphicon*/,true);
+                        }                                          
                         if(suggest_product){
                             //name
                             $('#suggest_name_btn').click(function(){
@@ -494,7 +502,7 @@ define(
                     close: function (event, ui) {
                         $(this).remove();
                     }
-                });         
+            });
         };
 
     return{
@@ -504,4 +512,5 @@ define(
         ,MANAGE_KIT_BUTTON_PRESS : MANAGE_KIT_BUTTON_PRESS
         ,show_prompt : show_prompt
     }
+
 });

@@ -4,6 +4,7 @@ from model_mommy import mommy
 from store_product import new_sp_inserter
 from helper import test_helper
 import json
+from util import boolean 
 
 class test(WebTest):   
     csrf_checks = False
@@ -37,8 +38,9 @@ class test(WebTest):
         #create mix match parent
         mix_match_name = '3 for $5'
         mix_match_qty = 2
-        mix_match_otd_price = 2
-        mix_match = mommy.make('mix_match.Mix_match',store=store,name='x',qty=1,otd_price=1)
+        mm_price = 2
+        is_include_crv_tax = True
+        mix_match = mommy.make('mix_match.Mix_match',store=store,name='x',qty=1,mm_price=1,is_include_crv_tax=is_include_crv_tax)
 
         
         #MAKE REQUEST
@@ -48,7 +50,8 @@ class test(WebTest):
                  'id':mix_match.id
                 ,'name':mix_match_name
                 ,'qty':mix_match_qty
-                ,'otd_price':mix_match_otd_price
+                ,'mm_price':mm_price
+                ,'is_include_crv_tax':boolean.py_2_js_str(is_include_crv_tax)
                 ,'pid_comma_separated_lst_str':str(sp.product.id)
             }
             ,user=user)
@@ -60,7 +63,8 @@ class test(WebTest):
         self.assertTrue(mm!=None)
 
         self.assertEqual(mm['name'],mix_match_name)
-        self.assertEqual(mm['otd_price'],str(mix_match_otd_price))
+        self.assertEqual(mm['mm_price'],str(mm_price))
+        self.assertEqual(mm['is_include_crv_tax'],is_include_crv_tax)
         self.assertEqual(mm['qty'],mix_match_qty)
         #assert mm child
         mm_child_set = mm['mix_match_child_set']
@@ -108,7 +112,7 @@ class test(WebTest):
             ,buydown = None
         )
 
-        mix_match = mommy.make('mix_match.Mix_match',store=store,name='x',qty=1,otd_price=1)
+        mix_match = mommy.make('mix_match.Mix_match',store=store,name='x',qty=1,mm_price=1,is_include_crv_tax=True)
         mommy.make('mix_match.Mix_match_child',parent=mix_match,store_product=sp1)
         mommy.make('mix_match.Mix_match_child',parent=mix_match,store_product=sp2)
         
@@ -119,7 +123,8 @@ class test(WebTest):
                  'id':mix_match.id
                 ,'name':'x'
                 ,'qty':1
-                ,'otd_price':1
+                ,'mm_price':1
+                ,'is_include_crv_tax' : 'true'
                 ,'pid_comma_separated_lst_str':str(sp1.product.id)
             }
             ,user=user)

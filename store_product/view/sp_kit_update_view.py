@@ -9,6 +9,7 @@ def sp_kit_update_view(request):
         client: post 2 params:
             . kit_id: a product_id of kit
             . breakdown_assoc_lst: a list of {breakdown_id,qty}
+            . TODO i think i need to change from breakdown_id to breakdown_pid, kit_id to kit_pid
     """
     #init
     if request.method != 'POST':
@@ -19,7 +20,7 @@ def sp_kit_update_view(request):
     cur_login_store = request.session.get('cur_login_store')
 
     #update
-    product_serialized = sp_kit_update_cm.exe(kit_id=kit_id,store_id=cur_login_store.id,breakdown_assoc_lst=breakdown_assoc_lst)
+    product_serialized = sp_kit_update_cm.exe(kit_id=kit_id,store_id=cur_login_store.id,assoc_json_lst=breakdown_assoc_lst)
 
     #response
     return HttpResponse(json.dumps(product_serialized,cls=DjangoJSONEncoder),content_type='application/json')

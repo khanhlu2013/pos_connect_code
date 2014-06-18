@@ -11,9 +11,9 @@ define(
 		,sp_validator
 	)
 {
- 	return function (pid,name,price,crv,is_taxable,is_sale_report,p_type,p_tag,sku_str,cost,vendor,buydown,pouch_db,callback){
+ 	return function (pid,name,price,value_customer_price,crv,is_taxable,is_sale_report,p_type,p_tag,sku_str,cost,vendor,buydown,pouch_db,callback){
 
- 		var error_lst = sp_validator.validate(name,price,crv,is_taxable,sku_str,true/*is_prompt_sku*/,cost,vendor,buydown);
+ 		var error_lst = sp_validator.validate(name,price,value_customer_price,crv,is_taxable,sku_str,true/*is_prompt_sku*/,cost,vendor,buydown);
  		if(error_lst.length!=0){
  			callback(error_lst);
  			return;
@@ -31,6 +31,7 @@ define(
  			,pid//product_id
 	        ,name
 	        ,price
+	        ,value_customer_price
 	        ,crv
 	        ,is_taxable
 	        ,is_sale_report

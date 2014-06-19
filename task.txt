@@ -305,13 +305,8 @@ couch_acl_validator_test: client have write permission that follow these 4 rules
 . payment type
     . report of pt
     . change pt after the fact
+. get group take a long time: migh be i don't need to get all item inside the group. let it load when user click on group.
 
 
----
-
-upgrade app
-load long
-load tony
-change tiep logged in
 
 

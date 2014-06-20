@@ -17,8 +17,8 @@
 ~. lsof -i :8000
 ~. http://stackoverflow.com/questions/13976022/is-there-a-way-to-highlight-all-the-special-accent-characters-in-sublime-text-or
 ----------------------------------------------------------------------------
-source lu/liquor_heroku/venv/bin/activate
-cd lu/liquor/liquor
+source lu/venv/bin/activate
+cd lu/kt_heroku
 foreman start
 
 
@@ -31,9 +31,9 @@ WHERE datname = current_database() AND pid <> pg_backend_pid();
 (pwd:static_resource/js) 
 
 
-    node ../../../r.js -o name=app/sale/sale_entry out=app/sale/sale_entry__min__.js baseUrl=. paths.jquery=empty: paths.jquery_ui=empty: paths.jquery_block_ui=empty: paths.bootstrap=empty: 
-    
-    node ../../../r.js -o name=app/product/product_entry out=app/product/product_entry__min__.js baseUrl=. paths.jquery=empty: paths.jquery_ui=empty: paths.jquery_block_ui=empty: paths.bootstrap=empty: 
+node lib/r.js -o name=app/sale/sale_entry out=app/sale/sale_entry__min__.js baseUrl=. paths.jquery=empty: paths.jquery_ui=empty: paths.jquery_block_ui=empty: paths.bootstrap=empty: 
+
+node lib/r.js -o name=app/product/product_entry out=app/product/product_entry__min__.js baseUrl=. paths.jquery=empty: paths.jquery_ui=empty: paths.jquery_block_ui=empty: paths.bootstrap=empty: 
 
 ----------------------------------------------------------------------------
 TEMPLATE

@@ -8,6 +8,8 @@ from django.core.serializers.json import DjangoJSONEncoder
 from store_product.sp_master_util import get_lookup_type_tag
 from django.db.models import Q
 
+
+
 class sp_search_index_view(TemplateView):
     template_name = 'product.html'
     

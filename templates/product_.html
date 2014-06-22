@@ -1,10 +1,11 @@
 {% load staticfiles %}
 
-<html>
+<html ng-app="product_app">
 <head>
     <title>pos connect </title>
+
 </head>
-<body>
+<body ng-controller="Product_controller as product_controller">
 
     <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.min.css" />
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
@@ -35,6 +36,8 @@
                             class="form-control" 
                             placeholder="name" 
                             onClick="this.select();" 
+                            ng-enter="product_controller.name_search()"
+                            ng-model="product_controller.name_search_str"
                         >
                     </div>                    
                 </ul>
@@ -72,7 +75,22 @@
     </nav>        
 
     <table id='product_tbl' class="table table-hover table-bordered table-condensed table-striped">
+        <tr ng-repeat="product in product_controller.product_lst | ">
+            <td>{{product.name}}</td>
+
+        </tr>
     </table>
+
+    <div>
+        {% verbatim %}
+            Search for: {{product_controller.name_search_str}}
+            <br/>
+            Size: {{product_controller.product_lst.length}}
+            <br/>
+            Data: {{product_controller.product_lst}}
+            <br/>
+        {% endverbatim %}        
+    </div>    
 
     <script type="text/javascript">
         var STATIC_URL = "{{STATIC_URL}}";
@@ -81,8 +99,8 @@
         localStorage.setItem('tax_rate',Number("{{TAX_RATE}}"));
     </script>
 
-    <!-- // <script data-main = "{{ STATIC_URL }}js/app/product/product_entry.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script> -->
-    <script data-main = "{{ STATIC_URL }}js/app/product/product_entry__min__.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script>
+    <script data-main = "{{ STATIC_URL }}js/app/product/product_entry.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script>
+    <!-- // <script data-main = "{{ STATIC_URL }}js/app/product/product_entry__min__.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script> -->
 
 </body>
 </html>

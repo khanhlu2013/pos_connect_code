@@ -309,4 +309,6 @@ couch_acl_validator_test: client have write permission that follow these 4 rules
 
 
 
+---
+duplicate item 
 

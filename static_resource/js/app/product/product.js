@@ -53,6 +53,7 @@ define(
     ,ui_table
 )
 {
+
     var PRODUCT_DATA_LST = null;
     var SEARCH_SKU_STR = null;
 
@@ -245,6 +246,8 @@ define(
             });
         }
     });
+    
+
     $('.dropdown-toggle').dropdown();
     $('#tax_menu').click(function(e)
     { 
@@ -283,7 +286,6 @@ define(
     { 
         async.waterfall([payment_type_manage_ui.exe],function(error,result){});
     });     
-
 });
 
 /*

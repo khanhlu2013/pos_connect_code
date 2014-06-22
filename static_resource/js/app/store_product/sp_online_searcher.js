@@ -80,11 +80,20 @@ define
         });           
     }
 
+    function name_search_angular(name_search_str,$http){
+        return $http({
+            url: '/product/search_by_name',
+            method : "GET",
+            params: {name_str:name_search_str}
+        });
+    }
+
     return{
          NAME_SEARCH_ERROR_EMPTY : NAME_SEARCH_ERROR_EMPTY
         ,SKU_SEARCH_ERROR_EMPTY:SKU_SEARCH_ERROR_EMPTY 
         ,name_search : name_search
         ,sku_search: sku_search
         ,name_sku_search:name_sku_search
+        ,name_search_angular:name_search_angular
     }
 });

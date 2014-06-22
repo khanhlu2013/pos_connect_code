@@ -14,7 +14,6 @@ import sale_report.urls
 import receipt.urls
 import payment_type.urls
 from store_product.view import sp_search_view
-from angular_test.view import angular_test_view
 from django.contrib.auth.decorators import login_required
 
 
@@ -27,7 +26,6 @@ urlpatterns = patterns('',
     url(r'^account/logout/$','django.contrib.auth.views.logout_then_login',name = 'liquor_logout_named_url'),
     url(r'^sale/',include(sale.urls,namespace='sale')),
     url(r'^product/',include(store_product.urls,namespace='store_product')),
-    url(r'^angular_test$',angular_test_view.as_view()),   
 )
 
 handler500 = curry(server_error, template_name='500.html')

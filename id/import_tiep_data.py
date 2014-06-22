@@ -8,7 +8,7 @@ def exe():
     store = Store.objects.get(name = "x")
     
     # Dept_ID,Description,Tax_1,itemnum,Vendor,ItemName,CRV,Price,Cost
-    log_file = open('log','w')
+    log_file = open('id/log','w')
 
     with open('id/data_full_tiep.txt', 'rb') as csvfile:
         # Dept_ID,Description,Tax_1,itemnum,Vendor,ItemName,CRV,Quan_In_Case,Cost,Price

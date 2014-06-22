@@ -14,7 +14,7 @@ def exe():
     couch_db = couch_util.get_store_db(store.id)
 
     # Dept_ID,Description,Tax_1,itemnum,Vendor,ItemName,CRV,Price,Cost
-    log_file = open('log','w')
+    log_file = open('id/log','w')
 
     with open('_.txt', 'rb') as csvfile:
         # Dept_ID,Description,Tax_1,itemnum,Vendor,ItemName,CRV,Quan_In_Case,Cost,Price

@@ -55,11 +55,8 @@ define(
         });
     }
 
-    function create_online(sku_str,store_id,couch_server_url,sku_search_result,callback){
-        var prod_lst = sku_search_result.prod_lst;
-        var lookup_type_tag = sku_search_result.lookup_type_tag;
-
-        var sp_creator_b = sp_creator.exe.bind(sp_creator.exe,sku_str,prod_lst,lookup_type_tag,store_id,couch_server_url);
+    function create_online(sku_str,store_id,couch_server_url,product_lst,callback){
+        var sp_creator_b = sp_creator.exe.bind(sp_creator.exe,sku_str,product_lst,store_id,couch_server_url);
         async.waterfall([sp_creator_b],function(error,result){
             callback(error);
         });
@@ -90,14 +87,11 @@ define(
                     ,function(){
                         var sp_prompt_b = sp_prompt.show_prompt.bind(
                              sp_prompt.show_prompt
-
-                            ,null//sp_prefill
+                            ,null//cur_sp 
+                            ,null//sp_duplicate
                             ,true//is_prompt_sku
                             ,sku_str//sku_prefill
-                            ,null//lookup_type_tag
-                            ,false//is_sku_management
-                            ,false//is_group_management
-                            ,false//is_kit_management
+                            ,false//internet down, don't go online to get lookup type tag
                             ,null//suggest_product
                         )
                         var create_offline_b = create_offline.bind(create_offline ,sku_str ,pouch_db );

@@ -157,8 +157,8 @@ define(
                 title : 'manage group',
                 zIndex: 10000,
                 autoOpen: true,
-                width: 500,
-                height: 500,
+                width: 800,
+                height: 700,
                 buttons : 
                 {
                     cancel_btn: {

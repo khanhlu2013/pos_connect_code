@@ -83,13 +83,11 @@ define(
 	            ,"buydown"          : buydown
 	        }			
             spyOn(sp_prompt,'show_prompt').and.callFake(function(
-	            ,sp_prefill
-	            ,is_prompt_sku
+	            ,cur_sp
+	            ,sp_duplicate
+ 				,is_prompt_sku
 	            ,sku_prefill
-	            ,lookup_type_tag
-	            ,is_sku_management
-	            ,is_group_management
-	            ,is_kit_management
+	            ,true//need to get lookup type tag
 	            ,suggest_product
 		        ,callback
             ){

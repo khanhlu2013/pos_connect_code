@@ -89,31 +89,15 @@ def sp_search_by_name_view(request):
 def sp_search_by_sku_view(request):
     sku_str = request.GET['sku_str']
     cur_login_store = request.session.get('cur_login_store')
-    prod_lst = list(Product.objects.filter(sku_set__sku=sku_str).prefetch_related('store_product_set','prodskuassoc_set__store_product_set'))  
-
-    lookup_type_tag = None
-    if not is_store_prod_sku_in_lst(prod_lst,cur_login_store.id,sku_str):
-        lookup_type_tag = get_lookup_type_tag(cur_login_store.id)
-
-    data = {
-         'prod_lst' : sp_serializer.serialize_product_lst(prod_lst)
-        ,'lookup_type_tag' : lookup_type_tag
-    }
-
-    return HttpResponse(json.dumps(data,cls=DjangoJSONEncoder),content_type='application/json')
+    qs = Product.objects.filter(sku_set__sku=sku_str).prefetch_related('store_product_set','prodskuassoc_set__store_product_set')
+    prod_lst_serialized = sp_serializer.serialize_product_lst(qs)
+    return HttpResponse(json.dumps(prod_lst_serialized,cls=DjangoJSONEncoder),content_type='application/json')
 
 
 def sp_search_by_pid_view(request):
-    """
-        there are 2 places in client that we need to search sp by id:
-            . to update product: we need to include lookup type tag as suggestion
-            . to manage sku: we don't need to include lookup type tag
-    """
-
     store_id = request.session.get('cur_login_store').id
     product_id = request.GET['product_id']
     is_include_other_store = request.GET['is_include_other_store']
-    is_include_lookup_type_tag = request.GET['is_include_lookup_type_tag']
 
     product_serialized = sp_serializer.serialize_product_from_id(
          product_id = product_id
@@ -121,7 +105,6 @@ def sp_search_by_pid_view(request):
         ,is_include_other_store = is_include_other_store
     )
 
-    lookup_type_tag = get_lookup_type_tag(store_id) if is_include_lookup_type_tag else None
-    return HttpResponse(json.dumps({'product':product_serialized,'lookup_type_tag':lookup_type_tag},cls=DjangoJSONEncoder),content_type='application/json')
+    return HttpResponse(json.dumps(product_serialized,cls=DjangoJSONEncoder),content_type='application/json')
 
         

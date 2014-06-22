@@ -173,13 +173,13 @@ define(
                     ASSOC_TBL = document.getElementById("_breakdown_assoc_tbl");
                     $('#_breakdown_assoc_add_btn').click(insert_assoc_handler);
 
-                    var sp_getter_b = sp_getter.bind(sp_getter,kit_id,false/*not_include_other_store*/,false/*not_include_lookup_type_tag*/);
+                    var sp_getter_b = sp_getter.bind(sp_getter,kit_id,false/*not_include_other_store*/);
                     async.waterfall([sp_getter_b],function(error,result){
                         if(error){
                             error_lib.alert_error(error);
                             return;
                         }
-                        KIT = product_json_helper.get_sp_from_p(result.product);
+                        KIT = product_json_helper.get_sp_from_p(result);
                         refresh_table();
                     });
                 },

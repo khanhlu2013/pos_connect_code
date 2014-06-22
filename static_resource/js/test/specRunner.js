@@ -41,10 +41,8 @@
     // Define all of your specs here. These are RequireJS modules.
     var specs = [
         // 'spec/store_product/sp_updator_spec' -> pending spec
-        // 'spec/store_product/sp_online_getter_spec'
         // 'spec/store_product/sp_online_updator_spec'
-        // 'spec/store_product/sp_online_searcher_spec'               
-        // 'spec/receipt/receipt_pusher_spec'        
+        // 'spec/receipt/receipt_pusher_spec'
         'spec/sale/displaying_scan/displaying_scan_computer_spec'   
         // 'spec/sale/scan/sku_scan_not_found_handler_spec' 
         // 'spec/sale/displaying_scan/ds_2_ui_spec'         

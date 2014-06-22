@@ -7,7 +7,7 @@ define(
     ui
 )
 {
-    return function (product_id,is_include_other_store,is_lookup_type_tag,callback){
+    return function (product_id,is_include_other_store,callback){
         ui.ui_block('get product info ...')
         $.ajax({
              url : '/product/search_by_pid'
@@ -16,7 +16,6 @@ define(
             ,data : {
                  'product_id':product_id
                 ,'is_include_other_store':is_include_other_store
-                ,'is_include_lookup_type_tag':is_lookup_type_tag
             }
             ,success : function(data,status_str,xhr){
                 ui.ui_unblock();

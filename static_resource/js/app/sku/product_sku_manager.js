@@ -154,14 +154,14 @@ define(
                 },
                 open: function( event, ui ){
                     ui_button.set_css('_sp_sku_manage_exit_btn','orange','remove',true);
-                    var sp_getter = sp_online_getter.bind(sp_online_getter,product_id,true/*is_include_other_store*/,false/*is_lookup_type_tag*/);
+                    var sp_getter = sp_online_getter.bind(sp_online_getter,product_id,true/*is_include_other_store*/);
                     async.waterfall([sp_getter],function(error,result){
 
                         if(error){
                             alert(error);
                             return;
                         }
-                        var product_json = result.product;
+                        var product_json = result;
                         $('#sku_management_dialog').dialog( "option" , "title" , 'manage sku: ' + product_json.name);
                         var sp_json = product_json_helper.get_sp_from_p(product_json,STORE_ID);
                         data_2_table(product_json);

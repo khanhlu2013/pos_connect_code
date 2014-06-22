@@ -36,14 +36,11 @@ define(
         var sp_prompt_b = sp_prompt.show_prompt.bind
         (
              sp_prompt.show_prompt
-
-            ,store_product//sp_prefill
+ 			,store_product//cur_sp
+            ,null//sp_duplicate
             ,false//is_prompt_sku
             ,null//sku_prefill
-            ,null//lookup_type_tag
-            ,false//is_sku_management
-            ,false//is_group_management
-            ,false//is_kit_management
+            ,false//this product is created offline. chance is internet is donw. when updating this product, lets not go online to get lookup type tag
             ,null//suggest_product
         );		
 

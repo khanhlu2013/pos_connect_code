@@ -180,7 +180,34 @@ define(
         }
     }
 
-    function exe(sku_str,prod_lst,lookup_type_tag,store_id,couch_server_url,callback){
+    function duplicate(sp,store_id,couch_server_url,callback){
+        //ajax to create
+        var sp_prompt_b = sp_prompt.show_prompt.bind(
+             sp_prompt.show_prompt
+            ,null//cur_sp 
+            ,sp//sp_prefill
+            ,true//is_prompt_sku
+            ,null//sku_prefill
+            ,true//go online to get lookup type tag
+            ,null//suggest_product
+        );      
+        var product_id = null;//creating new product
+        var create_b = _create.bind(_create,product_id);
+        async.waterfall([sp_prompt_b,create_b],function(error,result){
+            if(error){
+                callback(error);
+                return;
+            }
+            
+            product = result;
+            var sync_if_nessesary_b = sync_if_nessesary.bind(sync_if_nessesary,store_id,couch_server_url);
+            async.waterfall([sync_if_nessesary_b],function(error,result){
+                callback(error,product);
+            });
+        });        
+    }
+
+    function exe(sku_str,prod_lst,store_id,couch_server_url,callback){
         
         var prodStore_prodSku_0_0 = product_json_helper.extract_prod_store__prod_sku(prod_lst,store_id,false/*is_prod_store*/,false/*is_prod_sku*/,sku_str);
         var prodStore_prodSku_0_1 = product_json_helper.extract_prod_store__prod_sku(prod_lst,store_id,false/*is_prod_store*/,true/*is_prod_sku*/,sku_str);
@@ -212,14 +239,11 @@ define(
                     //ajax to create
                     var sp_prompt_b = sp_prompt.show_prompt.bind(
                          sp_prompt.show_prompt
-
-                        ,null//sp_prefill
+                        ,null//cur_sp 
+                        ,null//sp_duplicate
                         ,true//is_prompt_sku
                         ,sku_str//sku_prefill
-                        ,lookup_type_tag
-                        ,false//is_sku_management
-                        ,false//is_group_management
-                        ,false//is_kit_management
+                        ,true//go online to get lookup type tag
                         ,selected_product//suggest_product
                     );      
                     var product_id = (selected_product == null ? null : selected_product.product_id);
@@ -243,6 +267,7 @@ define(
 
     return{
          exe:exe
+        ,duplicate:duplicate 
         ,ERROR_CANCEL_select_product_option : ERROR_CANCEL_select_product_option
     }
 });

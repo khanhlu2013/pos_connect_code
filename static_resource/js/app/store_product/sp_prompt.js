@@ -5,6 +5,9 @@ define(
     ,'app/store_product/sp_json_helper'
     ,'lib/ui/table'
     ,'lib/ui/button'
+    ,'lib/ajax_helper'
+    ,'lib/async'
+    ,'lib/error_lib'
 ]
 ,function (
      sp_validator
@@ -12,11 +15,15 @@ define(
     ,sp_json_helper
     ,ui_table
     ,ui_button
+    ,ajax_helper
+    ,async
+    ,error_lib
 ){
     var ERROR_CANCEL_STORE_PRODUCT_PROMPT = 'ERROR_CANCEL_STORE_PRODUCT_PROMPT';
     var MANAGE_SKU_BUTTON_PRESS = 'MANAGE_SKU_BUTTON_PRESS';
     var MANAGE_GROUP_BUTTON_PRESS = 'MANAGE_GROUP_BUTTON_PRESS';
     var MANAGE_KIT_BUTTON_PRESS = 'MANAGE_KIT_BUTTON_PRESS';
+    var DUPLICATE_BUTTON_PRESS = 'DUPLICATE_BUTTON_PRESS';
 
     function cancel_btn_handler(callback){
         $("#store_product_prompt_dialog").dialog("close");
@@ -33,6 +40,10 @@ define(
     function kit_click_handler(callback){
         $("#store_product_prompt_dialog").dialog("close");
         callback(MANAGE_KIT_BUTTON_PRESS);                       
+    }
+    function duplicate_click_handler(callback){
+        $("#store_product_prompt_dialog").dialog("close");
+        callback(DUPLICATE_BUTTON_PRESS);                       
     }
 
     function ok_btn_handler(is_prompt_sku,callback){
@@ -132,13 +143,13 @@ define(
         }                      
     }
 
-    function display_kit_data(sp_prefill){
+    function display_kit_data(cur_sp){
 
-        if(sp_prefill.breakdown_assoc_lst === undefined){
+        if(cur_sp.breakdown_assoc_lst === undefined){
             return;
         }
 
-        if(sp_prefill.breakdown_assoc_lst.length == 0){
+        if(cur_sp.breakdown_assoc_lst.length == 0){
             return;
         }
 
@@ -146,9 +157,9 @@ define(
         tbl.innertHTML = "";
         var tr;var td;
 
-        for(var i = 0;i<sp_prefill.breakdown_assoc_lst.length;i++){
+        for(var i = 0;i<cur_sp.breakdown_assoc_lst.length;i++){
             var tr = tbl.insertRow(-1);
-            var assoc = sp_prefill.breakdown_assoc_lst[i];
+            var assoc = cur_sp.breakdown_assoc_lst[i];
 
             var td = tr.insertCell(-1);
             td.innerHTML = assoc.breakdown.name;
@@ -164,16 +175,16 @@ define(
         ui_table.set_header(col_info_lst,tbl);
     }
 
-    function display_group_data(sp_prefill){
-        if(sp_prefill.group_set.length == 0){
+    function display_group_data(cur_sp){
+        if(cur_sp.group_set.length == 0){
             return;
         }
 
         var tbl = document.getElementById('group_tbl');
         var tr;var td;
-        for(var i = 0;i<sp_prefill.group_set.length;i++){
+        for(var i = 0;i<cur_sp.group_set.length;i++){
             var tr = tbl.insertRow(-1);
-            var group = sp_prefill.group_set[i];
+            var group = cur_sp.group_set[i];
 
             var td = tr.insertCell(-1);
             td.innerHTML = group.name;
@@ -186,16 +197,16 @@ define(
     }
 
     function show_prompt(
-             sp_prefill
+             cur_sp//current sp that we are editing
+            ,sp_duplicate//scenario when we are duplicating sp
             ,is_prompt_sku
             ,sku_prefill
-            ,lookup_type_tag
-            ,is_sku_management
-            ,is_group_management
-            ,is_kit_management
-            ,suggest_product
+            ,is_get_lookup_type_tag_online
+            ,suggest_product//this sp is used in a scenario where we are adding this product (using the same pid) to our store. when this sp is not null, the user have an option to click on buttons to use same name,price,crv,cost
             ,callback
         ){
+            var is_product_exist = (cur_sp != null && cur_sp.product_id != null);
+
             //HTML
             var html_str = 
                 '<div id="store_product_prompt_dialog">' +
@@ -298,8 +309,8 @@ define(
 
             //TITLE
             var title = null;
-            if(sp_prefill){
-                title = 'edit ' + sp_prefill.name;
+            if(cur_sp){
+                title = 'edit ' + cur_sp.name;
             }else{
                 if(suggest_product){
                     title = 'add: ' + suggest_product.name;
@@ -314,20 +325,17 @@ define(
             var sku_click_handler_b = sku_click_handler.bind(sku_click_handler,callback);
             var group_click_handler_b = group_click_handler.bind(group_click_handler,callback);
             var kit_click_handler_b = kit_click_handler.bind(group_click_handler,callback);
-
+            var duplicate_click_handler_b = duplicate_click_handler.bind(duplicate_click_handler,callback);
             var buttons =
             {
                 ok_btn : {id: '_sp_prompt_ok_btn', click:ok_btn_handler_b},
                 cancel_btn : {id: '_sp_prompt_cancel_btn', click:cancel_btn_handler_b}
             }
-            if(is_sku_management){
+            if(is_product_exist){
                 buttons['sku_btn'] = {id: '_sp_prompt_sku_btn',click:sku_click_handler_b,text:'sku'};
-            }
-            if(is_group_management){
                 buttons['group_btn'] = {id: '_sp_prompt_group_btn',click:group_click_handler_b, text:'group'};
-            }
-            if(is_kit_management){
                 buttons['kit_btn'] = {id: '_sp_prompt_kit_btn',click:kit_click_handler_b, text:'kit'};
+                buttons['duplicate_btn'] = {id: '_sp_prompt_duplicate_btn',click:duplicate_click_handler_b, text:'duplicate'};
             }
 
             $(html_str).appendTo('body')
@@ -344,20 +352,19 @@ define(
                         $(this).parent().find('button:contains("sku")').css({'float':'left'});
                         $(this).parent().find('button:contains("group")').css({'float':'left'});
                         $(this).parent().find('button:contains("kit")').css({'float':'left'});
+                        $(this).parent().find('button:contains("duplicate")').css({'float':'left'});
                     },
                     open: function( event, ui ) 
                     {
                         ui_button.set_css('_sp_prompt_ok_btn','green','ok',true);
                         ui_button.set_css('_sp_prompt_cancel_btn','orange','remove',true);
-                        if(is_sku_management){
+                        if(is_product_exist){
                             ui_button.set_css('_sp_prompt_sku_btn','blue',null/*glyphicon*/,true);
-                        }
-                        if(is_group_management){
                             ui_button.set_css('_sp_prompt_group_btn','blue',null/*glyphicon*/,true);
-                        }         
-                        if(is_kit_management){
                             ui_button.set_css('_sp_prompt_kit_btn','blue',null/*glyphicon*/,true);
-                        }                                          
+                            ui_button.set_css('_sp_prompt_duplicate_btn','blue',null/*glyphicon*/,true);
+                        }
+                                    
                         if(suggest_product){
                             //name
                             $('#suggest_name_btn').click(function(){
@@ -409,20 +416,20 @@ define(
                             }
                         });
 
-                        if(sp_prefill!=null){
-                            $('#product_name_txt').val(sp_prefill.name);
-                            $('#product_price_txt').val(sp_prefill.price);
-                            $('#product_value_customer_price_txt').val(sp_prefill.value_customer_price);                             
-                            $('#product_crv_txt').val(sp_prefill.crv);
-                            $('#product_taxable_check').prop('checked', sp_prefill.is_taxable);
-                            $('#product_sale_report_check').prop('checked', sp_prefill.is_sale_report);
-                            $('#product_type_txt').val(sp_prefill.p_type);
-                            $('#product_tag_txt').val(sp_prefill.p_tag);     
-                            $('#product_cost_txt').val(sp_prefill.cost);     
-                            $('#product_vendor_txt').val(sp_prefill.vendor);   
-                            $('#product_buydown_txt').val(sp_prefill.buydown); 
+                        if(cur_sp!=null){
+                            $('#product_name_txt').val(cur_sp.name);
+                            $('#product_price_txt').val(cur_sp.price);
+                            $('#product_value_customer_price_txt').val(cur_sp.value_customer_price);                             
+                            $('#product_crv_txt').val(cur_sp.crv);
+                            $('#product_taxable_check').prop('checked', cur_sp.is_taxable);
+                            $('#product_sale_report_check').prop('checked', cur_sp.is_sale_report);
+                            $('#product_type_txt').val(cur_sp.p_type);
+                            $('#product_tag_txt').val(cur_sp.p_tag);     
+                            $('#product_cost_txt').val(cur_sp.cost);     
+                            $('#product_vendor_txt').val(cur_sp.vendor);   
+                            $('#product_buydown_txt').val(cur_sp.buydown); 
 
-                            if(sp_prefill.breakdown_assoc_lst != undefined && sp_prefill.breakdown_assoc_lst.length != 0){
+                            if(cur_sp.breakdown_assoc_lst != undefined && cur_sp.breakdown_assoc_lst.length != 0){
                                 $('#product_crv_txt').attr('readonly', 'readonly');
                                 $('#product_cost_txt').attr('readonly', 'readonly');
                                 $('#product_buydown_txt').attr('readonly', 'readonly');
@@ -431,24 +438,39 @@ define(
                                 $('#product_cost_txt').val(""); //does not matter what is the value, we will override this to empty
                                 $('#product_buydown_txt').val(""); //does not matter what is the value, we will override this to empty   
 
-                                $('#_compute_cost_lbl').text(sp_json_helper.compute_amount(sp_prefill,'cost'));
-                                $('#_compute_crv_lbl').text(sp_json_helper.compute_amount(sp_prefill,'crv'));
-                                $('#_compute_buydown_lbl').text(sp_json_helper.compute_amount(sp_prefill,'buydown'));
+                                $('#_compute_cost_lbl').text(sp_json_helper.compute_amount(cur_sp,'cost'));
+                                $('#_compute_crv_lbl').text(sp_json_helper.compute_amount(cur_sp,'crv'));
+                                $('#_compute_buydown_lbl').text(sp_json_helper.compute_amount(cur_sp,'buydown'));
                             }else{
                                 $('#_compute_cost_lbl').hide();
                                 $('#_compute_crv_lbl').hide();
                                 $('#_compute_buydown_lbl').hide();
                             }
                         }else{
-                            var is_taxable_prefill = null;
-                            if(suggest_product){
-                                is_taxable_prefill = product_json_helper.get_suggest_info('is_taxable',suggest_product);
+                            if(sp_duplicate){
+                                $('#product_name_txt').val(sp_duplicate.name);
+                                $('#product_price_txt').val(sp_duplicate.price);
+                                $('#product_value_customer_price_txt').val(sp_duplicate.value_customer_price);                             
+                                $('#product_crv_txt').val(sp_duplicate.crv);
+                                $('#product_taxable_check').prop('checked', sp_duplicate.is_taxable);
+                                $('#product_sale_report_check').prop('checked', sp_duplicate.is_sale_report);
+                                $('#product_type_txt').val(sp_duplicate.p_type);
+                                $('#product_tag_txt').val(sp_duplicate.p_tag);     
+                                $('#product_cost_txt').val(sp_duplicate.cost);     
+                                $('#product_vendor_txt').val(sp_duplicate.vendor);   
+                                $('#product_buydown_txt').val(sp_duplicate.buydown);                                
                             }else{
-                                is_taxable_prefill = false;
-                            }
+                                var is_taxable_prefill = null;
+                                if(suggest_product){
+                                    is_taxable_prefill = product_json_helper.get_suggest_info('is_taxable',suggest_product);
+                                }else{
+                                    is_taxable_prefill = false;
+                                }
 
-                            $('#product_taxable_check').prop('checked', is_taxable_prefill);
-                            $('#product_sale_report_check').prop('checked', true);                         
+                                $('#product_taxable_check').prop('checked', is_taxable_prefill);
+                                $('#product_sale_report_check').prop('checked', true);                                     
+                            }
+                    
                         }
 
                         //SKU INFO
@@ -462,41 +484,42 @@ define(
                             $('label[for="product_sku_txt"]').hide();
                         }
 
-                        if(is_group_management){
-                            if(sp_prefill != null){
-                                display_group_data(sp_prefill);
-                            }
-                        }
-
-                        if(is_kit_management){
-                            if(sp_prefill != null){
-                                display_kit_data(sp_prefill);
-                            }
+                        if(is_product_exist){
+                            display_group_data(cur_sp);
+                            display_kit_data(cur_sp);
                         }
 
                         //auto complete for product type and tag
-                        if(lookup_type_tag){
-                            var type_lst = Object.keys(lookup_type_tag)
-                            $('#product_type_txt').on('autocompletechange', function() {
-                                var tag_lst = lookup_type_tag[$(this).val()];
-                                if(tag_lst == undefined){
-                                    tag_lst = [];
+                        if(is_get_lookup_type_tag_online){
+                            var get_lookup_type_tag_b = ajax_helper.exe.bind(ajax_helper.exe,'product/get_lookup_type_tag','GET','get type/tag data ...',null/*data*/);
+                            async.waterfall([get_lookup_type_tag_b],function(error,result){
+                                if(error){
+                                    error_lib.alert_error(error);
+                                }else{
+                                    lookup_type_tag = result;
+                                    var type_lst = Object.keys(lookup_type_tag)
+                                    $('#product_type_txt').on('autocompletechange', function() {
+                                        var tag_lst = lookup_type_tag[$(this).val()];
+                                        if(tag_lst == undefined){
+                                            tag_lst = [];
+                                        }
+                                        $( "#product_tag_txt" ).autocomplete({
+                                             source: tag_lst
+                                            ,minLength: 0
+                                        })
+                                        .bind('focus', function () {
+                                            $(this).autocomplete("search");
+                                        });
+                                    });
+                                    $( "#product_type_txt" ).autocomplete({
+                                         source: type_lst
+                                        ,minLength: 0
+                                    })
+                                    .bind('focus', function () {
+                                        $(this).autocomplete("search");
+                                    });                                      
                                 }
-                                $( "#product_tag_txt" ).autocomplete({
-                                     source: tag_lst
-                                    ,minLength: 0
-                                })
-                                .bind('focus', function () {
-                                    $(this).autocomplete("search");
-                                });
                             });
-                            $( "#product_type_txt" ).autocomplete({
-                                 source: type_lst
-                                ,minLength: 0
-                            })
-                            .bind('focus', function () {
-                                $(this).autocomplete("search");
-                            });            
                         }
                     },
                     close: function (event, ui) {
@@ -510,7 +533,7 @@ define(
         ,MANAGE_SKU_BUTTON_PRESS : MANAGE_SKU_BUTTON_PRESS
         ,MANAGE_GROUP_BUTTON_PRESS : MANAGE_GROUP_BUTTON_PRESS
         ,MANAGE_KIT_BUTTON_PRESS : MANAGE_KIT_BUTTON_PRESS
+        ,DUPLICATE_BUTTON_PRESS : DUPLICATE_BUTTON_PRESS
         ,show_prompt : show_prompt
     }
-
 });

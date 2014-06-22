@@ -52,21 +52,17 @@ define(
     }
 
     function prompt(store_id,product_getter_result,callback){
-        var product = product_getter_result.product;
-        var lookup_type_tag = product_getter_result.lookup_type_tag;
+        var product = product_getter_result;
         var sp = product_json_helper.get_sp_from_p(product,store_id);
         
         var sp_prompt_b = sp_prompt.show_prompt.bind
         (
              sp_prompt.show_prompt
-
-            ,sp//sp_prefill
+            ,sp//cur_sp
+            ,null//sp_duplicate
             ,false//is_prompt_sku
             ,null//sku_prefill
-            ,lookup_type_tag
-            ,true//is_sku_management
-            ,true//is_group_management
-            ,true//is_kit_management
+            ,true//need to get lookup type tag
             ,null//suggest_product
         );
 
@@ -76,7 +72,7 @@ define(
     }
 
     function exe(product_id,store_id,couch_server_url,callback){
-        var getter_b = sp_online_getter.bind(sp_online_getter,product_id,false/*is_include_other_store*/,true/*is_lookup_type_tag*/);
+        var getter_b = sp_online_getter.bind(sp_online_getter,product_id,false/*is_include_other_store*/);
         var prompt_b = prompt.bind(prompt,store_id);
         var updator_b = updator.bind(updator,store_id,product_id,couch_server_url);
         async.waterfall([getter_b,prompt_b,updator_b],function(error,result){

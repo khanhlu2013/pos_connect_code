@@ -20,7 +20,8 @@ from django.contrib.auth.decorators import login_required
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^$',login_required(sp_search_view.sp_search_index_view.as_view()),name='sp_search'),   
+    url(r'^$',login_required(sp_search_view.sp_search_index_view.as_view()),name='sp_search'), 
+    url(r'^angular$',login_required(sp_search_view.sp_search_index_angular_view.as_view())),   
     url(r'^admin/', include(admin.site.urls)), 
     url(r'^account/login/$','django.contrib.auth.views.login',{'template_name':'login.html'},name = 'liquor_login_named_url'),
     url(r'^account/logout/$','django.contrib.auth.views.logout_then_login',name = 'liquor_logout_named_url'),

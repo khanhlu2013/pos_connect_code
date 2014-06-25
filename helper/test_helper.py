@@ -4,7 +4,7 @@ from couch import couch_util
 from couchdb import ResourceNotFound
 from django.contrib.auth.models import User
 import os
-from store_product import new_sp_inserter
+from store_product import new_sp_inserter,old_sp_inserter
 
 def create_bare_sp(store_id):
     return new_sp_inserter.exe(
@@ -18,6 +18,41 @@ def create_bare_sp(store_id):
         ,p_type = None
         ,p_tag = None
         ,sku_str = None
+        ,cost = None
+        ,vendor = None
+        ,buydown = None
+    )
+
+def create_bare_sp(store_id,sku_str):
+    return new_sp_inserter.exe(
+         store_id = store_id
+        ,name = 'x'
+        ,price = 1
+        ,value_customer_price = None
+        ,crv = None
+        ,is_taxable = False
+        ,is_sale_report = False
+        ,p_type = None
+        ,p_tag = None
+        ,sku_str = sku_str
+        ,cost = None
+        ,vendor = None
+        ,buydown = None
+    )
+
+def insert_old_sp(store_id,product_id,sku_str):
+    return old_sp_inserter.exe(
+         product_id = product_id
+        ,store_id = store_id
+        ,name = 'x'
+        ,price = 1
+        ,value_customer_price = None
+        ,crv = None
+        ,is_taxable = False
+        ,is_sale_report = False
+        ,p_type = None
+        ,p_tag = None
+        ,assoc_sku_str = sku_str 
         ,cost = None
         ,vendor = None
         ,buydown = None

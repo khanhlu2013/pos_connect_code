@@ -307,8 +307,3 @@ couch_acl_validator_test: client have write permission that follow these 4 rules
     . change pt after the fact
 . get group take a long time: migh be i don't need to get all item inside the group. let it load when user click on group.
 
-
-
----
-duplicate item 
-

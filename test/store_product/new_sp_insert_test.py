@@ -24,6 +24,7 @@ class test(WebTest):
         """
         #.insert a new store_product to store
         user,store = test_helper.create_user_then_store()
+        
         name = 'my product name'
         price = 1.1
         crv = 1.2

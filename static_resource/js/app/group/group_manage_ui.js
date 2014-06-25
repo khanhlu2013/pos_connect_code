@@ -3,7 +3,7 @@ define(
      'lib/async'
     ,'lib/error_lib'
     ,'lib/ui/ui'
-    ,'app/group/group_lst_getter'
+    ,'app/group/group_getter'
     ,'app/group/group_inserter'
     ,'app/group/group_updator'
     ,'app/group/group_action_perform'    
@@ -17,7 +17,7 @@ define(
      async
     ,error_lib
     ,ui
-    ,group_lst_getter
+    ,group_getter
     ,group_inserter
     ,group_updator
     ,group_action_perform    
@@ -39,23 +39,18 @@ define(
         }
     }
 
-    function update_group_handler(group){
-        var updator_b = group_updator.exe.bind(group_updator.exe,group);
+    function update_group_handler(group_id){
+        var updator_b = group_updator.exe.bind(group_updator.exe,group_id);
         async.waterfall([updator_b],function(error,result){
             if(error){
                 if(error == group_prompt.ERROR_REMOVE_GROUP_PROMPT ){
-                    var group_remove_b = group_remove.exe.bind(group_remove.exe,group.id);
+                    var group_remove_b = group_remove.exe.bind(group_remove.exe,group_id);
                     async.waterfall([group_remove_b],function(error,result){
                         if(error){
                             error_lib.alert_error(error);     
                             return;
                         }else{
-                            for(var i = 0;i<GROUP_LST.length;i++){
-                                if(GROUP_LST[i].id == group.id){
-                                    GROUP_LST.splice(i,1);
-                                    break;
-                                }
-                            }
+                            GROUP_LST = result;
                             display_group_table();
                         }
                     })
@@ -70,21 +65,30 @@ define(
         });
     }
 
-    function action_group_handler(group){
-        if(group.store_product_set.length == 0){
-            ui.ui_alert('group is empty');
-            return;
-        }
-
-        action_perform_b = group_action_perform.exe.bind(group_action_perform.exe,group);
-        async.waterfall([action_perform_b],function(error,result){
+    function action_group_handler(group_id){
+        var group_item_getter_b = group_getter.get_item.bind(group_getter.get_item,group_id);
+        async.waterfall([group_item_getter_b],function(error,result){
             if(error){
                 error_lib.alert_error(error);
                 return;
             }
-            GROUP_LST = result.group_lst;
-            display_group_table();
-        });
+            group = result;
+            if(group.store_product_set.length == 0){
+                ui.ui_alert('group is empty');
+                return;
+            }
+
+            action_perform_b = group_action_perform.exe.bind(group_action_perform.exe,group);
+            async.waterfall([action_perform_b],function(error,result){
+                if(error){
+                    error_lib.alert_error(error);
+                    return;
+                }
+                GROUP_LST = result.group_lst;
+                display_group_table();
+            });            
+        })
+
     }
 
     function insert_group_handler(){
@@ -118,7 +122,7 @@ define(
             td.className = 'info';
             (function(group){
                 td.addEventListener('click',function(){
-                    action_group_handler(group);
+                    action_group_handler(group.id);
                 });   
             })(GROUP_LST[i]);
 
@@ -128,7 +132,7 @@ define(
             td.className = 'info';
             (function(group){
                 td.addEventListener('click',function(){
-                    update_group_handler(group);
+                    update_group_handler(group.id);
                 });   
             })(GROUP_LST[i]);
         }
@@ -175,7 +179,7 @@ define(
                     ui_button.set_css('_manage_group_cancel_btn','orange','remove',true);
 
                     $('#_manage_group_add_group_btn').click(insert_group_handler);
-                    async.waterfall([group_lst_getter.exe],function(error,result){
+                    async.waterfall([group_getter.get_lst],function(error,result){
                         GROUP_LST = result;
                         display_group_table();
                     }); 

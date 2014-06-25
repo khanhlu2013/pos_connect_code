@@ -27,7 +27,7 @@ def group_update_view(request):
 
 
     #validate group id 
-    group = group_getter.get_group_item(id=id)
+    group = group_getter.get_group_item(id=id,store_id=cur_login_store.id)
     if group.store.id != cur_login_store.id:
         return
 
@@ -41,6 +41,6 @@ def group_update_view(request):
         group.store_product_set.add(*sp_lst)
 
     #response
-    group = group_getter.get_group_item(id=id)
+    group = group_getter.get_group_item(id=id,store_id=cur_login_store.id)
     group_serialized = serialize_group_lst([group,])[0]
     return HttpResponse(json.dumps(group_serialized,cls=DjangoJSONEncoder), mimetype='application/json')

@@ -274,6 +274,7 @@ UPGRADE FEATURE
 . remove all alert
 . export to excel
 . profit page
+. lower case sku: case insensitive
 ------------------------------------------------------------------------------------------------------------------
 SKILL IMPROVEMENT
 . continuous test->build->deploy
@@ -306,4 +307,20 @@ couch_acl_validator_test: client have write permission that follow these 4 rules
     . report of pt
     . change pt after the fact
 . get group take a long time: migh be i don't need to get all item inside the group. let it load when user click on group.
+
+
+---------------------
+. finish front name search
+. test front search sku/name with e2e and karma
+. incorporate angular-ui see if i can do multi layer dialog
+. finish the add product
+
+---------------------
+. finish the sku front search
+    . figure out a way to catch sku search error: sku can not contain space
+    . when search, submit to server sku in lower case.
+    . sku entry: convert to lower case.
+
+---------------------
+make the group lighter to load
 

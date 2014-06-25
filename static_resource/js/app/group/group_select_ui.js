@@ -2,7 +2,7 @@ define(
 [
      'lib/async'
     ,'app/group/group_json_helper'
-    ,'app/group/group_lst_getter'    
+    ,'app/group/group_getter'    
     ,'lib/error_lib'
     ,'lib/ui/ui'
     ,'lib/ui/table'
@@ -12,7 +12,7 @@ define(
 (
      async
     ,group_json_helper
-    ,group_lst_getter
+    ,group_getter
     ,error_lib
     ,ui
     ,ui_table
@@ -131,7 +131,7 @@ define(
                 {
                     ui_button.set_css('_group_select_ok_btn','green','ok',true);
                     ui_button.set_css('_group_select_cancel_btn','orange','remove',true); 
-                    async.waterfall([group_lst_getter.exe],function(error,result){
+                    async.waterfall([group_getter.get_lst],function(error,result){
                         if(error){
                             error_lib.alert_error(error);
                             return;

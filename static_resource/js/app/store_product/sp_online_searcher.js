@@ -80,6 +80,14 @@ define
         });           
     }
 
+    function sku_search_angular(sku_search_str,$http){
+        return $http({
+            url:'/product/angular_product_page_search_by_sku',
+            methodL:'GET',
+            params:{sku_str:sku_search_str}
+        });
+    }
+
     function name_search_angular(name_search_str,$http){
         return $http({
             url: '/product/search_by_name',

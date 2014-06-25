@@ -49,7 +49,7 @@ def group_action_perform_view(request):
 
 
     #validate group id 
-    group = group_getter.get_group_item(id=id_raw)
+    group = group_getter.get_group_item(id=id_raw,store_id=cur_login_store.id)
     if group.store.id != cur_login_store.id:
         return
 

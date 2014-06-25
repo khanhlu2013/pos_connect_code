@@ -324,3 +324,5 @@ couch_acl_validator_test: client have write permission that follow these 4 rules
 ---------------------
 make the group lighter to load
 
+[290043, 293621, 293622, 293623, 293624]
+

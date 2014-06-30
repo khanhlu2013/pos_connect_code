@@ -23,9 +23,9 @@
 #         user,store = test_helper.create_user_then_store()
 
 #         #INIT
-#         kit_sp = test_helper.create_bare_sp(store.id)
-#         bd_1_sp = test_helper.create_bare_sp(store.id)
-#         bd_2_sp = test_helper.create_bare_sp(store.id)
+#         kit_sp = test_helper.insert_new_sp(store.id)
+#         bd_1_sp = test_helper.insert_new_sp(store.id)
+#         bd_2_sp = test_helper.insert_new_sp(store.id)
 #         Kit_breakdown_assoc.objects.create(kit_id=kit_sp.id,breakdown_id=bd_1_sp.id,qty=1)
 #         Kit_breakdown_assoc.objects.create(kit_id=kit_sp.id,breakdown_id=bd_2_sp.id,qty=1)
 

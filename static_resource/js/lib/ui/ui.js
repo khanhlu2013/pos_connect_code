@@ -146,12 +146,53 @@ define(
             });     
     }
 
+    function angular_alert($modal,title,message,warning_level){
+        
+        var warning_class = ""
+        if(warning_level == 1){
+            warning_class = 'alert alert-success'
+        }else if(warning_level == 2){
+            warning_class = 'alert alert-info'
+        }else if(warning_level == 3){
+            warning_class = 'alert alert-warning'
+        }else if(warning_level == 4){
+            warning_class = 'alert alert-danger'
+        }
+
+
+        var template = 
+            '<div class="modal-header ' + warning_class + '">' +
+                '<h3 class="modal-title">' + title + '</h3>' +
+            '</div>' +
+            '<div class="modal-body">' +
+                '<h1>' + message + '</h1>' +
+            '</div>' +
+            '<div class="modal-footer">' +
+                '<button type="submit" class="btn btn-primary" ng-click="ok()">OK</button>' +
+            '</div>'
+        ;
+
+
+        var AlertCtrl = function($scope,$modalInstance){
+            $scope.ok = function(){
+                $modalInstance.close();
+            }
+        }
+
+        var dlg = $modal.open({
+            template : template,
+            controller : AlertCtrl,
+            size : 'sm'
+        });
+    }
+
     return {
          ui_confirm:ui_confirm
         ,ui_alert:ui_alert
         ,ui_block:ui_block
         ,ui_unblock:ui_unblock
         ,ui_prompt:ui_prompt
+        ,angular_alert:angular_alert
         ,ERROR_CANCEL_PROMPT:ERROR_CANCEL_PROMPT
     }
 });

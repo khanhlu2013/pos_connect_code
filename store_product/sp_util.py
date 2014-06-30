@@ -22,3 +22,4 @@ def calculate_field(sp_json,field):
 	for assoc in assoc_lst:
 		result += ( assoc['qty'] * calculate_field(assoc['breakdown'],field) )
 	return result
+

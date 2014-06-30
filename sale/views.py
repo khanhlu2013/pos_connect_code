@@ -9,7 +9,7 @@ from payment_type.models import Payment_type
 from store.models import Store
 
 class Sale_view(TemplateView):
-    template_name = 'sale.html'
+    template_name = 'sale_app_old.html'
 
     def dispatch(self,request,*args,**kwargs):
         self.cur_login_store = self.request.session.get('cur_login_store')

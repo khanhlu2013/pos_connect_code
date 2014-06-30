@@ -10,6 +10,8 @@ define
 {
     var NAME_SEARCH_ERROR_EMPTY = "NAME_SEARCH_ERROR_EMPTY";
     var SKU_SEARCH_ERROR_EMPTY = "SKU_SEARCH_ERROR_EMPTY";
+    var SKU_SEARCH_ERROR_CONTAIN_SPACE = 'SKU_SEARCH_ERROR_CONTAIN_SPACE';
+    var NAME_SEARCH_ERROR_2_WORDS_MAX = 'NAME_SEARCH_ERROR_2_WORDS_MAX';
 
     function name_sku_search(search_str,callback){
         var search_str = search_str.trim();
@@ -81,27 +83,61 @@ define
     }
 
     function sku_search_angular(sku_search_str,$http){
-        return $http({
+        var result = {error:null,promise:null};
+
+        sku_search_str = sku_search_str.trim();
+        if(sku_search_str.length == 0){
+            result.error = SKU_SEARCH_ERROR_EMPTY;
+            return result;
+        }
+
+        if(sku_search_str.indexOf(' ') >= 0){
+            result.error = SKU_SEARCH_ERROR_CONTAIN_SPACE;
+            return result;            
+        }
+
+        result.promise = $http({
             url:'/product/angular_product_page_search_by_sku',
             methodL:'GET',
             params:{sku_str:sku_search_str}
         });
+
+        return result;
     }
 
     function name_search_angular(name_search_str,$http){
-        return $http({
-            url: '/product/search_by_name',
+        var result = {error:null,promise:null};
+        name_search_str = name_search_str.trim();
+        
+        if(name_search_str.length == 0){
+            result.error = NAME_SEARCH_ERROR_EMPTY;
+            return result;
+        }
+        
+        var words = name_search_str.split(' ');
+        if(words.length > 2){
+            result.error = NAME_SEARCH_ERROR_2_WORDS_MAX;
+            return result;
+        }
+
+        result.promise = $http({
+            url: '/product/angular_product_page_search_by_name',
             method : "GET",
             params: {name_str:name_search_str}
         });
+        return result;
+
     }
 
     return{
          NAME_SEARCH_ERROR_EMPTY : NAME_SEARCH_ERROR_EMPTY
         ,SKU_SEARCH_ERROR_EMPTY:SKU_SEARCH_ERROR_EMPTY 
+        ,SKU_SEARCH_ERROR_CONTAIN_SPACE:SKU_SEARCH_ERROR_CONTAIN_SPACE
+        ,NAME_SEARCH_ERROR_2_WORDS_MAX : NAME_SEARCH_ERROR_2_WORDS_MAX
         ,name_search : name_search
         ,sku_search: sku_search
         ,name_sku_search:name_sku_search
         ,name_search_angular:name_search_angular
+        ,sku_search_angular:sku_search_angular
     }
 });

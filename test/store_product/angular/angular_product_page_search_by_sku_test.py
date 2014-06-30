@@ -1,6 +1,7 @@
 from django_webtest import WebTest
 from helper import test_helper
 from store_product import add_sku_cm
+
 class test(WebTest):
 
     def setUp(self):
@@ -47,7 +48,7 @@ class test(WebTest):
         sku_a = 'sku_a'
         sku_b = 'sku_b'
         #i create product_a with sku_a
-        product_a = test_helper.create_bare_sp(store_id=my_store.id,sku_str=sku_a)
+        product_a = test_helper.insert_new_sp(store_id=my_store.id,sku_str=sku_a)
         print('product_a id ' + str(product_a.id))
         #she import product_a from my store using sku_a
         test_helper.insert_old_sp(store_id=her_store.id,product_id=product_a.id,sku_str=sku_a)
@@ -56,7 +57,7 @@ class test(WebTest):
         add_sku_cm.exe(sku_str=sku_b,product_id=product_a.id,store_id=her_store.id)
 
         #she create product_b with sku_b
-        product_b = test_helper.create_bare_sp(store_id=her_store.id,sku_str=sku_b)
+        product_b = test_helper.insert_new_sp(store_id=her_store.id,sku_str=sku_b)
         print('product_b id ' + str(product_b.id))
 
         #TEST
@@ -105,14 +106,14 @@ class test(WebTest):
         #i create product_a with sku_a and product_b with sku_b
         sku_a = 'sku_a'
         sku_b = 'sku_b'
-        product_a = test_helper.create_bare_sp(store_id=my_store.id,sku_str=sku_a)
-        product_b = test_helper.create_bare_sp(store_id=my_store.id,sku_str=sku_b)
+        product_a = test_helper.insert_new_sp(store_id=my_store.id,sku_str=sku_a)
+        product_b = test_helper.insert_new_sp(store_id=my_store.id,sku_str=sku_b)
 
         #she import product_b from my store using sku_b
         test_helper.insert_old_sp(store_id=her_store.id,product_id=product_b.id,sku_str=sku_b)
 
         #she create product_c with sku_a
-        product_c = test_helper.create_bare_sp(store_id=her_store.id,sku_str=sku_a)
+        product_c = test_helper.insert_new_sp(store_id=her_store.id,sku_str=sku_a)
 
         #she add sku_a to product_b
         add_sku_cm.exe(sku_str=sku_a,product_id=product_b.id,store_id=her_store.id)

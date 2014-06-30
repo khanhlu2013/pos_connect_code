@@ -13,7 +13,7 @@ class test(WebTest):
         #foreman  run -e .env,test.env python manage.py test test.store_product.sp_search_by_pid_view_test:test.test
 
         user,store = test_helper.create_user_then_store()
-        sp = test_helper.create_bare_sp(store.id)
+        sp = test_helper.insert_new_sp(store.id)
 
         res = self.app.get(
              '/product/search_by_pid'

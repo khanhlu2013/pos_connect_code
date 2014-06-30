@@ -36,4 +36,5 @@ urlpatterns = patterns('',
 
     #ANGULAR
     url(r'^angular_product_page_search_by_sku$',login_required(angular_search_view.angular_product_page_search_by_sku)),
+    url(r'^angular_product_page_search_by_name$',login_required(angular_search_view.angular_product_page_search_by_name)),
 )

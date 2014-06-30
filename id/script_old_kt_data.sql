@@ -3,4 +3,4 @@ from latest_layer
 join product on latest_layer.pid = product.pid
 join sku on sku.pid = latest_layer.pid
 join productoption on latest_layer.store = productoption.store and latest_layer.pid = productoption.pid
-where latest_layer.store = 15 
+where latest_layer.store = 1

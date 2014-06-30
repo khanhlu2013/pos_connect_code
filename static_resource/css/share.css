@@ -35,6 +35,17 @@ html,body {
   width: auto;
 }
 
+.alnright{
+  text-align: right;
+}
+.alncenter{
+  text-align: center;
+}
+
+.btn-float-left{
+  float: left;
+}
+
 .sale_shortcut_tbl td { min-width: 100px; height: 50}
 .sale_shortcut_parent_selected {background-color:#CFF5B5;}
 .sale_shortcut_parent_unselected {background-color:#FFFFFF;}

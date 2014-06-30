@@ -9,7 +9,6 @@
 
 --------------------------------------------------------------------------
 
-~. july 10-11-12-13 back packing
 ~. parakett idea: a trypod with remote. a keyboard of there own sound
 ~. i want to be a blues student.
 ~. build a play ground for parakeet. how to engage with your paraket. time. 
@@ -306,23 +305,25 @@ couch_acl_validator_test: client have write permission that follow these 4 rules
 . payment type
     . report of pt
     . change pt after the fact
-. get group take a long time: migh be i don't need to get all item inside the group. let it load when user click on group.
-
+. get group take a long time: migh be i don't need to get all item inside the group. let it load when user click on group
 
 ---------------------
-. finish front name search
 . test front search sku/name with e2e and karma
-. incorporate angular-ui see if i can do multi layer dialog
 . finish the add product
+----------------------
+. edit product
+    . it should be inside store_product app.
+        . move product into store_product: we are working on the front interface. This mean we are manageing store_product by pulling product info as needed. product is not the main focus. the main focus is managing store_product. so we need a store_product app to manage store_product. think high level: app. THINK APP.
 
----------------------
-. finish the sku front search
-    . figure out a way to catch sku search error: sku can not contain space
-    . when search, submit to server sku in lower case.
-    . sku entry: convert to lower case.
 
----------------------
-make the group lighter to load
+----------------------
+project: store_product app
+    . experiment with config.js to remove export: ui_bootstrap
 
-[290043, 293621, 293622, 293623, 293624]
+    . test if ng-model is working ok for edit.
+    . test on old system if suggestion is a p and not a sp
+    . right now i want to display extra info for my_sp inside info controller
+    . i need to create a sp_info controller
+
+
 

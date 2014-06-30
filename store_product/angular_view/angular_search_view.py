@@ -5,6 +5,16 @@ from django.core.serializers.json import DjangoJSONEncoder
 from django.http import HttpResponse
 import json
 
+def _name_search_qs_alterer(qs,search_str):
+    words = search_str.split()
+
+    if len(words) == 1:
+        return qs.filter(name__icontains=search_str)
+    elif len(words) == 2:
+        return qs.extra(where=['store_product_store_product.name ILIKE %s'], params=['%' + words[0] + '%' + words[1] + '%'])
+    else:
+        return None 
+
 def angular_product_page_search_by_sku(request):
     """
         INTRO: there are 3 object return from this sku search view
@@ -16,7 +26,7 @@ def angular_product_page_search_by_sku(request):
             . first i look for 1_1, and if i find it, i stop there since i don't need 1_0 and 0_0 extra data to donwload
             . only if 1_1 is empty then i go look for 1_0 (a list of sp) and 0_0 (a list of p)
     """
-    sku_str = request.GET['sku_str']
+    sku_str = request.GET['sku_str'].lower()
     cur_login_store = request.session.get('cur_login_store')
 
     qs = Store_product.objects.filter(store_id=cur_login_store.id,product__prodskuassoc__sku__sku=sku_str,product__prodskuassoc__store_product_set__store_id=cur_login_store.id)
@@ -50,5 +60,15 @@ def angular_product_page_search_by_sku(request):
     return HttpResponse(json.dumps(response,cls=DjangoJSONEncoder),content_type='application/json')
 
 
+def angular_product_page_search_by_name(request):
+    search_str = request.GET['name_str']
+    search_str = search_str.strip()
+    if len(search_str) == 0:
+        return
 
+    cur_login_store = request.session.get('cur_login_store')
+    qs = Store_product.objects.filter(store_id = cur_login_store.id)
+    qs = list(_name_search_qs_alterer(qs,search_str))
+    sp_lst_serialized = sp_serializer.Store_product_serializer(qs,many=True).data
+    return HttpResponse(json.dumps(sp_lst_serialized,cls=DjangoJSONEncoder),content_type='application/json')    
 

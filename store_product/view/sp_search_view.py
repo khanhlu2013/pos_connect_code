@@ -8,8 +8,9 @@ from django.core.serializers.json import DjangoJSONEncoder
 from store_product.sp_master_util import get_lookup_type_tag
 from django.db.models import Q
 
+
 class sp_search_index_angular_view(TemplateView):
-    template_name = 'product_angular.html'
+    template_name = 'store_product_app.html'
     
     def dispatch(self,request,*args,**kwargs):
         self.cur_login_store = self.request.session.get('cur_login_store')
@@ -24,7 +25,7 @@ class sp_search_index_angular_view(TemplateView):
 
 
 class sp_search_index_view(TemplateView):
-    template_name = 'product.html'
+    template_name = 'store_product_app_old.html'
     
     def dispatch(self,request,*args,**kwargs):
         self.cur_login_store = self.request.session.get('cur_login_store')
@@ -37,6 +38,15 @@ class sp_search_index_view(TemplateView):
         context['TAX_RATE'] = self.cur_login_store.tax_rate
         return context
 
+def _name_search_qs_alterer(qs,search_str):
+    words = search_str.split()
+
+    if len(words) == 1:
+        return qs.filter(store_product__name__icontains=search_str)
+    elif len(words) == 2:
+        return qs.extra(where=['store_product_store_product.name ILIKE %s'], params=['%' + words[0] + '%' + words[1] + '%'])
+    else:
+        return None 
 
 def is_store_prod_sku_in_lst(prod_lst,store_id,sku_str):
     """
@@ -52,16 +62,6 @@ def is_store_prod_sku_in_lst(prod_lst,store_id,sku_str):
 
     return result;
 
-
-def _name_search_qs_alterer(qs,search_str):
-    words = search_str.split()
-
-    if len(words) == 1:
-        return qs.filter(store_product__name__icontains=search_str)
-    elif len(words) == 2:
-        return qs.extra(where=['store_product_store_product.name ILIKE %s'], params=['%' + words[0] + '%' + words[1] + '%'])
-    else:
-        return None
 
 def sp_search_by_name_sku_view(request):
     search_str = request.GET['search_str']

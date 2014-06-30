@@ -23,9 +23,9 @@ class test(WebTest):
         """        
         user,store = test_helper.create_user_then_store()
 
-        kit_sp = test_helper.create_bare_sp(store.id)
-        bd_1_sp = test_helper.create_bare_sp(store.id)
-        bd_2_sp = test_helper.create_bare_sp(store.id)
+        kit_sp = test_helper.insert_new_sp(store.id)
+        bd_1_sp = test_helper.insert_new_sp(store.id)
+        bd_2_sp = test_helper.insert_new_sp(store.id)
         
         breakdown_assoc_lst = []
         assoc_1 = {}

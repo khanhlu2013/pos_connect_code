@@ -19,7 +19,7 @@ class test(WebTest):
         #foreman  run -e .env,test.env python manage.py test test.mix_match.mix_match_insert_view_test:test.test       
 
         user,store = test_helper.create_user_then_store()
-        sp = test_helper.create_bare_sp(store_id=store.id)
+        sp = test_helper.insert_new_sp(store_id=store.id)
 
         #MAKE REQUEST
         mix_match_name = '3 for $5'

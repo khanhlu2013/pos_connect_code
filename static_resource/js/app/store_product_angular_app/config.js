@@ -3,7 +3,7 @@ requirejs.config({
     ,paths: {
          app : 'app'
         ,lib : 'lib'
-        ,angular:["//ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular.min",["lib/angular.min"]]
+        ,angular:["//ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular",["lib/angular.min"]]
         ,angular_animate:["//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.18/angular-animate.min"]
         ,ui_bootstrap:["//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.min",["lib/ui-bootstrap-tpls-0.11.0"]]
     }

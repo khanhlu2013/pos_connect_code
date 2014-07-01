@@ -17,20 +17,7 @@ define(
 	
 	var mod =  angular.module('store_product_app.controllers', ['store_product_app.services','store_product_app.filters']);
 
-    mod.controller('SpInfoCtrl',['$scope'],function($scope){
-
-
-
-
-
-
-
-
-
-
-
-
-        //STORE PRODUCT CRUD
+    mod.controller('SpCrudCtrl',['$scope','$modal',function($scope,$modal){
         var sp_info_template_str =
             '<div class="modal-header">' +
                 '<h3 class="modal-title">Info: {{sp}}</h3>' +
@@ -143,7 +130,7 @@ define(
             '</div>'
         ;      
 
-        var SpCrudCtrl = function($scope,$modalInstance,sp,is_display_only,suggest_sp,duplicate_sp){
+        var SpCrudModalCtrl = function($scope,$modalInstance,sp,is_display_only,suggest_sp,duplicate_sp){
             $scope.sp = sp;
             $scope.is_display_only = is_display_only;
             $scope.suggest_sp = suggest_sp;
@@ -168,10 +155,22 @@ define(
             }
         }
 
+        // $scope.sp_crud_entry = function(sp){
+        //     var promise = $scope.sp_crud(sp,true,null,null);
+        //     promise.then(
+        //         function(sp){
+        //             alert('return sp : ' + sp);
+        //         },
+        //         function(){
+
+        //         }
+        //     );
+        // }
+
         $scope.sp_crud = function(sp,is_display_only,suggest_sp,duplicate_sp){
             var dlg = $modal.open({
                 template: sp_info_template_str,
-                controller: SpCrudCtrl,
+                controller: SpCrudModalCtrl,
                 scope:$scope,
                 size: 'lg',
                 resolve : {
@@ -181,6 +180,8 @@ define(
                     ,duplicate_sp : function(){return duplicate_sp}
                 }
             });
+            return dlg.result;
+
             dlg.result.then(
                 function(sp){
                     alert('return sp : ' + sp);
@@ -190,23 +191,11 @@ define(
                 }
             );
         }   
-
-
-
-
-
-
-
-
-
-
-
-
-    });
+    }]);
 
 
     //MAIN PRODUCT SEARCH PAGE CTRL
-    mod.controller('ProductCtrl',['$scope','$http','$modal','sp_lst_float_2_strFilter' ,function($scope,$http,$modal,sp_lst_float_2_strFilter){
+    mod.controller('MainCtrl',['$scope','$http','$modal','sp_lst_float_2_strFilter' ,function($scope,$http,$modal,sp_lst_float_2_strFilter){
 
         //PRODUCT PAGE SORT --------------------------------------------------------------------------------------------------------
         $scope.cur_sort_column = 'name';

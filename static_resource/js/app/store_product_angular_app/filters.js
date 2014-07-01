@@ -44,14 +44,16 @@ define(['angular'], function (angular)
         };
 	});
 
- 	//helper filter to calculate kit related field. we should only use this method for 3 fields only: crv,buydow,cost
+ 	
     function compute_sp_kit_field(sp,field,is_recursive_call){
+        //helper filter to calculate kit related field. we should only use this method for 3 fields only: crv,buydow,cost. it will return null if sp is not a kit
+        
         //NOT A KIT
         if(sp.breakdown_assoc_lst.length == 0){
-            if(is_recursive_call){
-                return sp[field];
-            }else{
+            if(is_recursive_call===undefined){
                 return null;
+            }else{
+                return sp[field];
             }
         }
 

@@ -3,7 +3,7 @@
     <title>pos connect </title>
 
 </head>
-<body ng-controller="ProductCtrl as productCtrl">
+<body ng-controller="MainCtrl">
 
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
@@ -73,7 +73,7 @@
             <th class="info" ng-click="column_click('vc_price')">vc_price <span ng-class="get_sort_class('vc_price')"></span></th>
             <th>edit</th>                
         </tr>    
-        <tr ng-repeat="sp in sp_lst | orderBy:cur_sort_column:cur_sort_desc | filter:local_filter">
+        <tr ng-controller="SpCrudCtrl" ng-repeat="sp in sp_lst | orderBy:cur_sort_column:cur_sort_desc | filter:local_filter">
             <td>{{sp.name}}</td>
             <td class="alnright">{{sp.price | currency}}</td>
             <td class="alnright">{{sp.crv | currency | not_show_zero }}</td>

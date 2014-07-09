@@ -44,7 +44,7 @@ def exe_master(kit_id,store_id,assoc_json_lst):
 
 def exe_couch(kit_id,store_id,assoc_json_lst):
     sp = store_product_couch_getter.exe(kit_id,store_id)
-    sp['breakdonw_assoc_lst'] = assoc_json_lst
+    sp['breakdown_assoc_lst'] = assoc_json_lst
     
     db = couch_util.get_store_db(store_id)
     db.save(sp)

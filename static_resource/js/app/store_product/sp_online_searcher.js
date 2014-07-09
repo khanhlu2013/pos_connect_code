@@ -98,7 +98,7 @@ define
 
         result.promise = $http({
             url:'/product/angular_product_page_search_by_sku',
-            methodL:'GET',
+            method:'GET',
             params:{sku_str:sku_search_str}
         });
 
@@ -126,7 +126,6 @@ define
             params: {name_str:name_search_str}
         });
         return result;
-
     }
 
     return{

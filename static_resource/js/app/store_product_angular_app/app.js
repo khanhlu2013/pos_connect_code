@@ -1,41 +1,55 @@
 define(
 [   
      'angular'
+    //------------------     
     ,'app/store_product_angular_app/controllers'
-    //------------------
     ,'ui_bootstrap'
-    // ,'angular_animate'
 ]
 ,function
 (
      angular
 )
 {
-    var product_app = angular.module('store_product_app',['ui.bootstrap','store_product_app.controllers'  /*,'ngAnimate'*/]);
+    var product_app = angular.module('store_product_app',['ui.bootstrap','store_product_app.controllers'], function($httpProvider) {
+        //boilerplate code to make angularjs to work with django in ajax term
+        $httpProvider.defaults.xsrfCookieName = 'csrftoken';
+        $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';           
+        $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
 
-    product_app.directive('ngEnter', function () {
-        return function (scope, element, attrs) {
-            element.bind("keydown keypress", function (event) {
-                if(event.which === 13) {
-                    scope.$apply(function (){
-                        scope.$eval(attrs.ngEnter);
-                    });
-
-                    event.preventDefault();
+        var param = function(obj) {
+            var query = '', name, value, fullSubName, subName, subValue, innerObj, i;
+              
+            for(name in obj) {
+                value = obj[name];
+                
+                if(value instanceof Array) {
+                    for(i=0; i<value.length; ++i) {
+                        subValue = value[i];
+                        fullSubName = name + '[' + i + ']';
+                        innerObj = {};
+                        innerObj[fullSubName] = subValue;
+                        query += param(innerObj) + '&';
+                    }
                 }
-            });
-        };
-    });
-
-    product_app.filter('not_show_zero', function () {
-        return function(input) {
-            if(input == '$0.00'){
-                return "";
-            }else{
-                return input
+                else if(value instanceof Object) {
+                    for(subName in value) {
+                        subValue = value[subName];
+                        fullSubName = name + '[' + subName + ']';
+                        innerObj = {};
+                        innerObj[fullSubName] = subValue;
+                        query += param(innerObj) + '&';
+                    }
+                }
+                else if(value !== undefined && value !== null)
+                    query += encodeURIComponent(name) + '=' + encodeURIComponent(value) + '&';
             }
+            return query.length ? query.substr(0, query.length - 1) : query;
         };
-    });    
+        // Override $http service's default transformRequest
+        $httpProvider.defaults.transformRequest = [function(data) {
+            return angular.isObject(data) && String(data) !== '[object File]' ? param(data) : data;
+        }];
+    });
 
     return product_app;
 });

@@ -3,7 +3,7 @@ import datetime
 from django.core.serializers.json import DjangoJSONEncoder
 import json
 from receipt import receipt_getter
-from receipt.models import serialize_receipt_lst
+from receipt.receipt_serializer import serialize_receipt_lst
 
 def get_receipt_view(request):
     cur_login_store = request.session.get('cur_login_store')

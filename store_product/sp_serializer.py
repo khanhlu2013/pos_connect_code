@@ -86,7 +86,7 @@ class Breakdown_assoc_serializer(serializers.ModelSerializer):
 
     class Meta:
         model = Kit_breakdown_assoc
-        fields = ('breakdown','qty')
+        fields = ('id','breakdown','qty')
 
 
 class Product_serializer(serializers.ModelSerializer):

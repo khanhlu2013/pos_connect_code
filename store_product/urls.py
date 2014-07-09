@@ -8,6 +8,8 @@ from store_product.angular_view import angular_search_view
 urlpatterns = patterns('',
     # namespace='store_product'
     url(r'^update_sp$',login_required(sp_update_view.sp_update_view)),
+    url(r'^update_sp_angular$',login_required(sp_update_view.sp_update_angular_view)),
+
     url(r'^insert_new_sp$',login_required(new_sp_insert_view.new_sp_insert_view)),
     url(r'^insert_old_sp$',login_required(old_sp_insert_view.old_sp_insert_view)),
 
@@ -15,7 +17,8 @@ urlpatterns = patterns('',
     url(r'^search_by_sku$',login_required(sp_search_view.sp_search_by_sku_view)),
     url(r'^search_by_name$',login_required(sp_search_view.sp_search_by_name_view)),
     url(r'^search_by_name_sku$',login_required(sp_search_view.sp_search_by_name_sku_view)),
-    url(r'^search_by_pid$',login_required(sp_search_view.sp_search_by_pid_view)),    
+    url(r'^search_by_name_sku_angular$',login_required(sp_search_view.sp_search_by_name_sku_angular_view)),
+    url(r'^search_by_pid$',login_required(sp_search_view.sp_search_by_pid_view)),
 
     #SKU
     url(r'^sku/add$',login_required(sp_sku_view.add_ajax)),
@@ -24,12 +27,14 @@ urlpatterns = patterns('',
     #GROUP
     url(r'^group/get$',login_required(sp_group_getter_view.sp_group_getter_view)),
     url(r'^group/update$',login_required(sp_group_update_view.sp_group_update_view)),
+    url(r'^group/update_angular$',login_required(sp_group_update_view.sp_group_update_angular_view)),
 
     #AFTER PUSH RECEIPT
     url(r'^create_new_sp_for_receipt_ln$',login_required(create_new_sp_for_receipt_ln_view)),
 
     #UPDATE KIT
     url(r'^kit/update$',login_required(sp_kit_update_view.sp_kit_update_view)),
+    url(r'^kit/update_angular$',login_required(sp_kit_update_view.sp_kit_update_angular_view)),
 
     #LOOKUP TYPE TAG
     url(r'^get_lookup_type_tag$',login_required(get_lookup_type_tag_view.get_lookup_type_tag_view)),

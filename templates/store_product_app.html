@@ -47,7 +47,7 @@
                         <input 
                             type="text" 
                             class="form-control" 
-                            placeholder="filter" 
+                            placeholder="local filter" 
                             onClick="this.select();" 
                             ng-model="local_filter"
                         >                        
@@ -73,19 +73,19 @@
             <th class="info" ng-click="column_click('vc_price')">vc_price <span ng-class="get_sort_class('vc_price')"></span></th>
             <th>edit</th>                
         </tr>    
-        <tr ng-controller="SpCrudCtrl" ng-repeat="sp in sp_lst | orderBy:cur_sort_column:cur_sort_desc | filter:local_filter">
+        <tr ng-repeat="sp in sp_lst | orderBy:cur_sort_column:cur_sort_desc | filter:local_filter">
             <td>{{sp.name}}</td>
             <td class="alnright">{{sp.price | currency}}</td>
-            <td class="alnright">{{sp.crv | currency | not_show_zero }}</td>
+            <td class="alnright">{{sp|compute_sp_kit_field:'crv'|currency|not_show_zero}}</td>
             <td class="alncenter"><span ng-class="sp.is_taxable ? 'glyphicon glyphicon-ok' : 'glyphicon glyphicon-remove' "></span></td>
             <td class="alncenter"><span ng-class="sp.is_sale_report ? 'glyphicon glyphicon-ok' : 'glyphicon glyphicon-remove' "></span></td>
             <td>{{sp.p_type}}</td>
             <td>{{sp.p_tag}}</td>
             <td>{{sp.vendor}}</td>
-            <td class="alnright">{{sp.cost | currency}}</td>
-            <td class="alnright">{{sp.buydown | currency}}</td>
-            <td class="alnright">{{sp.value_customer_price | currency}}</td>
-            <td class="info" ng-click="sp_crud(sp,true,null,null)"><span class="glyphicon glyphicon-pencil"></span></td>
+            <td class="alnright">{{sp|compute_sp_kit_field:'cost'|currency|not_show_zero}}</td>
+            <td class="alnright">{{sp|compute_sp_kit_field:'buydown'|currency|not_show_zero}}</td>
+            <td class="alnright">{{sp.value_customer_price|currency|not_show_zero}}</td>
+            <td ng-click="display_product_info(sp)" class="info"><span class="glyphicon glyphicon-pencil"></span></td>
         </tr>
     </table>
     {{sp_lst}}    

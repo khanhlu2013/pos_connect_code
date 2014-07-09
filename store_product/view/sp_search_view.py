@@ -7,7 +7,7 @@ from store_product import sp_serializer
 from django.core.serializers.json import DjangoJSONEncoder
 from store_product.sp_master_util import get_lookup_type_tag
 from django.db.models import Q
-
+from store_product.models import Store_product
 
 class sp_search_index_angular_view(TemplateView):
     template_name = 'store_product_app.html'
@@ -62,29 +62,6 @@ def is_store_prod_sku_in_lst(prod_lst,store_id,sku_str):
 
     return result;
 
-
-def sp_search_by_name_sku_view(request):
-    search_str = request.GET['search_str']
-    search_str = search_str.strip()
-    if len(search_str) == 0:
-        return
-
-    cur_login_store = request.session.get('cur_login_store')
-    qs = Product.objects.filter(store_set__id = cur_login_store.id)
-    words = search_str.split()
-
-    if len(words) == 1:
-        qs = qs.filter(Q(sku_set__sku__exact=search_str)|Q(store_product__name__icontains=search_str))
-    elif len(words) == 2:
-        qs = _name_search_qs_alterer(qs=qs,search_str=search_str)
-    else:
-        return
-    qs = qs.distinct() #since we are joining with sku db and if a product have many sku, we could end up with duplicate result. (lets say product with name 'a' have 3 sku, and we search for name 'a' which comeout 3 results)        
-    qs = qs.prefetch_related('store_product_set')
-    prod_lst_serialized = sp_serializer.serialize_product_lst(qs)
-    return HttpResponse(json.dumps(prod_lst_serialized,cls=DjangoJSONEncoder),content_type='application/json')
-
-
 def sp_search_by_name_view(request):
     search_str = request.GET['name_str']
     search_str = search_str.strip()
@@ -120,4 +97,47 @@ def sp_search_by_pid_view(request):
 
     return HttpResponse(json.dumps(product_serialized,cls=DjangoJSONEncoder),content_type='application/json')
 
-        
+
+def sp_search_by_name_sku_view(request):
+    search_str = request.GET['search_str']
+    search_str = search_str.strip()
+    if len(search_str) == 0:
+        return
+
+    cur_login_store = request.session.get('cur_login_store')
+    qs = Product.objects.filter(store_set__id = cur_login_store.id)
+    words = search_str.split()
+
+    if len(words) == 1:
+        qs = qs.filter(Q(sku_set__sku__exact=search_str)|Q(store_product__name__icontains=search_str))
+    elif len(words) == 2:
+        qs = _name_search_qs_alterer(qs=qs,search_str=search_str)
+    else:
+        return
+    qs = qs.distinct() #since we are joining with sku db and if a product have many sku, we could end up with duplicate result. (lets say product with name 'a' have 3 sku, and we search for name 'a' which comeout 3 results)        
+    qs = qs.prefetch_related('store_product_set')
+    prod_lst_serialized = sp_serializer.serialize_product_lst(qs)
+    return HttpResponse(json.dumps(prod_lst_serialized,cls=DjangoJSONEncoder),content_type='application/json')
+
+
+def sp_search_by_name_sku_angular_view(request):
+    search_str = request.GET['search_str']
+    search_str = search_str.strip()
+    if len(search_str) == 0:
+        return
+
+    cur_login_store = request.session.get('cur_login_store')
+    qs = Store_product.objects.filter(store = cur_login_store)
+    words = search_str.split()
+
+    if len(words) == 1:
+        qs = qs.filter(Q(product__sku_set__sku__exact=search_str)|Q(name__icontains=search_str))
+    elif len(words) == 2:
+        qs = _name_search_qs_alterer(qs=qs,search_str=search_str)
+    else:
+        return
+
+    qs = qs.distinct() #since we are joining with sku db and if a product have many sku, we could end up with duplicate result. (lets say product with name 'a' have 3 sku, and we search for name 'a' which comeout 3 results)        
+    sp_lst_serialized = sp_serializer.Store_product_serializer(qs,many=True).data
+    return HttpResponse(json.dumps(sp_lst_serialized,cls=DjangoJSONEncoder),content_type='application/json')
+

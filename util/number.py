@@ -20,3 +20,9 @@ def get_double_from_str(num_str):
         result = float(num_str) 
 
     return result
+
+def get_double_from_obj(obj):
+    if obj == None:
+        return None
+    else:
+        return float(obj)

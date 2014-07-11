@@ -4,7 +4,8 @@ define(
     ,'app/store_product/sp_online_searcher'
     ,'lib/ui/ui'
     //---------------
-	,'app/store_product_angular_app/service/service'
+	,'app/store_product_angular_app/service/sp.crud'
+    ,'app/store_product_angular_app/service/sp.create'
     ,'app/store_product_angular_app/filters'    
     ,'lib/directive/share_directive'        
 ], function 
@@ -15,8 +16,9 @@ define(
 )
 {
 	'use strict';
-    var mod =  angular.module('store_product_app.controllers', ['store_product_app.services','store_product_app.filters','share_directive']);
-    mod.controller('MainCtrl',['$scope','$http','$modal','sp_lst_float_2_strFilter','sp_info_service',function($scope,$http,$modal,sp_lst_float_2_strFilter,sp_info_service){
+    var mod =  angular.module('store_product_app.controllers', ['sp_app.sp','sp_app.create','store_product_app.filters','share_directive']);
+
+    mod.controller('MainCtrl',['$scope','$http','$modal','sp_lst_float_2_strFilter','sp_app.sp.info.service','sp_app.sp.create.service',function($scope,$http,$modal,sp_lst_float_2_strFilter,sp_info_service,create_service){
         //SORT
         $scope.cur_sort_column = 'name';
         $scope.cur_sort_desc = false;
@@ -59,7 +61,18 @@ define(
             promise.success(function(data, status, headers, config){
                 $scope.sp_lst = sp_lst_float_2_strFilter(data['prod_store__prod_sku__1_1']);
                 if($scope.sp_lst.length == 0){
-                    ui.angular_alert($modal,'under construction','no result, product creator to be implemented',2);
+                    var prod_store__prod_sku__0_0 = data['prod_store__prod_sku__0_0']
+                    var prod_store__prod_sku__1_0 = data['prod_store__prod_sku__1_0']
+
+                    var promise = create_service(prod_store__prod_sku__0_0,prod_store__prod_sku__1_0,$scope.sku_search_str);
+                    promise.then(
+                        function(data){
+                            alert('return from create service: ' + JSON.stringify(data));
+                        },
+                        function(create_sp_reject_reason){
+                            alert('reject reason from create service: ' + create_sp_reject_reason);
+                        }
+                    );
                 }                            
             });
             promise.error(function(data, status, headers, config){

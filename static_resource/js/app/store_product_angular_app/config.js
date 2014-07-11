@@ -9,7 +9,7 @@ requirejs.config({
     }
     ,shim:{
          angular : {'exports':'angular'}
-        ,ui_bootstrap : {deps:["angular"],'exports':'ui_bootstrap'}
+        ,ui_bootstrap : {deps:["angular"]/*,'exports':'ui_bootstrap'*/}
         ,angular_animate : {deps:["angular"],'exports':'angular_animate'}
     }
 });

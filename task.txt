@@ -319,25 +319,17 @@ couch_acl_validator_test: client have write permission that follow these 4 rules
 
 ----------------------
 project: store_product app
-    . experiment with config.js to remove export: ui_bootstrap
     . test on old system if suggestion is a p and not a sp
-    . sp_search (sku/name) -> move to angular service
-    . re-edit sp can not reset or click ok
+    . move alert into service
+
+    . validate: circular kit client validation
+    . group.manage ; group.edit
+    . sp.sku.edit
     
-    
-    . ui.angular_alert -> move into service    
-    . remove alert in angular js
+    . add product when sku scan is not found: suggestion 2 kinds: product exist in our store: 1_0; and product not exist in our store: 0_0
 
 
-. name space module like sp_app_search, group_app_select, group_app_manage, sp_app_kit_prompt, sp_app_kit_manage ...
 
-. remove all modal backdrop 
-
-. there are 2 place that share the same logic:
-    . modal search and select: it is perfect as a service
-    . product app also have a search. seem like there is another lower search service. if i want to allow 3,4 letter search, i need to update only 1 place.
-    . is this belong to store_product_app. because i don't think so. because this is a lower level service where group also need this 
-    . propose: search_and_select_service, and low_level_search_service both locate in side service folder of store_product_app
 
 
         

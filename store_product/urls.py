@@ -11,6 +11,7 @@ urlpatterns = patterns('',
     url(r'^update_sp_angular$',login_required(sp_update_view.sp_update_angular_view)),
 
     url(r'^insert_new_sp$',login_required(new_sp_insert_view.new_sp_insert_view)),
+    url(r'^insert_new_sp_angular$',login_required(new_sp_insert_view.new_sp_insert_angular_view)),
     url(r'^insert_old_sp$',login_required(old_sp_insert_view.old_sp_insert_view)),
 
     #SEARCH

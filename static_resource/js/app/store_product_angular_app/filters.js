@@ -79,6 +79,11 @@ define(['angular'], function (angular)
         */
         // we should only use this method for 3 fields only: crv,buydow,cost. RETURN NULL IF SP IS NOT A KIT
         
+        //NOT A SP
+        if(sp.breakdown_assoc_lst == undefined){
+            return undefined;
+        }
+
         //NOT A KIT
         if(sp.breakdown_assoc_lst.length == 0){
             return sp[field];
@@ -90,7 +95,7 @@ define(['angular'], function (angular)
             var assoc = sp.breakdown_assoc_lst[i];
             result += (compute_sp_kit_field(assoc.breakdown,field) * assoc.qty);
         }
-        return result;
+        return parseFloat(result.toFixed(2));
     }
     filter_mod.filter('compute_sp_kit_field',function(){
         return compute_sp_kit_field;
@@ -98,9 +103,24 @@ define(['angular'], function (angular)
 
     filter_mod.filter('is_kit',function(){
         return function(sp){
-            return sp.breakdown_assoc_lst.length != 0;
+            if(sp.breakdown_assoc_lst != undefined){
+                return sp.breakdown_assoc_lst.length != 0;
+            }else{
+                return false;
+            }
         }
     })
 
+    filter_mod.filter('is_obj_sp',function(){
+        return function(obj){
+            return obj.store != undefined;
+        }
+    })
+
+    filter_mod.filter('is_obj_p',function(){
+        return function(obj){
+            return obj.product_id != undefined;
+        }
+    })
 	return filter_mod;
 });

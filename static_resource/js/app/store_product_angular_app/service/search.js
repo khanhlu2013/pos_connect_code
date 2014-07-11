@@ -9,7 +9,7 @@ define(
 )
 {
 	var mod = angular.module('sp_app.search',['share_directive']);
-	mod.factory('search_and_select_service',['$modal',function($modal){
+	mod.factory('sp_app.search_dlg.service',['$modal',function($modal){
 		var template = 
 			'<div class="modal-header">' +
 				'<h3 class="modal-title">search</h3>' +

@@ -8,7 +8,7 @@ define(
 )
 {
     var mod = angular.module('group_app.service',[]);
-    mod.factory('group_app.group_select_service',['$modal','$http',function($modal,$http){
+    mod.factory('group_app.group.select.service',['$modal','$http',function($modal,$http){
         var template = 
             '<div class="modal-header">' +
                 '<h3 class="modal-title">{{is_select_multiple?"select one or many groups" : "select a group"}}</h3>' +

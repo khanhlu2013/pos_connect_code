@@ -4,7 +4,31 @@ from store_product import sp_serializer
 from decimal import Decimal
 from django.core.serializers.json import DjangoJSONEncoder
 import json
-from util import boolean
+from util import boolean,number
+
+def new_sp_insert_angular_view(request):
+    sp = json.loads(request.POST['sp'])
+    sku_str = request.POST['sku_str']
+    store_id = request.session.get('cur_login_store').id
+
+    sp = new_sp_inserter.exe (
+         store_id = store_id
+        ,name = sp['name']
+        ,price = number.get_double_from_obj(sp['price'])
+        ,value_customer_price = number.get_double_from_obj(sp['value_customer_price'])
+        ,crv = number.get_double_from_obj(sp['crv'])
+        ,is_taxable = sp['is_taxable']
+        ,is_sale_report = sp['is_sale_report']
+        ,p_type = sp['p_type']
+        ,p_tag = sp['p_tag']
+        ,sku_str = sku_str
+        ,cost = number.get_double_from_obj(sp['cost'])
+        ,vendor = sp['vendor']
+        ,buydown = number.get_double_from_obj(sp['buydown'])
+    )
+    sp_serialized = sp_serialized.Store_product_serializer(sp).data
+    return HttpResponse(json.dumps(sp_serialized,cls=DjangoJSONEncoder),content_type="application/json")
+
 
 def new_sp_insert_view(request):
     name_raw                    = request.POST['name'] 
@@ -33,7 +57,6 @@ def new_sp_insert_view(request):
     vendor                      = vendor_raw.strip() if len(vendor_raw.strip()) !=0 else None
     buydown                     = Decimal(buydown_raw) if len(buydown_raw.strip()) !=0 else None 
 
-    cur_login_store = request.session
     store_id = request.session.get('cur_login_store').id
 
     sp = new_sp_inserter.exe (

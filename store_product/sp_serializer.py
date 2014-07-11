@@ -22,6 +22,7 @@ class Group_serializer(serializers.ModelSerializer):
         model = Group
         fields = ('id','name')
 
+
 class Store_product_serializer(serializers.ModelSerializer):
     product_id = serializers.Field(source='product.id')
     store_id = serializers.Field(source='store.id')

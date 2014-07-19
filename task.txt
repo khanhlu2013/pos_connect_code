@@ -35,8 +35,18 @@ node lib/r.js -o name=app/sale/sale_entry out=app/sale/sale_entry__min__.js base
 node lib/r.js -o name=app/product/product_entry out=app/product/product_entry__min__.js baseUrl=. paths.jquery=empty: paths.jquery_ui=empty: paths.jquery_block_ui=empty: paths.bootstrap=empty: 
 
 ----------------------------------------------------------------------------
-TEMPLATE
 
+float validation
+'<input ng-model="$parent.mm.price" name="price" type="number" min="0.01" required>' +
+'<label ng-show="form.price.$error.required && !form.price.$error.number && !form.price.$error.min" class="error">required</label>' +
+'<label ng-show="form.price.$error.number" class="error">invalid number</label>' +
+'<label ng-show="form.price.$error.min" class="error">invalid price</label>' +
+
+integer validation
+'<input ng-model="$parent.mm.qty" name="qty" ng-pattern="integer_validation" type="number" min="2" required>' +
+'<label ng-show="form.qty.$error.required && !form.qty.$error.number && !form.qty.$error.min" class="error">required</label>' +
+'<label ng-show="form.qty.$error.number || form.qty.$error.pattern" class="error">invalid number</label>' +
+'<label ng-show="form.qty.$error.min" class="error">at least 2</label>' +
 
 
 
@@ -266,7 +276,6 @@ UPGRADE FEATURE
 . zip code: geographic corporation
 . base on profit best selling product 
 . clean out dead inventory
-. more or less info in sp prompt
 . heroku log: how to warn user about usage. how to charge user on extra full db loading.
 . void log
 . search pagination
@@ -274,12 +283,22 @@ UPGRADE FEATURE
 . export to excel
 . profit page
 . lower case sku: case insensitive
-. make prompt with multiple select work with a local filter ( maybe even with pagination)
+. improve product creation/suggestion:
+    . when select suggestion to import product from other store, how can i give a detail master to show more info. may be just a click for more info
+    . calculate mode for product name
+    . calculate % for taxable and non-taxable
+    . calculate frequency for crv.
+
+
 ------------------------------------------------------------------------------------------------------------------
-SKILL IMPROVEMENT
-. continuous test->build->deploy
-. inline html inside javascript: disadvantage: can't write normal html since we have to wrap it inside quote
-. angular
+LEARN
+    . continuous test->build->deploy
+
+    . lets simplify life by sticking with the other spectrum: preload all html template    
+    . find a way to write html instead of javastring (grunt-html2js,grunt-angular-templates,$tempalteCache) 
+        . write html is eaiser than writing inline_html_js_string
+        . inline_html_js_string is easier to put side by side with controller code    
+    . united integer and float validation using directive to make them DRY   
 ---------------------------------------------------------------
 TEST
 couch_acl_validator_test: client have write permission that follow these 4 rules. is big couch follow the same syntax as couchdb?
@@ -306,33 +325,42 @@ couch_acl_validator_test: client have write permission that follow these 4 rules
 . payment type
     . report of pt
     . change pt after the fact
-. get group take a long time: migh be i don't need to get all item inside the group. let it load when user click on group
-
----------------------
-. test front search sku/name with e2e and karma
-. finish the add product
-----------------------
-. edit product
-    . it should be inside store_product app.
-        . move product into store_product: we are working on the front interface. This mean we are manageing store_product by pulling product info as needed. product is not the main focus. the main focus is managing store_product. so we need a store_product app to manage store_product. think high level: app. THINK APP.
-
 
 ----------------------
+
+test: think about e2e karma
+----
+    . test remove sku assoc
+        . test obvious case where you can remove your own only sku -> remove assoc as well
+        . test that you can't see sku from other store when you have not subrive to this sku, thus, you can't remove them
+        . test that you can see sku that you have subcrive. notice that you can remove this subscription.
+        . test you can add exist sku: there is two case:
+            . this sku is not assoc with this prod
+            . this sku is already assoc with this product (in this case, we only check that we subcibe to the store_prod_lst)
+        . angular import product create a new pid,
+    . implement angular add sku feature when product already in side store -> make sure the success of this action return a single sp in main page
+
 project: store_product app
-    . test on old system if suggestion is a p and not a sp
-    . move alert into service
-
     . validate: circular kit client validation
-    . group.manage ; group.edit
-    . sp.sku.edit
-    
-    . add product when sku scan is not found: suggestion 2 kinds: product exist in our store: 1_0; and product not exist in our store: 0_0
+    . quantize issue for price, and the rest crv ...    
+    . after we test delete_sku_assoc_cm success using sp instead of p in delete_sku_cm, we should remove delete_sku_cm
+    . there is no such thing as delete assoc. we only unsubcribe assoc. use the word unsubcrive for both client and server
+    . think about the naming of service and filter in the server side. create a sp service to return sp_serialized from pid and store_id. apply this to all places    
+    . make multiple select for group search_dlg. return a list if multiple select. 
+    . check mark align and may be bigger?
+    . create a prompt service and use it in adding a new sku
+-------------------------------------
+
+shortcut
+payment type
+
+mix match:
+    i want to validate
 
 
 
 
 
-        
 
 
 

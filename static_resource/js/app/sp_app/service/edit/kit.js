@@ -2,16 +2,16 @@ define(
 [
 	'angular'
 	//------
-	,'app/store_product_angular_app/service/search'
+	,'app/sp_app/service/search_dlg'
 ]
 ,function
 (
 	angular
 )
 {
-	var mod = angular.module('sp_app.sp.kit',['sp_app.search']);
+	var mod = angular.module('sp_app.service.edit.kit',['sp_app.service.search_dlg']);
 
-    mod.factory('sp_app.sp.kit.prompt.service',['$modal','sp_app.search_dlg.service',function($modal,search_service){
+    mod.factory('sp_app.service.edit.kit.prompt',['$modal','sp_app.service.search_dlg.single',function($modal,search_single_service){
         var template = 
             '<div class="modal-header">' +
                 '<h3 class="modal-title">{{original_assoc.id == null ? \'create new kit\' : \'edit kit: \' + original_assoc.breakdown.name}}</h3>' +
@@ -54,7 +54,7 @@ define(
             $scope.assoc = angular.copy($scope.original_assoc);
             $scope.integer_validation = /^\d*$/;
             $scope.search = function(){
-                var promise = search_service(false/*is_multiple_select: can not select multiple*/);
+                var promise = search_single_service();
                 promise.then(
                     function(sp){
                         $scope.assoc.breakdown = sp;
@@ -92,7 +92,7 @@ define(
         }
     }]);
 
-    mod.factory('sp_app.sp.kit.edit.service',['$modal','sp_app.sp.kit.prompt.service',function($modal,prompt_service){
+    mod.factory('sp_app.service.edit.kit',['$modal','sp_app.service.edit.kit.prompt',function($modal,prompt_service){
         var template = 
             '<div class="modal-header">' +
                 '<h3 class="modal-title">Kit info: {{sp.name}}</h3>' +

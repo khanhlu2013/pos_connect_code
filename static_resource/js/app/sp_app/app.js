@@ -2,7 +2,8 @@ define(
 [   
      'angular'
     //------------------     
-    ,'app/store_product_angular_app/controllers'
+    ,'app/sp_app/controller'
+    ,'controller/menu'
     ,'ui_bootstrap'
 ]
 ,function
@@ -10,7 +11,7 @@ define(
      angular
 )
 {
-    var product_app = angular.module('store_product_app',['ui.bootstrap','store_product_app.controllers'], function($httpProvider) {
+    var app = angular.module('store_product_app',['ui.bootstrap','sp_app.controller','controller.menu'], function($httpProvider) {
         //boilerplate code to make angularjs to work with django in ajax term
         $httpProvider.defaults.xsrfCookieName = 'csrftoken';
         $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';           
@@ -51,5 +52,5 @@ define(
         }];
     });
 
-    return product_app;
+    return app;
 });

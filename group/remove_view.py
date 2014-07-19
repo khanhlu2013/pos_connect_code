@@ -4,6 +4,18 @@ from group import group_serializer,group_getter
 import json
 from django.core.serializers.json import DjangoJSONEncoder
 
+def group_remove_angular_view(request):
+    cur_login_store = request.session.get('cur_login_store')
+    id = request.POST['group_id'] 
+    
+    group = Group.objects.prefetch_related('store_product_set').get(pk=id,store_id=cur_login_store.id)
+    if group.store_product_set.count() != 0:
+    	return
+
+    group.delete()
+    return HttpResponse('')
+
+
 def group_remove_view(request):
     cur_login_store = request.session.get('cur_login_store')
     id = request.POST['id'] 

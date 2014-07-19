@@ -15,18 +15,18 @@ def new_sp_insert_angular_view(request):
          store_id = store_id
         ,name = sp['name']
         ,price = number.get_double_from_obj(sp['price'])
-        ,value_customer_price = number.get_double_from_obj(sp['value_customer_price'])
-        ,crv = number.get_double_from_obj(sp['crv'])
+        ,value_customer_price = number.get_double_from_obj(sp.get('value_customer_price'))
+        ,crv = number.get_double_from_obj(sp.get('crv'))
         ,is_taxable = sp['is_taxable']
         ,is_sale_report = sp['is_sale_report']
-        ,p_type = sp['p_type']
-        ,p_tag = sp['p_tag']
+        ,p_type = sp.get('p_type')
+        ,p_tag = sp.get('p_tag')
         ,sku_str = sku_str
-        ,cost = number.get_double_from_obj(sp['cost'])
-        ,vendor = sp['vendor']
-        ,buydown = number.get_double_from_obj(sp['buydown'])
+        ,cost = number.get_double_from_obj(sp.get('cost'))
+        ,vendor = sp.get('vendor')
+        ,buydown = number.get_double_from_obj(sp.get('buydown'))
     )
-    sp_serialized = sp_serialized.Store_product_serializer(sp).data
+    sp_serialized = sp_serializer.Store_product_serializer(sp).data
     return HttpResponse(json.dumps(sp_serialized,cls=DjangoJSONEncoder),content_type="application/json")
 
 

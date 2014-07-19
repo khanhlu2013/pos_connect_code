@@ -4,10 +4,12 @@ define(
     ,'app/store_product/sp_online_searcher'
     ,'lib/ui/ui'
     //---------------
-	,'app/store_product_angular_app/service/sp.crud'
-    ,'app/store_product_angular_app/service/sp.create'
-    ,'app/store_product_angular_app/filters'    
-    ,'lib/directive/share_directive'        
+	,'app/sp_app/service/edit/entry'
+    ,'app/sp_app/service/create'
+    ,'app/sp_app/service/duplicate'    
+    ,'app/sp_app/filter'    
+    ,'directive/share_directive'    
+    ,'service/ui'
 ], function 
 (
 	 angular
@@ -16,9 +18,38 @@ define(
 )
 {
 	'use strict';
-    var mod =  angular.module('store_product_app.controllers', ['sp_app.sp','sp_app.create','store_product_app.filters','share_directive']);
+    var mod =  angular.module('sp_app.controller', 
+    [
+        'sp_app.service.edit.entry',
+        'sp_app.service.create',
+        'sp_app.service.duplicate',
+        'sp_app.filter',
+        'share_directive',
+        'service.ui',
+    ]);
 
-    mod.controller('MainCtrl',['$scope','$http','$modal','sp_lst_float_2_strFilter','sp_app.sp.info.service','sp_app.sp.create.service',function($scope,$http,$modal,sp_lst_float_2_strFilter,sp_info_service,create_service){
+    mod.controller('MainCtrl',
+    [
+        '$scope',
+        '$http',
+        '$modal',
+        '$filter',
+        'sp_app.service.edit.entry',
+        'sp_app.service.create',
+        'sp_app.service.duplicate',
+        'service.ui.alert',
+    function(
+        $scope,
+        $http,
+        $modal,
+        $filter,
+        sp_info_service,
+        create_service,
+        duplicate_service,
+        alert_service
+    ){
+        $scope.currentPage = 1;
+
         //SORT
         $scope.cur_sort_column = 'name';
         $scope.cur_sort_desc = false;
@@ -59,7 +90,7 @@ define(
 
             var promise = result.promise;
             promise.success(function(data, status, headers, config){
-                $scope.sp_lst = sp_lst_float_2_strFilter(data['prod_store__prod_sku__1_1']);
+                $scope.sp_lst = $filter('sp_lst_str_2_float')(data['prod_store__prod_sku__1_1']);
                 if($scope.sp_lst.length == 0){
                     var prod_store__prod_sku__0_0 = data['prod_store__prod_sku__0_0']
                     var prod_store__prod_sku__1_0 = data['prod_store__prod_sku__1_0']
@@ -67,10 +98,10 @@ define(
                     var promise = create_service(prod_store__prod_sku__0_0,prod_store__prod_sku__1_0,$scope.sku_search_str);
                     promise.then(
                         function(data){
-                            alert('return from create service: ' + JSON.stringify(data));
+                            $scope.sp_lst = [data];
                         },
-                        function(create_sp_reject_reason){
-                            alert('reject reason from create service: ' + create_sp_reject_reason);
+                        function(reason){
+                            alert_service('alert',reason,'red');
                         }
                     );
                 }                            
@@ -103,7 +134,7 @@ define(
                 if(data.length == 0){
                     ui.angular_alert($modal,'info','no result found for ' + '"' + $scope.name_search_str + '"',2);
                 }else{
-                    $scope.sp_lst = sp_lst_float_2_strFilter(data);
+                    $scope.sp_lst = $filter('sp_lst_str_2_float')(data);
                 }                                
             });
             promise.error(function(data, status, headers, config){
@@ -114,6 +145,25 @@ define(
         //SHOW SP INFO
         $scope.display_product_info = function(sp){
             var promise = sp_info_service(sp);
+            promise.then(
+                function(data){
+                    if(typeof(data) == 'string' && data == 'duplicate'){
+                        var promise = duplicate_service(sp);
+                        promise.then
+                        (
+                            function(data){
+                                $scope.sp_lst=[data];
+                            },
+                            function(reason){
+                                alert_service('alert',reason,'red');
+                            }
+                        )
+                    }
+                },
+                function(reason){
+                    alert_service('alert',reason,'red');
+                }
+            )
         }
     }]);
 

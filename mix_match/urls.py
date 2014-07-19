@@ -4,7 +4,9 @@ from mix_match import views
 
 urlpatterns = patterns('',
     url(r'^insert$',login_required(views.mix_match_insert_view)),
+    url(r'^insert_angular$',login_required(views.mix_match_insert_angular_view)),
     url(r'^update$',login_required(views.mix_match_update_view)),
-    url(r'^delete$',login_required(views.mix_match_delete_view)),
+    url(r'^update_angular$',login_required(views.mix_match_update_angular_view)),
+ 	url(r'^delete$',login_required(views.mix_match_delete_view)),
     url(r'^get$',login_required(views.get_view)),
 )

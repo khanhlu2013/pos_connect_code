@@ -44,7 +44,8 @@ def exe_master( \
     )
 
     if sp in prod_sku_assoc.store_product_set.all():
-        raise Exception('sku is existed for this product')
+        #this should be an error, but why not forgiving and just return
+        return
 
     prod_sku_assoc.store_product_set.add(sp)
     prod_sku_assoc.save()
@@ -53,7 +54,8 @@ def exe_master( \
 def exe_couch(sku_str,product_id,store_id):
     prod_bus_assoc_doc = store_product_couch_getter.exe(product_id,store_id)
     if sku_str in [sku for sku in prod_bus_assoc_doc["sku_lst"]]:
-        raise Exception('sku is already exist for this product')
+        #this should be an error, but why not forgiving and just return
+        return
     else:
         prod_bus_assoc_doc['sku_lst'].append(sku_str)
         db = couch_util.get_store_db(store_id)

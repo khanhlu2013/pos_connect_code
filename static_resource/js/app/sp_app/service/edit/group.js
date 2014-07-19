@@ -2,15 +2,15 @@ define(
 [
 	'angular'
 	//---
-	,'app/group_angular_app/service'
+	,'app/group_app/service/search_dlg'
 ]
 ,function
 (
 	angular
 )
 {
-	var mod = angular.module('sp_app.sp.group',['group_app.service'])
-    mod.factory('sp_app.sp.group.edit.service',['$modal','group_app.group.select.service',function($modal,group_select){
+	var mod = angular.module('sp_app.service.edit.group',['group_app.service.search_dlg'])
+    mod.factory('sp_app.service.edit.group',['$modal','group_app.service.search_dlg',function($modal,group_select){
         var template = 
             '<div class="modal-header">' +
                 '<h3 class="modal-title">Group info: {{sp.name}}</h3>' +

@@ -46,13 +46,12 @@ html,body {
   float: left;
 }
 
+.xlg-dialog .modal-dialog {
+    width :60%;
+    min-width: 750px;
+}
+
 .sale_shortcut_tbl td { min-width: 100px; height: 50}
 .sale_shortcut_parent_selected {background-color:#CFF5B5;}
 .sale_shortcut_parent_unselected {background-color:#FFFFFF;}
 
-/*input.ng-invalid.ng-dirty {
- background-color: #FA787E;
-}
-input.ng-valid.ng-dirty {
- background-color: #78FA89;
-}*/

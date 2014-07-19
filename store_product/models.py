@@ -18,7 +18,7 @@ class Store_product(models.Model):
     cost = models.DecimalField(max_digits=6, decimal_places=2,blank=True,null=True)
     vendor = models.CharField(blank=True,null=True,max_length=100)
     buydown = models.DecimalField(max_digits=6, decimal_places=2,blank=True,null=True)
-    group_set = models.ManyToManyField('group.Group')
+    group_set = models.ManyToManyField('group.Group',related_name='store_product_set')
     breakdown_lst = models.ManyToManyField('self',symmetrical=False,through='Kit_breakdown_assoc',related_name='kit_lst')
 
     class Meta:

@@ -4,4 +4,4 @@ define(['angular'], function(angular) {
 
   /* Directives */
 
-  var mod = angular.module('store_product_app.directive', []);
+  var mod = angular.module('sp_app.directive', []);

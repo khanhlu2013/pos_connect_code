@@ -10,7 +10,7 @@ from django.db.models import Q
 from store_product.models import Store_product
 
 class sp_search_index_angular_view(TemplateView):
-    template_name = 'store_product_app.html'
+    template_name = 'sp_app.html'
     
     def dispatch(self,request,*args,**kwargs):
         self.cur_login_store = self.request.session.get('cur_login_store')
@@ -71,7 +71,7 @@ def sp_search_by_name_view(request):
     cur_login_store = request.session.get('cur_login_store')
     qs = Product.objects.filter(store_set__id = cur_login_store.id)
     qs = _name_search_qs_alterer(qs,search_str)
-
+    # qs.prefetch_related('store_product_set','prodskuassoc_set__store_product_set') #performance is the same prefetching or not
     prod_lst_serialized = sp_serializer.serialize_product_lst(qs)
     return HttpResponse(json.dumps(prod_lst_serialized,cls=DjangoJSONEncoder),content_type='application/json')
 
@@ -82,7 +82,6 @@ def sp_search_by_sku_view(request):
     qs = Product.objects.filter(sku_set__sku=sku_str).prefetch_related('store_product_set','prodskuassoc_set__store_product_set')
     prod_lst_serialized = sp_serializer.serialize_product_lst(qs)
     return HttpResponse(json.dumps(prod_lst_serialized,cls=DjangoJSONEncoder),content_type='application/json')
-
 
 def sp_search_by_pid_view(request):
     store_id = request.session.get('cur_login_store').id

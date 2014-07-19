@@ -145,7 +145,7 @@ define(
             var tr = prod_tbl.insertRow(-1);
             var td;
             var sp = product_json_helper.get_sp_from_p(prodStore_prodSku_1_1[i],STORE_ID);
-            
+            console.log(prodStore_prodSku_1_1[i]);
             td = tr.insertCell(-1);
             td.innerHTML = sp.name;
 

@@ -2,67 +2,134 @@ define(
 [
 	'angular'
 	//----
-	,'app/store_product_angular_app/filters'
+	,'app/sp_app/service/prompt'
+	,'app/sp_app/filter'
 ]
 ,function
 (
 	angular
 )
 {
-	var mod = angular.module('sp_app.create',[]);
+	var mod = angular.module('sp_app.service.create',['sp_app.service.prompt']);
 
-	mod.factory('sp_app.sp.create.new.service',['$http','sp_app.sp.edit.service',function($http,prompt_service){
-		return function(sku){
-			var prompt_sp_promise = prompt_service(null/*original_sp*/,null/*suggest_sp*/,null/*duplicate_sp*/,sku);			
-			var create_new_sp_promise = prompt_sp_promise.then(
-				function(data){
-					var promise = $http({
-						url:'/product/insert_new_sp_angular',
+	mod.factory('sp_app.service.create.old',['$http','$q','sp_app.service.prompt',function($http,$q,prompt_service){
+		return function(suggest_product,sku){
+
+			var prompt_promise = prompt_service(null/*original_sp*/,suggest_product,null/*duplicate_sp*/,sku);
+
+			var insert_promise = prompt_promise.then(
+				function(prompt_data){
+					var promise_ing = $http({
+						url:'/product/sp_insert_old_angular',
 						method:'POST',
-						data:{sku:sku,sp:JSON.stringify(data)}
+						data:{product_id:suggest_product.product_id,sku_str:prompt_data.sku,sp:JSON.stringify(prompt_data.sp)}
 					});
-					promise.success(function(data, status, headers, config){
-						return data;     
-					});
-					promise.error(function(data, status, headers, config){
-					    return 'create new sp ajax error';
-					});
-					return promise;
+ 					var promise_ed = promise_ing.then(
+						function(data){
+							var defer = $q.defer();defer.resolve(data.data);return defer.promise;
+						},
+						function(reason){
+							return $q.reject('insert new_old sp product ajax error');
+						}
+					)
+ 					return promise_ed;
 				},
-				function(prompt_reject_reason){
-					return prompt_reject_reason;
+				function(reason){
+					return $q.reject(reason);
 				}
 			)
-			return create_new_sp_promise;
+			return insert_promise;
 		}
  	}]);
 
-	mod.factory('sp_app.sp.create.service',['$modal','$filter','sp_app.sp.create.select_suggest.service','sp_app.sp.create.new.service',function($modal,$filter,select_suggest,create_new_sp_service){
-		return function(prod_store__prod_sku__0_0,prod_store__prod_sku__1_0,sku){
-			var select_suggest_promise = select_suggest(prod_store__prod_sku__0_0,prod_store__prod_sku__1_0,sku);
-			var create_promise = select_suggest_promise.then(
-				function(data){
-					if(data == null){
-						var create_new_sp_promise = create_new_sp_service(sku);
-						return create_new_sp_promise;
-					}
-					else if($filter('is_obj_sp')(data))
-					{
-						return "inset sku to be implemented";
-					}
-					else if($filter('is_obj_p')(data)){
-						return "insert old sp to be implemented";
-					}
+	mod.factory('sp_app.service.create.new',['$http','$q','sp_app.service.prompt',function($http,$q,prompt_service){
+		return function(sku){
+			var prompt_promise = prompt_service(null/*original_sp*/,null/*suggest_product*/,null/*duplicate_sp*/,sku);
+			var insert_promise = prompt_promise.then(
+				function(prompt_data){
+					var promise_ing = $http({
+						url:'/product/insert_new_sp_angular',
+						method:'POST',
+						data:{sku_str:prompt_data.sku,sp:JSON.stringify(prompt_data.sp)}
+					});
+ 					var promise_ed = promise_ing.then(
+						function(data){
+							var defer=$q.defer();defer.resolve(data.data);return defer.promise;
+						},
+						function(reason){
+							return $q.reject('insert new_new sp product ajax error')
+						}
+					);
+					return promise_ed;
 				},
-				function(select_suggest_reject_reason){
-					return select_suggest_reject_reason;
+				function(reason){
+					return $q.reject(reason);
 				}
 			);
-			return create_promise	
+			return insert_promise;
+		}
+ 	}]);
+
+	mod.factory('sp_app.service.create',
+		[
+			'$modal',
+			'$filter',
+			'$http',
+			'$q',
+			'sp_app.service.create.select_suggest',
+			'sp_app.service.create.new',
+			'sp_app.service.create.old',
+		function(
+			$modal,
+			$filter,
+			$http,
+			$q,
+			select_suggest,
+			create_new_sp_service,
+			create_old_sp_service
+		){
+		return function(prod_store__prod_sku__0_0,prod_store__prod_sku__1_0,sku){
+
+			var select_promise = select_suggest(prod_store__prod_sku__0_0,prod_store__prod_sku__1_0,sku)
+ 			var create_promise = select_promise.then(
+				function(select_option){
+					if(select_option == null)
+					{
+						return create_new_sp_service(sku);
+					}
+					else if($filter('is_obj_sp')(select_option))
+					{
+						var cur_store_sp = select_option;
+						var promise = $http({
+							url:'/product/sku_add_angular',
+							method:'POST',
+							data: {product_id:cur_store_sp.product_id,sku_str:sku}
+						})
+						.then(
+							function(data){
+								return $filter('sp_lst_str_2_float')([data.data])[0];
+							},
+							function(ajax_reject_reason){
+								return $q.reject('adding sku from another store for exiting product ajax error');
+							}
+						)
+						return promise;
+					}
+					else if($filter('is_obj_p')(select_option))
+					{
+						var suggest_product = select_option;
+						return create_old_sp_service(suggest_product,sku);
+					}
+				},
+				function(reason){
+					return $q.reject(reason);
+				}
+			);
+			return create_promise;
 		}
 	}]);
 
-	mod.factory('sp_app.sp.create.select_suggest.service',['$modal','$filter','$q',function($modal,$filter,$q){
+	mod.factory('sp_app.service.create.select_suggest',['$modal','$filter','$q',function($modal,$filter,$q){
 		return function(prod_store__prod_sku__0_0,prod_store__prod_sku__1_0){
 			/*
 				PRE: length of 0_0 and 1_0 can be both emtpy
@@ -82,11 +149,11 @@ define(
 
 			if(prod_store__prod_sku__0_0.length != 0){
 				for(var i = 0;i<prod_store__prod_sku__0_0.length;i++){
-					prod_store__prod_sku__0_0[i].store_product_set = $filter('sp_lst_float_2_str')(prod_store__prod_sku__0_0[i].store_product_set);
+					prod_store__prod_sku__0_0[i].store_product_set = $filter('sp_lst_str_2_float')(prod_store__prod_sku__0_0[i].store_product_set);
 				}
  			}
  			if(prod_store__prod_sku__1_0.length != 0){
-				prod_store__prod_sku__1_0 = $filter('sp_lst_float_2_str')(prod_store__prod_sku__1_0);
+				prod_store__prod_sku__1_0 = $filter('sp_lst_str_2_float')(prod_store__prod_sku__1_0);
 			}				
 			var template = 
 				'<div>' +
@@ -155,7 +222,7 @@ define(
 					$modalInstance.close(null);
 				}
 				$scope.cancel = function(){
-					$modalInstance.dismiss('cancel when select option.');
+					$modalInstance.dismiss('_cancel_');
 				}
 			};
 

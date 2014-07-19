@@ -22,9 +22,16 @@ class Group_serializer(serializers.ModelSerializer):
         model = Group
         fields = ('id','name')
 
+class Product_prodSkuAssoc_serializer(serializers.ModelSerializer):
+    prodskuassoc_set = Prod_sku_assoc_serializer(many=True)
+
+    class Meta:
+        model = Product
+        fields = ('prodskuassoc_set',)
 
 class Store_product_serializer(serializers.ModelSerializer):
     product_id = serializers.Field(source='product.id')
+    product = Product_prodSkuAssoc_serializer(many=False)
     store_id = serializers.Field(source='store.id')
     group_set = Group_serializer(many=True)
 
@@ -39,7 +46,7 @@ class Store_product_serializer(serializers.ModelSerializer):
 
     class Meta:
         model = Store_product
-        fields = ('id','product_id','store_id','name','price','value_customer_price','crv','is_taxable','is_sale_report','p_type','p_tag','cost','vendor','buydown','group_set')
+        fields = ('id','product_id','product','store_id','name','price','value_customer_price','crv','is_taxable','is_sale_report','p_type','p_tag','cost','vendor','buydown','group_set')
 
 
 class Store_product_kit_serializer(serializers.ModelSerializer):

@@ -10,7 +10,7 @@ define(
 )
 {
 	var mod = angular.module('mix_match_app/service/create',['mix_match_app/service/prompt']);
-	mod.factory('mix_match_app/service/create',['$http','$q','mix_match_app/service/prompt',function($http,$q,prompt_service){
+	mod.factory('mix_match_app/service/create',['$http','$q','$filter','mix_match_app/service/prompt',function($http,$q,$filter,prompt_service){
 		return function(){
 			var prompt_promise = prompt_service(null);
 			var create_promise = prompt_promise.then(
@@ -24,7 +24,7 @@ define(
 					})
 					var promise_ed = promise_ing.then(
 						function(data){
-							return data.data;
+							return $filter("mix_match_app.filter.mm_item_str_2_float")(data.data);
 						},
 						function(reason){
 							return $q.reject('create mix match ajax error');

@@ -21,7 +21,7 @@ class Parent_serializer(serializers.ModelSerializer):
 
     class Meta:
         model = Parent
-        fields = ('position','caption','child_set')
+        fields = ('id','position','caption','child_set')
 
 
 def serialize_shortcut_lst(shortcut_lst):

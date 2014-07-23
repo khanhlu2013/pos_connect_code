@@ -1,14 +1,10 @@
 define(
     [
-         'constance'
-        ,'app/sale/displaying_scan/displaying_scan_util'
-        ,'lib/number/number'
+        'lib/number/number'
     ]
     ,function
     (
-         constance
-        ,ds_util
-        ,number
+        number
     )
 {
     function Receipt_ln_json(receipt_ln_json){

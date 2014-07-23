@@ -33,6 +33,24 @@ def payment_type_update_view(request):
     pt_serialized = payment_type_serializer.serialize_payment_type_lst([pt,])[0]
     return HttpResponse(json.dumps(pt_serialized,cls=DjangoJSONEncoder), mimetype='application/json')
 
+def payment_type_update_angular_view(request):
+    pt_json = json.loads(request.POST['pt'])
+
+    # id = request.POST['id'] 
+    # name = request.POST['name'] 
+
+    if pt_json['name'] == None or len(pt_json['name'].strip()) == 0:
+        return
+
+    pt_json['name'] = pt_json['name'].strip()
+
+    cur_login_store = request.session.get('cur_login_store')
+    pt = Payment_type.objects.get(pk=pt_json['id'],store_id = cur_login_store.id)
+    pt.name = pt_json['name']
+    pt.save()
+
+    pt_serialized = payment_type_serializer.serialize_payment_type_lst([pt,])[0]
+    return HttpResponse(json.dumps(pt_serialized,cls=DjangoJSONEncoder), mimetype='application/json')
 
 def payment_type_delete_view(request):
     id = request.POST['id'] 

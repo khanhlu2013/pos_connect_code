@@ -35,6 +35,7 @@ define(
 						'</tr>' +
 					'</table>' +
 					'<pre ng-show="group.store_product_set.length == 0">there is no product in this group</pre>' +
+					'{{original_group}}' +
 				'</div>' + 
 				'<div class="modal-footer">' +
 					'<button ng-click="cancel()" class="btn btn-warning">cancel</button>' + 

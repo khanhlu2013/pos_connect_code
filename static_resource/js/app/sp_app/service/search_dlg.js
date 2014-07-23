@@ -18,19 +18,20 @@ define(
 
 			'<div class="modal-body">' + 
 				'<input type="text" ng-model="$parent.search_str" ng-enter="search()" placeholder="name/sku">' +	
+ 				'<input ng-model="$parent.query" type="text" placeholder="local filter">' +	
 				'<div>' +
 					'<div class="col-sm-6">' +
 		 				'<div ng-hide="message.length == 0">' +
 		 					'<pre>{{message}}</pre>' +
-		 				'</div>' +						
-						'<table class="table table-hover table-bordered table-condensed table-striped">' +
+		 				'</div>' +	
+ 						'<table class="table table-hover table-bordered table-condensed table-striped">' +
 							'<tr>' +
 								'<th>name</th>' +
 								'<th>price</th>' +
 								'<th>select</th>' +					
 							'</tr>' +
 
-							'<tr ng-repeat="sp in sp_lst | orderBy:\'name\'">' + 
+							'<tr ng-repeat="sp in sp_lst | orderBy:\'name\' | filter:$parent.query">' + 
 								'<td>{{sp.name}}</td>' +
 								'<td class="alnright">{{sp.price | currency}}</td>' +
 								'<td class="alnright"><button ng-class="is_sp_selected(sp) ? \'btn-warning glyphicon glyphicon-check\' : \'btn-primary glyphicon glyphicon-unchecked\'" class="btn btn-xs" ng-click="toggle_select(sp)"></button></td>' +
@@ -67,6 +68,7 @@ define(
 			$scope.message = "";
 			$scope.sp_lst = "";
 			$scope.result_sp_lst = [];
+			$scope.query = "";
 
 			$scope.ok = function(){
 				$modalInstance.close($scope.result_sp_lst)
@@ -96,6 +98,7 @@ define(
 			}
 
  			$scope.search = function(){
+ 				$scope.query = "";
  				$scope.search_str = $scope.search_str.trim();
  				$scope.last_search_str = $scope.search_str;
 
@@ -213,7 +216,7 @@ define(
  				}); 				
 			}
 			$scope.cancel = function(){
-				$modalInstance.dismiss('cancel');
+				$modalInstance.dismiss('_cancel_');
 			}
 		}
 		return function(){

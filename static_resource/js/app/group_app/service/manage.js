@@ -2,17 +2,25 @@ define(
 [
     'angular'
     //-----
+    ,'service/ui'    
     ,'app/group_app/service/edit'
     ,'app/group_app/service/create'
     ,'app/group_app/service/delete'
-    ,'service/ui'
+    ,'app/group_app/service/api'
 ]
 ,function
 (
     angular
 )
 {
-    var mod = angular.module('group_app.service.manage',['group_app.service.edit','service.ui','group_app.service.create','group_app.service.delete']);
+    var mod = angular.module('group_app.service.manage',
+    [
+        'service.ui',
+        'group_app.service.edit',
+        'group_app.service.create',
+        'group_app.service.delete',
+        'group_app/service/api'
+    ]);
 
     mod.factory('group_app.service.manage',
         [
@@ -23,6 +31,7 @@ define(
             'service.ui.confirm',
             'group_app.service.create',
             'group_app.service.delete',
+            'group_app/service/api',
         function
         (
             $modal,
@@ -31,7 +40,8 @@ define(
             angular_alert,
             angular_confirm,
             create_group,
-            delete_group
+            delete_group,
+            api
         ){
         return function(){
             var template = 
@@ -55,6 +65,7 @@ define(
             			'</tr>' +
             		'</table>' +
             		'<pre ng-show="group_lst.length == 0">there is no group</pre>' +
+                    '{{group_lst}}' +
             	'</div>' +
             	
             	'<div class="modal-footer">' +
@@ -67,7 +78,6 @@ define(
                 $scope.action_group = function(group_id){
                     angular_alert('well ...','do we need this feature?','blue');
                 }
-
                 $scope.delete_group = function(group){
                     var confirm_promise = angular_confirm('delete ' + group.name + ' group?');
                     confirm_promise.then(
@@ -104,7 +114,6 @@ define(
                         }
                     )
                 }
-
                 $scope.add_group = function(){
                     var promise = create_group();
                     promise.then(
@@ -116,7 +125,6 @@ define(
                         }
                     )
                 }
-
                 $scope.edit_group = function(group){
                     var promise = edit_group_service(group);
                     promise.then(
@@ -128,8 +136,7 @@ define(
                         }
                     )
                 }
-
-            	$scope.exit = function(){
+                $scope.exit = function(){
             		$modalInstance.close($scope.sp_lst);
             	}
             }
@@ -139,21 +146,7 @@ define(
             	controller:ModalCtrl,
             	size:'lg',
             	resolve:{
-            		group_lst: function(){
-            			var promise = $http({
-            				url:'/group/get_lst',
-            				method:'GET',
-            			});
-
-            			return promise.then(
-            				function(data){
-            					return data.data
-            				},
-            				function(){
-            					alert('group ajax error');
-            				}
-            			)
-            		}
+            		group_lst: function(){return api.get_lst();}
             	}
  			})
         }

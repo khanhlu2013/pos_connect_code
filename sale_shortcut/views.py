@@ -11,6 +11,47 @@ def get_view(request):
     lst_serialized = sale_shortcut_serializer.serialize_shortcut_lst(shortcut_lst)
     return HttpResponse(json.dumps(lst_serialized), mimetype='application/json')
 
+def create_parent_angular_view(request):
+    position = int(request.POST['position']) #if i don't convert this to int(since we don't json.loads here, POST data will be received as string), then eventhough it will create just fine on master db, when we serialized this obj, it return a string position which will cause issue on the client side.
+    caption = request.POST['caption']
+    cur_login_store = request.session.get('cur_login_store')
+
+    #validate caption
+    if caption == None:
+        return
+    caption = caption.strip()
+    if len(caption) == 0:
+        return
+
+    #expect parent does not exist
+    try:
+        Parent.objects.get(store=cur_login_store,position=position)
+        return
+    except Parent.DoesNotExist:
+        pass
+
+    parent = Parent.objects.create(store=cur_login_store,position=position,caption=caption)
+    parent_serialized = sale_shortcut_serializer.Parent_serializer(parent).data
+    print(parent_serialized)
+    return HttpResponse(json.dumps(parent_serialized),content_type="application/json")
+
+
+def edit_parent_angular_view(request):
+    shortcut_json = json.loads(request.POST['shortcut'])
+    cur_login_store = request.session.get('cur_login_store')
+
+    #validate shortcut
+    shortcut = Parent.objects.prefetch_related('child_set').get(pk=shortcut_json['id'])
+    if shortcut.store.id != cur_login_store.id:
+        return
+    if shortcut.position != shortcut_json['position']:
+        return
+    shortcut.caption = shortcut_json['caption']
+    shortcut.save()
+
+    shortcut_serialized = sale_shortcut_serializer.Parent_serializer(shortcut).data
+    return HttpResponse(json.dumps(shortcut_serialized),content_type="application/json")
+
 
 def set_parent_name_view(request):
     name = request.POST['name'] 

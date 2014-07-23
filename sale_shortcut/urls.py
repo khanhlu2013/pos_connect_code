@@ -5,6 +5,8 @@ from sale_shortcut import views
 urlpatterns = patterns('',
     url(r'^set_parent_name$',login_required(views.set_parent_name_view)),
     url(r'^set_child_info$',login_required(views.set_child_info_view)),
-    url(r'^get$',login_required(views.get_view)),
+    url(r'^parent_update_angular$',login_required(views.edit_parent_angular_view)),
+ 	url(r'^parent_create_angular$',login_required(views.create_parent_angular_view)),
+ 	url(r'^get$',login_required(views.get_view)),
     url(r'^delete_child$',login_required(views.delete_child_view)),    
 )

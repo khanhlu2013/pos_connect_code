@@ -148,7 +148,7 @@ x. pouch.changes.since
 x. why link inside form can not be direct to correct url?
 x. understand require.js : up front dependency list vs lazy loading
 x. Agile and extreme development
-x. 
+
 
 
 ------------
@@ -288,18 +288,41 @@ UPGRADE FEATURE
     . calculate mode for product name
     . calculate % for taxable and non-taxable
     . calculate frequency for crv.
-
-
 ------------------------------------------------------------------------------------------------------------------
-LEARN
+REFACTOR CODE
+    . after we test delete_sku_assoc_cm success using sp instead of p in delete_sku_cm, we should remove delete_sku_cm
+    . there is no such thing as delete assoc. we only unsubcribe assoc. use the word unsubcrive for both client and server
+    . think about the naming of service and filter in the server side. create a sp service to return sp_serialized from pid and store_id. apply this to all places    
+    . organize filter into app move mm_filter str_2_float to its own app 
+    . prompt service should not include is_float. separate float_prompt and string prompt. think about touch screen
+    . alert service: create default for title and color. these should be optional
+    . create a sp_item_str_2_float
+    . ui.angular_alert should be remove
+    . sp_online_searcher.sku_search_angular move it into angular app
+    . convert sp_lst, sp_item use this service instead of filter: sp_lst_str_2_float. remove this filter
+    . kill all service/convert move it into api
+------------------------------------------------------------------------------------------------------------------
+LEARN/IMPROVE
     . continuous test->build->deploy
-
-    . lets simplify life by sticking with the other spectrum: preload all html template    
+    . lets simplify life by sticking with the other spectrum: preload all html template
     . find a way to write html instead of javastring (grunt-html2js,grunt-angular-templates,$tempalteCache) 
         . write html is eaiser than writing inline_html_js_string
         . inline_html_js_string is easier to put side by side with controller code    
-    . united integer and float validation using directive to make them DRY   
----------------------------------------------------------------
+    . united integer and float validation using directive to make them DRY  
+    . serializer illusion of float is all i need and we can eliminate client str to float shit
+------------------------------------------------------------------------------------------------------------------
+VISUAL IMPROVE
+    . check mark align and may be bigger?
+    . sp_app/product_info : can we edit right from the info page without going into another interface popup
+    . all ajax backdrop
+    . auto focus text box:
+        . search
+        . ...
+    . side by side table dialog have a horizontal line
+    . date selector: 
+        . there is a week button that not need
+        . backdrop click crash
+------------------------------------------------------------------------------------------------------------------
 TEST
 couch_acl_validator_test: client have write permission that follow these 4 rules. is big couch follow the same syntax as couchdb?
     . client can insert receipt. 
@@ -319,17 +342,13 @@ couch_acl_validator_test: client have write permission that follow these 4 rules
 . receipt_document_validator_test
 . sku scan not found handler spec: there is a spy on old window.confirm and now we change it. make sure test work
 
----------------------
-. hold: show master detail 
-. receipt: show master detail, updown key
-. payment type
-    . report of pt
-    . change pt after the fact
-
 ----------------------
+SALE APP
+    . change pt after the fact
+    . hold: show master detail
+----------------------
+TEST: think about e2e karma
 
-test: think about e2e karma
-----
     . test remove sku assoc
         . test obvious case where you can remove your own only sku -> remove assoc as well
         . test that you can't see sku from other store when you have not subrive to this sku, thus, you can't remove them
@@ -340,26 +359,109 @@ test: think about e2e karma
         . angular import product create a new pid,
     . implement angular add sku feature when product already in side store -> make sure the success of this action return a single sp in main page
 
-project: store_product app
+---------------------
+SP APP
+    . filter are dealing with formating data for DISPLAY. move sp_lst_str_2_float into a service instead of filter.
+    . mix match app cancel having issue
     . validate: circular kit client validation
     . quantize issue for price, and the rest crv ...    
-    . after we test delete_sku_assoc_cm success using sp instead of p in delete_sku_cm, we should remove delete_sku_cm
-    . there is no such thing as delete assoc. we only unsubcribe assoc. use the word unsubcrive for both client and server
-    . think about the naming of service and filter in the server side. create a sp service to return sp_serialized from pid and store_id. apply this to all places    
-    . make multiple select for group search_dlg. return a list if multiple select. 
-    . check mark align and may be bigger?
-    . create a prompt service and use it in adding a new sku
--------------------------------------
 
-shortcut
-payment type
+    . sale record
+        . report payment type
+        . sale report
+        . receipt master / detail, updown key
 
-mix match:
-    i want to validate
+receipt json
+------------
+.implement convert_receipt_lst, convert_receipt_item
+
+{
+    "id":23,
+    "time_stamp":"2014-07-22T19:09:21.450Z",
+    "tax_rate":"32.0530",
+    "tender_ln_set":[{"id":16,"amount":"1.00","name":null}],
+    "receipt_ln_set":
+    [
+        {
+            "id":24,
+            "qty":1,
+            "store_product":
+            {
+                "id":281530,
+                "product_id":381276,
+                "store_id":223,
+                "name":"11111",
+                "price":"1.00",
+                "value_customer_price":null,
+                "crv":"0.000",
+                "is_taxable":false,
+                "is_sale_report":true,
+                "p_type":null,
+                "p_tag":null,
+                "cost":"141.44",
+                "vendor":null,
+                "buydown":null,
+                "breakdown_assoc_lst":[],
+                "kit_assoc_lst":[]
+            },
+            "price":"1.00",
+            "crv":"0.000",
+            "discount":null,
+            "discount_mm_deal":"0.00",
+            "non_product_name":null,
+            "is_taxable":false,
+            "p_type":null,
+            "p_tag":null,
+            "cost":"141.44",
+            "buydown":null
+        }
+    ]
+}
 
 
+----------------------
+sp json
+{
+    "id":272597,
+    "product_id":369491,
+    "product":
+    {
+        "prodskuassoc_set":
+        [
+            {
+                "sku_str":"082184083062",
+                "store_set":[221],
+                "creator_id":null,
+                "product_id":369491
+            },
+            {
+                "sku_str":"082184038710",
+                "store_set":[],
+                "creator_id":null,
+                "product_id":369491
+            }
+        ]
+    },
+    "store_id":221,
+    "name":"Gentleman Jack 375",
+    "price":14.99,
+    "value_customer_price":null,
+    "crv":0,
+    "is_taxable":true,
+    "is_sale_report":true,
+    "p_type":"Liquor",
+    "p_tag":null,
+    "cost":10.93,
+    "vendor":"coles",
+    "buydown":null,
+    "group_set":[],
+    "breakdown_assoc_lst":[],
+    "kit_assoc_lst":[]
+}
 
-
+------------------------
+lets work on the group app first then use this group.build to work on sp
+    . currently work on building a group item with sp info. make sure sp info can contain group but these group can not contain sp
 
 
 

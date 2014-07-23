@@ -52,7 +52,6 @@ class Store_product_serializer(serializers.ModelSerializer):
 class Store_product_kit_serializer(serializers.ModelSerializer):
     product_id = serializers.Field(source='product.id')
     store_id = serializers.Field(source='store.id')
-    group_set = Group_serializer(many=True)
 
     def to_native(self,obj):
         if not self.fields.has_key('kit_assoc_lst'):
@@ -62,13 +61,12 @@ class Store_product_kit_serializer(serializers.ModelSerializer):
 
     class Meta:
         model = Store_product
-        fields = ('id','product_id','store_id','name','price','value_customer_price','crv','is_taxable','is_sale_report','p_type','p_tag','cost','vendor','buydown','group_set')
+        fields = ('id','product_id','store_id','name','price','value_customer_price','crv','is_taxable','is_sale_report','p_type','p_tag','cost','vendor','buydown')
 
 
 class Store_product_breakdown_serializer(serializers.ModelSerializer):
     product_id = serializers.Field(source='product.id')
     store_id = serializers.Field(source='store.id')
-    group_set = Group_serializer(many=True)
 
     def to_native(self,obj):
         if not self.fields.has_key('breakdown_assoc_lst'):
@@ -78,7 +76,7 @@ class Store_product_breakdown_serializer(serializers.ModelSerializer):
 
     class Meta:
         model = Store_product
-        fields = ('id','product_id','store_id','name','price','value_customer_price','crv','is_taxable','is_sale_report','p_type','p_tag','cost','vendor','buydown','group_set')
+        fields = ('id','product_id','store_id','name','price','value_customer_price','crv','is_taxable','is_sale_report','p_type','p_tag','cost','vendor','buydown')
 
 
 class Kit_assoc_serializer(serializers.ModelSerializer):

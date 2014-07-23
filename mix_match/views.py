@@ -79,7 +79,7 @@ def mix_match_update_angular_view(request):
         return
 
     #validate child belong store product of this store
-    sp_lst = Store_product.objects.filter(store_id=cur_login_store.id,product_id__in=[sp['product_id'] for sp in mm['mix_match_child_set']])
+    sp_lst = Store_product.objects.filter(store_id=cur_login_store.id,product_id__in=[child['store_product']['product_id'] for child in mm['mix_match_child_set']])
     if len(sp_lst) != len(mm['mix_match_child_set']):
         return
 
@@ -146,7 +146,7 @@ def mix_match_insert_angular_view(request):
         return
 
     #validate child belong store product of this store
-    sp_lst = Store_product.objects.filter(store_id=cur_login_store.id,product_id__in=[ child['product_id'] for child in mix_match['mix_match_child_set']])
+    sp_lst = Store_product.objects.filter(store_id=cur_login_store.id,product_id__in=[ child['store_product']['product_id'] for child in mix_match['mix_match_child_set']])
     if len(sp_lst) != len(mix_match['mix_match_child_set']):
         return
 

@@ -69,7 +69,7 @@ define(
 	            	is_null_allow : function(){return is_null_allow;},
 	            	is_float : function(){return is_float;}
 	            },
-	            size : 'sm'
+	            size : 'md'
 	        });			
 	        return dlg.result;
 		}
@@ -106,14 +106,14 @@ define(
 	                $modalInstance.close();
 	            }
 	            $scope.cancel = function(){
-	                $modalInstance.dismiss('cancel confirm');
+	                $modalInstance.dismiss('_cancel_');
 	            }	            
 	        }
 
 	        var dlg = $modal.open({
 	            template : template,
 	            controller : ModalCtrl,
-	            size : 'sm'
+	            size : 'md'
 	        });			
 	        return dlg.result;
 		}
@@ -158,7 +158,7 @@ define(
 	        var dlg = $modal.open({
 	            template : template,
 	            controller : ModalCtrl,
-	            size : 'sm'
+	            size : 'md'
 	        });			
 		}
 	}]);

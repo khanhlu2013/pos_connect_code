@@ -10,7 +10,7 @@ define(
 )
 {
 	var mod = angular.module('sp_app.service.edit.sku',['service.ui']);
-	mod.factory('sp_app.service.edit.sku',['$modal','$http','$filter','service.ui.confirm','service.ui.alert',function($modal,$http,$filter,confirm_service,alert_service){
+	mod.factory('sp_app.service.edit.sku',['$modal','$http','$filter','service.ui.confirm','service.ui.alert','service.ui.prompt',function($modal,$http,$filter,confirm_service,alert_service,prompt_service){
 		var template = 
 			'<div class="modal-header">' + 
 				'<div><h3>sku info: {{sp.name}}</h3></div>' +
@@ -43,20 +43,23 @@ define(
 			}
 
 			$scope.add_sku = function(){
-				var new_sku = prompt('enter sku');
-				if (new_sku == null){
-					return
-				}
-
-				var promise = $http({
-					url:'/product/sku_add_angular',
-					method:'POST',
-					data: {product_id:$scope.sp.product_id,sku_str:new_sku}
-				});
+				var promise = prompt_service('add new sku',null/*prefill*/,false/*is_null_allow*/,false/*is_float*/);
 				promise.then(
 					function(data){
-						var processed_data = $filter('sp_lst_str_2_float')([data.data])[0]
-						angular.copy(processed_data,$scope.sp);
+						var promise_ing = $http({
+							url:'/product/sku_add_angular',
+							method:'POST',
+							data: {product_id:$scope.sp.product_id,sku_str:data}							
+						})
+						var promise_ed = promise_ing.then(
+							function(data){
+								var processed_data = $filter('sp_lst_str_2_float')([data.data])[0]
+								angular.copy(processed_data,$scope.sp);
+							},
+							function(reason){
+								alert_service('alert','insert sku to product ajax error','red')
+							}
+						)
 					},
 					function(reason){
 						alert_service('alert',reason,'red');

@@ -5,9 +5,10 @@
 
 </head>
 <body ng-controller="MainCtrl">
-
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+    <!-- <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"> -->
+    <!-- <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css"> -->
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap.css">
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap-theme.css">
     <link rel="stylesheet" href="{{ STATIC_URL }}css/share.css">
     
     <nav class="navbar navbar-inverse" role="navigation">
@@ -55,7 +56,7 @@
                             class="form-control" 
                             placeholder="local filter" 
                             onClick="this.select();" 
-                            ng-model="local_filter"
+                            ng-model="$parent.local_filter"
                         >                        
                     </div>  
                     <li class="dropdown">
@@ -63,9 +64,9 @@
                         <ul class="dropdown-menu">
                             <li ng-click="menu_tax_edit()"><a href='#'>tax</a></li>
                             <li ng-click="menu_group_manage()"><a href='#'>group</a></li>                 
-                            <li id='sale_shortcut_menu'><a href='#'>shortcut</a></li>
+                            <li ng-click="menu_shortcut_manage()"><a href='#'>shortcut</a></li>
                             <li ng-click="menu_mix_match_manage()"><a href='#'>mix match</a></li>
-                            <li id='payment_type_menu'><a href='#'>payment type</a></li>
+                            <li ng-click="menu_payment_type_manage()"><a href='#'>payment type</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -74,7 +75,7 @@
                             <li id='sale_report_menu'><a href='#'>sale report</a></li>
                             <li id='non_sale_report_menu'><a href='#'>non-sale report</a></li>
                             <li class="divider"></li>
-                            <li id='receipt_report_menu'><a href='#'>receipt</a></li>
+                            <li ng-click="menu_receipt_report()"><a href='#'>receipt</a></li>
                         </ul>
                     </li>   
                     <li class="dropdown">

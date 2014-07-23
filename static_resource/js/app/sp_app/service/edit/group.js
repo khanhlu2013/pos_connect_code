@@ -2,15 +2,15 @@ define(
 [
 	'angular'
 	//---
-	,'app/group_app/service/search_dlg'
+    ,'app/group_app/service/search_dlg'
 ]
 ,function
 (
 	angular
 )
 {
-	var mod = angular.module('sp_app.service.edit.group',['group_app.service.search_dlg'])
-    mod.factory('sp_app.service.edit.group',['$modal','group_app.service.search_dlg',function($modal,group_select){
+	var mod = angular.module('sp_app.service.edit.group',['group_app/service/search_dlg'])
+    mod.factory('sp_app.service.edit.group',['$modal','group_app/service/search_dlg/multiple',function($modal,select_multiple_group_service){
         var template = 
             '<div class="modal-header">' +
                 '<h3 class="modal-title">Group info: {{sp.name}}</h3>' +
@@ -52,7 +52,7 @@ define(
                 return angular.equals($scope.original_sp, $scope.sp);
             };   
             $scope.add = function(){
-                var promise = group_select(true/*allow to select multiple group*/);
+                var promise = select_multiple_group_service(true/*allow to select multiple group*/);
                 promise.then(function (result_lst) {
                     for(var i = 0;i<result_lst.length;i++){
                         if($filter('get_item_from_lst_base_on_id')($scope.sp.group_set,result_lst[i].id) == null) {

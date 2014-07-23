@@ -99,8 +99,17 @@ define(
 					promise.then(
 						function(sp_lst){
 							for(var i = 0;i<sp_lst.length;i++){
-								if($filter('get_item_from_lst_base_on_id')($scope.mm.mix_match_child_set,sp_lst[i]) ==null){
-									$scope.mm.mix_match_child_set.push(sp_lst[i]);
+
+								var is_found = false//see if we can find sp_lst[i] in the current deal
+								for(var j = 0;j<$scope.mm.mix_match_child_set.length;j++){
+									if($scope.mm.mix_match_child_set[j].store_product.id == sp_lst[i].id){
+										is_found = true;
+										break;
+									}
+								}
+
+								if(!is_found){
+									$scope.mm.mix_match_child_set.push({store_product:sp_lst[i]});
 								}
 							}
 						},

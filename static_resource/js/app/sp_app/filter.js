@@ -112,6 +112,7 @@ define(['angular'], function (angular)
     	}
     	return sp_lst;
 	}
+    
  	filter_mod.filter('sp_lst_str_2_float', function(){
         return function(sp_lst){
         	sp_lst = sp_lst_str_2_float(sp_lst);
@@ -206,5 +207,27 @@ define(['angular'], function (angular)
             return result;
         }
     })
-	return filter_mod;
+
+    function mm_item_str_2_float(mm){
+        mm.mix_match_child_set = sp_lst_str_2_float(mm.mix_match_child_set);
+        mm.mm_price = parseFloat(mm.mm_price);
+        return mm;
+    } 
+
+    filter_mod.filter('mix_match_app.filter.mm_item_str_2_float',[function($filter){
+        return function(mm){
+			return mm_item_str_2_float(mm);
+        }
+    }]);
+
+    filter_mod.filter('mix_match_app.filter.mm_lst_str_2_float',[function(){
+        return function(mm_lst){
+            for(var i = 0;i<mm_lst.length;i++){
+                mm_lst[i] = mm_item_str_2_float(mm_lst[i]);
+            }
+            return mm_lst;
+        }
+    }]);        
+
+	// return filter_mod;
 });

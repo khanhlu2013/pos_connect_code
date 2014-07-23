@@ -10,6 +10,7 @@ define(
     ,'app/sp_app/filter'    
     ,'directive/share_directive'    
     ,'service/ui'
+    ,'app/sp_app/service/convert'
 ], function 
 (
 	 angular
@@ -26,6 +27,7 @@ define(
         'sp_app.filter',
         'share_directive',
         'service.ui',
+        'sp_app/service/convert'
     ]);
 
     mod.controller('MainCtrl',
@@ -38,6 +40,7 @@ define(
         'sp_app.service.create',
         'sp_app.service.duplicate',
         'service.ui.alert',
+        'sp_app/service/convert/lst',
     function(
         $scope,
         $http,
@@ -46,9 +49,10 @@ define(
         sp_info_service,
         create_service,
         duplicate_service,
-        alert_service
+        alert_service,
+        convert_sp_lst
     ){
-        $scope.currentPage = 1;
+        // $scope.local_filter= ""
 
         //SORT
         $scope.cur_sort_column = 'name';
@@ -73,6 +77,7 @@ define(
         $scope.sp_lst = [];
         $scope.sku_search = function(){
             $scope.name_search_str = "";
+            $scope.local_filter = "";
             $scope.sku_search_str = $scope.sku_search_str.trim().toLowerCase();
 
             var result = sp_online_searcher.sku_search_angular($scope.sku_search_str,$http);
@@ -89,31 +94,36 @@ define(
             }
 
             var promise = result.promise;
-            promise.success(function(data, status, headers, config){
-                $scope.sp_lst = $filter('sp_lst_str_2_float')(data['prod_store__prod_sku__1_1']);
-                if($scope.sp_lst.length == 0){
-                    var prod_store__prod_sku__0_0 = data['prod_store__prod_sku__0_0']
-                    var prod_store__prod_sku__1_0 = data['prod_store__prod_sku__1_0']
+            promise.then(
+                function(response_data){
+                    var data = response_data.data;
 
-                    var promise = create_service(prod_store__prod_sku__0_0,prod_store__prod_sku__1_0,$scope.sku_search_str);
-                    promise.then(
-                        function(data){
-                            $scope.sp_lst = [data];
-                        },
-                        function(reason){
-                            alert_service('alert',reason,'red');
-                        }
-                    );
-                }                            
-            });
-            promise.error(function(data, status, headers, config){
-                ui.angular_alert($modal,'error!','ajax error!',4);
-            });
+                    $scope.sp_lst = convert_sp_lst(data['prod_store__prod_sku__1_1'])
+                    if($scope.sp_lst.length == 0){
+                        var prod_store__prod_sku__0_0 = data['prod_store__prod_sku__0_0']
+                        var prod_store__prod_sku__1_0 = data['prod_store__prod_sku__1_0']
+
+                        var promise = create_service(prod_store__prod_sku__0_0,prod_store__prod_sku__1_0,$scope.sku_search_str);
+                        promise.then(
+                            function(data){
+                                $scope.sp_lst = [data];
+                            },
+                            function(reason){
+                                alert_service('alert',reason,'red');
+                            }
+                        );
+                    } 
+                },
+                function(reason){
+                    alert_service('alert','sku search ajax error','red');
+                }
+            )
         }
 
         //NAME SEARCH
         $scope.name_search = function(){
             $scope.sku_search_str = "";
+            $scope.local_filter = "";
             $scope.name_search_str = $scope.name_search_str.trim();
             
             var result = sp_online_searcher.name_search_angular($scope.name_search_str,$http);
@@ -130,16 +140,19 @@ define(
             }
 
             var promise = result.promise;
-            promise.success(function(data, status, headers, config){
-                if(data.length == 0){
-                    ui.angular_alert($modal,'info','no result found for ' + '"' + $scope.name_search_str + '"',2);
-                }else{
-                    $scope.sp_lst = $filter('sp_lst_str_2_float')(data);
-                }                                
-            });
-            promise.error(function(data, status, headers, config){
-                ui.angular_alert($modal,'error!','ajax error!',4);
-            });
+            promise.then(
+                function(response_data){
+                    var data = response_data.data;
+                    if(data.length == 0){
+                        alert_service('info','no result found for ' + '"' + $scope.name_search_str + '"','blue');
+                    }else{
+                        $scope.sp_lst = convert_sp_lst(data);
+                    }                        
+                },
+                function(reason){
+                    alert_service('alert','name search ajax error','red');
+                }
+            )
         }
 
         //SHOW SP INFO

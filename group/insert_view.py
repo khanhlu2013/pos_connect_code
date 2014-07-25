@@ -11,9 +11,9 @@ def group_insert_angular_view(request):
     group_json = json.loads(request.POST['group'])
     
     sp_lst = []
-    count_sp_client = len(group_json['store_product_set'])
+    count_sp_client = len(group_json['sp_lst'])
     if count_sp_client != 0:
-        sp_lst = Store_product.objects.filter(store_id=cur_login_store.id,product_id__in=[sp['product_id'] for sp in group_json['store_product_set']])
+        sp_lst = Store_product.objects.filter(store_id=cur_login_store.id,product_id__in=[sp['product_id'] for sp in group_json['sp_lst']])
         if count_sp_client != len(sp_lst):
             return
 

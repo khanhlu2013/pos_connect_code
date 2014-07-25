@@ -10,7 +10,9 @@ define(
 )
 {
     var mod = angular.module('group_app/model',['sp_app/model']);
-    mod.factory('group_app/model/Group',['sp_app/model/Store_product',function(Store_product){
+
+    //GROUP MODEL
+    mod.factory('group_app/model/Group',['$injector',function($injector){
         function Group(id,name,sp_lst){
             this.id = id;
             this.name = name;
@@ -18,6 +20,7 @@ define(
         }
         Group.build = function(data){
             var sp_lst = null;
+            var Store_product = $injector.get('sp_app/model/Store_product');
             if(data.store_product_set != undefined){
                 sp_lst = data.store_product_set.map(Store_product.build)
             }

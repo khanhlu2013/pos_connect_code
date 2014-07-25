@@ -299,8 +299,9 @@ REFACTOR CODE
     . create a sp_item_str_2_float
     . ui.angular_alert should be remove
     . sp_online_searcher.sku_search_angular move it into angular app
-    . convert sp_lst, sp_item use this service instead of filter: sp_lst_str_2_float. remove this filter
+    . remove sp_lst_str_2_float
     . kill all service/convert move it into api
+    . when i upload receipt, copy paste them right away from couch to master for a complete operation. other operation require retriving receipt might forget to copy and cause a potential bug(don't worry about optimization here i guess. code maintainance is more crucial plus we don't want to copy receipt from couch to master all the time when just getting receipt). So find out copy_receipt_from_couch_2_master.exe(store_id) and remove it from receipt getter view
 ------------------------------------------------------------------------------------------------------------------
 LEARN/IMPROVE
     . continuous test->build->deploy
@@ -309,7 +310,8 @@ LEARN/IMPROVE
         . write html is eaiser than writing inline_html_js_string
         . inline_html_js_string is easier to put side by side with controller code    
     . united integer and float validation using directive to make them DRY  
-    . serializer illusion of float is all i need and we can eliminate client str to float shit
+    . $event.stopPropagation()
+    . django debug toolbar
 ------------------------------------------------------------------------------------------------------------------
 VISUAL IMPROVE
     . check mark align and may be bigger?
@@ -346,6 +348,7 @@ couch_acl_validator_test: client have write permission that follow these 4 rules
 SALE APP
     . change pt after the fact
     . hold: show master detail
+    . it said 3 receipts pushing but actually only 1 receipt is pushing
 ----------------------
 TEST: think about e2e karma
 
@@ -361,7 +364,6 @@ TEST: think about e2e karma
 
 ---------------------
 SP APP
-    . filter are dealing with formating data for DISPLAY. move sp_lst_str_2_float into a service instead of filter.
     . mix match app cancel having issue
     . validate: circular kit client validation
     . quantize issue for price, and the rest crv ...    
@@ -369,99 +371,16 @@ SP APP
     . sale record
         . report payment type
         . sale report
-        . receipt master / detail, updown key
+        . receipt master / detail, updown key -> perfect for server pagination
 
-receipt json
-------------
-.implement convert_receipt_lst, convert_receipt_item
-
-{
-    "id":23,
-    "time_stamp":"2014-07-22T19:09:21.450Z",
-    "tax_rate":"32.0530",
-    "tender_ln_set":[{"id":16,"amount":"1.00","name":null}],
-    "receipt_ln_set":
-    [
-        {
-            "id":24,
-            "qty":1,
-            "store_product":
-            {
-                "id":281530,
-                "product_id":381276,
-                "store_id":223,
-                "name":"11111",
-                "price":"1.00",
-                "value_customer_price":null,
-                "crv":"0.000",
-                "is_taxable":false,
-                "is_sale_report":true,
-                "p_type":null,
-                "p_tag":null,
-                "cost":"141.44",
-                "vendor":null,
-                "buydown":null,
-                "breakdown_assoc_lst":[],
-                "kit_assoc_lst":[]
-            },
-            "price":"1.00",
-            "crv":"0.000",
-            "discount":null,
-            "discount_mm_deal":"0.00",
-            "non_product_name":null,
-            "is_taxable":false,
-            "p_type":null,
-            "p_tag":null,
-            "cost":"141.44",
-            "buydown":null
-        }
-    ]
-}
 
 
 ----------------------
-sp json
-{
-    "id":272597,
-    "product_id":369491,
-    "product":
-    {
-        "prodskuassoc_set":
-        [
-            {
-                "sku_str":"082184083062",
-                "store_set":[221],
-                "creator_id":null,
-                "product_id":369491
-            },
-            {
-                "sku_str":"082184038710",
-                "store_set":[],
-                "creator_id":null,
-                "product_id":369491
-            }
-        ]
-    },
-    "store_id":221,
-    "name":"Gentleman Jack 375",
-    "price":14.99,
-    "value_customer_price":null,
-    "crv":0,
-    "is_taxable":true,
-    "is_sale_report":true,
-    "p_type":"Liquor",
-    "p_tag":null,
-    "cost":10.93,
-    "vendor":"coles",
-    "buydown":null,
-    "group_set":[],
-    "breakdown_assoc_lst":[],
-    "kit_assoc_lst":[]
-}
 
-------------------------
-lets work on the group app first then use this group.build to work on sp
-    . currently work on building a group item with sp info. make sure sp info can contain group but these group can not contain sp
+playing with ng-table
+    . why there is a $ before $data
+    . play with sort
+
 
 
 

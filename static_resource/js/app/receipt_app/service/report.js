@@ -2,16 +2,17 @@ define(
 [
     'angular'
     //---
-    ,'service/date'
-    ,'app/receipt_app/service/convert'
+    ,'app/receipt_app/service/api'
+    ,'ngTable'
+
 ]
 ,function
 (
     angular
 )
 {
-    var mod = angular.module('receipt_app/service/report',['service/date','receipt_app/service/convert']);
-    mod.factory('receipt_app/service/report',['$modal','service/date/get_timezone_offset','receipt_app/service/convert/lst',function($modal,get_timezone_offset,convert_receipt_lst){
+    var mod = angular.module('receipt_app/service/report',['receipt_app/service/api','ngTable']);
+    mod.factory('receipt_app/service/report',['$modal','receipt_app/service/api','ngTableParams',function($modal,api,ngTableParams){
         return function(){
             var template = 
                 '<div class="modal-header">' +
@@ -19,54 +20,72 @@ define(
                 '</div>' +
                 '<div class="modal-body">' +
                     '<input type="text" datepicker-popup="MMMM-dd-yyyy" ng-model="$parent.date_from" type="text" placeholder="from">' +
-                    '<input type="text" datepicker-popup="MMMM-dd-yyyy" ng-model="$parent.date_to"  placeholder="to">' +
+                    
+                    '<p class="input-group">' +
+                        '<input class="form-control" type="text" datepicker-popup="MMMM-dd-yyyy" ng-model="$parent.date_to" is-open="$parent.is_to_date_open"  placeholder="to">' +
+                        '<span class="input-group-btn">' +
+                            '<button type="button" class="btn btn-default" ng-click="open_to_date($event)"><i class="glyphicon glyphicon-calendar"></i></button>' +
+                        '</span>' +
+                    '</p>' +
                     '<button ng-click="get_report()" ng-disabled="date_from==null||date_to==null" class="btn btn-primary glyphicon glyphicon-refresh"></button>' +
                     '<button ng-click="get_today_report()" class="btn btn-primary">today report</button>' +
-                    '<table ng-hide="receipt_lst.length==0">' +
+                    '<table ng-table="tableParams" class="table table-hover table-bordered table-condensed table-striped">' +
                         '<tr>' +
                             '<th>date</th>' +
                             '<th>total</th>' +
+                            '<th>info</th>' +
                         '</tr>' +
-                        '<tr ng-repeat="receipt in receipt_lst">' +
-                            '<th>{{receipt.time_stamp}}</th>' +
-                            '<th>xxx</th>' +
+
+                        '<tr ng-repeat="receipt in $data">' +
+                            '<td sortable="\'date\'">{{receipt.date|date:\'MMM-d-yyyy\'}}</td>' +
+                            '<td class="alnright">{{receipt.get_total()|currency}}</td>' +
                         '</tr>' +                        
                     '</table>' +
-                    '{{receipt_lst}}' +
                 '</div>' +
                 '<div class="modal-footer">' +
                     '<button ng-click="exit()" class="btn btn-warning">exit</button>' +
                 '</div>'                            
             ;
             var ModalCtrl = function($scope,$modalInstance,$http,$filter){
-                $scope.receipt_lst = [];
                 $scope.date_from = new Date();
                 $scope.date_to = new Date();
-                var server_accepted_format = "M/d/yyyy";
+
+                $scope.tableParams = new ngTableParams({
+                    page:1,
+                    count:2,
+                },{
+                    total:0,
+                    counts:[],
+                    getData:function($defer,params){
+                        var promise = api.get_receipt($scope.date_from,$scope.date_to,params.page());
+                        promise.then(
+                            function(data){
+                                // params.total(data.length);
+                                params.total(data.total);
+                                $defer.resolve(data.receipt_lst);
+                            },function(reason){
+                                alert_service('alert',reason,'red');
+                            }
+                        )                        
+                    }
+                })
+
+                $scope.show_info = function(receipt){
+                    alert(receipt.id);
+                }
                 $scope.get_today_report = function(){
                     $scope.date_from = new Date();
                     $scope.date_to = new Date();
                     $scope.get_report();
                 }
                 $scope.get_report = function(){
-                    var promise_ing = $http({
-                        url:'/receipt/get_receipt',
-                        method:'GET',
-                        params:{
-                            from_date:$filter('date')($scope.date_from,server_accepted_format),
-                            to_date:$filter('date')($scope.date_to,server_accepted_format),
-                            time_zone_offset: get_timezone_offset()
-                        }
-                    })
-                    var promise_ed = promise_ing.then(
-                        function(data){
-                            $scope.receipt_lst = convert_receipt_lst(data.data);
-                        },
-                        function(reason){
-                            alert_service.alert('alert','get receipt ajax error','red');
-                        }
-                    )
+                    $scope.tableParams.reload();
                 }
+                $scope.open_to_date = function($event) {
+                    $event.preventDefault();
+                    $event.stopPropagation();
+                    $scope.is_to_date_open = true;
+                };                
                 $scope.exit = function(){
                     $modalInstance.dismiss('_cancel_');
                 }

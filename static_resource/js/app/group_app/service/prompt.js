@@ -23,18 +23,18 @@ define(
 					'</form>' +
 
 					'<button ng-click="add_sp()" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span></button>' +
-					'<table ng-hide="group.store_product_set.length == 0" class="table table-hover table-bordered table-condensed table-striped">' +
+					'<table ng-hide="group.sp_lst.length == 0" class="table table-hover table-bordered table-condensed table-striped">' +
 						'<tr>' +
 							'<th>product</th>' +
 							'<th>remove</th>' +
 						'</tr>' +
 
-						'<tr ng-repeat="sp in group.store_product_set">' +
+						'<tr ng-repeat="sp in group.sp_lst">' +
 							'<td>{{sp.name}}</td>' +
 							'<td><button ng-click="remove_sp(sp)"class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button></td>' +
 						'</tr>' +
 					'</table>' +
-					'<pre ng-show="group.store_product_set.length == 0">there is no product in this group</pre>' +
+					'<pre ng-show="group.sp_lst.length == 0">there is no product in this group</pre>' +
 					'{{original_group}}' +
 				'</div>' + 
 				'<div class="modal-footer">' +
@@ -45,16 +45,16 @@ define(
 			;
 			var ModalCtrl = function($scope,$modalInstance,$filter,original_group){
 				if(original_group == null){
-					original_group = {store_product_set:[]};
+					original_group = {sp_lst:[]};
 				}
 
 				$scope.original_group = original_group;
 				$scope.group = angular.copy($scope.original_group);
 
 				$scope.remove_sp = function(sp){
-					for(var i = 0;i<$scope.group.store_product_set.length;i++){
-						if(sp.id == $scope.group.store_product_set[i].id){
-							$scope.group.store_product_set.splice(i,1);
+					for(var i = 0;i<$scope.group.sp_lst.length;i++){
+						if(sp.id == $scope.group.sp_lst[i].id){
+							$scope.group.sp_lst.splice(i,1);
 							break;
 						}
 					}
@@ -65,8 +65,8 @@ define(
 					promise.then(
 						function(sp_lst){
 							for(var i = 0;i<sp_lst.length;i++){
-								if($filter('get_item_from_lst_base_on_id')($scope.group.store_product_set,sp_lst[i].id) == null){
-									$scope.group.store_product_set.push(sp_lst[i]);
+								if($filter('get_item_from_lst_base_on_id')($scope.group.sp_lst,sp_lst[i].id) == null){
+									$scope.group.sp_lst.push(sp_lst[i]);
 								}
 							}
 						},
@@ -91,7 +91,7 @@ define(
 			var dlg = $modal.open({
 				template:template,
 				controller:ModalCtrl,
-				size:'lg',
+				size:'md',
 				backdrop:'static',
 				resolve:{
 					original_group:function(){return original_group}

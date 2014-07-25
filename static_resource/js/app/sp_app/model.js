@@ -3,16 +3,18 @@ define(
     'angular'
     //-------
     ,'app/group_app/model'
+    ,'app/product_app/model'
 ]
 ,function
 (
     angular
 )
 {
-    var mod = angular.module('sp_app/model',[]);
-    mod.factory('sp_app/model/Store_product',function(){
+    var mod = angular.module('sp_app/model',['group_app/model','product_app/model']);
 
-    	function Store_product(
+    //Store_product model
+    mod.factory('sp_app/model/Store_product',['$injector',function($injector){
+        function Store_product(
             id,
             product_id,
             store_id,
@@ -46,7 +48,7 @@ define(
     		this.cost = cost;
     		this.vendor = vendor;
     		this.buydown = buydown;
-            this.product = product
+            this.product = product;
     		this.group_lst = group_lst;
     		this.breakdown_assoc_lst = breakdown_assoc_lst;
     		this.kit_assoc_lst = kit_assoc_lst;
@@ -58,13 +60,35 @@ define(
     			return parseFloat(str);
     		}
     	}    	
-    	Store_product.build = function(raw_json){
-            var product = null;
+        function _build(raw_json){
+            //build group
             var group_lst = null;
-            var breakdown_assoc_lst = null;
-            var kit_assoc_lst = null;
+            if(raw_json.group_set != undefined){
+                var Group = $injector.get('group_app/model/Group');
+                group_lst = raw_json.group_set.map(Group.build)
+            }
 
-    		return new Store_product(
+            //build product
+            var product = null;
+            if(raw_json.product != undefined){
+                var Product = $injector.get('product_app/model/Product');
+                product = Product.build(raw_json.product);
+            }
+
+            //build breakdown assoc list
+            var breakdown_assoc_lst = [];
+            if(raw_json.breakdown_assoc_lst != undefined && raw_json.breakdown_assoc_lst.length!=0){
+                var Kit_breakdown_assoc = $injector.get('sp_app/model/Kit_breakdown_assoc')
+                breakdown_assoc_lst = raw_json.breakdown_assoc_lst.map(Kit_breakdown_assoc.build)
+            }
+
+            //build kit assoc list
+            var kit_assoc_lst = [];
+            if(raw_json.kit_assoc_lst != undefined && raw_json.breakdown_assoc_lst.length != 0){
+                kit_assoc_lst = raw_json.kit_assoc_lst.map(_build);
+            }
+
+            return new Store_product(
                 raw_json.id,
                 raw_json.product_id,
                 raw_json.store_id,
@@ -84,7 +108,70 @@ define(
                 breakdown_assoc_lst,
                 kit_assoc_lst
             );
-    	}
+        }
+
+    	Store_product.build = _build;
     	return Store_product;
-    })
+    }])
+
+    //Kit_breakdown_assoc
+    mod.factory('sp_app/model/Kit_breakdown_assoc',['$injector',function($injector){
+        function Kit_breakdown_assoc(id,breakdown,qty){
+            this.id = id;
+            this.breakdown = breakdown;
+            this.qty = qty;
+        }
+        Kit_breakdown_assoc.build = function(raw_json){
+            var Store_product = $injector.get('sp_app/model/Store_product')
+            var breakdown = Store_product.build(raw_json.breakdown);
+
+            return new Kit_breakdown_assoc(
+                raw_json.id,
+                breakdown,
+                raw_json.qty
+            );
+        }
+        return Kit_breakdown_assoc;
+    }])
 })
+
+/*
+sp json
+{
+    "id":272597,
+    "product_id":369491,
+    "product":
+    {
+        "prodskuassoc_set":
+        [
+            {
+                "sku_str":"082184083062",
+                "store_set":[221],
+                "creator_id":null,
+                "product_id":369491
+            },
+            {
+                "sku_str":"082184038710",
+                "store_set":[],
+                "creator_id":null,
+                "product_id":369491
+            }
+        ]
+    },
+    "store_id":221,
+    "name":"Gentleman Jack 375",
+    "price":14.99,
+    "value_customer_price":null,
+    "crv":0,
+    "is_taxable":true,
+    "is_sale_report":true,
+    "p_type":"Liquor",
+    "p_tag":null,
+    "cost":10.93,
+    "vendor":"coles",
+    "buydown":null,
+    "group_set":[],
+    "breakdown_assoc_lst":[],
+    "kit_assoc_lst":[]
+}
+*/

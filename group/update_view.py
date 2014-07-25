@@ -13,11 +13,11 @@ def group_update_angular_view(request):
 
 
     sp_lst = []
-    if len(group_json['store_product_set']) != 0:
-        sp_lst = Store_product.objects.filter(store_id=cur_login_store.id,product_id__in=[sp['product_id'] for sp in group_json['store_product_set']])
+    if len(group_json['sp_lst']) != 0:
+        sp_lst = Store_product.objects.filter(store_id=cur_login_store.id,product_id__in=[sp['product_id'] for sp in group_json['sp_lst']])
 
     #validate child belong store product of this store        
-    if len(sp_lst) != len(group_json['store_product_set']):
+    if len(sp_lst) != len(group_json['sp_lst']):
         return
 
 

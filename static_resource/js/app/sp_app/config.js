@@ -6,12 +6,13 @@ requirejs.config({
         ,service : 'service'
         ,controller : 'controller'
 
-
         // ,angular:["//ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular",["lib/angular.min"]]
         ,angular:["lib/angular"]
 
         // ,ui_bootstrap:["//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.min",["lib/ui-bootstrap-tpls-0.11.0"]]
         ,ui_bootstrap:["lib/ui-bootstrap-tpls-0.11.0"]
+
+        ,'ngTable' : ["lib/ng-table"]
     }
     ,shim:{
          angular : {'exports':'angular'}

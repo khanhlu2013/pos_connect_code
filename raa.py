@@ -10,9 +10,34 @@ def exe():
 
 	if user_day != str(now.day): 
 		print "wrong day"	
+
 	if user_month != str(now.month): 
 		print "wrong month"
+
 	if user_year!= str(now.year): 
 		print "wrong year"
+
 	if user_year == str(now.year) and user_month == str(now.month) and user_day == str(now.day):
 		print "correct"
+
+
+
+def RY():
+    answer = raw_input ("what number do you chose between 0-1000?")
+    answer = int(answer)
+    if answer > 0 and answer < 500:
+        print "C!"
+    elif answer > 500 and answer < 700:
+        print "B!"
+    elif answer > 700 and answer <= 1000:
+        print "A"
+    else:
+        print "Try again LAST TRY"
+        if answer > 0 and answer < 500:
+            print "C!"
+        elif answer > 500 and answer < 700:
+            print "B!"
+        elif answer > 700 and answer <= 1000:
+            print "A"
+        else:
+            print "YOU ARE THE STUPIDIST PERSON EVERE YOU GET ---------------------F!!!!!!"

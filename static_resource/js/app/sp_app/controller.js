@@ -11,6 +11,7 @@ define(
     ,'directive/share_directive'    
     ,'service/ui'
     ,'app/sp_app/service/convert'
+    ,'app/sp_app/service/api'
 ], function 
 (
 	 angular
@@ -27,7 +28,8 @@ define(
         'sp_app.filter',
         'share_directive',
         'service.ui',
-        'sp_app/service/convert'
+        'sp_app/service/convert',
+        'sp_app/service/api'
     ]);
 
     mod.controller('MainCtrl',
@@ -41,6 +43,7 @@ define(
         'sp_app.service.duplicate',
         'service.ui.alert',
         'sp_app/service/convert/lst',
+        'sp_app/service/api',
     function(
         $scope,
         $http,
@@ -50,7 +53,8 @@ define(
         create_service,
         duplicate_service,
         alert_service,
-        convert_sp_lst
+        convert_sp_lst,
+        api
     ){
         // $scope.local_filter= ""
 
@@ -80,43 +84,18 @@ define(
             $scope.local_filter = "";
             $scope.sku_search_str = $scope.sku_search_str.trim().toLowerCase();
 
-            var result = sp_online_searcher.sku_search_angular($scope.sku_search_str,$http);
-            var error = result.error;
-            if(error){
-                if(error == sp_online_searcher.SKU_SEARCH_ERROR_EMPTY){
-                    $scope.sp_lst = [];
-                }else if(error == sp_online_searcher.SKU_SEARCH_ERROR_CONTAIN_SPACE){
-                    ui.angular_alert($modal,'error!','sku can not contain space.',3);
-                }else{
-                    ui.angular_alert($modal,'error!',error,4);
-                }
-                return;
-            }
-
-            var promise = result.promise;
-            promise.then(
-                function(response_data){
-                    var data = response_data.data;
-
-                    $scope.sp_lst = convert_sp_lst(data['prod_store__prod_sku__1_1'])
+            api.sku_search($scope.sku_search_str).then(
+                function(data){
+                    $scope.sp_lst = data.prod_store__prod_sku__1_1;
                     if($scope.sp_lst.length == 0){
-                        var prod_store__prod_sku__0_0 = data['prod_store__prod_sku__0_0']
-                        var prod_store__prod_sku__1_0 = data['prod_store__prod_sku__1_0']
-
-                        var promise = create_service(prod_store__prod_sku__0_0,prod_store__prod_sku__1_0,$scope.sku_search_str);
-                        promise.then(
-                            function(data){
-                                $scope.sp_lst = [data];
-                            },
-                            function(reason){
-                                alert_service('alert',reason,'red');
-                            }
+                        var promise = create_service(data.prod_store__prod_sku__0_0,data.prod_store__prod_sku__1_0,$scope.sku_search_str).then
+                        (
+                             function(created_sp){ $scope.sp_lst = [created_sp];}
+                            ,function(reason){alert_service('alert',reason,'red');}
                         );
                     } 
-                },
-                function(reason){
-                    alert_service('alert','sku search ajax error','red');
                 }
+                ,function(reason){ alert_service.alert('alert',reason,'red') }
             )
         }
 
@@ -126,56 +105,28 @@ define(
             $scope.local_filter = "";
             $scope.name_search_str = $scope.name_search_str.trim();
             
-            var result = sp_online_searcher.name_search_angular($scope.name_search_str,$http);
-            var error = result.error;
-            if(error){
-                if(error == sp_online_searcher.NAME_SEARCH_ERROR_EMPTY){
-                    $scope.sp_lst = [];
-                }else if(error == sp_online_searcher.NAME_SEARCH_ERROR_2_WORDS_MAX){
-                    ui.angular_alert($modal,'error!','2 words search maximum.',3);
-                }else{
-                    ui.angular_alert($modal,'error!',error,4);
+            api.name_search($scope.name_search_str).then(
+                function(data){
+                    $scope.sp_lst = data;
+                    if(data.length == 0){ alert_service('info','no result found for ' + '"' + $scope.name_search_str + '"','blue');}
                 }
-                return;
-            }
-
-            var promise = result.promise;
-            promise.then(
-                function(response_data){
-                    var data = response_data.data;
-                    if(data.length == 0){
-                        alert_service('info','no result found for ' + '"' + $scope.name_search_str + '"','blue');
-                    }else{
-                        $scope.sp_lst = convert_sp_lst(data);
-                    }                        
-                },
-                function(reason){
-                    alert_service('alert','name search ajax error','red');
-                }
+                ,function(reason){ alert_service('alert',reason,'red'); }
             )
         }
 
         //SHOW SP INFO
         $scope.display_product_info = function(sp){
-            var promise = sp_info_service(sp);
-            promise.then(
+            sp_info_service(sp).then(
                 function(data){
                     if(typeof(data) == 'string' && data == 'duplicate'){
-                        var promise = duplicate_service(sp);
-                        promise.then
+                        duplicate_service(sp).then
                         (
-                            function(data){
-                                $scope.sp_lst=[data];
-                            },
-                            function(reason){
-                                alert_service('alert',reason,'red');
-                            }
+                             function(data){ $scope.sp_lst=[data]; }
+                            ,function(reason){ alert_service('alert',reason,'red');}
                         )
                     }
-                },
-                function(reason){
-                    alert_service('alert',reason,'red');
                 }
+                ,function(reason){ alert_service('alert',reason,'red');}
             )
         }
     }]);

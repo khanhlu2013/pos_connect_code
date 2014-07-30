@@ -2,15 +2,27 @@ define(
 [
 	 'angular'
     ,'directive/share_directive'       
+    ,'app/sp_app/service/api'
 ]
 ,function
 (
 	angular
 )
 {
-	var mod = angular.module('sp_app.service.search_dlg',['share_directive']);
+	var mod = angular.module('sp_app.service.search_dlg',
+	[
+		'share_directive',
+		'sp_app/service/api'
+	]);
 
-	mod.factory('sp_app.service.search_dlg.multiple',['$modal',function($modal){
+	mod.factory('sp_app.service.search_dlg.multiple',
+	[
+		'$modal',
+		'sp_app/service/api',
+	function(
+		$modal,
+		api
+	){
 		var template = 
 			'<div class="modal-header">' +
 				'<h3 class="modal-title">search</h3>' +
@@ -55,7 +67,7 @@ define(
 						'</table>' +
 					'</div>' +					
 				'</div>' +
-				'<br class="clear">' +
+				'<div class="clear"></div>' +
  			'</div>' +
 
 			'<div class="modal-footer">' + 
@@ -108,28 +120,14 @@ define(
  					return;
  				}
 
-				var token_lst = $scope.search_str.split(' ');
-				if(token_lst.length > 2){
-					$scope.message = "2 words search max";
-					return;
-				}
-
- 				var promise = $http({
- 					url : '/product/search_by_name_sku_angular',
- 					method: 'GET',
- 					params : {'search_str':$scope.search_str}
- 				});
-				promise.success(function(data, status, headers, config){
-					$scope.sp_lst = $filter('sp_lst_str_2_float')(data);
-					if($scope.sp_lst.length == 0){
-						$scope.message = "no result for " + "'" + $scope.search_str + "'";					
-					}else{
-						$scope.message = "";
-					}
- 				});
- 				promise.error(function(data, status, headers, config){
- 				    alert('ajax error');
- 				}); 				
+ 				api.name_sku_search($scope.search_str).then(
+ 					function(result_lst){
+ 						$scope.sp_lst = result_lst;
+						if($scope.sp_lst.length == 0){ $scope.message = "no result for " + "'" + $scope.search_str + "'";}
+						else{ $scope.message = ""; }
+ 					}
+ 					,function(reason){ $scope.message = reason; }
+ 				)
 			}
 			$scope.cancel = function(){
 				$modalInstance.dismiss('_cancel_');
@@ -192,28 +190,14 @@ define(
  					return;
  				}
 
-				var token_lst = $scope.search_str.split(' ');
-				if(token_lst.length > 2){
-					$scope.message = "2 words search max";
-					return;
-				}
-
- 				var promise = $http({
- 					url : '/product/search_by_name_sku_angular',
- 					method: 'GET',
- 					params : {'search_str':$scope.search_str}
- 				});
-				promise.success(function(data, status, headers, config){
-					$scope.sp_lst = $filter('sp_lst_str_2_float')(data);
-					if($scope.sp_lst.length == 0){
-						$scope.message = "no result for " + "'" + $scope.search_str + "'";					
-					}else{
-						$scope.message = "";
-					}
- 				});
- 				promise.error(function(data, status, headers, config){
- 				    alert('ajax error');
- 				}); 				
+ 				api.name_sku_search($scope.search_str).then(
+ 					function(result_lst){
+ 						$scope.sp_lst = result_lst;
+						if($scope.sp_lst.length == 0){ $scope.message = "no result for " + "'" + $scope.search_str + "'";}
+						else{ $scope.message = ""; }
+ 					}
+ 					,function(reason){ $scope.message = reason; }
+ 				)				
 			}
 			$scope.cancel = function(){
 				$modalInstance.dismiss('_cancel_');

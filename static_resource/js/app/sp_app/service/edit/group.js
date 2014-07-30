@@ -20,17 +20,17 @@ define(
 
                 '<button ng-click="add()" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span></button>' +
                 '</br>' +
-                '<table ng-hide="sp.group_set.length==0" class="table table-hover table-bordered table-condensed table-striped">' +
+                '<table ng-hide="sp.group_lst.length==0" class="table table-hover table-bordered table-condensed table-striped">' +
                     '<tr>' +
                         '<th>group</th>' +         
                         '<th>remove</th>' +                
                     '</tr>' +    
-                    '<tr ng-repeat="group in sp.group_set">' +
+                    '<tr ng-repeat="group in sp.group_lst">' +
                         '<td>{{group.name}}</td>' +    
                         '<td><button ng-click="remove(group)" class="btn btn-danger glyphicon glyphicon-trash"></button></td>' +                                            
                     '</tr>' +                                                  
                 '</table>' +
-                '<div ng-show="sp.group_set.length==0">' +
+                '<div ng-show="sp.group_lst.length==0">' +
                     '</br>' +
                     '<pre>No group!</pre>' +
                 '</div>' +
@@ -55,8 +55,8 @@ define(
                 var promise = select_multiple_group_service(true/*allow to select multiple group*/);
                 promise.then(function (result_lst) {
                     for(var i = 0;i<result_lst.length;i++){
-                        if($filter('get_item_from_lst_base_on_id')($scope.sp.group_set,result_lst[i].id) == null) {
-                            $scope.sp.group_set.push(result_lst[i]);
+                        if($filter('get_item_from_lst_base_on_id')($scope.sp.group_lst,result_lst[i].id) == null) {
+                            $scope.sp.group_lst.push(result_lst[i]);
                         }
                     }
                 }, function () {
@@ -64,9 +64,9 @@ define(
                 });                
             }
             $scope.remove = function(group){
-                for(var i = 0;i<$scope.sp.group_set.length;i++){
-                    if($scope.sp.group_set[i].id === group.id){
-                        $scope.sp.group_set.splice(i,1);
+                for(var i = 0;i<$scope.sp.group_lst.length;i++){
+                    if($scope.sp.group_lst[i].id === group.id){
+                        $scope.sp.group_lst.splice(i,1);
                     }
                 }
             };         

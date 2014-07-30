@@ -46,7 +46,7 @@ define(
             '<div class="form-group">' +
                 '<label class="col-sm-4 control-label">Crv:</label>' +
                 '<div class="col-sm-8">' +
-                    '<input name="crv" ng-model="$parent.sp.crv" ng-disabled="{{sp|is_kit}}" type="number">' +
+                    '<input name="crv" ng-model="$parent.sp.crv" ng-disabled="{{sp.is_kit()}}" type="number">' +
                     '<div ng-hide="$parent.suggest_product==null" class="btn-group" dropdown>' +
                         '<button ng-click="$parent.sp.crv=get_suggest(\'crv\')" class="btn btn-primary">{{get_suggest(\'crv\')|currency}}</button>' +
                         '<button ng-hide="$parent.suggest_product.store_product_set.length <=1" class="btn btn-primary dropdown-toggle" ><span class="caret"></span></button>' +
@@ -77,7 +77,7 @@ define(
             '<div class="form-group">' +
                 '<label class="col-sm-4 control-label">Cost:</label>' +
                 '<div class="col-sm-8">' +
-                    '<input name="cost" ng-model="$parent.sp.cost" ng-disabled="{{sp|is_kit}}" type="number" value="{{sp|compute_sp_kit_field:\'cost\'}}"">' +
+                    '<input name="cost" ng-model="$parent.sp.cost" ng-disabled="{{sp.is_kit()}}" type="number"}}"">' +
                     '<div ng-hide="$parent.suggest_product==null" class="btn-group" dropdown>' +
                         '<button ng-click="$parent.sp.cost=get_suggest(\'cost\')" class="btn btn-primary">{{get_suggest(\'cost\')|currency}}</button>' +
                         '<button class="btn btn-primary dropdown-toggle" ng-hide="$parent.suggest_product.store_product_set.length<=1"><span class="caret"></span></button>' +
@@ -132,7 +132,7 @@ define(
             '<div class="form-group">' +
                 '<label class="col-sm-4 control-label">Buydown:</label>' +
                 '<div class="col-sm-8">' +
-                    '<input name="buydown" ng-disabled="{{sp|is_kit}}" ng-model="$parent.sp.buydown" type="number" value="{{sp|compute_sp_kit_field:\'buydown\'}}">' +    
+                    '<input name="buydown" ng-disabled="{{sp.is_kit()}}" ng-model="$parent.sp.buydown" type="number"}}">' +    
                     '<label class="error" ng-show="form.buydown.$invalid">' +
                         'invalid input' +
                     '</label>' +                                     
@@ -212,10 +212,10 @@ define(
             }
 
             //init kit value: we need this because what we store inside sp.kit_field could be different that the current calculated kid field. Thus, we init sp.kit_field to be the actual currently calculated field sp that it will display correctly 
-            if($filter('is_kit')($scope.sp)){
-                $scope.sp.crv = $filter('compute_sp_kit_field')($scope.sp,'crv');
-                $scope.sp.cost = $filter('compute_sp_kit_field')($scope.sp,'cost');
-                $scope.sp.buydown = $filter('compute_sp_kit_field')($scope.sp,'buydown');
+            if($scope.sp.is_kit()){
+                $scope.sp.crv = $scope.sp.get_crv();
+                $scope.sp.cost = $scope.sp.get_cost();
+                $scope.sp.buydown = $scope.sp.get_buydown();
             }
             $scope.reset = function(){
                 if($scope.original_sp == null){

@@ -14,6 +14,8 @@ define(
 
     //Store_product model
     mod.factory('sp_app/model/Store_product',['$injector',function($injector){
+
+        //CONSTRUCTOR
         function Store_product(
             id,
             product_id,
@@ -34,7 +36,7 @@ define(
             breakdown_assoc_lst,
             kit_assoc_lst
     	){
-    		this.id = id;
+            this.id = id;
     		this.product_id = product_id;
     		this.store_id = store_id;
     		this.name = name;
@@ -53,6 +55,36 @@ define(
     		this.breakdown_assoc_lst = breakdown_assoc_lst;
     		this.kit_assoc_lst = kit_assoc_lst;
  		}
+
+        //PULIC METHOD
+        Store_product.prototype = {
+             constructor : Store_product
+            ,is_kit : function(){
+                return this.breakdown_assoc_lst.length !=0;
+            }
+            ,get_crv : function(){
+                return compute_recursive_field(this,'crv');
+            }
+            ,get_cost : function(){
+                return compute_recursive_field(this,'cost');       
+            }
+            ,get_buydown : function(){
+                return compute_recursive_field(this,'buydown');              
+            }    
+            ,get_my_sku_assoc_lst : function(){
+                var result = [];
+                for(var i = 0;i<this.product.prod_sku_assoc_lst.length;i++){
+                    var cur_assoc = this.product.prod_sku_assoc_lst[i];
+                    var index = cur_assoc.store_lst.indexOf(this.store_id);
+                    if(index != -1){
+                        result.push(cur_assoc);
+                    }
+                }   
+                return result;                         
+            }        
+        }
+
+        //PRIVATE METHOD
     	function str_2_float(str){
     		if(str == null){
     			return null;
@@ -60,9 +92,45 @@ define(
     			return parseFloat(str);
     		}
     	}    	
+        function compute_recursive_field(sp,field){
+            /*
+                DESC    :helper filter to recursively calculate kit related field: 
+                PRE     :only call this method on kit related field: CRV, BUYDOWN,COST
+                RETURN  
+                        .if it is a kit: recursively calculate the field
+                        .if it is not a kit: return sp.field
+
+            */
+            // we should only use this method for 3 fields only: crv,buydow,cost. RETURN NULL IF SP IS NOT A KIT
+            
+            //CHECK NULL (when create new, sp is null)
+            if(sp == null){
+                return undefined;
+            }
+
+            //when create new and after edit a field, angular init sp to be not null but this sp still don't have breakdown_assoc_lst
+            if(sp.breakdown_assoc_lst == undefined){
+                return undefined;
+            }
+
+            //NOT A KIT
+            if(sp.breakdown_assoc_lst.length == 0){
+                return sp[field];
+            }
+
+            //A KIT
+            var result = 0.0;
+            for(var i = 0;i<sp.breakdown_assoc_lst.length;i++){
+                var assoc = sp.breakdown_assoc_lst[i];
+                result += (compute_recursive_field(assoc.breakdown,field) * assoc.qty);
+            }
+            return result;
+        }    
+
+        //BUILD METHOD
         function _build(raw_json){
             //build group
-            var group_lst = null;
+            var group_lst = [];
             if(raw_json.group_set != undefined){
                 var Group = $injector.get('group_app/model/Group');
                 group_lst = raw_json.group_set.map(Group.build)
@@ -108,8 +176,7 @@ define(
                 breakdown_assoc_lst,
                 kit_assoc_lst
             );
-        }
-
+        }             
     	Store_product.build = _build;
     	return Store_product;
     }])

@@ -73,12 +73,8 @@ define(
 				$scope.add_mix_match = function(){
 					var promise = create_service();
 					promise.then(
-						function(data){
-							$scope.mm_lst.push(data);
-						},
-						function(reason){
-							alert_service('alert',reason,'red');
-						}
+						 function(data){ $scope.mm_lst.push(data);}
+						,function(reason){ alert_service('alert',reason,'red'); }
 					)
 				}
 				$scope.delete = function(mm){
@@ -93,10 +89,8 @@ define(
 											$scope.mm_lst.splice(i,1);
 										}
 									}
-								},
-								function(reason){
-									alert_service('alert',reason,'red');
-								}	
+								}
+								,function(reason){ alert_service('alert',reason,'red');}
 							)
 						}
 					)
@@ -104,44 +98,21 @@ define(
 				$scope.edit = function(mm){
 					var promise = edit_service(mm);
 					promise.then(
-						function(data){
-							angular.copy(data,mm);
-						},
-						function(reason){
-							alert_service('alert',reason,'red');
-						}
+						 function(data){ angular.copy(data,mm); }
+						,function(reason){ alert_service('alert',reason,'red');}
 					)
 				}
-				$scope.exit = function(){
-					$modalInstance.close($scope.mm_lst);
-				}
+				$scope.exit = function(){ $modalInstance.close($scope.mm_lst);}
 			}
 
-			dlg = $modal.open({
+			return $modal.open({
 				template:template,
 				controller: ModalCtrl,
 				size:'lg',
-				resolve:{
-					mm_lst : function(){
-						var get_ing_promise = $http({
-							url:'/mix_match/get',
-							method:'GET'
-						});
- 						var get_ed_promise = get_ing_promise.then(
-							function(data){
-								var process_data = $filter('mix_match_app.filter.mm_lst_str_2_float')(data.data);
-								var defer=$q.defer();defer.resolve(process_data);return defer.promise;
-							},
-							function(reason){
-								return $q.reject('get mix match lst ajax error');
-							}
-						)
-						return get_ed_promise;						
-					}
+				resolve:{ 
+					mm_lst : function(){ return api.get_lst();}
 				}
-			});
-
-			return dlg.result;
+ 			}).result;
 		}
 	}])
 })

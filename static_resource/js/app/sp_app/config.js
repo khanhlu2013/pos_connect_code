@@ -5,7 +5,7 @@ requirejs.config({
         ,lib : 'lib'
         ,service : 'service'
         ,controller : 'controller'
-
+        ,domReady: 'lib/require/domReady'
         // ,angular:["//ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular",["lib/angular.min"]]
         ,angular:["lib/angular"]
 
@@ -18,21 +18,24 @@ requirejs.config({
          angular : {'exports':'angular'}
         ,ui_bootstrap : {deps:["angular"]/*,'exports':'ui_bootstrap'*/}
     }
+    ,deps : ['app/sp_app/bootstrap']
 });
 requirejs.onError = function (err) {
-    alert('there is error loading page: ' + err.requireType);
+    alert('there is error loading page: ' + err);
+    console.log(err);
     throw err;
 };
-//http://code.angularjs.org/1.2.1/docs/guide/bootstrap#overview_deferred-bootstrap
-window.name = "NG_DEFER_BOOTSTRAP!";
 
-require( 
-[
-    'app/sp_app/app'
-]
-, function(app) {
-    angular.element().ready(function() {
-        angular.resumeBootstrap([app['name']]);
-    });    
-});
+// //http://code.angularjs.org/1.2.1/docs/guide/bootstrap#overview_deferred-bootstrap
+// window.name = "NG_DEFER_BOOTSTRAP!";
+
+// require( 
+// [
+//     'app/sp_app/app'
+// ]
+// , function(app) {
+//     angular.element().ready(function() {
+//         angular.resumeBootstrap([app['name']]);
+//     });    
+// });
 

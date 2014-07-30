@@ -37,7 +37,7 @@ define(
 
                             '<div class="form-group">' +
                                 '<label class="col-sm-4 control-label">Crv:</label>' +
-                                '<p class="col-sm-8 form-control-static">{{sp|compute_sp_kit_field:\'crv\'|currency}}</p>' +
+                                '<p class="col-sm-8 form-control-static">{{sp.get_crv()|currency}}</p>' +
                             '</div>' +
 
                             '<div class="form-group">' +
@@ -49,7 +49,7 @@ define(
 
                             '<div class="form-group">' +
                                 '<label class="col-sm-4 control-label">Cost:</label>' +
-                                '<p class="col-sm-8 form-control-static">{{sp|compute_sp_kit_field:\'cost\'|currency}}</p>' +
+                                '<p class="col-sm-8 form-control-static">{{sp.get_cost()|currency}}</p>' +
                             '</div>' +
 
                             '<div class="form-group">' +
@@ -76,7 +76,7 @@ define(
 
                             '<div class="form-group">' +                               
                                 '<label class="col-sm-4 control-label">Buydown:</label>' +
-                                '<p class="col-sm-8 form-control-static">{{sp|compute_sp_kit_field:\'buydown\'|currency}}</p>' +
+                                '<p class="col-sm-8 form-control-static">{{sp.get_buydown()|currency}}</p>' +
                             '</div>' +
 
                             '<div class="form-group">' +                               
@@ -88,15 +88,15 @@ define(
                     '</tab>' +
                     
                     '<tab heading="group" select="switch_tab(\'group\')">' +
-                        '<table ng-hide="sp.group_set.length==0" class="table table-hover table-bordered table-condensed table-striped">' +
+                        '<table ng-hide="sp.group_lst.length==0" class="table table-hover table-bordered table-condensed table-striped">' +
                             '<tr>' +
                                 '<th>group</th>' +                
                             '</tr>' +    
-                            '<tr ng-repeat="group in sp.group_set">' +
+                            '<tr ng-repeat="group in sp.group_lst">' +
                                 '<td>{{group.name}}</td>' +                    
                             '</tr>' +                                                  
                         '</table>' +      
-                        '<pre ng-show="sp.group_set.length==0">there is no group</pre>' +         
+                        '<pre ng-show="sp.group_lst.length==0">there is no group</pre>' +         
                     '</tab>' +
                     '<tab heading="kit" select="switch_tab(\'kit\')">' +
                         '<table ng-hide="sp.breakdown_assoc_lst.length==0" class="table table-hover table-bordered table-condensed table-striped">' +
@@ -112,15 +112,15 @@ define(
                         '<pre ng-show="sp.breakdown_assoc_lst.length==0">there is no kit</pre>' +                 
                     '</tab>' +     
                     '<tab heading="sku" select="switch_tab(\'sku\')">' +
-                        '<table ng-show="get_my_sku_assoc_lst().length != 0" class="table table-hover table-bordered table-condensed table-striped">' +
+                        '<table ng-show="sp.get_my_sku_assoc_lst().length != 0" class="table table-hover table-bordered table-condensed table-striped">' +
                             '<tr>' +
                                 '<th>sku</th>' +              
                             '</tr>' +
-                            '<tr ng-repeat="sku_assoc in get_my_sku_assoc_lst()">' +
+                            '<tr ng-repeat="sku_assoc in sp.get_my_sku_assoc_lst()">' +
                                 '<td>{{sku_assoc.sku_str}}</td>' +      
                             '</tr>' +
                         '</table>' +  
-                        '<pre ng-show="get_my_sku_assoc_lst().length == 0">there is no sku</pre>' +                 
+                        '<pre ng-show="sp.get_my_sku_assoc_lst().length == 0">there is no sku</pre>' +                 
                     '</tab>' +                                                          
                 '</tabset>' +
             '</div>' + /* end modal body*/
@@ -137,9 +137,6 @@ define(
             $scope.is_show_kit_group_info = true;
             $scope.cur_tab = "product";
             
-            $scope.get_my_sku_assoc_lst = function(){
-                return $filter('sku_in_store')($scope.sp.product.prodskuassoc_set,$scope.sp.store_id);
-            }
             $scope.edit = function(){
                 if($scope.cur_tab == 'product'){
                     edit_sp($scope.sp);

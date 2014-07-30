@@ -299,9 +299,9 @@ REFACTOR CODE
     . create a sp_item_str_2_float
     . ui.angular_alert should be remove
     . sp_online_searcher.sku_search_angular move it into angular app
-    . remove sp_lst_str_2_float
     . kill all service/convert move it into api
     . when i upload receipt, copy paste them right away from couch to master for a complete operation. other operation require retriving receipt might forget to copy and cause a potential bug(don't worry about optimization here i guess. code maintainance is more crucial plus we don't want to copy receipt from couch to master all the time when just getting receipt). So find out copy_receipt_from_couch_2_master.exe(store_id) and remove it from receipt getter view
+    windowClass:'xlg-dialog'
 ------------------------------------------------------------------------------------------------------------------
 LEARN/IMPROVE
     . continuous test->build->deploy
@@ -364,23 +364,32 @@ TEST: think about e2e karma
 
 ---------------------
 SP APP
-    . mix match app cancel having issue
-    . validate: circular kit client validation
-    . quantize issue for price, and the rest crv ...    
 
     . sale record
         . report payment type
         . sale report
-        . receipt master / detail, updown key -> perfect for server pagination
+
+        
+    . mix match app cancel having issue
+    . validate: circular kit client validation
+    . quantize issue for price, and the rest crv ...    
+    . main page: 
+        . server pagination
+        . implement model sku search and name search
 
 
 
-----------------------
 
-playing with ng-table
-    . why there is a $ before $data
-    . play with sort
+        
 
+
+filter.is_obj_sp
+filter.is_obj_p
+
+
+
+think about where to put e2e folder and conf.js file
+. we can remove requirejs config for controller and service since it is already the base url
 
 
 

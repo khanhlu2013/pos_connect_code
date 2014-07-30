@@ -87,6 +87,13 @@ define(
 
         Receipt_ln.prototype = {
              constructor:Receipt_ln
+            ,get_name: function(){
+                if(this.store_product == null){
+                    return this.non_product_name;
+                }else{
+                    return this.store_product.name;
+                }
+            } 
             ,get_total_discount: function(){
                 return this.discount + this.discount_mm_deal + this.buydown;
             } 

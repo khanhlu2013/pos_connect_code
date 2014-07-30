@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html ng-app="store_product_app">
+<!-- <html ng-app="store_product_app"> -->
+<html>
 <head>
     <title>pos connect </title>
 
@@ -112,14 +113,14 @@
             <tr ng-repeat="sp in sp_lst | orderBy:cur_sort_column:cur_sort_desc | filter:local_filter">
                 <td>{{sp.name}}</td>
                 <td class="alnright">{{sp.price | currency}}</td>
-                <td class="alnright">{{sp|compute_sp_kit_field:'crv'|currency|not_show_zero}}</td>
+                <td class="alnright">{{sp.get_crv()|currency|not_show_zero}}</td>
                 <td class="alncenter"><span ng-class="sp.is_taxable ? 'glyphicon glyphicon-ok' : 'glyphicon glyphicon-remove' "></span></td>
                 <td class="alncenter"><span ng-class="sp.is_sale_report ? 'glyphicon glyphicon-ok' : 'glyphicon glyphicon-remove' "></span></td>
                 <td>{{sp.p_type}}</td>
                 <td>{{sp.p_tag}}</td>
                 <td>{{sp.vendor}}</td>
-                <td class="alnright">{{sp|compute_sp_kit_field:'cost'|currency|not_show_zero}}</td>
-                <td class="alnright">{{sp|compute_sp_kit_field:'buydown'|currency|not_show_zero}}</td>
+                <td class="alnright">{{sp.get_cost()|currency|not_show_zero}}</td>
+                <td class="alnright">{{sp.get_buydown()|currency|not_show_zero}}</td>
                 <td class="alnright">{{sp.value_customer_price|currency|not_show_zero}}</td>
                 <td><button ng-click="display_product_info(sp)" class="btn btn-sm btn-primary glyphicon glyphicon-info-sign"></button></td>
             </tr>

@@ -176,15 +176,15 @@ define(
     }
 
     function display_group_data(cur_sp){
-        if(cur_sp.group_set.length == 0){
+        if(cur_sp.group_lst.length == 0){
             return;
         }
 
         var tbl = document.getElementById('group_tbl');
         var tr;var td;
-        for(var i = 0;i<cur_sp.group_set.length;i++){
+        for(var i = 0;i<cur_sp.group_lst.length;i++){
             var tr = tbl.insertRow(-1);
-            var group = cur_sp.group_set[i];
+            var group = cur_sp.group_lst[i];
 
             var td = tr.insertCell(-1);
             td.innerHTML = group.name;

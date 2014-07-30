@@ -12,16 +12,20 @@ define(
     var mod = angular.module('product_app/model',[]);
 
     //Product
-    mod.factory('product_app/model/Product',['product_app/model/Prod_sku_assoc',function(Prod_sku_assoc){
+    mod.factory('product_app/model/Product',['product_app/model/Prod_sku_assoc','$injector',function(Prod_sku_assoc,$injector){
     	function Product(product_id,name,sp_lst,prod_sku_assoc_lst){
     		this.product_id = product_id;
     		this.name = name;
     		this.sp_lst = sp_lst;
     		this.prod_sku_assoc_lst = prod_sku_assoc_lst;
     	}
+
     	Product.build = function(raw_json){
-            //buid sp_lst: todo
-    		var sp_lst = null;
+            Store_product = $injector.get('sp_app/model/Store_product');
+            var sp_lst = null;
+            if(raw_json.store_product_set != undefined){
+                sp_lst = raw_json.store_product_set.map(Store_product.build);
+            }
 
             //build prod_sku_assoc
     		var prod_sku_assoc_lst = null;

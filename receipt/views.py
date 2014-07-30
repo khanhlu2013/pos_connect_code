@@ -12,6 +12,7 @@ def get_receipt_view(request):
     
     #get param
     cur_page = request.GET['cur_page']
+    receipt_per_page = request.GET['receipt_per_page']
     from_date_str = request.GET['from_date']
     to_date_str = request.GET['to_date']
     time_zone_offset = int(request.GET['time_zone_offset'])
@@ -26,9 +27,8 @@ def get_receipt_view(request):
     copy_receipt_from_couch_2_master.exe(cur_login_store.id)
 
     #get receipt data
-    RECEIPT_PER_PAGE_AKA_COUNT = 2
     query = Receipt.objects.filter(store=cur_login_store,time_stamp__range=(from_date,to_date)).prefetch_related('receipt_ln_set')
-    paginator = Paginator(query,RECEIPT_PER_PAGE_AKA_COUNT)
+    paginator = Paginator(query,receipt_per_page)
 
     #response
     receipt_lst = paginator.page(cur_page)

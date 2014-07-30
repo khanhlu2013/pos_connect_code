@@ -4,15 +4,27 @@ define(
 	//----
 	,'app/sp_app/service/prompt'
 	,'app/sp_app/filter'
+	,'app/sp_app/service/api_sku'
 ]
 ,function
 (
 	angular
 )
 {
-	var mod = angular.module('sp_app.service.create',['sp_app.service.prompt']);
+	var mod = angular.module('sp_app.service.create',['sp_app.service.prompt','sp_app/service/api_sku']);
 
-	mod.factory('sp_app.service.create.old',['$http','$q','sp_app.service.prompt',function($http,$q,prompt_service){
+	mod.factory('sp_app.service.create.old',
+	[
+		'$http',
+		'$q',
+		'sp_app.service.prompt',
+		'sp_app/service/api_sku',
+	function(
+		$http,
+		$q,
+		prompt_service,
+		api_sku
+	){
 		return function(suggest_product,sku){
 
 			var prompt_promise = prompt_service(null/*original_sp*/,suggest_product,null/*duplicate_sp*/,sku);
@@ -99,21 +111,8 @@ define(
 					}
 					else if($filter('is_obj_sp')(select_option))
 					{
-						var cur_store_sp = select_option;
-						var promise = $http({
-							url:'/product/sku_add_angular',
-							method:'POST',
-							data: {product_id:cur_store_sp.product_id,sku_str:sku}
-						})
-						.then(
-							function(data){
-								return $filter('sp_lst_str_2_float')([data.data])[0];
-							},
-							function(ajax_reject_reason){
-								return $q.reject('adding sku from another store for exiting product ajax error');
-							}
-						)
-						return promise;
+ 						var cur_store_sp = select_option;
+ 						return api_sku.add_sku(cur_store_sp.product_id,sku);
 					}
 					else if($filter('is_obj_p')(select_option))
 					{
@@ -147,15 +146,7 @@ define(
 				return defer.promise;
 			}
 
-			if(prod_store__prod_sku__0_0.length != 0){
-				for(var i = 0;i<prod_store__prod_sku__0_0.length;i++){
-					prod_store__prod_sku__0_0[i].store_product_set = $filter('sp_lst_str_2_float')(prod_store__prod_sku__0_0[i].store_product_set);
-				}
- 			}
- 			if(prod_store__prod_sku__1_0.length != 0){
-				prod_store__prod_sku__1_0 = $filter('sp_lst_str_2_float')(prod_store__prod_sku__1_0);
-			}				
-			var template = 
+ 			var template =
 				'<div>' +
 					'<div class="modal-header">' +
 						'<h3 class="modal-title">select option</h3>' +
@@ -178,9 +169,9 @@ define(
 									'<td>{{sp.name}}</td>' +
 									'<td>{{sp.price | currency}}</td>' +
 									'<td ng-class="sp.is_taxable ? \'glyphicon glyphicon-ok\' : \'glyphicon glyphicon-remove\'"></td>' +
-									'<td>{{sp|compute_sp_kit_field:\'crv\'}}</td>' +
-									'<td>{{sp|compute_sp_kit_field:\'cost\'}}</td>' +
-									'<td>{{sp|compute_sp_kit_field:\'buydown\'}}</td>' +
+									'<td>{{sp.get_crv()}}</td>' +
+									'<td>{{sp.get_cost()}}</td>' +
+									'<td>{{sp.get_buydown()}}</td>' +
 									'<td><button ng-click="add_sku(sp)" class="btn btn-primary glyphicon glyphicon-plus"> sku</button></td>' +
  								'</tr>' +
 							'</table>' +	

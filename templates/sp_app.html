@@ -36,7 +36,7 @@
                             class="form-control" 
                             placeholder="sku" 
                             onClick="this.select();"
-                            ng-enter="sku_search()"
+                            ng-keyup="sku_search($event)"
                             ng-model="sku_search_str"                            
                         >
                         <input 
@@ -86,7 +86,7 @@
                             <li><a href="{% url 'sale:index' %}" target="_blank">lauch pos</a></li>
                         </ul>
                     </li>                      
-                    <li> <a href='{% url "liquor_logout_named_url" %}'>{{ request.session.cur_login_store }} - {{ user }} - logout</a> </li>
+                    <li> <a id="logout_link" href='{% url "liquor_logout_named_url" %}'>{{ request.session.cur_login_store }} - {{ user }} - logout</a> </li>
                 </ul>   
 
             </div><!-- /.navbar-collapse -->

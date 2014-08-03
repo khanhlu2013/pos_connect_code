@@ -15,11 +15,16 @@
 ~. foreman  run -e .env,test.env python manage.py test --failfast
 ~. lsof -i :8000
 ~. http://stackoverflow.com/questions/13976022/is-there-a-way-to-highlight-all-the-special-accent-characters-in-sublime-text-or
+
 ----------------------------------------------------------------------------
 source lu/venv/bin/activate
 cd lu/kt_heroku
 foreman start
 
+
+source lu/venv/bin/activate
+cd lu/kt_heroku
+foreman start --procfile Procfile_protractor --env .env_protractor
 
 ----------------------------------------------------------------------------
 SELECT pid, pg_terminate_backend(pid) 
@@ -288,6 +293,8 @@ UPGRADE FEATURE
     . calculate mode for product name
     . calculate % for taxable and non-taxable
     . calculate frequency for crv.
+. inactive product feature, limit search result. we can remove these from couch. if product have no dependency, we can have option remove this product
+. when search for sku, if found in current store, we will not look further into the network. SHOULD WE implement a feature to do so? and how can we do this in a non-intrusive way
 ------------------------------------------------------------------------------------------------------------------
 REFACTOR CODE
     . after we test delete_sku_assoc_cm success using sp instead of p in delete_sku_cm, we should remove delete_sku_cm
@@ -302,6 +309,14 @@ REFACTOR CODE
     . kill all service/convert move it into api
     . when i upload receipt, copy paste them right away from couch to master for a complete operation. other operation require retriving receipt might forget to copy and cause a potential bug(don't worry about optimization here i guess. code maintainance is more crucial plus we don't want to copy receipt from couch to master all the time when just getting receipt). So find out copy_receipt_from_couch_2_master.exe(store_id) and remove it from receipt getter view
     windowClass:'xlg-dialog'
+    . .env file is messi. clean this up
+    . how to use baseUrl with protractor
+        . use it in conf.js
+        . use it in main_page_name_search
+    . sp_app
+        . api_crud_sku
+        . api_crud_sp
+        . api_crud_kit
 ------------------------------------------------------------------------------------------------------------------
 LEARN/IMPROVE
     . continuous test->build->deploy
@@ -324,6 +339,10 @@ VISUAL IMPROVE
     . date selector: 
         . there is a week button that not need
         . backdrop click crash
+------------------------------------------------------------------------------------------------------------------        
+ISSUE
+    . indeterministic loading when loading script : sometimes ng-table is not define and when reload , problem disapeare
+
 ------------------------------------------------------------------------------------------------------------------
 TEST
 couch_acl_validator_test: client have write permission that follow these 4 rules. is big couch follow the same syntax as couchdb?
@@ -378,18 +397,29 @@ SP APP
         . implement model sku search and name search
 
 
-
-
-        
-
-
 filter.is_obj_sp
 filter.is_obj_p
 
 
 
-think about where to put e2e folder and conf.js file
-. we can remove requirejs config for controller and service since it is already the base url
+
+------------------
+
+product prompt suggest:
+    if there is only 1 sp, i want it to disable drop down
+    if there is multiple sp, go ahead with drop down
+    work on is_taxable: show statistic
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -44,20 +44,20 @@ define(['angular'], function(angular) {
   //   };
   // });
 
-  mod.directive('ngEnter', function () {
-    //need this to make text box work for enter key
-      return function (scope, element, attrs) {
-          element.bind("keydown keypress", function (event) {
-              if(event.which === 13) {
-                  scope.$apply(function (){
-                      scope.$eval(attrs.ngEnter);
-                  });
+  // mod.directive('ngEnter', function () {
+  //   //need this to make text box work for enter key
+  //     return function (scope, element, attrs) {
+  //         element.bind("keydown keypress", function (event) {
+  //             if(event.which === 13) {
+  //                 scope.$apply(function (){
+  //                     scope.$eval(attrs.ngEnter);
+  //                 });
 
-                  event.preventDefault();
-              }
-          });
-      };
-  }); 
+  //                 event.preventDefault();
+  //             }
+  //         });
+  //     };
+  // }); 
 });
 
 

@@ -44,7 +44,7 @@ def _name_search_qs_alterer_angular(qs,search_str):
     if len(words) == 1:
         return qs.filter(name__icontains=search_str)
     elif len(words) == 2:
-        return qs.extra(where=['store_product_store_product.name ILIKE %s'], params=['%' + words[0] + '%' + words[1] + '%'])
+        return qs.extra(where=['store_product_store_product.name ILIKE %s' + ' OR ' + 'store_product_store_product.name ILIKE %s'], params=['%' + words[0] + '%' + words[1] + '%' , '%' + words[1] + '%' + words[0] + '%' ])
     else:
         return None 
 
@@ -126,8 +126,8 @@ def search_by_sku_angular(request):
     response['prod_store__prod_sku__1_1'] = prod_store__prod_sku__1_1__serialized;
 
     if len(prod_store__prod_sku__1_1__serialized) != 0:
-        response['prod_store__prod_sku__0_0'] = None;
-        response['prod_store__prod_sku__1_0'] = None;
+        response['prod_store__prod_sku__0_0'] = [];
+        response['prod_store__prod_sku__1_0'] = [];
     else:
         product_lst = list(Product.objects.filter(sku_set__sku=sku_str).prefetch_related('store_product_set','prodskuassoc_set__store_product_set'))
         prod_store__prod_sku__1_0 = []

@@ -20,6 +20,67 @@ define(
     		this.prod_sku_assoc_lst = prod_sku_assoc_lst;
     	}
 
+        Product.prototype = {
+             constructor : Product
+            ,get_suggest_info : function(field){
+                if(field=='name'){
+                    return this.name;
+                }
+                
+                var lst = [];
+                var sp_lst = this.sp_lst;
+                for(var i = 0;i<sp_lst.length;i++){
+                    if(field == 'price'){lst.push(sp_lst[i].price);}
+                    else if(field == 'cost'){lst.push(sp_lst[i].get_cost());}
+                    else if(field == 'crv'){lst.push(sp_lst[i].get_crv());}
+                    else if(field == 'is_taxable'){lst.push(sp_lst[i].is_taxable);}
+                    else{
+                        return null;
+                    }                
+                }
+
+                if(field == 'price' || field == 'cost'){
+                    return get_median(lst);
+                }else if(field == 'crv' || field == 'is_taxable'){
+                    return get_mode(lst);
+                }                
+            }
+        }
+
+        function get_mode(array)
+        {
+            if(array.length == 0)
+                return null;
+            
+            var modeMap = {};
+            var maxEl = array[0], maxCount = 1;
+            for(var i = 0; i < array.length; i++)
+            {
+                var el = array[i];
+                if(modeMap[el] == null)
+                    modeMap[el] = 1;
+                else
+                    modeMap[el]++;  
+                if(modeMap[el] > maxCount)
+                {
+                    maxEl = el;
+                    maxCount = modeMap[el];
+                }
+            }
+            return maxEl;
+        }
+
+        function get_median(values) {
+
+            if(values.length == 0){
+                return null;
+            }
+
+            values.sort( function(a,b) {return a - b;} );
+            var half = Math.floor(values.length/2); 
+            if (values.length % 2) { return values[half]; } 
+            else { return (values[half-1] + values[half]) / 2.0; } 
+        } 
     	Product.build = function(raw_json){
             Store_product = $injector.get('sp_app/model/Store_product');
             var sp_lst = null;

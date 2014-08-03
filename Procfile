@@ -1,1 +1,1 @@
-web: gunicorn liquor.wsgi
+~. web: gunicorn liquor.wsgi

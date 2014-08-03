@@ -44,7 +44,7 @@ define(
 		        }    			
 
 		        if(sku_search_str.indexOf(' ') >= 0){
-		        	var defer=$q.defer();defer.reject('error: sku contain space');return defer.promise;
+		        	var defer=$q.defer();defer.reject('error: sku cannot contain space');return defer.promise;
 		        }		        
 
 		        var promise_ing = $http({

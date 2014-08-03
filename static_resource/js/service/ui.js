@@ -141,10 +141,10 @@ define(
 	                '<h3 class="modal-title">' + title + '</h3>' +
 	            '</div>' +
 	            '<div class="modal-body">' +
-	                '<h1>' + message + '</h1>' +
+	                '<h1 id="service/ui/alert/message_lbl">' + message + '</h1>' +
 	            '</div>' +
 	            '<div class="modal-footer">' +
-	                '<button type="submit" class="btn btn-success" ng-click="ok()">ok</button>' +
+	                '<button id="service/ui/alert/ok_btn" type="submit" class="btn btn-success" ng-click="ok()">ok</button>' +
 	            '</div>'
 	        ;
 

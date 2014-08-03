@@ -15,7 +15,7 @@ import receipt.urls
 import payment_type.urls
 from store_product.view import sp_search_view
 from django.contrib.auth.decorators import login_required
-
+from test.e2e import protractor_test_cleanup_view
 
 admin.autodiscover()
 
@@ -33,13 +33,14 @@ urlpatterns = patterns('',
     url(r'^mix_match/',include(mix_match.urls,namespace='mix_match')),
     url(r'^group/',include(group.urls,namespace='group')),
     url(r'^receipt/',include(receipt.urls,namespace='receipt')),    
-    url(r'^payment_type/',include(payment_type.urls)),      
+    url(r'^payment_type/',include(payment_type.urls)),         
 )
 
 handler500 = curry(server_error, template_name='500.html')
-urlpatterns += staticfiles_urlpatterns()
 
-if not settings.DEBUG:
+if settings.DEBUG:
     urlpatterns += patterns('',
-        (r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
+        url(r'^protractor_test_cleanup$',protractor_test_cleanup_view.exe), 
     )
+  
+

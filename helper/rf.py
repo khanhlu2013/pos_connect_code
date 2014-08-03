@@ -9,6 +9,29 @@ from couch import couch_util,couch_constance
 import requests
 from group.models import Group
 from mix_match.models import Mix_match,Mix_match_child
+from django.conf import settings
+
+def protractor():
+    print('----------- init protractor test ----------------')
+    Group.objects.all().delete()
+    Mix_match_child.objects.all().delete()
+    Mix_match.objects.all().delete()    
+    Product.objects.all().delete()
+    Unit.objects.all().delete()
+    ProdSkuAssoc.objects.all().delete()
+    User.objects.all().delete()
+    Sku.objects.all().delete()
+    Store.objects.all().delete()
+
+    server = couch_util._get_couch_server()
+    for db in server:
+        if settings.STORE_DB_PREFIX in db:
+            del server[db]
+
+    user1,store1=test_helper.create_user_then_store_detail(user_name = "1",user_password="1",store_name="1")
+    user2,store2=test_helper.create_user_then_store_detail(user_name = "2",user_password="2",store_name="2")
+    user3,store3=test_helper.create_user_then_store_detail(user_name = "3",user_password="3",store_name="3") 
+    user4,store4=test_helper.create_user_then_store_detail(user_name = "4",user_password="4",store_name="4") 
 
 
 def p():

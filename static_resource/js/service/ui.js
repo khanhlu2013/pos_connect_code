@@ -13,19 +13,19 @@ define(
 	mod.factory('service.ui.prompt',['$modal','service.ui.alert',function($modal,alert_service){
 		return function(message,prefill,is_null_allow,is_float){
 	        var template = 
-	            '<div class="modal-header alert alert-info">' +
+	            '<div id="service/ui/prompt/dialog" class="modal-header alert alert-info">' +
 	                '<h3 class="modal-title">' + message + '</h3>' +
 	            '</div>' +
 	            '<div class="modal-body">' +
 	            	'<form name="form" novalidate>' +
-	                    '<input name="answer" ng-model="$parent.answer" type="text" ng-required="!is_null_allow">' +
+	                    '<input id="service/ui/prompt/prompt_txt" name="answer" ng-model="$parent.answer" type="text" ng-required="!is_null_allow">' +
  						'<label class="error" ng-show="form.answer.$error.required">require</label>' +
 	            	'</form>' +
 	            '</div>' +
 	            '<div class="modal-footer">' +
-					'<button type="submit" class="btn btn-warning" ng-click="cancel()">cancel</button>' +	          
+					'<button id="service/ui/prompt/cancel_btn" type="submit" class="btn btn-warning" ng-click="cancel()">cancel</button>' +	          
 					'<button ng-show="$parent.prefill!=null" ng-disabled="is_unchange()" ng-click="reset()" class="btn btn-primary">reset</button>' +
-	                '<button ng-disabled="form.$invalid || is_unchange()" type="submit" class="btn btn-success" ng-click="ok()">ok</button>' +
+	                '<button id="service/ui/prompt/ok_btn" ng-disabled="form.$invalid || is_unchange()" type="submit" class="btn btn-success" ng-click="ok()">ok</button>' +
 	            '</div>'
 	        ;
 
@@ -89,15 +89,15 @@ define(
 	        }
 
 	        var template = 
-	            '<div class="modal-header ' + warning_class + '">' +
+	            '<div id="service/ui/confirm/dialog" class="modal-header ' + warning_class + '">' +
 	                '<h3 class="modal-title">confirm</h3>' +
 	            '</div>' +
 	            '<div class="modal-body">' +
 	                '<h1>' + message + '</h1>' +
 	            '</div>' +
 	            '<div class="modal-footer">' +
-					'<button type="submit" class="btn btn-warning" ng-click="cancel()">cancel</button>' +	            
-	                '<button type="submit" class="btn btn-success" ng-click="ok()">ok</button>' +
+					'<button id="service/ui/confirm/cancel_btn" type="submit" class="btn btn-warning" ng-click="cancel()">cancel</button>' +	            
+	                '<button id="service/ui/confirm/ok_btn" type="submit" class="btn btn-success" ng-click="ok()">ok</button>' +
 	            '</div>'
 	        ;
 
@@ -137,7 +137,7 @@ define(
 	        }
 
 	        var template = 
-	            '<div class="modal-header ' + warning_class + '">' +
+	            '<div id="service/ui/alert/dialog" class="modal-header ' + warning_class + '">' +
 	                '<h3 class="modal-title">' + title + '</h3>' +
 	            '</div>' +
 	            '<div class="modal-body">' +

@@ -4,7 +4,7 @@ define(
     ,'app/store_product/sp_online_searcher'
     ,'lib/ui/ui'
     //---------------
-	,'app/sp_app/service/edit/entry'
+	,'app/sp_app/service/info'
     ,'app/sp_app/service/create'
     ,'app/sp_app/service/duplicate'    
     ,'app/sp_app/filter'    
@@ -22,7 +22,7 @@ define(
 	'use strict';
     var mod =  angular.module('sp_app.controller', 
     [
-        'sp_app.service.edit.entry',
+        'sp_app/service/info',
         'sp_app.service.create',
         'sp_app.service.duplicate',
         'sp_app.filter',
@@ -38,7 +38,7 @@ define(
         '$http',
         '$modal',
         '$filter',
-        'sp_app.service.edit.entry',
+        'sp_app/service/info',
         'sp_app.service.create',
         'sp_app.service.duplicate',
         'service.ui.alert',
@@ -79,10 +79,7 @@ define(
 
         //SKU SEARCH 
         $scope.sp_lst = [];
-        $scope.sku_search = function($event){
-            if($event.keyCode!=13){
-                return;
-            }
+        $scope.sku_search = function(){
             $scope.name_search_str = "";
             $scope.local_filter = "";
             $scope.sku_search_str = $scope.sku_search_str.trim().toLowerCase();

@@ -81,10 +81,78 @@ define(
                     }
                 }   
                 return result;                         
-            }        
+            },
+            get_ancestor_lst: function(){
+                if(this.kit_assoc_lst.length == 0){
+                    return [];
+                }else{
+                    var result = [];
+                    for(var i = 0;i<this.kit_assoc_lst.length;i++){
+                        var cur_kit = this.kit_assoc_lst[i];
+                        var cur_ancestor_lst = cur_kit.get_ancestor_lst();//ancester lst of current kit in this sp
+                        for(var j=0;j<cur_ancestor_lst.length;j++){
+                            if(get_item_in_lst_base_on_id(cur_ancestor_lst[j].id,result) == null){
+                                result.push(cur_ancestor_lst[j]);
+                            }
+                        }
+                    }
+                    return result;
+                }
+            },
+            get_decendent_lst: function(){
+                if(this.breakdown_assoc_lst.length == 0){
+                    return [];
+                }else{
+                    var result = [];
+                    for(var i = 0;i<this.breakdown_assoc_lst.length;i++){
+                        var cur_breakdown = this.breakdown_assoc_lst[i].breakdown;
+                        var cur_decendent_lst = cur_breakdown.get_decendent_lst();
+
+                        //add itself
+                        if(get_item_in_lst_base_on_id(cur_breakdown.id,result) == null){
+                            result.push(cur_breakdown);
+                        }                        
+                        //add decendent
+                        for(var j=0;j<cur_decendent_lst.length;j++){
+                            if(get_item_in_lst_base_on_id(cur_decendent_lst[j].breakdown.id,result) == null){
+                                result.push(cur_decendent_lst[j].breakdown);
+                            }
+                        }
+                    }
+                    return result;
+                }                
+            },
+            is_breakdown_can_be_add: function(sp){
+                //down lst
+                var down_lst = sp.get_decendent_lst();
+                down_lst.push(sp);
+
+                //up lst
+                var up_lst = this.get_ancestor_lst();
+                up_lst.push(this);
+
+                //verify that down_lst and up_lst is not intesec
+                for(var i = 0;i<down_lst.length;i++){
+                    var cur = down_lst[i];
+                    if(get_item_in_lst_base_on_id(cur.id,up_lst)!=null){
+                        return false;
+                    }
+                }
+                return true;
+            }
         }
 
         //PRIVATE METHOD
+        function get_item_in_lst_base_on_id(id,lst){
+            var result = null;
+            for(var i = 0;i<lst.length;i++){
+                if(lst[i].id == id){
+                    result = lst[i];
+                    break;
+                }
+            }
+            return result;
+        }
     	function str_2_float(str){
     		if(str == null){
     			return null;

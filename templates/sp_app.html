@@ -36,7 +36,7 @@
                             class="form-control" 
                             placeholder="sku" 
                             onClick="this.select();"
-                            ng-keyup="sku_search($event)"
+                            ng-enter="sku_search()"
                             ng-model="sku_search_str"                            
                         >
                         <input 
@@ -62,13 +62,13 @@
                         >                        
                     </div>  
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">setting <b class="caret"></b></a>
+                        <a id="sp_app/menu/setting" href="#" class="dropdown-toggle" data-toggle="dropdown">setting <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li ng-click="menu_tax_edit()"><a href='#'>tax</a></li>
-                            <li ng-click="menu_group_manage()"><a href='#'>group</a></li>                 
-                            <li ng-click="menu_shortcut_manage()"><a href='#'>shortcut</a></li>
-                            <li ng-click="menu_mix_match_manage()"><a href='#'>mix match</a></li>
-                            <li ng-click="menu_payment_type_manage()"><a href='#'>payment type</a></li>
+                            <li id="sp_app/menu/setting/tax" ng-click="menu_tax_edit()"><a href='#'>tax</a></li>
+                            <li id="sp_app/menu/setting/group" ng-click="menu_group_manage()"><a href='#'>group</a></li>                 
+                            <li id="sp_app/menu/setting/shortcut" ng-click="menu_shortcut_manage()"><a href='#'>shortcut</a></li>
+                            <li id="sp_app/menu/setting/mix_match" ng-click="menu_mix_match_manage()"><a href='#'>mix match</a></li>
+                            <li id="sp_app/menu/setting/payment_type" ng-click="menu_payment_type_manage()"><a href='#'>payment type</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">

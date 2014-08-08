@@ -22,28 +22,48 @@ define(
 
         Product.prototype = {
              constructor : Product
-            ,get_suggest_info : function(field){
+            ,get_suggest_main : function(field){
                 if(field=='name'){
                     return this.name;
                 }
-                
+                var result = null;
+                var lst = this.get_suggest_extra(field);
+                if(lst!=null){
+                    if(field == 'price' || field == 'cost'){
+                        result = get_median(lst);
+                    }else if(field == 'crv' || field == 'is_taxable'){
+                        result = get_mode(lst);
+                    }                       
+                }
+                return result;
+            }
+            ,get_suggest_extra : function(field){
                 var lst = [];
                 var sp_lst = this.sp_lst;
                 for(var i = 0;i<sp_lst.length;i++){
-                    if(field == 'price'){lst.push(sp_lst[i].price);}
-                    else if(field == 'cost'){lst.push(sp_lst[i].get_cost());}
-                    else if(field == 'crv'){lst.push(sp_lst[i].get_crv());}
-                    else if(field == 'is_taxable'){lst.push(sp_lst[i].is_taxable);}
-                    else{
-                        return null;
-                    }                
+                         if(field == 'price')       {if(sp_lst[i].price!=null)      {lst.push(sp_lst[i].price);}}
+                    else if(field == 'cost')        {if(sp_lst[i].get_cost()!=null) {lst.push(sp_lst[i].get_cost());}}
+                    else if(field == 'crv')         {if(sp_lst[i].get_crv()!=null)  {lst.push(sp_lst[i].get_crv());}}
+                    else if(field == 'is_taxable')                                  {lst.push(sp_lst[i].is_taxable);}
+                    else if(field == 'name')                                        {lst.push(sp_lst[i].name);}
+                    else                                                            {return null;}
                 }
-
-                if(field == 'price' || field == 'cost'){
-                    return get_median(lst);
-                }else if(field == 'crv' || field == 'is_taxable'){
-                    return get_mode(lst);
-                }                
+                return lst;
+            }
+            ,get_tax_suggest_statistic: function(){
+                var lst = this.get_suggest_extra('is_taxable');
+                var taxable_count = 0;nontaxable_count = 0;
+                for(var i = 0;i<lst.length;i++){
+                    if(lst[i] == true){
+                        taxable_count ++;
+                    }else{
+                        nontaxable_count ++;
+                    }
+                }
+                tax_percent = Math.round((taxable_count * 100)/ lst.length);
+                var taxable_stat = {is_taxable:true, value: tax_percent};
+                var nontaxable_stat = {is_taxable:false, value: 100-tax_percent};
+                return [taxable_stat,nontaxable_stat];
             }
         }
 

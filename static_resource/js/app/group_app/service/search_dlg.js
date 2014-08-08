@@ -17,39 +17,41 @@ define(
     				'<h3 class="modal-title">select groups</h3>' +
     			'</div>' +
     			'<div class="modal-body">' +
-                    '<div class="col-sm-6">' +
-                        '<input ng-model="query" type="text" placeholder="offline filter">' +
-                        '<table ng-hide="group_lst.length==0" class="table table-hover table-bordered table-condensed table-striped">' +
-                            '<tr>' +
-                                '<th>group</th>' +
-                                '<th>select</th>' +
-                            '</tr>' +
-                            '<tr ng-repeat="group in group_lst | orderBy:\'name\' | filter:query">' +
-                                '<td>{{group.name}}</td>' +
-                                '<td class="alnright"><button ng-click="toggle_select(group)" ng-class="is_group_selected(group) ? \'btn btn-warning\' : \'btn btn-primary\'">{{is_group_selected(group) ? \'unselect\' : \'select\'}}</button></td>' +
-                            '</tr>' +
-                        '</table>' +   
-                        '<pre ng-show="group_lst.length==0">there is no group to select</pre>' +                 
+                    '<input ng-model="query" type="text" placeholder="offline filter">' +
+                    '<div>' +
+                        '<div class="col-sm-6">' +
+                            '<table ng-hide="group_lst.length==0" class="table table-hover table-bordered table-condensed table-striped">' +
+                                '<tr>' +
+                                    '<th>group</th>' +
+                                    '<th>select</th>' +
+                                '</tr>' +
+                                '<tr ng-repeat="group in group_lst | orderBy:\'name\' | filter:query">' +
+                                    '<td>{{group.name}}</td>' +
+                                    '<td class="alnright"><button ng-click="toggle_select(group)" class="btn glyphicon" ng-class="is_group_selected(group) ? \'btn-warning\' : \'btn-primary\'">{{is_group_selected(group) ? \'unselect\' : \'select\'}}</button></td>' +
+                                '</tr>' +
+                            '</table>' +   
+                            '<pre ng-show="group_lst.length==0">there is no group to select</pre>' +                 
+                        '</div>' +
+
+                        '<div class="col-sm-6">' +
+                            '<table class="table table-hover table-bordered table-condensed table-striped">' +
+                                '<tr>' +
+                                    '<th>group</th>' +
+                                    '<th>remove</th>' +
+                                '</tr>' +
+                                '<tr ng-repeat="group in group_result_lst">' +
+                                    '<td>{{group.name}}</td>' +
+                                    '<td class="alnright"><button ng-click="toggle_select(group)" class="btn btn-warning glyphicon glyphicon-trash"></button></td>' +
+                                '</tr>' +                            
+                            '</table>' +
+                        '</div>' + 
+                        '<div class="clear"></div>' +    
                     '</div>' +
-
-                    '<div class="col-sm-6">' +
-                        '<table class="table table-hover table-bordered table-condensed table-striped">' +
-                            '<tr>' +
-                                '<th>group</th>' +
-                                '<th>remove</th>' +
-                            '</tr>' +
-                            '<tr ng-repeat="group in group_result_lst">' +
-                                '<td>{{group.name}}</td>' +
-                                '<td class="alnright"><button ng-click="toggle_select(group)" class="btn btn-warning glyphicon glyphicon-trash"></button></td>' +
-                            '</tr>' +                            
-                        '</table>' +
-                    '</div>' + 
-
-    			'</div>' +
+                '</div>' +
     			'<div class="modal-footer">' +
     				'<button ng-click="cancel()" class="btn btn-warning">cancel</button>' +
                     '<button ng-disabled="group_result_lst.length==0" ng-click="reset()" class="btn btn-primary">reset</button>' +                    
-    				'<button ng-disabled="group_result_lst.length==0" ng-click="ok()" class="btn btn-success">ok</button>' +
+    				'<button id="group_app/service/search_dlg/multiple/ok_btn" ng-disabled="group_result_lst.length==0" ng-click="ok()" class="btn btn-success">ok</button>' +
     			'</div>'		    			
     		;
     		var ModalCtrl = function($scope,$modalInstance,group_lst){

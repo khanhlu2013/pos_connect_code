@@ -14,9 +14,9 @@ def sp_group_update_angular_view(request):
 
     #validate group belong to store
     group_lst = []
-    if len(sp_json['group_set']) >0:
-        group_lst = Group.objects.filter(store_id=cur_login_store.id,pk__in=[group['id'] for group in sp_json['group_set']])
-        if len(group_lst) != len(sp_json['group_set']):
+    if len(sp_json['group_lst']) >0:
+        group_lst = Group.objects.filter(store_id=cur_login_store.id,pk__in=[group['id'] for group in sp_json['group_lst']])
+        if len(group_lst) != len(sp_json['group_lst']):
             return
 
     #remove all group from sp

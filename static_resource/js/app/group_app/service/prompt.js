@@ -16,13 +16,13 @@ define(
 			var template = 
 				'<div class="modal-header"><h3>{{original_group.name==undefined?\'Create new group\' : \'Edit group \'+ original_group.name}}</h3></div>' +
 				'<div class="modal-body">' +
-					'<form name="form" class="form-group">' + 
+					'<div name="form" class="form-group">' + 
 						'<label>group name:</label>' +
-						'<input name="name" ng-model="$parent.group.name" type="text" required>' +
+						'<input id="group_app/service/prompt/name_txt" name="name" ng-model="$parent.group.name" type="text" required>' +
 						'<label class="error" ng-show="form.name.$error.required">required</label>' +
-					'</form>' +
+					'</div>' +
 
-					'<button ng-click="add_sp()" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span></button>' +
+					'<button id="group_app/service/prompt/add_btn" ng-click="add_sp()" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span></button>' +
 					'<table ng-hide="group.sp_lst.length == 0" class="table table-hover table-bordered table-condensed table-striped">' +
 						'<tr>' +
 							'<th>product</th>' +
@@ -35,12 +35,11 @@ define(
 						'</tr>' +
 					'</table>' +
 					'<pre ng-show="group.sp_lst.length == 0">there is no product in this group</pre>' +
-					'{{original_group}}' +
 				'</div>' + 
 				'<div class="modal-footer">' +
-					'<button ng-click="cancel()" class="btn btn-warning">cancel</button>' + 
+					'<button id="group_app/service/prompt/cancel_btn" ng-click="cancel()" class="btn btn-warning">cancel</button>' + 
 					'<button ng-disabled="is_unchange()" ng-click="reset()" class="btn btn-primary">reset</button>' + 
-					'<button ng-disabled="form.$invalid || is_unchange()" ng-click="ok()" class="btn btn-success">ok</button>' + 
+					'<button id="group_app/service/prompt/ok_btn" ng-disabled="form.$invalid || is_unchange()" ng-click="ok()" class="btn btn-success">ok</button>' + 
 				'</div>'
 			;
 			var ModalCtrl = function($scope,$modalInstance,$filter,original_group){

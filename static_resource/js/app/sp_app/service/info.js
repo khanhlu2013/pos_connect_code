@@ -12,18 +12,18 @@ define(
 	angular
 )
 {
-    var mod = angular.module('sp_app.service.edit.entry',['sp_app.service.edit.group','sp_app.service.edit.kit','sp_app.service.edit.sp','sp_app.service.edit.sku']);
+    var mod = angular.module('sp_app/service/info',['sp_app.service.edit.group','sp_app/service/edit/kit','sp_app.service.edit.sp','sp_app.service.edit.sku']);
     
-    mod.factory('sp_app.service.edit.entry',['$modal','sp_app.service.edit.group','sp_app.service.edit.kit','sp_app.service.edit.sp','sp_app.service.edit.sku',function ($modal,edit_group,edit_kit,edit_sp,edit_sku)
+    mod.factory('sp_app/service/info',['$modal','sp_app.service.edit.group','sp_app/service/edit/kit','sp_app.service.edit.sp','sp_app.service.edit.sku',function ($modal,edit_group,edit_kit,edit_sp,edit_sku)
     {
         var template =
-            '<div class="modal-header">' +
+            '<div id="sp_app/service/info/dialog" class="modal-header">' +
                 '<h3 class="modal-title">Info: {{sp.name}}</h3>' +
             '</div>' +
 
             '<div class="modal-body">' +
                 '<tabset justified="true">' +
-                    '<tab heading="product" select="switch_tab(\'product\')">' +
+                    '<tab id="sp_app/service/info/tab/product" heading="product" select="switch_tab(\'product\')">' +
                         '<div class="form-horizontal" >' +
                             '<div class="form-group">' +
                                 '<label class="col-sm-4 control-label">Name:</label>' +
@@ -87,18 +87,18 @@ define(
                         '</div>' + /* end form horizontal*/
                     '</tab>' +
                     
-                    '<tab heading="group" select="switch_tab(\'group\')">' +
+                    '<tab id="sp_app/service/info/tab/group" heading="group" select="switch_tab(\'group\')">' +
                         '<table ng-hide="sp.group_lst.length==0" class="table table-hover table-bordered table-condensed table-striped">' +
                             '<tr>' +
                                 '<th>group</th>' +                
                             '</tr>' +    
-                            '<tr ng-repeat="group in sp.group_lst">' +
-                                '<td>{{group.name}}</td>' +                    
+                            '<tr ng-repeat="group_info in sp.group_lst">' +
+                                '<td>{{group_info.name}}</td>' +                    
                             '</tr>' +                                                  
                         '</table>' +      
                         '<pre ng-show="sp.group_lst.length==0">there is no group</pre>' +         
                     '</tab>' +
-                    '<tab heading="kit" select="switch_tab(\'kit\')">' +
+                    '<tab id="sp_app/service/info/tab/kit" heading="kit" select="switch_tab(\'kit\')">' +
                         '<table ng-hide="sp.breakdown_assoc_lst.length==0" class="table table-hover table-bordered table-condensed table-striped">' +
                             '<tr>' +
                                 '<th>kit</th>' +              
@@ -111,13 +111,13 @@ define(
                         '</table>' +  
                         '<pre ng-show="sp.breakdown_assoc_lst.length==0">there is no kit</pre>' +                 
                     '</tab>' +     
-                    '<tab heading="sku" select="switch_tab(\'sku\')">' +
+                    '<tab id="sp_app/service/info/tab/sku" heading="sku" select="switch_tab(\'sku\')">' +
                         '<table ng-show="sp.get_my_sku_assoc_lst().length != 0" class="table table-hover table-bordered table-condensed table-striped">' +
                             '<tr>' +
                                 '<th>sku</th>' +              
                             '</tr>' +
-                            '<tr ng-repeat="sku_assoc in sp.get_my_sku_assoc_lst()">' +
-                                '<td>{{sku_assoc.sku_str}}</td>' +      
+                            '<tr ng-repeat="sku_assoc_info in sp.get_my_sku_assoc_lst()">' +
+                                '<td>{{sku_assoc_info.sku_str}}</td>' +      
                             '</tr>' +
                         '</table>' +  
                         '<pre ng-show="sp.get_my_sku_assoc_lst().length == 0">there is no sku</pre>' +                 
@@ -126,9 +126,9 @@ define(
             '</div>' + /* end modal body*/
 
             '<div class="modal-footer">' +
-                '<button class="btn btn-primary btn-float-left" ng-click="edit()">edit {{cur_tab}}</button>' +
+                '<button id="sp_app/service/info/edit_btn" class="btn btn-primary btn-float-left" ng-click="edit()">edit {{cur_tab}}</button>' +
                 '<button ng-click="duplicate()" ng-show="cur_tab==\'product\'" class="btn btn-primary btn-float-left" ng-click="duplicate()">duplicate</button>' +
-                '<button class="btn btn-warning" ng-click="exit()">exit</button>' +
+                '<button id="sp_app/service/info/exit_btn" class="btn btn-warning" ng-click="exit()">exit</button>' +
             '</div>'
         ;      
 

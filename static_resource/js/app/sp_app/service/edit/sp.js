@@ -4,7 +4,7 @@ define(
 	//----
 	,'service/ui'	
 	,'app/sp_app/service/prompt'
- 	,'app/sp_app/service/api_crud'
+ 	,'app/sp_app/service/api_sp'
 ]
 ,function
 (
@@ -22,19 +22,19 @@ define(
 		'$filter',
 		'sp_app.service.prompt',
 		'service.ui.alert',
-		'sp_app/service/api_crud',
+		'sp_app/service/api_sp',
 	function(
 		$http,
 		$filter,
 		prompt_service,
 		alert_service,
-		api_crud
+		api_sp
 	){
 		return function(sp){
 			var promise = prompt_service(sp,null/*suggest_product*/,null/*duplicate_sp*/,null/*sku*/);
 			promise.then(
 				function(prompt_result){
-					api_crud.update(prompt_result).then(
+					api_sp.update(prompt_result.sp).then(
 						 function(updated_sp){ angular.copy(updated_sp,sp);}
 						,function(reason){ alert_service('alert',reason,'red');}
 					)

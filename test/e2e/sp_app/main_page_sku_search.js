@@ -52,6 +52,6 @@ describe('main page', function() {
         sku_txt.sendKeys('111 222',protractor.Key.ENTER);
         expect(sp_result.count()).toEqual(0);  
         expect(alert_message_lbl.getText()).toEqual('error: sku cannot contain space');
-        alert_ok_btn.click(); 
+        lib.ui.click(alert_ok_btn); 
     })
 });

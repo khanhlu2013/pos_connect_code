@@ -29,7 +29,7 @@ define(
  			'</div>'+
 
 			'<div class="modal-body">' + 
-				'<input type="text" ng-model="$parent.search_str" ng-enter="search()" placeholder="name/sku">' +	
+				'<input id="sp_app/service/search_dlg/multiple/search_txt" type="text" ng-model="$parent.search_str" ng-enter="search()" placeholder="name/sku">' +	
  				'<input ng-model="$parent.query" type="text" placeholder="local filter">' +	
 				'<div>' +
 					'<div class="col-sm-6">' +
@@ -46,7 +46,7 @@ define(
 							'<tr ng-repeat="sp in sp_lst | orderBy:\'name\' | filter:$parent.query">' + 
 								'<td>{{sp.name}}</td>' +
 								'<td class="alnright">{{sp.price | currency}}</td>' +
-								'<td class="alnright"><button ng-class="is_sp_selected(sp) ? \'btn-warning glyphicon glyphicon-check\' : \'btn-primary glyphicon glyphicon-unchecked\'" class="btn btn-xs" ng-click="toggle_select(sp)"></button></td>' +
+								'<td class="alnright"><button ng-class="is_sp_selected(sp) ? \'btn-warning glyphicon-check\' : \'btn-primary glyphicon-unchecked\'" class="btn glyphicon" ng-click="toggle_select(sp)"></button></td>' +
 							'</tr>' +
 		 				'</table>' +
 					'</div>' +
@@ -62,7 +62,7 @@ define(
 							'<tr ng-repeat="sp_select in result_sp_lst | orderBy:\'name\'">' + 
 								'<td>{{sp_select.name}}</td>' +
 								'<td class="alnright">{{sp_select.price|currency}}</td>' +
-								'<td class="alnright"><button class="btn btn-warning btn-xs" ng-click="remove(sp_select)"><span class="glyphicon glyphicon-trash"></span></button></td>' +
+								'<td class="alnright"><button class="btn btn-warning glyphicon glyphicon-trash" ng-click="remove(sp_select)"></button></td>' +
 							'</tr>' +							
 						'</table>' +
 					'</div>' +					
@@ -73,7 +73,7 @@ define(
 			'<div class="modal-footer">' + 
 				'<button class="btn btn-warning" ng-click="cancel()">cancel</button>' +
 				'<button ng-disabled="result_sp_lst.length==0" class="btn btn-primary" ng-click="reset()">reset</button>' +				
-				'<button ng-disabled="result_sp_lst.length==0" class="btn btn-success" ng-click="ok()">ok</button>' +
+				'<button id="sp_app/service/search_dlg/multiple/ok_btn" ng-disabled="result_sp_lst.length==0" class="btn btn-success" ng-click="ok()">ok</button>' +
 			'</div>'
  		;
 		var ModalCtrl = function($scope,$modalInstance,$http,$filter){
@@ -143,14 +143,14 @@ define(
 		}
 	}]);
 
-	mod.factory('sp_app.service.search_dlg.single',['$modal',function($modal){
+	mod.factory('sp_app.service.search_dlg.single',['$modal','sp_app/service/api',function($modal,api){
 		var template = 
 			'<div class="modal-header">' +
 				'<h3 class="modal-title">search</h3>' +
 			'</div>'+
 
 			'<div class="modal-body">' + 
-				'<input type="text" ng-model="$parent.search_str" ng-enter="search()" placeholder="name/sku">' +
+				'<input id="sp_app/service/search_dlg/single/search_txt" type="text" ng-model="$parent.search_str" ng-enter="search()" placeholder="name/sku">' +
 				'<table ng-hide="sp_lst.length==0" class="table table-hover table-bordered table-condensed table-striped">' +
 					'<tr>' +
 						'<th>name</th>' +
@@ -158,10 +158,10 @@ define(
 						'<th>select</th>' +					
 					'</tr>' +
 
-					'<tr ng-repeat="sp in sp_lst">' + 
-						'<td>{{sp.name}}</td>' +
-						'<td>{{sp.price}}</td>' +
-						'<td><button class="btn btn-primary btn-xs" ng-click="select(sp)">select</button></td>' +
+					'<tr ng-repeat="search_sp_single in sp_lst">' + 
+						'<td>{{search_sp_single.name}}</td>' +
+						'<td>{{search_sp_single.price}}</td>' +
+						'<td><button class="btn btn-primary btn-xs" ng-click="select(search_sp_single)">select</button></td>' +
 					'</tr>' +
  				'</table>' +
  				'<div ng-hide="message.length == 0">' +

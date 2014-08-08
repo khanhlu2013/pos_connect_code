@@ -53,23 +53,29 @@ module.exports = {
             var sp = this.create_sp_json(name,price,value_customer_price,crv,is_taxable,is_sale_report,p_type,p_tag,cost,vendor,buydown);  
             var data = { sp:sp,sku:sku };
 
-            browser.executeAsyncScript(function(data,callback) {
-                var api = angular.injector(['ng','sp_app/service/api_crud','store_product_app']).get('sp_app/service/api_crud');
-                api.insert_new(data.sp,data.sku).then( function(data){ callback(data);} )
+            return browser.executeAsyncScript(function(data,callback) {
+                var api = angular.injector(['ng','sp_app/service/api_sp','store_product_app']).get('sp_app/service/api_sp');
+                api.insert_new(data.sp,data.sku).then(function(data){callback(data);} )
             },data)
-            .then(function (output) { /*console.log(output);*/ });
         },
 
-        insert_old : function(){
-            var sp = this.create_sp_json(name);  
-            var data = { sp:sp,sku:sku };
+        insert_old : function(product_id,sku,name,price,value_customer_price,crv,is_taxable,is_sale_report,p_type,p_tag,cost,vendor,buydown){
+            var sp = this.create_sp_json(name,price,value_customer_price,crv,is_taxable,is_sale_report,p_type,p_tag,cost,vendor,buydown);  
+            var data = {product_id:product_id,sku:sku,sp:sp };
 
-            browser.executeAsyncScript(function(data,callback) {
-                var api = angular.injector(['ng','sp_app/service/api_crud','store_product_app']).get('sp_app/service/api_crud');
-                api.insert_new(data.sp,data.sku).then( function(data){ callback(data);} )
+            return browser.executeAsyncScript(function(data,callback) {
+                var api = angular.injector(['ng','sp_app/service/api_sp','store_product_app']).get('sp_app/service/api_sp');
+                api.insert_old(data.product_id,data.sku,data.sp).then(function(data){callback(data);});
             },data)
-            .then(function (output) { /*console.log(output);*/ });            
-        }
+        },
+
+        add_sku : function(product_id,sku){
+            var data = {product_id:product_id,sku:sku};
+            return browser.executeAsyncScript(function(data,callback){
+                var api = angular.injector(['ng','sp_app/service/api_sku','store_product_app']).get('sp_app/service/api_sku');
+                api.add_sku(data.product_id,data.sku).then(function(data){callback(data);});
+            },data)
+        }        
     },
 
     setup:{
@@ -85,6 +91,33 @@ module.exports = {
                 }).then(function(data){callback('init data completed')})
             })
             .then(function (output) { /*console.log(output);*/ });
+        }
+    },
+
+    product_page:{
+        get_line_text : function(data){
+            return browser.executeAsyncScript(function(data,callback){
+                var currencyFilter = angular.injector(['ng']).get('currencyFilter') ;
+                var str =
+                    data.name +
+                    ' ' + currencyFilter(data.price) +
+                    (data.crv == null ? "" : (' ' + currencyFilter(data.crv))) +
+                    (data.p_type == null ? "" : (' ' + data.p_type)) +
+                    (data.p_tag == null ? "" : (' ' + data.p_tag)) +
+                    (data.vendor == null ? "" : (' ' + data.vendor)) +
+                    (data.cost == null ? "" : (' ' + currencyFilter(data.cost))) +
+                    (data.buydown == null ? "" : (' ' + currencyFilter(data.buydown))) +
+                    (data.value_customer_price == null ? "" : (' ' + currencyFilter(data.value_customer_price)))
+                ;
+                callback(str);
+            },data);
+        }
+    },
+    ui:{
+        click : function(element){
+            browser.wait(function(){
+                return element.isPresent();
+            }).then(function(){element.click()})
         }
     }
 };

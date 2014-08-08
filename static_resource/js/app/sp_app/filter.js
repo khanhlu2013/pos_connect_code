@@ -26,16 +26,4 @@ define(['angular'], function (angular)
             return result;
         }
     });
-
-    filter_mod.filter('is_obj_sp',function(){
-        return function(obj){
-            return obj.is_taxable != undefined;
-        }
-    })
-
-    filter_mod.filter('is_obj_p',function(){
-        return function(obj){
-            return obj.is_taxable == undefined;
-        }
-    })
 });

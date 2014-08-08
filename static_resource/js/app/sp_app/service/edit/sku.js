@@ -34,12 +34,12 @@ define(
 		api_sku
 	){
 		var template = 
-			'<div class="modal-header">' + 
+			'<div id="sp_app/service/edit/sku/dialog" class="modal-header">' + 
 				'<div><h3>sku info: {{sp.name}}</h3></div>' +
  			'</div>' +
 			
 			'<div class="modal-body">' + 
-				'<button ng-click="add_sku()"class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span></button>' +
+				'<button id="sp_app/service/edit/sku/add_btn" ng-click="add_sku()"class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span></button>' +
 				'<table ng-show="sp.get_my_sku_assoc_lst().length != 0" class="table table-hover table-bordered table-condensed table-striped">' + 
 					'<tr>' +
 						'<th>sku</th>' +
@@ -54,7 +54,7 @@ define(
 			'</div>' +
 			
 			'<div class="modal-footer">' + 
-				'<button class="btn btn-warning" ng-click="exit()">exit</button>' +
+				'<button id="sp_app/service/edit/sku/exit_btn" class="btn btn-warning" ng-click="exit()">exit</button>' +
 			'</div>'				
 		;
 		var ModalCtrl = function($scope,$modalInstance,$filter,$q,sp){

@@ -5,14 +5,14 @@ define(
     ,'app/sp_app/service/prompt'
     ,'app/sp_app/filter'
     ,'app/sp_app/service/api_sku'
-    ,'app/sp_app/service/api_crud'
+    ,'app/sp_app/service/api_sp'
 ]
 ,function
 (
     angular
 )
 {
-    var mod = angular.module('sp_app.service.create',['sp_app.service.prompt','sp_app/service/api_sku','sp_app/service/api_crud']);
+    var mod = angular.module('sp_app.service.create',['sp_app.service.prompt','sp_app/service/api_sku','sp_app/service/api_sp']);
 
     mod.factory('sp_app.service.create',
         [
@@ -23,6 +23,7 @@ define(
             'sp_app.service.create.select_suggest',
             'sp_app.service.create.new',
             'sp_app.service.create.old',
+            'sp_app/service/api_sku',
         function(
             $modal,
             $filter,
@@ -30,7 +31,8 @@ define(
             $q,
             select_suggest,
             create_new_sp_service,
-            create_old_sp_service
+            create_old_sp_service,
+            api_sku
         ){
         return function(prod_store__prod_sku__0_0,prod_store__prod_sku__1_0,sku){
 
@@ -41,12 +43,12 @@ define(
                     {
                         return create_new_sp_service(sku);
                     }
-                    else if($filter('is_obj_sp')(select_option))
+                    else if(select_option.constructor.name=='Store_product')
                     {
                         var cur_store_sp = select_option;
                         return api_sku.add_sku(cur_store_sp.product_id,sku);
                     }
-                    else if($filter('is_obj_p')(select_option))
+                    else if(select_option.constructor.name=='Product')
                     {
                         var suggest_product = select_option;
                         return create_old_sp_service(suggest_product,sku);
@@ -66,29 +68,29 @@ define(
         '$q',
         'sp_app.service.prompt',
         'sp_app/service/api_sku',
-        'sp_app/service/api_crud',
+        'sp_app/service/api_sp',
     function(
         $http,
         $q,
         prompt_service,
         api_sku,
-        api_crud
+        api_sp
     ){
         return function(suggest_product,sku){
             var prompt_promise = prompt_service(null/*original_sp*/,suggest_product,null/*duplicate_sp*/,sku);
             var insert_promise = prompt_promise.then(
-                 function(prompt_data){ return api_crud.insert_old(suggest_product.product_id,sku,prompt_data.sp);}
+                 function(prompt_data){ return api_sp.insert_old(suggest_product.product_id,sku,prompt_data.sp);}
                 ,function(reason){ return $q.reject(reason);}
             )
             return insert_promise;
         }
     }]);
 
-    mod.factory('sp_app.service.create.new',['$http','$q','sp_app.service.prompt','sp_app/service/api_crud',function($http,$q,prompt_service,api_crud){
+    mod.factory('sp_app.service.create.new',['$http','$q','sp_app.service.prompt','sp_app/service/api_sp',function($http,$q,prompt_service,api_sp){
         return function(sku){
             var prompt_promise = prompt_service(null/*original_sp*/,null/*suggest_product*/,null/*duplicate_sp*/,sku);
             var insert_promise = prompt_promise.then(
-                 function(prompt_data){ return api_crud.insert_new(prompt_data.sp,sku);}
+                 function(prompt_data){ return api_sp.insert_new(prompt_data.sp,sku);}
                 ,function(reason){ return $q.reject(reason); }
             );
             return insert_promise;
@@ -161,7 +163,7 @@ define(
 
                     '</div>' +  
                     '<div class="modal-footer">' +
-                        '<button id="sp_app/service/create/select_suggestion/cancel_btn" class="btn btn-warning" ng-click="cancel()">cancel</button>' +
+                        '<button id="sp_app/service/create/select_suggest/cancel_btn" class="btn btn-warning" ng-click="cancel()">cancel</button>' +
                     '</div>' +                                                      
                 '</div>'
             ;

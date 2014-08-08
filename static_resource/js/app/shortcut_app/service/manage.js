@@ -53,13 +53,9 @@ define(
                             '<td ng-class="current_parent_pos==row+row_count?\'warning\':\'success\'" ng-click="parent_click(row+row_count)">{{get_parent_caption(false,row)}}</td>' +
                         '</tr>'+
                     '</table>' +
-                    '{{shortcut_lst}}' + '</br>' + 
-                    'current parent position: {{current_parent_pos}}' + '</br>' + 
-
-
                 '</div>' +
                 '<div class="modal-footer">' +
-                    '<button ng-click="exit()" class="btn btn-warning glyphicon glyphicon-remove"></button>' +
+                    '<button id="shortcut_app/service/manage/exit_btn" ng-click="exit()" class="btn btn-warning glyphicon glyphicon-remove"></button>' +
                 '</div>'                          
             ;
             var ModalCtrl = function($scope,$modalInstance,$http,shortcut_lst){

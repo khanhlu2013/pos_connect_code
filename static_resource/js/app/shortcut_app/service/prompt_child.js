@@ -18,7 +18,7 @@ define(
     				'<h3 class="modal-title">{{original_child == null ? \'create new shortcut\' : \'edit shortcut: \' + original_child.product_name}}</h3>' +
     			'</div>' +
     			'<div class="modal-body">' +
-    				'<form name="form" class="form-horizontal" novalidate>' +
+    				'<div name="form" class="form-horizontal" novalidate>' +
     					'<div class="form-group">' +
 	    					'<label class="col-sm-4 control-label">caption</label>' +
 	    					'<div class="col-sm-8">' +
@@ -35,7 +35,7 @@ define(
 	    						'<button ng-click=select_sp() class="btn btn-primary glyphicon glyphicon-plus"></button>' +
 	    					'</div>' +    					
     					'</div>' +
- 					'</form>' +
+ 					'</div>' +
     			'</div>' +
     			'<div class="modal-footer">' +
     				'<button ng-click="cancel()" class="btn btn-warning">cancel</button>' +

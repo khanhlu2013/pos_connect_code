@@ -11,7 +11,7 @@ define(
      angular
 )
 {
-    var app = angular.module('store_product_app',['ui.bootstrap','sp_app.controller','controller.menu'], function($httpProvider) {
+    var app = angular.module('store_product_app',['ui.bootstrap','sp_app.controller','controller.menu','ngTable'], function($httpProvider) {
         //boilerplate code to make angularjs to work with django in ajax term
         $httpProvider.defaults.xsrfCookieName = 'csrftoken';
         $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';           

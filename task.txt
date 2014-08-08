@@ -327,6 +327,7 @@ LEARN/IMPROVE
     . united integer and float validation using directive to make them DRY  
     . $event.stopPropagation()
     . django debug toolbar
+    . enter on a form clicking the very first button within that form. i never like html <form>
 ------------------------------------------------------------------------------------------------------------------
 VISUAL IMPROVE
     . check mark align and may be bigger?
@@ -342,44 +343,18 @@ VISUAL IMPROVE
 ------------------------------------------------------------------------------------------------------------------        
 ISSUE
     . indeterministic loading when loading script : sometimes ng-table is not define and when reload , problem disapeare
-
-------------------------------------------------------------------------------------------------------------------
-TEST
-couch_acl_validator_test: client have write permission that follow these 4 rules. is big couch follow the same syntax as couchdb?
-    . client can insert receipt. 
-    . client can not insert non-receipt
-    . client can not update
-    . client can not delete
-. test select correct line
-    . test sale edit
-    . test sale short cut parent, child
-    . test shortcut setup
-    . test sp creator prodStore_prodSku_1_0, prodStore_prodSku_0_0
-. mix match test: insert/update for client
-. delete sku test: can not delete sku when it belong to another store 
-. test couch acl, should we move this test into other app? i believe it would be receipt? since we can only insert receipt
-. product model test
-. store inserter test
-. receipt_document_validator_test
-. sku scan not found handler spec: there is a spy on old window.confirm and now we change it. make sure test work
-
+    . product prompt suggest: is product suggestion work for kit product?
+    . mix match app cancel having issue
+    . validate: circular kit client validation
+    . quantize issue for price, and the rest crv ...    
+    . main page server pagination    
 ----------------------
 SALE APP
     . change pt after the fact
     . hold: show master detail
     . it said 3 receipts pushing but actually only 1 receipt is pushing
-----------------------
-TEST: think about e2e karma
 
-    . test remove sku assoc
-        . test obvious case where you can remove your own only sku -> remove assoc as well
-        . test that you can't see sku from other store when you have not subrive to this sku, thus, you can't remove them
-        . test that you can see sku that you have subcrive. notice that you can remove this subscription.
-        . test you can add exist sku: there is two case:
-            . this sku is not assoc with this prod
-            . this sku is already assoc with this product (in this case, we only check that we subcibe to the store_prod_lst)
-        . angular import product create a new pid,
-    . implement angular add sku feature when product already in side store -> make sure the success of this action return a single sp in main page
+
 
 ---------------------
 SP APP
@@ -388,32 +363,11 @@ SP APP
         . report payment type
         . sale report
 
-        
-    . mix match app cancel having issue
-    . validate: circular kit client validation
-    . quantize issue for price, and the rest crv ...    
-    . main page: 
-        . server pagination
-        . implement model sku search and name search
 
-
-filter.is_obj_sp
-filter.is_obj_p
-
-
-
-
-------------------
-
-product prompt suggest:
-    if there is only 1 sp, i want it to disable drop down
-    if there is multiple sp, go ahead with drop down
-    work on is_taxable: show statistic
-
-
-
-
-
+---------------------
+.shortcut
+.mm
+.pt
 
 
 

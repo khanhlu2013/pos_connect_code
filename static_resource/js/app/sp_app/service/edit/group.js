@@ -3,14 +3,17 @@ define(
 	'angular'
 	//---
     ,'app/group_app/service/search_dlg'
+    ,'app/sp_app/service/api_group'
+    ,'service/ui'
 ]
 ,function
 (
 	angular
 )
 {
-	var mod = angular.module('sp_app.service.edit.group',['group_app/service/search_dlg'])
-    mod.factory('sp_app.service.edit.group',['$modal','group_app/service/search_dlg/multiple',function($modal,select_multiple_group_service){
+	var mod = angular.module('sp_app.service.edit.group',['group_app/service/search_dlg','service.ui','sp_app/service/api_group'])
+
+    mod.factory('sp_app.service.edit.group',['$modal','group_app/service/search_dlg/multiple','service.ui.alert','sp_app/service/api_group',function($modal,select_multiple_group_service,alert_service,api_group){
         var template = 
             '<div class="modal-header">' +
                 '<h3 class="modal-title">Group info: {{sp.name}}</h3>' +
@@ -18,16 +21,16 @@ define(
 
             '<div class="modal-body">' +   
 
-                '<button ng-click="add()" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span></button>' +
+                '<button id="sp_app/service/edit/group/add_btn" ng-click="add()" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span></button>' +
                 '</br>' +
                 '<table ng-hide="sp.group_lst.length==0" class="table table-hover table-bordered table-condensed table-striped">' +
                     '<tr>' +
                         '<th>group</th>' +         
                         '<th>remove</th>' +                
                     '</tr>' +    
-                    '<tr ng-repeat="group in sp.group_lst">' +
-                        '<td>{{group.name}}</td>' +    
-                        '<td><button ng-click="remove(group)" class="btn btn-danger glyphicon glyphicon-trash"></button></td>' +                                            
+                    '<tr ng-repeat="group_edit in sp.group_lst">' +
+                        '<td>{{group_edit.name}}</td>' +    
+                        '<td><button ng-click="remove(group_edit)" class="btn btn-danger glyphicon glyphicon-trash"></button></td>' +                                            
                     '</tr>' +                                                  
                 '</table>' +
                 '<div ng-show="sp.group_lst.length==0">' +
@@ -40,7 +43,7 @@ define(
             '<div class="modal-footer">' +          
                 '<button class="btn btn-warning" ng-click="cancel()">cancel</button>' + 
                 '<button ng-disabled="is_unchange()" class="btn btn-primary" ng-click="reset()">reset</button>' +                               
-                '<button ng-disabled="is_unchange()||form.$invalid" class="btn btn-success" ng-click="save()">save</button>' +
+                '<button id="sp_app/service/edit/group/ok_btn" ng-disabled="is_unchange()||form.$invalid" class="btn btn-success" ng-click="ok()">ok</button>' +
             '</div>'        
         ;    
 
@@ -76,20 +79,15 @@ define(
             $scope.cancel = function(){
                 $modalInstance.dismiss('cancel');
             };
-            $scope.save = function(){
-                //update sp
-                var promise = $http({
-                    url: '/product/group/update_angular',
-                    method : "POST",
-                    data: {sp:JSON.stringify($scope.sp)}
-                });
-                promise.success(function(data, status, headers, config){
-                    angular.copy(data,$scope.original_sp);
-                    $modalInstance.close($scope.original_sp);
-                });
-                promise.error(function(data, status, headers, config){
-                    alert('ajax error');
-                });     
+            $scope.ok = function(){
+                api_group.update($scope.sp).then(
+                    function(data){
+                        angular.copy(data,$scope.original_sp);
+                        $modalInstance.close($scope.original_sp);
+                    },function(reason){
+                        alert_service('alert',reason,'red');
+                    }
+                )
             };
         }
 

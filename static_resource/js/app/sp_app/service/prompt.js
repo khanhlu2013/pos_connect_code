@@ -9,76 +9,115 @@ define(
 {
     var mod = angular.module('sp_app.service.prompt',[]);
     mod.factory('sp_app.service.prompt',['$modal', function($modal){
-        // var template_name = 
-        //     '<div class="form-group">' +
-        //         '<label class="col-sm-4 control-label" >Name:</label>' +
-        //         '<div class="col-sm-8">' +
-        //             '<input id="sp_app/service/prompt/name_txt" name="product_name" ng-model="$parent.sp.name" type="text" required>' +
-        //             '<div ng-hide="$parent.suggest_product==null" class="btn-group" dropdown>' +
-        //                 '<button ng-click="$parent.sp.name=get_suggest(\'name\')"  class="btn btn-primary">{{get_suggest(\'name\')}}</button>' +
-        //                 '<button ng-disabled="$parent.suggest_product.sp_lst.length <=1" class="btn btn-primary dropdown-toggle"><span class="caret"></span></button>' +
-        //                 '<ul class="dropdown-menu" role="menu">' +
-        //                     '<li ng-repeat="sp in $parent.suggest_product.sp_lst | orderBy:\'name\'"><a ng-click="$parent.sp.name=sp.name" href="#">{{sp.name}}</a></li>' +
-        //                 '</ul>' +
-        //             '</div>' + 
-        //             '<label class="error" ng-show="form.product_name.$error.required">require</label>' +
-        //         '</div>' +
-        //     '</div>' 
-        // ;
 
-        // var template_price =
-        //     '<div class="form-group">' +
-        //         '<label class="col-sm-4 control-label">Price:</label>' +
-        //         '<div class="col-sm-8">' +
-        //             '<input id="sp_app/service/prompt/price_txt" name="price" ng-model="$parent.sp.price" type="number" required>' +
-        //             '<div ng-hide="$parent.suggest_product==null" class="btn-group" dropdown>' +   
-        //                 '<button ng-click="$parent.sp.price=get_suggest(\'price\')" class="btn btn-primary">{{get_suggest(\'price\')|currency}}</button>' +
-        //                 '<button ng-disabled="$parent.suggest_product.sp_lst.length <= 1" class="btn btn-primary dropdown-toggle"><span class="caret"></span><span class="sr-only">split button</span></button>' +
-        //                 '<ul class="dropdown-menu" role="menu">' +
-        //                     '<li ng-repeat="sp in $parent.suggest_product.sp_lst | orderBy:\'price\'"><a ng-click="$parent.sp.price=sp.price" href="#">{{sp.price|currency}}</a></li>' +
-        //                 '</ul>' +
-        //             '</div>' +
-        //             '<label class="error" ng-show="form.price.$invalid">require</label>' +
-        //         '</div>' +
-        //     '</div>'
-        // ;
-
+        //- NAME -------------------------------------------------------------------------------------------------------------------------------------------------------
+        var template_name_main_suggestion = 
+            '<button' + 
+                ' id="sp_app/service/prompt/suggest_name_main_btn"' +
+                ' ng-click="$parent.sp.name=get_suggest(\'name\')"' +
+                ' class="btn btn-primary">' +
+                    '{{get_suggest(\'name\')}}' +
+            '</button>'
+        ;
+        var template_name_extra_suggestion =
+            '<button ' +
+                ' id="sp_app/service/prompt/suggest_name_extra_btn"' +
+                ' ng-disabled="!is_many_suggestion(\'name\')"' +
+                ' class="btn btn-primary dropdown-toggle">' + 
+                    '<span class="caret"></span>' +
+            '</button>' +
+            '<ul class="dropdown-menu" role="menu">' +
+                '<li ng-repeat="sp in suggest_product.sp_lst | orderBy:\'name\'"><a ng-click="$parent.sp.name=sp.name" href="#">{{sp.name}}</a></li>' +
+            '</ul>'      
+        ;
+        var template_name_suggestion = 
+            '<div id="sp_app/service/prompt/suggest_name" ng-hide="is_no_suggestion(\'name\')" class="btn-group" dropdown>' +
+                template_name_main_suggestion +
+                template_name_extra_suggestion +
+            '</div>'
+        ;
         var template_name = 
-            '<button ng-click="xxx()"></button>'
+            '<div class="form-group">' +
+                '<label class="col-sm-4 control-label" >Name:</label>' +
+                '<div class="col-sm-8">' +
+                    '<input id="sp_app/service/prompt/name_txt" name="product_name" ng-model="$parent.sp.name" type="text" required>' +
+                    template_name_suggestion +
+                    '<label class="error" ng-show="form.product_name.$error.required">require</label>' +
+                '</div>' +
+            '</div>' 
         ;
 
+        //- PRICE -------------------------------------------------------------------------------------------------------------------------------------------------------
+        var template_price_main_suggestion = 
+            '<button' + 
+                ' id="sp_app/service/prompt/suggest_price_main_btn"' +
+                ' ng-click="$parent.sp.price=get_suggest(\'price\')"' +
+                ' class="btn btn-primary">' + 
+                    '{{get_suggest(\'price\')|currency}}' + 
+            '</button>'
+        ;
+        var template_price_extra_suggestion = 
+            '<button' +
+                ' id="sp_app/service/prompt/suggest_price_extra_btn"' +
+                ' ng-disabled="!is_many_suggestion(\'price\')"' +
+                ' class="btn btn-primary dropdown-toggle">' + 
+                    '<span class="caret"></span>' +
+            '</button>' +
+            '<ul class="dropdown-menu" role="menu">' +
+                '<li ng-repeat="sp in suggest_product.sp_lst | orderBy:\'price\'"><a ng-click="$parent.sp.price=sp.price" href="#">{{sp.price|currency}}</a></li>' +
+            '</ul>'
+        ;  
+        var template_price_suggestion = 
+            '<div id="sp_app/service/prompt/suggest_price" ng-hide="is_no_suggestion(\'price\')" class="btn-group" dropdown>' +   
+                template_price_main_suggestion +
+                template_price_extra_suggestion +
+            '</div>'
+        ;
         var template_price =
             '<div class="form-group">' +
                 '<label class="col-sm-4 control-label">Price:</label>' +
                 '<div class="col-sm-8">' +
-                    '<input id="sp_app/service/prompt/price_txt" name="price"  type="number" required>' +
-                    '<div ng-hide="$parent.suggest_product==null" class="btn-group" dropdown>' +   
-                        '<button ng-click="$parent.sp.price=get_suggest(\'price\')" class="btn btn-primary">{{get_suggest(\'price\')|currency}}</button>' +
-                        '<button ng-disabled="$parent.suggest_product.sp_lst.length <= 1" class="btn btn-primary dropdown-toggle"><span class="caret"></span><span class="sr-only">split button</span></button>' +
-                        '<ul class="dropdown-menu" role="menu">' +
-                            '<li ng-repeat="sp in $parent.suggest_product.sp_lst | orderBy:\'price\'"><a ng-click="$parent.sp.price=sp.price" href="#">{{sp.price|currency}}</a></li>' +
-                        '</ul>' +
-                    '</div>' +
+                    '<input id="sp_app/service/prompt/price_txt" name="price" ng-model="$parent.sp.price" type="number" required>' +
+                    template_price_suggestion +
                     '<label class="error" ng-show="form.price.$invalid">require</label>' +
                 '</div>' +
             '</div>'
         ;
 
+        //- CRV -------------------------------------------------------------------------------------------------------------------------------------------------------
+        var template_crv_main_suggestion = 
+            '<button' +
+                ' id="sp_app/service/prompt/suggest_crv_main_btn"' +
+                ' ng-click="$parent.sp.crv=get_suggest(\'crv\')"' +
+                ' class="btn btn-primary">' +
+                    '{{get_suggest(\'crv\')|currency}}' +
+            '</button>'         
+        ;
+        var template_crv_extra_suggestion = 
+            '<button' +
+                ' id="sp_app/service/prompt/suggest_crv_extra_btn"' +
+                ' ng-disabled="!is_many_suggestion(\'crv\')"' +
+                ' class="btn btn-primary dropdown-toggle">' +
+                    '<span class="caret"></span>' + 
+            '</button>' +
+            '<ul class="dropdown-menu" role="menu">' +
+                '<li ng-repeat="sp in suggest_product.sp_lst | orderBy:\'get_crv()\'">' + 
+                    '<a ng-click="$parent.sp.crv=sp.crv" href="#">{{sp.crv|currency}}</a>' +
+                '</li>' +
+            '</ul>'
+        ;
+        var template_crv_suggestion = 
+            '<div id="sp_app/service/prompt/suggest_crv" ng-hide="is_no_suggestion(\'crv\')" class="btn-group" dropdown>' +
+                template_crv_main_suggestion +
+                template_crv_extra_suggestion +
+            '</div>'
+        ;      
         var template_crv = 
             '<div class="form-group">' +
                 '<label class="col-sm-4 control-label">Crv:</label>' +
                 '<div class="col-sm-8">' +
                     '<input id="sp_app/service/prompt/crv_txt" name="crv" ng-model="$parent.sp.crv" ng-disabled="{{sp.is_kit()}}" type="number">' +
-                    '<div ng-hide="$parent.suggest_product==null" class="btn-group" dropdown>' +
-                        '<button ng-click="$parent.sp.crv=get_suggest(\'crv\')" class="btn btn-primary">{{get_suggest(\'crv\')|currency}}</button>' +
-                        '<button ng-disabled="$parent.suggest_product.sp_lst.length <=1" class="btn btn-primary dropdown-toggle" ><span class="caret"></span></button>' +
-                        '<ul class="dropdown-menu" role="menu">' +
-                            '<li ng-repeat="sp in $parent.suggest_product.sp_lst | orderBy:\'crv\'">' + 
-                                '<a ng-click="$parent.sp.crv=sp.crv" href="#">{{sp.crv|currency}}</a>' +
-                            '</li>' +
-                        '</ul>' +
-                    '</div>' +
-
+                    template_crv_suggestion +
                     '<label class="error" ng-show="form.crv.$invalid">' +
                         'invalid input' +
                     '</label>' +                                                            
@@ -86,29 +125,78 @@ define(
             '</div>'
         ;
 
+        //- TAX -------------------------------------------------------------------------------------------------------------------------------------------------------
+        var template_taxable_main_suggestion = 
+            '<button' +
+                ' id="sp_app/service/prompt/suggest_taxable_main_btn"' +
+                ' ng-click="$parent.sp.is_taxable=get_suggest(\'is_taxable\')"' +
+                ' class="btn btn-primary">' +
+                    '{{get_suggest(\'is_taxable\')}}' +
+            '</button>'         
+        ;
+        var template_taxable_extra_suggestion = 
+            '<button' +
+                ' id="sp_app/service/prompt/suggest_taxable_extra_btn"' +
+                ' ng-disabled="!is_tax_suggest_has_both_false_and_true()"' +
+                ' class="btn btn-primary dropdown-toggle">' +
+                    '<span class="caret"></span>' + 
+            '</button>' +
+            '<ul class="dropdown-menu" role="menu">' +
+                '<li ng-repeat="stat in tax_suggest_statistic">' + 
+                    '<a ng-click="$parent.sp.is_taxable=stat.is_taxable" href="#">{{stat.is_taxable + " - " + stat.value + "%"}}</a>' +
+                '</li>' +
+            '</ul>'
+        ;
+        var template_taxable_suggestion = 
+            '<div id="sp_app/service/prompt/suggest_taxable" ng-hide="is_no_suggestion(\'crv\')" class="btn-group" dropdown>' +
+                template_taxable_main_suggestion +
+                template_taxable_extra_suggestion +
+            '</div>'
+        ;             
         var template_taxable = 
             '<div class="form-group">' +
                 '<label class="col-sm-4 control-label">Taxable:</label>' +
                 '<div class="col-sm-8">' +
                     '<input id="sp_app/service/prompt/is_taxable_check" ng-model="$parent.sp.is_taxable" type="checkbox">' +
+                    template_taxable_suggestion +
                 '</div>' +
             '</div>'
         ;        
 
-        var template_cost = 
+        //- COST -------------------------------------------------------------------------------------------------------------------------------------------------------
+        var template_cost_main_suggestion = 
+            '<button' +
+                ' id="sp_app/service/prompt/suggest_cost_main_btn"' +
+                ' ng-click="$parent.sp.cost=get_suggest(\'cost\')"' +
+                ' class="btn btn-primary">' +
+                    '{{get_suggest(\'cost\')|currency}}' + 
+            '</button>' 
+        ;
+        var template_cost_extra_suggestion =
+            '<button' +
+                ' id="sp_app/service/prompt/suggest_cost_extra_btn"' +
+                ' ng-disabled="!is_many_suggestion(\'cost\')"' +
+                ' class="btn btn-primary dropdown-toggle">' +
+                    '<span class="caret"></span>' +
+            '</button>' +
+            '<ul class="dropdown-menu" role="menu">' +
+                '<li ng-repeat="sp in suggest_product.sp_lst | orderBy:\'get_cost()\'">' +
+                    '<a ng-click="$parent.sp.cost=sp.cost" href="#">{{sp.cost|currency}}</a>' +
+                '</li>' +
+            '</ul>'
+        ;
+        var template_cost_suggestion = 
+            '<div id="sp_app/service/prompt/suggest_cost" ng-hide="is_no_suggestion(\'cost\')" class="btn-group" dropdown>' +
+                template_cost_main_suggestion +
+                template_cost_extra_suggestion +
+            '</div>'
+        ;
+        var template_cost =
             '<div class="form-group">' +
                 '<label class="col-sm-4 control-label">Cost:</label>' +
                 '<div class="col-sm-8">' +
                     '<input id="sp_app/service/prompt/cost_txt" name="cost" ng-model="$parent.sp.cost" ng-disabled="{{sp.is_kit()}}" type="number"}}"">' +
-                    '<div ng-hide="$parent.suggest_product==null" class="btn-group" dropdown>' +
-                        '<button ng-click="$parent.sp.cost=get_suggest(\'cost\')" class="btn btn-primary">{{get_suggest(\'cost\')|currency}}</button>' +
-                        '<button ng-disabled="$parent.suggest_product.sp_lst.length<=1" class="btn btn-primary dropdown-toggle"><span class="caret"></span></button>' +
-                        '<ul class="dropdown-menu" role="menu">' +
-                            '<li ng-repeat="sp in $parent.suggest_product.sp_lst">' +
-                                '<a ng-click="$parent.sp.cost=sp.cost" href="#">{{sp.cost|currency}}</a>' +
-                            '</li>' +
-                        '</ul>' +
-                    '</div>' +
+                    template_cost_suggestion +
                     '<label class="error" ng-show="form.cost.$invalid">' +
                         'invalid number' +
                     '</label>' +
@@ -116,6 +204,8 @@ define(
             '</div>'
         ;        
 
+
+        //- EXTRA -------------------------------------------------------------------------------------------------------------------------------------------------------
         var template_sale_report =
             '<div class="form-group">' +
                 '<label class="col-sm-4 control-label">Sale report:</label>' +
@@ -190,7 +280,7 @@ define(
             '</div>' +
 
             '<div class="modal-body">' +
-                '<form name="form" novalidate>' +
+                '<div name="form" novalidate role="form">' +
                     '<div class="form-horizontal" >' +
                         template_name +
                         template_price +
@@ -204,9 +294,7 @@ define(
                         template_value_customer_price +
                         template_sku + 
                     '</div>' + /* end form horizontal*/
-                '</form>' + /* end modal body*/   
-                '{{$parent.suggest_product}}' +
-                '{{$parent.sp}}' +
+                '</div>' + /* end modal body*/   
             '</div>' +
 
             '<div class="modal-footer">' +          
@@ -221,7 +309,8 @@ define(
             $scope.duplicate_sp = duplicate_sp;
             $scope.original_sku = original_sku;
             $scope.original_sp = original_sp;
-            initial_blank_sp = {is_sale_report:true,is_taxable:($scope.suggest_product==null?false:$scope.suggest_product.get_suggest_info('is_taxable'))};
+            initial_blank_sp = {is_sale_report:true,is_taxable:false};
+            $scope.tax_suggest_statistic = (suggest_product == null ? null : suggest_product.get_tax_suggest_statistic())
 
             //pending data for storing prompt
             $scope.sku = original_sku;            
@@ -240,8 +329,28 @@ define(
                 $scope.sp.cost = $scope.sp.get_cost();
                 $scope.sp.buydown = $scope.sp.get_buydown();
             }
-            $scope.xxx = function(){
-                alert('xxx got call');
+            $scope.is_tax_suggest_has_both_false_and_true = function(){
+                if($scope.tax_suggest_statistic == null){
+                    return false;
+                }             
+                return $scope.tax_suggest_statistic[0].value != 0 && $scope.tax_suggest_statistic[1].value != 0;   
+            }
+            $scope.is_no_suggestion = function(field){
+                if($scope.suggest_product == null){
+                    return true;
+                }
+                return $scope.suggest_product.get_suggest_main(field) == null;
+            }
+            $scope.is_many_suggestion = function(field){
+                if($scope.suggest_product == null){
+                    return false;
+                }                
+                var lst= $scope.suggest_product.get_suggest_extra(field);
+                if(lst == null){
+                    return false;
+                }else{
+                    return lst.length >1;
+                }
             }
             $scope.reset = function(){
                 if($scope.original_sp == null){
@@ -287,7 +396,7 @@ define(
                 if($scope.suggest_product == null){
                     return null;
                 }
-                return $scope.suggest_product.get_suggest_info(field);
+                return $scope.suggest_product.get_suggest_main(field);
             }
             $scope.calculate_title = function(){
                 if($scope.suggest_product != null){

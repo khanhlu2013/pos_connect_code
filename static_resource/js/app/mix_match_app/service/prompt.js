@@ -19,7 +19,7 @@ define(
 					'<h3>{{$scope.original_mm == null ? "create new mix match" : "edit " + mm.name}}</h3>' +
 				'</div>' +
 				'<div class="modal-body">' +			
-					'<form class="form-horizontal" name="form" novalidate>' +
+					'<div class="form-horizontal" name="form" novalidate>' +
 						'<div class="form-group">' +
 							'<label class="col-sm-4">name</label>' +
 							'<div class="col-sm-8">' +
@@ -55,7 +55,7 @@ define(
 								'<label ng-show="form.is_include_crv_tax.$error.required" class="error">required</label>' +
 							'</div>' +
 						'</div>' +
- 					'</form>' +
+ 					'</div>' +
 
  					'<button ng-click="add_product()" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> product</button>' +
  					'<table ng-hide="mm.sp_lst.length==0" class="table table-hover table-bordered table-condensed table-striped">' +

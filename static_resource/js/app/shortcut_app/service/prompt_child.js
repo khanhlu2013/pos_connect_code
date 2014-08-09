@@ -15,14 +15,14 @@ define(
     	return function(original_child){
     		var template = 
     			'<div class="modal-header">' +
-    				'<h3 class="modal-title">{{original_child == null ? \'create new shortcut\' : \'edit shortcut: \' + original_child.product_name}}</h3>' +
+    				'<h3 class="modal-title">{{original_child == null ? \'create new shortcut\' : \'edit shortcut: \' + original_child.store_product.name}}</h3>' +
     			'</div>' +
     			'<div class="modal-body">' +
     				'<div name="form" class="form-horizontal" novalidate>' +
     					'<div class="form-group">' +
 	    					'<label class="col-sm-4 control-label">caption</label>' +
 	    					'<div class="col-sm-8">' +
-	    						'<input ng-model="$parent.child.caption" name="caption" type="text" required>' +
+	    						'<input id="shortcut_app/service/prompt/caption_txt" ng-model="$parent.child.caption" name="caption" type="text" required>' +
 	    						'<label class="error" ng-show="form.caption.$error.required">require</label>' +
 	    					'</div>' +    					
     					'</div>' +
@@ -30,17 +30,17 @@ define(
     					'<div class="form-group">' +
 	    					'<label class="col-sm-4 control-label">product</label>' +
 	    					'<div class="col-sm-8">' +
-	    						'<input ng-model="$parent.child.product_name" disabled name="product" type="text" required>' +
+	    						'<input id="shortcut_app/service/prompt/sp_txt" ng-model="$parent.child.store_product.name" disabled name="product" type="text" required>' +
 	    						'<label ng-show="form.product.$error.required" class="error">require</label>' +
-	    						'<button ng-click=select_sp() class="btn btn-primary glyphicon glyphicon-plus"></button>' +
+	    						'<button id="shortcut_app/service/prompt/sp_btn" ng-click=select_sp() class="btn btn-primary glyphicon glyphicon-plus"></button>' +
 	    					'</div>' +    					
     					'</div>' +
  					'</div>' +
     			'</div>' +
     			'<div class="modal-footer">' +
-    				'<button ng-click="cancel()" class="btn btn-warning">cancel</button>' +
+    				'<button id="shortcut_app/service/prompt/cancel_btn" ng-click="cancel()" class="btn btn-warning">cancel</button>' +
     				'<button ng-click="reset()" ng-disabled="is_unchange()"class="btn btn-primary">reset</button>' +
-    				'<button ng-click="ok()" ng-disabled="is_unchange() || form.$invalid" class="btn btn-success">ok</button>' +
+    				'<button id="shortcut_app/service/prompt/ok_btn" ng-click="ok()" ng-disabled="is_unchange() || form.$invalid" class="btn btn-success">ok</button>' +
     			'</div>'    			    			
     		;
 
@@ -58,8 +58,7 @@ define(
 					var promise = search_sp_single_service()
 					promise.then(
 						function(data){
-							$scope.child.product_name = data.name;
-							$scope.child.product_id = data.product_id;
+                            $scope.child.store_product = data;
 						},
 						function(reason){
 							alert_service('alert',reason,'red');

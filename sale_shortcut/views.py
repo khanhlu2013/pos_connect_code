@@ -3,13 +3,13 @@ from django.http import HttpResponse
 import json
 from store_product.models import Store_product
 from sale_shortcut import sale_shortcut_serializer,shortcut_getter
-
+from django.core.serializers.json import DjangoJSONEncoder
 
 def get_view(request):
     cur_login_store = request.session.get('cur_login_store')
     shortcut_lst = shortcut_getter.get_shorcut_lst(cur_login_store.id)
     lst_serialized = sale_shortcut_serializer.serialize_shortcut_lst(shortcut_lst)
-    return HttpResponse(json.dumps(lst_serialized), mimetype='application/json')
+    return HttpResponse(json.dumps(lst_serialized,cls=DjangoJSONEncoder), mimetype='application/json')
 
 def create_parent_angular_view(request):
     position = int(request.POST['position']) #if i don't convert this to int(since we don't json.loads here, POST data will be received as string), then eventhough it will create just fine on master db, when we serialized this obj, it return a string position which will cause issue on the client side.
@@ -33,7 +33,7 @@ def create_parent_angular_view(request):
     parent = Parent.objects.create(store=cur_login_store,position=position,caption=caption)
     parent_serialized = sale_shortcut_serializer.Parent_serializer(parent).data
     print(parent_serialized)
-    return HttpResponse(json.dumps(parent_serialized),content_type="application/json")
+    return HttpResponse(json.dumps(parent_serialized,cls=DjangoJSONEncoder),content_type="application/json")
 
 
 def edit_parent_angular_view(request):
@@ -50,7 +50,7 @@ def edit_parent_angular_view(request):
     shortcut.save()
 
     shortcut_serialized = sale_shortcut_serializer.Parent_serializer(shortcut).data
-    return HttpResponse(json.dumps(shortcut_serialized),content_type="application/json")
+    return HttpResponse(json.dumps(shortcut_serialized,cls=DjangoJSONEncoder),content_type="application/json")
 
 
 def set_parent_name_view(request):
@@ -64,7 +64,7 @@ def set_parent_name_view(request):
         parent.save()
 
     parent_serialized = sale_shortcut_serializer.serialize_shortcut_lst([parent,])[0]
-    return HttpResponse(json.dumps(parent_serialized), mimetype='application/json')
+    return HttpResponse(json.dumps(parent_serialized,cls=DjangoJSONEncoder), mimetype='application/json')
 
 
 def set_child_info_view(request):
@@ -86,7 +86,7 @@ def set_child_info_view(request):
         parent = shortcut_getter.get_shortcut(parent.id)
 
     parent_serialized = sale_shortcut_serializer.serialize_shortcut_lst([parent,])[0]            
-    return HttpResponse(json.dumps(parent_serialized),mimetype='application/json')
+    return HttpResponse(json.dumps(parent_serialized,cls=DjangoJSONEncoder),mimetype='application/json')
 
 
 def delete_child_view(request):
@@ -96,7 +96,7 @@ def delete_child_view(request):
     child.delete()
     shortcut_lst = shortcut_getter.get_shorcut_lst(cur_login_store.id)
     lst_serialized = sale_shortcut_serializer.serialize_shortcut_lst(shortcut_lst)
-    return HttpResponse(json.dumps(lst_serialized), mimetype='application/json')
+    return HttpResponse(json.dumps(lst_serialized,cls=DjangoJSONEncoder), mimetype='application/json')
 
 
 

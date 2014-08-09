@@ -19,11 +19,11 @@ define(
 					'<h3>{{$scope.original_mm == null ? "create new mix match" : "edit " + mm.name}}</h3>' +
 				'</div>' +
 				'<div class="modal-body">' +			
-					'<div class="form-horizontal" name="form" novalidate>' +
+					'<div name="form" class="form-horizontal" novalidate>' +
 						'<div class="form-group">' +
 							'<label class="col-sm-4">name</label>' +
 							'<div class="col-sm-8">' +
-								'<input ng-model="$parent.mm.name" name="name" required>' +
+								'<input id="mix_match_app/service/prompt/name_txt" ng-model="$parent.mm.name" name="name" required>' +
 								'<label ng-show="form.name.$error.required" class="error">required</label>' +
 							'</div>' +
 						'</div>' +
@@ -31,7 +31,7 @@ define(
 						'<div class="form-group">' +
 							'<label class="col-sm-4">qty</label>' +
 							'<div class="col-sm-8">' +
-								'<input ng-model="$parent.mm.qty" name="qty" ng-pattern="integer_validation" type="number" min="2" required>' +
+								'<input id="mix_match_app/service/prompt/qty_txt" ng-model="$parent.mm.qty" name="qty" ng-pattern="integer_validation" type="number" min="2" required>' +
 								'<label ng-show="form.qty.$error.required && !form.qty.$error.number && !form.qty.$error.min" class="error">required</label>' +
 								'<label ng-show="form.qty.$error.number || form.qty.$error.pattern" class="error">invalid number</label>' +
 								'<label ng-show="form.qty.$error.min" class="error">at least 2</label>' +
@@ -41,7 +41,7 @@ define(
 						'<div class="form-group">' +
 							'<label class="col-sm-4">price</label>' +
 							'<div class="col-sm-8">' +
-								'<input ng-model="$parent.mm.mm_price" name="price" type="number" min="0.01" required>' +
+								'<input id="mix_match_app/service/prompt/price_txt" ng-model="$parent.mm.mm_price" name="price" type="number" min="0.01" required>' +
 								'<label ng-show="form.price.$error.required && !form.price.$error.number && !form.price.$error.min" class="error">required</label>' +
 								'<label ng-show="form.price.$error.number" class="error">invalid number</label>' +
 								'<label ng-show="form.price.$error.min" class="error">invalid price</label>' +
@@ -51,30 +51,30 @@ define(
 						'<div class="form-group">' +
 							'<label class="col-sm-4">include crv&tax</label>' +
 							'<div class="col-sm-8">' +
-								'<input ng-model="$parent.mm.is_include_crv_tax" name="is_include_crv_tax" type="checkbox">' +
+								'<input id="mix_match_app/service/prompt/is_include_crv_tax_check" ng-model="$parent.mm.is_include_crv_tax" name="is_include_crv_tax" type="checkbox">' +
 								'<label ng-show="form.is_include_crv_tax.$error.required" class="error">required</label>' +
 							'</div>' +
 						'</div>' +
  					'</div>' +
 
- 					'<button ng-click="add_product()" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> product</button>' +
+ 					'<button id="mix_match_app/service/prompt/add_sp_btn" ng-click="add_product()" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> product</button>' +
  					'<table ng-hide="mm.sp_lst.length==0" class="table table-hover table-bordered table-condensed table-striped">' +
  						'<tr>' +	
  							'<th>product</th>' +
  							'<th>remove</th>' +
  						'<tr>' +
- 						'<tr ng-repeat="mm_child in mm.sp_lst">' +
- 							'<td>{{mm_child.store_product.name}}</td>' +
- 							'<td><button ng-click="remove_child(mm_child)" class="btn btn-danger glyphicon glyphicon-trash"></button></td>' +
+ 						'<tr ng-repeat="sp in mm.sp_lst | orderBy : \'name\'">' +
+ 							'<td>{{sp.name}}</td>' +
+ 							'<td><button ng-click="remove_child(sp)" class="btn btn-danger glyphicon glyphicon-trash"></button></td>' +
  						'</tr>' +
  					'</table>' +
  					'<label ng-show="mm.sp_lst.length==0" class="error">empty deal</label>' +
  				'</div>' +
 
 				'<div class="modal-footer">' +
-					'<button ng-click="cancel()" class="btn btn-warning">cancel</button>' +
+					'<button id="mix_match_app/service/prompt/cancel_btn" ng-click="cancel()" class="btn btn-warning">cancel</button>' +
 					'<button ng-disabled="is_unchange()" ng-click="reset()" class="btn btn-primary">reset</button>' +
-					'<button ng-disabled="is_unchange() || (form.$invalid || mm.sp_lst.length == 0)" ng-click="ok()"class="btn btn-success">ok</button>' +
+					'<button id="mix_match_app/service/prompt/ok_btn" ng-disabled="is_unchange() || (form.$invalid || mm.sp_lst.length == 0)" ng-click="ok()"class="btn btn-success">ok</button>' +
 				'</div>'						
 			;
 			var ModalCtrl = function($scope,$modalInstance,$filter,original_mm){
@@ -86,9 +86,9 @@ define(
 				if($scope.mm == null){
 					$scope.mm = angular.copy(initial_mm);
 				}
-				$scope.remove_child = function(child){
+				$scope.remove_child = function(sp){
 					for(var i = 0;i<$scope.mm.sp_lst.length;i++){
-						if(child.id==$scope.mm.sp_lst[i].id){
+						if(sp.id==$scope.mm.sp_lst[i].id){
 							$scope.mm.sp_lst.splice(i,1);
 							break;
 						}
@@ -102,14 +102,14 @@ define(
 
 								var is_found = false//see if we can find sp_lst[i] in the current deal
 								for(var j = 0;j<$scope.mm.sp_lst.length;j++){
-									if($scope.mm.sp_lst[j].store_product.id == sp_lst[i].id){
+									if($scope.mm.sp_lst[j].id == sp_lst[i].id){
 										is_found = true;
 										break;
 									}
 								}
 
 								if(!is_found){
-									$scope.mm.sp_lst.push({store_product:sp_lst[i]});
+									$scope.mm.sp_lst.push(sp_lst[i]);
 								}
 							}
 						},

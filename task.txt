@@ -365,16 +365,20 @@ SP APP
 
 
 ---------------------
-.shortcut
-.mm
+. do i want to delete all test except e2e
 .pt
 
 
 
+. ok why the fuck do i hate <form> not the way it is then. angular need this to do validation. i think when i hit enter in a form, the first button in the form is clicked.
+. make sure model on server and client is the same
+    . sp
+    . mix match
 
 
+. kill heroku app
+    . redo all related field
+    . redo sale app
 
 
-
-
-
+Mix_match_child / mix_match_child_set is removed make sure it is not exist anywhere

@@ -34,7 +34,7 @@ describe('group_app/service/create', function() {
         element(by.id('group_app/service/prompt/name_txt')).sendKeys(group_name,enter_key);
         lib.ui.click(element(by.id('group_app/service/prompt/add_btn')));
         element(by.id('sp_app/service/search_dlg/multiple/search_txt')).sendKeys('a',enter_key);
-        var search_result_lst = element.all(by.repeater('sp in sp_lst'));
+        var search_result_lst = element.all(by.repeater('sp_multiple in sp_lst'));
         expect(search_result_lst.count()).toEqual(2);
         lib.ui.click(search_result_lst.get(0).element(by.css('.btn')));
         lib.ui.click(search_result_lst.get(1).element(by.css('.btn')));

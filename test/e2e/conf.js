@@ -13,7 +13,9 @@ exports.config = {
         // ,'./sp_app/service/edit/group.js'    
         // ,'./sp_app/service/edit/kit.js'    
         // ,'./group_app/group.js'
-        './tax_app/tax.js'
+        // ,'./tax_app/tax.js'
+        // ,'./shortcut_app/shortcut.js'
+        './mix_match_app/mix_match.js'
 
     ],
     baseUrl: env.baseUrl,

@@ -32,7 +32,7 @@ define(
 		return function(mm){
 			var prompt_promise = prompt_service(mm);
 			var edit_promise = prompt_promise.then(
-				 function(data){ return api.create(data)}
+				 function(data){ return api.edit(data)}
 				,function(reason){ return $q.reject(reason);}
 			)
 			return edit_promise;

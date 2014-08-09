@@ -23,8 +23,6 @@ describe('group_app/service/create', function() {
     })
 
     it('can create,edit,remove group',function(){
-
-        //CREATE: create a group with 2 sp
         lib.auth.login(baseUrl,'1','1');
         var group_name = 'my group name';
         browser.get(baseUrl);  

@@ -1,17 +1,16 @@
 from sale_shortcut.models import Parent,Child
 from rest_framework import serializers,fields
-
+from store_product.sp_serializer import Store_product_serializer
 
 class Child_serializer(serializers.ModelSerializer):
 
     position = serializers.Field(source='position')
     caption = serializers.Field(source='caption')
-    product_id = serializers.Field(source='store_product.product.id')
-    product_name = serializers.Field(source='store_product.name')
+    store_product = Store_product_serializer(many=False);
 
     class Meta:
         model = Child
-        fields = ('id','position','caption','product_id','product_name')
+        fields = ('id','position','caption','store_product')
 
 
 class Parent_serializer(serializers.ModelSerializer):

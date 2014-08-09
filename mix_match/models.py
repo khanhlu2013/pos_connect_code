@@ -8,10 +8,4 @@ class Mix_match(models.Model):
     qty = models.IntegerField()
     mm_price = models.DecimalField(max_digits=6, decimal_places=2)
     is_include_crv_tax = models.BooleanField()
-
-class Mix_match_child(models.Model):
-    parent = models.ForeignKey(Mix_match)
-    store_product = models.ForeignKey(Store_product)
-
-    class Meta:
-        unique_together = ("parent","store_product")
+    sp_lst = models.ManyToManyField(Store_product)

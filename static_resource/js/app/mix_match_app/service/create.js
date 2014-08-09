@@ -33,7 +33,7 @@ define(
 			var prompt_promise = prompt_service(null);
 			var create_promise = prompt_promise.then(
 				 function(mm){ return api.create(mm)}
-				,function(reason){ $q.reject(reason);}
+				,function(reason){ return $q.reject(reason);}
 			);
 			return create_promise;			
 		}

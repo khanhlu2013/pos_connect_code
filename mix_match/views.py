@@ -70,7 +70,7 @@ def mix_match_update_angular_view(request):
     # mix_match_child_pid_lst = request.POST['pid_comma_separated_lst_str'].split(",")
 
     #validate child is not emtpy
-    if len(mm['mix_match_child_set']) == 0:
+    if len(mm['sp_lst']) == 0:
         return
 
     #validate parent id 
@@ -79,8 +79,8 @@ def mix_match_update_angular_view(request):
         return
 
     #validate child belong store product of this store
-    sp_lst = Store_product.objects.filter(store_id=cur_login_store.id,product_id__in=[child['store_product']['product_id'] for child in mm['mix_match_child_set']])
-    if len(sp_lst) != len(mm['mix_match_child_set']):
+    sp_lst = Store_product.objects.filter(store_id=cur_login_store.id,product_id__in=[sp['product_id'] for sp in mm['sp_lst']])
+    if len(sp_lst) != len(mm['sp_lst']):
         return
 
     #update parent
@@ -142,12 +142,12 @@ def mix_match_insert_angular_view(request):
     mix_match = json.loads(request.POST['mix_match'])
 
     #validate child is not emtpy
-    if len(mix_match['mix_match_child_set']) == 0:
+    if len(mix_match['sp_lst']) == 0:
         return
 
     #validate child belong store product of this store
-    sp_lst = Store_product.objects.filter(store_id=cur_login_store.id,product_id__in=[ child['store_product']['product_id'] for child in mix_match['mix_match_child_set']])
-    if len(sp_lst) != len(mix_match['mix_match_child_set']):
+    sp_lst = Store_product.objects.filter(store_id=cur_login_store.id,product_id__in=[ child['product_id'] for child in mix_match['sp_lst']])
+    if len(sp_lst) != len(mix_match['sp_lst']):
         return
 
     #create parent

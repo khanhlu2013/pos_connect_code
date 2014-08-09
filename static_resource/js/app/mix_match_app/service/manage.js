@@ -6,13 +6,21 @@ define(
 	,'app/mix_match_app/service/create'
 	,'app/mix_match_app/service/edit'
 	,'app/mix_match_app/service/delete'
+	,'app/mix_match_app/service/api'
 ]
 ,function
 (
 	angular
 )
 {
-	var mod = angular.module('mix_match_app.service.manage',['service.ui','mix_match_app/service/create','mix_match_app/service/edit','mix_match_app/service/delete']);
+	var mod = angular.module('mix_match_app.service.manage',
+	[
+		'service.ui',
+		'mix_match_app/service/create',
+		'mix_match_app/service/edit',
+		'mix_match_app/service/delete',
+		'mix_match_app/service/api'
+	]);
 	mod.factory('mix_match_app.service.manage',
 	[
 		'$http',
@@ -24,6 +32,7 @@ define(
 		'mix_match_app/service/create',
 		'mix_match_app/service/edit',
 	 	'mix_match_app/service/delete',
+	 	'mix_match_app/service/api',
 	function(
 		$http,
 		$modal,
@@ -33,7 +42,8 @@ define(
 		confirm_service,
  		create_service,
 		edit_service,
- 		delete_service
+ 		delete_service,
+ 		api
 	){
 		return function(){
 			var template = 
@@ -42,7 +52,7 @@ define(
 				'</div>' +
 
 				'<div class="modal-body">' +
-					'<button ng-click="add_mix_match()" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span></button>' +
+					'<button id="mix_match_app/service/manage/add_btn" ng-click="add_mix_match()" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span></button>' +
 					'<table ng-hide="mm_lst.length == 0" class="table table-hover table-bordered table-condensed table-striped">' +
 						'<tr>' +
 							'<th>name</th>' +
@@ -65,7 +75,7 @@ define(
 				'</div>' +
 
 				'<div class="modal-footer">' +
-					'<button ng-click="exit()" class="btn btn-warning">exit</button>' +
+					'<button id="mix_match_app/service/manage/exit_btn" ng-click="exit()" class="btn btn-warning">exit</button>' +
 				'</div>'								
 			;
 			var ModalCtrl = function($scope,$modalInstance,$q,mm_lst){

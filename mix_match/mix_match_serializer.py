@@ -1,24 +1,15 @@
-from mix_match.models import Mix_match,Mix_match_child
+from mix_match.models import Mix_match
 from rest_framework import serializers,fields
 from store_product.models import Store_product
 from store_product.sp_serializer import Store_product_serializer
 
 
-
-class Mix_match_child_serializer(serializers.ModelSerializer):
-    store_product = Store_product_serializer(many=False)
-
-    class Meta:
-        model = Mix_match_child
-        fields = ('id','store_product')
-
-
 class Mix_match_serializer(serializers.ModelSerializer):
-    mix_match_child_set = Mix_match_child_serializer(many=True)
+    sp_lst = Store_product_serializer(many=True)
 
     class Meta:
         model = Mix_match
-        fields = ('id','name','mm_price','is_include_crv_tax','qty','mix_match_child_set')
+        fields = ('id','name','mm_price','is_include_crv_tax','qty','sp_lst')
 
 
 def serialize_mix_match_lst(mix_match_lst):

@@ -58,7 +58,7 @@ define(
                     '<button id="shortcut_app/service/manage/exit_btn" ng-click="exit()" class="btn btn-warning glyphicon glyphicon-remove"></button>' +
                 '</div>'                          
             ;
-            var ModalCtrl = function($scope,$modalInstance,$http,shortcut_lst){
+            var ModalCtrl = function($scope,$modalInstance,$http,$q,shortcut_lst){
                 //configuration
                 $scope.row_count = 5;
                 $scope.column_count = 3;

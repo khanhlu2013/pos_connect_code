@@ -20,7 +20,11 @@ define(
     		this.sp_lst = sp_lst;
     	}
  		Mix_match.build = function(raw_json){
-    		var sp_lst = raw_json.mix_match_child_set.map(Store_product.build);
+            var raw_sp_lst = [];
+            for(var i = 0;i<raw_json.mix_match_child_set.length;i++){
+                raw_sp_lst.push(raw_json.mix_match_child_set[i].store_product);
+            }
+            var sp_lst = raw_sp_lst.map(Store_product.build);
     		return new Mix_match(
     			raw_json.id,
     			raw_json.name,

@@ -19,7 +19,7 @@ define(
 					'<h3>{{$scope.original_mm == null ? "create new mix match" : "edit " + mm.name}}</h3>' +
 				'</div>' +
 				'<div class="modal-body">' +			
-					'<div name="form" class="form-horizontal" novalidate>' +
+					'<form name="form" class="form-horizontal" novalidate>' +
 						'<div class="form-group">' +
 							'<label class="col-sm-4">name</label>' +
 							'<div class="col-sm-8">' +
@@ -31,7 +31,14 @@ define(
 						'<div class="form-group">' +
 							'<label class="col-sm-4">qty</label>' +
 							'<div class="col-sm-8">' +
-								'<input id="mix_match_app/service/prompt/qty_txt" ng-model="$parent.mm.qty" name="qty" ng-pattern="integer_validation" type="number" min="2" required>' +
+								'<input' +
+									' id="mix_match_app/service/prompt/qty_txt"' +
+									' ng-model="$parent.mm.qty"' +
+									' name="qty"' +
+									' ng-pattern="integer_validation"' +
+									' type="number"' +
+									' min="2"' +
+									' required>' +
 								'<label ng-show="form.qty.$error.required && !form.qty.$error.number && !form.qty.$error.min" class="error">required</label>' +
 								'<label ng-show="form.qty.$error.number || form.qty.$error.pattern" class="error">invalid number</label>' +
 								'<label ng-show="form.qty.$error.min" class="error">at least 2</label>' +
@@ -55,7 +62,7 @@ define(
 								'<label ng-show="form.is_include_crv_tax.$error.required" class="error">required</label>' +
 							'</div>' +
 						'</div>' +
- 					'</div>' +
+ 					'</form>' +
 
  					'<button id="mix_match_app/service/prompt/add_sp_btn" ng-click="add_product()" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> product</button>' +
  					'<table ng-hide="mm.sp_lst.length==0" class="table table-hover table-bordered table-condensed table-striped">' +

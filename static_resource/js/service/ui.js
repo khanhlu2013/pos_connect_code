@@ -23,8 +23,8 @@ define(
 	            	'</form>' +
 	            '</div>' +
 	            '<div class="modal-footer">' +
-					'<button id="service/ui/prompt/cancel_btn" type="submit" class="btn btn-warning" ng-click="cancel()">cancel</button>' +	          
-					'<button ng-show="$parent.prefill!=null" ng-disabled="is_unchange()" ng-click="reset()" class="btn btn-primary">reset</button>' +
+					'<button id="service/ui/prompt/cancel_btn" class="btn btn-warning" ng-click="cancel()" type="button">cancel</button>' +	          
+					'<button ng-show="$parent.prefill!=null" ng-disabled="is_unchange()" ng-click="reset()" class="btn btn-primary" type="button">reset</button>' +
 	                '<button id="service/ui/prompt/ok_btn" ng-disabled="form.$invalid || is_unchange()" type="submit" class="btn btn-success" ng-click="ok()">ok</button>' +
 	            '</div>'
 	        ;
@@ -96,7 +96,7 @@ define(
 	                '<h1>' + message + '</h1>' +
 	            '</div>' +
 	            '<div class="modal-footer">' +
-					'<button id="service/ui/confirm/cancel_btn" type="submit" class="btn btn-warning" ng-click="cancel()">cancel</button>' +	            
+					'<button id="service/ui/confirm/cancel_btn" class="btn btn-warning" ng-click="cancel()" type="button">cancel</button>' +	            
 	                '<button id="service/ui/confirm/ok_btn" type="submit" class="btn btn-success" ng-click="ok()">ok</button>' +
 	            '</div>'
 	        ;

@@ -10,10 +10,10 @@ class Group_serializer(serializers.ModelSerializer):
 
 class Group_sp_lst_serializer(serializers.ModelSerializer):
 
-    store_product_set = Store_product_serializer(many=True)
+    sp_lst = Store_product_serializer(many=True)
     class Meta:
         model = Group
-        fields = ('id','name','store_product_set')
+        fields = ('id','name','sp_lst')
 
 def serialize_group_lst(group_lst):
     return Group_serializer(group_lst,many=True).data  

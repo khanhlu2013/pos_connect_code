@@ -6,4 +6,4 @@ def get_group_lst(store_id):
 
 
 def get_group_item(id,store_id):
-    return Group.objects.prefetch_related('store_product_set').get(pk=id,store_id=store_id)    
+    return Group.objects.prefetch_related('sp_lst').get(pk=id,store_id=store_id)    

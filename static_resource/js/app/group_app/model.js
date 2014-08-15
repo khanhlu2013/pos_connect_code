@@ -21,8 +21,8 @@ define(
         Group.build = function(data){
             var sp_lst = null;
             var Store_product = $injector.get('sp_app/model/Store_product');
-            if(data.store_product_set != undefined){
-                sp_lst = data.store_product_set.map(Store_product.build)
+            if(data.sp_lst != undefined){
+                sp_lst = data.sp_lst.map(Store_product.build)
             }
             return new Group(data.id,data.name,sp_lst);
         }

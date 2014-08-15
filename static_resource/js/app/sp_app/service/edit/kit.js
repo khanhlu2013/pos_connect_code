@@ -29,10 +29,9 @@ define(
             '<div class="modal-header">' +
                 '<h3 class="modal-title">Kit info: {{sp.name}}</h3>' +
             '</div>' +
-
             '<div class="modal-body">' +   
 
-                '<button id="sp_app/service/edit/kit/add_btn" ng-click="add()" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span></button>' +
+                '<button id="sp_app/service/edit/kit/add_btn" ng-click="add()" class="btn btn-primary" type="button"><span class="glyphicon glyphicon-plus"></span></button>' +
                 '</br>' +
                 '<table ng-hide="sp.breakdown_assoc_lst.length==0" class="table table-hover table-bordered table-condensed table-striped">' +
                     '<tr>' +
@@ -44,8 +43,8 @@ define(
                     '<tr ng-repeat="assoc in sp.breakdown_assoc_lst | orderBy:assoc.breakdown.name">' +
                         '<td>{{assoc.breakdown.name}}</td>' +    
                         '<td>{{assoc.qty}}</td>' +
-                        '<td><button ng-click="edit(assoc)" class="btn btn-primary glyphicon glyphicon-pencil"></button></td>' +                                 
-                        '<td><button ng-click="remove(assoc)" class="btn btn-danger glyphicon glyphicon-trash"></button></td>' +                                            
+                        '<td><button ng-click="edit(assoc)" class="btn btn-primary glyphicon glyphicon-pencil" type="button"></button></td>' +                                 
+                        '<td><button ng-click="remove(assoc)" class="btn btn-danger glyphicon glyphicon-trash" type="button"></button></td>' +                                            
                     '</tr>' +                                                  
                 '</table>' +
                 '<div ng-show="sp.breakdown_assoc_lst.length==0">' +
@@ -56,9 +55,9 @@ define(
             '</div>' +
 
             '<div class="modal-footer">' +          
-                '<button id="sp_app/service/edit/kit/cancel_btn" class="btn btn-warning" ng-click="cancel()">cancel</button>' + 
-                '<button ng-disabled="is_unchange()" class="btn btn-primary" ng-click="reset()">reset</button>' +                               
-                '<button id="sp_app/service/edit/kit/ok_btn" ng-disabled="is_unchange()||form.$invalid" class="btn btn-success" ng-click="ok()">ok</button>' +
+                '<button id="sp_app/service/edit/kit/cancel_btn" class="btn btn-warning" ng-click="cancel()" type="button">cancel</button>' + 
+                '<button ng-disabled="is_unchange()" class="btn btn-primary" ng-click="reset()" type="button">reset</button>' +                               
+                '<button id="sp_app/service/edit/kit/ok_btn" ng-disabled="is_unchange()||form.$invalid" class="btn btn-success" ng-click="ok()" type="button">ok</button>' +
             '</div>'        
         ;   
         var ModalCtrl = function($scope,$modalInstance,$http,original_sp){
@@ -143,13 +142,13 @@ define(
                 '<h3 class="modal-title">{{original_assoc.id == null ? \'create new kit\' : \'edit kit: \' + original_assoc.breakdown.name}}</h3>' +
             '</div>' +
 
-            '<div name="form" class="modal-body" novalidate>' +
+            '<form name="form" class="modal-body" novalidate>' +
                 '<div class="form-horizontal" >' +
                     '<div class="form-group">' +
                         '<label class="col-sm-4 control-label" >Name:</label>' +
                         '<div class="col-sm-8">' +
                             '<input name="name" ng-model="assoc.breakdown.name" type="text" required disabled>' +
-                            '<button id="sp_app/service/edit/kit/prompt/sp_btn" ng-click="search()" class="btn btn-primary glyphicon glyphicon-search"></button>' +     
+                            '<button id="sp_app/service/edit/kit/prompt/sp_btn" ng-click="search()" class="btn btn-primary glyphicon glyphicon-search" type="button"></button>' +     
                             '<label class="error" ng-show="form.name.$invalid">' +
                                 'required.' +
                             '</label>' +                                                 
@@ -167,12 +166,12 @@ define(
                         '</div>' +
                     '</div>' +                 
                 '</div>' + /* end form horizontal*/
-            '</div>' + /* end modal body*/
+            '</form>' + /* end modal body*/
 
             '<div class="modal-footer">' +          
-                '<button class="btn btn-warning" ng-click="cancel()">cancel</button>' + 
-                '<button ng-disabled="is_unchange()" class="btn btn-primary" ng-click="reset()">reset</button>' +                               
-                '<button id="sp_app/service/edit/kit/prompt/ok_btn" ng-disabled="is_unchange()||form.$invalid" class="btn btn-success" ng-click="ok()">ok</button>' +
+                '<button class="btn btn-warning" ng-click="cancel()" type="button">cancel</button>' + 
+                '<button ng-disabled="is_unchange()" class="btn btn-primary" ng-click="reset()" type="button">reset</button>' +                               
+                '<button id="sp_app/service/edit/kit/prompt/ok_btn" ng-disabled="is_unchange()||form.$invalid" class="btn btn-success" ng-click="ok()" type="button">ok</button>' +
             '</div>'        
         ;  
         var ModalCtrl = function($scope,$modalInstance,original_assoc){

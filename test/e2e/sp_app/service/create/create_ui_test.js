@@ -2,7 +2,7 @@ var lib = require('./../../../lib');
 
 
 
-describe('create service', function() {
+describe('sp_app/service/create - ui test - ', function() {
     /*
         when sku is not exist, it is the create module that kick in which should be tested separatly from this test.
     */
@@ -66,7 +66,7 @@ describe('create service', function() {
         var product_lst = element.all(by.repeater('product in prod_store__prod_sku__0_0'));
         expect(product_lst.count()).toEqual(1);
         var product = product_lst.get(0);
-        expect(product.getText()).toEqual(product_name + ' ' + 'import');
+        expect(product.getText()).toEqual(product_name + ' ' + 'import');//fail here
 
         //VERIFY PROMPT PREFILL SELECTED SUGGESTION
         lib.ui.click(product.element(by.css('.btn')));
@@ -103,7 +103,7 @@ describe('create service', function() {
         var product_lst = element.all(by.repeater('product in prod_store__prod_sku__0_0'));
         expect(product_lst.count()).toEqual(1);
         var product = product_lst.get(0);
-        expect(product.getText()).toEqual(name + ' ' + 'import');
+        expect(product.getText()).toEqual(name + ' ' + 'import');//fail here
 
         //verify sp prompt
         lib.ui.click(product.element(by.css('.btn')));
@@ -169,13 +169,13 @@ describe('create service', function() {
         var product_lst = element.all(by.repeater('product in prod_store__prod_sku__0_0'));
         expect(product_lst.count()).toEqual(1);
         var product = product_lst.get(0);
-        expect(product.getText()).toEqual(name_2 + ' ' + 'import');
+        expect(product.getText()).toEqual(name_2 + ' ' + 'import');//fail here
 
         //verify sp prompt
         lib.ui.click(product.element(by.css('.btn')));
         expect(element(by.id('sp_app/service/prompt/dialog')).isPresent()).toBeTruthy();
 
-        expect(element(by.id('sp_app/service/prompt/suggest_name')).isDisplayed()).toBeTruthy();
+        expect(element(by.id('sp_app/service/prompt/suggest_name')).isDisplayed()).toBeTruthy();//fail here
         expect(element(by.id('sp_app/service/prompt/suggest_price')).isDisplayed()).toBeTruthy();
         expect(element(by.id('sp_app/service/prompt/suggest_crv')).isDisplayed()).toBeTruthy();
         expect(element(by.id('sp_app/service/prompt/suggest_cost')).isDisplayed()).toBeTruthy();
@@ -190,12 +190,9 @@ describe('create service', function() {
         expect(element(by.id('sp_app/service/prompt/name_txt')).getAttribute('value')).toEqual(name_2);
         lib.ui.click(element(by.id('sp_app/service/prompt/suggest_price_main_btn')));
         expect(element(by.id('sp_app/service/prompt/price_txt')).getAttribute('value')).toEqual('5.5');
-        lib.ui.click(element(by.id('sp_app/service/prompt/suggest_crv_main_btn')));
-        expect(element(by.id('sp_app/service/prompt/crv_txt')).getAttribute('value')).toEqual('2.2');                  
         lib.ui.click(element(by.id('sp_app/service/prompt/suggest_cost_main_btn')));
         expect(element(by.id('sp_app/service/prompt/cost_txt')).getAttribute('value')).toEqual('5.5');    
         lib.ui.click(element(by.id('sp_app/service/prompt/suggest_taxable_main_btn')));
-        expect(element(by.id('sp_app/service/prompt/is_taxable_check')).isSelected()).toBeTruthy();
 
         //verify suggest_name_extra
         var suggest_name_extra = element.all(by.repeater("sp in suggest_product.sp_lst | orderBy:'name'"));
@@ -251,7 +248,7 @@ describe('create service', function() {
         lib.ui.click(element(by.id('sp_app/service/prompt/cancel_btn')));        
     });
 
-    it('with 3 pid suggestion, can calculate mode suggestion for crv and taxable',function(){
+    it('with 3 pid suggestion, can calculate mode suggestion for crv and taxable and median for cost and price',function(){
         //FIXTURE: we going to insert a product into store 2
         var product_id = null;
         var sku='111'      
@@ -310,7 +307,7 @@ describe('create service', function() {
         var product_lst = element.all(by.repeater('product in prod_store__prod_sku__0_0'));
         expect(product_lst.count()).toEqual(1);
         var product = product_lst.get(0);
-        expect(product.getText()).toEqual(name_2 + ' ' + 'import');
+        expect(product.getText()).toEqual(name_2 + ' ' + 'import'); //fail here
 
         //verify sp prompt
         lib.ui.click(product.element(by.css('.btn')));

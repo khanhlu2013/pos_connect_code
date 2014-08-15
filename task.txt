@@ -258,15 +258,6 @@ CURRENT TASKS
 . sp_util.get_sp_json_from_product_json: can i make it to be uniform with the client code: put it in product app, and uniform method naming
 . max_digits=7, decimal_places=2
 ------------------------------------------------------------------------------------------------------------------
-PAGE LOADING USER EXPERIENCE
-    . block ui when, and report require.js time out
-
-    . need to provide a loading for all area:
-        . load time out for module, including jquery. This time, we can't block ui. but must display error message when time out for loading
-        . when jquery is loaded. we need to block ui for all asyc operation. 
-            . scan for a product that is not found, create sp online, sync sp offline, rescan ... need to block ui for this
-
-------------------------------------------------------------------------------------------------------------------
 UPGRADE FEATURE
 . how to approve name: we need a tool. to sort out all products that is mostly used among all store. 
 . print receipt
@@ -295,6 +286,13 @@ UPGRADE FEATURE
     . calculate frequency for crv.
 . inactive product feature, limit search result. we can remove these from couch. if product have no dependency, we can have option remove this product
 . when search for sku, if found in current store, we will not look further into the network. SHOULD WE implement a feature to do so? and how can we do this in a non-intrusive way
+. sp_app/product_info : can we edit right from the info page without going into another interface popup
+. can we block angular while it is loading the page - ng-cloak but it is not 100% because angular still need to be load first
+. check mark align and may be bigger?
+. auto focus text box:
+    . search
+    . ...
+. all ajax backdrop
 ------------------------------------------------------------------------------------------------------------------
 REFACTOR CODE
     . after we test delete_sku_assoc_cm success using sp instead of p in delete_sku_cm, we should remove delete_sku_cm
@@ -317,6 +315,11 @@ REFACTOR CODE
         . api_crud_sku
         . api_crud_sp
         . api_crud_kit
+    . do i want to delete all test except e2e
+    . united integer and float validation using directive to make them DRY      
+    . quantize issue for price, and the rest crv ...    
+    . main page server pagination 
+    . local storage for taxrate? what my plan here?    
 ------------------------------------------------------------------------------------------------------------------
 LEARN/IMPROVE
     . continuous test->build->deploy
@@ -324,61 +327,24 @@ LEARN/IMPROVE
     . find a way to write html instead of javastring (grunt-html2js,grunt-angular-templates,$tempalteCache) 
         . write html is eaiser than writing inline_html_js_string
         . inline_html_js_string is easier to put side by side with controller code    
-    . united integer and float validation using directive to make them DRY  
     . $event.stopPropagation()
     . django debug toolbar
-    . enter on a form clicking the very first button within that form. i never like html <form>
-------------------------------------------------------------------------------------------------------------------
-VISUAL IMPROVE
-    . check mark align and may be bigger?
-    . sp_app/product_info : can we edit right from the info page without going into another interface popup
-    . all ajax backdrop
-    . auto focus text box:
-        . search
-        . ...
-    . side by side table dialog have a horizontal line
-    . date selector: 
-        . there is a week button that not need
-        . backdrop click crash
 ------------------------------------------------------------------------------------------------------------------        
-ISSUE
-    . indeterministic loading when loading script : sometimes ng-table is not define and when reload , problem disapeare
-    . product prompt suggest: is product suggestion work for kit product?
-    . mix match app cancel having issue
-    . validate: circular kit client validation
-    . quantize issue for price, and the rest crv ...    
-    . main page server pagination    
-----------------------
+ISSUE/TASK
+------------------------------------------------------------------------------------------------------------------    
 SALE APP
     . change pt after the fact
     . hold: show master detail
     . it said 3 receipts pushing but actually only 1 receipt is pushing
+    . sale record report, payment type report
 
 
-
----------------------
-SP APP
-
-    . sale record
-        . report payment type
-        . sale report
+------------------------------------------------------------------------------------------------------------------
 
 
----------------------
-. do i want to delete all test except e2e
-.pt
+query for sku, and returning a list of pending scan which implemneted inside local storage not indexeddb.
+construct pending scan model
+breakdown assoc did not get store
 
 
-
-. ok why the fuck do i hate <form> not the way it is then. angular need this to do validation. i think when i hit enter in a form, the first button in the form is clicked.
-. make sure model on server and client is the same
-    . sp
-    . mix match
-
-
-. kill heroku app
-    . redo all related field
-    . redo sale app
-
-
-Mix_match_child / mix_match_child_set is removed make sure it is not exist anywhere
+   

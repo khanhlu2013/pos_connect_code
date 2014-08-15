@@ -10,11 +10,9 @@ define(
     function pouch_db_name_to_index_db_name(pouch_db_name){
       return '_pouch_' + pouch_db_name;
     }
-
     function get_store_db_name(store_id){
         return 'liquor_' + store_id
     }
-
     function is_store_idb_exist(store_id,callback){
         var db_name = pouch_db_name_to_index_db_name(get_store_db_name(store_id));
         var request = indexedDB.open(db_name);
@@ -34,7 +32,6 @@ define(
             }
         }   
     }
-
     return {
          get_store_db_name:get_store_db_name
         ,is_store_idb_exist:is_store_idb_exist 

@@ -1,0 +1,27 @@
+define(
+[   
+     'angular'
+    //------------------     
+    ,'ui_bootstrap'
+    ,'service/csrf'
+    ,'controller/menu'
+ 	,'app/sale_app/controller'
+ 	,'service/db'
+]
+,function
+(
+     angular
+)
+{
+ 	angular.module('sale_app',
+	[
+		,'ui.bootstrap'
+		,'service/csrf'		
+		,'controller.menu'		
+		,'sale_app/controller'
+		,'service/db'
+ 	]).
+	run(['service/db/sync',function(sync){
+		sync(STORE_ID);
+	}])
+});

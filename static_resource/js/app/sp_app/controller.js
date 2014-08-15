@@ -1,8 +1,6 @@
 define(
 [
 	 'angular'
-    ,'app/store_product/sp_online_searcher'
-    ,'lib/ui/ui'
     //---------------
 	,'app/sp_app/service/info'
     ,'app/sp_app/service/create'
@@ -10,13 +8,13 @@ define(
     ,'app/sp_app/filter'    
     ,'directive/share_directive'    
     ,'service/ui'
+    ,'service/db'
     ,'app/sp_app/service/convert'
     ,'app/sp_app/service/api'
+    ,'blockUI'
 ], function 
 (
 	 angular
-    ,sp_online_searcher
-    ,ui
 )
 {
 	'use strict';
@@ -28,36 +26,41 @@ define(
         'sp_app.filter',
         'share_directive',
         'service.ui',
+        'service/db',
         'sp_app/service/convert',
-        'sp_app/service/api'
+        'sp_app/service/api',
+        'blockUI'
     ]);
 
     mod.controller('MainCtrl',
     [
         '$scope',
-        '$http',
-        '$modal',
         '$filter',
+        '$window',
         'sp_app/service/info',
         'sp_app.service.create',
         'sp_app.service.duplicate',
         'service.ui.alert',
+        'service.ui.confirm',
         'sp_app/service/convert/lst',
         'sp_app/service/api',
+        'service/db/is_db_exist',
+        'blockUI',
+
     function(
         $scope,
-        $http,
-        $modal,
         $filter,
+        $window,
         sp_info_service,
         create_service,
         duplicate_service,
         alert_service,
+        confirm_service,
         convert_sp_lst,
-        api
+        api,
+        is_db_exist,
+        blockUI
     ){
-        // $scope.local_filter= ""
-
         //SORT
         $scope.cur_sort_column = 'name';
         $scope.cur_sort_desc = false;
@@ -88,7 +91,6 @@ define(
                 $scope.sp_lst = [];
                 return;
             }
-            
             api.sku_search($scope.sku_search_str).then(
                 function(data){
                     $scope.sp_lst = data.prod_store__prod_sku__1_1;
@@ -141,9 +143,27 @@ define(
                 ,function(reason){ alert_service('alert',reason,'red');}
             )
         }
-    }]);
 
-	return mod;
+        function launch_pos_url(){
+            $window.open('sale/index_angular/');
+        }
+
+        $scope.launch_pos = function(){
+            is_db_exist(STORE_ID).then(
+                 function(is_db_exist){
+                    if(is_db_exist){
+                        launch_pos_url();
+                    }else{
+                        confirm_service('you are about to download your product database offline. continue?').then(function(){
+                            launch_pos_url()
+                        });
+                    }
+                 }
+                ,function(reason){alert_service('alert',reason,'red')}
+            )
+        }
+    }]);
+    return mod;
 });
 
 

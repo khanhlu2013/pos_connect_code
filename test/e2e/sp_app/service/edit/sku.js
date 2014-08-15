@@ -24,7 +24,7 @@ describe('sp_app/service/edit/sku', function() {
     })
 
     it('can add new sku',function(){
-        var sku_lst = element.all(by.repeater('sku_assoc in sp.get_my_sku_assoc_lst()'));
+        var sku_lst = element.all(by.repeater('sku_assoc in sp.get_my_sku_assoc_lst() | orderBy : \'sku\''));
 
         //fixture
         var old_sku = '111';

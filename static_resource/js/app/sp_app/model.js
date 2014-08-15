@@ -199,9 +199,9 @@ define(
         function _build(raw_json){
             //build group
             var group_lst = [];
-            if(raw_json.group_set != undefined){
+            if(raw_json.group_lst != undefined){
                 var Group = $injector.get('group_app/model/Group');
-                group_lst = raw_json.group_set.map(Group.build)
+                group_lst = raw_json.group_lst.map(Group.build)
             }
 
             //build product
@@ -305,7 +305,7 @@ sp json
     "cost":10.93,
     "vendor":"coles",
     "buydown":null,
-    "group_set":[],
+    "group_lst":[],
     "breakdown_assoc_lst":[],
     "kit_assoc_lst":[]
 }

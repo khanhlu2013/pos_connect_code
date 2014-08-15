@@ -18,7 +18,7 @@ define(
     				'<h3 class="modal-title">{{original_child == null ? \'create new shortcut\' : \'edit shortcut: \' + original_child.store_product.name}}</h3>' +
     			'</div>' +
     			'<div class="modal-body">' +
-    				'<div name="form" class="form-horizontal" novalidate>' +
+    				'<form name="form" class="form-horizontal" novalidate>' +
     					'<div class="form-group">' +
 	    					'<label class="col-sm-4 control-label">caption</label>' +
 	    					'<div class="col-sm-8">' +
@@ -32,15 +32,15 @@ define(
 	    					'<div class="col-sm-8">' +
 	    						'<input id="shortcut_app/service/prompt/sp_txt" ng-model="$parent.child.store_product.name" disabled name="product" type="text" required>' +
 	    						'<label ng-show="form.product.$error.required" class="error">require</label>' +
-	    						'<button id="shortcut_app/service/prompt/sp_btn" ng-click=select_sp() class="btn btn-primary glyphicon glyphicon-plus"></button>' +
+	    						'<button id="shortcut_app/service/prompt/sp_btn" ng-click=select_sp() class="btn btn-primary glyphicon glyphicon-plus" type="button"></button>' +
 	    					'</div>' +    					
     					'</div>' +
- 					'</div>' +
+ 					'</form>' +
     			'</div>' +
     			'<div class="modal-footer">' +
-    				'<button id="shortcut_app/service/prompt/cancel_btn" ng-click="cancel()" class="btn btn-warning">cancel</button>' +
-    				'<button ng-click="reset()" ng-disabled="is_unchange()"class="btn btn-primary">reset</button>' +
-    				'<button id="shortcut_app/service/prompt/ok_btn" ng-click="ok()" ng-disabled="is_unchange() || form.$invalid" class="btn btn-success">ok</button>' +
+    				'<button id="shortcut_app/service/prompt/cancel_btn" ng-click="cancel()" class="btn btn-warning" type="button">cancel</button>' +
+    				'<button ng-click="reset()" ng-disabled="is_unchange()"class="btn btn-primary" type="button">reset</button>' +
+    				'<button id="shortcut_app/service/prompt/ok_btn" ng-click="ok()" ng-disabled="is_unchange() || form.$invalid" class="btn btn-success" type="button">ok</button>' +
     			'</div>'    			    			
     		;
 

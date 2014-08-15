@@ -33,7 +33,7 @@ class Store_product_serializer(serializers.ModelSerializer):
     product_id = serializers.Field(source='product.id')
     product = Product_prodSkuAssoc_serializer(many=False)
     store_id = serializers.Field(source='store.id')
-    group_set = Group_serializer(many=True)
+    group_lst = Group_serializer(many=True)
 
     def to_native(self,obj):
         if not self.fields.has_key('breakdown_assoc_lst'):
@@ -46,7 +46,7 @@ class Store_product_serializer(serializers.ModelSerializer):
 
     class Meta:
         model = Store_product
-        fields = ('id','product_id','product','store_id','name','price','value_customer_price','crv','is_taxable','is_sale_report','p_type','p_tag','cost','vendor','buydown','group_set')
+        fields = ('id','product_id','product','store_id','name','price','value_customer_price','crv','is_taxable','is_sale_report','p_type','p_tag','cost','vendor','buydown','group_lst')
 
 
 class Store_product_kit_serializer(serializers.ModelSerializer):

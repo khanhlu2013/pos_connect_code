@@ -54,7 +54,7 @@ def group_action_perform_view(request):
         return
 
     #validate group is not empty
-    pid_lst = [item.product.id for item in group.store_product_set.all()]
+    pid_lst = [item.product.id for item in group.sp_lst.all()]
     if len(pid_lst) == 0:
         return
 

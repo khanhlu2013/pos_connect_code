@@ -27,7 +27,7 @@ define(
 
 			var delete_promise = get_ed_promise.then(
 				function(group){
-					if(group.store_product_set.length == 0){
+					if(group.sp_lst.length == 0){
 						var delete_ing_promise = $http({
 							url:'/group/delete_angular',
 							method:'POST',
@@ -43,7 +43,7 @@ define(
 						);
 						return delete_ed_promise;
 					}else{
-						var defer = $q.defer();defer.reject('group must be empty to be deleted');return defer.promise;
+						return $q.reject('group must be empty to be deleted')
  					}
  				},
 				function(reason){

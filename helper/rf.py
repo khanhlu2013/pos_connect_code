@@ -8,25 +8,13 @@ import json
 from couch import couch_util,couch_constance
 import requests
 from group.models import Group
-from mix_match.models import Mix_match,Mix_match_child
+from mix_match.models import Mix_match
 from django.conf import settings
 
-def protractor():
+def d():
     print('----------- init protractor test ----------------')
-    Group.objects.all().delete()
-    Mix_match_child.objects.all().delete()
-    Mix_match.objects.all().delete()    
-    Product.objects.all().delete()
-    Unit.objects.all().delete()
-    ProdSkuAssoc.objects.all().delete()
-    User.objects.all().delete()
-    Sku.objects.all().delete()
-    Store.objects.all().delete()
-
-    server = couch_util._get_couch_server()
-    for db in server:
-        if settings.STORE_DB_PREFIX in db:
-            del server[db]
+    print settings.STORE_DB_PREFIX
+    delete_data()
 
     user1,store1=test_helper.create_user_then_store_detail(user_name = "1",user_password="1",store_name="1")
     user2,store2=test_helper.create_user_then_store_detail(user_name = "2",user_password="2",store_name="2")
@@ -47,23 +35,6 @@ def p():
     data = json.load(json_file)
     import_json_data(data)
     json_file.close()
-
-    print("completed")
-
-
-
-def d():
-    print("refresh fixture: staging ")
-
-    delete_data()
-
-    print("create 1 approve product with sku = 123")
-    test_helper.createProductWithSku(sku_str='123',is_approve_override=True)
-
-    print("create 3 sample store x,y,z")
-    user1,store1=test_helper.create_user_then_store_detail(user_name = "x",user_password="x",store_name="x")
-    user2,store2=test_helper.create_user_then_store_detail(user_name = "y",user_password="y",store_name="y")
-    user3,store3=test_helper.create_user_then_store_detail(user_name = "z",user_password="z",store_name="z")
 
     print("completed")
 
@@ -138,21 +109,18 @@ def import_json_data(data):
 
 def delete_data():
     Group.objects.all().delete()
-    Mix_match_child.objects.all().delete()
     Mix_match.objects.all().delete()    
     Product.objects.all().delete()
     Unit.objects.all().delete()
     ProdSkuAssoc.objects.all().delete()
     User.objects.all().delete()
     Sku.objects.all().delete()
+    Store.objects.all().delete()
 
-
-    #delete store on couch
-    store_lst = list(Store.objects.all())
-    for store in store_lst:
-        store_db = couch_util.get_store_db(store.id)
-        if store_db:    
-            couch_util.delete_store_db(store.id)
+    server = couch_util._get_couch_server()
+    for db in server:
+        if settings.STORE_DB_PREFIX in db:
+            del server[db]
 
     #delete store on master
     Store.objects.all().delete()

@@ -1,7 +1,7 @@
 var lib = require('./../../../lib');
 
 
-describe('create service', function() {
+describe('sp_app/service/create', function() {
     /*
         when sku is not exist, it is the create module that kick in which should be tested separatly from this test.
     */

@@ -1,6 +1,7 @@
 define(
 [
 	 'angular'
+	 //----
 	,'app/group_app/service/manage'
 	,'app/tax_app/service/edit'
 	,'app/mix_match_app/service/manage'

@@ -70,13 +70,13 @@ describe('main page', function() {
         name_txt.clear();name_txt.sendKeys(protractor.Key.ENTER);
         name_txt.sendKeys('efg abc xyz',protractor.Key.ENTER);
         expect(sp_result.count()).toEqual(0);               
-        expect(alert_message_lbl.getText()).toEqual('error: search 2 words maximum');
+        expect(alert_message_lbl.getText()).toEqual('error: search 2 words maximum');//fail here
         lib.ui.click(alert_ok_btn);
 
         name_txt.clear();name_txt.sendKeys(protractor.Key.ENTER);
         name_txt.sendKeys('xxx',protractor.Key.ENTER);
         expect(sp_result.count()).toEqual(0);               
-        expect(alert_message_lbl.getText()).toEqual('no result found for "xxx"');
+        expect(alert_message_lbl.getText()).toEqual('no result found for "xxx"');//fail here
         lib.ui.click(alert_ok_btn);
     })
 });

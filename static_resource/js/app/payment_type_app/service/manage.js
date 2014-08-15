@@ -51,7 +51,7 @@ define(
 				'</div>' +
 
 				'<div class="modal-body">' +
-					'<button ng-click="create()" class="btn btn-primary glyphicon glyphicon-plus"></button>' +
+					'<button id="payment_type_app/service/manage/create_btn" ng-click="create()" class="btn btn-primary glyphicon glyphicon-plus"></button>' +
 					'<table ng-hide="pt_lst.length==0" class="table table-hover table-bordered table-condensed table-striped">' +
 						'<tr>' +
 							'<th>payment type</th>' +
@@ -68,20 +68,20 @@ define(
 				'</div>' +
 
 				'<div class="modal-footer">' +
+					'<button id="payment_type_app/service/manage/exit_btn" class="btn btn-warning" type="button" ng-click="exit()">exit</button>'
 				'</div>'						
 			;
 			var ModalCtrl = function($scope,$modalInstance,$q,pt_lst){
 				$scope.pt_lst = pt_lst;
 
+				$scope.exit = function(){
+					$modalInstance.dismiss('_cancel_');
+				}
 				$scope.create = function(){
 					var promise = create_service();
 					promise.then(
-						function(data){
-							$scope.pt_lst.push(data);
-						},
-						function(reason){
-							alert_service('alert',reason,'red');
-						}
+						 function(data){$scope.pt_lst.push(data);}
+						,function(reason){alert_service('alert',reason,'red');}
 					)
 				}
 				$scope.delete = function(pt){
@@ -96,10 +96,8 @@ define(
 											$scope.pt_lst.splice(i,1);
 										}
 									}
-								},
-								function(reason){
-									alert_service(reason);
 								}
+								,function(reason){alert_service(reason);}
  							)
 						}
 					)
@@ -107,12 +105,8 @@ define(
 				$scope.edit = function(pt){
 					var promise = edit_service(pt);
 					promise.then(
-						function(data){
-							angular.copy(data,pt);
-						},
-						function(reason){
-							alert_service('alert',reason,'red');
-						}
+						 function(data){ angular.copy(data,pt);}
+						,function(reason){alert_service('alert',reason,'red');}
 					)
 				}
 			}

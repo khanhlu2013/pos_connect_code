@@ -10,7 +10,3 @@ class Mix_match_serializer(serializers.ModelSerializer):
     class Meta:
         model = Mix_match
         fields = ('id','name','mm_price','is_include_crv_tax','qty','sp_lst')
-
-
-def serialize_mix_match_lst(mix_match_lst):
-    return Mix_match_serializer(mix_match_lst,many=True).data        

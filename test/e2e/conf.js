@@ -9,13 +9,14 @@ exports.config = {
         // ,'./sp_app/service/create/create_ui_test.js'
         // ,'./sp_app/service/create/create_ajax_test.js'
         // ,'./sp_app/service/edit/sp.js'     
-        // ,'./sp_app/service/edit/sku.js' 
-        // ,'./sp_app/service/edit/group.js'    
+        // ,'./sp_app/service/edit/sku.js'     
+        // ,'./sp_app/service/edit/group.js'
         // ,'./sp_app/service/edit/kit.js'    
-        // ,'./group_app/group.js'
+        // ,'./group_app/group.js'         
         // ,'./tax_app/tax.js'
         // ,'./shortcut_app/shortcut.js'
-        './mix_match_app/mix_match.js'
+        // ,'./mix_match_app/mix_match.js'
+        './payment_type_app/payment_type.js'
 
     ],
     baseUrl: env.baseUrl,

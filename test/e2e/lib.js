@@ -22,8 +22,12 @@ module.exports = {
             browser.driver.get(url);
 
             //login
+            browser.driver.findElement(by.id('id_username')).clear();
             browser.driver.findElement(by.id('id_username')).sendKeys(name);
+
+            browser.driver.findElement(by.id('id_password')).clear();
             browser.driver.findElement(by.id('id_password')).sendKeys(pwrd);
+
             browser.driver.findElement(by.id('login_btn')).click();        
         },
         logout : function(){
@@ -54,7 +58,7 @@ module.exports = {
             var data = { sp:sp,sku:sku };
 
             return browser.executeAsyncScript(function(data,callback) {
-                var api = angular.injector(['ng','sp_app/service/api_sp','store_product_app']).get('sp_app/service/api_sp');
+                var api = angular.injector(['ng','service/csrf','sp_app/service/api_sp']).get('sp_app/service/api_sp');
                 api.insert_new(data.sp,data.sku).then(function(data){callback(data);} )
             },data)
         },
@@ -64,7 +68,7 @@ module.exports = {
             var data = {product_id:product_id,sku:sku,sp:sp };
 
             return browser.executeAsyncScript(function(data,callback) {
-                var api = angular.injector(['ng','sp_app/service/api_sp','store_product_app']).get('sp_app/service/api_sp');
+                var api = angular.injector(['ng','service/csrf','sp_app/service/api_sp']).get('sp_app/service/api_sp');
                 api.insert_old(data.product_id,data.sku,data.sp).then(function(data){callback(data);});
             },data)
         },
@@ -72,7 +76,7 @@ module.exports = {
         add_sku : function(product_id,sku){
             var data = {product_id:product_id,sku:sku};
             return browser.executeAsyncScript(function(data,callback){
-                var api = angular.injector(['ng','sp_app/service/api_sku','store_product_app']).get('sp_app/service/api_sku');
+                var api = angular.injector(['ng','service/csrf','sp_app/service/api_sku']).get('sp_app/service/api_sku');
                 api.add_sku(data.product_id,data.sku).then(function(data){callback(data);});
             },data)
         }        
@@ -84,7 +88,7 @@ module.exports = {
                 PRECONDITION: make sure user is already logged in in order to access angular to inject stuff
             */
             browser.executeAsyncScript(function(callback) {
-                var $http = angular.injector(['ng','store_product_app']).get('$http');
+                var $http = angular.injector(['ng','service/csrf']).get('$http');
                 $http({
                     url:'protractor_test_cleanup',
                     method: 'POST'
@@ -115,9 +119,22 @@ module.exports = {
     },
     ui:{
         click : function(element){
-            browser.wait(function(){
-                return element.isPresent();
-            }).then(function(){element.click()})
+            // protractor.getInstance().sleep(1);
+            // element.click();
+
+
+            // element.getLocation().then(function(loc){
+            //     protractor.getInstance().executeScript('window.scrollTo(0,' + loc.y + ' );').then(function () {
+            //         element.click();
+            //     })                
+            // })
+
+
+            // browser.wait(function(){
+            //     return element.isPresent();
+            // }).then(function(){element.click()})
+
+            element.click();
         }
     }
 };

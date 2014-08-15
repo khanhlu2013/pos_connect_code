@@ -3,7 +3,6 @@ define(
     'angular'
     //----
     ,'app/sp_app/model'
-    ,'service/ui'
 ]
 ,function
 (
@@ -11,7 +10,7 @@ define(
 )
 {
     var mod = angular.module('sp_app/service/api_sp',['sp_app/model','service.ui']);
-    mod.factory('sp_app/service/api_sp',['$http','$q','sp_app/model/Store_product','service.ui.alert',function($http,$q,Store_product,alert_service){
+    mod.factory('sp_app/service/api_sp',['$http','$q','sp_app/model/Store_product',function($http,$q,Store_product){
     	return{
     		insert_new : function(sp,sku){
 				var promise_ing = $http({
@@ -53,7 +52,7 @@ define(
 				});
  				var promise_ed = promise_ing.then(
 					 function(data){ var defer = $q.defer();defer.resolve(Store_product.build(data.data));return defer.promise;}
-					,function(){ alert_service('alert','update product ajax error','red');}
+					,function(){ return $q.reject('update product ajax error');}
 				)
  				return promise_ed;
     		}

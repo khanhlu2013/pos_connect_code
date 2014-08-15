@@ -35,26 +35,26 @@ define(
             group_lst,
             breakdown_assoc_lst,
             kit_assoc_lst
-    	){
+        ){
             this.id = id;
-    		this.product_id = product_id;
-    		this.store_id = store_id;
-    		this.name = name;
-    		this.price = price;
-    		this.value_customer_price = value_customer_price;
-    		this.crv = crv;
-    		this.is_taxable = is_taxable;
-    		this.is_sale_report = is_sale_report;
-    		this.p_type = p_type;
-    		this.p_tag = p_tag;
-    		this.cost = cost;
-    		this.vendor = vendor;
-    		this.buydown = buydown;
+            this.product_id = product_id;
+            this.store_id = store_id;
+            this.name = name;
+            this.price = price;
+            this.value_customer_price = value_customer_price;
+            this.crv = crv;
+            this.is_taxable = is_taxable;
+            this.is_sale_report = is_sale_report;
+            this.p_type = p_type;
+            this.p_tag = p_tag;
+            this.cost = cost;
+            this.vendor = vendor;
+            this.buydown = buydown;
             this.product = product;
-    		this.group_lst = group_lst;
-    		this.breakdown_assoc_lst = breakdown_assoc_lst;
-    		this.kit_assoc_lst = kit_assoc_lst;
- 		}
+            this.group_lst = group_lst;
+            this.breakdown_assoc_lst = breakdown_assoc_lst;
+            this.kit_assoc_lst = kit_assoc_lst;
+        }
 
         //PULIC METHOD
         Store_product.prototype = {
@@ -153,13 +153,13 @@ define(
             }
             return result;
         }
-    	function str_2_float(str){
-    		if(str == null){
-    			return null;
-    		}else{
-    			return parseFloat(str);
-    		}
-    	}    	
+        function str_2_float(str){
+            if(str == null){
+                return null;
+            }else{
+                return parseFloat(str);
+            }
+        }       
         function compute_recursive_field(sp,field){
             /*
                 DESC    :helper filter to recursively calculate kit related field: 
@@ -245,8 +245,8 @@ define(
                 kit_assoc_lst
             );
         }             
-    	Store_product.build = _build;
-    	return Store_product;
+        Store_product.build = _build;
+        return Store_product;
     }])
 
     //Kit_breakdown_assoc

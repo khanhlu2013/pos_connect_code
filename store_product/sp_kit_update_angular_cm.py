@@ -30,7 +30,7 @@ def exe_master(kit,breakdown_assoc_lst):
         if len(sp_django_db_lst) != len(assoc_json_lst):
             raise Exception
 
-        #we are creating assoc for django model which need the store_product.id, which the client did not provide(the client only provide pid). so we are finding the corresponding sp.id
+        #we are creating assoc for django model which need the store_product.id(breakdown_id), which the client did not provide(the client only provide pid). so we are finding the corresponding sp.id
         for assoc_json in assoc_json_lst:
             breakdown_id = None
             for item in sp_django_db_lst:
@@ -46,10 +46,11 @@ def exe_master(kit,breakdown_assoc_lst):
 
 def exe_couch(kit_pid,store_id,breakdown_assoc_lst):
     sp = store_product_couch_getter.exe(kit_pid,store_id)
+
     if len(breakdown_assoc_lst) == 0:
         sp['breakdown_assoc_lst'] = []
     else:
-        sp['breakdown_assoc_lst'] = [{'breakdown_id':assoc['breakdown']['product_id'],'qty':assoc['qty']} for assoc in breakdown_assoc_lst]
+        sp['breakdown_assoc_lst'] = [{'product_id':assoc['breakdown']['product_id'],'qty':assoc['qty']} for assoc in breakdown_assoc_lst]
     
     db = couch_util.get_store_db(store_id)
     db.save(sp)

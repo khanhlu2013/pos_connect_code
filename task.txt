@@ -89,7 +89,6 @@ TO REMEMBER
         }
 REALIZATION
 -----------
-~. kit: in couch and pouch, sp contain breakdown_assoc_lst {breakdown_id,qty}. when server response sp json, we sp also have breakdown_assoc_lst{breakdown(recursive serialize sp here),qty}
 ~. make sure receipt in couch is not getting sync down again: magically did not get push down
 ~. encourage user to scan all data first, that way, when the internet is down, the data is already located offline for them. 
 ~. no approve_product on couch = fast loading, simplify project, less code to maintain. only 1 place to lookup for approve_product and that is master.
@@ -340,11 +339,12 @@ SALE APP
 
 
 ------------------------------------------------------------------------------------------------------------------
+how can i test cm for couch with protractor
 
 
 query for sku, and returning a list of pending scan which implemneted inside local storage not indexeddb.
 construct pending scan model
-breakdown assoc did not get store
+
 
 
    

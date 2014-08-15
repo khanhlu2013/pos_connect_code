@@ -35,11 +35,13 @@ define(
 	            	 batch_size:200
 	            	,batches_limit:10
 	            	,onChange:function(err,res){
-	            		console.log('syncing: ' + res.docs_written + ' products ...');
+	            		if(res){console.log('onChange - res - written: ' + res.docs_written + ' docs ...');}
+	            		else{console.log('onChange - err - written: ' + res.docs_written + ' docs ...');}
 	            	}
 	            }
 	            ,function(error,result){
-	            	console.log('sync is done with error callback: ' + error);
+	            	if(error){console.log('sync is done with error callback: ' + error);}
+	            	else{console.log('sync is done with result callback: ' + result);}
 	            }
 	        );
  		}

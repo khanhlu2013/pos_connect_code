@@ -41,7 +41,7 @@ def exe():
                     ,buydown = None
                 )
 
-                sp_kit_update_cm.exe(kit_id=kit.product.id,store_id=store.id,assoc_json_lst=[{'breakdown_id':bd.product.id,'qty':bd_qty_raw}])
+                sp_kit_update_cm.exe(kit_id=kit.product.id,store_id=store.id,assoc_json_lst=[{'product_id':bd.product.id,'qty':bd_qty_raw}])
             except:
                 log_file.write('can not find kit - bd : ' + kit_sku_raw + ' - ' + bd_sku_raw  + '\n')
 

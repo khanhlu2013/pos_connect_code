@@ -2,7 +2,8 @@ from store_product.models import Store_product
 import csv
 from product.models import Sku,Product,ProdSkuAssoc
 from store.models import Store
-from store_product import new_sp_inserter,old_sp_inserter
+from store_product import old_sp_inserter
+from store_product.cm import insert_new
 
 def exe():
     store = Store.objects.get(name = "x")
@@ -63,7 +64,7 @@ def exe():
 def record(log_file,store,name,sku,cost,price,crv,is_taxable,vendor,buydown,p_type,is_sale_report):
     sku,is_created = Sku.objects.get_or_create(sku=sku,defaults={'is_approved':False})
     if is_created:
-        new_sp_inserter.exe(
+        insert_new.exe(
              store_id=store.id
             ,name=name
             ,price=price
@@ -88,7 +89,7 @@ def record(log_file,store,name,sku,cost,price,crv,is_taxable,vendor,buydown,p_ty
             product = product_set[0]
             try:
                 sp = Store_product.objects.get(product_id=product.id,store_id=store.id)
-                new_sp_inserter.exe(
+                insert_new.exe(
                      store_id=store.id
                     ,name=name
                     ,price=price

@@ -3,7 +3,7 @@ define(
      'angular'
     //-----
     ,'service/db'
-    ,'sale_app/service/search_sp'
+    ,'app/sale_app/service/search_sp'
 ]
 ,function
 (
@@ -24,19 +24,23 @@ define(
             var promise_lst = [];
 
             var db = get_db(MY_STORE_ID);
-            db.query('views/by_sku').then(function(result){
+            db.query('views/by_sku',{key:sku}).then(function(result){
                 for(var i=0;i<result.rows.length;i++){
                     promise_lst.push(search_sp(MY_STORE_ID,result.rows[i].value.product_id));
                 }
 
-                $q.all(promise_lst).then(function(data){
-                    for(var i=0;i<data.length;i++){
-                        return_lst.push(data[i]);
+                $q.all(promise_lst).then(
+                    function(data){
+                        for(var i=0;i<data.length;i++){
+                            return_lst.push(data[i]);
+                        }
+                        defer.resolve(return_lst);
                     }
-                    defer.resolve(return_lst);
-                })   
-
-            });         
+                    ,function(reason){
+                        defer.reject(reason);
+                    }
+                )   
+            });
             return defer.promise;
         }
     }])

@@ -15,7 +15,7 @@ define(
 {
 	var mod = angular.module('mix_match_app.service.manage',
 	[
-		'service.ui',
+		'service/ui',
 		'mix_match_app/service/create',
 		'mix_match_app/service/edit',
 		'mix_match_app/service/delete',
@@ -27,8 +27,8 @@ define(
 		'$modal',
 		'$q',
 		'$filter',
-		'service.ui.alert',
-		'service.ui.confirm',
+		'service/ui/alert',
+		'service/ui/confirm',
 		'mix_match_app/service/create',
 		'mix_match_app/service/edit',
 	 	'mix_match_app/service/delete',

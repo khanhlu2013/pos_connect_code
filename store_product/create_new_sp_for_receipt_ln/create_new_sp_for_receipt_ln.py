@@ -1,6 +1,6 @@
 from sale.sale_couch.receipt import receipt_lst_couch_getter
 from couch import couch_util
-from store_product import new_sp_inserter
+from store_product.cm import insert_new
 
 def exe(store_id):
     receipt_couch_lst = receipt_lst_couch_getter.exe(store_id)
@@ -63,7 +63,7 @@ def create_new_sp(new_sp_lst,store_id):
 
     #create
     for sp in new_sp_lst:
-        sp_master = new_sp_inserter.exe(
+        sp_master = insert_new.exe(
              store_id = store_id
             ,name = sp['name']
             ,price = sp['price']

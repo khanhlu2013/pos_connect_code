@@ -9,8 +9,20 @@ define(
     angular
 )
 {
-    var mod = angular.module('sp_app/service/api_sp',['sp_app/model','service.ui']);
-    mod.factory('sp_app/service/api_sp',['$http','$q','sp_app/model/Store_product',function($http,$q,Store_product){
+    var mod = angular.module('sp_app/service/api_sp',
+    [
+         'sp_app/model'
+    ]);
+    mod.factory('sp_app/service/api_sp',
+    [
+         '$http'
+        ,'$q'
+        ,'sp_app/model/Store_product'
+    ,function(
+         $http
+        ,$q
+        ,Store_product
+    ){
     	return{
     		insert_new : function(sp,sku){
 				var promise_ing = $http({

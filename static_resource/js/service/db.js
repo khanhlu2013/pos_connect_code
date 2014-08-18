@@ -28,15 +28,15 @@ define(
     		var db_name = MY_DB_PREFIX + store_id;
     		var local_db = new PouchDB(db_name);
     		var store_db_url = MY_COUCH_SERVER_URL + '/' + db_name;
-    		console.log(store_db_url);
+    		console.log('store_id: ' + store_id);
  			local_db.replicate.from(
 	             store_db_url
 	            ,{
 	            	 batch_size:200
 	            	,batches_limit:10
 	            	,onChange:function(err,res){
-	            		if(res){console.log('onChange - res - written: ' + res.docs_written + ' docs ...');}
-	            		else{console.log('onChange - err - written: ' + res.docs_written + ' docs ...');}
+	            		if(res){console.log('onChange - response - written: ' + res.docs_written + ' docs ...');}
+	            		else{console.log('onChange - error - written: ' + err.docs_written + ' docs ...');}
 	            	}
 	            }
 	            ,function(error,result){

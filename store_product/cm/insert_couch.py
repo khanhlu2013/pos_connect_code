@@ -2,7 +2,8 @@ from store_product.sp_couch.document import Store_product_document
 from couch import couch_util,couch_constance
 
 def exe(
-     store_id
+     id
+    ,store_id
     ,product_id
     ,name
     ,price
@@ -18,9 +19,9 @@ def exe(
     ,buydown
 ):
     store_product_document = Store_product_document(
-
-         store_id = store_id
+         id = id
         ,product_id  = product_id
+        ,store_id = store_id
         ,d_type = couch_constance.STORE_PRODUCT_DOCUMENT_TYPE
         ,name = name
         ,price = couch_util.decimal_2_str(price)
@@ -38,4 +39,3 @@ def exe(
 
     db = couch_util.get_store_db(store_id)
     store_product_document.store(db)   
- 

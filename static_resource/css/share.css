@@ -56,6 +56,6 @@ html,body {
     clear: both;
 }
 
-.sale_shortcut_tbl td { min-width: 100px; height: 50}
+table.sale_shortcut_tbl td { min-width: 120px; height: 75px}
 .sale_shortcut_parent_selected {background-color:#CFF5B5;}
 .sale_shortcut_parent_unselected {background-color:#FFFFFF;}

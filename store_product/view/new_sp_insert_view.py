@@ -1,4 +1,4 @@
-from store_product import new_sp_inserter
+from store_product.cm import insert_new
 from django.http import HttpResponse
 from store_product import sp_serializer
 from decimal import Decimal
@@ -11,7 +11,7 @@ def new_sp_insert_angular_view(request):
     sku_str = request.POST['sku_str']
     store_id = request.session.get('cur_login_store').id
 
-    sp = new_sp_inserter.exe (
+    sp = insert_new.exe (
          store_id = store_id
         ,name = sp['name']
         ,price = number.get_double_from_obj(sp['price'])
@@ -59,7 +59,7 @@ def new_sp_insert_view(request):
 
     store_id = request.session.get('cur_login_store').id
 
-    sp = new_sp_inserter.exe (
+    sp = insert_new.exe (
          store_id = store_id
         ,name = name
         ,price = price

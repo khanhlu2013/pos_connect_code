@@ -18,7 +18,7 @@ define(
 		[
 			'payment_type_app/service/create',
 			'payment_type_app/service/edit',
-			'service.ui',
+			'service/ui',
 			'payment_type_app/service/delete',
 			'payment_type_app/service/api'
 		]
@@ -29,8 +29,8 @@ define(
 		'$modal',
 		'payment_type_app/service/edit',
 		'payment_type_app/service/create',
-		'service.ui.alert',
-		'service.ui.confirm',
+		'service/ui/alert',
+		'service/ui/confirm',
 		'payment_type_app/service/delete',
 		'payment_type_app/service/api',
 	function

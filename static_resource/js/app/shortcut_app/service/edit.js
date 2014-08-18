@@ -11,8 +11,17 @@ define(
 	angular
 )
 {	
-	var mod = angular.module('shortcut_app/service/edit',['service.ui']);
-	mod.factory('shortcut_app/service/edit',['$http','$q','service.ui.prompt',function($http,$q,prompt_service){
+	var mod = angular.module('shortcut_app/service/edit',['service/ui']);
+	mod.factory('shortcut_app/service/edit',
+	[
+		 '$http'
+		,'$q'
+		,'service/ui/prompt'
+	,function(
+		 $http
+		,$q
+		,prompt_service
+	){
 		return function(ori_shortcut){
 			var shortcut = angular.copy(ori_shortcut);
 			
@@ -23,23 +32,15 @@ define(
 					var promise_ing = $http({
 						url:'sale_shortcut/parent_update_angular',
 						method:'POST',
-						data:{
-							shortcut:JSON.stringify(shortcut)
-						}
+						data:{ shortcut:JSON.stringify(shortcut)}
 					})
 					var promise_ed = promise_ing.then(
-						function(data){
-							return data.data;
-						},
-						function(reason){
-							return $q.reject('edit shortcut ajax error');
-						}
+						 function(data){ return data.data; }
+						,function(reason){ return $q.reject('edit shortcut ajax error');}
 					)
 					return promise_ed;
 				},
-				function(reason){
-					return $q.reject(reason);
-				}
+				function(reason){ return $q.reject(reason);}
 			)
 			return edit_promise;
 		}

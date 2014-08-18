@@ -1,9 +1,7 @@
 from product.models import Product,Sku,ProdSkuAssoc
 from store_product.models import Store_product
-from store_product.sp_couch import sp_couch_inserter
-from store_product.sp_couch.document import Store_product_document
 from couch import couch_constance,couch_util
-
+from store_product.cm import insert_couch
 
 def exe( \
      store_id
@@ -37,8 +35,9 @@ def exe( \
         ,buydown = buydown
     )
 
-    sp_couch_inserter.exe(
-         store_id = store_id
+    insert_couch.exe(
+         id = prod_bus_assoc.id
+        ,store_id = store_id
         ,product_id = prod_bus_assoc.product.id
         ,name = name
         ,price = price
@@ -117,5 +116,4 @@ def exe_master( \
         prodSkuAssoc.store_product_set.add(prod_bus_assoc)
 
     return prod_bus_assoc
-
 

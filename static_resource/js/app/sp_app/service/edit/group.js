@@ -11,9 +11,25 @@ define(
 	angular
 )
 {
-	var mod = angular.module('sp_app.service.edit.group',['group_app/service/search_dlg','service.ui','sp_app/service/api_group'])
+	var mod = angular.module('sp_app.service.edit.group',
+    [
+         'group_app/service/search_dlg'
+        ,'service/ui'
+        ,'sp_app/service/api_group'
+    ])
 
-    mod.factory('sp_app.service.edit.group',['$modal','group_app/service/search_dlg/multiple','service.ui.alert','sp_app/service/api_group',function($modal,select_multiple_group_service,alert_service,api_group){
+    mod.factory('sp_app.service.edit.group',
+    [
+         '$modal'
+        ,'group_app/service/search_dlg/multiple'
+        ,'service/ui/alert'
+        ,'sp_app/service/api_group'
+    ,function(
+         $modal
+        ,select_multiple_group_service
+        ,alert_service
+        ,api_group
+    ){
         var template = 
             '<div class="modal-header">' +
                 '<h3 class="modal-title">Group info: {{sp.name}}</h3>' +

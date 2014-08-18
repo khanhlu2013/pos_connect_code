@@ -24,8 +24,8 @@ requirejs.config({
     }
     ,deps : ['app/sp_app/bootstrap']
 });
-requirejs.onError = function (err) {
-    alert('there is error loading page: ' + err);
-    console.log(err);
-    throw err;
-};
+// requirejs.onError = function (err) {
+//     alert('there is error loading page: ' + err);
+//     console.log(err);
+//     throw err;
+// };

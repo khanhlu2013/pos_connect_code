@@ -1,7 +1,7 @@
 var lib = require('./../lib');
 
 
-describe('group_app/service/create', function() {
+describe('shortcut_app/service/manage', function() {
     /*
         when sku is not exist, it is the create module that kick in which should be tested separatly from this test.
     */
@@ -22,7 +22,7 @@ describe('group_app/service/create', function() {
     var prompt_child_sp_btn = element(by.id('shortcut_app/service/prompt/sp_btn'));
     var prompt_child_sp_txt = element(by.id('shortcut_app/service/prompt/sp_txt'));
 
-    var row_lst = element.all(by.repeater('row in row_lst'));
+    var row_lst = element.all(by.repeater("row in row_lst"));
     var folder_1 = row_lst.get(1).all(by.tagName('td')).get(0);
     var folder_1_edit = row_lst.get(1).all(by.tagName('td')).get(1);
     var cell_0 = row_lst.get(0).all(by.tagName('td')).get(2);
@@ -41,9 +41,8 @@ describe('group_app/service/create', function() {
         lib.auth.logout();
     })
 
-    it('can create,edit,remove group',function(){
+    it('can create,edit,remove shortcut',function(){
         lib.auth.login(baseUrl,'1','1');
-        var group_name = 'my group name';
         browser.get(baseUrl);  
         var sku_1 = '111';var sku_2 = '222';var product_name_1 = 'product name 1';var product_name_2 = 'product name 2';
         var folder_1_name = 'folder 1';
@@ -67,6 +66,7 @@ describe('group_app/service/create', function() {
         search_txt.sendKeys(sku_1,enter_key);
         lib.ui.click(search_result.get(0).element(by.css('.btn')));
         lib.ui.click(prompt_child_ok);
+        expect(cell_0.getText()).toEqual(cell_0_caption);
 
         lib.ui.click(cell_4);
         prompt_child_caption_txt.sendKeys(cell_4_caption,enter_key);
@@ -74,7 +74,8 @@ describe('group_app/service/create', function() {
         search_txt.sendKeys(sku_2,enter_key);
         lib.ui.click(search_result.get(0).element(by.css('.btn')));
         lib.ui.click(prompt_child_ok);
-
+        expect(cell_4.getText()).toEqual(cell_4_caption);
+        
         //exit and comback
         lib.ui.click(shortcut_exit_btn);
         lib.ui.click(element(by.id('sp_app/menu/setting')));

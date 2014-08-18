@@ -10,8 +10,21 @@ define(
 	angular
 )
 {
-	var mod = angular.module('group_app.service.prompt',['sp_app.service.search_dlg','service.ui']);
-	mod.factory('group_app.service.prompt',['$modal','sp_app.service.search_dlg.multiple','service.ui.alert',function($modal,sp_search_multiple_dlg,alert_service){
+	var mod = angular.module('group_app.service.prompt',
+	[
+		 'sp_app.service.search_dlg'
+		,'service/ui'
+	]);
+	mod.factory('group_app.service.prompt',
+	[
+		 '$modal'
+		,'sp_app.service.search_dlg.multiple'
+		,'service/ui/alert'
+	,function(
+		 $modal
+		,sp_search_multiple_dlg
+		,alert_service
+	){
 		return function(original_group){
 			var template = 
 				'<div class="modal-header"><h3>{{original_group.name==undefined?\'Create new group\' : \'Edit group \'+ original_group.name}}</h3></div>' +

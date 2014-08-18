@@ -8,9 +8,9 @@ define(
 	angular
 )
 {
-	var mod = angular.module('service.ui',[]);
+	var mod = angular.module('service/ui',[]);
 
-	mod.factory('service.ui.prompt',['$modal','service.ui.alert',function($modal,alert_service){
+	mod.factory('service/ui/prompt',['$modal','service/ui/alert',function($modal,alert_service){
 		return function(message,prefill,is_null_allow,is_float){
 	        var template = 
 	            '<div id="service/ui/prompt/dialog" class="modal-header alert alert-info">' +
@@ -75,7 +75,7 @@ define(
 		}
 	}]);
 
-	mod.factory('service.ui.confirm',['$modal',function($modal){
+	mod.factory('service/ui/confirm',['$modal',function($modal){
 		return function(message,color){
 	        var warning_class = ""
 	        if(color == 'green'){
@@ -119,7 +119,7 @@ define(
 		}
 	}]);
 
-	mod.factory('service.ui.alert',['$modal',function($modal){
+	mod.factory('service/ui/alert',['$modal',function($modal){
 		return function(title,message,color){
 			if(message=='_cancel_' || message==undefined/*cancel click*/ || message == 'backdrop click'){
 				return

@@ -10,8 +10,21 @@ define(
     angular
 )
 {
-    var mod = angular.module('shortcut_app/service/prompt_child',['sp_app.service.search_dlg','service.ui']);
-    mod.factory('shortcut_app/service/prompt_child',['$modal','sp_app.service.search_dlg.single','service.ui.alert',function($modal,search_sp_single_service,alert_service){
+    var mod = angular.module('shortcut_app/service/prompt_child',
+    [
+         'sp_app.service.search_dlg'
+        ,'service/ui'
+    ]);
+    mod.factory('shortcut_app/service/prompt_child',
+    [
+         '$modal'
+        ,'sp_app.service.search_dlg.single'
+        ,'service/ui/alert'
+    ,function(
+         $modal
+        ,search_sp_single_service
+        ,alert_service
+    ){
     	return function(original_child){
     		var template = 
     			'<div class="modal-header">' +

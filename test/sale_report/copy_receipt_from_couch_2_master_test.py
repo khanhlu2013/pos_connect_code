@@ -1,9 +1,8 @@
 from django_webtest import WebTest
 from helper import test_helper
-from store_product import new_sp_inserter
+from store_product.cm import insert_new
 from sale.sale_couch.receipt import receipt_inserter_for_test_purpose,receipt_lst_couch_getter,receipt_ln_constructor_for_test_purpose
 from store_product.sp_couch import store_product_couch_getter
-from store_product.sp_couch.document import Store_product_document
 from receipt import receipt_master_getter
 from receipt import copy_receipt_from_couch_2_master
 from decimal import Decimal
@@ -28,7 +27,7 @@ class test(WebTest):
                 When we view sale report in master, we will cut paste receipt from couch to master and that is the purpose of the function we are trying to test.
 
             FIXTURE
-                use new_sp_inserter to insert to master and couch a sp
+                use insert_new to insert to master and couch a sp
                 use this sp to insert into couch a receipt with only 1 line
                 
             RUN TEST CODE                
@@ -44,7 +43,7 @@ class test(WebTest):
 
         user,store = test_helper.create_user_then_store()
 
-        #-use new_sp_inserter to insert to master and couch a sp
+        #-use insert_new to insert to master and couch a sp
         name = 'product name'
         price = 1.1             #we don't care about this price since we use override price in receipt_ln
         crv = 1.2               #we care about this since we use this sp info for stamping
@@ -55,7 +54,7 @@ class test(WebTest):
         cost = 1.3              #we care about this since we use this sp info for stamping
         buydown = 1.4           #we care about this since we use this sp info for stamping
 
-        sp_master = new_sp_inserter.exe(
+        sp_master = insert_new.exe(
              store_id = store.id            
             ,name = name
             ,price = price

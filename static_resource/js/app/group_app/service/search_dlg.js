@@ -9,8 +9,19 @@ define(
     angular
 )
 {
-    var mod = angular.module('group_app/service/search_dlg',['service.ui']);
-    mod.factory('group_app/service/search_dlg/multiple',['$modal','$http','$q','service.ui.alert',function($modal,$http,$q,alert_service){
+    var mod = angular.module('group_app/service/search_dlg',['service/ui']);
+    mod.factory('group_app/service/search_dlg/multiple',
+    [
+         '$modal'
+        ,'$http'
+        ,'$q'
+        ,'service/ui/alert'
+    ,function(
+         $modal
+        ,$http
+        ,$q
+        ,alert_service
+    ){
     	return function(){
     		var template = 
     			'<div class="modal-header">' +

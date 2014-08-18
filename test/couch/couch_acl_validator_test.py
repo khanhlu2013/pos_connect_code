@@ -4,7 +4,7 @@ from helper import test_helper
 from couch import couch_util,couch_constance
 from couchdb.http import Unauthorized
 from sale.sale_couch.receipt import receipt_inserter_for_test_purpose,receipt_ln_constructor_for_test_purpose,receipt_document_validator,receipt_lst_couch_getter
-from store_product import new_sp_inserter
+from store_product.cm import insert_new
 from store_product.sp_couch import store_product_couch_getter
 from util.couch import couch_acl_validator
 
@@ -23,7 +23,7 @@ from util.couch import couch_acl_validator
 #         user,store = test_helper.create_user_then_store()
 
 #         #.insert new store_product_x
-#         store_product_x = new_sp_inserter.exe(
+#         store_product_x = insert_new.exe(
 #              store_id = store.id            
 #             ,name = 'product name'
 #             ,price = 0.1
@@ -90,7 +90,7 @@ from util.couch import couch_acl_validator
 #         user,store = test_helper.create_user_then_store()
 
 #         #.insert new store_product_x
-#         store_product_x = new_sp_inserter.exe(
+#         store_product_x = insert_new.exe(
 #              store_id = store.id            
 #             ,name = 'product name'
 #             ,price = 0.1
@@ -148,7 +148,7 @@ from util.couch import couch_acl_validator
 #         user,store = test_helper.create_user_then_store()
 
 #         #.insert new store_product_x
-#         store_product_x = new_sp_inserter.exe(
+#         store_product_x = insert_new.exe(
 #              store_id = store.id
 #             ,name = 'product name'
 #             ,price = 0.1

@@ -11,14 +11,19 @@ define(
 	angular
 )
 {
-	var mod = angular.module('sp_app/service/edit/kit',['sp_app.service.search_dlg','sp_app/service/api_kit','service.ui']);
+	var mod = angular.module('sp_app/service/edit/kit',
+    [
+         'sp_app.service.search_dlg'
+        ,'sp_app/service/api_kit'
+        ,'service/ui'
+    ]);
 
     mod.factory('sp_app/service/edit/kit',
     [
         '$modal',
         'sp_app/service/edit/kit/prompt',
         'sp_app/service/api_kit',
-        'service.ui.alert',
+        'service/ui/alert',
     function(
         $modal,
         prompt_service,

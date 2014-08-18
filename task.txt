@@ -1,3 +1,11 @@
+. point to poinder and love
+    . where is my goddam test button: testing is such a powerful software engineering and when you combine it with a ui panel. you are a genious. welcome to your fist button 
+    of your spaceship jorney to software development.
+
+    . it is up to you to decide what life really mean. if you want a positive answer it will be positive. for example a guy did not say hi to you at the tennis court make you feel drain. godame it is all your fault you are drain. you can think he is scare somehow afraid. just like the way you are. afraid. they could be afraid. this is vo nga. their afraid is your afraid. vo nga. how the hell i forget vo nga. the separation cause hate. kill it with vo nga + consciousness : nie.m 
+
+
+
 . craving cause suffering
     .craving for approval to aquire happiness is a delusion and not the reality. 
 
@@ -144,7 +152,7 @@ REALIZATION
 
 -------------------
 QUESTION - LEARNING
-x. sp_couch_inserter use sp_document, but sp_couch_getter use a generic dictionary. i want these to be the same data: go through the same constructor for validation logic. Extra Info: look at python code not javascript code. 
+x. store_product.cm.insert_couch use sp_document, but sp_couch_getter use a generic dictionary. i want these to be the same data: go through the same constructor for validation logic. Extra Info: look at python code not javascript code. 
 x. cloudant replicator database
 x. django-compressor
 x. if we call async with only 1 method, can we by pass async?
@@ -293,6 +301,12 @@ UPGRADE FEATURE
     . ...
 . all ajax backdrop
 ------------------------------------------------------------------------------------------------------------------
+TEST
+. account acl validator test
+. receipt document validator test
+. copy receipt from couch to master test: we need to incopoprate this method into receipt pusher. and test receipt pusher as a whole process
+. how can i test cm for couch with protractor
+------------------------------------------------------------------------------------------------------------------
 REFACTOR CODE
     . after we test delete_sku_assoc_cm success using sp instead of p in delete_sku_cm, we should remove delete_sku_cm
     . there is no such thing as delete assoc. we only unsubcribe assoc. use the word unsubcrive for both client and server
@@ -319,6 +333,13 @@ REFACTOR CODE
     . quantize issue for price, and the rest crv ...    
     . main page server pagination 
     . local storage for taxrate? what my plan here?    
+    . store_product.old_sp_inserter.py -> move into cm
+    . there will be 2 module in shortcut app : setup and ui implementation detail.
+        . setup module
+            . api: know my api about shortcut and shortcut_child. you then can fix code for shortcut related page: setup page and sale page.
+            . shortcut task we have shortcut and shortcut_child. there are 2 api for short_cut: set/create but only 1 api for shortcut_child: set
+        . ui_implementation_detail module
+            . ui: factor all ui code out
 ------------------------------------------------------------------------------------------------------------------
 LEARN/IMPROVE
     . continuous test->build->deploy
@@ -333,18 +354,22 @@ ISSUE/TASK
 ------------------------------------------------------------------------------------------------------------------    
 SALE APP
     . change pt after the fact
-    . hold: show master detail
     . it said 3 receipts pushing but actually only 1 receipt is pushing
     . sale record report, payment type report
-
-
 ------------------------------------------------------------------------------------------------------------------
-how can i test cm for couch with protractor
+
+. share sku breaker
+. mix match deal
+. tax rate / calculate correct out the door
+. edit scan
+    . price
+    . discount
+    . qty
+. void
+. tender
+. receipt pusher
+. hold
+. name search
 
 
-query for sku, and returning a list of pending scan which implemneted inside local storage not indexeddb.
-construct pending scan model
-
-
-
-   
+. shortcut: after setup, the main sell page fail to hight light parent

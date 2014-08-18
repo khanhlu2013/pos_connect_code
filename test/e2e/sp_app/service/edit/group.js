@@ -26,8 +26,9 @@ describe('sp_app/service/edit/group', function() {
 
         //fixture create sp
         lib.auth.login(baseUrl,'1','1');
-        var group_name = 'my group name';
         browser.get(baseUrl);  
+
+        var group_name = 'my group name';
         var sku = '111';
         lib.api.insert_new(sku,'aa'/*name*/);
 

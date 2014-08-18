@@ -10,9 +10,22 @@ define(
 	angular
 )
 {
-	var mod = angular.module('mix_match_app/service/prompt',['sp_app.service.search_dlg','service.ui']);
+	var mod = angular.module('mix_match_app/service/prompt',
+	[
+		 'sp_app.service.search_dlg'
+		,'service/ui'
+	]);
 
-	mod.factory('mix_match_app/service/prompt',['$modal','service.ui.alert','sp_app.service.search_dlg.multiple',function($modal,alert_service,search_multiple_sp_service){
+	mod.factory('mix_match_app/service/prompt',
+	[
+		 '$modal'
+		,'service/ui/alert'
+		,'sp_app.service.search_dlg.multiple'
+	,function(
+		 $modal
+		,alert_service
+		,search_multiple_sp_service
+	){
 		return function(original_mm){
 			var template = 
 				'<div class="modal-header">' +

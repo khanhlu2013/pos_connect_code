@@ -14,14 +14,14 @@ define(
 	var mod = angular.module('sp_app.service.edit.sp',
 	[
 		'sp_app.service.prompt',
-		'service.ui'
+		'service/ui'
 	]);
 	mod.factory('sp_app.service.edit.sp',
 	[
 		'$http',
 		'$filter',
 		'sp_app.service.prompt',
-		'service.ui.alert',
+		'service/ui/alert',
 		'sp_app/service/api_sp',
 	function(
 		$http,

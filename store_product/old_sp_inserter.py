@@ -1,12 +1,11 @@
 from store_product.models import Store_product
 from product.models import ProdSkuAssoc,Product
-from store_product.sp_couch.document import Store_product_document
-from store_product.sp_couch import store_product_couch_getter,sp_couch_inserter
+from store_product.sp_couch import store_product_couch_getter
+from store_product.cm import insert_couch
 from couch import couch_constance
 from couch import couch_util
 from django.conf import settings
 from django.db import IntegrityError
-
 
 def exe(
      product_id
@@ -44,8 +43,9 @@ def exe(
 
     sku_lst = [assoc_sku_str,]
     
-    sp_couch_inserter.exe(
-         store_id = store_id
+    insert_couch.exe(
+         id = prod_bus_assoc.id
+        ,store_id = store_id
         ,product_id = product_id
         ,name = name
         ,price = couch_util.decimal_2_str(price)

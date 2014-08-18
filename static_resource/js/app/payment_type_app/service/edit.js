@@ -9,8 +9,19 @@ define(
 	angular
 )
 {
-	var mod = angular.module('payment_type_app/service/edit',['service.ui']);
-	mod.factory('payment_type_app/service/edit',['$http','$q','service.ui.prompt','service.ui.alert',function($http,$q,prompt_service,alert_service){
+	var mod = angular.module('payment_type_app/service/edit',['service/ui']);
+	mod.factory('payment_type_app/service/edit',
+	[
+		 '$http'
+		,'$q'
+		,'service/ui/prompt'
+		,'service/ui/alert'
+	,function(
+		 $http
+		,$q
+		,prompt_service
+		,alert_service
+	){
 		return function(pt){
 			var message = 'edit' + pt.name
 			var prefill = pt.name

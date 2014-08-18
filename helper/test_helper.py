@@ -4,10 +4,11 @@ from couch import couch_util
 from couchdb import ResourceNotFound
 from django.contrib.auth.models import User
 import os
-from store_product import new_sp_inserter,old_sp_inserter
+from store_product import old_sp_inserter
+from store_product.cm import insert_new
 
 def insert_new_sp(store_id,sku_str=None,name='x'):
-    return new_sp_inserter.exe(
+    return insert_new.exe(
          store_id = store_id
         ,name = name
         ,price = 1

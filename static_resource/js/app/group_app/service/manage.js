@@ -15,7 +15,7 @@ define(
 {
     var mod = angular.module('group_app.service.manage',
     [
-        'service.ui',
+        'service/ui',
         'group_app.service.edit',
         'group_app/service/create',
         'group_app.service.delete',
@@ -27,8 +27,8 @@ define(
             '$modal',
             '$http',
             'group_app.service.edit',
-            'service.ui.alert',
-            'service.ui.confirm',
+            'service/ui/alert',
+            'service/ui/confirm',
             'group_app/service/create',
             'group_app.service.delete',
             'group_app/service/api',

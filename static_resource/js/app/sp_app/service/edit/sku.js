@@ -12,7 +12,7 @@ define(
 {
 	var mod = angular.module('sp_app.service.edit.sku',
 	[
-		'service.ui',
+		'service/ui',
 		'sp_app/service/api_sku'
 	]);
 	mod.factory('sp_app.service.edit.sku',
@@ -20,9 +20,9 @@ define(
 		'$modal',
 		'$http',
 		'$filter',
-		'service.ui.confirm',
-		'service.ui.alert',
-		'service.ui.prompt',
+		'service/ui/confirm',
+		'service/ui/alert',
+		'service/ui/prompt',
 		'sp_app/service/api_sku',
 	function(
 		$modal,

@@ -9,9 +9,22 @@ define(
 	angular
 )
 {
-	var mod = angular.module('tax_app.service.edit',['service.ui']);
+	var mod = angular.module('tax_app.service.edit',['service/ui']);
 
-	mod.factory('tax_app.service.edit',['$http','$modal','$q','service.ui.prompt','service.ui.alert',function($http,$modal,$q,prompt_service,alert_service){
+	mod.factory('tax_app.service.edit',
+	[
+		 '$http'
+		,'$modal'
+		,'$q'
+		,'service/ui/prompt'
+		,'service/ui/alert'
+	,function(
+		 $http
+		,$modal
+		,$q
+		,prompt_service
+		,alert_service
+	){
 		return function(){
 			var tax_rate = localStorage.getItem('tax_rate');
 			var promise = prompt_service('enter tax rate',tax_rate/*prefill*/,false/*null is not allow*/,true/*is float*/);

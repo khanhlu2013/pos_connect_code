@@ -1,4 +1,5 @@
-from store_product import new_sp_inserter,old_sp_inserter
+from store_product import old_sp_inserter
+from store_product.cm import insert_new
 from product.models import Sku,Product,ProdSkuAssoc
 from store.models import Store
 import csv
@@ -57,8 +58,8 @@ def exe_multiple():
                         buydown = None
                     )
                 else:
-                    print('new_sp_inserter ' + dic["name"])
-                    new_sp_inserter.exe(
+                    print('insert_new ' + dic["name"])
+                    insert_new.exe(
                         store_id = store.id,
                         name = dic['name'],
                         price = dic['price'],
@@ -115,8 +116,8 @@ def exe_single():
                         log_error_single.write('ERROR: insert old error anyway: ' + 'pid: ' + str(dic['our_pid']) + ' ,sku: ' + dic['sku'] + ', name: ' + dic['name'] + '\n')    
                 
                 elif is_exe == '0\n':
-                    print('new_sp_inserter ' + dic['name'])
-                    new_sp_inserter.exe(
+                    print('insert_new ' + dic['name'])
+                    insert_new.exe(
                         store_id = store.id,
                         name = dic['name'],
                         price = dic['price'],
@@ -229,7 +230,7 @@ def exe():
             our_prod_sku_assoc_lst = ProdSkuAssoc.objects.filter(sku__sku = sku).exclude(product__creator = store)
             
             if len(our_prod_sku_assoc_lst) == 0:
-                new_sp_inserter.exe(
+                insert_new.exe(
                     store_id = store.id,
                     name = name,
                     price = price,
@@ -335,7 +336,7 @@ def exe():
             elif len(our_distinct_pid_lst) == 0:
                 #we can not find any pid in our system at assoc with 'cust_sku_lst' . 'a_paticular_sku' can be any sku and we going to use this to add new to our system
                 a_paticular_sku = cust_sku_lst.pop() 
-                sp = new_sp_inserter.exe(
+                sp = insert_new.exe(
                     store_id = store.id,
                     name = name,
                     price = price,

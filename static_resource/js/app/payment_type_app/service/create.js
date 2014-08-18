@@ -9,8 +9,17 @@ define(
 	angular
 )
 {
-	var mod = angular.module('payment_type_app/service/create',['service.ui']);
-	mod.factory('payment_type_app/service/create',['$http','$q','service.ui.prompt',function($http,$q,prompt_service){
+	var mod = angular.module('payment_type_app/service/create',['service/ui']);
+	mod.factory('payment_type_app/service/create',
+	[
+		 '$http'
+		,'$q'
+		,'service/ui/prompt'
+	,function(
+		 $http
+		,$q
+		,prompt_service
+	){
 		return function(){
 			var prompt_promise = prompt_service('create new payment type',null/*prefill*/,false/*is_null_allow*/,false/*is_float*/);
 			var create_promise = prompt_promise.then(

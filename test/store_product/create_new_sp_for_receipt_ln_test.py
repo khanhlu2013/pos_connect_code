@@ -2,7 +2,6 @@ from django_webtest import WebTest
 from helper import test_helper
 from sale.sale_couch.receipt import receipt_inserter_for_test_purpose,receipt_lst_couch_getter,receipt_ln_constructor_for_test_purpose
 from store_product.sp_couch import store_product_couch_getter,store_product_document_constructor_for_test_purpose
-from store_product.sp_couch.document import Store_product_document
 from decimal import Decimal
 from couch import couch_constance,couch_util
 import time

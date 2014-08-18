@@ -12,8 +12,24 @@ define(
     angular
 )
 {
-    var mod = angular.module('receipt_app/service/report',['receipt_app/service/api','ngTable','service.ui']);
-    mod.factory('receipt_app/service/report',['$modal','receipt_app/service/api','ngTableParams','service.ui.alert',function($modal,api,ngTableParams,alert_service){
+    var mod = angular.module('receipt_app/service/report',
+    [
+         'receipt_app/service/api'
+        ,'ngTable'
+        ,'service/ui'
+    ]);
+    mod.factory('receipt_app/service/report',
+    [
+         '$modal'
+        ,'receipt_app/service/api'
+        ,'ngTableParams'
+        ,'service/ui/alert'
+    ,function(
+         $modal
+        ,api
+        ,ngTableParams
+        ,alert_service
+    ){
         return function(){
 
             var template_date_panel = 

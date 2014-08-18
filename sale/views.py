@@ -3,6 +3,7 @@ from couch import couch_util
 import json
 from django.core.serializers.json import DjangoJSONEncoder
 from sale_shortcut import sale_shortcut_serializer,shortcut_getter
+from sale_shortcut.sale_shortcut_serializer import Parent_serializer
 from mix_match import mix_match_getter
 from mix_match.mix_match_serializer import Mix_match_serializer
 from payment_type import payment_type_serializer
@@ -52,7 +53,7 @@ class Sale_angular_view(TemplateView):
         context['ROW_COUNT'] = 5        # xxx move this ugly to constance
         context['COLUMN_COUNT'] = 3     # xxx move this ugly to constance
         shortcut_lst = shortcut_getter.get_shorcut_lst(self.cur_login_store.id) 
-        context['shortcut_lst'] = json.dumps(sale_shortcut_serializer.serialize_shortcut_lst(shortcut_lst))
+        context['shortcut_lst'] = json.dumps(Parent_serializer(shortcut_lst,many=True).data,cls=DjangoJSONEncoder)
         mix_match_lst = mix_match_getter.get_mix_match_lst(self.cur_login_store.id)
         context['mix_match_lst'] = json.dumps(Mix_match_serializer(mix_match_lst,many=True).data,cls=DjangoJSONEncoder)
         context['tax_rate'] = self.cur_login_store.tax_rate

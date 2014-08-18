@@ -1,7 +1,8 @@
 from sale.sale_couch.receipt import receipt_lst_couch_getter
 from receipt.models import Receipt,Receipt_ln
 from couch import couch_util
-from store_product import new_sp_inserter,sp_util
+from store_product import sp_util
+from store_product.cm import insert_new
 from store_product.models import Store_product
 import datetime
 from receipt.models import Tender_ln
@@ -180,7 +181,7 @@ def create_new_sp(sp_couch_lst,store_id):
 
     #create
     for sp_couch in sp_couch_lst:
-        sp_master = new_sp_inserter.exe(
+        sp_master = insert_new.exe(
              store_id = store_id
             ,name = sp_couch['name']
             ,price = sp_couch['price']

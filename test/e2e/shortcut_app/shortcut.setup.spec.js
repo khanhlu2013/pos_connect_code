@@ -22,9 +22,9 @@ describe('shortcut_app/service/manage', function() {
     var prompt_child_sp_btn = element(by.id('shortcut_app/service/prompt/sp_btn'));
     var prompt_child_sp_txt = element(by.id('shortcut_app/service/prompt/sp_txt'));
 
-    var row_lst = element.all(by.repeater("row in row_lst"));
+    var row_lst = element.all(by.repeater("row_setup in row_lst"));
     var folder_1 = row_lst.get(1).all(by.tagName('td')).get(0);
-    var folder_1_edit = row_lst.get(1).all(by.tagName('td')).get(1);
+    var folder_1_edit = row_lst.get(1).all(by.tagName('td')).get(1).all(by.tagName('button')).get(0);
     var cell_0 = row_lst.get(0).all(by.tagName('td')).get(2);
     var cell_4 = row_lst.get(1).all(by.tagName('td')).get(3);
 

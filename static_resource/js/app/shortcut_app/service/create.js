@@ -25,7 +25,7 @@ define(
 			var create_promise = prompt_promise.then(
 				function(data){
 					var promise_ing = $http({
-						url:'sale_shortcut/parent_create_angular',
+						url:'/sale_shortcut/parent_create_angular',
 						method:'POST',
 						data:{
 							position:position,

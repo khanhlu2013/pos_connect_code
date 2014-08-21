@@ -8,7 +8,6 @@ define(
     ,'app/sp_app/filter'    
     ,'directive/share_directive'    
     ,'service/ui'
-    ,'service/db'
     ,'app/sp_app/service/convert'
     ,'app/sp_app/service/api'
     ,'blockUI'
@@ -26,7 +25,6 @@ define(
         'sp_app.filter',
         'share_directive',
         'service/ui',
-        'service/db',
         'sp_app/service/convert',
         'sp_app/service/api',
         'blockUI'
@@ -37,6 +35,7 @@ define(
         '$scope',
         '$filter',
         '$window',
+        '$q',
         'sp_app/service/info',
         'sp_app.service.create',
         'sp_app.service.duplicate',
@@ -44,13 +43,13 @@ define(
         'service/ui/confirm',
         'sp_app/service/convert/lst',
         'sp_app/service/api',
-        'service/db/is_db_exist',
         'blockUI',
 
     function(
         $scope,
         $filter,
         $window,
+        $q,
         sp_info_service,
         create_service,
         duplicate_service,
@@ -58,7 +57,6 @@ define(
         confirm_service,
         convert_sp_lst,
         api,
-        is_db_exist,
         blockUI
     ){
         //SORT
@@ -148,10 +146,32 @@ define(
             $window.open('sale/index_angular/');
         }
 
+        function is_db_exist(){
+            var defer = $q.defer();
+            var db_name = '_pouch_' + STORE_DB_PREFIX + STORE_ID;
+            var request = indexedDB.open(db_name);
+
+            request.onupgradeneeded = function (e){
+                e.target.transaction.abort();
+                defer.resolve(false);
+            }
+            request.onsuccess = function(e) {
+                defer.resolve(true);
+            }
+            request.onerror = function(e) {
+                if(e.target.error.name == "AbortError"){
+                    indexedDB.deleteDatabase(db_name);
+                }else{
+                    defer.reject('error when checking db existance');
+                }
+            }   
+            return defer.promise;
+        }
+
         $scope.launch_pos = function(){
-            is_db_exist(STORE_ID).then(
-                 function(is_db_exist){
-                    if(is_db_exist){
+            is_db_exist().then(
+                 function(db_exitance){
+                    if(db_exitance){
                         launch_pos_url();
                     }else{
                         confirm_service('you are about to download your product database offline. continue?').then(function(){

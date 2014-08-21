@@ -36,20 +36,32 @@
                             class="form-control" 
                             placeholder="sku" 
                             onClick="this.select();"
-                            ng-enter="sku_search()"
+                            ng-enter="sku_scan()"
                             ng-model="sku_search_str"                            
                         >
+                        <button 
+                            id="sale_app/main_page/search_btn" 
+                            ng-click="search()" 
+                            type="button" 
+                            class="btn btn-primary navbar-btn glyphicon glyphicon-search">
+                        </button>    
+                        <button 
+                            id="sale_app/main_page/void_btn" 
+                            ng-click="void()" 
+                            type="button" 
+                            class="btn btn-warning navbar-btn glyphicon">void
+                        </button>     
                     </div>
                 </ul>
                 <ul ng-controller="controller.menu" class="nav navbar-nav navbar-right">
                     <li class="dropdown">
-                        <a id="sp_app/menu/setting" href="#" class="dropdown-toggle" data-toggle="dropdown">setting <b class="caret"></b></a>
+                        <a id="sale_app/menu/setting" href="#" class="dropdown-toggle" data-toggle="dropdown">setting <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li id="sp_app/menu/setting/tax" ng-click="menu_tax_edit()"><a href='#'>tax</a></li>
-                            <li id="sp_app/menu/setting/group" ng-click="menu_group_manage()"><a href='#'>group</a></li>                 
-                            <li id="sp_app/menu/setting/shortcut" ng-click="menu_shortcut_manage()"><a href='#'>shortcut</a></li>
-                            <li id="sp_app/menu/setting/mix_match" ng-click="menu_mix_match_manage()"><a href='#'>mix match</a></li>
-                            <li id="sp_app/menu/setting/payment_type" ng-click="menu_payment_type_manage()"><a href='#'>payment type</a></li>
+                            <li id="sale_app/menu/setting/tax" ng-click="menu_tax_edit()"><a href='#'>tax</a></li>
+                            <li id="sale_app/menu/setting/group" ng-click="menu_group_manage()"><a href='#'>group</a></li>                 
+                            <li id="sale_app/menu/setting/shortcut" ng-click="menu_shortcut_manage()"><a href='#'>shortcut</a></li>
+                            <li id="sale_app/menu/setting/mix_match" ng-click="menu_mix_match_manage()"><a href='#'>mix match</a></li>
+                            <li id="sale_app/menu/setting/payment_type" ng-click="menu_payment_type_manage()"><a href='#'>payment type</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -70,15 +82,15 @@
                             <li id='toggle_value_customer_price_menu'><a href='#'>value customer price - F5</a></li>                 
                         </ul>
                     </li>                    
-                    <li> <a href='{% url "liquor_logout_named_url" %}'>{{ request.session.cur_login_store }} - {{ user }} - logout</a> </li>
+                    <li> <a id="logout_link" href='{% url "liquor_logout_named_url" %}'>{{ request.session.cur_login_store }} - {{ user }} - logout</a> </li>
                 </ul>   
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </nav>        
 
     <div>
+    {% verbatim %}        
         <div class="col-sm-6">
-            {% verbatim scan_table %}        
             <table id='sale_app/scan_tbl' class="table table-hover table-bordered table-condensed table-striped">
                 <tr>
                     <th>qty</th>
@@ -93,28 +105,24 @@
                     <td>{{ds.store_product.get_crv()}}</td>
                 </tr>
             </table>
-            {{ds_lst}}
-            {% endverbatim scan_table%}         
-        </div>   
-
+        </div>
         <div class="col-sm-6">
-            {% verbatim shortcut %}        
-
-                <table class="table table-bordered table-condensed sale_shortcut_tbl">
-                    <tr ng-repeat="row in row_lst">
-                        <td ng-class="current_parent_pos==row?'warning':'success'" ng-click="set_cur_parent_position(row)"> {{get_parent_caption(true,row)}} </td>
-                        <td ng-repeat="col in col_lst" ng-click="exe_shortcut_child(row,col)"> {{get_child_caption_of_cur_parent(row,col)}} </td>
-                        <td ng-class="current_parent_pos==row+row_count?'warning':'success'" ng-click="set_cur_parent_position(row+row_count)"> {{get_parent_caption(false,row)}} </td>
-                    </tr>
-                </table>
-                {{current_parent_pos}}
-            {% endverbatim shortcut%}                     
-        </div>      
-
+            <table class="table table-bordered table-condensed sale_shortcut_tbl">
+                <tr ng-repeat="row_usage in row_lst">
+                    <td ng-class="current_parent_pos==row_usage?'warning':'success'" ng-click="set_cur_parent_position(row_usage)"> {{get_parent_caption(true,row_usage)}} </td>
+                    <td ng-repeat="col in col_lst" ng-click="exe_shortcut_child(row_usage,col)"> {{get_child_caption_of_cur_parent(row_usage,col)}} </td>
+                    <td 
+                        ng-class="current_parent_pos==row_usage+row_count?'warning':'success'" 
+                        ng-click="set_cur_parent_position(row_usage+row_count)"> 
+                            {{get_parent_caption(false,row_usage)}} 
+                    </td>
+                </tr>
+            </table>
+        </div>
         <div class="clear"></div>
+        {{ds_lst}}
+    {% endverbatim %}         
     </div>
-
-
 
     <script type="text/javascript">
         var STATIC_URL = "{{STATIC_URL}}"
@@ -125,6 +133,7 @@
         var SHORTCUT_LST = {{shortcut_lst|safe}};
         var MY_MM_LST = {{mix_match_lst|safe}};
         var MY_PAYMENT_TYPE_LST = {{payment_type_lst|safe}};
+        var STORE_DB_PREFIX = "{{STORE_DB_PREFIX}}";
         localStorage.setItem('tax_rate',Number("{{tax_rate}}"));
     </script>
 

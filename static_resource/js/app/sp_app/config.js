@@ -20,7 +20,7 @@ requirejs.config({
          'angular'              : { exports   : 'angular'}
         ,'ui_bootstrap'         : { deps      : ['angular']}
         ,'ngTable'              : { deps      : ['angular']} 
-        ,'blockUI'             : { deps      : ['angular']} 
+        ,'blockUI'             :  { deps      : ['angular']} 
     }
     ,deps : ['app/sp_app/bootstrap']
 });

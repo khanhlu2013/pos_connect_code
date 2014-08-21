@@ -20,7 +20,6 @@ from test.e2e import protractor_test_cleanup_view
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^old$',login_required(sp_search_view.sp_search_index_view.as_view())), 
     url(r'^$',login_required(sp_search_view.sp_search_index_angular_view.as_view()),name='sp_search'),   
     url(r'^admin/', include(admin.site.urls)), 
     url(r'^account/login/$','django.contrib.auth.views.login',{'template_name':'login.html'},name = 'liquor_login_named_url'),

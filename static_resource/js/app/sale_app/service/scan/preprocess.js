@@ -2,15 +2,29 @@ define(
 [
      'angular'
     //-------
-    ,'app/sale_app/service/search_sku'
+    ,'app/sale_app/service/search/sku_api'
+    ,'app/sp_app/service/select_sp_dlg'
 ]
 ,function
 (
     angular
 )
 {
-    var mod = angular.module('sale_app/service/scan/preprocess',['sale_app/service/search_sku']);
-    mod.factory('sale_app/service/scan/preprocess',['$q','sale_app/service/search_sku',function($q,sku_search){
+    var mod = angular.module('sale_app/service/scan/preprocess',
+    [
+         'sale_app/service/search/sku_api'
+        ,'sp_app/service/select_sp_dlg'
+    ]);
+    mod.factory('sale_app/service/scan/preprocess',
+    [
+         '$q'
+        ,'sale_app/service/search/sku_api'
+        ,'sp_app/service/select_sp_dlg'
+    ,function(
+         $q
+        ,sku_search
+        ,select_sp
+    ){
         return function(scan_str){
             
             //init
@@ -46,8 +60,8 @@ define(
             sku_search(sku).then(
                 function(sp_lst){
                     if(sp_lst.length > 1){
-                        select_product(sp_lst).then(
-                             function(sp){ defer.resolve({qty:qty,sp:sp_lst[0]}); }
+                        select_sp(sp_lst).then(
+                             function(sp){ defer.resolve({qty:qty,sp:sp}); }
                             ,function(reason){defer.reject(reason);}
                         )
                     }

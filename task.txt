@@ -340,11 +340,17 @@ REFACTOR CODE
             . shortcut task we have shortcut and shortcut_child. there are 2 api for short_cut: set/create but only 1 api for shortcut_child: set
         . ui_implementation_detail module
             . ui: factor all ui code out
+    . promote a system constance on the client side for product and sale page. remove MY_SHORTCUT_LST, MY_MM_LST, MY_STORE_ID, ... MY_SETTING ... we only need to use 1 constance.
+        . is there a benefit to encapsulate/name space it under GLOBAL_CONST ? i think so. verify for 2 way binding for these settings: set the settings and watch it change in the app         
+    . change shortcut model: parent,child -> shortcut,shortcut_child  
+    . promote DAO concept. is_include_child is higher level than prefetch_related('child_set') everywhere: shortcut, mm , pt ...
+    . get rid of any local storage attemping to link info between page. we already provide indentical convenient setting in these page. these page are independent, self-contain, no need any link. in short, get rit of local storage except for pending_scan_lst    
 ------------------------------------------------------------------------------------------------------------------
 LEARN/IMPROVE
     . continuous test->build->deploy
     . lets simplify life by sticking with the other spectrum: preload all html template
-    . find a way to write html instead of javastring (grunt-html2js,grunt-angular-templates,$tempalteCache) 
+        . lazy_loading+cache+html_syntax vs ajax_cost + separate_html_file + cant_breakup_html_into_segment
+    . find a way to write html instead of javastring (grunt-html2js,grunt-angular-templates,$tempalteCache)
         . write html is eaiser than writing inline_html_js_string
         . inline_html_js_string is easier to put side by side with controller code    
     . $event.stopPropagation()
@@ -357,8 +363,10 @@ SALE APP
     . it said 3 receipts pushing but actually only 1 receipt is pushing
     . sale record report, payment type report
 ------------------------------------------------------------------------------------------------------------------
-
-. share sku breaker
+. name search
+. hold
+. receipt pusher
+. tender
 . mix match deal
 . tax rate / calculate correct out the door
 . edit scan
@@ -366,10 +374,30 @@ SALE APP
     . discount
     . qty
 . void
-. tender
-. receipt pusher
-. hold
-. name search
 
 
-. shortcut: after setup, the main sell page fail to hight light parent
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

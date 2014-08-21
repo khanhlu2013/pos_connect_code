@@ -15,13 +15,13 @@ define(
 {
  	angular.module('sale_app',
 	[
-		,'ui.bootstrap'
+		 'ui.bootstrap'
 		,'service/csrf'		
 		,'controller.menu'		
 		,'sale_app/controller'
 		,'service/db'
- 	]).
-	run(['service/db/sync',function(sync){
+ 	])
+	.run(['service/db/sync',function(sync){
 		sync(STORE_ID);
 	}])
 });

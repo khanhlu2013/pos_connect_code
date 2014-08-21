@@ -23,13 +23,13 @@ define(
          get_pending_scan
         ,Pending_scan
     ){
-        return function(product_id,non_product_name,qty,overide_price){
+        return function(product_id,qty,non_product_name,override_price){
             var ps_lst = get_pending_scan();
             var ps = new Pending_scan(
                  product_id
                 ,non_product_name
                 ,qty
-                ,overide_price
+                ,override_price
                 ,null//discount
             );
             if(ps_lst.length == 0){
@@ -39,7 +39,7 @@ define(
                     ps_lst.push(ps);
                 }else{
                     var last_ps = ps_lst[ps_lst.length-1];
-                    if(last_ps.product_id === product_id && last_ps.overide_price === overide_price){
+                    if(last_ps.product_id === product_id && last_ps.override_price === override_price){
                         last_ps.qty += qty;
                     }else{
                         ps_lst.push(ps);

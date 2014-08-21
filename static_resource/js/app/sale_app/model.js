@@ -14,13 +14,13 @@ define(
              product_id
             ,non_product_name
             ,qty
-            ,overide_price
+            ,override_price
             ,discount
         ){
             this.product_id = product_id;
             this.non_product_name = non_product_name;
             this.qty = qty;
-            this.overide_price = overide_price;
+            this.override_price = override_price;
             this.discount = discount;
         }
 
@@ -33,14 +33,14 @@ define(
              store_product
             ,non_product_name
             ,qty
-            ,overide_price
+            ,override_price
             ,discount
             ,mm_deal_info
         ){
             this.store_product = store_product;
             this.non_product_name = non_product_name;
             this.qty = qty;
-            this.overide_price = overide_price;
+            this.override_price = override_price;
             this.discount = discount;
             this.mm_deal_info = mm_deal_info;
         }

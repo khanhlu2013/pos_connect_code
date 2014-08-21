@@ -12,13 +12,11 @@ define(
         //conf and init
         var ROW_COUNT = 5;
         var COL_COUNT = 3;
-        var $scope = null;
 
         //function
-        function init(init_scope,init_shortcut_lst){
+        function init($scope){
 
-            $scope = init_scope;
-            $scope.shortcut_lst = init_shortcut_lst;            
+            $scope.shortcut_lst = SHORTCUT_LST/*a global setting variable*/;            
             $scope.row_count = ROW_COUNT;
             $scope.column_count = COL_COUNT;                
             $scope.current_parent_pos = 0;
@@ -34,7 +32,7 @@ define(
                 if(!is_left){
                     position += $scope.row_count;
                 }
-                var parent = get_parent(position);
+                var parent = get_parent(position,$scope);
                 if(parent !=null){
                     caption = parent.caption;
                 }
@@ -42,20 +40,18 @@ define(
             }
             $scope.get_child_caption_of_cur_parent = function(row,col){                  
                 var caption = null;
-                var child = get_child_of_cur_parent(row,col);
+                var child = get_child_of_cur_parent(row,col,$scope);
                 if(child != null){
                     caption = child.caption;
                 }
                 return caption;
             }                       
         }    
-        function set_cur_parent_position(pos){
-            $scope.current_parent_pos = pos;
-        }           
-        function calculate_child_position(row,col){
+        
+        function calculate_child_position(row,col,$scope){
             return row * $scope.column_count + col;
         }     
-        function get_parent(pos){
+        function get_parent(pos,$scope){
             var parent = null;
             for(var i = 0;i<$scope.shortcut_lst.length;i++){
                 if($scope.shortcut_lst[i].position == pos){
@@ -65,17 +61,17 @@ define(
             }
             return parent;
         }     
-        function get_cur_parent(){
-            return get_parent($scope.current_parent_pos);
+        function get_cur_parent($scope){
+            return get_parent($scope.current_parent_pos,$scope);
         }    
-        function get_cur_parent_position(){
+        function get_cur_parent_position($scope){
             return $scope.current_parent_pos;
         }                
-        function get_child_of_cur_parent(row,col){
+        function get_child_of_cur_parent(row,col,$scope){
             var child = null;
-            var parent = get_parent($scope.current_parent_pos);
+            var parent = get_parent($scope.current_parent_pos,$scope);
             if(parent != null){
-                var position = calculate_child_position(row,col);
+                var position = calculate_child_position(row,col,$scope);
                 for(var i = 0;i<parent.child_set.length;i++){
                     if(parent.child_set[i].position == position){
                         child = parent.child_set[i];
@@ -85,9 +81,7 @@ define(
             }
             return child;
         }
-        function add_shortcut(shortcut){
-            $scope.shortcut_lst.push(shortcut)
-        }     
+
 
         return {
             init                        : init,
@@ -96,8 +90,6 @@ define(
             get_child_of_cur_parent     : get_child_of_cur_parent,
             get_parent                  : get_parent,
             get_cur_parent_position     : get_cur_parent_position,
-            set_cur_parent_position     : set_cur_parent_position,            
-            add_shortcut                : add_shortcut             
         };
     }]);
 })

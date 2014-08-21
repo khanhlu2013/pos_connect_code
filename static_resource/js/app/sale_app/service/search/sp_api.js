@@ -11,14 +11,14 @@ define(
     angular
 )
 {
-    var mod = angular.module('sale_app/service/search_sp',
+    var mod = angular.module('sale_app/service/search/sp_api',
     [
          'service/db'
         ,'sp_app/model'
         ,'product_app/model'
     ]);
     /* search pouchdb for sp and sp.breakdown_assoc_lst (recursively) */
-    mod.factory('sale_app/service/search_sp',
+    mod.factory('sale_app/service/search/sp_api',
     [
          '$q'
         ,'service/db/get'
@@ -92,10 +92,10 @@ define(
             return sp;
         }
 
-        function exe(store_id,product_id){
+        function exe(product_id){
             var defer = $q.defer();
 
-            var db = get_db(store_id);
+            var db = get_db();
             db.query('views/by_product_id',{key:product_id}).then(function(lst){
                 if(lst.rows.length == 0){
                     defer.resolve(null);
@@ -108,7 +108,7 @@ define(
                     }else{
                         var promise_lst = [];
                         for(var i = 0;i<sp_couch.breakdown_assoc_lst.length;i++){
-                            promise_lst.push(exe(store_id,sp_couch.breakdown_assoc_lst[i].product_id))
+                            promise_lst.push(exe(sp_couch.breakdown_assoc_lst[i].product_id))
                         }
                         $q.all(promise_lst).then(function(data){
                             defer.resolve(create_sp(sp_couch,data));

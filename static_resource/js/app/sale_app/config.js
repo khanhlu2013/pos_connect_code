@@ -15,12 +15,14 @@ requirejs.config({
 
         ,'ngTable' : ['lib/ng-table']
         ,'pouchdb_raw' : ['lib/pouchdb-3.0.0.min']
+        ,'pouchdb_quick_search' : ['lib/pouchdb.quick-search']
     }
     ,shim:{
-         'angular'              : { exports:'angular'}
-        ,'ui_bootstrap'         : { deps:['angular']/*,'exports':'ui_bootstrap'*/}
-        ,'ngTable'              : { deps : ['angular']} 
-        ,'angular_raw'          : { exports:'PouchDB'}
+         'angular'              : { exports : 'angular' }
+        ,'ui_bootstrap'         : { deps    : ['angular'] }
+        ,'ngTable'              : { deps    : ['angular'] } 
+        ,'pouchdb_quick_search' : { deps    : ['pouchdb_raw'] } 
+
     }
     ,deps : ['app/sale_app/bootstrap']
 });

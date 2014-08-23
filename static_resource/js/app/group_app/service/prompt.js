@@ -4,6 +4,7 @@ define(
 	//----
 	,'app/sp_app/service/search_dlg'
 	,'service/ui'
+	,'service/misc'
 ]
 ,function
 (
@@ -14,16 +15,19 @@ define(
 	[
 		 'sp_app.service.search_dlg'
 		,'service/ui'
+		,'service/misc'
 	]);
 	mod.factory('group_app.service.prompt',
 	[
 		 '$modal'
 		,'sp_app.service.search_dlg.multiple'
 		,'service/ui/alert'
+		,'service/misc'
 	,function(
 		 $modal
 		,sp_search_multiple_dlg
 		,alert_service
+		,misc_service
 	){
 		return function(original_group){
 			var template = 
@@ -55,7 +59,7 @@ define(
 					'<button id="group_app/service/prompt/ok_btn" ng-disabled="form.$invalid || is_unchange()" ng-click="ok()" class="btn btn-success">ok</button>' + 
 				'</div>'
 			;
-			var ModalCtrl = function($scope,$modalInstance,$filter,original_group){
+			var ModalCtrl = function($scope,$modalInstance,original_group){
 				if(original_group == null){
 					original_group = {sp_lst:[]};
 				}
@@ -77,7 +81,7 @@ define(
 					promise.then(
 						function(sp_lst){
 							for(var i = 0;i<sp_lst.length;i++){
-								if($filter('get_item_from_lst_base_on_id')($scope.group.sp_lst,sp_lst[i].id) == null){
+ 								if(misc_service.get_item_from_lst_base_on_id(sp_lst[i].id,$scope.group.sp_lst) == null){
 									$scope.group.sp_lst.push(sp_lst[i]);
 								}
 							}

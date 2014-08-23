@@ -3,6 +3,7 @@ define(
 	 'angular'
     ,'directive/share_directive'       
     ,'app/sp_app/service/api'
+    ,'service/misc'
 ]
 ,function
 (
@@ -12,16 +13,19 @@ define(
 	var mod = angular.module('sp_app.service.search_dlg',
 	[
 		'share_directive',
-		'sp_app/service/api'
+		'sp_app/service/api',
+		'service/misc'
 	]);
 
 	mod.factory('sp_app.service.search_dlg.multiple',
 	[
 		'$modal',
 		'sp_app/service/api',
+		'service/misc',
 	function(
 		$modal,
-		api
+		api,
+		misc_service
 	){
 		var template = 
 			'<div class="modal-header">' +
@@ -76,7 +80,7 @@ define(
 				'<button id="sp_app/service/search_dlg/multiple/ok_btn" ng-disabled="result_sp_lst.length==0" class="btn btn-success" ng-click="ok()">ok</button>' +
 			'</div>'
  		;
-		var ModalCtrl = function($scope,$modalInstance,$http,$filter){
+		var ModalCtrl = function($scope,$modalInstance,$http){
 			$scope.message = "";
 			$scope.sp_lst = "";
 			$scope.result_sp_lst = [];
@@ -86,7 +90,7 @@ define(
 				$modalInstance.close($scope.result_sp_lst)
 			}
 			$scope.is_sp_selected = function(sp){
-				return $filter('get_item_from_lst_base_on_id')($scope.result_sp_lst,sp.id) != null;
+				return misc_service.get_item_from_lst_base_on_id(sp.id,$scope.result_sp_lst) !=null;
 			}
 			$scope.reset = function(){
 				$scope.result_sp_lst = [];
@@ -173,7 +177,7 @@ define(
 				'<button class="btn btn-warning" ng-click="cancel()">cancel</button>' +
 			'</div>'
  		;
-		var ModalCtrl = function($scope,$modalInstance,$http,$filter){
+		var ModalCtrl = function($scope,$modalInstance,$http){
 			$scope.message = "";
 			$scope.sp_lst = "";
 

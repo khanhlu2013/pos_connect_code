@@ -65,7 +65,7 @@ define(
         return b_lst;
     }
 
-    function get_posible_deal_from_lst(sp_distinct_lst,mm_lst){
+    function get_posible_deal_from_sp_lst(sp_distinct_lst,mm_lst){
         var result = [];
 
         for(var i = 0;i<sp_distinct_lst.length;i++){
@@ -76,7 +76,7 @@ define(
         return result
     }
 
-    function get_ds_extract(ps_lst,sp_distinct_lst){
+    function form_ds_extract(ps_lst,sp_distinct_lst){
         var result = [];
 
         for(var i = 0;i<ps_lst.length;i++){
@@ -125,45 +125,47 @@ define(
 
         /*
             When we record sale record, it is convenient to record the $ discount amount for each item. To calculate what is the unit discount for EACH item from mm deal,
-                we need to calculate the regular price of the WHOLE deal which depend on what is the mix_match formation and its corresponding regular price. My point here
-                is that each item in a mix_match deal have to be aware and contain the whole deal formation for calculation. For that reason, we will form a convenient list of
-                item X containing a list of all ds that is available to form a deal. 
+                we need to calculate the regular price of the WHOLE deal which depend on the actual the mix_match formation and its corresponding regular price. My point here
+                is that each item that form a mix_match deal have to contain the actual of the whole deal formation for unit_discount calculation. For that reason, we will form a 
+                convenient list of FORMATION items, each FORMATION containing a list of all actual ds formation that is available to form a deal. After the convenient list of 
+                FORMATION is created, we then can assign to each ds_lst a FORMATION item so each ds_item can contain the information of the whole deal Formation for that ds to calculate
+                the unit discount
         */
-        var x_lst = [];//a list of item X. Each X containing a list of available ds to form a deal
-        var cur_x = null;
-        var cur_qty_for_cur_deal = 0;//a temporary var to help forming x_lst
+        var formation_lst = [];//a list of item X. Each X containing a list of available ds to form a deal
+        var cur_formation = null;
+        var cur_qty_for_cur_deal = 0;//a temporary var to help forming formation_lst
         
         for(var i = 0;i<ds_extract_lst.length;i++){
             
-            //init cur_x if nessesary
+            //init cur_formation if nessesary
             if(cur_qty_for_cur_deal == 0){
-                cur_x = new Array();
+                cur_formation = new Array();
             }
 
-            //forming cur_x
+            //forming cur_formation
             var cur_ds = ds_extract_lst[i];
             if(is_ds_available_for_deal(cur_ds,mm_deal)){
-                cur_x.push(cur_ds);
+                cur_formation.push(cur_ds);
                 cur_qty_for_cur_deal +=1;
             }
 
-            //finalize cur_x
+            //when we reach the qty to form a deal, we finalize cur_formation
             if(cur_qty_for_cur_deal == mm_deal.qty){
                 cur_qty_for_cur_deal = 0;
-                x_lst.push(cur_x);
+                formation_lst.push(cur_formation);
             }
         }
 
         /*
-            After that, we will go through each available ds and assign item X to it so that each available ds will be aware of the whole deal.
+            After that, we will go through each available ds and assign corresponding formation to it so that each available ds will be aware of the whole deal.
         */
-        for(var i = 0;i<x_lst.length;i++){
-            var cur_x = x_lst[i];
+        for(var i = 0;i<formation_lst.length;i++){
+            var cur_formation = formation_lst[i];
 
-            for(var j=0;j<cur_x.length;j++){
-                var cur_ds = cur_x[j];
-                var unit_discount = get_unit_discount(cur_x,parseFloat(mm_deal.mm_price),mm_deal.is_include_crv_tax,mm_deal.qty,tax_rate);
-                cur_ds.mm_deal_info = {deal:mm_deal,/*data:cur_x,*/unit_discount:unit_discount} 
+            for(var j=0;j<cur_formation.length;j++){
+                var cur_ds = cur_formation[j];
+                var unit_discount = get_unit_discount(cur_formation,parseFloat(mm_deal.mm_price),mm_deal.is_include_crv_tax,mm_deal.qty,tax_rate);
+                cur_ds.mm_deal_info = {deal:mm_deal,/*data:cur_formation,*/unit_discount:unit_discount} 
             }
         }        
     }
@@ -246,8 +248,8 @@ define(
     }
 
     function compute_ds(tax_rate,mm_lst,ps_lst,sp_distinct_lst,callback){
-        var possible_mm_lst = get_posible_deal_from_lst(sp_distinct_lst,mm_lst);
-        var ds_extract_lst = get_ds_extract(ps_lst,sp_distinct_lst);
+        var possible_mm_lst = get_posible_deal_from_sp_lst(sp_distinct_lst,mm_lst);
+        var ds_extract_lst = form_ds_extract(ps_lst,sp_distinct_lst);
 
         for(var i = 0;i<possible_mm_lst.length;i++){
             form_deal(ds_extract_lst,possible_mm_lst[i],tax_rate);

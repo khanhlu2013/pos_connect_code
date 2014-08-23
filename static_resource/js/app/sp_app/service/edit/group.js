@@ -5,6 +5,7 @@ define(
     ,'app/group_app/service/search_dlg'
     ,'app/sp_app/service/api_group'
     ,'service/ui'
+    ,'service/misc'
 ]
 ,function
 (
@@ -16,6 +17,7 @@ define(
          'group_app/service/search_dlg'
         ,'service/ui'
         ,'sp_app/service/api_group'
+        ,'service/misc'
     ])
 
     mod.factory('sp_app.service.edit.group',
@@ -24,11 +26,13 @@ define(
         ,'group_app/service/search_dlg/multiple'
         ,'service/ui/alert'
         ,'sp_app/service/api_group'
+        ,'service/misc'
     ,function(
          $modal
         ,select_multiple_group_service
         ,alert_service
         ,api_group
+        ,misc_service
     ){
         var template = 
             '<div class="modal-header">' +
@@ -63,7 +67,7 @@ define(
             '</div>'        
         ;    
 
-        var ModalCtrl = function($scope,$modalInstance,$http,$filter,original_sp){
+        var ModalCtrl = function($scope,$modalInstance,$http,original_sp){
             $scope.original_sp = original_sp;
             $scope.sp = angular.copy(original_sp);
 
@@ -74,7 +78,7 @@ define(
                 var promise = select_multiple_group_service(true/*allow to select multiple group*/);
                 promise.then(function (result_lst) {
                     for(var i = 0;i<result_lst.length;i++){
-                        if($filter('get_item_from_lst_base_on_id')($scope.sp.group_lst,result_lst[i].id) == null) {
+                        if(misc_service.get_item_from_lst_base_on_id(result_lst[i].id,$scope.sp.group_lst) == null) { 
                             $scope.sp.group_lst.push(result_lst[i]);
                         }
                     }

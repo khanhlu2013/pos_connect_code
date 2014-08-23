@@ -2,7 +2,8 @@ define(
 [
      'angular'
     //-------
-    ,'app/sale_app/service/scan/get_pending_scan'
+    ,'app/sale_app/service/pending_scan/get_ps_lst'
+    ,'app/sale_app/service/pending_scan/set_ps_lst'
     ,'app/sale_app/model'
 ]
 ,function
@@ -12,19 +13,23 @@ define(
 {
     var mod = angular.module('sale_app/service/scan/append_pending_scan',
     [
-         'sale_app/service/scan/get_pending_scan'
+         'sale_app/service/pending_scan/get_ps_lst'
+        ,'sale_app/service/pending_scan/set_ps_lst'
         ,'sale_app/model'
     ]);
     mod.factory('sale_app/service/scan/append_pending_scan',
     [   
-         'sale_app/service/scan/get_pending_scan'
+         'sale_app/service/pending_scan/get_ps_lst'
+        ,'sale_app/service/pending_scan/set_ps_lst'
         ,'sale_app/model/Pending_scan'
+        ,'$localStorage'
     ,function(
-         get_pending_scan
+         get_ps_lst
+        ,set_ps_lst
         ,Pending_scan
     ){
         return function(product_id,qty,non_product_name,override_price){
-            var ps_lst = get_pending_scan();
+            var ps_lst = get_ps_lst();
             var ps = new Pending_scan(
                  product_id
                 ,non_product_name
@@ -46,7 +51,7 @@ define(
                     }
                 }
             }
-            localStorage.setItem('pending_scan_lst',JSON.stringify(ps_lst));
+            set_ps_lst(ps_lst);
             return ps_lst;
         }
     }])

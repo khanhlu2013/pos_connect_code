@@ -47,26 +47,11 @@ define(
 			return promise;
 		}
 
-		$scope.menu_mix_match_manage = function(){
-			var promise = manage_mm();
-			return promise;
-		}
-
-		$scope.menu_tax_edit = function(){
-			edit_tax();
-		}
-
-		$scope.menu_payment_type_manage = function(){
-			manage_pt();
-		}
-
-		$scope.menu_shortcut_manage = function(){
-			manage_shortcut();
-		}
-
-		$scope.menu_receipt_report = function(){
-			report_receipt();
-		}
+		$scope.menu_mix_match_manage = function(){manage_mm();}
+ 		$scope.menu_tax_edit = function(){edit_tax();}
+ 		$scope.menu_payment_type_manage = function(){manage_pt();}
+ 		$scope.menu_shortcut_manage = function(){manage_shortcut();}
+ 		$scope.menu_receipt_report = function(){report_receipt();}
 	}])
 
 	return mod;

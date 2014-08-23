@@ -72,11 +72,7 @@ UPGRADE FEATURE
 . deal
 . store_product info should be push right away if internet is available. if not it can wait when we upload sale data.
     . if we mark store_product that is not assoc on the server, we can push them right away after sale so that other register can be updated
-.manual discount: 
-    . as oppose to deal discount
-    . always calculate into $ amount
-    . we need 1 more column if this feature is turned on: manual discount column
-.update approve product in couch to contain more multiple suggestion info: price, crv, tax, name. implement not only insert, but update approve product
+
 
 TO REMEMBER
 -----------
@@ -299,7 +295,10 @@ UPGRADE FEATURE
 . auto focus text box:
     . search
     . ...
-. all ajax backdrop
+. manual discount: 
+    . as oppose to deal discount
+    . always calculate into $ amount
+    . we need 1 more column if this feature is turned on: manual discount column
 ------------------------------------------------------------------------------------------------------------------
 TEST
 . account acl validator test
@@ -363,17 +362,32 @@ SALE APP
     . it said 3 receipts pushing but actually only 1 receipt is pushing
     . sale record report, payment type report
 ------------------------------------------------------------------------------------------------------------------
+. turn back get shortcut api and getting a fresh data to load into manage_ui
+. prompt_string, prompt_int, prompt_float
+. re-test all the menu service on the sale page  
+
+
 . name search
 . hold
 . receipt pusher
-. tender
+. tender button
 . mix match deal
 . tax rate / calculate correct out the door
 . edit scan
-    . price
-    . discount
-    . qty
-. void
+
+    . scan sku hook up create product online
+    . scan sku and internet is disconnect create product offline.
+    . i think people would like to click on the price to find out about it, not the product name. change regular price here
+    . work on the detail of ds_info_dlg   
+        . verify buydown        
+        . verify buydown tax
+        . verify crv, how about crv tax
+        . verify out the door
+        . mm deal unit discount -> implement this
+
+  
+
+
 
 
 

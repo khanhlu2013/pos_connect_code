@@ -5,7 +5,7 @@ define(
 	,'app/sp_app/service/info'
     ,'app/sp_app/service/create'
     ,'app/sp_app/service/duplicate'    
-    ,'app/sp_app/filter'    
+    ,'filter/filter'    
     ,'directive/share_directive'    
     ,'service/ui'
     ,'app/sp_app/service/convert'
@@ -22,7 +22,7 @@ define(
         'sp_app/service/info',
         'sp_app.service.create',
         'sp_app.service.duplicate',
-        'sp_app.filter',
+        'filter',
         'share_directive',
         'service/ui',
         'sp_app/service/convert',

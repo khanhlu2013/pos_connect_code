@@ -78,7 +78,7 @@ define(
 					'<button id="mix_match_app/service/manage/exit_btn" ng-click="exit()" class="btn btn-warning">exit</button>' +
 				'</div>'								
 			;
-			var ModalCtrl = function($scope,$modalInstance,$q,mm_lst){
+			var ModalCtrl = function($scope,$modalInstance,$q,$rootScope,mm_lst){
 				$scope.mm_lst = mm_lst;
 				$scope.add_mix_match = function(){
 					var promise = create_service();
@@ -112,16 +112,17 @@ define(
 						,function(reason){ alert_service('alert',reason,'red');}
 					)
 				}
-				$scope.exit = function(){ $modalInstance.close($scope.mm_lst);}
+				$scope.exit = function(){ 
+					$rootScope.GLOBAL_SETTING.mix_match_lst = $scope.mm_lst;
+					$modalInstance.close();
+				}
 			}
 
 			return $modal.open({
 				template:template,
 				controller: ModalCtrl,
 				size:'lg',
-				resolve:{ 
-					mm_lst : function(){ return api.get_lst();}
-				}
+				resolve:{ mm_lst : function(){ return api.get_lst();}}
  			}).result;
 		}
 	}])

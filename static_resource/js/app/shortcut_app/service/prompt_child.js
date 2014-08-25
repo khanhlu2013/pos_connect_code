@@ -12,13 +12,13 @@ define(
 {
     var mod = angular.module('shortcut_app/service/prompt_child',
     [
-         'sp_app.service.search_dlg'
+         'sp_app/service/search_dlg'
         ,'service/ui'
     ]);
     mod.factory('shortcut_app/service/prompt_child',
     [
          '$modal'
-        ,'sp_app.service.search_dlg.single'
+        ,'sp_app/service/search_dlg/single'
         ,'service/ui/alert'
     ,function(
          $modal

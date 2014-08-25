@@ -37,6 +37,22 @@ module.exports = {
     },
 
     api:{
+        insert_mm : function(name,price,is_include,qty,sp_lst){
+            var mm = 
+            {
+                name:name,
+                mm_price:price,
+                is_include_crv_tax:is_include,
+                qty:qty,
+                sp_lst:sp_lst
+            };     
+            var data = { mm : mm };
+            return browser.executeAsyncScript(function(data,callback) {
+                var api = angular.injector(['ng','service/csrf','mix_match_app/service/api']).get('mix_match_app/service/api');
+                api.create(data.mm).then(function(data){callback(data);} )
+            },data)            
+        },
+
         create_sp_json : function (name,price,value_customer_price,crv,is_taxable,is_sale_report,p_type,p_tag,cost,vendor,buydown){
             return{
                 name                    : name                                                                  ,
@@ -117,6 +133,18 @@ module.exports = {
             },data);
         }
     },
+
+    sale_page:{
+        scan : function(str){
+            var ptor = protractor.getInstance();
+            var enter_key = protractor.Key.ENTER;            
+            var scan_txt = element(by.id('sale_app/main_page/scan_txt'));
+            scan_txt.clear();
+            scan_txt.sendKeys(str,enter_key);
+            ptor.sleep(500);
+        }
+    },
+    
     ui:{
         click : function(element){
             // protractor.getInstance().sleep(1);

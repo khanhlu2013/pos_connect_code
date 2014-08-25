@@ -172,7 +172,8 @@ define(
 
                 for(var j=0;j<cur_formation.length;j++){
                     var cur_ds = cur_formation[j];
-                    cur_ds.mm_deal_info = new Mix_match_deal_info(mm_deal,cur_formation)
+                    var formation_copy = angular.copy(cur_formation);//make a copy to preven circular reference
+                    cur_ds.mm_deal_info = new Mix_match_deal_info(mm_deal,formation_copy);
                 }
             }        
         }      

@@ -2,6 +2,7 @@ define(
 [
      'angular'
     //--------
+    ,'app/sp_app/service/info'
     ,'app/sale_app/service/scan/preprocess'
     ,'app/sale_app/service/scan/append_pending_scan'
     ,'app/sale_app/service/pending_scan/get_ps_lst'
@@ -12,6 +13,8 @@ define(
     ,'app/sale_app/service/displaying_scan/info_dlg'
     ,'app/shortcut_app/shortcut_ui'
     ,'service/ui'
+    ,'service/db'
+    ,'blockUI'
 
 ], function
 (
@@ -22,7 +25,8 @@ define(
     
     var mod =  angular.module('sale_app/controller', 
     [
-         'sale_app/service/scan/preprocess'
+         'sp_app/service/info'
+        ,'sale_app/service/scan/preprocess'
         ,'sale_app/service/scan/append_pending_scan'
         ,'sale_app/service/pending_scan/get_ps_lst'
         ,'sale_app/service/scan/calculate_displaying_scan'
@@ -33,8 +37,9 @@ define(
         ,'sale_app/model'
         ,'shortcut_app/shortcut_ui'
         ,'service/ui'
+        ,'service/db'
     ]);
-    mod.controller('MainCtrl', 
+    mod.controller('Sale_page_ctrl', 
     [
          '$scope'
         ,'$rootScope'
@@ -50,6 +55,9 @@ define(
         ,'shortcut_app/shortcut_ui'
         ,'service/ui/alert'
         ,'service/ui/prompt'
+        ,'service/db/sync'
+        ,'blockUI'   
+        ,'sp_app/service/info'     
     ,function(
          $scope
         ,$rootScope
@@ -65,6 +73,9 @@ define(
         ,shortcut_ui
         ,alert_service
         ,prompt_service
+        ,sync_db_service
+        ,blockUI     
+        ,sp_info_service           
     ){
         function get_ds_index(ds){
             var index = -1;
@@ -76,22 +87,21 @@ define(
             }
             return index;
         }
+        $scope.get_tender_amount = function(){
+            var result = 0.0;
+            for(var i = 0;i<$scope.ds_lst.length;i++){
+                result += $scope.ds_lst[i].get_line_total($rootScope.GLOBAL_SETTING.tax_rate);
+            }
+            return result;
+        }
         $scope.info = function(ds){
             if(ds.store_product == null){return;}
-            info_dlg(ds);
-        }
-        $scope.one_time_price_change = function(ds){
-            prompt_service('one time price change',ds.get_regular_price()/*prefill*/,false/*is_null_allow*/,true/*is_float*/)
-            .then(function(new_price_str){
-                var new_price = parseFloat(new_price_str);
-                if(isNaN(new_price)){return;}
-                if(new_price < 0){return;}
-
+            info_dlg(ds).then(function(new_ds){
                 var instruction = new Modify_ds_instruction(
-                     false/*is_delete*/
-                    ,null/*new_qty*/
-                    ,new_price/*new_price*/
-                    ,null/*new_discount*/
+                     undefined/*is_delete*/
+                    ,undefined/*new_qty*/
+                    ,new_ds.override_price/*new_price*/
+                    ,undefined/*new_discount*/
                 );
                 modify_ds(get_ds_index(ds),instruction,$scope.ds_lst);                      
             })
@@ -99,9 +109,9 @@ define(
         $scope.remove_ds = function(ds){
             var instruction = new Modify_ds_instruction(
                  true/*is_delete*/
-                ,null/*new_qty*/
-                ,null/*new_price*/
-                ,null/*new_discount*/
+                ,undefined/*new_qty*/
+                ,undefined/*new_price*/
+                ,undefined/*new_discount*/
             );
             modify_ds(get_ds_index(ds),instruction,$scope.ds_lst);            
         }
@@ -115,12 +125,17 @@ define(
                     var instruction = new Modify_ds_instruction(
                          new_qty==0/*is_delete*/
                         ,new_qty
-                        ,null/*new_price*/
-                        ,null/*new_discount*/
+                        ,undefined/*new_price*/
+                        ,undefined/*new_discount*/
                     );
                     modify_ds(get_ds_index(ds),instruction,$scope.ds_lst);
                 }
             )
+        }
+        $scope.edit_sp = function(ds){
+            if(ds.store_product == null){return;}
+            if(ds.store_product)
+            sp_info_service(ds.store_product);
         }
         $scope.void = function(){
             set_ps_lst([]);
@@ -132,9 +147,13 @@ define(
         }
         $scope.refresh_ds = function(){
             console.log('refresh ds lst called...');
+            blockUI.start();
             calculate_ds(get_ps_lst(),$rootScope.GLOBAL_SETTING.mix_match_lst).then(
-                 function(data){$scope.ds_lst = data;}
-                ,function(reason){alert_service('alert',reason,'red');}
+                 function(data){
+                    $scope.ds_lst = data;
+                    blockUI.stop();
+                }
+                ,function(reason){alert_service('alert',reason,'red');blockUI.stop()}
             )            
         }
         $scope.sku_scan = function(){
@@ -149,20 +168,25 @@ define(
         $scope.search = function(){
             search_name_sku_dlg();
         }
+
         //init code
-        shortcut_ui.init($scope);  
-        if(get_ps_lst() == undefined){
-            set_ps_lst([]);
-        }
-        $scope.refresh_ds();
-
-        $scope.$watchGroup(
-             [
-                 function(){return JSON.stringify(get_ps_lst());/*the reason i return a string representation of ps_lst is that get_ps_lst() always return a new created ps_lst which have a new identity all the time. This cause the watch to do infinite loop*/}
-                ,function(){return $rootScope.GLOBAL_SETTING.mix_match_lst;}]
-            ,function(newVal,oldVal,scope){$scope.refresh_ds();}
-        );  
-
-
+        $scope.ds_lst = [];
+        sync_db_service($rootScope.GLOBAL_SETTING.store_id).then(
+            function(){
+                shortcut_ui.init($scope);  
+                if(get_ps_lst() == undefined){
+                    set_ps_lst([]);
+                }
+                
+                $scope.refresh_ds();
+                $scope.$watchGroup(
+                    [
+                         function(){return JSON.stringify(get_ps_lst());}//the reason i return a string representation of ps_lst is that get_ps_lst() always return a new created ps_lst which have a new identity all the time. This cause the watch to do infinite loop
+                        ,function(){return $rootScope.GLOBAL_SETTING.mix_match_lst;}
+                    ]
+                    ,function(newVal,oldVal,scope){$scope.refresh_ds();}
+                );
+            }
+        )
     }]);
 });

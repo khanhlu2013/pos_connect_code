@@ -12,7 +12,7 @@ define(
 	angular
 )
 {
-	var mod = angular.module('sp_app.service.edit.group',
+	var mod = angular.module('sp_app/service/edit/group',
     [
          'group_app/service/search_dlg'
         ,'service/ui'
@@ -20,7 +20,7 @@ define(
         ,'service/misc'
     ])
 
-    mod.factory('sp_app.service.edit.group',
+    mod.factory('sp_app/service/edit/group',
     [
          '$modal'
         ,'group_app/service/search_dlg/multiple'

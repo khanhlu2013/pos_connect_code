@@ -56,9 +56,9 @@ def createProductWithSku(sku_str,is_approve_override=False):
     prodSkuAssoc = mommy.make('product.ProdSkuAssoc',product=product,sku=sku,is_approve_override=is_approve_override)
     return prodSkuAssoc.product
 
-def create_user_then_store_detail(user_name,user_password,store_name):
+def create_user_then_store_detail(user_name,user_password,store_name,tax_rate=8.725):
     #helper: create user belong to that single store
-    store = mommy.make('store.Store',name=store_name)
+    store = mommy.make('store.Store',name=store_name,tax_rate=tax_rate)
     user = User.objects.create_user(username = user_name,password=user_password,first_name=user_name)
     membership = mommy.make('liqUser.Membership',business=store,user=user)
     return (membership.user,membership.user.business_set.all()[0])

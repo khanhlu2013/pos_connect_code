@@ -14,8 +14,8 @@ define(
 )
 {
     angular.module('store_product_app',['ui.bootstrap','sp_app.controller','controller.menu','service/csrf','blockUI'])
-	.config(function(blockUIConfigProvider) {
-		blockUIConfigProvider.message('Please wait ... ');
-		blockUIConfigProvider.delay(100);
- 	});
+    .config(function(blockUIConfigProvider) {
+        blockUIConfigProvider.message('Please wait ... ');
+        blockUIConfigProvider.delay(100);
+    });
 });

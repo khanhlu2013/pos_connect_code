@@ -11,16 +11,16 @@ define(
 	angular
 )
 {
-	var mod = angular.module('group_app.service.prompt',
+	var mod = angular.module('group_app/service/prompt',
 	[
-		 'sp_app.service.search_dlg'
+		 'sp_app/service/search_dlg'
 		,'service/ui'
 		,'service/misc'
 	]);
-	mod.factory('group_app.service.prompt',
+	mod.factory('group_app/service/prompt',
 	[
 		 '$modal'
-		,'sp_app.service.search_dlg.multiple'
+		,'sp_app/service.search_dlg/multiple'
 		,'service/ui/alert'
 		,'service/misc'
 	,function(

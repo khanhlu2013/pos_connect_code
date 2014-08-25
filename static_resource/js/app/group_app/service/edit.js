@@ -10,16 +10,16 @@ define(
 	angular
 )
 {
-	var mod = angular.module('group_app.service.edit',
+	var mod = angular.module('group_app/service/edit',
 	[
-		 'group_app.service.prompt'
+		 'group_app/service/prompt'
 		,'group_app/service/api'
 	]);
-	mod.factory('group_app.service.edit',
+	mod.factory('group_app/service/edit',
 	[
 		 '$http'
 		,'$q'
-		,'group_app.service.prompt'
+		,'group_app/service/prompt'
 		,'group_app/service/api'
 	,function(
 		 $http
@@ -31,12 +31,8 @@ define(
 			var get_promise = api.get_item(original_group.id);
 
 			var prompt_promise = get_promise.then(
-				function(group){
-					return group_prompt(group);
-				},
-				function(reason){
-					return $q.reject(reason);
-				}
+				 function(group){ return group_prompt(group); }
+				,function(reason){ return $q.reject(reason); }
 			);
 
 			var update_promise = prompt_promise.then(
@@ -48,17 +44,11 @@ define(
 					});
 
 					return promise.then(
-						function(data){
-							var defer = $q.defer();defer.resolve(data.data);return defer.promise;
-						},
-						function(){
-							return $q.reject('update group ajax error');
-						}
+						 function(data){ var defer = $q.defer();defer.resolve(data.data);return defer.promise; }
+						,function(){ return $q.reject('update group ajax error'); }
 					)
  				},
-				function(reason){
-					return $q.reject(reason);
-				}
+				function(reason){ return $q.reject(reason);}
 			);
 
 			return update_promise;

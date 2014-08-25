@@ -9,9 +9,9 @@ define(
 	angular
 )
 {
-	var mod = angular.module('tax_app.service.edit',['service/ui']);
+	var mod = angular.module('tax_app/service/edit',['service/ui']);
 
-	mod.factory('tax_app.service.edit',
+	mod.factory('tax_app/service/edit',
 	[
 		 '$http'
 		,'$modal'

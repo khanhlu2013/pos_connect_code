@@ -3,7 +3,6 @@ define(
     'angular'
     //----
     ,'app/sp_app/service/prompt'
-    ,'app/sp_app/filter'
     ,'app/sp_app/service/api_sku'
     ,'app/sp_app/service/api_sp'
 ]
@@ -12,17 +11,22 @@ define(
     angular
 )
 {
-    var mod = angular.module('sp_app.service.create',['sp_app.service.prompt','sp_app/service/api_sku','sp_app/service/api_sp']);
+    var mod = angular.module('sp_app/service/create',
+    [
+         'sp_app/service/prompt'
+        ,'sp_app/service/api_sku'
+        ,'sp_app/service/api_sp'
+    ]);
 
-    mod.factory('sp_app.service.create',
+    mod.factory('sp_app/service/create',
         [
             '$modal',
             '$filter',
             '$http',
             '$q',
-            'sp_app.service.create.select_suggest',
-            'sp_app.service.create.new',
-            'sp_app.service.create.old',
+            'sp_app/service/create/select_suggest',
+            'sp_app/service/create/new',
+            'sp_app/service/create/old',
             'sp_app/service/api_sku',
         function(
             $modal,
@@ -62,11 +66,11 @@ define(
         }
     }]);
 
-    mod.factory('sp_app.service.create.old',
+    mod.factory('sp_app/service/create.old',
     [
         '$http',
         '$q',
-        'sp_app.service.prompt',
+        'sp_app/service/prompt',
         'sp_app/service/api_sku',
         'sp_app/service/api_sp',
     function(
@@ -86,7 +90,18 @@ define(
         }
     }]);
 
-    mod.factory('sp_app.service.create.new',['$http','$q','sp_app.service.prompt','sp_app/service/api_sp',function($http,$q,prompt_service,api_sp){
+    mod.factory('sp_app/service/create/new',
+    [
+         '$http'
+        ,'$q'
+        ,'sp_app/service/prompt'
+        ,'sp_app/service/api_sp'
+    ,function(
+         $http
+        ,$q
+        ,prompt_service
+        ,api_sp
+    ){
         return function(sku){
             var prompt_promise = prompt_service(null/*original_sp*/,null/*suggest_product*/,null/*duplicate_sp*/,sku);
             var insert_promise = prompt_promise.then(
@@ -97,7 +112,16 @@ define(
         }
     }]);
 
-    mod.factory('sp_app.service.create.select_suggest',['$modal','$filter','$q',function($modal,$filter,$q){
+    mod.factory('sp_app/service/create/select_suggest',
+    [
+         '$modal'
+        ,'$filter'
+        ,'$q'
+    ,function(
+         $modal
+        ,$filter
+        ,$q
+    ){
         return function(prod_store__prod_sku__0_0,prod_store__prod_sku__1_0){
             /*
                 PRE: length of 0_0 and 1_0 can be both emtpy

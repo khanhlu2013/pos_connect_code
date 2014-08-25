@@ -7,8 +7,15 @@ define(
 	angular
 )
 {
-	var mod = angular.module('group_app.service.delete',[]);
-	mod.factory('group_app.service.delete',['$http','$q',function($http,$q){
+	var mod = angular.module('group_app/service/delete',[]);
+	mod.factory('group_app/service/delete',
+	[
+		 '$http'
+		,'$q'
+	,function(
+		 $http
+		,$q
+	){
 		return function(group_id){
 			var get_ing_promise = $http({
 				url:'/group/get_item',

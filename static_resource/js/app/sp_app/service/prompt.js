@@ -7,8 +7,8 @@ define(
     angular
 )
 {
-    var mod = angular.module('sp_app.service.prompt',[]);
-    mod.factory('sp_app.service.prompt',['$modal', function($modal){
+    var mod = angular.module('sp_app/service/prompt',[]);
+    mod.factory('sp_app/service/prompt',['$modal', function($modal){
 
         //- NAME -------------------------------------------------------------------------------------------------------------------------------------------------------
         var template_name_main_suggestion = 

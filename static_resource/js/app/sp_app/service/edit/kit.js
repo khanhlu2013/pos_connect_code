@@ -13,7 +13,7 @@ define(
 {
 	var mod = angular.module('sp_app/service/edit/kit',
     [
-         'sp_app.service.search_dlg'
+         'sp_app/service/search_dlg'
         ,'sp_app/service/api_kit'
         ,'service/ui'
     ]);
@@ -137,7 +137,7 @@ define(
     mod.factory('sp_app/service/edit/kit/prompt',
     [
         '$modal',
-        'sp_app.service.search_dlg.single',
+        'sp_app/service/search_dlg/single',
     function(
         $modal,
         search_single_service

@@ -4,7 +4,7 @@
     <title>pos connect </title>
 
 </head>
-<body ng-controller="MainCtrl">
+<body ng-controller="Sale_page_ctrl">
     <!-- <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"> -->
     <!-- <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css"> -->
     <link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap.css">
@@ -32,7 +32,7 @@
                     <div class="navbar-form navbar-left" role="search">
                         <input 
                             type="text" 
-                            id='sale_app/main_page/sku_txt' 
+                            id='sale_app/main_page/scan_txt' 
                             class="form-control" 
                             placeholder="sku" 
                             onClick="this.select();"
@@ -101,12 +101,18 @@
                 </tr>
                 <tr ng-repeat="ds in ds_lst">
                     <td ng-click="edit_qty(ds)">{{ds.qty}}</td>
-                    <td ng-click="info(ds)">{{ds.store_product.name}}</td>
-                    <td ng-click="one_time_price_change(ds)" class="alnright">{{ds.get_total_discount_price(GLOBAL_SETTING.tax_rate)|currency}}</td>
+                    <td ng-click="edit_sp(ds)">{{ds.get_name()}}</td>
+                    <td ng-click="info(ds)" class="alnright">{{ds.get_total_discount_price(GLOBAL_SETTING.tax_rate)|currency}}</td>
                     <td>{{ds.mm_deal_info.mm_deal.name}}</td>                    
                     <td><button ng-click="remove_ds(ds)" class="btn btn-danger glyphicon glyphicon-trash"></button></td>
                 </tr>
             </table>
+            <button 
+                ng-hide="ds_lst.length == 0"
+                id="sale_app/main_page/tender_btn" 
+                type="button" 
+                class="btn btn-primary btn-lg">{{get_tender_amount()|currency}}
+            </button>                
         </div>
         <div class="col-sm-6">
             <table class="table table-bordered table-condensed sale_shortcut_tbl">
@@ -122,7 +128,7 @@
             </table>
         </div>
         <div class="clear"></div>
-        <!-- {{ds_lst}} -->
+        {{ds_lst}}
     {% endverbatim %}         
     </div>
 

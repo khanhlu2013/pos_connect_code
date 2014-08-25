@@ -10,12 +10,12 @@ define(
 	angular
 )
 {
-	var mod = angular.module('sp_app.service.edit.sku',
+	var mod = angular.module('sp_app/service/edit/sku',
 	[
 		'service/ui',
 		'sp_app/service/api_sku'
 	]);
-	mod.factory('sp_app.service.edit.sku',
+	mod.factory('sp_app/service/edit/sku',
 	[
 		'$modal',
 		'$http',

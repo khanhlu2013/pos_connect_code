@@ -3,15 +3,27 @@ define(
      'angular'
     //-------
     ,'filter/filter'
+    ,'service/ui'
 ]
 ,function
 (
     angular
 )
 {
-    var mod = angular.module('sale_app/service/displaying_scan/info_dlg',['filter']);
-    mod.factory('sale_app/service/displaying_scan/info_dlg',['$modal',function($modal){
-        return function(ds){
+    var mod = angular.module('sale_app/service/displaying_scan/info_dlg',
+    [
+         'filter'
+        ,'service/ui'
+    ]);
+    mod.factory('sale_app/service/displaying_scan/info_dlg',
+    [
+         '$modal'
+        ,'service/ui/prompt'
+    ,function(
+         $modal
+        ,prompt_service
+    ){
+        return function(ds_original){
             var template = 
                 '<div class="modal-header"><h3>{{ds.store_product.name}}</h3></div>' +
                 '<div class="modal-body">' +
@@ -23,9 +35,11 @@ define(
                         '</div>' +
 
                         //override price
-                        '<div ng-hide="ds.override_price==null" class="form-group">' +
+                        '<div class="form-group">' +
                             '<label class="col-sm-5 control-label">override price:</label>' +
-                            '<p class="col-sm-7 form-control-static">{{ds.override_price|currency}}</p>' +                            
+                            '<p class="col-sm-7 form-control-static">{{ds.override_price ? (ds.override_price|currency) : \'None\'}} ' + 
+                                '<button id="sale_app/service/displaying_scan/info_dlg/override_price_btn" ng-click="override_price()" class="btn btn-primary">override</button>' +
+                            '</p>' +                            
                         '</div>' +
 
                         //mix match deal discount
@@ -34,22 +48,22 @@ define(
                             '<p class="col-sm-7 form-control-static">{{ds.mm_deal_info.get_unit_discount(GLOBAL_SETTING.tax_rate)|currency}}</p>' +  
                         '</div>' +
 
+                        //buydown
+                        '<div ng-hide="!ds.store_product.get_buydown()" class="form-group">' +
+                            '<label class="col-sm-5 control-label">buydown (discount):</label>' +
+                            '<p class="col-sm-7 form-control-static">{{ds.store_product.get_buydown()|currency|not_show_zero}}</p>' +  
+                        '</div>' +
+
                         //total discount price
-                        '<div ng-hide="ds.mm_deal_info==null" class="form-group">' +
+                        '<div class="form-group">' +
                             '<label class="col-sm-5 control-label">total discount price:</label>' +
-                            '<p class="col-sm-7 form-control-static"><u>{{ds.get_total_discount_price(GLOBAL_SETTING.tax_rate)|currency}}</u></p>' +  
+                            '<p class="col-sm-7 form-control-static"><mark>{{ds.get_total_discount_price(GLOBAL_SETTING.tax_rate)|currency}}</mark></p>' +  
                         '</div>' +
 
                         //crv
                         '<div class="form-group">' +
                             '<label class="col-sm-5 control-label">crv:</label>' +
                             '<p class="col-sm-7 form-control-static">{{ds.store_product.get_crv()|currency|not_show_zero}}</p>' +  
-                        '</div>' +
-
-                        //buydown
-                        '<div ng-hide="!ds.store_product.get_buydown()" class="form-group">' +
-                            '<label class="col-sm-5 control-label">buydown:</label>' +
-                            '<p class="col-sm-7 form-control-static">{{ds.store_product.get_buydown()|currency|not_show_zero}}</p>' +  
                         '</div>' +
 
                         //buydown tax
@@ -73,13 +87,31 @@ define(
 
                 '</div>' +
                 '<div class="modal-footer">' +
-                    '<button ng-click="exit()" class="btn btn-warning">exit</button>' +
-                '</div>'                
+                    '<button ng-click="cancel()" class="btn btn-warning">cancel</button>' +
+                    '<button ng-disabled="is_unchange()" ng-click="reset()" class="btn btn-primary">reset</button>' +
+                    '<button id="sale_app/service/displaying_scan/info_dlg/ok_btn" ng-disabled="is_unchange()" ng-click="ok()" class="btn btn-success">ok</button>' +
+                '</div>'
             ;
 
-            var controller = function($scope,$modalInstance,$filter,ds){
-                $scope.ds = ds;
-                $scope.exit = function(){
+            var controller = function($scope,$modalInstance,$filter,ds_original){
+                $scope.ds = angular.copy(ds_original);
+
+                $scope.override_price = function(){
+                    prompt_service('one time override price',$scope.ds.override_price/*prefill*/,true/*is_null_allow*/,true/*is_float*/)
+                    .then(function(override_price){
+                        $scope.ds.override_price = override_price;
+                    })
+                }
+                $scope.reset = function(){
+                    angular.copy(ds_original,$scope.ds);
+                }
+                $scope.is_unchange = function(){
+                    return angular.equals(ds_original,$scope.ds);
+                }
+                $scope.ok = function(){
+                    $modalInstance.close($scope.ds);
+                }
+                $scope.cancel = function(){
                     $modalInstance.dismiss('_cancel_');
                 }
             }
@@ -87,7 +119,7 @@ define(
                 template:template,
                 controller:controller,
                 size:'md',
-                resolve:{ ds : function(){return ds}}
+                resolve:{ ds_original : function(){return ds_original}}
             })
             return dlg.result;
         }

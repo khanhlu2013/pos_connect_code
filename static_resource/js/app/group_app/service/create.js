@@ -9,8 +9,22 @@ define(
 	angular
 )
 {
-	var mod = angular.module('group_app/service/create',['group_app.service.prompt','group_app/service/api']);
-	mod.factory('group_app/service/create',['$q','group_app.service.prompt','group_app/service/api',function($q,prompt_service,api){
+	var mod = angular.module('group_app/service/create',
+	[
+		 'group_app/service/prompt'
+		,'group_app/service/api'
+	]);
+	mod.factory('group_app/service/create',
+	[
+		 '$q'
+		,'group_app/service/prompt'
+		,'group_app/service/api'
+	,function
+	(
+		 $q
+		,prompt_service
+		,api
+	){
 		return function(){
 			var prompt_promise = prompt_service(null);
 			var create_promise = prompt_promise.then(

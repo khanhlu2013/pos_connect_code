@@ -16,9 +16,9 @@ define(
 {
 	var mod = angular.module('controller.menu',
 	[
-		'group_app.service.manage',
-		'tax_app.service.edit',
-		'mix_match_app.service.manage',
+		'group_app/service/manage',
+		'tax_app/service/edit',
+		'mix_match_app/service/manage',
 		'payment_type_app/service/manage',
 		'shortcut_app/service/manage',
 		'receipt_app/service/report'
@@ -27,9 +27,9 @@ define(
 	mod.controller('controller.menu',
 	[
 		'$scope',
-		'group_app.service.manage',
-		'tax_app.service.edit',
-		'mix_match_app.service.manage',
+		'group_app/service/manage',
+		'tax_app/service/edit',
+		'mix_match_app/service/manage',
 		'payment_type_app/service/manage',
 		'shortcut_app/service/manage',
 		'receipt_app/service/report',

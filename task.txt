@@ -362,30 +362,31 @@ SALE APP
     . it said 3 receipts pushing but actually only 1 receipt is pushing
     . sale record report, payment type report
 ------------------------------------------------------------------------------------------------------------------
+. manula discount
 . turn back get shortcut api and getting a fresh data to load into manage_ui
 . prompt_string, prompt_int, prompt_float
 . re-test all the menu service on the sale page  
 
-
+. route provider to work on the download page with the progress bar
+. import displaying_scan_info_dlg when there is no discount at all( manual/mm/buydown) to hide the total_discount_price and hight light the regular price
+. ng-block and init download database message
 . name search
 . hold
-. receipt pusher
 . tender button
-. mix match deal
-. tax rate / calculate correct out the door
+. receipt pusher
+. non inventory
+. suggest p_type, p_tag
+
 . edit scan
 
     . scan sku hook up create product online
     . scan sku and internet is disconnect create product offline.
-    . i think people would like to click on the price to find out about it, not the product name. change regular price here
-    . work on the detail of ds_info_dlg   
-        . verify buydown        
-        . verify buydown tax
-        . verify crv, how about crv tax
-        . verify out the door
-        . mm deal unit discount -> implement this
 
-  
+    
+. pending_scan should contain sp_doc_id not product_id
+. edit sp inside sale page
+
+
 
 
 

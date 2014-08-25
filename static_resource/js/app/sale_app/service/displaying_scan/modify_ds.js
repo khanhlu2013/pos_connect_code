@@ -28,15 +28,14 @@ define(
         ,Pending_scan
     ){
         return function(index,instruction,ds_lst){
-
             //exe instruction
             if(instruction.is_delete){
                 ds_lst.splice(index,1);
             }else{
                 var ds = ds_lst[index];
-                if(instruction.new_qty!=null){ds.qty = instruction.new_qty;}
-                if(instruction.new_price!=null){ds.override_price = instruction.new_price;}
-                if(instruction.discount!=null){ds.discount = instruction.new_discount;}
+                if(instruction.new_qty!==undefined && instruction.new_qty!==null){ds.qty = instruction.new_qty;}
+                if(instruction.new_price!==undefined){ds.override_price = instruction.new_price;}
+                if(instruction.discount!=undefined){ds.discount = instruction.new_discount;}
             }            
 
             //reforming ps_lst

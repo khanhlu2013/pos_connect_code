@@ -10,13 +10,17 @@ define(
 	angular
 )
 {
-	var mod = angular.module('sp_app.service.duplicate',['sp_app.service.prompt','sp_app/service/api_sp']);
-	mod.factory('sp_app.service.duplicate',
+	var mod = angular.module('sp_app/service/duplicate',
+	[
+		 'sp_app/service/prompt'
+		,'sp_app/service/api_sp'
+	]);
+	mod.factory('sp_app/service/duplicate',
 	[
 		'$http',
 		'$filter',
 		'$q',
-		'sp_app.service.prompt',
+		'sp_app/service/prompt',
 		'sp_app/service/api_sp',
 	function(
 		$http,

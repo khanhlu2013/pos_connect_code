@@ -3,6 +3,7 @@ define(
      'angular'
     ,'pouchdb_raw'
     ,'pouchdb_quick_search'
+    ,'blockUI'    
 ]
 ,function
 (
@@ -17,7 +18,7 @@ define(
     var MY_STORE_ID = STORE_ID;
     //-----------------------------------------------------------------------------
 
-    var mod = angular.module('service/db',[]);
+    var mod = angular.module('service/db',['blockUI']);
 
     mod.factory('service/db/get',function(){
         return function(){
@@ -27,12 +28,15 @@ define(
         }
     });
 
-    mod.factory('service/db/sync',function(){
-        return function(store_id){
+    mod.factory('service/db/sync',function($q,blockUI){
+        return function(store_id/*the benefit of passing store_id here simplify things: we don't need to know where stoer_id comming from*/){
+            var defer = $q.defer();
+            
+            console.log('begin syncing for store_id: ' + store_id);
+            blockUI.start();
             var db_name = MY_STORE_DB_PREFIX + store_id;
             var local_db = new PouchDB(db_name);
             var store_db_url = MY_COUCH_SERVER_URL + '/' + db_name;
-            console.log('store_id: ' + store_id);
             local_db.replicate.from(
                  store_db_url
                 ,{
@@ -44,10 +48,13 @@ define(
                     }
                 }
                 ,function(error,res){
-                    if(error){console.log('sync is done - error callback: ' + error);}
-                    else{console.log('sync is done - response callback: ' + res);}
+                    blockUI.stop();
+                    if(error){defer.reject(error);console.log('sync is done - error callback: ' + error);}
+                    else{defer.resolve(res);console.log('sync is done - response callback: ' + res);}
                 }
             );
+
+            return defer.promise;
         }
     });
 })

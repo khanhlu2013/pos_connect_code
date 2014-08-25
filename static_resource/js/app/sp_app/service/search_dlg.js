@@ -10,14 +10,14 @@ define(
 	angular
 )
 {
-	var mod = angular.module('sp_app.service.search_dlg',
+	var mod = angular.module('sp_app/service/search_dlg',
 	[
 		'share_directive',
 		'sp_app/service/api',
 		'service/misc'
 	]);
 
-	mod.factory('sp_app.service.search_dlg.multiple',
+	mod.factory('sp_app/service/search_dlg/multiple',
 	[
 		'$modal',
 		'sp_app/service/api',
@@ -147,7 +147,14 @@ define(
 		}
 	}]);
 
-	mod.factory('sp_app.service.search_dlg.single',['$modal','sp_app/service/api',function($modal,api){
+	mod.factory('sp_app.service/search_dlg/single',
+	[
+		 '$modal'
+		,'sp_app/service/api'
+	,function(
+		 $modal
+		,api
+	){
 		var template = 
 			'<div class="modal-header">' +
 				'<h3 class="modal-title">search</h3>' +

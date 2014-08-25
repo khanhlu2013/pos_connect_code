@@ -13,7 +13,7 @@ define(
 	angular
 )
 {
-	var mod = angular.module('mix_match_app.service.manage',
+	var mod = angular.module('mix_match_app/service/manage',
 	[
 		'service/ui',
 		'mix_match_app/service/create',
@@ -21,7 +21,7 @@ define(
 		'mix_match_app/service/delete',
 		'mix_match_app/service/api'
 	]);
-	mod.factory('mix_match_app.service.manage',
+	mod.factory('mix_match_app/service/manage',
 	[
 		'$http',
 		'$modal',

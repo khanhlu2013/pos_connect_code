@@ -12,10 +12,28 @@ define(
 	angular
 )
 {
-    var mod = angular.module('sp_app/service/info',['sp_app.service.edit.group','sp_app/service/edit/kit','sp_app.service.edit.sp','sp_app.service.edit.sku']);
+    var mod = angular.module('sp_app/service/info',
+    [
+         'sp_app/service/edit/group'
+        ,'sp_app/service/edit/kit'
+        ,'sp_app/service/edit/sp'
+        ,'sp_app/service/edit/sku'
+    ]);
     
-    mod.factory('sp_app/service/info',['$modal','sp_app.service.edit.group','sp_app/service/edit/kit','sp_app.service.edit.sp','sp_app.service.edit.sku',function ($modal,edit_group,edit_kit,edit_sp,edit_sku)
-    {
+    mod.factory('sp_app/service/info',
+    [
+         '$modal'
+        ,'sp_app/service/edit/group'
+        ,'sp_app/service/edit/kit'
+        ,'sp_app/service/edit/sp'
+        ,'sp_app/service/edit/sku'
+    ,function (
+         $modal
+        ,edit_group
+        ,edit_kit
+        ,edit_sp
+        ,edit_sku
+    ){
         var template =
             '<div id="sp_app/service/info/dialog" class="modal-header">' +
                 '<h3 class="modal-title">Info: {{sp.name}}</h3>' +
@@ -139,7 +157,10 @@ define(
             
             $scope.edit = function(){
                 if($scope.cur_tab == 'product'){
-                    edit_sp($scope.sp);
+                    edit_sp($scope.sp).then(
+                         function(updated_sp){ angular.copy(updated_sp,$scope.sp); }
+                        ,function(reason){ alert_service('alert',reason,'red'); }
+                    )
                 }else if($scope.cur_tab == 'group'){
                     edit_group($scope.sp);
                 }else if($scope.cur_tab == 'kit'){
@@ -163,11 +184,8 @@ define(
             var dlg = $modal.open({
                 template: template,
                 controller: ModalCtrl,
-                // scope:$scope,
                 size: 'lg',
-                resolve : {
-                     sp : function(){return sp}
-                }
+                resolve : { sp : function(){return sp} }
             });
             return dlg.result;
         } 

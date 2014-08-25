@@ -62,6 +62,10 @@ define(
         }
         Displaying_scan.prototype = {
              constructor:Displaying_scan
+            ,get_name:function(){
+                if(this.store_product==null){ return this.non_product_name; }
+                else{ return this.store_product.name }
+            }
             ,get_total_discount: function (tax_rate) {
                 var result = 0.0;
                 if(this.discount){
@@ -89,10 +93,14 @@ define(
                 return this.get_total_discount_price(tax_rate) + this.store_product.get_crv();
             }            
             ,get_buydown_tax: function(tax_rate){
-                if(this.store_product == null || this.store_product.is_taxable == false){
+                if(
+                       this.store_product == null 
+                    || this.store_product.is_taxable == false 
+                    || this.store_product.get_buydown() == null
+                ){
                     return 0;
                 }
-                var result = this.store_product.get_buydown() * tax_rate/100.0
+                return this.store_product.get_buydown() * tax_rate/100.0
             }
             ,get_tax: function(tax_rate){
                 if(this.store_product == null || this.store_product.is_taxable == false){
@@ -102,7 +110,11 @@ define(
             }   
             ,get_otd_wt_price: function(tax_rate){
                 return this.get_otd_wot_price(tax_rate) + this.get_tax(tax_rate) + this.get_buydown_tax(tax_rate);
-            }                     
+            }        
+            ,get_line_total: function(tax_rate){
+                var result =  this.get_otd_wt_price(tax_rate) * this.qty;
+                return result;
+            }                         
         }
         return Displaying_scan;
     }])    
@@ -130,11 +142,11 @@ define(
             } 
             ,get_unit_discount: function(tax_rate){
                 if(this.mm_deal.is_include_crv_tax){
-                    //CALCULATE TOTAL REGULAR PRICE: we are including crv here
+                    //CALCULATE TOTAL REGULAR PRICE: 
                     var total_reg_price = 0.0;
                     for(var i = 0;i<this.formation_ds_lst.length;i++){
                         var ds = this.formation_ds_lst[i];
-                        total_reg_price += (ds.store_product.price + ds.store_product.crv)
+                        total_reg_price += (ds.get_regular_price() + ds.store_product.get_crv())//we DO include crv here
                     }
 
                     //UNIT DISCOUNT
@@ -145,11 +157,11 @@ define(
                     ;
                     return result;
                 }else{
-                    //CALCULATE TOTAL REGULAR PRICE: we are NOT including crv here
+                    //CALCULATE TOTAL REGULAR PRICE: 
                     var total_reg_price = 0.0;
                     for(var i = 0;i<this.formation_ds_lst.length;i++){
                         var ds = this.formation_ds_lst[i];
-                        total_reg_price += ds.store_product.price;
+                        total_reg_price += ds.get_regular_price();//we NOT include crv here
                     }   
 
                     return (total_reg_price - this.mm_deal.mm_price) / this.mm_deal.qty;      

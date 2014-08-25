@@ -8,7 +8,7 @@ exports.config = {
         // './sp_app/main_page_sku_search.js'                          
         // './sp_app/service/create/create_ui_test.js'                 
         // './sp_app/service/create/create_ajax_test.js'               
-        // './sp_app/service/edit/sp.js'                               
+        './sp_app/service/edit/sp.js'                               
         // './sp_app/service/edit/sku.js'     
         // './sp_app/service/edit/group.js'                            
         // './sp_app/service/edit/kit.js'                              
@@ -20,8 +20,8 @@ exports.config = {
 
 
 
-        './sale_app/shortcut_setup_n_usage.spec.js'                        
-
+        // './sale_app/shortcut_setup_n_usage.spec.js'                        
+        // './sale_app/displaying_scan/tender_calculation_4_single_item.spec.js'      
 
     ],
     baseUrl: env.baseUrl,

@@ -13,24 +13,24 @@ define(
     angular
 )
 {
-    var mod = angular.module('group_app.service.manage',
+    var mod = angular.module('group_app/service/manage',
     [
         'service/ui',
-        'group_app.service.edit',
+        'group_app/service/edit',
         'group_app/service/create',
-        'group_app.service.delete',
+        'group_app/service/delete',
         'group_app/service/api'
     ]);
 
-    mod.factory('group_app.service.manage',
+    mod.factory('group_app/service/manage',
         [
             '$modal',
             '$http',
-            'group_app.service.edit',
+            'group_app/service/edit',
             'service/ui/alert',
             'service/ui/confirm',
             'group_app/service/create',
-            'group_app.service.delete',
+            'group_app/service/delete',
             'group_app/service/api',
         function
         (

@@ -93,6 +93,8 @@ TO REMEMBER
         }
 REALIZATION
 -----------
+~. eventhough some operation work synchonously, we can use promise to benefit from the build in data structure of a dictionary of 2 keys: success, fail and each key contain a value
+~. hide implementation detail and expose higher level meaning to model: Eg: sp.is_create_offline() instead of sp.sp_doc_id == null
 ~. make sure receipt in couch is not getting sync down again: magically did not get push down
 ~. encourage user to scan all data first, that way, when the internet is down, the data is already located offline for them. 
 ~. no approve_product on couch = fast loading, simplify project, less code to maintain. only 1 place to lookup for approve_product and that is master.
@@ -362,6 +364,9 @@ SALE APP
     . it said 3 receipts pushing but actually only 1 receipt is pushing
     . sale record report, payment type report
 ------------------------------------------------------------------------------------------------------------------
+. when suggestion data to create product, filter out duplicate and provide a frequency, make sure we also sort this list base on frequency
+. separate extra info for product when promptint proudct info
+. syncing db with/without progress bar option
 . manula discount
 . turn back get shortcut api and getting a fresh data to load into manage_ui
 . prompt_string, prompt_int, prompt_float
@@ -381,14 +386,12 @@ SALE APP
     . scan sku and internet is disconnect create product offline.
 
 . setup global setting should be factor out and sharing between 2 app.
+. localstorage is share amount store number. this make it impossible for 1 user to loging and out between store in one browser. while they don't need to do this in sale page, they should be able to do this at product page. the only way to do this in product page is that product page don't need any local storage. just tell the customer that don't log in and out between sale page. that will crash the soft. well, the only local storage we need is pending scan. any other setting should not be in local storage? verify this.
 
 
 
 
-. scan sku hook up create product online
-    . do i need to clean up code from preprocess.extract_sku_qty
-    . clean up code at controller trying to create sp and scan again
-    . bug try to create sp from another store
+
 
 
 

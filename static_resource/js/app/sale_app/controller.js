@@ -11,12 +11,11 @@ define(
     ,'app/sale_app/service/pending_scan/set_ps_lst'
     ,'app/sale_app/service/displaying_scan/modify_ds'
     ,'app/sale_app/service/displaying_scan/info_dlg'
+    ,'app/sale_app/service/scan/sku_scan_not_found_handler'
     ,'app/shortcut_app/shortcut_ui'
     ,'service/ui'
     ,'service/db'
     ,'blockUI'
-    ,'app/sp_app/service/api/search'
-    ,'app/sp_app/service/create'
 ], function
 (
      angular
@@ -35,12 +34,12 @@ define(
         ,'sale_app/service/pending_scan/set_ps_lst'
         ,'sale_app/service/displaying_scan/modify_ds'
         ,'sale_app/service/displaying_scan/info_dlg'
+        ,'sale_app/service/scan/sku_scan_not_found_handler'
         ,'sale_app/model'
         ,'shortcut_app/shortcut_ui'
         ,'service/ui'
         ,'service/db'
-        ,'sp_app/service/api/search'
-        ,'sp_app/service/create'
+
     ]);
     mod.controller('Sale_page_ctrl', 
     [
@@ -55,14 +54,13 @@ define(
         ,'sale_app/model/Modify_ds_instruction'
         ,'sale_app/service/displaying_scan/modify_ds'
         ,'sale_app/service/displaying_scan/info_dlg'
+        ,'sale_app/service/scan/sku_scan_not_found_handler'
         ,'shortcut_app/shortcut_ui'
         ,'service/ui/alert'
         ,'service/ui/prompt'
         ,'service/db/sync'
         ,'blockUI'   
         ,'sp_app/service/info'    
-        ,'sp_app/service/api/search' 
-        ,'sp_app/service/create'        
     ,function(
          $scope
         ,$rootScope
@@ -75,14 +73,13 @@ define(
         ,Modify_ds_instruction
         ,modify_ds
         ,info_dlg
+        ,sku_scan_not_found_handler
         ,shortcut_ui
         ,alert_service
         ,prompt_service
         ,sync_db_service
         ,blockUI     
         ,sp_info_service   
-        ,search_sp_api   
-        ,create_sp_service     
     ){
         function get_ds_index(ds){
             var index = -1;
@@ -141,7 +138,7 @@ define(
         }
         $scope.edit_sp = function(ds){
             if(ds.store_product == null){return;}
-            if(ds.store_product.product_id == null){alert('edit offline product is under construction');return;}
+            if(ds.store_product.is_create_offline()){alert('edit offline product is under construction');return;} //_TODO_
             var sp_copy = angular.copy(ds.store_product);
             sp_info_service(sp_copy).then(
                 function(){
@@ -174,35 +171,22 @@ define(
         $scope.sku_scan = function(){
             $scope.sku_search_str = $scope.sku_search_str.trim();
             preprocess.exe($scope.sku_search_str).then(
-                 function(data){ append_pending_scan.by_doc_id(data.sp.sp_doc_id,data.qty,null/*non product name*/,null/*override price*/); }
+                 function(data){ 
+                    append_pending_scan.by_doc_id(data.sp.sp_doc_id,data.qty,null/*non product name*/,null/*override price*/); 
+                }
                 ,function(reason){ 
                     if(reason != preprocess.SKU_NOT_FOUND){ alert_service('alert',reason,'red');return; }
-
-                    //SKU NOT FOUND HANDLER
-                    preprocess.extract_qty_sku($scope.sku_search_str).then(
-                        function(data){
-                            var sku = data.sku;var qty = data.qty;
-                            search_sp_api.sku_search(sku).then(
-                                function(data){
-                                    if(data.prod_store__prod_sku__1_1.length == 0){
-                                        var promise = create_sp_service(data.prod_store__prod_sku__0_0,data.prod_store__prod_sku__1_0,$scope.sku_search_str).then
-                                        (
-                                             function(created_sp){ 
-                                                sync_db_service($rootScope.GLOBAL_SETTING.store_id).then(function(){
-                                                    $scope.sku_scan();
-                                                })                                                   
-                                            }
-                                            ,function(reason){alert_service('alert',reason,'red');}
-                                        );
-                                    }else{
-                                        alert('something is wrong. just try to refresh the page and scan again');                                        
-                                    }
-                                }
-                                ,function(reason){ alert_service('alert',reason,'red') }
-                            )
-
-                        }
-                    )
+                    else{ 
+                        //SKU NOT FOUND HANDLER
+                        preprocess.extract_qty_sku($scope.sku_search_str).then(
+                            function(extracted_result){
+                                sku_scan_not_found_handler(extracted_result.sku).then(
+                                     function(created_sp){ sync_db_service($rootScope.GLOBAL_SETTING.store_id).then(function(){$scope.sku_scan();}) }
+                                    ,function(reason){alert_service('alert',reason,'red');}
+                                )
+                            }
+                        )
+                    }
                 }
             )
         }

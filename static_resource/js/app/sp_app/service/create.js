@@ -172,9 +172,8 @@ define(
                         '<div ng-hide="prod_store__prod_sku__0_0.length == 0">' +
                             '<table class="table table-hover table-bordered table-condensed table-striped">' + 
                                 '<tr>' +
-                                    '<caption>product exist from other store. select to import to your store.</caption>' +
                                     '<th>product from other stores</th>' +
-                                    '<th>import</th>' +
+                                    '<th>import to my store</th>' +
                                 '</tr>' +
                                 '<tr ng-repeat="product in prod_store__prod_sku__0_0">' +
                                     '<td>{{product.name}}</td>' +
@@ -183,7 +182,7 @@ define(
                             '</table>' +
                         '</div>' +                                              
                         '<br />' +
-                        '<button class="btn btn-primary" ng-click="create_new()">click me to create new</button>' +
+                        '<button class="btn btn-primary" ng-click="create_new()">if product is not show in list, click here to create new</button>' +
 
                     '</div>' +  
                     '<div class="modal-footer">' +

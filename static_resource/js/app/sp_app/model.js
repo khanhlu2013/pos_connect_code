@@ -61,6 +61,9 @@ define(
         //PULIC METHOD
         Store_product.prototype = {
              constructor : Store_product
+            ,is_create_offline : function(){
+                return this.product_id === null;
+            } 
             ,is_kit : function(){
                 return this.breakdown_assoc_lst.length !=0;
             }

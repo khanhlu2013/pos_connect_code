@@ -135,7 +135,7 @@ define(
             var db = get_db();
             db.allDocs({key:sp_doc_id,include_docs:true}).then(function(lst){
                 if(lst.rows.length == 0){
-                    defer.resolve(null);
+                    defer.reject('error: can not find product in offline database from localstorage\'s pending scan. Click void button and refresh the page to try again');
                 }else if(lst.rows.length > 1){
                     defer.reject('multiple product found for 1 sp_doc_id ' + sp_doc_id);
                 }else{

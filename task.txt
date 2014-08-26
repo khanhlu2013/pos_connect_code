@@ -386,8 +386,13 @@ SALE APP
     . scan sku and internet is disconnect create product offline.
 
 . setup global setting should be factor out and sharing between 2 app.
-. localstorage is share amount store number. this make it impossible for 1 user to loging and out between store in one browser. while they don't need to do this in sale page, they should be able to do this at product page. the only way to do this in product page is that product page don't need any local storage. just tell the customer that don't log in and out between sale page. that will crash the soft. well, the only local storage we need is pending scan. any other setting should not be in local storage? verify this.
+. display tax_rate in scan/displaying_scan/info_dlg
+. do we need to use 3rd party to manage local storage.
 
+
+
+. localstorage is share between stores. this make it impossible for 1 user to loging and out between store in one browser. while they don't need to do this in sale page, they should be able to do this at product page. the only way to do this in product page is that product page don't need any local storage. just tell the customer that don't log in and out between sale page. that will crash the soft. well, the only local storage we need is pending scan. any other setting should not be in local storage? verify this.
+    . in order to do this i want to clear out any local storage access. it time we clean out old sj app. 
 
 
 

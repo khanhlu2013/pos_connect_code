@@ -10,8 +10,23 @@ define(
     angular
 )
 {
-    var mod = angular.module('sp_app/service/api',['sp_app/model','product_app/model']);
-    mod.factory('sp_app/service/api',['$http','$q','sp_app/model/Store_product','product_app/model/Product',function($http,$q,Store_product,Product){
+    var mod = angular.module('sp_app/service/api/search',
+    [
+         'sp_app/model'
+        ,'product_app/model'
+    ]);
+    mod.factory('sp_app/service/api/search',
+    [
+         '$http'
+        ,'$q'
+        ,'sp_app/model/Store_product'
+        ,'product_app/model/Product'
+    ,function(
+         $http
+        ,$q
+        ,Store_product
+        ,Product
+    ){
         return {
             name_search: function(name_search_str){
                 name_search_str = name_search_str.trim();

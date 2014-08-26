@@ -9,11 +9,11 @@ define(
     angular
 )
 {
-    var mod = angular.module('sp_app/service/api_sp',
+    var mod = angular.module('sp_app/service/api/crud',
     [
          'sp_app/model'
     ]);
-    mod.factory('sp_app/service/api_sp',
+    mod.factory('sp_app/service/api/crud',
     [
          '$http'
         ,'$q'
@@ -58,7 +58,7 @@ define(
 
     		update : function(sp){
 				var promise_ing =  $http({
-					url:'product/update_sp_angular',
+					url:'/product/update_sp_angular',
 					method: 'POST',
 					data:{sp:JSON.stringify(sp)}
 				});

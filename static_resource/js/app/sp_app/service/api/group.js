@@ -1,7 +1,7 @@
 define(
 [
     'angular'
-    //
+    //-------
     ,'app/sp_app/model'
 ]
 ,function
@@ -9,8 +9,20 @@ define(
     angular
 )
 {
-    var mod = angular.module('sp_app/service/api_group',['sp_app/model']);
-    mod.factory('sp_app/service/api_group',['$http','$q','sp_app/model/Store_product',function($http,$q,Store_product){
+    var mod = angular.module('sp_app/service/api/group',
+    [
+        'sp_app/model'
+    ]);
+    mod.factory('sp_app/service/api/group',
+    [
+         '$http'
+        ,'$q'
+        ,'sp_app/model/Store_product'
+    ,function(
+         $http
+        ,$q
+        ,Store_product
+    ){
         return{
             update : function(sp){
                 //update sp's group

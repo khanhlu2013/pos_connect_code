@@ -15,7 +15,8 @@ define(
     ,'service/ui'
     ,'service/db'
     ,'blockUI'
-
+    ,'app/sp_app/service/api/search'
+    ,'app/sp_app/service/create'
 ], function
 (
      angular
@@ -38,6 +39,8 @@ define(
         ,'shortcut_app/shortcut_ui'
         ,'service/ui'
         ,'service/db'
+        ,'sp_app/service/api/search'
+        ,'sp_app/service/create'
     ]);
     mod.controller('Sale_page_ctrl', 
     [
@@ -57,7 +60,9 @@ define(
         ,'service/ui/prompt'
         ,'service/db/sync'
         ,'blockUI'   
-        ,'sp_app/service/info'     
+        ,'sp_app/service/info'    
+        ,'sp_app/service/api/search' 
+        ,'sp_app/service/create'        
     ,function(
          $scope
         ,$rootScope
@@ -75,7 +80,9 @@ define(
         ,prompt_service
         ,sync_db_service
         ,blockUI     
-        ,sp_info_service           
+        ,sp_info_service   
+        ,search_sp_api   
+        ,create_sp_service     
     ){
         function get_ds_index(ds){
             var index = -1;
@@ -134,8 +141,15 @@ define(
         }
         $scope.edit_sp = function(ds){
             if(ds.store_product == null){return;}
-            if(ds.store_product)
-            sp_info_service(ds.store_product);
+            if(ds.store_product.product_id == null){alert('edit offline product is under construction');return;}
+            var sp_copy = angular.copy(ds.store_product);
+            sp_info_service(sp_copy).then(
+                function(){
+                    sync_db_service($rootScope.GLOBAL_SETTING.store_id).then(function(){
+                        $scope.refresh_ds();
+                    })                    
+                }
+            )
         }
         $scope.void = function(){
             set_ps_lst([]);
@@ -143,10 +157,11 @@ define(
         $scope.exe_shortcut_child = function(row,col){
             var child_shortcut = shortcut_ui.get_child_of_cur_parent(row,col,$scope);
             if(child_shortcut == null){ return; }
-            append_pending_scan(child_shortcut.store_product.product_id,1/*qty*/,null/*non product name*/,null/*override price*/)
+            
+            append_pending_scan.by_product_id(child_shortcut.store_product.product_id,1/*qty*/,null/*non product name*/,null/*override price*/);
         }
         $scope.refresh_ds = function(){
-            console.log('refresh ds lst called...');
+            console.log('refresh ds lst ...');
             blockUI.start();
             calculate_ds(get_ps_lst(),$rootScope.GLOBAL_SETTING.mix_match_lst).then(
                  function(data){
@@ -158,11 +173,37 @@ define(
         }
         $scope.sku_scan = function(){
             $scope.sku_search_str = $scope.sku_search_str.trim();
-            preprocess($scope.sku_search_str).then(
-                function(data){
-                    append_pending_scan(data.sp.product_id,data.qty,null/*non product name*/,null/*override price*/);
+            preprocess.exe($scope.sku_search_str).then(
+                 function(data){ append_pending_scan.by_doc_id(data.sp.sp_doc_id,data.qty,null/*non product name*/,null/*override price*/); }
+                ,function(reason){ 
+                    if(reason != preprocess.SKU_NOT_FOUND){ alert_service('alert',reason,'red');return; }
+
+                    //SKU NOT FOUND HANDLER
+                    preprocess.extract_qty_sku($scope.sku_search_str).then(
+                        function(data){
+                            var sku = data.sku;var qty = data.qty;
+                            search_sp_api.sku_search(sku).then(
+                                function(data){
+                                    if(data.prod_store__prod_sku__1_1.length == 0){
+                                        var promise = create_sp_service(data.prod_store__prod_sku__0_0,data.prod_store__prod_sku__1_0,$scope.sku_search_str).then
+                                        (
+                                             function(created_sp){ 
+                                                sync_db_service($rootScope.GLOBAL_SETTING.store_id).then(function(){
+                                                    $scope.sku_scan();
+                                                })                                                   
+                                            }
+                                            ,function(reason){alert_service('alert',reason,'red');}
+                                        );
+                                    }else{
+                                        alert('something is wrong. just try to refresh the page and scan again');                                        
+                                    }
+                                }
+                                ,function(reason){ alert_service('alert',reason,'red') }
+                            )
+
+                        }
+                    )
                 }
-                ,function(reason){ alert_service('alert',reason,'red');}
             )
         }
         $scope.search = function(){

@@ -20,7 +20,7 @@ define(
 	mod.factory('group_app/service/prompt',
 	[
 		 '$modal'
-		,'sp_app/service.search_dlg/multiple'
+		,'sp_app/service/search_dlg/multiple'
 		,'service/ui/alert'
 		,'service/misc'
 	,function(

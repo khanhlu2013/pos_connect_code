@@ -9,7 +9,7 @@ define(
     ,'directive/share_directive'    
     ,'service/ui'
     ,'app/sp_app/service/convert'
-    ,'app/sp_app/service/api'
+    ,'app/sp_app/service/api/search'
     ,'blockUI'
 ], function 
 (
@@ -26,7 +26,7 @@ define(
         'share_directive',
         'service/ui',
         'sp_app/service/convert',
-        'sp_app/service/api',
+        'sp_app/service/api/search',
         'blockUI'
     ]);
 
@@ -42,7 +42,7 @@ define(
         'service/ui/alert',
         'service/ui/confirm',
         'sp_app/service/convert/lst',
-        'sp_app/service/api',
+        'sp_app/service/api/search',
         'blockUI',
 
     function(

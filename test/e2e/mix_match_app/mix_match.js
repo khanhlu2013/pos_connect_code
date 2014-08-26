@@ -71,7 +71,7 @@ describe('group_app/service/create', function() {
         lib.ui.click(mm_manage_exit_btn);
 
         //lets comeback and verify the creation info
-        lib.ui.click(element(by.id('sp_app/menu/setting')));
+        lib.ui.click(element(by.id('sp_app/menu/setting'))); //->fail
         lib.ui.click(element(by.id('sp_app/menu/setting/mix_match')));        
         var mm_lst = element.all(by.repeater('mm in mm_lst'));
         expect(mm_lst.count()).toEqual(1);

@@ -3,7 +3,7 @@ define(
 	'angular'
 	//------
 	,'app/sp_app/service/search_dlg'
-    ,'app/sp_app/service/api_kit'
+    ,'app/sp_app/service/api/kit'
     ,'service/ui'
 ]
 ,function
@@ -14,7 +14,7 @@ define(
 	var mod = angular.module('sp_app/service/edit/kit',
     [
          'sp_app/service/search_dlg'
-        ,'sp_app/service/api_kit'
+        ,'sp_app/service/api/kit'
         ,'service/ui'
     ]);
 
@@ -22,7 +22,7 @@ define(
     [
         '$modal',
         'sp_app/service/edit/kit/prompt',
-        'sp_app/service/api_kit',
+        'sp_app/service/api/kit',
         'service/ui/alert',
     function(
         $modal,
@@ -136,11 +136,11 @@ define(
 
     mod.factory('sp_app/service/edit/kit/prompt',
     [
-        '$modal',
-        'sp_app/service/search_dlg/single',
-    function(
-        $modal,
-        search_single_service
+         '$modal'
+        ,'sp_app/service/search_dlg/single'
+    ,function(
+         $modal
+        ,search_single_service
     ){
         var template = 
             '<div class="modal-header">' +

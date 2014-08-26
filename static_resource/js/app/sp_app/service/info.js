@@ -6,6 +6,7 @@ define(
     ,'app/sp_app/service/edit/kit'   
     ,'app/sp_app/service/edit/sku'      
     ,'app/sp_app/service/edit/sp'       
+    ,'service/ui'
 ]
 ,function
 (
@@ -18,6 +19,7 @@ define(
         ,'sp_app/service/edit/kit'
         ,'sp_app/service/edit/sp'
         ,'sp_app/service/edit/sku'
+        ,'service/ui'
     ]);
     
     mod.factory('sp_app/service/info',
@@ -27,12 +29,14 @@ define(
         ,'sp_app/service/edit/kit'
         ,'sp_app/service/edit/sp'
         ,'sp_app/service/edit/sku'
+        ,'service/ui/alert'
     ,function (
          $modal
         ,edit_group
         ,edit_kit
         ,edit_sp
         ,edit_sku
+        ,alert_service
     ){
         var template =
             '<div id="sp_app/service/info/dialog" class="modal-header">' +

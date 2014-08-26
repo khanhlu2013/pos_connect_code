@@ -74,7 +74,7 @@ module.exports = {
             var data = { sp:sp,sku:sku };
 
             return browser.executeAsyncScript(function(data,callback) {
-                var api = angular.injector(['ng','service/csrf','sp_app/service/api_sp']).get('sp_app/service/api_sp');
+                var api = angular.injector(['ng','service/csrf','sp_app/service/api/crud']).get('sp_app/service/api/crud');
                 api.insert_new(data.sp,data.sku).then(function(data){callback(data);} )
             },data)
         },
@@ -84,7 +84,7 @@ module.exports = {
             var data = {product_id:product_id,sku:sku,sp:sp };
 
             return browser.executeAsyncScript(function(data,callback) {
-                var api = angular.injector(['ng','service/csrf','sp_app/service/api_sp']).get('sp_app/service/api_sp');
+                var api = angular.injector(['ng','service/csrf','sp_app/service/api/crud']).get('sp_app/service/api/crud');
                 api.insert_old(data.product_id,data.sku,data.sp).then(function(data){callback(data);});
             },data)
         },
@@ -92,7 +92,7 @@ module.exports = {
         add_sku : function(product_id,sku){
             var data = {product_id:product_id,sku:sku};
             return browser.executeAsyncScript(function(data,callback){
-                var api = angular.injector(['ng','service/csrf','sp_app/service/api_sku']).get('sp_app/service/api_sku');
+                var api = angular.injector(['ng','service/csrf','sp_app/service/api/sku']).get('sp_app/service/api/sku');
                 api.add_sku(data.product_id,data.sku).then(function(data){callback(data);});
             },data)
         }        

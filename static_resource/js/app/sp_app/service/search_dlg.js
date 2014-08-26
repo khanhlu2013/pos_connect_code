@@ -2,7 +2,7 @@ define(
 [
 	 'angular'
     ,'directive/share_directive'       
-    ,'app/sp_app/service/api'
+    ,'app/sp_app/service/api/search'
     ,'service/misc'
 ]
 ,function
@@ -13,14 +13,14 @@ define(
 	var mod = angular.module('sp_app/service/search_dlg',
 	[
 		'share_directive',
-		'sp_app/service/api',
+		'sp_app/service/api/search',
 		'service/misc'
 	]);
 
 	mod.factory('sp_app/service/search_dlg/multiple',
 	[
 		'$modal',
-		'sp_app/service/api',
+		'sp_app/service/api/search',
 		'service/misc',
 	function(
 		$modal,
@@ -147,10 +147,10 @@ define(
 		}
 	}]);
 
-	mod.factory('sp_app.service/search_dlg/single',
+	mod.factory('sp_app/service/search_dlg/single',
 	[
 		 '$modal'
-		,'sp_app/service/api'
+		,'sp_app/service/api/search'
 	,function(
 		 $modal
 		,api

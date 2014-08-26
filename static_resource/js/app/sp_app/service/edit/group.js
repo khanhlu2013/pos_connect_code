@@ -3,7 +3,7 @@ define(
 	'angular'
 	//---
     ,'app/group_app/service/search_dlg'
-    ,'app/sp_app/service/api_group'
+    ,'app/sp_app/service/api/group'
     ,'service/ui'
     ,'service/misc'
 ]
@@ -16,7 +16,7 @@ define(
     [
          'group_app/service/search_dlg'
         ,'service/ui'
-        ,'sp_app/service/api_group'
+        ,'sp_app/service/api/group'
         ,'service/misc'
     ])
 
@@ -25,7 +25,7 @@ define(
          '$modal'
         ,'group_app/service/search_dlg/multiple'
         ,'service/ui/alert'
-        ,'sp_app/service/api_group'
+        ,'sp_app/service/api/group'
         ,'service/misc'
     ,function(
          $modal

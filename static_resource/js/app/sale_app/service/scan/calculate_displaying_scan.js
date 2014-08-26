@@ -84,8 +84,8 @@ define(
             for(var i = 0;i<ps_lst.length;i++){
                 var cur_ps = ps_lst[i];
                 var associated_sp = null;
-                if(cur_ps.product_id != null){
-                    associated_sp = misc_service.get_item_from_lst_base_on_property('product_id'/*property*/,cur_ps.product_id/*value*/,sp_distinct_lst);
+                if(cur_ps.sp_doc_id != null){
+                    associated_sp = misc_service.get_item_from_lst_base_on_property('sp_doc_id'/*property*/,cur_ps.sp_doc_id/*value*/,sp_distinct_lst);
                 }
 
                 for(j=0;j<cur_ps.qty;j++){
@@ -177,26 +177,26 @@ define(
                 }
             }        
         }      
-        function get_distinct_pid_from_ps_lst(ps_lst){
+        function get_distinct_doc_id_from_ps_lst(ps_lst){
             var result = [];
             for(var i = 0;i<ps_lst.length;i++){
-                if(ps_lst[i].product_id !=null ){
-                    if(misc_service.get_item_from_lst_base_on_property('product_id'/*property*/,ps_lst[i].product_id/*value*/,result/*lst*/) == null){
-                        result.push(ps_lst[i].product_id);
-                    }                    
+                var cur_sp_doc_id = ps_lst[i].sp_doc_id;
+                if(cur_sp_doc_id !=null ){
+                    if(result.indexOf(cur_sp_doc_id) == -1 ){
+                        result.push(ps_lst[i].sp_doc_id);
+                    }
                 }
 
             }
             return result;
         }  
-        function search_sp_base_on_pid_lst(pid_lst){
+        function search_sp_base_on_ps_lst(ps_lst){
+            var doc_id_lst = get_distinct_doc_id_from_ps_lst(ps_lst);
             var defer = $q.defer();
-
             var promise_lst = [];
-            for(var i = 0;i<pid_lst.length;i++){
-                promise_lst.push(search_sp(pid_lst[i]));
+            for(var i = 0;i<doc_id_lst.length;i++){
+                promise_lst.push(search_sp.by_sp_doc_id(doc_id_lst[i]));
             }      
-
             $q.all(promise_lst).then(
                  function(sp_lst){ defer.resolve(sp_lst); }
                 ,function(reason){ defer.reject(reason); }
@@ -212,8 +212,7 @@ define(
             })
             var defer = $q.defer();
 
-            var pid_lst = get_distinct_pid_from_ps_lst(ps_lst);
-            search_sp_base_on_pid_lst(pid_lst).then(
+            search_sp_base_on_ps_lst(ps_lst).then(
                  function(sp_distinct_lst){
                     var possible_mm_lst = get_posible_deal_from_sp_lst(sp_distinct_lst,mm_lst);
                     var ds_extract_lst = form_ds_extract(ps_lst,sp_distinct_lst);

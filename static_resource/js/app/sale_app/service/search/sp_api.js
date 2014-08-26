@@ -1,3 +1,11 @@
+/*
+    INTRO:
+        In offline world, because of offline-created Store_product does not contain product_id, we use sp_doc_id as an alternative identifier
+
+    PURPOSE:
+        This file provide a service to search Store_product offline within pouchdb and its breakdown_assoc_lst (recursively) based on sp_doc_id or product_id
+*/
+
 define(
 [
      'angular'
@@ -17,7 +25,7 @@ define(
         ,'sp_app/model'
         ,'product_app/model'
     ]);
-    /* search pouchdb for sp and sp.breakdown_assoc_lst (recursively) */
+
     mod.factory('sale_app/service/search/sp_api',
     [
          '$q'
@@ -35,6 +43,7 @@ define(
         ,Prod_sku_assoc
     ){
         function get_sp_from_sp_lst_base_on_pid(pid,sp_lst){
+            //_TODO_
             var ret = null;
             for(var i = 0;i<sp_lst.length;i++){
                 if(sp_lst[i].product_id==pid){
@@ -88,11 +97,12 @@ define(
                 ,null//group_lst
                 ,breakdown_assoc_lst
                 ,null//kit_assoc_lst                            
+                ,sp_couch._id
             );
             return sp;
         }
 
-        function exe(product_id){
+        function by_product_id(product_id){
             var defer = $q.defer();
 
             var db = get_db();
@@ -118,7 +128,37 @@ define(
             });
             return defer.promise; 
         }
+        
+        function by_sp_doc_id(sp_doc_id){
+            var defer = $q.defer();
 
-        return exe;
+            var db = get_db();
+            db.allDocs({key:sp_doc_id,include_docs:true}).then(function(lst){
+                if(lst.rows.length == 0){
+                    defer.resolve(null);
+                }else if(lst.rows.length > 1){
+                    defer.reject('multiple product found for 1 sp_doc_id ' + sp_doc_id);
+                }else{
+                    var sp_couch = lst.rows[0].doc;
+                    if(sp_couch.breakdown_assoc_lst.length == 0){
+                        defer.resolve(create_sp(sp_couch,[]/*breakdown assoc lst*/));
+                    }else{
+                        var promise_lst = [];
+                        for(var i = 0;i<sp_couch.breakdown_assoc_lst.length;i++){
+                            promise_lst.push(by_product_id(sp_couch.breakdown_assoc_lst[i].product_id))
+                        }
+                        $q.all(promise_lst).then(function(data){
+                            defer.resolve(create_sp(sp_couch,data));
+                        })
+                    }
+                }
+            });
+            return defer.promise; 
+        }
+
+        return{
+             by_sp_doc_id : by_sp_doc_id
+            ,by_product_id :by_product_id
+        }
     }])
 })

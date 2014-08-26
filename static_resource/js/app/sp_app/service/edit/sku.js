@@ -3,7 +3,7 @@ define(
 	'angular'
 	//------------
 	,'service/ui'
-	,'app/sp_app/service/api_sku'
+	,'app/sp_app/service/api/sku'
 ]
 ,function
 (
@@ -13,7 +13,7 @@ define(
 	var mod = angular.module('sp_app/service/edit/sku',
 	[
 		'service/ui',
-		'sp_app/service/api_sku'
+		'sp_app/service/api/sku'
 	]);
 	mod.factory('sp_app/service/edit/sku',
 	[
@@ -23,7 +23,7 @@ define(
 		'service/ui/confirm',
 		'service/ui/alert',
 		'service/ui/prompt',
-		'sp_app/service/api_sku',
+		'sp_app/service/api/sku',
 	function(
 		$modal,
 		$http,

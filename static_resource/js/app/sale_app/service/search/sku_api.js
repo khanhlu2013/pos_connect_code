@@ -15,7 +15,16 @@ define(
          'service/db'
         ,'sale_app/service/search/sp_api'
     ]);
-    mod.factory('sale_app/service/search/sku_api',['$q','service/db/get','sale_app/service/search/sp_api',function($q,get_db,search_sp){
+    mod.factory('sale_app/service/search/sku_api',
+    [
+         '$q'
+        ,'service/db/get'
+        ,'sale_app/service/search/sp_api'
+    ,function(
+         $q
+        ,get_db
+        ,search_sp
+    ){
         return function(sku){
             var defer = $q.defer();
             var return_lst = [];
@@ -24,7 +33,7 @@ define(
             var db = get_db();
             db.query('views/by_sku',{key:sku}).then(function(result){
                 for(var i=0;i<result.rows.length;i++){
-                    promise_lst.push(search_sp(result.rows[i].value.product_id));
+                    promise_lst.push(search_sp.by_sp_doc_id(result.rows[i].value._id));
                 }
 
                 $q.all(promise_lst).then(

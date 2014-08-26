@@ -5,6 +5,7 @@ define(
     ,'app/sale_app/service/pending_scan/get_ps_lst'
     ,'app/sale_app/service/pending_scan/set_ps_lst'
     ,'app/sale_app/model'
+    ,'app/sale_app/service/search/sp_api'
 ]
 ,function
 (
@@ -16,22 +17,38 @@ define(
          'sale_app/service/pending_scan/get_ps_lst'
         ,'sale_app/service/pending_scan/set_ps_lst'
         ,'sale_app/model'
+        ,'sale_app/service/search/sp_api'
     ]);
     mod.factory('sale_app/service/scan/append_pending_scan',
     [   
-         'sale_app/service/pending_scan/get_ps_lst'
+         '$q'
+        ,'sale_app/service/pending_scan/get_ps_lst'
         ,'sale_app/service/pending_scan/set_ps_lst'
         ,'sale_app/model/Pending_scan'
-        ,'$localStorage'
+        ,'sale_app/service/search/sp_api'
     ,function(
-         get_ps_lst
+         $q
+        ,get_ps_lst
         ,set_ps_lst
         ,Pending_scan
+        ,search_sp
     ){
-        return function(product_id,qty,non_product_name,override_price){
+        function by_product_id(product_id,qty,non_product_name,override_price){
+            var defer = $q.defer();
+            search_sp.by_product_id(product_id).then(
+                 function(sp){
+                    var ps_lst = by_doc_id(sp.sp_doc_id,qty,non_product_name,override_price);
+                    defer.resolve(ps_lst); 
+                }
+                ,function(reason){return $q.reject(reason)}
+            )
+            return defer.promise;
+        }
+
+        function by_doc_id(ps_doc_id,qty,non_product_name,override_price){
             var ps_lst = get_ps_lst();
             var ps = new Pending_scan(
-                 product_id
+                 ps_doc_id
                 ,non_product_name
                 ,qty
                 ,override_price
@@ -44,7 +61,7 @@ define(
                     ps_lst.push(ps);
                 }else{
                     var last_ps = ps_lst[ps_lst.length-1];
-                    if(last_ps.product_id === product_id && last_ps.override_price === override_price){
+                    if(last_ps.ps_doc_id === ps_doc_id && last_ps.override_price === override_price){
                         last_ps.qty += qty;
                     }else{
                         ps_lst.push(ps);
@@ -53,6 +70,11 @@ define(
             }
             set_ps_lst(ps_lst);
             return ps_lst;
+        }
+
+        return{
+             by_product_id : by_product_id
+            ,by_doc_id : by_doc_id
         }
     }])
 })

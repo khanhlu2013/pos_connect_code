@@ -106,15 +106,14 @@ define(
 					)
 				}
 				$scope.edit = function(mm){
-					var promise = edit_service(mm);
-					promise.then(
+					edit_service(mm).then(
 						 function(data){ angular.copy(data,mm); }
 						,function(reason){ alert_service('alert',reason,'red');}
 					)
 				}
 				$scope.exit = function(){ 
-					$rootScope.GLOBAL_SETTING.mix_match_lst = $scope.mm_lst;
-					$modalInstance.close();
+					if($rootScope.GLOBAL_SETTING !== undefined){ $rootScope.GLOBAL_SETTING.mix_match_lst = $scope.mm_lst; }
+ 					$modalInstance.close();
 				}
 			}
 

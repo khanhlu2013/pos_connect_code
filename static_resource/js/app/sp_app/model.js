@@ -34,7 +34,8 @@ define(
             product,
             group_lst,
             breakdown_assoc_lst,
-            kit_assoc_lst
+            kit_assoc_lst,
+            sp_doc_id
         ){
             this.id = id;
             this.product_id = product_id;
@@ -54,6 +55,7 @@ define(
             this.group_lst = group_lst;
             this.breakdown_assoc_lst = breakdown_assoc_lst;
             this.kit_assoc_lst = kit_assoc_lst;
+            this.sp_doc_id = sp_doc_id;
         }
 
         //PULIC METHOD
@@ -269,44 +271,3 @@ define(
         return Kit_breakdown_assoc;
     }])
 })
-
-/*
-sp json
-{
-    "id":272597,
-    "product_id":369491,
-    "product":
-    {
-        "prodskuassoc_set":
-        [
-            {
-                "sku_str":"082184083062",
-                "store_set":[221],
-                "creator_id":null,
-                "product_id":369491
-            },
-            {
-                "sku_str":"082184038710",
-                "store_set":[],
-                "creator_id":null,
-                "product_id":369491
-            }
-        ]
-    },
-    "store_id":221,
-    "name":"Gentleman Jack 375",
-    "price":14.99,
-    "value_customer_price":null,
-    "crv":0,
-    "is_taxable":true,
-    "is_sale_report":true,
-    "p_type":"Liquor",
-    "p_tag":null,
-    "cost":10.93,
-    "vendor":"coles",
-    "buydown":null,
-    "group_lst":[],
-    "breakdown_assoc_lst":[],
-    "kit_assoc_lst":[]
-}
-*/

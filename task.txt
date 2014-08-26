@@ -376,27 +376,19 @@ SALE APP
 . receipt pusher
 . non inventory
 . suggest p_type, p_tag
-
+. an interface to edit product offline
 . edit scan
-
-    . scan sku hook up create product online
     . scan sku and internet is disconnect create product offline.
 
-    
-. pending_scan should contain sp_doc_id not product_id
-. edit sp inside sale page
+. setup global setting should be factor out and sharing between 2 app.
 
 
 
 
-
-
-
-
-
-
-
-
+. scan sku hook up create product online
+    . do i need to clean up code from preprocess.extract_sku_qty
+    . clean up code at controller trying to create sp and scan again
+    . bug try to create sp from another store
 
 
 

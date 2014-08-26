@@ -11,13 +11,13 @@ define(
     mod.factory('sale_app/model/Pending_scan',[function(){
         //CONSTRUCTOR
         function Pending_scan(
-             product_id
+             sp_doc_id
             ,non_product_name
             ,qty
             ,override_price
             ,discount
         ){
-            this.product_id = product_id;
+            this.sp_doc_id = sp_doc_id;
             this.non_product_name = non_product_name;
             this.qty = qty;
             this.override_price = override_price;

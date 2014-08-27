@@ -24,7 +24,6 @@ requirejs.config({
         ,'ngTable'                  : { deps    : ['angular'] } 
         ,'pouchdb_quick_search'     : { deps    : ['pouchdb_raw'] } 
         ,'blockUI'                  : { deps    : ['angular']}         
-        ,'lib/ngStorage'            : { deps    : ['angular']}
     }
     ,deps : ['app/sale_app/bootstrap']
 });

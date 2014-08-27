@@ -5,6 +5,12 @@ from store_product.models import Store_product
 from sale_shortcut import sale_shortcut_serializer,shortcut_getter
 from django.core.serializers.json import DjangoJSONEncoder
 
+def get_view(request):
+    cur_login_store = request.session.get('cur_login_store')
+    shortcut_lst = shortcut_getter.get_shorcut_lst(cur_login_store.id)
+    lst_serialized = sale_shortcut_serializer.serialize_shortcut_lst(shortcut_lst)
+    return HttpResponse(json.dumps(lst_serialized,cls=DjangoJSONEncoder), mimetype='application/json')
+    
 def create_parent_angular_view(request):
     position = int(request.POST['position']) #if i don't convert this to int(since we don't json.loads here, POST data will be received as string), then eventhough it will create just fine on master db, when we serialized this obj, it return a string position which will cause issue on the client side.
     caption = request.POST['caption']

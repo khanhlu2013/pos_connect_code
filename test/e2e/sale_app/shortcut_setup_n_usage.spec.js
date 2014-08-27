@@ -60,6 +60,7 @@ describe('sale_app/shortcut/setup_n_usage', function() {
         lib.api.insert_new(sku_1,product_name_1);
         lib.api.insert_new(sku_2,product_name_2);                    
         browser.get(posUrl);
+        ptor.sleep(1000);//wait for pouchdb to download the db
 
         //create 2 shortcut
         var folder_1_name = 'folder 1';

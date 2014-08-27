@@ -32,9 +32,10 @@ define(
 
     mod.controller('MainCtrl',
     [
-        '$scope',
-        '$filter',
         '$window',
+        '$scope',
+        '$rootScope',
+        '$filter',
         '$q',
         'sp_app/service/info',
         'sp_app/service/create',
@@ -46,9 +47,10 @@ define(
         'blockUI',
 
     function(
-        $scope,
-        $filter,
         $window,
+        $scope,
+        $rootScope,
+        $filter,
         $q,
         sp_info_service,
         create_service,
@@ -148,7 +150,7 @@ define(
 
         function is_db_exist(){
             var defer = $q.defer();
-            var db_name = '_pouch_' + STORE_DB_PREFIX + STORE_ID;
+            var db_name = '_pouch_' + $rootScope.GLOBAL_SETTING.store_db_prefix + $rootScope.GLOBAL_SETTING.store_id;
             var request = indexedDB.open(db_name);
 
             request.onupgradeneeded = function (e){

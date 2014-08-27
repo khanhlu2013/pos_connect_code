@@ -8,17 +8,12 @@ define(
 )
 {
     var mod = angular.module('shortcut_app/shortcut_ui',[]);
-    mod.factory('shortcut_app/shortcut_ui',[function(){
-        //conf and init
-        var ROW_COUNT = 5;
-        var COL_COUNT = 3;
-
-        //function
+    mod.factory('shortcut_app/shortcut_ui',['$rootScope',function($rootScope){
         function init($scope){
 
-            $scope.shortcut_lst = SHORTCUT_LST/*a global setting variable*/;            
-            $scope.row_count = ROW_COUNT;
-            $scope.column_count = COL_COUNT;                
+            $scope.shortcut_lst = $rootScope.GLOBAL_SETTING.shortcut_lst;          
+            $scope.row_count = $rootScope.GLOBAL_SETTING.shortcut_row_count;
+            $scope.column_count = $rootScope.GLOBAL_SETTING.shortcut_column_count;              
             $scope.current_parent_pos = 0;
             $scope.col_lst = [];for(var i = 0;i<$scope.column_count;i++){ $scope.col_lst.push(i);}
             $scope.row_lst = [];for(var i = 0;i<$scope.row_count;i++){ $scope.row_lst.push(i);}

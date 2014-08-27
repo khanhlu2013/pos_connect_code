@@ -93,6 +93,7 @@ TO REMEMBER
         }
 REALIZATION
 -----------
+~. tell the customer not to login and out of sale page. product page is fine since they don't have local storage
 ~. eventhough some operation work synchonously, we can use promise to benefit from the build in data structure of a dictionary of 2 keys: success, fail and each key contain a value
 ~. hide implementation detail and expose higher level meaning to model: Eg: sp.is_create_offline() instead of sp.sp_doc_id == null
 ~. make sure receipt in couch is not getting sync down again: magically did not get push down
@@ -385,14 +386,15 @@ SALE APP
 . edit scan
     . scan sku and internet is disconnect create product offline.
 
-. setup global setting should be factor out and sharing between 2 app.
+
 . display tax_rate in scan/displaying_scan/info_dlg
 . do we need to use 3rd party to manage local storage.
+. receipt report having issue: angular infinite watch
+. is it cleaner to have blockUI to be include in each module that need that include in the app?
+. revisit the god damn css.map stuff
 
 
-
-. localstorage is share between stores. this make it impossible for 1 user to loging and out between store in one browser. while they don't need to do this in sale page, they should be able to do this at product page. the only way to do this in product page is that product page don't need any local storage. just tell the customer that don't log in and out between sale page. that will crash the soft. well, the only local storage we need is pending scan. any other setting should not be in local storage? verify this.
-    . in order to do this i want to clear out any local storage access. it time we clean out old sj app. 
+ 
 
 
 

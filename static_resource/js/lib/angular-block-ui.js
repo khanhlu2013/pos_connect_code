@@ -476,4 +476,3 @@ angular.module('blockUI').run(['$templateCache', function($templateCache){
   $templateCache.put('angular-block-ui/angular-block-ui.ng.html', '<div ng-show=\"state.blockCount > 0\" class=\"block-ui-overlay\" ng-class=\"{ \'block-ui-visible\': state.blocking }\"></div><div ng-show=\"state.blocking\" class=\"block-ui-message-container\" aria-live=\"assertive\" aria-atomic=\"true\"><div class=\"block-ui-message\">{{ state.message }}</div></div>');
 }]);
 })(angular);
-//# sourceMappingURL=angular-block-ui.js.map

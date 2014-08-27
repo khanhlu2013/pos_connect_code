@@ -7,6 +7,7 @@ define(
     ,'app/shortcut_app/service/create'
     ,'app/shortcut_app/service/set_child'
     ,'app/shortcut_app/shortcut_ui'
+    ,'app/shortcut_app/service/api'
 ]
 ,function
 (
@@ -20,6 +21,7 @@ define(
         ,'shortcut_app/service/create'
         ,'shortcut_app/service/set_child'
         ,'shortcut_app/shortcut_ui'
+        ,'shortcut_app/service/api'
     ]);
     mod.factory('shortcut_app/service/manage',
     [
@@ -30,6 +32,7 @@ define(
         'shortcut_app/service/create',
         'shortcut_app/service/set_child',
         'shortcut_app/shortcut_ui',
+        'shortcut_app/service/api',
     function(
         $modal,
         $http,
@@ -37,7 +40,8 @@ define(
         edit_service,
         create_service,
         set_child_service,
-        shortcut_ui
+        shortcut_ui,
+        shortcut_api
     ){
         return function(){
             var template = 
@@ -136,10 +140,7 @@ define(
                 template:template,
                 controller:ModalCtrl,
                 size:'lg',
-                windowClass : 'xlg-dialog',
-                resolve:{
-                    shortcut_lst:function(){return SHORTCUT_LST}
-                }
+                resolve:{ shortcut_lst:function(){return shortcut_api.get()}}
             })
         }
     }])

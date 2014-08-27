@@ -12,31 +12,25 @@ define(
     ,pouchdb_quick_search
 )
 {
-    var MY_STORE_DB_PREFIX = STORE_DB_PREFIX;
-    var MY_POUCH_PREFIX = '_pouch_';
-    var MY_COUCH_SERVER_URL = COUCH_SERVER_URL;
-    var MY_STORE_ID = STORE_ID;
-    //-----------------------------------------------------------------------------
-
     var mod = angular.module('service/db',['blockUI']);
 
-    mod.factory('service/db/get',function(){
+    mod.factory('service/db/get',['$rootScope',function($rootScope){
         return function(){
-            var db_name = MY_STORE_DB_PREFIX + MY_STORE_ID;
+            var db_name = $rootScope.GLOBAL_SETTING.store_db_prefix + $rootScope.GLOBAL_SETTING.store_id;
             PouchDB.plugin(pouchdb_quick_search);
             return new PouchDB(db_name);            
         }
-    });
+    }]);
 
-    mod.factory('service/db/sync',function($q,blockUI){
+    mod.factory('service/db/sync',['$q','$rootScope','blockUI',function($q,$rootScope,blockUI){
         return function(store_id/*the benefit of passing store_id here simplify things: we don't need to know where stoer_id comming from*/){
             var defer = $q.defer();
             
             console.log('begin syncing for store_id: ' + store_id);
             blockUI.start();
-            var db_name = MY_STORE_DB_PREFIX + store_id;
+            var db_name = $rootScope.GLOBAL_SETTING.store_db_prefix + store_id;
             var local_db = new PouchDB(db_name);
-            var store_db_url = MY_COUCH_SERVER_URL + '/' + db_name;
+            var store_db_url = $rootScope.GLOBAL_SETTING.couch_server_url + '/' + db_name;
             local_db.replicate.from(
                  store_db_url
                 ,{
@@ -56,5 +50,5 @@ define(
 
             return defer.promise;
         }
-    });
+    }]);
 })

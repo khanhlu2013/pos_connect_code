@@ -82,7 +82,7 @@ describe('shortcut_app/service/manage', function() {
         lib.ui.click(element(by.id('sp_app/menu/setting/shortcut')));
 
         //verify folder at position 0 is empty
-        expect(cell_0.getText()).toEqual('');
+        expect(cell_0.getText()).toEqual(''); //-> fail here
         expect(cell_4.getText()).toEqual('');
         expect(folder_1.getText()).toEqual(folder_1_name);
 

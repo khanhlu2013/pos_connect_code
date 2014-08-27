@@ -16,45 +16,38 @@ define(
 		 '$http'
 		,'$modal'
 		,'$q'
+		,'$rootScope'
 		,'service/ui/prompt'
 		,'service/ui/alert'
 	,function(
 		 $http
 		,$modal
 		,$q
+		,$rootScope
 		,prompt_service
 		,alert_service
 	){
 		return function(){
-			var tax_rate = localStorage.getItem('tax_rate');
-			var promise = prompt_service('enter tax rate',tax_rate/*prefill*/,false/*null is not allow*/,true/*is float*/);
-			promise.then(
+			var defer = $q.defer();
+
+			prompt_service('enter tax rate',$rootScope.GLOBAL_SETTING.tax_rate/*prefill*/,false/*null is not allow*/,true/*is float*/).then(
 				function(prompt_data){
-					var promise_ing = $http({
+					$http({
 						url:'/tax/update_angular',
 						method:'POST',
-						data:{
-							tax_rate:prompt_data
-						}
-					});
-
-					var promised_id = promise_ing.then(
+						data:{ tax_rate:prompt_data }
+					}).then(
 						function(data){
-							var return_tax_rate = JSON.parse(data.data);
-							
-							localStorage.setItem('tax_rate',return_tax_rate);
-							return data.data;
+							var new_tax_rate = JSON.parse(data.data);
+							$rootScope.GLOBAL_SETTING.tax_rate = new_tax_rate;
+							defer.resolve(new_tax_rate);
 						},
-						function(reason){
-							return $q.reject('set tax ajax error');
-						}
+						function(reason){ defer.reject('set tax ajax error'); }
 					)
 				},
-				function(reason){
-					return $q.reject(reason);
-				}
+				function(reason){ defer.reject(reason); }
 			);
-			return promise;
+			return defer.promise;
 		}
 	}]);
 })

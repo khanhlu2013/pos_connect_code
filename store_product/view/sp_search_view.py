@@ -2,15 +2,12 @@ from django.views.generic import TemplateView
 from django.http import HttpResponse
 from product.models import Product
 import json
-from couch import couch_util
 from store_product import sp_serializer
 from django.core.serializers.json import DjangoJSONEncoder
 from store_product.sp_master_util import get_lookup_type_tag
 from django.db.models import Q
 from store_product.models import Store_product
-from django.conf import settings
-from sale_shortcut import sale_shortcut_serializer,shortcut_getter
-from sale_shortcut.sale_shortcut_serializer import Parent_serializer
+from liquor import init_global_setting
 
 class sp_search_index_angular_view(TemplateView):
     template_name = 'sp_app.html'
@@ -21,12 +18,7 @@ class sp_search_index_angular_view(TemplateView):
     
     def get_context_data(self,**kwargs):
         context = super(sp_search_index_angular_view,self).get_context_data(**kwargs)
-        context['STORE_ID'] = self.cur_login_store.id #when we search, we search for product which include all other store product info. we need to know our current store to pull our store product info
-        context['COUCH_SERVER_URL'] = couch_util.get_couch_url(self.cur_login_store.api_key_name,self.cur_login_store.api_key_pwrd) #when search for sku, and product is not found, we will create product and sycn to pouch if nessesary when current local data exist in browser. when sync, we need couch_url
-        context['TAX_RATE'] = self.cur_login_store.tax_rate
-        context['STORE_DB_PREFIX'] = settings.STORE_DB_PREFIX
-        shortcut_lst = shortcut_getter.get_shorcut_lst(self.cur_login_store.id) 
-        context['shortcut_lst'] = json.dumps(Parent_serializer(shortcut_lst,many=True).data,cls=DjangoJSONEncoder)
+        init_global_setting.exe(context,self.cur_login_store);
         return context
 
 def _name_search_qs_alterer_angular(qs,search_str):

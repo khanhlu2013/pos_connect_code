@@ -133,16 +133,16 @@
     </div>
 
     <script type="text/javascript">
-        var STATIC_URL = "{{STATIC_URL}}"
-        var STORE_ID = Number("{{store_id}}")
-        var COUCH_SERVER_URL = "{{couch_server_url}}"
-        var ROW_COUNT = {{ROW_COUNT}}
-        var COLUMN_COUNT = {{COLUMN_COUNT}}
-        var SHORTCUT_LST = {{shortcut_lst|safe}};
-        window._MM_LST_ = {{mix_match_lst|safe}};
-        window._TAX_RATE_ = {{tax_rate}};
-        var MY_PAYMENT_TYPE_LST = {{payment_type_lst|safe}};
-        var STORE_DB_PREFIX = "{{STORE_DB_PREFIX}}";
+        var STATIC_URL                      = "{{STATIC_URL}}"
+        window._STORE_ID_                   = Number("{{STORE_ID_}}")
+        window._TAX_RATE_                   = {{TAX_RATE_}};
+        window._COUCH_SERVER_URL_           = "{{COUCH_SERVER_URL_}}"
+        window._STORE_DB_PREFIX_            = "{{STORE_DB_PREFIX_}}";
+        window._MIX_MATCH_LST_              = {{MIX_MATCH_LST_|safe}};
+        window._PAYMENT_TYPE_LST_           = {{PAYMENT_TYPE_LST_|safe}};
+        window._SHORTCUT_LST_               = {{SHORTCUT_LST_|safe}};
+        window._SHORTCUT_ROW_COUNT_         = {{SHORTCUT_ROW_COUNT_}};
+        window._SHORTCUT_COLUMN_COUNT_      = {{SHORTCUT_COLUMN_COUNT_}};
     </script>
 
     <script data-main = "{{ STATIC_URL }}js/app/sale_app/config.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script>

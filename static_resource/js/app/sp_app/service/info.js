@@ -74,6 +74,8 @@ define(
                                 '<p class="col-sm-8 form-control-static">{{sp.get_cost()|currency}}</p>' +
                             '</div>' +
 
+                            '<hr>' +
+
                             '<div class="form-group">' +
                                 '<label class="col-sm-4 control-label">Sale report:</label>' +
                                 '<p class="form-control-static col-sm-8">' +
@@ -126,9 +128,9 @@ define(
                                 '<th>kit</th>' +              
                                 '<th>qty</th>' +  
                             '</tr>' +
-                            '<tr ng-repeat="bd in sp.breakdown_assoc_lst">' +
-                                '<td>{{bd.breakdown.name}}</td>' +      
-                                '<td>{{bd.qty}}</td>' +                                                  
+                            '<tr ng-repeat="assoc_info in sp.breakdown_assoc_lst | orderBy : \'breakdown.name\'">' +
+                                '<td>{{assoc_info.breakdown.name}}</td>' +      
+                                '<td>{{assoc_info.qty}}</td>' +                                                  
                             '</tr>' +                         
                         '</table>' +  
                         '<pre ng-show="sp.breakdown_assoc_lst.length==0">there is no kit</pre>' +                 

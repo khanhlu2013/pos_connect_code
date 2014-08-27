@@ -142,6 +142,12 @@ module.exports = {
             scan_txt.clear();
             scan_txt.sendKeys(str,enter_key);
             ptor.sleep(500);
+        },
+
+        load_this_page : function(){
+            var posUrl = 'http://127.0.0.1:8000/sale/index_angular';
+            browser.get(posUrl);
+            protractor.getInstance().sleep(5000);//wait for pouchdb to download the db            
         }
     },
     

@@ -6,7 +6,6 @@ describe('sale_app/shortcut/setup_n_usage', function() {
         when sku is not exist, it is the create module that kick in which should be tested separatly from this test.
     */
     var baseUrl = 'http://127.0.0.1:8000/';
-    var posUrl = 'http://127.0.0.1:8000/sale/index_angular';
     var ptor = protractor.getInstance();
     var enter_key = protractor.Key.ENTER;
 
@@ -58,9 +57,8 @@ describe('sale_app/shortcut/setup_n_usage', function() {
         //create 2 sp
         var sku_1 = '111';var sku_2 = '222';var product_name_1 = 'product name 1';var product_name_2 = 'product name 2';
         lib.api.insert_new(sku_1,product_name_1);
-        lib.api.insert_new(sku_2,product_name_2);                    
-        browser.get(posUrl);
-        ptor.sleep(1000);//wait for pouchdb to download the db
+        lib.api.insert_new(sku_2,product_name_2);  
+        lib.sale_page.load_this_page();                  
 
         //create 2 shortcut
         var folder_1_name = 'folder 1';

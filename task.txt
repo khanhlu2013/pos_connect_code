@@ -365,45 +365,27 @@ SALE APP
     . it said 3 receipts pushing but actually only 1 receipt is pushing
     . sale record report, payment type report
 ------------------------------------------------------------------------------------------------------------------
+
 . when suggestion data to create product, filter out duplicate and provide a frequency, make sure we also sort this list base on frequency
-. separate extra info for product when promptint proudct info
 . syncing db with/without progress bar option
 . manula discount
-. turn back get shortcut api and getting a fresh data to load into manage_ui
-. prompt_string, prompt_int, prompt_float
-. re-test all the menu service on the sale page  
-
-. route provider to work on the download page with the progress bar
-. import displaying_scan_info_dlg when there is no discount at all( manual/mm/buydown) to hide the total_discount_price and hight light the regular price
-. ng-block and init download database message
-. name search
-. hold
 . tender button
 . receipt pusher
-. non inventory
 . suggest p_type, p_tag
-. an interface to edit product offline
-. edit scan
-    . scan sku and internet is disconnect create product offline.
+. offline product creation
+    . scan sku and internet offline trigger offline creation 
+    . edit product that created offline
 
-
-. display tax_rate in scan/displaying_scan/info_dlg
+. re-test all the menu service on the sale page  
 . do we need to use 3rd party to manage local storage.
 . receipt report having issue: angular infinite watch
 . is it cleaner to have blockUI to be include in each module that need that include in the app?
 . revisit the god damn css.map stuff
 
-
- 
-
-
-
-
-
-
-
-
-
+. prompt_string, prompt_int, prompt_float
+. non inventory
+. name search
+. hold
 
 
 

@@ -298,6 +298,7 @@ define(
                         template_crv +
                         template_taxable +
                         template_cost +
+                        '<hr>' +
                         template_sale_report +
                         template_type_tag +
                         template_vendor +

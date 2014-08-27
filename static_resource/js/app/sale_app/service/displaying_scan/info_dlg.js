@@ -38,7 +38,8 @@ define(
                         '<div class="form-group">' +
                             '<label class="col-sm-5 control-label">override price:</label>' +
                             '<p class="col-sm-7 form-control-static">{{ds.override_price ? (ds.override_price|currency) : \'None\'}} ' + 
-                                '<button id="sale_app/service/displaying_scan/info_dlg/override_price_btn" ng-click="override_price()" class="btn btn-primary">override</button>' +
+                                '<button id="sale_app/service/displaying_scan/info_dlg/override_price_btn" ng-click="override_price()" class="btn btn-primary glyphicon glyphicon-pencil"></button>' +
+                                '<button ng-hide="ds.override_price==null" id="sale_app/service/displaying_scan/info_dlg/remove_override_price_btn" ng-click="remove_override_price()" class="btn btn-danger glyphicon glyphicon-trash"></button>' +
                             '</p>' +                            
                         '</div>' +
 
@@ -74,7 +75,7 @@ define(
 
                         //tax
                         '<div class="form-group">' +
-                            '<label class="col-sm-5 control-label">tax:</label>' +
+                            '<label class="col-sm-5 control-label">tax ({{tax_rate}}%) :</label>' +
                             '<p class="col-sm-7 form-control-static">{{ds.get_tax(GLOBAL_SETTING.tax_rate)|currency|not_show_zero}}</p>' +  
                         '</div>' +
 
@@ -93,9 +94,13 @@ define(
                 '</div>'
             ;
 
-            var controller = function($scope,$modalInstance,$filter,ds_original){
+            var controller = function($scope,$modalInstance,$filter,$rootScope,ds_original){
                 $scope.ds = angular.copy(ds_original);
+                $scope.tax_rate = $rootScope.GLOBAL_SETTING.tax_rate;
 
+                $scope.remove_override_price = function(){
+                    $scope.ds.override_price = null;
+                }
                 $scope.override_price = function(){
                     prompt_service('one time override price',$scope.ds.override_price/*prefill*/,true/*is_null_allow*/,true/*is_float*/)
                     .then(function(override_price){

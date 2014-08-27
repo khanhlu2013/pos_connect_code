@@ -6,7 +6,6 @@ describe('sale_app/displaying_scan/tender_calculation_4_single_item', function()
         when sku is not exist, it is the create module that kick in which should be tested separatly from this test.
     */
     var baseUrl = 'http://127.0.0.1:8000/';
-    var posUrl = 'http://127.0.0.1:8000/sale/index_angular';
     var ptor = protractor.getInstance();
     var enter_key = protractor.Key.ENTER;
 
@@ -109,8 +108,7 @@ B   1           1           0           1               0           0       0   
         .then(function(sp){lib.api.insert_mm('b4 deal',b4_deal_price,b4_deal_is_include,b4_deal_qty,[sp])})
 
         //LOAD SALE PAGE - SYNC OFFLINE DB--------------------------------------------------------------------------------------------------------------------
-        browser.get(posUrl);
-        ptor.sleep(1000);//wait for pouchdb to download the db
+        lib.sale_page.load_this_page();
 
         //TEST A GROUP ---------------------------------------------------------------------------------------------------------------------------------------
         //NO OVERRIDE PRICE

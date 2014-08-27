@@ -45,7 +45,7 @@ define(
                         '<th>edit</th>' +                            
                         '<th>remove</th>' +                
                     '</tr>' +    
-                    '<tr ng-repeat="assoc in sp.breakdown_assoc_lst | orderBy:assoc.breakdown.name">' +
+                    '<tr ng-repeat="assoc in sp.breakdown_assoc_lst | orderBy:\'breakdown.name\'">' +
                         '<td>{{assoc.breakdown.name}}</td>' +    
                         '<td>{{assoc.qty}}</td>' +
                         '<td><button ng-click="edit(assoc)" class="btn btn-primary glyphicon glyphicon-pencil" type="button"></button></td>' +                                 

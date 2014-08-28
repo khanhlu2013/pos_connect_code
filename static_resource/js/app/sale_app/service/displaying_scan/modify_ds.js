@@ -2,7 +2,7 @@ define(
 [
      'angular'
     //-------
-    ,'app/sale_app/service/pending_scan/set_ps_lst'
+    ,'app/sale_app/service/pending_scan/set_api'
     ,'app/sale_app/service/displaying_scan/compress_ds_lst'
     ,'app/sale_app/model'
 ]
@@ -13,13 +13,13 @@ define(
 {
     var mod = angular.module('sale_app/service/displaying_scan/modify_ds',
     [
-         'sale_app/service/pending_scan/set_ps_lst'
+         'sale_app/service/pending_scan/set_api'
         ,'sale_app/service/displaying_scan/compress_ds_lst'
         ,'sale_app/model'
     ]);
     mod.factory('sale_app/service/displaying_scan/modify_ds',
     [
-         'sale_app/service/pending_scan/set_ps_lst'
+         'sale_app/service/pending_scan/set_api'
         ,'sale_app/service/displaying_scan/compress_ds_lst'
         ,'sale_app/model/Pending_scan'
     ,function(

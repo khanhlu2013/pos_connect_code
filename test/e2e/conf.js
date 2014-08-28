@@ -22,7 +22,7 @@ exports.config = {
         // ,'./payment_type_app/payment_type.js'                        
 
         // ,'./sale_app/shortcut_setup_n_usage.spec.js'                        
-        './sale_app/displaying_scan/tender_calculation_4_single_item.spec.js'      
+        // './sale_app/displaying_scan/tender_calculation_4_single_item.spec.js'      
 
     ],
     baseUrl: env.baseUrl,

@@ -357,6 +357,7 @@ LEARN/IMPROVE
         . inline_html_js_string is easier to put side by side with controller code    
     . $event.stopPropagation()
     . django debug toolbar
+    . revisit the god damn css.map stuff
 ------------------------------------------------------------------------------------------------------------------        
 ISSUE/TASK
 ------------------------------------------------------------------------------------------------------------------    
@@ -377,20 +378,19 @@ SALE APP
     . edit product that created offline
 
 . re-test all the menu service on the sale page  
-. do we need to use 3rd party to manage local storage.
 . receipt report having issue: angular infinite watch
 . is it cleaner to have blockUI to be include in each module that need that include in the app?
-. revisit the god damn css.map stuff
-
 . prompt_string, prompt_int, prompt_float
 . non inventory
+
+TODO TASK
+. test hold/unhold
+
+
+
+
+
 . name search
-. hold
-
-
-
-
-
 
 
 

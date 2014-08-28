@@ -2,8 +2,8 @@ define(
 [
      'angular'
     //-------
-    ,'app/sale_app/service/pending_scan/get_ps_lst'
-    ,'app/sale_app/service/pending_scan/set_ps_lst'
+    ,'app/sale_app/service/pending_scan/get_api'
+    ,'app/sale_app/service/pending_scan/set_api'
     ,'app/sale_app/model'
     ,'app/sale_app/service/search/sp_api'
 ]
@@ -14,16 +14,16 @@ define(
 {
     var mod = angular.module('sale_app/service/scan/append_pending_scan',
     [
-         'sale_app/service/pending_scan/get_ps_lst'
-        ,'sale_app/service/pending_scan/set_ps_lst'
+         'sale_app/service/pending_scan/get_api'
+        ,'sale_app/service/pending_scan/set_api'
         ,'sale_app/model'
         ,'sale_app/service/search/sp_api'
     ]);
     mod.factory('sale_app/service/scan/append_pending_scan',
     [   
          '$q'
-        ,'sale_app/service/pending_scan/get_ps_lst'
-        ,'sale_app/service/pending_scan/set_ps_lst'
+        ,'sale_app/service/pending_scan/get_api'
+        ,'sale_app/service/pending_scan/set_api'
         ,'sale_app/model/Pending_scan'
         ,'sale_app/service/search/sp_api'
     ,function(

@@ -5,10 +5,10 @@ define(
     ,'app/sp_app/service/info'
     ,'app/sale_app/service/scan/preprocess'
     ,'app/sale_app/service/scan/append_pending_scan'
-    ,'app/sale_app/service/pending_scan/get_ps_lst'
+    ,'app/sale_app/service/pending_scan/get_api'
     ,'app/sale_app/service/scan/calculate_displaying_scan'
     ,'app/sale_app/service/search/name_sku_dlg'
-    ,'app/sale_app/service/pending_scan/set_ps_lst'
+    ,'app/sale_app/service/pending_scan/set_api'
     ,'app/sale_app/service/displaying_scan/modify_ds'
     ,'app/sale_app/service/displaying_scan/info_dlg'
     ,'app/sale_app/service/scan/sku_scan_not_found_handler'
@@ -16,6 +16,8 @@ define(
     ,'service/ui'
     ,'service/db'
     ,'blockUI'
+    ,'app/sale_app/service/hold/api'
+    ,'app/sale_app/service/hold/get_hold_ui'
 ], function
 (
      angular
@@ -28,10 +30,10 @@ define(
          'sp_app/service/info'
         ,'sale_app/service/scan/preprocess'
         ,'sale_app/service/scan/append_pending_scan'
-        ,'sale_app/service/pending_scan/get_ps_lst'
+        ,'sale_app/service/pending_scan/get_api'
         ,'sale_app/service/scan/calculate_displaying_scan'
         ,'sale_app/service/search/name_sku_dlg'
-        ,'sale_app/service/pending_scan/set_ps_lst'
+        ,'sale_app/service/pending_scan/set_api'
         ,'sale_app/service/displaying_scan/modify_ds'
         ,'sale_app/service/displaying_scan/info_dlg'
         ,'sale_app/service/scan/sku_scan_not_found_handler'
@@ -39,7 +41,8 @@ define(
         ,'shortcut_app/shortcut_ui'
         ,'service/ui'
         ,'service/db'
-
+        ,'sale_app/service/hold/api'
+        ,'sale_app/service/hold/get_hold_ui'
     ]);
     mod.controller('Sale_page_ctrl', 
     [
@@ -47,10 +50,10 @@ define(
         ,'$rootScope'
         ,'sale_app/service/scan/preprocess'
         ,'sale_app/service/scan/append_pending_scan'
-        ,'sale_app/service/pending_scan/get_ps_lst'
+        ,'sale_app/service/pending_scan/get_api'
         ,'sale_app/service/scan/calculate_displaying_scan'
         ,'sale_app/service/search/name_sku_dlg'
-        ,'sale_app/service/pending_scan/set_ps_lst'
+        ,'sale_app/service/pending_scan/set_api'
         ,'sale_app/model/Modify_ds_instruction'
         ,'sale_app/service/displaying_scan/modify_ds'
         ,'sale_app/service/displaying_scan/info_dlg'
@@ -58,9 +61,12 @@ define(
         ,'shortcut_app/shortcut_ui'
         ,'service/ui/alert'
         ,'service/ui/prompt'
+        ,'service/ui/confirm'
         ,'service/db/sync'
         ,'blockUI'   
         ,'sp_app/service/info'    
+        ,'sale_app/service/hold/api'
+        ,'sale_app/service/hold/get_hold_ui'
     ,function(
          $scope
         ,$rootScope
@@ -77,9 +83,12 @@ define(
         ,shortcut_ui
         ,alert_service
         ,prompt_service
+        ,confirm_service
         ,sync_db_service
         ,blockUI     
         ,sp_info_service   
+        ,hold_api
+        ,get_hold_ui
     ){
         function get_ds_index(ds){
             var index = -1;
@@ -97,6 +106,24 @@ define(
                 result += $scope.ds_lst[i].get_line_total($rootScope.GLOBAL_SETTING.tax_rate);
             }
             return result;
+        }
+        $scope.unhold = function(){
+            get_hold_ui().then(
+                function(hold){
+                    for(var i = 0;i<hold.ds_lst.length;i++){
+                        var cur_ds = hold.ds_lst[i];
+                        var sp_doc_id = null;if(cur_ds.store_product!=null){sp_doc_id = cur_ds.store_product.sp_doc_id;}
+                        append_pending_scan.by_doc_id(sp_doc_id,cur_ds.qty,cur_ds.non_product_name,cur_ds.override_price); 
+                    }
+                }
+                ,function(reason){alert_service('alert',reason,'red');}
+            )
+        }
+        $scope.hold = function(){
+            if($scope.ds_lst.length == 0){alert_service('alert','there is nothing to hold','blue');return;}
+            confirm_service('confirm hold?','orange').then(
+                function(){ hold_api.hold_current_pending_scan_lst(); }
+            );
         }
         $scope.info = function(ds){
             if(ds.store_product == null){return;}
@@ -199,10 +226,6 @@ define(
         sync_db_service($rootScope.GLOBAL_SETTING.store_id).then(
             function(){
                 shortcut_ui.init($scope);  
-                if(get_ps_lst() == undefined){
-                    set_ps_lst([]);
-                }
-                
                 $scope.refresh_ds();
                 $scope.$watchGroup(
                     [

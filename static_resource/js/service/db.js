@@ -27,7 +27,7 @@ define(
             var defer = $q.defer();
             
             console.log('begin syncing for store_id: ' + store_id);
-            blockUI.start();
+            blockUI.start('syncing database ...');
             var db_name = $rootScope.GLOBAL_SETTING.store_db_prefix + store_id;
             var local_db = new PouchDB(db_name);
             var store_db_url = $rootScope.GLOBAL_SETTING.couch_server_url + '/' + db_name;

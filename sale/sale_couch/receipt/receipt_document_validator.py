@@ -1,6 +1,5 @@
 from django.conf import settings
 from util.couch import master_account_util
-from couch import couch_constance
 
 ERROR_REQUIRE_TIME_STAMP = 'ERROR_REQUIRE_TIME_STAMP'
 ERROR_REQUIRE_DS_LST = 'ERROR_REQUIRE_DS_LST'
@@ -80,7 +79,7 @@ src = """function(newDoc, oldDoc, userCtx, secObj){
 
         return error_lst;
     }""" % (
-         couch_constance.RECEIPT_DOCUMENT_TYPE
+         settings.RECEIPT_DOCUMENT_TYPE
         ,ERROR_REQUIRE_DS_LST
         ,ERROR_RECEIPT_LN_EMPTY
         ,ERROR_REQUIRE_TAX_RATE

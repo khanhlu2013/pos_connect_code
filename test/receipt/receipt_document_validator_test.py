@@ -1,7 +1,8 @@
 from django_webtest import WebTest
 from model_mommy import mommy
 from helper import test_helper
-from couch import couch_util,couch_constance
+from couch import couch_util
+from django.conf import settings
 from couchdb.http import ServerError
 from sale.sale_couch.receipt import receipt_document_validator,document,receipt_ln_constructor_for_test_purpose,receipt_inserter_for_test_purpose,receipt_lst_couch_getter
 from store_product.cm import insert_new
@@ -20,7 +21,7 @@ from store_product.sp_couch import store_product_couch_getter
 #         #foreman  run -e .env,test.env python manage.py test test.sale.receipt.receipt_document_validator_test:receipt_document_validator_test.can_validate_receipt_document_error_test
 #         user,store = test_helper.create_user_then_store()
 #         db = couch_util.get_store_db(store.id)
-#         dummy_receipt_doc = {'d_type':couch_constance.RECEIPT_DOCUMENT_TYPE}
+#         dummy_receipt_doc = {'d_type':settings.RECEIPT_DOCUMENT_TYPE}
         
 
 #         try:
@@ -44,7 +45,7 @@ from store_product.sp_couch import store_product_couch_getter
 #         db = couch_util.get_store_db(store.id)
 
 #         receipt_doc = document.Receipt_document(
-#              d_type = couch_constance.RECEIPT_DOCUMENT_TYPE
+#              d_type = settings.RECEIPT_DOCUMENT_TYPE
 #             ,collect_amount = 1
 #             ,ds_lst = []
 #             ,tax_rate = 1
@@ -68,7 +69,7 @@ from store_product.sp_couch import store_product_couch_getter
 #         db = couch_util.get_store_db(store.id)
 
 #         receipt_doc = document.Receipt_document(
-#              d_type = couch_constance.RECEIPT_DOCUMENT_TYPE
+#              d_type = settings.RECEIPT_DOCUMENT_TYPE
 #             ,collect_amount = 1
 #             ,ds_lst = [{'a':'a'}]
 #             ,tax_rate = 1

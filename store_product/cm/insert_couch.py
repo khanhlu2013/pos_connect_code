@@ -1,5 +1,6 @@
 from store_product.sp_couch.document import Store_product_document
-from couch import couch_util,couch_constance
+from django.conf import settings
+from couch import couch_util
 
 def exe(
      id
@@ -22,7 +23,7 @@ def exe(
          id = id
         ,product_id  = product_id
         ,store_id = store_id
-        ,d_type = couch_constance.STORE_PRODUCT_DOCUMENT_TYPE
+        ,d_type = settings.STORE_PRODUCT_DOCUMENT_TYPE
         ,name = name
         ,price = couch_util.decimal_2_str(price)
         ,value_customer_price = couch_util.decimal_2_str(value_customer_price)

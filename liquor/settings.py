@@ -88,7 +88,7 @@ TEST_DISCOVER_ROOT = PROJECT_ROOT
 TEST_DISCOVER_PATTERN = "test_*"
 SOUTH_TESTS_MIGRATE = False
 
-#QUESTION----------------------------------------------------------------------------------------------------------------------------------
+#WHAT ARE THESE----------------------------------------------------------------------------------------------------------------------------------
 SITE_ID = 1 #is this related to staging?
 STATIC_ROOT = ''
 ALLOWED_HOSTS = []
@@ -147,8 +147,17 @@ USE_L10N = True
 USE_TZ = True
 
 
+#sale shortcut
 SHORTCUT_ROW_COUNT = 5
 SHORTCUT_COLUMN_COUNT = 3
+
+#couch settings
+VIEW_DOCUMENT_ID = "_design/views"
+STORE_DB_VIEW_NAME_BY_PRODUCT_ID = "by_product_id"
+STORE_DB_VIEW_NAME_BY_SKU = "by_sku"
+STORE_DB_VIEW_NAME_BY_D_TYPE = "by_d_type"
+STORE_PRODUCT_DOCUMENT_TYPE = 'prod_bus_assoc'
+RECEIPT_DOCUMENT_TYPE = 'receipt'
 
 
 #NEED CLEAN UP ----------------------------------------------------------------------------------------------------------------------------------

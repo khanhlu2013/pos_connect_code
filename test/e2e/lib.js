@@ -147,7 +147,7 @@ module.exports = {
         load_this_page : function(){
             var posUrl = 'http://127.0.0.1:8000/sale/index_angular';
             browser.get(posUrl);
-            protractor.getInstance().sleep(5000);//wait for pouchdb to download the db            
+            protractor.getInstance().sleep(10000);//wait for pouchdb to download the db            
         }
     },
     

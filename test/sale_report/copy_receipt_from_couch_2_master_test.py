@@ -6,7 +6,6 @@ from store_product.sp_couch import store_product_couch_getter
 from receipt import receipt_master_getter
 from receipt import copy_receipt_from_couch_2_master
 from decimal import Decimal
-from couch import couch_constance
 import time
 from receipt.models import Receipt
 

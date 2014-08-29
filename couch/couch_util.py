@@ -1,6 +1,5 @@
 from django.conf import settings
 from couchdb import Server,ResourceNotFound
-from couch import couch_constance
 
 def get_couch_url(name,pwrd):
     protocol = 'https://' if settings.COUCH_DB_HTTP_S else 'http://'
@@ -47,4 +46,4 @@ def _get_store_db_name(store_id):
     return settings.STORE_DB_PREFIX + str(store_id)
 
 def _get_full_view_name(view_name): # 1111 rethink about this
-    return couch_constance.VIEW_DOCUMENT_ID + '/_view/' + view_name
+    return settings.VIEW_DOCUMENT_ID + '/_view/' + view_name

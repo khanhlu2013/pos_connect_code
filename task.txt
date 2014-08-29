@@ -33,7 +33,6 @@ foreman start
 source lu/venv/bin/activate
 cd lu/kt_heroku
 foreman start --procfile Procfile_protractor --env .env_protractor
-
 ----------------------------------------------------------------------------
 SELECT pid, pg_terminate_backend(pid) 
 FROM pg_stat_activity 
@@ -391,15 +390,10 @@ TODAY TASK
 
 
 
-    . have a thought at offline product creation. we need to create a doc that mimicking sp_doc on the server which need field such as d_type. on top of that
-    prompt might not contain nullable field such as p_type,p_tag. so how do we know that the created doc is good to post into local pouch. rethink about d_type because
-    we need this to differentiate tax_rate which nolonger there. well, think about this if there is a doc that have sku_lst for some random reason and it is not a sp,this
-    will screw up sku_lst index. so d_type is good design. well think more about this . it could be solve by factoring this out into env file. and pass on to server and to client.
-    this way if we change the d_type name, it should be fine, we don't have to change anywhere.
-
-
-
-
+    . run protractor again -> include sp_d_type to global setting from the server to the client and use this constance in the client instead of hard code ("prod_bus_assoc")
+    . pass store_product_doc_type into GLOBAL SETTING in the server side down to the client side and use this
+    . git commit -> move couch_setting into django.conf.settings
+    . run protractor
 
 
 

@@ -2,7 +2,6 @@ from store_product.models import Store_product
 from product.models import ProdSkuAssoc,Product
 from store_product.sp_couch import store_product_couch_getter
 from store_product.cm import insert_couch
-from couch import couch_constance
 from couch import couch_util
 from django.conf import settings
 from django.db import IntegrityError

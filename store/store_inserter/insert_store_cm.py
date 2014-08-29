@@ -4,7 +4,8 @@ import store.models
 import json
 import requests
 from util.couch import master_account_util,user_util
-from couch import couch_util,couch_constance
+from couch import couch_util
+from django.conf import settings
 from sale.sale_couch.receipt import receipt_document_validator
 from util.couch import couch_acl_validator,old_security_4_test_purpose
 import hashlib
@@ -90,7 +91,7 @@ def _couch_db_insert_view(store_id):
       if(doc.d_type.localeCompare('%s')==0){
         emit(doc.product_id, doc);
       }
-    }""" % (couch_constance.STORE_PRODUCT_DOCUMENT_TYPE,)
+    }""" % (settings.STORE_PRODUCT_DOCUMENT_TYPE,)
 
     sku_view_map_function = \
     """function(doc) {
@@ -98,16 +99,16 @@ def _couch_db_insert_view(store_id):
       for(var i=0; i<doc.sku_lst.length;i++){
         emit(doc.sku_lst[i], doc);
       }
-    }""" % (couch_constance.STORE_PRODUCT_DOCUMENT_TYPE,)
+    }""" % (settings.STORE_PRODUCT_DOCUMENT_TYPE,)
 
     views = { \
-         couch_constance.STORE_DB_VIEW_NAME_BY_PRODUCT_ID:{"map":product_id_view_map_function}
-        ,couch_constance.STORE_DB_VIEW_NAME_BY_SKU:{"map":sku_view_map_function}
-        ,couch_constance.STORE_DB_VIEW_NAME_BY_D_TYPE:{"map":d_type_view_map_function}
+         settings.STORE_DB_VIEW_NAME_BY_PRODUCT_ID:{"map":product_id_view_map_function}
+        ,settings.STORE_DB_VIEW_NAME_BY_SKU:{"map":sku_view_map_function}
+        ,settings.STORE_DB_VIEW_NAME_BY_D_TYPE:{"map":d_type_view_map_function}
         
     }
 
-    view_doc = {"_id":couch_constance.VIEW_DOCUMENT_ID,"language":"javascript","views":views}
+    view_doc = {"_id":settings.VIEW_DOCUMENT_ID,"language":"javascript","views":views}
     db = couch_util.get_store_db(store_id)
     db.save(view_doc)
 

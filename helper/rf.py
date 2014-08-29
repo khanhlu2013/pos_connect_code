@@ -5,7 +5,7 @@ from model_mommy import mommy
 from helper import test_helper
 from util.couch import master_account_util,old_security_4_test_purpose
 import json
-from couch import couch_util,couch_constance
+from couch import couch_util
 import requests
 from group.models import Group
 from mix_match.models import Mix_match

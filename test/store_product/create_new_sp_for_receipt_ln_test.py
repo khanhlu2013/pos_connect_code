@@ -1,9 +1,10 @@
 from django_webtest import WebTest
 from helper import test_helper
 from sale.sale_couch.receipt import receipt_inserter_for_test_purpose,receipt_lst_couch_getter,receipt_ln_constructor_for_test_purpose
-from store_product.sp_couch import store_product_couch_getter,store_product_document_constructor_for_test_purpose
+from store_product.sp_couch import store_product_couch_getter
 from decimal import Decimal
-from couch import couch_constance,couch_util
+from couch import couch_util
+from django.conf import settings
 import time
 from store_product.create_new_sp_for_receipt_ln import create_new_sp_for_receipt_ln
 from store_product import store_product_master_getter
@@ -63,7 +64,7 @@ class test(WebTest):
         sp_a_cost = 1.3
         sp_a_vendor = 'vendor_a'
         sp_a_buydown = 1.4
-        sp_a_doc = store_product_document_constructor_for_test_purpose.exe(
+        sp_a_doc = store_product_document_constructor_for_test_purpose(
              sp_doc_id = sp_a_doc_id
             ,store_id = store.id
             ,product_id = None
@@ -93,7 +94,7 @@ class test(WebTest):
         sp_b_cost = 2.3
         sp_b_vendor = 'vendor_b'
         sp_b_buydown = 2.4
-        sp_b_doc = store_product_document_constructor_for_test_purpose.exe( \
+        sp_b_doc = store_product_document_constructor_for_test_purpose( \
              sp_doc_id = sp_b_doc_id
             ,store_id = store.id
             ,product_id = None
@@ -179,3 +180,37 @@ class test(WebTest):
         self.assertEqual(couch_util.decimal_2_str(sp_b.cost),str(sp_b_cost))
         self.assertEqual(sp_b.vendor,sp_b_vendor)
         self.assertEqual(couch_util.decimal_2_str(sp_b.buydown),str(sp_b_buydown))
+
+    def store_product_document_constructor_for_test_purpose(
+             sp_doc_id
+            ,store_id
+            ,product_id 
+            ,name
+            ,price
+            ,crv
+            ,is_taxable
+            ,is_sale_report
+            ,p_type
+            ,p_tag
+            ,sku_lst
+            ,cost
+            ,vendor
+            ,buydown
+        ):
+        return {
+             '_id' : sp_doc_id # a dummy sp._id that we pretent pouchdb created. we don't care because we delete offline create sp, and create it online to sync down again
+            ,'d_type' : settings.STORE_PRODUCT_DOCUMENT_TYPE
+            ,'name' : name
+            ,'price' : price
+            ,'crv' : crv
+            ,'is_taxable' : is_taxable
+            ,'is_sale_report' : is_sale_report
+            ,'p_type' : p_type
+            ,'p_tag' : p_tag
+            ,'sku_lst' : sku_lst
+            ,'store_id' : store_id
+            ,'product_id'  : None
+            ,'cost' : cost
+            ,'vendor' : vendor
+            ,'buydown' : buydown
+        }           

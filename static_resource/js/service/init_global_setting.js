@@ -34,15 +34,16 @@ define(
     ){
         return function(){
             $rootScope.GLOBAL_SETTING = {
-                 store_id :             $window._STORE_ID_
-                ,tax_rate :             $window._TAX_RATE_
-                ,couch_server_url:      $window._COUCH_SERVER_URL_       
-                ,store_db_prefix:       $window._STORE_DB_PREFIX_
-                ,mix_match_lst :        $window._MIX_MATCH_LST_.map(Mix_match.build)
-                ,payment_type_lst:      $window._PAYMENT_TYPE_LST_
-                ,shortcut_lst:          $window._SHORTCUT_LST_
-                ,shortcut_row_count:    $window._SHORTCUT_ROW_COUNT_
-                ,shortcut_column_count: $window._SHORTCUT_COLUMN_COUNT_
+                 store_id :                     $window._STORE_ID_
+                ,tax_rate :                     $window._TAX_RATE_
+                ,couch_server_url:              $window._COUCH_SERVER_URL_       
+                ,store_db_prefix:               $window._STORE_DB_PREFIX_
+                ,mix_match_lst :                $window._MIX_MATCH_LST_.map(Mix_match.build)
+                ,payment_type_lst:              $window._PAYMENT_TYPE_LST_
+                ,shortcut_lst:                  $window._SHORTCUT_LST_
+                ,shortcut_row_count:            $window._SHORTCUT_ROW_COUNT_
+                ,shortcut_column_count:         $window._SHORTCUT_COLUMN_COUNT_
+                ,store_product_document_type:   $window._STORE_PRODUCT_DOCUMENT_TYPE_
             }
 
             delete $window._STORE_ID_;
@@ -54,6 +55,9 @@ define(
             delete $window._SHORTCUT_LST_;
             delete $window._SHORTCUT_ROW_COUNT_;
             delete $window._SHORTCUT_COLUMN_COUNT_;
+            delete $window._STORE_PRODUCT_DOCUMENT_TYPE_;
+
+            
         }   
     }])
 })

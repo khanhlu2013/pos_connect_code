@@ -47,7 +47,7 @@ define(
                         breakdown_assoc_lst     : [],
                         store_id                : $rootScope.GLOBAL_SETTING.store_id,
                         sku_lst                 : [sku],
-                        d_type                  : 'prod_bus_assoc',
+                        d_type                  : $rootScope.GLOBAL_SETTING.store_product_document_type,
                         name                    : sp.name,
                         price                   : sp.price,
                         value_customer_price    : (sp.value_customer_price === undefined ? null : sp.value_customer_price),

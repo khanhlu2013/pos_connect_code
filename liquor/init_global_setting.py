@@ -27,3 +27,4 @@ def exe(context,cur_login_store):
     context['SHORTCUT_LST_'] = json.dumps(Parent_serializer(shortcut_lst,many=True).data,cls=DjangoJSONEncoder)
     context['SHORTCUT_ROW_COUNT_'] = settings.SHORTCUT_ROW_COUNT
     context['SHORTCUT_COLUMN_COUNT_'] = settings.SHORTCUT_COLUMN_COUNT
+    context['STORE_PRODUCT_DOCUMENT_TYPE'] = settings.STORE_PRODUCT_DOCUMENT_TYPE

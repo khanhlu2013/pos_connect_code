@@ -382,18 +382,20 @@ SALE APP
 TODAY TASK
 . hotkey
 . test hold/unhold
-. non inventory
+. test create product offline
+. edit product that created offline - test
+. non inventory - test
 ------------------------------------------------------------------------------------------------------------------
-. offline product creation
-
-    . edit product that created offline
 
 
 
-    . run protractor again -> include sp_d_type to global setting from the server to the client and use this constance in the client instead of hard code ("prod_bus_assoc")
-    . pass store_product_doc_type into GLOBAL SETTING in the server side down to the client side and use this
-    . git commit -> move couch_setting into django.conf.settings
-    . run protractor
+
+
+
+    . commit: include sp_d_type to global setting from the server to the client and use this constance in the client instead of hard code ("prod_bus_assoc")
+
+
+
 
 
 

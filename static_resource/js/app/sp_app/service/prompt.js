@@ -434,7 +434,6 @@ define(
                 template: template,
                 controller: ModalCtrl,
                 backdrop:'static',
-                windowClass:'xlg-dialog',
                 size: 'lg',
                 resolve : {
                      original_sp : function(){return original_sp}

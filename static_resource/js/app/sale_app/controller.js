@@ -208,7 +208,10 @@ define(
                         preprocess.extract_qty_sku($scope.sku_search_str).then(
                             function(extracted_result){
                                 sku_scan_not_found_handler(extracted_result.sku).then(
-                                     function(created_sp){ sync_db_service($rootScope.GLOBAL_SETTING.store_id).then(function(){$scope.sku_scan();}) }
+                                     function(created_sp){ 
+                                        if(created_sp.is_create_offline()){ $scope.sku_scan(); }
+                                        else{ sync_db_service($rootScope.GLOBAL_SETTING.store_id).then(function(){$scope.sku_scan();}) }
+                                    }
                                     ,function(reason){alert_service('alert',reason,'red');}
                                 )
                             }
@@ -217,9 +220,7 @@ define(
                 }
             )
         }
-        $scope.search = function(){
-            search_name_sku_dlg();
-        }
+        $scope.search = function(){ search_name_sku_dlg(); }
 
         //init code
         $scope.ds_lst = [];

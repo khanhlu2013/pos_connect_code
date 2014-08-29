@@ -7,6 +7,8 @@ define(
     //-------
     ,'app/sp_app/service/api/search'
     ,'app/sp_app/service/create'
+    ,'service/ui'
+    ,'app/sale_app/service/scan/create_product_offline'
 ]
 ,function
 (
@@ -17,6 +19,8 @@ define(
     [
          'sp_app/service/api/search'
         ,'sp_app/service/create'
+        ,'service/ui'
+        ,'sale_app/service/scan/create_product_offline'
     ]);
 
     mod.factory('sale_app/service/scan/sku_scan_not_found_handler',
@@ -24,10 +28,14 @@ define(
          '$q'
         ,'sp_app/service/api/search'
         ,'sp_app/service/create'    
+        ,'service/ui/confirm'
+        ,'sale_app/service/scan/create_product_offline'
     ,function(
          $q
         ,search_sp_api   
         ,create_sp_service    
+        ,confirm_service
+        ,create_product_offline
     ){
         return function(sku){
             var defer = $q.defer();
@@ -44,7 +52,20 @@ define(
                         );                        
                     }
                 }
-                ,function(reason){ defer.reject(reason); }
+                ,function(reason){ 
+                    if(reason.status != 0){ defer.reject('search sku ajax error')
+                    }else{
+                        confirm_service('There is problem with the internet. Do you want to create this product offline?','red').then(
+                            function(){
+                                create_product_offline(sku).then(
+                                     function(created_sp){defer.resolve(created_sp);}
+                                    ,function(reason){defer.reject(reason);}
+                                )
+                            }
+                            ,function(){defer.reject('_cancel_');}
+                        )
+                    }
+                }
             )
             return defer.promise;
         }

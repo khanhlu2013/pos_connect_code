@@ -366,31 +366,36 @@ SALE APP
     . it said 3 receipts pushing but actually only 1 receipt is pushing
     . sale record report, payment type report
 ------------------------------------------------------------------------------------------------------------------
-
+. name search - wait for a suggestion to use it with require js.
 . when suggestion data to create product, filter out duplicate and provide a frequency, make sure we also sort this list base on frequency
 . syncing db with/without progress bar option
 . manula discount
 . tender button
 . receipt pusher
 . suggest p_type, p_tag
-. offline product creation
-    . scan sku and internet offline trigger offline creation 
-    . edit product that created offline
-
 . re-test all the menu service on the sale page  
 . receipt report having issue: angular infinite watch
 . is it cleaner to have blockUI to be include in each module that need that include in the app?
 . prompt_string, prompt_int, prompt_float
-. non inventory
 
-TODO TASK
+
+
+TODAY TASK
+. hotkey
 . test hold/unhold
+. non inventory
+------------------------------------------------------------------------------------------------------------------
+. offline product creation
+
+    . edit product that created offline
 
 
 
-
-
-. name search
+    . have a thought at offline product creation. we need to create a doc that mimicking sp_doc on the server which need field such as d_type. on top of that
+    prompt might not contain nullable field such as p_type,p_tag. so how do we know that the created doc is good to post into local pouch. rethink about d_type because
+    we need this to differentiate tax_rate which nolonger there. well, think about this if there is a doc that have sku_lst for some random reason and it is not a sp,this
+    will screw up sku_lst index. so d_type is good design. well think more about this . it could be solve by factoring this out into env file. and pass on to server and to client.
+    this way if we change the d_type name, it should be fine, we don't have to change anywhere.
 
 
 

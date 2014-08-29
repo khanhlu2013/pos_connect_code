@@ -54,31 +54,28 @@ define(
 
             ,sku_search: function(sku_search_str){
                 sku_search_str = sku_search_str.trim();
-                if(sku_search_str.length == 0){
-                    var defer=$q.defer();defer.reject('error: sku is empty');return defer.promise;
-                }               
-                if(sku_search_str.indexOf(' ') >= 0){
-                    var defer=$q.defer();defer.reject('error: sku cannot contain space');return defer.promise;
-                }               
-                var promise_ing = $http({
+                if(sku_search_str.length == 0){ return $q.reject('error: sku is empty'); }
+                if(sku_search_str.indexOf(' ') >= 0){ return $q.reject('error: sku cannot contain space'); }
+
+                var defer = $q.defer();
+                $http({
                     url:'/product/search_by_sku_angular',
                     method:'GET',
                     params:{sku_str:sku_search_str}
-                });
-                var promise_ed = promise_ing.then(
+                }).then(
                     function(data){
                         var result = {
                              prod_store__prod_sku__1_1:data.data.prod_store__prod_sku__1_1.map(Store_product.build)
                             ,prod_store__prod_sku__1_0:data.data.prod_store__prod_sku__1_0.map(Store_product.build)
                             ,prod_store__prod_sku__0_0:data.data.prod_store__prod_sku__0_0.map(Product.build)
                         };
-                        return result;
+                        defer.resolve(result);
                     },
-                    function(){
-                        return $q.reject('sku search ajax error');
+                    function(reason){ 
+                        defer.reject(reason); 
                     }
                 )
-                return promise_ed;
+                return defer.promise;
             }
 
             ,name_sku_search: function(search_str){

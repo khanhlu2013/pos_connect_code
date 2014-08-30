@@ -98,6 +98,7 @@ define(
                 ,breakdown_assoc_lst
                 ,null//kit_assoc_lst                            
                 ,sp_couch._id
+                ,sp_couch._rev
             );
             return sp;
         }

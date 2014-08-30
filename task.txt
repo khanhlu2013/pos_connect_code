@@ -376,25 +376,14 @@ SALE APP
 . receipt report having issue: angular infinite watch
 . is it cleaner to have blockUI to be include in each module that need that include in the app?
 . prompt_string, prompt_int, prompt_float
-
+. hard code taxrate in e2e test if fragile. at least put it in a lib and not to hard code it in every file. search for 8.725
 
 
 TODAY TASK
 . hotkey
 . test hold/unhold
 . test create product offline
-. edit product that created offline - test
-. non inventory - test
-------------------------------------------------------------------------------------------------------------------
-
-
-
-
-
-
-    . commit: include sp_d_type to global setting from the server to the client and use this constance in the client instead of hard code ("prod_bus_assoc")
-
-
+. test edit product that created offline
 
 
 

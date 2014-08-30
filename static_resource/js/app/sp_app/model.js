@@ -35,7 +35,8 @@ define(
             group_lst,
             breakdown_assoc_lst,
             kit_assoc_lst,
-            sp_doc_id
+            sp_doc_id,
+            sp_doc_rev
         ){
             this.id = id;
             this.product_id = product_id;
@@ -56,11 +57,15 @@ define(
             this.breakdown_assoc_lst = breakdown_assoc_lst;
             this.kit_assoc_lst = kit_assoc_lst;
             this.sp_doc_id = sp_doc_id;
+            this.sp_doc_rev = sp_doc_rev;
         }
 
         //PULIC METHOD
         Store_product.prototype = {
              constructor : Store_product
+            ,get_rev : function(){
+                return this.sp_doc_rev;
+            }
             ,is_create_offline : function(){
                 return this.product_id === null;
             } 
@@ -247,7 +252,9 @@ define(
                 product,
                 group_lst,
                 breakdown_assoc_lst,
-                kit_assoc_lst
+                kit_assoc_lst,
+                null,//sp_doc_id - this field is only concern when build sp from offline db
+                null//sp_doc_rev - this field is only concern when build sp from offline db
             );
         }             
         Store_product.build = _build;

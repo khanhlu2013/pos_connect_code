@@ -34,11 +34,13 @@ define(
             ,new_qty
             ,new_price
             ,new_discount
+            ,new_non_product_name
         ){
             this.is_delete = is_delete;
             this.new_qty = new_qty;
             this.new_price = new_price;
-            this.new_discount = new_discount;            
+            this.new_discount = new_discount;    
+            this.new_non_product_name = new_non_product_name;        
         }
         return Modify_ds_instruction;
     }])    
@@ -62,19 +64,18 @@ define(
         }
         Displaying_scan.prototype = {
              constructor:Displaying_scan
+            ,is_non_product:function(){
+                return this.store_product === null;
+            } 
             ,get_name:function(){
                 if(this.store_product==null){ return this.non_product_name; }
                 else{ return this.store_product.name }
             }
             ,get_total_discount: function (tax_rate) {
                 var result = 0.0;
-                if(this.discount){
-                    result += this.discount;
-                }
-                if(this.mm_deal_info){
-                    result += this.mm_deal_info.get_unit_discount(tax_rate);
-                }
-                result += this.store_product.get_buydown()
+                if(this.discount)               { result += this.discount; }
+                if(this.mm_deal_info)           { result += this.mm_deal_info.get_unit_discount(tax_rate); }
+                if(this.store_product!=null)    { result += this.store_product.get_buydown() }
                 return result
             }             
             ,get_regular_price : function(){
@@ -90,7 +91,9 @@ define(
                 return this.get_regular_price() - this.get_total_discount(tax_rate);
             }            
             ,get_otd_wot_price: function(tax_rate){
-                return this.get_total_discount_price(tax_rate) + this.store_product.get_crv();
+                var result = this.get_total_discount_price(tax_rate);
+                if(this.store_product!=null){result += this.store_product.get_crv();}
+                return result;
             }            
             ,get_buydown_tax: function(tax_rate){
                 if(

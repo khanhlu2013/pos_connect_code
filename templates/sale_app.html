@@ -46,6 +46,12 @@
                             class="btn btn-primary navbar-btn glyphicon glyphicon-search">
                         </button>    
                         <button 
+                            id="sale_app/main_page/non_inventory_btn" 
+                            ng-click="non_inventory()" 
+                            type="button" 
+                            class="btn btn-primary navbar-btn glyphicon">none inv
+                        </button>                           
+                        <button 
                             id="sale_app/main_page/void_btn" 
                             ng-click="void()" 
                             type="button" 
@@ -78,7 +84,7 @@
                         <ul class="dropdown-menu">
                             <li id='push_receipt_menu'><a href='#'>push receipt</a></li>
                             <li id='save_to_hold_menu' ng-click="hold()"><a href='#'>hold - ctrl+h</a></li>
-                            <li id='get_from_hold_menu' ng-click="unhold()"><a href='#'>get hold - ctrl+g</a></li>  
+                            <li id='get_from_hold_menu' ng-click="get_hold_ui()"><a href='#'>get hold - ctrl+g</a></li>  
                             <li id='toggle_value_customer_price_menu'><a href='#'>value customer price - F5</a></li>                 
                         </ul>
                     </li>                    
@@ -102,7 +108,7 @@
                 <tr ng-repeat="ds in ds_lst">
                     <td ng-click="edit_qty(ds)">{{ds.qty}}</td>
                     <td ng-click="edit_sp(ds)">{{ds.get_name()}}</td>
-                    <td ng-click="info(ds)" class="alnright">{{ds.get_total_discount_price(GLOBAL_SETTING.tax_rate)|currency}}</td>
+                    <td ng-click="show_detail_price(ds)" class="alnright">{{ds.get_total_discount_price(GLOBAL_SETTING.tax_rate)|currency}}</td>
                     <td>{{ds.mm_deal_info.mm_deal.name}}</td>                    
                     <td><button ng-click="remove_ds(ds)" class="btn btn-danger glyphicon glyphicon-trash"></button></td>
                 </tr>
@@ -143,7 +149,7 @@
         window._SHORTCUT_LST_               = {{SHORTCUT_LST_|safe}};
         window._SHORTCUT_ROW_COUNT_         = {{SHORTCUT_ROW_COUNT_}};
         window._SHORTCUT_COLUMN_COUNT_      = {{SHORTCUT_COLUMN_COUNT_}};
-        window._STORE_PRODUCT_DOCUMENT_TYPE_= {{STORE_PRODUCT_DOCUMENT_TYPE}};
+        window._STORE_PRODUCT_DOCUMENT_TYPE_= "{{STORE_PRODUCT_DOCUMENT_TYPE}}";
     </script>
 
     <script data-main = "{{ STATIC_URL }}js/app/sale_app/config.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script>

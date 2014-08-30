@@ -8,7 +8,7 @@ define(
     ,'app/sp_app/service/api/search'
     ,'app/sp_app/service/create'
     ,'service/ui'
-    ,'app/sale_app/service/scan/create_product_offline'
+    ,'app/sale_app/service/offline_product'
 ]
 ,function
 (
@@ -20,7 +20,7 @@ define(
          'sp_app/service/api/search'
         ,'sp_app/service/create'
         ,'service/ui'
-        ,'sale_app/service/scan/create_product_offline'
+        ,'sale_app/service/offline_product'
     ]);
 
     mod.factory('sale_app/service/scan/sku_scan_not_found_handler',
@@ -29,7 +29,7 @@ define(
         ,'sp_app/service/api/search'
         ,'sp_app/service/create'    
         ,'service/ui/confirm'
-        ,'sale_app/service/scan/create_product_offline'
+        ,'sale_app/service/offline_product/create'
     ,function(
          $q
         ,search_sp_api   

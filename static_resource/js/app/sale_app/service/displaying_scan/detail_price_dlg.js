@@ -10,12 +10,12 @@ define(
     angular
 )
 {
-    var mod = angular.module('sale_app/service/displaying_scan/info_dlg',
+    var mod = angular.module('sale_app/service/displaying_scan/detail_price_dlg',
     [
          'filter'
         ,'service/ui'
     ]);
-    mod.factory('sale_app/service/displaying_scan/info_dlg',
+    mod.factory('sale_app/service/displaying_scan/detail_price_dlg',
     [
          '$modal'
         ,'service/ui/prompt'
@@ -38,8 +38,8 @@ define(
                         '<div class="form-group">' +
                             '<label class="col-sm-5 control-label">override price:</label>' +
                             '<p class="col-sm-7 form-control-static">{{ds.override_price ? (ds.override_price|currency) : \'None\'}} ' + 
-                                '<button id="sale_app/service/displaying_scan/info_dlg/override_price_btn" ng-click="override_price()" class="btn btn-primary glyphicon glyphicon-pencil"></button>' +
-                                '<button ng-hide="ds.override_price==null" id="sale_app/service/displaying_scan/info_dlg/remove_override_price_btn" ng-click="remove_override_price()" class="btn btn-danger glyphicon glyphicon-trash"></button>' +
+                                '<button id="sale_app/service/displaying_scan/detail_price_dlg/override_price_btn" ng-click="override_price()" class="btn btn-primary glyphicon glyphicon-pencil"></button>' +
+                                '<button ng-hide="ds.override_price==null" id="sale_app/service/displaying_scan/detail_price_dlg/remove_override_price_btn" ng-click="remove_override_price()" class="btn btn-danger glyphicon glyphicon-trash"></button>' +
                             '</p>' +                            
                         '</div>' +
 
@@ -90,7 +90,7 @@ define(
                 '<div class="modal-footer">' +
                     '<button ng-click="cancel()" class="btn btn-warning">cancel</button>' +
                     '<button ng-disabled="is_unchange()" ng-click="reset()" class="btn btn-primary">reset</button>' +
-                    '<button id="sale_app/service/displaying_scan/info_dlg/ok_btn" ng-disabled="is_unchange()" ng-click="ok()" class="btn btn-success">ok</button>' +
+                    '<button id="sale_app/service/displaying_scan/detail_price_dlg/ok_btn" ng-disabled="is_unchange()" ng-click="ok()" class="btn btn-success">ok</button>' +
                 '</div>'
             ;
 

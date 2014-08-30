@@ -20,8 +20,8 @@ describe('sale_app/displaying_scan/tender_calculation_4_single_item', function()
     var ds_lst = element.all(by.repeater('ds in ds_lst'))
 
     //displaying scan info dlg
-    var info_dlg_override_price_btn = element(by.id('sale_app/service/displaying_scan/info_dlg/override_price_btn'));
-    var info_dlg_ok_btn = element(by.id('sale_app/service/displaying_scan/info_dlg/ok_btn'));
+    var info_dlg_override_price_btn = element(by.id('sale_app/service/displaying_scan/detail_price_dlg/override_price_btn'));
+    var info_dlg_ok_btn = element(by.id('sale_app/service/displaying_scan/detail_price_dlg/ok_btn'));
 
     beforeEach(function(){
         lib.auth.login(baseUrl,'1','1');
@@ -68,7 +68,7 @@ B   1           1           0           1               0           0       0   
     4           1           1           1               1           1       1           1
 
 */
-    it('can create,edit,remove shortcut',function(){
+    it('can calculate ds',function(){
         lib.auth.login(baseUrl,'1','1');
         browser.get(baseUrl); 
         

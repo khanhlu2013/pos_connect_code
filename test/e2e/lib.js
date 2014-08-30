@@ -144,10 +144,13 @@ module.exports = {
             ptor.sleep(500);
         },
 
-        load_this_page : function(){
+        load_this_page : function(milisec){
             var posUrl = 'http://127.0.0.1:8000/sale/index_angular';
             browser.get(posUrl);
-            protractor.getInstance().sleep(10000);//wait for pouchdb to download the db            
+            if(milisec === undefined){
+                milisec = 10000;
+            }
+            protractor.getInstance().sleep(milisec);//wait for pouchdb to download the db            
         }
     },
     

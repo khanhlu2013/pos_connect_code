@@ -10,7 +10,7 @@ define(
     ,'app/sale_app/service/search/name_sku_dlg'
     ,'app/sale_app/service/pending_scan/set_api'
     ,'app/sale_app/service/displaying_scan/modify_ds'
-    ,'app/sale_app/service/displaying_scan/info_dlg'
+    ,'app/sale_app/service/displaying_scan/detail_price_dlg'
     ,'app/sale_app/service/scan/sku_scan_not_found_handler'
     ,'app/shortcut_app/shortcut_ui'
     ,'service/ui'
@@ -18,6 +18,7 @@ define(
     ,'blockUI'
     ,'app/sale_app/service/hold/api'
     ,'app/sale_app/service/hold/get_hold_ui'
+    ,'app/sale_app/service/offline_product'
 ], function
 (
      angular
@@ -35,7 +36,7 @@ define(
         ,'sale_app/service/search/name_sku_dlg'
         ,'sale_app/service/pending_scan/set_api'
         ,'sale_app/service/displaying_scan/modify_ds'
-        ,'sale_app/service/displaying_scan/info_dlg'
+        ,'sale_app/service/displaying_scan/detail_price_dlg'
         ,'sale_app/service/scan/sku_scan_not_found_handler'
         ,'sale_app/model'
         ,'shortcut_app/shortcut_ui'
@@ -43,6 +44,7 @@ define(
         ,'service/db'
         ,'sale_app/service/hold/api'
         ,'sale_app/service/hold/get_hold_ui'
+        ,'sale_app/service/offline_product'
     ]);
     mod.controller('Sale_page_ctrl', 
     [
@@ -56,7 +58,7 @@ define(
         ,'sale_app/service/pending_scan/set_api'
         ,'sale_app/model/Modify_ds_instruction'
         ,'sale_app/service/displaying_scan/modify_ds'
-        ,'sale_app/service/displaying_scan/info_dlg'
+        ,'sale_app/service/displaying_scan/detail_price_dlg'
         ,'sale_app/service/scan/sku_scan_not_found_handler'
         ,'shortcut_app/shortcut_ui'
         ,'service/ui/alert'
@@ -67,6 +69,7 @@ define(
         ,'sp_app/service/info'    
         ,'sale_app/service/hold/api'
         ,'sale_app/service/hold/get_hold_ui'
+        ,'sale_app/service/offline_product/edit'
     ,function(
          $scope
         ,$rootScope
@@ -78,7 +81,7 @@ define(
         ,set_ps_lst
         ,Modify_ds_instruction
         ,modify_ds
-        ,info_dlg
+        ,detail_price_dlg
         ,sku_scan_not_found_handler
         ,shortcut_ui
         ,alert_service
@@ -89,6 +92,7 @@ define(
         ,sp_info_service   
         ,hold_api
         ,get_hold_ui
+        ,edit_product_offline
     ){
         function get_ds_index(ds){
             var index = -1;
@@ -100,6 +104,13 @@ define(
             }
             return index;
         }
+        $scope.non_inventory = function(){
+            prompt_service('enter none inventory price',null/*prefill*/,false/*is null allow*/,true/*is float*/).then(
+                function(price){
+                    append_pending_scan.by_doc_id(null/*sp_doc_id*/,1/*qty*/,'none inventory',price);
+                }
+            )
+        }
         $scope.get_tender_amount = function(){
             var result = 0.0;
             for(var i = 0;i<$scope.ds_lst.length;i++){
@@ -107,12 +118,12 @@ define(
             }
             return result;
         }
-        $scope.unhold = function(){
+        $scope.get_hold_ui = function(){
             get_hold_ui().then(
                 function(hold){
                     for(var i = 0;i<hold.ds_lst.length;i++){
                         var cur_ds = hold.ds_lst[i];
-                        var sp_doc_id = null;if(cur_ds.store_product!=null){sp_doc_id = cur_ds.store_product.sp_doc_id;}
+                        var sp_doc_id = null;if(!cur_ds.is_non_product()){sp_doc_id = cur_ds.store_product.sp_doc_id;}
                         append_pending_scan.by_doc_id(sp_doc_id,cur_ds.qty,cur_ds.non_product_name,cur_ds.override_price); 
                     }
                 }
@@ -125,17 +136,32 @@ define(
                 function(){ hold_api.hold_current_pending_scan_lst(); }
             );
         }
-        $scope.info = function(ds){
-            if(ds.store_product == null){return;}
-            info_dlg(ds).then(function(new_ds){
-                var instruction = new Modify_ds_instruction(
-                     undefined/*is_delete*/
-                    ,undefined/*new_qty*/
-                    ,new_ds.override_price/*new_price*/
-                    ,undefined/*new_discount*/
-                );
-                modify_ds(get_ds_index(ds),instruction,$scope.ds_lst);                      
-            })
+        $scope.show_detail_price = function(ds){
+            if(ds.is_non_product()){
+                prompt_service('change price',ds.override_price,false/*is null allow*/,true/*is float*/).then(
+                    function(new_price){
+                        var instruction = new Modify_ds_instruction(
+                             undefined/*is_delete*/
+                            ,undefined/*new_qty*/
+                            ,new_price
+                            ,undefined/*new_discount*/
+                            ,undefined/*new_non_product_name*/
+                        );
+                        modify_ds(get_ds_index(ds),instruction,$scope.ds_lst);    
+                    }
+                )
+            }else{
+                detail_price_dlg(ds).then(function(new_ds){
+                    var instruction = new Modify_ds_instruction(
+                         undefined/*is_delete*/
+                        ,undefined/*new_qty*/
+                        ,new_ds.override_price/*new_price*/
+                        ,undefined/*new_discount*/
+                        ,undefined/*new_non_product_name*/
+                    );
+                    modify_ds(get_ds_index(ds),instruction,$scope.ds_lst);                      
+                });
+            }
         }
         $scope.remove_ds = function(ds){
             var instruction = new Modify_ds_instruction(
@@ -143,6 +169,7 @@ define(
                 ,undefined/*new_qty*/
                 ,undefined/*new_price*/
                 ,undefined/*new_discount*/
+                ,undefined/*new_non_product_name*/
             );
             modify_ds(get_ds_index(ds),instruction,$scope.ds_lst);            
         }
@@ -158,22 +185,40 @@ define(
                         ,new_qty
                         ,undefined/*new_price*/
                         ,undefined/*new_discount*/
+                        ,undefined/*new_non_product_name*/
                     );
                     modify_ds(get_ds_index(ds),instruction,$scope.ds_lst);
                 }
             )
         }
         $scope.edit_sp = function(ds){
-            if(ds.store_product == null){return;}
-            if(ds.store_product.is_create_offline()){alert('edit offline product is under construction');return;} //_TODO_
-            var sp_copy = angular.copy(ds.store_product);
-            sp_info_service(sp_copy).then(
-                function(){
-                    sync_db_service($rootScope.GLOBAL_SETTING.store_id).then(function(){
-                        $scope.refresh_ds();
-                    })                    
+            if(ds.is_non_product()){
+                prompt_service('edit name',ds.non_product_name/*prefill*/,false/*is null allow*/,false/*is float*/).then(
+                    function(new_non_product_name){
+                        var instruction = new Modify_ds_instruction(
+                             undefined/*is_delete*/
+                            ,undefined/*qty*/
+                            ,undefined/*new_price*/
+                            ,undefined/*new_discount*/
+                            ,new_non_product_name
+                        );
+                        modify_ds(get_ds_index(ds),instruction,$scope.ds_lst);                        
+                    }
+                )
+            }else{
+                if(ds.store_product.is_create_offline()){
+                    edit_product_offline(ds.store_product).then( function(){ $scope.refresh_ds(); } )
+                }else{
+                    var sp_copy = angular.copy(ds.store_product);
+                    sp_info_service(sp_copy).then(
+                        function(){
+                            sync_db_service($rootScope.GLOBAL_SETTING.store_id).then(function(){
+                                $scope.refresh_ds();
+                            })                    
+                        }
+                    )                    
                 }
-            )
+            }
         }
         $scope.void = function(){
             set_ps_lst([]);

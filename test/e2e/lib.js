@@ -144,8 +144,10 @@ module.exports = {
             ptor.sleep(500);
         },
 
-        load_this_page : function(milisec){
-            var posUrl = 'http://127.0.0.1:8000/sale/index_angular';
+        load_this_page : function(milisec,is_offline){
+            var posUrl
+            if(is_offline)  {posUrl = 'http://127.0.0.1:8000/sale/index_offline_angular';}
+            else            {posUrl = 'http://127.0.0.1:8000/sale/index_angular';}
             browser.get(posUrl);
             if(milisec === undefined){
                 milisec = 10000;

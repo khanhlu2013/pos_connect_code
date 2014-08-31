@@ -382,8 +382,7 @@ SALE APP
 TODAY TASK
 . hotkey
 . test hold/unhold
-. test create product offline
-. test edit product that created offline
+
 
 
 

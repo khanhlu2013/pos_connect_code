@@ -23,8 +23,9 @@ exports.config = {
 
         // ,'./sale_app/shortcut_setup_n_usage.spec.js'                        
         // ,'./sale_app/displaying_scan/tender_calculation_4_single_item.spec.js'      
-        './sale_app/displaying_scan/non_inventory.spec.js'     
+        // './sale_app/displaying_scan/non_inventory.spec.js'     
 
+        './sale_app/offline_product.spec.js'     
     ],
     baseUrl: env.baseUrl,
     onPrepare: function() {

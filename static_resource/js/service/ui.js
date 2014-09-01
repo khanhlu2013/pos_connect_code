@@ -97,7 +97,7 @@ define(
                     '<h3 class="modal-title">confirm</h3>' +
                 '</div>' +
                 '<div class="modal-body">' +
-                    '<h1>' + message + '</h1>' +
+                    '<h1 id="service/ui/confirm/message_txt">' + message + '</h1>' +
                 '</div>' +
                 '<div class="modal-footer">' +
                     '<button id="service/ui/confirm/cancel_btn" class="btn btn-warning" ng-click="cancel()" type="button">cancel</button>' +                

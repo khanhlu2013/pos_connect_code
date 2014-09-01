@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="{{ STATIC_URL }}css/ng-table.css">
     <link rel="stylesheet" href="{{ STATIC_URL }}css/share.css">
     <link rel="stylesheet" href="{{ STATIC_URL }}css/angular-block-ui.css">
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/hotkeys.css">
 
     <nav class="navbar navbar-inverse" role="navigation">
         <div class="container-fluid">
@@ -80,11 +81,11 @@
                         </ul>
                     </li>   
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">action <b class="caret"></b></a>
+                        <a id="sale_app/menu/action" href="#" class="dropdown-toggle" data-toggle="dropdown">action <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li id='push_receipt_menu'><a href='#'>push receipt</a></li>
-                            <li id='save_to_hold_menu' ng-click="hold()"><a href='#'>hold - ctrl+h</a></li>
-                            <li id='get_from_hold_menu' ng-click="get_hold_ui()"><a href='#'>get hold - ctrl+g</a></li>  
+                            <li id='sale_app/menu/action/hold' ng-click="hold()"><a href='#'>hold - ctrl+h</a></li>
+                            <li id='sale_app/menu/action/get_hold' ng-click="get_hold_ui()"><a href='#'>get hold - ctrl+g</a></li>  
                             <li id='toggle_value_customer_price_menu'><a href='#'>value customer price - F5</a></li>                 
                         </ul>
                     </li>                    

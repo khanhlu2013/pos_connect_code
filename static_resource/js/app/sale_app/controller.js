@@ -70,6 +70,7 @@ define(
         ,'sale_app/service/hold/api'
         ,'sale_app/service/hold/get_hold_ui'
         ,'sale_app/service/offline_product/edit'
+        ,'hotkeys'
     ,function(
          $scope
         ,$rootScope
@@ -93,7 +94,21 @@ define(
         ,hold_api
         ,get_hold_ui
         ,edit_product_offline
+        ,hotkeys
     ){
+
+    hotkeys.bindTo($scope)
+    .add({
+        combo: 'ctrl+h',
+        description: 'hold',
+        callback: function() {$scope.hold()}
+    })
+    .add({
+        combo: 'ctrl+g',
+        description: 'get holds',
+        callback: function() {$scope.get_hold_ui()}
+    })
+
         function get_ds_index(ds){
             var index = -1;
             for(var i = 0;i<$scope.ds_lst.length;i++){

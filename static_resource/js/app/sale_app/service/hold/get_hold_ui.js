@@ -85,8 +85,8 @@ define(
                 '</div>' +
 
                 '<div class="modal-footer">' +
-                    '<button ng-disabled="cur_hold==null"class="btn btn-success" ng-click="select(cur_hold)">ok</button>' +  
-                    '<button class="btn btn-warning" ng-click="cancel()">cancel</button>' +
+                    '<button id="sale_app/service/hold/get_hold_ui/ok_btn" ng-disabled="cur_hold==null"class="btn btn-success" ng-click="select(cur_hold)">ok</button>' +  
+                    '<button id="sale_app/service/hold/get_hold_ui/cancel_btn" class="btn btn-warning" ng-click="cancel()">cancel</button>' +
                 '</div>'
             ;
             var controller = function($scope,$modalInstance,$rootScope,hold_lst){

@@ -27,6 +27,7 @@ define(
     app.config(function(blockUIConfigProvider) {
         blockUIConfigProvider.message('Please wait ... ');
         blockUIConfigProvider.delay(100);
+        blockUIConfigProvider.autoBlock = false;
     });
 
     app.run(['service/init_global_setting',function(init_global_setting){

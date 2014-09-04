@@ -366,7 +366,10 @@ SALE APP
     . it said 3 receipts pushing but actually only 1 receipt is pushing
     . sale record report, payment type report
 ------------------------------------------------------------------------------------------------------------------
+. suggest p_type, p_tag
 . name search - wait for a suggestion to use it with require js.
+. syncing db with/without progress bar option
+. when suggestion data to create product, filter out duplicate and provide a frequency, make sure we also sort this list base on frequency
 . manula discount
 . tender button
 . receipt pusher
@@ -375,14 +378,7 @@ SALE APP
 . is it cleaner to have blockUI to be include in each module that need that include in the app?
 . prompt_string, prompt_int, prompt_float
 . hard code taxrate in e2e test if fragile. at least put it in a lib and not to hard code it in every file. search for 8.725
-
-
-
-
-
-. when suggestion data to create product, filter out duplicate and provide a frequency, make sure we also sort this list base on frequency
-. syncing db with/without progress bar option
-. suggest p_type, p_tag
+. edit product in sale page ajax again when it exit. can we optimize this?
 
 
 
@@ -390,7 +386,9 @@ SALE APP
 
 
 
-test toogle ds_lst . also how to bind it while sku txt is in focus
+
+
+
 
 
 

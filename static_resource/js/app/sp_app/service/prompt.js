@@ -8,7 +8,7 @@ define(
 )
 {
     var mod = angular.module('sp_app/service/prompt',[]);
-    mod.factory('sp_app/service/prompt',['$modal', function($modal){
+    mod.factory('sp_app/service/prompt',['$modal','$http','$q',function($modal,$http,$q){
 
         //- NAME -------------------------------------------------------------------------------------------------------------------------------------------------------
         var template_name_main_suggestion = 
@@ -230,10 +230,10 @@ define(
             '<div class="form-group">' +
                 '<label class="col-sm-4 control-label">Type:</label>' +
                 '<div class="col-sm-8">' +
-                    '<input id="sp_app/service/prompt/p_type_txt" ng-model="$parent.sp.p_type" type="text">' +
+                    '<input id="sp_app/service/prompt/p_type_txt" ng-model="$parent.sp.p_type" typeahead="item.type for item in lookup_type_tag | filter:$viewValue | limitTo:8" type="text" class="form-control">' +
                 '</div>' +
             '</div>' +
-
+// typeahead="state for state in states | filter:$viewValue | limitTo:8" xxx
             '<div class="form-group">' +
                 '<label class="col-sm-4 control-label">Tag:</label>' +
                 '<div class="col-sm-8">' +
@@ -316,13 +316,23 @@ define(
             '</div>'
         ;      
 
-        var ModalCtrl = function($scope,$modalInstance,$filter,$http,original_sp,suggest_product,duplicate_sp,original_sku){
+        function process(lookup_type_tag){
+            var result = [];
+            for(item in lookup_type_tag){
+                var obj = {type:item,tag_lst:lookup_type_tag[item]}
+                result.push(obj);
+            }
+            return result;
+        }
+
+        var ModalCtrl = function($scope,$modalInstance,$filter,original_sp,suggest_product,duplicate_sp,original_sku,lookup_type_tag){
             $scope.suggest_product = suggest_product;
             $scope.duplicate_sp = duplicate_sp;
             $scope.original_sku = original_sku;
             $scope.original_sp = original_sp;
             initial_blank_sp = {is_sale_report:true,is_taxable:false};
             $scope.tax_suggest_statistic = (suggest_product == null ? null : suggest_product.get_tax_suggest_statistic())
+            $scope.lookup_type_tag = process(lookup_type_tag);
 
             //pending data for storing prompt
             $scope.sku = original_sku;            
@@ -429,6 +439,18 @@ define(
             };
         }
 
+        function get_lookup_type_tag(){
+            var defer = $q.defer();
+            $http({
+                url:'/product/get_lookup_type_tag',
+                method:'GET'
+            }).then(
+                 function(data){defer.resolve(data.data);}
+                ,function(reason){defer.resolve({});}
+            )
+            return defer.promise;
+        }
+
         return function(original_sp,suggest_product,duplicate_sp,sku){
             var dlg = $modal.open({
                 template: template,
@@ -440,6 +462,7 @@ define(
                     ,suggest_product : function(){return suggest_product}
                     ,duplicate_sp : function(){return duplicate_sp}
                     ,original_sku : function(){return sku}
+                    ,lookup_type_tag : get_lookup_type_tag
                 }
             });
             return dlg.result;

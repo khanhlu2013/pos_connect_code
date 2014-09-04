@@ -39,6 +39,10 @@ describe('sale_app/shortcut/setup_n_usage', function() {
     var cell_usage_0 = row_usage_lst.get(0).all(by.tagName('td')).get(1);    
     var cell_usage_4 = row_usage_lst.get(1).all(by.tagName('td')).get(2);
 
+    //sale page
+    var ds_lst = element.all(by.repeater('ds in ds_lst'));
+    var void_btn = element(by.id('sale_app/main_page/void_btn'));
+
     beforeEach(function(){
         lib.auth.login(baseUrl,'1','1');
         browser.get(baseUrl); 
@@ -102,7 +106,9 @@ describe('sale_app/shortcut/setup_n_usage', function() {
         //verify
         cell_usage_0.click();
         cell_usage_4.click();
-        var ds_lst = element.all(by.repeater('ds in ds_lst'));
         expect(ds_lst.count()).toEqual(2);
+
+        //clean up
+        void_btn.click();
     })
 });

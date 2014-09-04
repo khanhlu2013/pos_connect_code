@@ -22,7 +22,7 @@ define(
     ){
         return function(){
             var str = localStorage.getItem('pending_scan_lst');
-            if(str == undefined){
+            if(str === null){
                 var ps_lst = []
                 set_ps_lst(ps_lst);
                 return ps_lst;

@@ -12,16 +12,17 @@ define(
     angular
 )
 {
-    var mod = angular.module('sale_app/service/scan/calculate_displaying_scan',
+    var mod = angular.module('sale_app/service/displaying_scan/calculate_ds_lst',
     [
          'sale_app/service/search/sp_api'
         ,'sale_app/model'
         ,'service/misc'
         ,'sale_app/service/displaying_scan/compress_ds_lst'
     ]);
-    mod.factory('sale_app/service/scan/calculate_displaying_scan',
+    mod.factory('sale_app/service/displaying_scan/calculate_ds_lst',
     [
          '$q'
+        ,'$rootScope'
         ,'sale_app/service/search/sp_api'
         ,'sale_app/model/Displaying_scan'
         ,'sale_app/model/Mix_match_deal_info'        
@@ -29,6 +30,7 @@ define(
         ,'sale_app/service/displaying_scan/compress_ds_lst'
     ,function(
          $q
+        ,$rootScope
         ,search_sp
         ,Displaying_scan
         ,Mix_match_deal_info
@@ -206,7 +208,8 @@ define(
 
         //------------------------------------------------    
 
-        return function(ps_lst,mm_lst){
+        return function(ps_lst){
+            var mm_lst = angular.copy($rootScope.GLOBAL_SETTING.mix_match_lst);
             mm_lst.sort(function(a,b){
                 return b.qty - a.qty;
             })

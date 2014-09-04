@@ -155,5 +155,9 @@ describe('sale_app/displaying_scan/non_inventory', function() {
         expect(sp_prompt_buydown.getAttribute('value')).toEqual(buydown.toString());
         expect(sp_prompt_value_customer_price.getAttribute('value')).toEqual(value_customer_price.toString());      
         sp_prompt_cancel_btn.click();  
+
+        //clean up
+        void_btn.click();
+
     });
 });

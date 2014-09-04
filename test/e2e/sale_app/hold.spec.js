@@ -25,6 +25,7 @@ describe('sale_app/hold', function() {
     var ds_lst = element.all(by.repeater('ds in ds_lst'))
     var name_index = 1;
     var price_index = 2;
+    var void_btn = element(by.id('sale_app/main_page/void_btn'));
 
     beforeEach(function(){
         lib.auth.login(baseUrl,'1','1');
@@ -62,7 +63,7 @@ describe('sale_app/hold', function() {
         lib.api.insert_new(sku_1,product_name_1);
         lib.api.insert_new(sku_2,product_name_2);  
         lib.api.insert_new(sku_3,product_name_3); 
-        lib.sale_page.load_this_page(4000);                  
+        lib.sale_page.load_this_page();                  
 
         //when there is nothing on hold, ok button will be disable
         get_hold_ui();
@@ -103,5 +104,8 @@ describe('sale_app/hold', function() {
         hold_ui_hold_lst.get(1).all(by.css('.btn')).get(0).click();
         expect(hold_ui_cur_hold_ds_lst.get(0).all(by.tagName('td')).get(1).getText()).toEqual(product_name_3);        
         hold_ui_cancel_btn.click();
+
+        //clean up
+        void_btn.click();
     })
 });

@@ -8,7 +8,7 @@ define(
     ,'app/sale_app/controller'
     ,'blockUI'
     ,'service/init_global_setting'
-    ,'lib/hotkeys'
+    ,'angular_hotkey'
 ]
 ,function
 (
@@ -33,6 +33,7 @@ define(
     app.config(function(hotkeysProvider) {
         hotkeysProvider.includeCheatSheet = true;
     });
+    app.constant('IS_USE_VALUE_CUSTOMER_PRICE','IS_USE_VALUE_CUSTOMER_PRICE');
     app.run(['service/init_global_setting',function(init_global_setting){
         init_global_setting();
     }])

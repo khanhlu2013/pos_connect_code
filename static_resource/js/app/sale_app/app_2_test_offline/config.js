@@ -18,19 +18,16 @@ requirejs.config({
         ,'pouchdb_quick_search' : ['lib/pouchdb.quick-search']
         ,'blockUI' : ['lib/angular-block-ui']
         ,'angular_mock' : ['lib/angular-mocks']
+        ,'angular_hotkey' :         ['lib/hotkeys']
     }
     ,shim:{
          'angular'                  : { exports : 'angular' }
         ,'ui_bootstrap'             : { deps    : ['angular'] }
         ,'angular_mock'             : { deps    : ['angular'] }
+        ,'angular_hotkey'           : { deps    : ['angular'] }
         ,'ngTable'                  : { deps    : ['angular'] } 
         ,'pouchdb_quick_search'     : { deps    : ['pouchdb_raw'] } 
         ,'blockUI'                  : { deps    : ['angular']}         
     }
     ,deps : ['app/sale_app/app_2_test_offline/bootstrap']
 });
-requirejs.onError = function (err) {
-    alert('there is error loading page: ' + err);
-    console.log(err);
-    throw err;
-};

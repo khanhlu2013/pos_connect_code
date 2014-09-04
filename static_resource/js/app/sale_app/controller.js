@@ -6,7 +6,7 @@ define(
     ,'app/sale_app/service/scan/preprocess'
     ,'app/sale_app/service/scan/append_pending_scan'
     ,'app/sale_app/service/pending_scan/get_api'
-    ,'app/sale_app/service/scan/calculate_displaying_scan'
+    ,'app/sale_app/service/displaying_scan/get_ds_lst'
     ,'app/sale_app/service/search/name_sku_dlg'
     ,'app/sale_app/service/pending_scan/set_api'
     ,'app/sale_app/service/displaying_scan/modify_ds'
@@ -19,6 +19,8 @@ define(
     ,'app/sale_app/service/hold/api'
     ,'app/sale_app/service/hold/get_hold_ui'
     ,'app/sale_app/service/offline_product'
+    ,'app/sale_app/service/scan/toogle_value_customer_price'
+    // ,'lib/hotkeys'
 ], function
 (
      angular
@@ -32,7 +34,7 @@ define(
         ,'sale_app/service/scan/preprocess'
         ,'sale_app/service/scan/append_pending_scan'
         ,'sale_app/service/pending_scan/get_api'
-        ,'sale_app/service/scan/calculate_displaying_scan'
+        ,'sale_app/service/displaying_scan/get_ds_lst'
         ,'sale_app/service/search/name_sku_dlg'
         ,'sale_app/service/pending_scan/set_api'
         ,'sale_app/service/displaying_scan/modify_ds'
@@ -45,6 +47,8 @@ define(
         ,'sale_app/service/hold/api'
         ,'sale_app/service/hold/get_hold_ui'
         ,'sale_app/service/offline_product'
+        ,'sale_app/service/scan/toogle_value_customer_price'
+        // ,'cfp.hotkeys'
     ]);
     mod.controller('Sale_page_ctrl', 
     [
@@ -53,7 +57,7 @@ define(
         ,'sale_app/service/scan/preprocess'
         ,'sale_app/service/scan/append_pending_scan'
         ,'sale_app/service/pending_scan/get_api'
-        ,'sale_app/service/scan/calculate_displaying_scan'
+        ,'sale_app/service/displaying_scan/get_ds_lst'
         ,'sale_app/service/search/name_sku_dlg'
         ,'sale_app/service/pending_scan/set_api'
         ,'sale_app/model/Modify_ds_instruction'
@@ -71,13 +75,14 @@ define(
         ,'sale_app/service/hold/get_hold_ui'
         ,'sale_app/service/offline_product/edit'
         ,'hotkeys'
+        ,'sale_app/service/scan/toogle_value_customer_price'
     ,function(
          $scope
         ,$rootScope
         ,preprocess
         ,append_pending_scan
         ,get_ps_lst
-        ,calculate_ds
+        ,get_ds_lst
         ,search_name_sku_dlg
         ,set_ps_lst
         ,Modify_ds_instruction
@@ -95,19 +100,26 @@ define(
         ,get_hold_ui
         ,edit_product_offline
         ,hotkeys
+        ,toogle_value_customer_price
     ){
 
-    hotkeys.bindTo($scope)
-    .add({
-        combo: 'ctrl+h',
-        description: 'hold',
-        callback: function() {$scope.hold()}
-    })
-    .add({
-        combo: 'ctrl+g',
-        description: 'get holds',
-        callback: function() {$scope.get_hold_ui()}
-    })
+        hotkeys.bindTo($scope)
+        .add({
+            combo: 'ctrl+h',
+            description: 'hold',
+            callback: function() {$scope.hold()}
+        })
+        .add({
+            combo: 'ctrl+g',
+            description: 'get holds',
+            callback: function() {$scope.get_hold_ui()}
+        })
+        .add({
+            combo: 'f5',
+            description: 'toogle value customer price',
+            allowIn: ['INPUT'],
+            callback: function() {$scope.toogle_value_customer_price();}
+        })
 
         function get_ds_index(ds){
             var index = -1;
@@ -119,6 +131,7 @@ define(
             }
             return index;
         }
+        $scope.toogle_value_customer_price = function(){toogle_value_customer_price();}
         $scope.non_inventory = function(){
             prompt_service('enter none inventory price',null/*prefill*/,false/*is null allow*/,true/*is float*/).then(
                 function(price){
@@ -247,7 +260,7 @@ define(
         $scope.refresh_ds = function(){
             console.log('refresh ds lst ...');
             blockUI.start();
-            calculate_ds(get_ps_lst(),$rootScope.GLOBAL_SETTING.mix_match_lst).then(
+            get_ds_lst().then(
                  function(data){
                     $scope.ds_lst = data;
                     blockUI.stop();

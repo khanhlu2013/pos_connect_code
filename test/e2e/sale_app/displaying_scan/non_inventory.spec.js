@@ -78,6 +78,9 @@ describe('sale_app/displaying_scan/non_inventory', function() {
         prompt_txt.sendKeys(new_price,enter_key);
         prompt_ok_btn.click();
         expect(ds_lst.get(0).all(by.tagName('td')).get(price_index).getText()).toEqual('$1.11');        
-        expect(tender_btn.getText()).toEqual('$2.22');     
+        expect(tender_btn.getText()).toEqual('$2.22');    
+
+        //clean up
+        void_btn.click(); 
     });
 });

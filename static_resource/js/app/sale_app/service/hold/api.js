@@ -7,7 +7,7 @@ define(
 [
      'angular' 
     //--------
-    ,'app/sale_app/service/scan/calculate_displaying_scan'
+    ,'app/sale_app/service/displaying_scan/calculate_ds_lst'
     ,'app/sale_app/service/hold/model'
     ,'app/sale_app/model'
     ,'app/sale_app/service/pending_scan/get_api'
@@ -20,7 +20,7 @@ define(
 {
     var mod = angular.module('sale_app/service/hold/api',
     [
-         'sale_app/service/scan/calculate_displaying_scan'
+         'sale_app/service/displaying_scan/calculate_ds_lst'
         ,'sale_app/service/hold/model'
         ,'sale_app/model'
         ,'sale_app/service/pending_scan/get_api'
@@ -30,7 +30,7 @@ define(
     [
          '$q'
         ,'$rootScope'
-        ,'sale_app/service/scan/calculate_displaying_scan'
+        ,'sale_app/service/displaying_scan/calculate_ds_lst'
         ,'sale_app/service/hold/model/Hold'
         ,'sale_app/model/Pending_scan'
         ,'sale_app/service/pending_scan/get_api'
@@ -53,10 +53,9 @@ define(
 
             //process str : aka converting ps_lst -> ds_lst
             var raw_lst = JSON.parse(str);
-            var mm_lst = $rootScope.GLOBAL_SETTING.mix_match_lst;
             var promise_lst = []
             for(var i = 0;i<raw_lst.length;i++){
-                promise_lst.push(calculate_ds(raw_lst[i].ps_lst,mm_lst));
+                promise_lst.push(calculate_ds(raw_lst[i].ps_lst));
             }
             $q.all(promise_lst).then(
                 function(lst_of_ds_lst){

@@ -46,7 +46,7 @@ define(
                         //mix match deal discount
                         '<div ng-hide="ds.mm_deal_info==null" class="form-group">' +
                             '<label class="col-sm-5 control-label">{{ds.mm_deal_info.mm_deal.name}} (discount):</label>' +
-                            '<p class="col-sm-7 form-control-static">{{ds.mm_deal_info.get_unit_discount(GLOBAL_SETTING.tax_rate)|currency}}</p>' +  
+                            '<p class="col-sm-7 form-control-static">{{ds.mm_deal_info.get_unit_discount()|currency}}</p>' +  
                         '</div>' +
 
                         //buydown
@@ -58,7 +58,7 @@ define(
                         //total discount price
                         '<div class="form-group">' +
                             '<label class="col-sm-5 control-label">total discount price:</label>' +
-                            '<p class="col-sm-7 form-control-static"><mark>{{ds.get_total_discount_price(GLOBAL_SETTING.tax_rate)|currency}}</mark></p>' +  
+                            '<p class="col-sm-7 form-control-static"><mark>{{ds.get_total_discount_price()|currency}}</mark></p>' +  
                         '</div>' +
 
                         //crv

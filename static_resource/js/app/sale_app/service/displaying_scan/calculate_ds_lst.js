@@ -128,7 +128,7 @@ define(
 
             return Math.floor(avail_qty / mm_deal.qty); 
         }
-        function form_deal(ds_extract_lst,mm_deal){
+        function form_deal(ds_extract_lst,mm_deal,tax_rate){
             var num_deal = get_total_deal_can_be_form(ds_extract_lst,mm_deal);
             if(num_deal == 0){ return ;}
 
@@ -175,7 +175,7 @@ define(
                 for(var j=0;j<cur_formation.length;j++){
                     var cur_ds = cur_formation[j];
                     var formation_copy = angular.copy(cur_formation);//make a copy to preven circular reference
-                    cur_ds.mm_deal_info = new Mix_match_deal_info(mm_deal,formation_copy);
+                    cur_ds.mm_deal_info = new Mix_match_deal_info(mm_deal,formation_copy,tax_rate);
                 }
             }        
         }      
@@ -210,6 +210,7 @@ define(
 
         return function(ps_lst){
             var mm_lst = angular.copy($rootScope.GLOBAL_SETTING.mix_match_lst);
+            var tax_rate = $rootScope.GLOBAL_SETTING.tax_rate;
             mm_lst.sort(function(a,b){
                 return b.qty - a.qty;
             })
@@ -221,7 +222,7 @@ define(
                     var ds_extract_lst = form_ds_extract(ps_lst,sp_distinct_lst);
 
                     for(var i = 0;i<possible_mm_lst.length;i++){
-                        form_deal(ds_extract_lst,possible_mm_lst[i]);
+                        form_deal(ds_extract_lst,possible_mm_lst[i],tax_rate);
                     }            
                     defer.resolve(compress_ds_lst(ds_extract_lst,true/*is_consider_mm_deal*/))
                 }

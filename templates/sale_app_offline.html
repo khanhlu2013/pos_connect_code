@@ -108,7 +108,7 @@
                 <tr ng-repeat="ds in ds_lst">
                     <td ng-click="edit_qty(ds)">{{ds.qty}}</td>
                     <td ng-click="edit_sp(ds)">{{ds.get_name()}}</td>
-                    <td ng-click="show_detail_price(ds)" class="alnright">{{ds.get_total_discount_price(GLOBAL_SETTING.tax_rate)|currency}}</td>
+                    <td ng-click="show_detail_price(ds)" class="alnright">{{ds.get_total_discount_price()|currency}}</td>
                     <td>{{ds.mm_deal_info.mm_deal.name}}</td>                    
                     <td><button ng-click="remove_ds(ds)" class="btn btn-danger glyphicon glyphicon-trash"></button></td>
                 </tr>

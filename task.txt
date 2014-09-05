@@ -383,22 +383,51 @@ SALE APP
 . edit product in sale page result an extra ajax trip when it exit. can we optimize this?
 
 
-. prompt_string, prompt_int, prompt_float. use git to implement these interface. lets see if i can have this branch pending and to be merged to code based later
-. learn git: how to redo the typeahead experiement or any experiment
 
 
 
+---------------------
+
+tender button. sale finalizer
+    . i need the receipt model. it should be the same offline and online. 
+        . Receipt:
+            . timestamp
+            . payment: a dictionary of payment and amount
+            . tax_rate_stamp
+            . receipt_ln - how is it different than displaying scan?
+                non_product_name
+                qty
+                override_price
+                discount
+                store_product_live:(so that we can pull a live report about type ,tag, taxable ...)
+                store_product_stamp -> name,crv,buydown,price,cost,is_taxable,p_type,p_tag
+                mm_deal_info_stamp -> unit discount, deal_name
+
+    . where do i go from here when i have a first draft about Receipt model. how can i know what is missing. how do i know i collect enough sale data? here is some clue about where to go next:
+        . from Receipt, i need to reproduce the exact ds_lst(notice the model is different) -> interface that make Receipt_ln and Dispalying_scan operate the same.
+
+---------------------
+
+    . there is some concept i need to promote about price to promote my programming understanding: 
+        . verify that crv,dis,tax is the only 3 element form different meaning of price
+        . get_otd_wot_price : de-promote this guy. it is just a convenient to calculate other stuff we want to promote. it is the low-level implementation we want to stay away from to be a better engineer.
+        
+
+        . GENESIS_PRICE: the most bare, lowest level of price. the beginning. original price. regular price, , 
+            . in order to promote this price concept, we need to de-promote sp.price since it is only half of this concept. it also need ds.override_price to form it
+            . price_wo_crv_dis_tax is the low level name. replace it with original_price
+        
+        . ADVERTISING_PRICE : this is the price we want to SHOW to the customer. it should include all discount and not include tax and crv which the customer HATE to see
+            . price_wi_dis is the low-level name. replace it with get_total_discount_price
 
 
+        . ALL_TAX: it is the product_tax and buydown_tax. which is the 2 low-level element again we need to de-promote.
+            . make get_all_tax() public and get_tax() and get_buydown_tax() private
+
+        . OUT_THE_DOOR_PRICE
 
 
-
-
-
-
-
-
-
+. commit : remove tax_rate out of mix_match_deal get_unit_discount method. it is the mm_deal_info that need to capture tax info. this refactor help to un-clutter tax_rate all over ds model 
 
 
 

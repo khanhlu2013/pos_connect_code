@@ -371,10 +371,11 @@ SALE APP
     . when suggestion data to create product, filter out duplicate and provide a frequency, make sure we also sort this list base on frequency
     . re-test all the menu service on the sale page  
     . receipt report having issue: angular infinite watch    
+    . prompt_string, prompt_int, prompt_float
 ------------------------------------------------------------------------------------------------------------------
 
 
-. tender button
+
 . receipt pusher
 
 

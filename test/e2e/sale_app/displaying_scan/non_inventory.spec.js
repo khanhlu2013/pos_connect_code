@@ -33,7 +33,7 @@ describe('sale_app/displaying_scan/non_inventory', function() {
 
     it('can scan,edit price, edit name,remove non inventory',function(){
         lib.auth.login(baseUrl,'1','1');
-        lib.sale_page.load_this_page(3000);
+        lib.sale_page.load_this_page();
 
         //can scan non inventory
         non_inv_btn.click();

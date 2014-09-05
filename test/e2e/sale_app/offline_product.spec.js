@@ -54,7 +54,7 @@ describe('sale_app/offline_product', function() {
 
     it('can create and edit offline product',function(){
         lib.auth.login(baseUrl,'1','1');
-        lib.sale_page.load_this_page(3000,true/*is_offline*/);
+        lib.sale_page.load_this_page(10000,true/*is_offline*/);
         
         //scan
         var sku = '123';

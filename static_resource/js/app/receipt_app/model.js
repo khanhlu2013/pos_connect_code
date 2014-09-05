@@ -97,11 +97,11 @@ define(
             ,get_total_discount: function(){
                 return this.discount + this.discount_mm_deal + this.buydown;
             } 
-            ,get_total_discount_price: function(){
+            ,get_advertise_price: function(){
                 return this.price - this.get_total_discount();
             }
             ,get_otd_wot_price: function(){
-                return this.get_total_discount_price() + this.crv;
+                return this.get_advertise_price() + this.crv;
             }        
             ,get_buydown_tax: function(tax_rate){
                 if(!this.is_taxable){

@@ -76,7 +76,7 @@ define(
                                 '<tr ng-repeat="ds in cur_hold.ds_lst">' +
                                     '<td>{{ds.qty}}</td>' +
                                     '<td>{{ds.get_name()}}</td>' +
-                                    '<td>{{ds.get_total_discount_price()|currency}}</td>' +
+                                    '<td>{{ds.get_advertise_price()|currency}}</td>' +
                                 '</tr>' +
                             '</table>' +              
                         '</div>' +

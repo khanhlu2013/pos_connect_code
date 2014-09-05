@@ -44,7 +44,7 @@ define(
 
                 if(
                        (non_product_condition || product_condition)
-                    && last_item.get_regular_price() === cur_item.get_regular_price()
+                    && last_item.get_genesis_price() === cur_item.get_genesis_price()
                     && last_item.discount === cur_item.discount
                     && mm_deal_condition
                 ){

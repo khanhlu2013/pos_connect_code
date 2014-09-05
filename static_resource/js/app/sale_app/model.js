@@ -78,7 +78,7 @@ define(
                 if(this.store_product!=null)    { result += this.store_product.get_buydown() }
                 return result
             }             
-            ,get_regular_price : function(){
+            ,get_genesis_price : function(){
                 /* override_price does not design to give discount. */
                 if(this.store_product == null){
                     return this.override_price;
@@ -88,11 +88,11 @@ define(
                     return this.store_product.price;
                 }
             }
-            ,get_total_discount_price: function () {
-                return this.get_regular_price() - this.get_total_discount();
+            ,get_advertise_price: function () {
+                return this.get_genesis_price() - this.get_total_discount();
             }            
-            ,get_otd_wot_price: function(){
-                var result = this.get_total_discount_price();
+            ,_get_b4_tax_price: function(){
+                var result = this.get_advertise_price();
                 if(this.store_product!=null){result += this.store_product.get_crv();}
                 return result;
             }            
@@ -106,17 +106,17 @@ define(
                 }
                 return this.store_product.get_buydown() * tax_rate/100.0
             }
-            ,get_tax: function(tax_rate){
+            ,get_product_tax: function(tax_rate){
                 if(this.store_product == null || this.store_product.is_taxable == false){
                     return 0;
                 }
-                return this.get_otd_wot_price()*tax_rate/100.0;
+                return this._get_b4_tax_price()*tax_rate/100.0;
             }   
-            ,get_otd_wt_price: function(tax_rate){
-                return this.get_otd_wot_price() + this.get_tax(tax_rate) + this.get_buydown_tax(tax_rate);
+            ,get_otd_price: function(tax_rate){
+                return this._get_b4_tax_price() + this.get_product_tax(tax_rate) + this.get_buydown_tax(tax_rate);
             }        
             ,get_line_total: function(tax_rate){
-                var result =  this.get_otd_wt_price(tax_rate) * this.qty;
+                var result =  this.get_otd_price(tax_rate) * this.qty;
                 return result;
             }                         
         }
@@ -152,7 +152,7 @@ define(
                     var total_reg_price = 0.0;
                     for(var i = 0;i<this.formation_ds_lst.length;i++){
                         var ds = this.formation_ds_lst[i];
-                        total_reg_price += (ds.get_regular_price() + ds.store_product.get_crv())//we DO include crv here
+                        total_reg_price += (ds.get_genesis_price() + ds.store_product.get_crv())//we DO include crv here
                     }
 
                     //UNIT DISCOUNT
@@ -167,7 +167,7 @@ define(
                     var total_reg_price = 0.0;
                     for(var i = 0;i<this.formation_ds_lst.length;i++){
                         var ds = this.formation_ds_lst[i];
-                        total_reg_price += ds.get_regular_price();//we NOT include crv here
+                        total_reg_price += ds.get_genesis_price();//we NOT include crv here
                     }   
 
                     return (total_reg_price - this.mm_deal.mm_price) / this.mm_deal.qty;      

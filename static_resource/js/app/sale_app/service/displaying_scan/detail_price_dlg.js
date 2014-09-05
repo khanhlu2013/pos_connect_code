@@ -58,7 +58,7 @@ define(
                         //total discount price
                         '<div class="form-group">' +
                             '<label class="col-sm-5 control-label">total discount price:</label>' +
-                            '<p class="col-sm-7 form-control-static"><mark>{{ds.get_total_discount_price()|currency}}</mark></p>' +  
+                            '<p class="col-sm-7 form-control-static"><mark>{{ds.get_advertise_price()|currency}}</mark></p>' +  
                         '</div>' +
 
                         //crv
@@ -76,13 +76,13 @@ define(
                         //tax
                         '<div class="form-group">' +
                             '<label class="col-sm-5 control-label">tax ({{tax_rate}}%) :</label>' +
-                            '<p class="col-sm-7 form-control-static">{{ds.get_tax(GLOBAL_SETTING.tax_rate)|currency|not_show_zero}}</p>' +  
+                            '<p class="col-sm-7 form-control-static">{{ds.get_product_tax(GLOBAL_SETTING.tax_rate)|currency|not_show_zero}}</p>' +  
                         '</div>' +
 
                         //out the door
                         '<div class="form-group">' +
                             '<label class="col-sm-5 control-label">out the door $:</label>' +
-                            '<p class="col-sm-7 form-control-static">{{ds.get_otd_wt_price(GLOBAL_SETTING.tax_rate)|currency}}</p>' +  
+                            '<p class="col-sm-7 form-control-static">{{ds.get_otd_price(GLOBAL_SETTING.tax_rate)|currency}}</p>' +  
                         '</div>' +                    
                     '</div>' +
 

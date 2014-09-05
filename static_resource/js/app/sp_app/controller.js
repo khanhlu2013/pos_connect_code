@@ -1,22 +1,22 @@
 define(
 [
-	 'angular'
+     'angular'
     //---------------
-	// ,'app/sp_app/service/info'
- //    ,'app/sp_app/service/create'
- //    ,'app/sp_app/service/duplicate'    
- //    ,'filter/filter'    
- //    ,'directive/share_directive'    
- //    ,'service/ui'
- //    ,'app/sp_app/service/convert'
- //    ,'app/sp_app/service/api/search'
- //    ,'blockUI'
+    ,'app/sp_app/service/info'
+    ,'app/sp_app/service/create'
+    ,'app/sp_app/service/duplicate'    
+    ,'filter/filter'    
+    ,'directive/share_directive'    
+    ,'service/ui'
+    ,'app/sp_app/service/convert'
+    ,'app/sp_app/service/api/search'
+    ,'blockUI'
 ], function 
 (
-	 angular
+     angular
 )
 {
-	'use strict';
+    'use strict';
     var mod =  angular.module('sp_app.controller', 
     [
         'sp_app/service/info',
@@ -48,7 +48,7 @@ define(
 
     function(
         $window,
-        $scope
+        $scope,
         $rootScope,
         $filter,
         $q,

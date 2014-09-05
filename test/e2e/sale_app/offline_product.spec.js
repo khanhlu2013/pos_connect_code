@@ -1,7 +1,7 @@
 var lib = require('./../lib');
 
 
-describe('sale_app/displaying_scan/non_inventory', function() {
+describe('sale_app/offline_product', function() {
     /*
         when sku is not exist, it is the create module that kick in which should be tested separatly from this test.
     */
@@ -52,7 +52,7 @@ describe('sale_app/displaying_scan/non_inventory', function() {
         lib.auth.logout();
     })
 
-    it('can scan,edit price, edit name,remove',function(){
+    it('can create and edit offline product',function(){
         lib.auth.login(baseUrl,'1','1');
         lib.sale_page.load_this_page(3000,true/*is_offline*/);
         

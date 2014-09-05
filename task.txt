@@ -300,7 +300,7 @@ UPGRADE FEATURE
 . manual discount: 
     . as oppose to deal discount
     . always calculate into $ amount
-    . we need 1 more column if this feature is turned on: manual discount column
+    . in the model, we already have this column. just simply use it.
 ------------------------------------------------------------------------------------------------------------------
 TEST
 . account acl validator test
@@ -365,22 +365,26 @@ SALE APP
     . change pt after the fact
     . it said 3 receipts pushing but actually only 1 receipt is pushing
     . sale record report, payment type report
+    . suggest p_type, p_tag -> wait for typeahead to work with angularBlockUi
+    . name search - wait for a suggestion to use it with require js.    
+    . syncing db with/without progress bar option
+    . when suggestion data to create product, filter out duplicate and provide a frequency, make sure we also sort this list base on frequency
+    . re-test all the menu service on the sale page  
+    . receipt report having issue: angular infinite watch    
 ------------------------------------------------------------------------------------------------------------------
-. suggest p_type, p_tag
-. name search - wait for a suggestion to use it with require js.
-. syncing db with/without progress bar option
-. when suggestion data to create product, filter out duplicate and provide a frequency, make sure we also sort this list base on frequency
-. manula discount
+
+
 . tender button
 . receipt pusher
-. re-test all the menu service on the sale page  
-. receipt report having issue: angular infinite watch
-. is it cleaner to have blockUI to be include in each module that need that include in the app?
-. prompt_string, prompt_int, prompt_float
+
+
+. since blockUI is included in the app already, is it nessesary to be included in other file again, or just simply inject it into services?
 . hard code taxrate in e2e test if fragile. at least put it in a lib and not to hard code it in every file. search for 8.725
-. edit product in sale page ajax again when it exit. can we optimize this?
+. edit product in sale page result an extra ajax trip when it exit. can we optimize this?
 
 
+. prompt_string, prompt_int, prompt_float. use git to implement these interface. lets see if i can have this branch pending and to be merged to code based later
+. learn git: how to redo the typeahead experiement or any experiment
 
 
 

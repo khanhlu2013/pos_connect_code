@@ -93,11 +93,11 @@ define(
                 for(j=0;j<cur_ps.qty;j++){
                     var ds = new Displaying_scan(
                                  associated_sp
-                                ,cur_ps.non_product_name
                                 ,1/*qty*/
                                 ,cur_ps.override_price
                                 ,cur_ps.discount
                                 ,null//mm deal info
+                                ,cur_ps.non_inventory
                             )                    
                     result.push(ds);                
                 }

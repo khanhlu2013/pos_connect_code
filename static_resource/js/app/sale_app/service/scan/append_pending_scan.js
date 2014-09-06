@@ -33,11 +33,11 @@ define(
         ,Pending_scan
         ,search_sp
     ){
-        function by_product_id(product_id,qty,non_product_name,override_price){
+        function by_product_id(product_id,qty,non_inventory,override_price){
             var defer = $q.defer();
             search_sp.by_product_id(product_id).then(
                  function(sp){
-                    var ps_lst = by_doc_id(sp.sp_doc_id,qty,non_product_name,override_price);
+                    var ps_lst = by_doc_id(sp.sp_doc_id,qty,non_inventory,override_price);
                     defer.resolve(ps_lst); 
                 }
                 ,function(reason){return $q.reject(reason)}
@@ -45,11 +45,11 @@ define(
             return defer.promise;
         }
 
-        function by_doc_id(ps_doc_id,qty,non_product_name,override_price){
+        function by_doc_id(ps_doc_id,qty,non_inventory,override_price){
             var ps_lst = get_ps_lst();
             var ps = new Pending_scan(
                  ps_doc_id
-                ,non_product_name
+                ,non_inventory
                 ,qty
                 ,override_price
                 ,null//discount
@@ -57,7 +57,7 @@ define(
             if(ps_lst.length == 0){
                 ps_lst.push(ps);
             }else{  
-                if(non_product_name !=null){
+                if(non_inventory !==null){
                     ps_lst.push(ps);
                 }else{
                     var last_ps = ps_lst[ps_lst.length-1];

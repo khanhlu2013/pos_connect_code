@@ -24,9 +24,9 @@ define(
                 var last_item = result[result.length-1];var cur_item = ds_lst[i];
 
                 var non_product_condition = 
-                       last_item.store_product === null 
-                    && cur_item.store_product === null
-                    && last_item.non_product_name === cur_item.non_product_name;
+                       last_item.non_inventory !== null 
+                    && cur_item.non_inventory !== null
+                    && last_item.non_inventory.name === cur_item.non_inventory.name;
 
                 var product_condition = 
                        last_item.store_product !== null 

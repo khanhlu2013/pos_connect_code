@@ -83,7 +83,7 @@ define(
                     var cur_ds = cur_hold.ds_lst[j];
                     ps_lst.push(new Pending_scan(
                          cur_ds.store_product == null ? null : cur_ds.store_product.sp_doc_id
-                        ,cur_ds.non_product_name
+                        ,cur_ds.non_inventory
                         ,cur_ds.qty
                         ,cur_ds.override_price
                         ,cur_ds.discount

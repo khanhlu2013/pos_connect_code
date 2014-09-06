@@ -12,13 +12,13 @@ define(
         //CONSTRUCTOR
         function Pending_scan(
              sp_doc_id
-            ,non_product_name
+            ,non_inventory
             ,qty
             ,override_price
             ,discount
         ){
             this.sp_doc_id = sp_doc_id;
-            this.non_product_name = non_product_name;
+            this.non_inventory = non_inventory;
             this.qty = qty;
             this.override_price = override_price;
             this.discount = discount;
@@ -45,22 +45,34 @@ define(
         return Modify_ds_instruction;
     }])    
 
+    mod.factory('sale_app/model/Non_inventory',[function(){
+        //CONSTRUCTOR
+        function Non_inventory(
+             name
+            ,price
+        ){
+            this.name = name;
+            this.price = price;
+        }
+        return Non_inventory;
+    }]);
+
     mod.factory('sale_app/model/Displaying_scan',[function(){
         //CONSTRUCTOR
         function Displaying_scan(
              store_product
-            ,non_product_name
             ,qty
             ,override_price
             ,discount
             ,mm_deal_info
+            ,non_inventory
         ){
             this.store_product = store_product;
-            this.non_product_name = non_product_name;
             this.qty = qty;
             this.override_price = override_price;
             this.discount = discount;
             this.mm_deal_info = mm_deal_info;
+            this.non_inventory = non_inventory;
         }
         Displaying_scan.prototype = {
              constructor:Displaying_scan
@@ -68,8 +80,8 @@ define(
                 return this.store_product === null;
             } 
             ,get_name:function(){
-                if(this.store_product==null){ return this.non_product_name; }
-                else{ return this.store_product.name }
+                if(this.store_product!==null){ return this.store_product.name }
+                else{ return this.non_inventory.name; }
             }
             ,get_total_discount: function () {
                 var result = 0.0;
@@ -79,14 +91,9 @@ define(
                 return result
             }             
             ,get_genesis_price : function(){
-                /* override_price does not design to give discount. */
-                if(this.store_product == null){
-                    return this.override_price;
-                }else if(this.override_price!=null){
-                    return this.override_price;
-                }else{
-                    return this.store_product.price;
-                }
+                if(this.override_price !== null)    { return this.override_price; }
+                else if(this.is_non_product())      { return this.non_inventory.price; }
+                else                                { return this.store_product.price; }
             }
             ,get_advertise_price: function () {
                 return this.get_genesis_price() - this.get_total_discount();
@@ -121,7 +128,7 @@ define(
             }                         
         }
         return Displaying_scan;
-    }])    
+    }]);    
 
     mod.factory('sale_app/model/Mix_match_deal_info',[function(){
         //CONSTRUCTOR

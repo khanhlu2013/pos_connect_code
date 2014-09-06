@@ -76,6 +76,7 @@ define(
         ,'sale_app/service/offline_product/edit'
         ,'hotkeys'
         ,'sale_app/service/scan/toogle_value_customer_price'
+        ,'sale_app/model/Non_inventory'
     ,function(
          $scope
         ,$rootScope
@@ -101,6 +102,7 @@ define(
         ,edit_product_offline
         ,hotkeys
         ,toogle_value_customer_price
+        ,Non_inventory
     ){
 
         hotkeys.bindTo($scope)
@@ -135,7 +137,8 @@ define(
         $scope.non_inventory = function(){
             prompt_service('enter none inventory price',null/*prefill*/,false/*is null allow*/,true/*is float*/).then(
                 function(price){
-                    append_pending_scan.by_doc_id(null/*sp_doc_id*/,1/*qty*/,'none inventory',price);
+                    var non_inventory = new Non_inventory('non_inventory',price);
+                    append_pending_scan.by_doc_id(null/*sp_doc_id*/,1/*qty*/,non_inventory,null/*override price*/);
                 }
             )
         }
@@ -152,7 +155,7 @@ define(
                     for(var i = 0;i<hold.ds_lst.length;i++){
                         var cur_ds = hold.ds_lst[i];
                         var sp_doc_id = null;if(!cur_ds.is_non_product()){sp_doc_id = cur_ds.store_product.sp_doc_id;}
-                        append_pending_scan.by_doc_id(sp_doc_id,cur_ds.qty,cur_ds.non_product_name,cur_ds.override_price); 
+                        append_pending_scan.by_doc_id(sp_doc_id,cur_ds.qty,cur_ds.non_inventory,cur_ds.override_price); 
                     }
                 }
                 ,function(reason){alert_service('alert',reason,'red');}
@@ -221,7 +224,7 @@ define(
         }
         $scope.edit_sp = function(ds){
             if(ds.is_non_product()){
-                prompt_service('edit name',ds.non_product_name/*prefill*/,false/*is null allow*/,false/*is float*/).then(
+                prompt_service('edit name',ds.non_inventory.name/*prefill*/,false/*is null allow*/,false/*is float*/).then(
                     function(new_non_product_name){
                         var instruction = new Modify_ds_instruction(
                              undefined/*is_delete*/
@@ -255,7 +258,7 @@ define(
             var child_shortcut = shortcut_ui.get_child_of_cur_parent(row,col,$scope);
             if(child_shortcut == null){ return; }
             
-            append_pending_scan.by_product_id(child_shortcut.store_product.product_id,1/*qty*/,null/*non product name*/,null/*override price*/);
+            append_pending_scan.by_product_id(child_shortcut.store_product.product_id,1/*qty*/,null/*non_inventory*/,null/*override_price*/);
         }
         $scope.refresh_ds = function(){
             console.log('refresh ds lst ...');
@@ -272,7 +275,7 @@ define(
             $scope.sku_search_str = $scope.sku_search_str.trim();
             preprocess.exe($scope.sku_search_str).then(
                  function(data){ 
-                    append_pending_scan.by_doc_id(data.sp.sp_doc_id,data.qty,null/*non product name*/,null/*override price*/); 
+                    append_pending_scan.by_doc_id(data.sp.sp_doc_id,data.qty,null/*non_inventory*/,null/*override price*/); 
                 }
                 ,function(reason){ 
                     if(reason != preprocess.SKU_NOT_FOUND){ alert_service('alert',reason,'red');return; }

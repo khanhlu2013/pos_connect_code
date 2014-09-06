@@ -28,7 +28,7 @@ define(
                 if(instruction.new_qty!==undefined && instruction.new_qty!==null){ds.qty = instruction.new_qty;}
                 if(instruction.new_price!==undefined){ds.override_price = instruction.new_price;}
                 if(instruction.discount!=undefined){ds.discount = instruction.new_discount;}
-                if(instruction.new_non_product_name!=undefined){ds.non_product_name = instruction.new_non_product_name;}
+                if(instruction.new_non_product_name!=undefined){ds.non_inventory.name = instruction.new_non_product_name;}
             }            
             set_ds_lst(ds_lst);
         }

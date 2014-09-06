@@ -76,7 +76,7 @@ define(
         }
         Displaying_scan.prototype = {
              constructor:Displaying_scan
-            ,is_non_product:function(){
+            ,is_non_inventory:function(){
                 return this.store_product === null;
             } 
             ,get_name:function(){
@@ -92,7 +92,7 @@ define(
             }             
             ,get_genesis_price : function(){
                 if(this.override_price !== null)    { return this.override_price; }
-                else if(this.is_non_product())      { return this.non_inventory.price; }
+                else if(this.is_non_inventory())    { return this.non_inventory.price; }
                 else                                { return this.store_product.price; }
             }
             ,get_advertise_price: function () {

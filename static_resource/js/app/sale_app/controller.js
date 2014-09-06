@@ -154,7 +154,7 @@ define(
                 function(hold){
                     for(var i = 0;i<hold.ds_lst.length;i++){
                         var cur_ds = hold.ds_lst[i];
-                        var sp_doc_id = null;if(!cur_ds.is_non_product()){sp_doc_id = cur_ds.store_product.sp_doc_id;}
+                        var sp_doc_id = null;if(!cur_ds.is_non_inventory()){sp_doc_id = cur_ds.store_product.sp_doc_id;}
                         append_pending_scan.by_doc_id(sp_doc_id,cur_ds.qty,cur_ds.non_inventory,cur_ds.override_price); 
                     }
                 }
@@ -168,7 +168,7 @@ define(
             );
         }
         $scope.show_detail_price = function(ds){
-            if(ds.is_non_product()){
+            if(ds.is_non_inventory()){
                 prompt_service('change price',ds.override_price,false/*is null allow*/,true/*is float*/).then(
                     function(new_price){
                         var instruction = new Modify_ds_instruction(
@@ -223,7 +223,7 @@ define(
             )
         }
         $scope.edit_sp = function(ds){
-            if(ds.is_non_product()){
+            if(ds.is_non_inventory()){
                 prompt_service('edit name',ds.non_inventory.name/*prefill*/,false/*is null allow*/,false/*is float*/).then(
                     function(new_non_product_name){
                         var instruction = new Modify_ds_instruction(

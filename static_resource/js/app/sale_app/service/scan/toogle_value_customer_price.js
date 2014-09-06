@@ -52,7 +52,7 @@ define(
                 function(ds_lst){
                     for(var i = 0;i<ds_lst.length;i++){
                         var cur_item = ds_lst[i];
-                        if(cur_item.is_non_product()){continue;}
+                        if(cur_item.is_non_inventory()){continue;}
                         if(cur_item.store_product.value_customer_price === null){continue;}
                         cur_item.override_price = (is_on ? cur_item.store_product.value_customer_price : null);
                     }

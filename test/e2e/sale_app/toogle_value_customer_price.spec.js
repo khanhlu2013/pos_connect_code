@@ -1,6 +1,6 @@
 var lib = require('./../lib');
 
-describe('sale_app/hold', function() {
+describe('sale_app/displaying_scan/toogle_value_customer_price', function() {
     var baseUrl = 'http://127.0.0.1:8000/';
     var ptor = protractor.getInstance();
     var enter_key = protractor.Key.ENTER;
@@ -14,6 +14,7 @@ describe('sale_app/hold', function() {
     var toogle_value_customer_price_menu = element(by.id('sale_app/menu/action/toogle_value_customer_price'))
 
     //sale page
+    var void_btn = element(by.id('sale_app/main_page/void_btn'));
     var tender_btn = element(by.id('sale_app/main_page/tender_btn'));
     var non_inv_btn = element(by.id('sale_app/main_page/non_inventory_btn'));
     var ds_lst = element.all(by.repeater('ds in ds_lst'))
@@ -31,7 +32,7 @@ describe('sale_app/hold', function() {
         lib.auth.logout();
     })
 
-    it('can create,edit,remove shortcut',function(){
+    it('can do it',function(){
         lib.auth.login(baseUrl,'1','1');
         browser.get(baseUrl); 
 
@@ -59,6 +60,9 @@ describe('sale_app/hold', function() {
         ptor.actions().sendKeys(protractor.Key.F5).perform();
         expect(tender_btn.getText()).toEqual('$22.00');
         ptor.actions().sendKeys(protractor.Key.F5).perform();
-        expect(tender_btn.getText()).toEqual('$18.00');        
+        expect(tender_btn.getText()).toEqual('$18.00');   
+
+        //clean up
+        void_btn.click();     
     })
 });

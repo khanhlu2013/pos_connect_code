@@ -19,18 +19,29 @@ class Tender_ln(models.Model):
 
 class Receipt_ln(models.Model):
     receipt = models.ForeignKey(Receipt)
+    
+    non_product_name = models.CharField(max_length=30,blank=True,null=True)   
+    #need override_price 
     qty = models.IntegerField()
-    store_product = models.ForeignKey(Store_product,blank=True,null=True)
-    price = models.DecimalField(max_digits=6, decimal_places=2)
-    crv = models.DecimalField(max_digits=6, decimal_places=3,blank=True,null=True)
     discount = models.DecimalField(max_digits=6, decimal_places=2,blank=True,null=True)
-    discount_mm_deal = models.DecimalField(max_digits=6, decimal_places=2,blank=True,null=True)
-    non_product_name = models.CharField(max_length=30,blank=True,null=True)
+    store_product = models.ForeignKey(Store_product,blank=True,null=True)
+
+    #STORE PRODUCT STAMP
+    #need_name
+    price = models.DecimalField(max_digits=6, decimal_places=2)
+    #need value customer price
+    crv = models.DecimalField(max_digits=6, decimal_places=3,blank=True,null=True)
     is_taxable = models.BooleanField()
     p_type = models.CharField(blank=True,null=True,max_length=100)
     p_tag = models.CharField(blank=True,null=True,max_length=100)
     cost = models.DecimalField(max_digits=6, decimal_places=2,blank=True,null=True)
+    #need vendor
     buydown = models.DecimalField(max_digits=6, decimal_places=2,blank=True,null=True)
+
+    #MM DEAL INFO
+    discount_mm_deal = models.DecimalField(max_digits=6, decimal_places=2,blank=True,null=True)
+    #need mm_deal_name
+
 
     def get_total_out_the_door_price(self):
         discount = self.discount if self.discount!=None else decimal.Decimal(0.0)

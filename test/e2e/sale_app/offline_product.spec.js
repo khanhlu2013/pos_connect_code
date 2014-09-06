@@ -159,5 +159,5 @@ describe('sale_app/offline_product', function() {
         //clean up
         void_btn.click();
 
-    });
+    },60000);
 });

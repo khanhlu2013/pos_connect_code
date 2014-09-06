@@ -3,3 +3,5 @@ venv
 .env
 .env_protractor
 secret.txt
+task.txt
+test/e2e/conf.js

@@ -28,3 +28,4 @@ def exe(context,cur_login_store):
     context['SHORTCUT_ROW_COUNT_'] = settings.SHORTCUT_ROW_COUNT
     context['SHORTCUT_COLUMN_COUNT_'] = settings.SHORTCUT_COLUMN_COUNT
     context['STORE_PRODUCT_DOCUMENT_TYPE'] = settings.STORE_PRODUCT_DOCUMENT_TYPE
+    context['RECEIPT_DOCUMENT_TYPE'] = settings.RECEIPT_DOCUMENT_TYPE

@@ -101,15 +101,13 @@
                 <tr>
                     <th>qty</th>
                     <th>product</th>            
-                    <th>price</th>
-                    <th>deal</th>                    
+                    <th>price</th>                 
                     <th>remove</th>
                 </tr>
                 <tr ng-repeat="ds in ds_lst">
                     <td ng-click="edit_qty(ds)">{{ds.qty}}</td>
                     <td ng-click="edit_sp(ds)">{{ds.get_name()}}</td>
-                    <td ng-click="show_detail_price(ds)" class="alnright">{{ds.get_advertise_price()|currency}}</td>
-                    <td>{{ds.mm_deal_info.mm_deal.name}}</td>                    
+                    <td ng-click="show_detail_price(ds)" class="alnright">{{ds.get_advertise_price()|currency}}</td>                   
                     <td><button ng-click="remove_ds(ds)" class="btn btn-danger glyphicon glyphicon-trash"></button></td>
                 </tr>
             </table>

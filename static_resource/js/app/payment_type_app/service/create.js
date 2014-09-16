@@ -1,51 +1,45 @@
 define(
 [
-	'angular'
-	//---
-	,'service/ui'
+    'angular'
+    //---
+    ,'service/ui'
+    ,'app/payment_type_app/service/api'
 ]
 ,function
 (
-	angular
+    angular
 )
 {
-	var mod = angular.module('payment_type_app/service/create',['service/ui']);
-	mod.factory('payment_type_app/service/create',
-	[
-		 '$http'
-		,'$q'
-		,'service/ui/prompt'
-	,function(
-		 $http
-		,$q
-		,prompt_service
-	){
-		return function(){
-			var prompt_promise = prompt_service('create new payment type',null/*prefill*/,false/*is_null_allow*/,false/*is_float*/);
-			var create_promise = prompt_promise.then(
-				function(data){
-					var promise_ing = $http({
-						url:'/payment_type/insert',
-						method:'POST',
-						data:{
-							name:data
-						}
-					});
-					var promise_ed = promise_ing.then(
-						function(data){
-							return data.data;
-						},
-						function(reason){
-							return $q.reject(reason);
-						}
-					)
-					return promise_ed;
-				},
-				function(reason){
-					return $q.reject(reason);
-				}
-			)
-			return create_promise;
-		}
- 	}]);
+    var mod = angular.module('payment_type_app/service/create',
+    [
+         'service/ui'
+        ,'payment_type_app/service/api'
+    ]);
+    mod.factory('payment_type_app/service/create',
+    [
+         '$http'
+        ,'$q'
+        ,'service/ui/prompt'
+        ,'payment_type_app/service/api'
+    ,function(
+         $http
+        ,$q
+        ,prompt_service
+        ,api
+    ){
+        return function(){
+            var defer = $q.defer();
+
+            prompt_service('create new payment type',null/*prefill*/,false/*is_null_allow*/,false/*is_float*/).then(
+                function(prompt_str){
+                    api.create(prompt_str).then(
+                         function(pt){ defer.resolve(pt); }
+                        ,function(reason){ defer.reject(reason); }
+                    )
+                }
+                ,function(reason){ defer.reject(reason); }
+            )
+            return defer.promise;
+        }
+    }]);
 })

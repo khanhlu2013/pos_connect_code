@@ -1,5 +1,6 @@
 /*
-    DESC    : giving the ds_lst as param, this service compressed it to form an equivalent ps_lst and saved it
+    DESC    : we store ds_lst by pending scan. this service take a ds_lst as param, compressed it to form an equivalent ps_lst and saved it
+    REF     : modify ds, toogle value customer price, loading/retriving/getting hold
     RETURN  : void
 */
 
@@ -42,6 +43,7 @@ define(
                     ,cur_ds.qty
                     ,cur_ds.override_price
                     ,cur_ds.discount
+                    ,cur_ds.date
                 ));
             }
             set_ps_lst(ps_lst);            

@@ -98,6 +98,7 @@ define(
                                 ,cur_ps.discount
                                 ,null//mm deal info
                                 ,cur_ps.non_inventory
+                                ,cur_ps.date
                             )                    
                     result.push(ds);                
                 }

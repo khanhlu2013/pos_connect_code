@@ -16,12 +16,14 @@ define(
             ,qty
             ,override_price
             ,discount
+            ,date
         ){
             this.sp_doc_id = sp_doc_id;
             this.non_inventory = non_inventory;
             this.qty = qty;
             this.override_price = override_price;
             this.discount = discount;
+            this.date = date;
         }
 
         return Pending_scan;
@@ -66,6 +68,7 @@ define(
             ,discount
             ,mm_deal_info
             ,non_inventory
+            ,date
         ){
             this.store_product = store_product;
             this.qty = qty;
@@ -73,59 +76,74 @@ define(
             this.discount = discount;
             this.mm_deal_info = mm_deal_info;
             this.non_inventory = non_inventory;
+            this.date = date;
         }
         Displaying_scan.prototype = {
              constructor:Displaying_scan
-            ,is_non_inventory:function(){
-                return this.store_product === null;
-            } 
+            /*
+                get_name
+                is_non_inventory
+                get_preset_price
+                get_override_price
+                get_genesis_price
+                get_mm_deal_info
+                get_discount
+                get_buydown
+                get_total_discount
+                get_advertise_price                
+                get_crv                
+                _get_b4_tax_price
+                get_buydown_tax
+                get_product_tax
+                get_otd_price
+                get_line_total            
+            */             
             ,get_name:function(){
-                if(this.store_product!==null){ return this.store_product.name }
-                else{ return this.non_inventory.name; }
+                if(this.is_non_inventory())     { return this.non_inventory.name; }
+                else                            { return this.store_product.name }
+            }             
+            ,is_non_inventory:function(){ return this.store_product === null; }            
+            ,get_preset_price:function(){
+                if(this.is_non_inventory())     { return this.non_inventory.price; }
+                else                            { return this.store_product.price; }
+            }
+            ,get_override_price: function(){ return this.override_price; }
+            ,get_genesis_price : function(){
+                if(this.override_price !== null)    { return this.override_price; }
+                else                                { return this.get_preset_price(); }
+            }            
+            ,get_mm_deal_info:function(){ return this.mm_deal_info; }
+            ,get_discount:function(){ return this.discount; }
+            ,get_buydown:function(){
+                if(this.is_non_inventory())     { return 0.0; }
+                else                            { return this.store_product.get_buydown(); }
             }
             ,get_total_discount: function () {
                 var result = 0.0;
-                if(this.discount)               { result += this.discount; }
-                if(this.mm_deal_info)           { result += this.mm_deal_info.get_unit_discount(); }
-                if(this.store_product!=null)    { result += this.store_product.get_buydown() }
-                return result
-            }             
-            ,get_genesis_price : function(){
-                if(this.override_price !== null)    { return this.override_price; }
-                else if(this.is_non_inventory())    { return this.non_inventory.price; }
-                else                                { return this.store_product.price; }
-            }
-            ,get_advertise_price: function () {
-                return this.get_genesis_price() - this.get_total_discount();
-            }            
-            ,_get_b4_tax_price: function(){
-                var result = this.get_advertise_price();
-                if(this.store_product!=null){result += this.store_product.get_crv();}
+                result += this.get_discount();
+                result += this.get_buydown();
+                if(this.get_mm_deal_info() !== null) { result += this.get_mm_deal_info().get_unit_discount(); }
                 return result;
-            }            
+            }             
+            ,get_advertise_price: function () { return this.get_genesis_price() - this.get_total_discount(); }
+            ,get_crv: function(){
+                if(this.is_non_inventory()){ return 0.0; }
+                else{ return this.store_product.get_crv(); }
+            }
+            ,_get_b4_tax_price: function(){ return this.get_advertise_price() + this.get_crv(); }
             ,get_buydown_tax: function(tax_rate){
                 if(
-                       this.store_product == null 
-                    || this.store_product.is_taxable == false 
-                    || this.store_product.get_buydown() == null
-                ){
-                    return 0;
-                }
+                       this.is_non_inventory()
+                    || this.store_product.is_taxable === false 
+                ){ return 0; }
                 return this.store_product.get_buydown() * tax_rate/100.0
             }
             ,get_product_tax: function(tax_rate){
-                if(this.store_product == null || this.store_product.is_taxable == false){
-                    return 0;
-                }
-                return this._get_b4_tax_price()*tax_rate/100.0;
+                if(this.is_non_inventory() || this.store_product.is_taxable === false) { return 0; }
+                return this._get_b4_tax_price() * tax_rate/100.0;
             }   
-            ,get_otd_price: function(tax_rate){
-                return this._get_b4_tax_price() + this.get_product_tax(tax_rate) + this.get_buydown_tax(tax_rate);
-            }        
-            ,get_line_total: function(tax_rate){
-                var result =  this.get_otd_price(tax_rate) * this.qty;
-                return result;
-            }                         
+            ,get_otd_price: function(tax_rate){ return this._get_b4_tax_price() + this.get_product_tax(tax_rate) + this.get_buydown_tax(tax_rate); }
+            ,get_line_total: function(tax_rate){ return this.get_otd_price(tax_rate) * this.qty; }
         }
         return Displaying_scan;
     }]);    
@@ -143,6 +161,7 @@ define(
         }
         Mix_match_deal_info.prototype = {
              constructor:Mix_match_deal_info
+            ,get_name: function(){ return this.mm_deal.name; }
             ,is_deal_taxable: function(){
                 var is_taxable = false;
                 for(var i = 0;i<this.formation_ds_lst.length;i++){

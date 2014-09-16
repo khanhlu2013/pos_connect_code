@@ -13,7 +13,7 @@ requirejs.config({
         ,'ui_bootstrap':['lib/ui-bootstrap-tpls-0.11.0']
 
         ,'ngTable' : ['lib/ng-table']
-        ,'pouchdb_raw' : ['lib/pouchdb-3.0.0.min']
+        ,'pouchdb_raw' : ['lib/pouchdb-3.0.5.min']
         ,'blockUI' : ['lib/angular-block-ui']
     }
     ,shim:{

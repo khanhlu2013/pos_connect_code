@@ -72,12 +72,12 @@
                         </ul>
                     </li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">report <b class="caret"></b></a>
+                        <a id="sp_app/menu/report" href="#" class="dropdown-toggle" data-toggle="dropdown">report <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li id='sale_report_menu'><a href='#'>sale report</a></li>
                             <li id='non_sale_report_menu'><a href='#'>non-sale report</a></li>
                             <li class="divider"></li>
-                            <li ng-click="menu_receipt_report()"><a href='#'>receipt</a></li>
+                            <li id="sp_app/menu/report/receipt" ng-click="menu_receipt_report()"><a href='#'>receipt</a></li>
                         </ul>
                     </li>   
                     <li class="dropdown">
@@ -142,6 +142,9 @@
         window._SHORTCUT_ROW_COUNT_         = {{SHORTCUT_ROW_COUNT_}};
         window._SHORTCUT_COLUMN_COUNT_      = {{SHORTCUT_COLUMN_COUNT_}};
         window._STORE_PRODUCT_DOCUMENT_TYPE_= "{{STORE_PRODUCT_DOCUMENT_TYPE}}";
+        window._RECEIPT_DOCUMENT_TYPE_      = "{{RECEIPT_DOCUMENT_TYPE}}";
+
+
     </script>
 
     <script data-main = "{{ STATIC_URL }}js/app/sp_app/config.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script>

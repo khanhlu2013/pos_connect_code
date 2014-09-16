@@ -1,22 +1,5 @@
 module.exports = {
     auth: {
-        // findAll: function() {
-        //   return browser.executeAsyncScript(function(callback) {
-        //     var api = angular.injector(['ProtractorMeetupApp']).get('apiService');
-        //     api.member.query({}, function(data) {
-        //       callback(data);
-        //     });
-        //   })
-        // },
-        // create: function(data) {
-        //   return browser.executeAsyncScript(function(data, callback) {
-        //     var api = angular.injector(['ProtractorMeetupApp']).get('apiService');
-        //     api.member.save(data, function(newItem) {
-        //       callback(newItem._id);
-        //     })
-        //   }, data);
-        // }
-
         login : function(url,name,pwrd){
             //get the page.
             browser.driver.get(url);
@@ -33,6 +16,27 @@ module.exports = {
         logout : function(){
             protractor.getInstance().sleep(500); //black magic code to wait for backdrop (if exist) to clear before we can click logout link
             browser.findElement(by.id('logout_link')).click();
+        }
+    },
+
+    api_pt:{
+        insert_lst : function(pt_name_lst){
+            return browser.executeAsyncScript(function(pt_name_lst,callback) {
+                var api = angular.injector(['ng','service/csrf','payment_type_app/service/api']).get('payment_type_app/service/api');
+                var $q = angular.injector(['ng']).get('$q');
+                var promise_lst = [];
+                for(var i = 0;i<pt_name_lst.length;i++){
+                    promise_lst.push(api.create(pt_name_lst[i]));
+                }
+                $q.all(promise_lst).then(
+                     function(pt_lst){
+                        callback(pt_lst);
+                    }
+                    ,function(reason){
+                        callback(null);
+                    }
+                )
+            },pt_name_lst) 
         }
     },
 
@@ -134,6 +138,23 @@ module.exports = {
         }
     },
 
+    menu_report_receipt_page:{
+        get_receipt_index : function(col_name){
+            if(col_name === 'total'){
+                return 1;
+            }else{
+                return null;
+            }
+        },
+  
+        get_receipt_ln_index : function(col_name){
+            if      (col_name ==='qty')          { return 0; }
+            else if (col_name ==='product')      { return 1; }
+            else if (col_name ==='price')        { return 2; }
+            else                                 { return null; }
+        }        
+    },
+
     sale_page:{
         scan : function(str){
             var ptor = protractor.getInstance();
@@ -143,7 +164,6 @@ module.exports = {
             scan_txt.sendKeys(str,enter_key);
             ptor.sleep(500);
         },
-
         load_this_page : function(milisec,is_offline){
             var posUrl
             if(is_offline)  {posUrl = 'http://127.0.0.1:8000/sale/index_offline_angular';}
@@ -153,6 +173,12 @@ module.exports = {
                 milisec = 10000;
             }
             protractor.getInstance().sleep(milisec);//wait for pouchdb to download the db            
+        },
+        get_index : function(col_name){
+            if(col_name === 'qty')          { return 0; }
+            else if(col_name === 'name')    { return 1; }
+            else if(col_name === 'price')   { return 2; }
+            else if(col_name === 'delete')  { return 3; }
         }
     },
     

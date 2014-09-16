@@ -27,6 +27,7 @@ define(
 	[
 		'$http',
 		'$modal',
+		'$rootScope',
 		'payment_type_app/service/edit',
 		'payment_type_app/service/create',
 		'service/ui/alert',
@@ -37,6 +38,7 @@ define(
 	(
 		$http,
 		$modal,
+		$rootScope,
 		edit_service,
 		create_service,
 		alert_service,
@@ -75,6 +77,7 @@ define(
 				$scope.pt_lst = pt_lst;
 
 				$scope.exit = function(){
+					$rootScope.GLOBAL_SETTING.payment_type_lst = $scope.pt_lst;
 					$modalInstance.dismiss('_cancel_');
 				}
 				$scope.create = function(){

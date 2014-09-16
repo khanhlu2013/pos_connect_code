@@ -10,7 +10,7 @@ define(
     ,'app/sale_app/service/search/name_sku_dlg'
     ,'app/sale_app/service/pending_scan/set_api'
     ,'app/sale_app/service/displaying_scan/modify_ds'
-    ,'app/sale_app/service/displaying_scan/detail_price_dlg'
+    ,'app/sale_app/service/sale_able_info_dlg'
     ,'app/sale_app/service/scan/sku_scan_not_found_handler'
     ,'app/shortcut_app/shortcut_ui'
     ,'service/ui'
@@ -20,7 +20,8 @@ define(
     ,'app/sale_app/service/hold/get_hold_ui'
     ,'app/sale_app/service/offline_product'
     ,'app/sale_app/service/scan/toogle_value_customer_price'
-    // ,'lib/hotkeys'
+    ,'app/sale_app/service/finalize'
+    ,'app/sale_app/service/displaying_scan/set_ds_lst'
 ], function
 (
      angular
@@ -38,7 +39,7 @@ define(
         ,'sale_app/service/search/name_sku_dlg'
         ,'sale_app/service/pending_scan/set_api'
         ,'sale_app/service/displaying_scan/modify_ds'
-        ,'sale_app/service/displaying_scan/detail_price_dlg'
+        ,'sale_app/service/sale_able_info_dlg'
         ,'sale_app/service/scan/sku_scan_not_found_handler'
         ,'sale_app/model'
         ,'shortcut_app/shortcut_ui'
@@ -48,7 +49,8 @@ define(
         ,'sale_app/service/hold/get_hold_ui'
         ,'sale_app/service/offline_product'
         ,'sale_app/service/scan/toogle_value_customer_price'
-        // ,'cfp.hotkeys'
+        ,'sale_app/service/finalize'
+        ,'sale_app/service/displaying_scan/set_ds_lst'
     ]);
     mod.controller('Sale_page_ctrl', 
     [
@@ -62,7 +64,7 @@ define(
         ,'sale_app/service/pending_scan/set_api'
         ,'sale_app/model/Modify_ds_instruction'
         ,'sale_app/service/displaying_scan/modify_ds'
-        ,'sale_app/service/displaying_scan/detail_price_dlg'
+        ,'sale_app/service/sale_able_info_dlg'
         ,'sale_app/service/scan/sku_scan_not_found_handler'
         ,'shortcut_app/shortcut_ui'
         ,'service/ui/alert'
@@ -77,6 +79,8 @@ define(
         ,'hotkeys'
         ,'sale_app/service/scan/toogle_value_customer_price'
         ,'sale_app/model/Non_inventory'
+        ,'sale_app/service/finalize'
+        ,'sale_app/service/displaying_scan/set_ds_lst'
     ,function(
          $scope
         ,$rootScope
@@ -103,6 +107,8 @@ define(
         ,hotkeys
         ,toogle_value_customer_price
         ,Non_inventory
+        ,finalize
+        ,set_ds_lst
     ){
 
         hotkeys.bindTo($scope)
@@ -133,6 +139,14 @@ define(
             }
             return index;
         }
+        $scope.finalize = function(){
+            if($scope.ds_lst.length === 0){alert_service('alert','bug: should not be clickable','red');return;}
+            finalize($scope.ds_lst).then(
+                 function(saved_receipt_doc_id){set_ps_lst([])}
+                ,function(reason){alert_service('alert',reason,'red')}
+            )
+        }
+
         $scope.toogle_value_customer_price = function(){toogle_value_customer_price();}
         $scope.non_inventory = function(){
             prompt_service('enter none inventory price',null/*prefill*/,false/*is null allow*/,true/*is float*/).then(
@@ -149,18 +163,24 @@ define(
             }
             return result;
         }
+        // $scope.get_hold_ui = function(){
+        //     get_hold_ui().then(
+        //         function(hold){
+        //             for(var i = 0;i<hold.ds_lst.length;i++){
+        //                 var cur_ds = hold.ds_lst[i];
+        //                 var sp_doc_id = null;if(!cur_ds.is_non_inventory()){sp_doc_id = cur_ds.store_product.sp_doc_id;}
+        //                 append_pending_scan.by_doc_id(sp_doc_id,cur_ds.qty,cur_ds.non_inventory,cur_ds.override_price); 
+        //             }
+        //         }
+        //         ,function(reason){alert_service('alert',reason,'red');}
+        //     )
+        // }
         $scope.get_hold_ui = function(){
             get_hold_ui().then(
-                function(hold){
-                    for(var i = 0;i<hold.ds_lst.length;i++){
-                        var cur_ds = hold.ds_lst[i];
-                        var sp_doc_id = null;if(!cur_ds.is_non_inventory()){sp_doc_id = cur_ds.store_product.sp_doc_id;}
-                        append_pending_scan.by_doc_id(sp_doc_id,cur_ds.qty,cur_ds.non_inventory,cur_ds.override_price); 
-                    }
-                }
-                ,function(reason){alert_service('alert',reason,'red');}
-            )
-        }
+                 function(hold){ set_ds_lst(hold.ds_lst); }
+                ,function(reason){ alert_service('alert',reason,'red'); }
+            );
+        }        
         $scope.hold = function(){
             if($scope.ds_lst.length == 0){alert_service('alert','there is nothing to hold','blue');return;}
             confirm_service('confirm hold?','orange').then(
@@ -182,7 +202,7 @@ define(
                     }
                 )
             }else{
-                detail_price_dlg(ds).then(function(new_ds){
+                detail_price_dlg(ds,true/*is_enable_override_price*/).then(function(new_ds){
                     var instruction = new Modify_ds_instruction(
                          undefined/*is_delete*/
                         ,undefined/*new_qty*/

@@ -2,14 +2,14 @@ define(
 [
      'angular'
     ,'pouchdb_raw'
-    ,'pouchdb_quick_search'
+    // ,'lib/pouchdb_quick_search'
     ,'blockUI'    
 ]
 ,function
 (
      angular
     ,PouchDB
-    ,pouchdb_quick_search
+    // ,pouchdb_quick_search
 )
 {
     var mod = angular.module('service/db',['blockUI']);
@@ -17,7 +17,7 @@ define(
     mod.factory('service/db/get',['$rootScope',function($rootScope){
         return function(){
             var db_name = $rootScope.GLOBAL_SETTING.store_db_prefix + $rootScope.GLOBAL_SETTING.store_id;
-            PouchDB.plugin(pouchdb_quick_search);
+            // PouchDB.plugin(pouchdb_quick_search);
             return new PouchDB(db_name);            
         }
     }]);
@@ -51,4 +51,35 @@ define(
             return defer.promise;
         }
     }]);
+
+    mod.factory('service/db/is_pouch_exist',
+    [
+         '$q'
+        ,'$rootScope'
+    ,function(
+         $q
+        ,$rootScope
+    ){
+        return function(){
+            var defer = $q.defer();
+            var db_name = '_pouch_' + $rootScope.GLOBAL_SETTING.store_db_prefix + $rootScope.GLOBAL_SETTING.store_id;
+            var request = indexedDB.open(db_name);
+
+            request.onupgradeneeded = function (e){
+                e.target.transaction.abort();
+                defer.resolve(false);
+            }
+            request.onsuccess = function(e) {
+                defer.resolve(true);
+            }
+            request.onerror = function(e) {
+                if(e.target.error.name == "AbortError"){
+                    indexedDB.deleteDatabase(db_name);
+                }else{
+                    defer.reject('error when checking db existance');
+                }
+            }   
+            return defer.promise;
+        }        
+    }])
 })

@@ -11,6 +11,7 @@ define(
     ,'app/sp_app/service/convert'
     ,'app/sp_app/service/api/search'
     ,'blockUI'
+    ,'service/db'
 ], function 
 (
      angular
@@ -19,47 +20,47 @@ define(
     'use strict';
     var mod =  angular.module('sp_app.controller', 
     [
-        'sp_app/service/info',
-        'sp_app/service/create',
-        'sp_app/service/duplicate',
-        'filter',
-        'share_directive',
-        'service/ui',
-        'sp_app/service/convert',
-        'sp_app/service/api/search',
-        'blockUI'
+         'sp_app/service/info'
+        ,'sp_app/service/create'
+        ,'sp_app/service/duplicate'
+        ,'filter'
+        ,'share_directive'
+        ,'service/ui'
+        ,'sp_app/service/convert'
+        ,'sp_app/service/api/search'
+        ,'blockUI'
+        ,'service/db'
     ]);
 
     mod.controller('MainCtrl',
     [
-        '$window',
-        '$scope',
-        '$rootScope',
-        '$filter',
-        '$q',
-        'sp_app/service/info',
-        'sp_app/service/create',
-        'sp_app/service/duplicate',
-        'service/ui/alert',
-        'service/ui/confirm',
-        'sp_app/service/convert/lst',
-        'sp_app/service/api/search',
-        'blockUI',
-
-    function(
-        $window,
-        $scope,
-        $rootScope,
-        $filter,
-        $q,
-        sp_info_service,
-        create_service,
-        duplicate_service,
-        alert_service,
-        confirm_service,
-        convert_sp_lst,
-        api,
-        blockUI
+         '$window'
+        ,'$scope'
+        ,'$rootScope'
+        ,'$filter'
+        ,'sp_app/service/info'
+        ,'sp_app/service/create'
+        ,'sp_app/service/duplicate'
+        ,'service/ui/alert'
+        ,'service/ui/confirm'
+        ,'sp_app/service/convert/lst'
+        ,'sp_app/service/api/search'
+        ,'blockUI'
+        ,'service/db/is_pouch_exist'
+    ,function(
+         $window
+        ,$scope
+        ,$rootScope
+        ,$filter
+        ,sp_info_service
+        ,create_service
+        ,duplicate_service
+        ,alert_service
+        ,confirm_service
+        ,convert_sp_lst
+        ,api
+        ,blockUI
+        ,is_pouch_exist
     ){
         //SORT
         $scope.cur_sort_column = 'name';
@@ -79,8 +80,7 @@ define(
                 return '';
             }
         }
-
-        //SKU SEARCH 
+        //SKU SEARCH
         $scope.sp_lst = [];
         $scope.sku_search = function(){
             $scope.name_search_str = "";
@@ -107,7 +107,6 @@ define(
                 ,function(reason){ alert_service('alert',reason,'red') }
             )
         }
-
         //NAME SEARCH
         $scope.name_search = function(){
             $scope.sku_search_str = "";
@@ -127,7 +126,6 @@ define(
                 ,function(reason){ alert_service('alert',reason,'red'); }
             )
         }
-
         //SHOW SP INFO
         $scope.display_product_info = function(sp){
             sp_info_service(sp).then(
@@ -143,35 +141,11 @@ define(
                 ,function(reason){ alert_service('alert',reason,'red');}
             )
         }
-
         function launch_pos_url(){
             $window.open('sale/index_angular/');
         }
-
-        function is_db_exist(){
-            var defer = $q.defer();
-            var db_name = '_pouch_' + $rootScope.GLOBAL_SETTING.store_db_prefix + $rootScope.GLOBAL_SETTING.store_id;
-            var request = indexedDB.open(db_name);
-
-            request.onupgradeneeded = function (e){
-                e.target.transaction.abort();
-                defer.resolve(false);
-            }
-            request.onsuccess = function(e) {
-                defer.resolve(true);
-            }
-            request.onerror = function(e) {
-                if(e.target.error.name == "AbortError"){
-                    indexedDB.deleteDatabase(db_name);
-                }else{
-                    defer.reject('error when checking db existance');
-                }
-            }   
-            return defer.promise;
-        }
-
         $scope.launch_pos = function(){
-            is_db_exist().then(
+            is_pouch_exist().then(
                  function(db_exitance){
                     if(db_exitance){
                         launch_pos_url();

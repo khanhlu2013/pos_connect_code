@@ -72,12 +72,12 @@
                         </ul>
                     </li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">report <b class="caret"></b></a>
+                        <a id="sale_app/menu/report" href="#" class="dropdown-toggle" data-toggle="dropdown">report <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li id='sale_report_menu'><a href='#'>sale report</a></li>
                             <li id='non_sale_report_menu'><a href='#'>non-sale report</a></li>
                             <li class="divider"></li>
-                            <li ng-click="menu_receipt_report()"><a href='#'>receipt</a></li>
+                            <li id="sale_app/menu/report/receipt" ng-click="menu_receipt_report()"><a href='#'>receipt</a></li>
                         </ul>
                     </li>   
                     <li class="dropdown">
@@ -102,15 +102,13 @@
                 <tr>
                     <th>qty</th>
                     <th>product</th>            
-                    <th>price</th>
-                    <th>deal</th>                    
+                    <th>price</th>                
                     <th>remove</th>
                 </tr>
                 <tr ng-repeat="ds in ds_lst">
                     <td ng-click="edit_qty(ds)">{{ds.qty}}</td>
                     <td ng-click="edit_sp(ds)">{{ds.get_name()}}</td>
-                    <td ng-click="show_detail_price(ds)" class="alnright">{{ds.get_advertise_price()|currency}}</td>
-                    <td>{{ds.mm_deal_info.mm_deal.name}}</td>                    
+                    <td ng-click="show_detail_price(ds)" class="alnright">{{ds.get_advertise_price()|currency}}</td>            
                     <td><button ng-click="remove_ds(ds)" class="btn btn-danger glyphicon glyphicon-trash"></button></td>
                 </tr>
             </table>
@@ -118,8 +116,9 @@
                 ng-hide="ds_lst.length == 0"
                 id="sale_app/main_page/tender_btn" 
                 type="button" 
+                ng-click="finalize()"
                 class="btn btn-primary btn-lg">{{get_tender_amount()|currency}}
-            </button>                
+            </button>
         </div>
         <div class="col-sm-6">
             <table class="table table-bordered table-condensed sale_shortcut_tbl">
@@ -135,7 +134,7 @@
             </table>
         </div>
         <div class="clear"></div>
-        {{ds_lst}}
+        <!-- {{ds_lst}} -->
     {% endverbatim %}         
     </div>
 
@@ -151,6 +150,7 @@
         window._SHORTCUT_ROW_COUNT_         = {{SHORTCUT_ROW_COUNT_}};
         window._SHORTCUT_COLUMN_COUNT_      = {{SHORTCUT_COLUMN_COUNT_}};
         window._STORE_PRODUCT_DOCUMENT_TYPE_= "{{STORE_PRODUCT_DOCUMENT_TYPE}}";
+        window._RECEIPT_DOCUMENT_TYPE_      = "{{RECEIPT_DOCUMENT_TYPE}}";
     </script>
 
     <script data-main = "{{ STATIC_URL }}js/app/sale_app/config.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script>

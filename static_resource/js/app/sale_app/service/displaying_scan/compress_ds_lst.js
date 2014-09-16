@@ -44,7 +44,8 @@ define(
 
                 if(
                        (non_product_condition || product_condition)
-                    && last_item.get_genesis_price() === cur_item.get_genesis_price()
+                    && last_item.get_preset_price() === cur_item.get_preset_price()
+                    && last_item.get_override_price() === cur_item.get_override_price()
                     && last_item.discount === cur_item.discount
                     && mm_deal_condition
                 ){

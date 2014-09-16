@@ -87,6 +87,7 @@ define(
                         ,cur_ds.qty
                         ,cur_ds.override_price
                         ,cur_ds.discount
+                        ,cur_ds.date
                     ));
                 }
                 converted_result.push({timestamp:cur_hold.timestamp,ps_lst:ps_lst});

@@ -27,7 +27,12 @@ define(
                 set_ps_lst(ps_lst);
                 return ps_lst;
             }else{
-                return JSON.parse(str);
+                var ps_lst = JSON.parse(str);
+                //form ps.date obj
+                for(var i = 0;i<ps_lst.length;i++){
+                    ps_lst[i].date = new Date(ps_lst[i].date);
+                }
+                return ps_lst;
             }
         }
     }])

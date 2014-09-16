@@ -44,6 +44,7 @@ define(
                 ,shortcut_row_count:            $window._SHORTCUT_ROW_COUNT_
                 ,shortcut_column_count:         $window._SHORTCUT_COLUMN_COUNT_
                 ,store_product_document_type:   $window._STORE_PRODUCT_DOCUMENT_TYPE_
+                ,receipt_document_type:         $window._RECEIPT_DOCUMENT_TYPE_
             }
 
             delete $window._STORE_ID_;
@@ -56,7 +57,7 @@ define(
             delete $window._SHORTCUT_ROW_COUNT_;
             delete $window._SHORTCUT_COLUMN_COUNT_;
             delete $window._STORE_PRODUCT_DOCUMENT_TYPE_;
-
+            delete $window._RECEIPT_DOCUMENT_TYPE_;
             
         }   
     }])

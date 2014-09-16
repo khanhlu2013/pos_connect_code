@@ -2,6 +2,5 @@ venv
 *.pyc
 .env
 .env_protractor
-secret.txt
+secrete.txt
 task.txt
-test/e2e/conf.js

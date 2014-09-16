@@ -53,6 +53,7 @@ define(
                 ,qty
                 ,override_price
                 ,null//discount
+                , new Date()
             );
             if(ps_lst.length == 0){
                 ps_lst.push(ps);

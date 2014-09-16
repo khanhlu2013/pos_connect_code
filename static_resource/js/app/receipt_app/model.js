@@ -39,11 +39,11 @@ define(
                 }
                 return result;
             } 
-            ,get_total_discount: function(){
+            ,get_saving: function(){
                 var result = 0.0;
                 var ln_lst = this.receipt_ln_lst;
                 for(var i = 0;i<ln_lst.length;i++){
-                    result += (ln_lst[i].get_total_discount() * ln_lst[i].qty);
+                    result += (ln_lst[i].get_saving() * ln_lst[i].qty);
                 }
                 return result;                
             }                
@@ -104,19 +104,6 @@ define(
                 return result;                
             }
         }
-
-        Receipt.build = function(raw_json){
-            var tender_ln_lst = raw_json.tender_ln_set.map(Tender_ln.build);
-            var receipt_ln_lst = raw_json.receipt_ln_set.map(Receipt_ln.build);
-
-            return new Receipt(
-                raw_json.id,
-                new Date(raw_json.time_stamp),
-                parseFloat(raw_json.tax_rate),
-                tender_ln_lst,
-                receipt_ln_lst
-            )
-        }
         return Receipt;
     }]);
 
@@ -152,7 +139,7 @@ define(
                 get_mm_deal_info
                 get_discount
                 get_buydown
-                get_total_discount
+                get_saving
                 get_advertise_price                
                 get_crv                
                 _get_b4_tax_price
@@ -181,14 +168,14 @@ define(
                 if(this.is_non_inventory()) { return 0.0; }
                 else                        { return this.store_product_stamp.buydown; }
             }
-            ,get_total_discount: function () {
+            ,get_saving: function () {
                 var result = 0.0;
                 result += this.get_discount();
                 result += this.get_buydown();
                 if(this.get_mm_deal_info() !== null) { result += this.get_mm_deal_info().get_unit_discount(); }
                 return result;
             }            
-            ,get_advertise_price: function () { return this.get_genesis_price() - this.get_total_discount(); }
+            ,get_advertise_price: function () { return this.get_genesis_price() - this.get_saving(); }
             ,get_crv: function(){
                 if(this.is_non_inventory())     { return 0.0; }
                 else                            { return this.store_product_stamp.crv; }
@@ -222,28 +209,20 @@ define(
                 return parseFloat(str);
             }
         }
-        Receipt_ln.build = function(raw_json){
-            return null;
-        }
         return Receipt_ln;
     }])
 
     mod.factory('receipt_app/model/Tender_ln',[function(){
         function Tender_ln(
             id,
+            pt_id,
             amount,
             name
         ){
             this.id = id;
+            this.pt_id = pt_id;
             this.amount = amount;
             this.name = name;
-        }
-        Tender_ln.build = function(raw_json){
-            return new Tender_ln(
-                raw_json.id,
-                parseFloat(raw_json.amount),
-                raw_json.name
-            )
         }
         return Tender_ln;
     }]);
@@ -291,52 +270,3 @@ define(
         return Store_product_stamp;
     }]);
 })
-
-
-
-/*
-
-{
-    "id":23,
-    "time_stamp":"2014-07-22T19:09:21.450Z",
-    "tax_rate":"32.0530",
-    "tender_ln_set":[{"id":16,"amount":"1.00","name":null}],
-    "receipt_ln_set":
-    [
-        {
-            "id":24,
-            "qty":1,
-            "store_product":
-            {
-                "id":281530,
-                "product_id":381276,
-                "store_id":223,
-                "name":"11111",
-                "price":"1.00",
-                "value_customer_price":null,
-                "crv":"0.000",
-                "is_taxable":false,
-                "is_sale_report":true,
-                "p_type":null,
-                "p_tag":null,
-                "cost":"141.44",
-                "vendor":null,
-                "buydown":null,
-                "breakdown_assoc_lst":[],
-                "kit_assoc_lst":[]
-            },
-            "price":"1.00",
-            "crv":"0.000",
-            "discount":null,
-            "discount_mm_deal":"0.00",
-            "non_product_name":null,
-            "is_taxable":false,
-            "p_type":null,
-            "p_tag":null,
-            "cost":"141.44",
-            "buydown":null
-        }
-    ]
-}
-
-*/

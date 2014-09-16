@@ -26,9 +26,9 @@ exports.config = {
         ,'./sale_app/displaying_scan/non_inventory.spec.js'     
         ,'./sale_app/offline_product.spec.js'
         ,'./sale_app/hold.spec.js'   
-        ,'./sale_app/sale_finalizer__n__receipt_offline_report.spec.js'
         ,'./sale_app/sale_able_info_dlg.spec.js'
 
+        ,'./sale_app/sale_finalizer__n__receipt_offline_report.spec.js'
         ,'./receipt_app/sale_able_info_dlg.spec.js'
         
     ],

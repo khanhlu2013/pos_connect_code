@@ -59,7 +59,7 @@ define(
             var controller = function($scope,$modalInstance,ds_lst){
                 $scope.pt_lst = angular.copy($rootScope.GLOBAL_SETTING.payment_type_lst);
                 var cash_pt = new Payment_type(null,'cash');
-                $scope.pt_lst.push(cash_pt);
+                $scope.pt_lst.unshift(cash_pt);
                 $scope.ds_lst = ds_lst;
                 $scope.temp_tender_ln_dic = {};
 
@@ -89,7 +89,7 @@ define(
                             }else{
                                 pt_id = null;
                             }
-                            tender_ln_lst.push(new Tender_ln(pt_id/*id*/,$scope.temp_tender_ln_dic[pt_id]/*amount*/,pt_name));
+                            tender_ln_lst.push(new Tender_ln(null/*id*/,pt_id,$scope.temp_tender_ln_dic[pt_id]/*amount*/,pt_name));
                         }
                     }                          
                     $modalInstance.close(tender_ln_lst); 

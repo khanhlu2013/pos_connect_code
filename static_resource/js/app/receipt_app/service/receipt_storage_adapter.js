@@ -101,6 +101,7 @@ define(
         function _pouch_2_java__tender_ln(doc){
             var tender_ln = new Tender_ln(
                 doc.id,
+                doc.pt_id,
                 doc.amount,
                 doc.name
             );

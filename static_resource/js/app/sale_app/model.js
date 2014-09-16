@@ -89,7 +89,7 @@ define(
                 get_mm_deal_info
                 get_discount
                 get_buydown
-                get_total_discount
+                get_saving
                 get_advertise_price                
                 get_crv                
                 _get_b4_tax_price
@@ -118,14 +118,14 @@ define(
                 if(this.is_non_inventory())     { return 0.0; }
                 else                            { return this.store_product.get_buydown(); }
             }
-            ,get_total_discount: function () {
+            ,get_saving: function () {
                 var result = 0.0;
                 result += this.get_discount();
                 result += this.get_buydown();
                 if(this.get_mm_deal_info() !== null) { result += this.get_mm_deal_info().get_unit_discount(); }
                 return result;
             }             
-            ,get_advertise_price: function () { return this.get_genesis_price() - this.get_total_discount(); }
+            ,get_advertise_price: function () { return this.get_genesis_price() - this.get_saving(); }
             ,get_crv: function(){
                 if(this.is_non_inventory()){ return 0.0; }
                 else{ return this.store_product.get_crv(); }

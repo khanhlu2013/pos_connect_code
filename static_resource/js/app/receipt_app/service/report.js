@@ -47,14 +47,14 @@ define(
             ;
             var receipt_summary_template = 
                 '<div class="form-horizontal" >' +
-                    '<div id="receipt_app/service/report/receipt_summary/subtotal_derivation" ng-hide="cur_receipt.get_total_discount()===0.0 && cur_receipt.get_crv()===0.0">' +
+                    '<div id="receipt_app/service/report/receipt_summary/subtotal_derivation" ng-hide="cur_receipt.get_saving()===0.0 && cur_receipt.get_crv()===0.0">' +
                         '<div class="form-group">' +
                             '<label class="col-sm-4 control-label">original price:</label>' +
                             '<p id="receipt_app/service/report/receipt_summary/genesis_price" class="col-sm-8 form-control-static">{{cur_receipt.get_genesis_price()}}</p>' +
                         '</div>' +
-                        '<div ng-hide="cur_receipt.get_total_discount()===0.0" class="form-group">' +
+                        '<div ng-hide="cur_receipt.get_saving()===0.0" class="form-group">' +
                             '<label class="col-sm-4 control-label">saving:</label>' +
-                            '<p id="receipt_app/service/report/receipt_summary/saving" class="col-sm-8 form-control-static">{{(cur_receipt.get_total_discount() * -1) | currency}}</p>' +
+                            '<p id="receipt_app/service/report/receipt_summary/saving" class="col-sm-8 form-control-static">{{(cur_receipt.get_saving() * -1) | currency}}</p>' +
                         '</div>' +
                         '<div ng-hide="cur_receipt.get_crv()===0.0" class="form-group">' +
                             '<label class="col-sm-4 control-label">crv:</label>' +
@@ -87,7 +87,7 @@ define(
 
                     '<div ng-repeat="tender_ln in cur_receipt.tender_ln_lst" class="form-group">' +
                         '<label class="col-sm-4 control-label">{{tender_ln.name === null ? \'cash\' : tender_ln.name}}:</label>' +
-                        '<p ng-attr-id="receipt_app/service/report/receipt_summary/tender/{{tender_ln.id === null ? \'null\' : tender_ln.id}}" class="col-sm-8 form-control-static">{{(tender_ln.amount * -1)|currency}}</p>' +
+                        '<p ng-attr-id="receipt_app/service/report/receipt_summary/tender/{{tender_ln.pt_id === null ? \'null\' : tender_ln.pt_id}}" class="col-sm-8 form-control-static">{{(tender_ln.amount * -1)|currency}}</p>' +
                     '</div>' +
 
                     '<hr>' +

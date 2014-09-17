@@ -2,7 +2,7 @@ define(
 [
      'angular'
     //--------
-    ,'app/payment_type_app/model/Payment_type'
+    ,'app/payment_type_app/model'
     ,'app/receipt_app/model'
     ,'service/misc'
 ]
@@ -37,11 +37,11 @@ define(
                 '<div class="modal-body">' +
                     '<form name="form" novalidate role="form">' +
                         '<div class="form-horizontal" >' +
-                            '<div ng-repeat="pt in pt_lst | orderBy : \'name\'" class="form-group">' +
+                            '<div ng-repeat="pt_tender in pt_lst | orderBy:\'sort\'" class="form-group">' +
                                 '<ng-form name="inner_form">' +
-                                    '<label class="col-sm-4 control-label" >{{pt.name}}:</label>' +
+                                    '<label class="col-sm-4 control-label" >{{pt_tender.name}}:</label>' +
                                     '<div class="col-sm-8">' +
-                                        '<input ng-attr-id="{{\'sale_app/service/tender_ui/pt_txt/\' + pt.id}}"  name="a_pt" ng-model="temp_tender_ln_dic[pt.id]" type="number" min="0.01">' +
+                                        '<input ng-attr-id="{{\'sale_app/service/tender_ui/pt_txt/\' + pt_tender.id}}"  name="a_pt" ng-model="temp_tender_ln_dic[pt_tender.id]" type="number" min="0.01">' +
                                         '<label ng-show="inner_form.a_pt.$error.number" class="error">invalid number</label>' +
                                         '<label ng-show="inner_form.a_pt.$error.min" class="error">invalid amount</label>' +                                        
                                     '</div>' +
@@ -57,8 +57,8 @@ define(
                 '</div>'
             ;
             var controller = function($scope,$modalInstance,ds_lst){
-                $scope.pt_lst = angular.copy($rootScope.GLOBAL_SETTING.payment_type_lst);
-                var cash_pt = new Payment_type(null,'cash');
+                $scope.pt_lst = angular.copy($rootScope.GLOBAL_SETTING.payment_type_lst).filter(function(pt){return pt.active});
+                var cash_pt = new Payment_type(null,'cash','___'/*sort*/,true/*active*/);
                 $scope.pt_lst.unshift(cash_pt);
                 $scope.ds_lst = ds_lst;
                 $scope.temp_tender_ln_dic = {};
@@ -81,15 +81,13 @@ define(
 
                     for (var pt_id in $scope.temp_tender_ln_dic) {
                         if ($scope.temp_tender_ln_dic.hasOwnProperty(pt_id)) {
-                            var pt_name = null;
+                            var pt = null;var name = null;
                             if(pt_id!=='null'){
                                 pt_id = parseInt(pt_id);
-                                var pt = misc_service.get_item_from_lst_base_on_id(pt_id,$scope.pt_lst);
-                                pt_name = pt.name;
-                            }else{
-                                pt_id = null;
+                                pt = misc_service.get_item_from_lst_base_on_id(pt_id,$scope.pt_lst);
+                                name = pt.name;
                             }
-                            tender_ln_lst.push(new Tender_ln(null/*id*/,pt_id,$scope.temp_tender_ln_dic[pt_id]/*amount*/,pt_name));
+                            tender_ln_lst.push(new Tender_ln(null/*id*/,pt,$scope.temp_tender_ln_dic[pt_id]/*amount*/,name));
                         }
                     }                          
                     $modalInstance.close(tender_ln_lst); 

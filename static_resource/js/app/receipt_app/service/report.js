@@ -86,8 +86,16 @@ define(
                     '</div>' +
 
                     '<div ng-repeat="tender_ln in cur_receipt.tender_ln_lst" class="form-group">' +
-                        '<label class="col-sm-4 control-label">{{tender_ln.name === null ? \'cash\' : tender_ln.name}}:</label>' +
-                        '<p ng-attr-id="receipt_app/service/report/receipt_summary/tender/{{tender_ln.pt_id === null ? \'null\' : tender_ln.pt_id}}" class="col-sm-8 form-control-static">{{(tender_ln.amount * -1)|currency}}</p>' +
+                        '<label' +
+                            ' ng-attr-id="receipt_app/service/report/receipt_summary/tender_lbl/{{tender_ln.pt === null ? \'null\' : tender_ln.pt.id}}"' +
+                            ' class="col-sm-4 control-label">' +
+                                '{{tender_ln.name === null ? \'cash\' : tender_ln.pt.name}}:' + 
+                        '</label>' +
+                        '<p' +
+                            ' ng-attr-id="receipt_app/service/report/receipt_summary/tender_txt/{{tender_ln.pt === null ? \'null\' : tender_ln.pt.id}}"' +
+                            ' class="col-sm-8 form-control-static">' +
+                                '{{(tender_ln.amount * -1)|currency}}' +
+                        '</p>' +
                     '</div>' +
 
                     '<hr>' +

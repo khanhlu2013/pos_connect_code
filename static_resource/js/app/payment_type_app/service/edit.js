@@ -1,58 +1,52 @@
 define(
 [
-	'angular'
-	//--
-	,'service/ui'
+    'angular'
+    //--
+    ,'service/ui'
+    ,'app/payment_type_app/service/prompt'
+    ,'app/payment_type_app/service/api'    
 ]
 ,function
 (
-	angular
+    angular
 )
 {
-	var mod = angular.module('payment_type_app/service/edit',['service/ui']);
-	mod.factory('payment_type_app/service/edit',
-	[
-		 '$http'
-		,'$q'
-		,'service/ui/prompt'
-		,'service/ui/alert'
-	,function(
-		 $http
-		,$q
-		,prompt_service
-		,alert_service
-	){
-		return function(pt){
-			var message = 'edit' + pt.name
-			var prefill = pt.name
-			prompt_promise = prompt_service(message,prefill,false/*is_null_allow*/,false/*is_float*/);
-			var edit_promise = prompt_promise.then(
-				function(data){
-					pt.name=data;
-
-					var promise_ing = $http({
-						url:'/payment_type/update_angular',
-						method:'POST',
-						data:{
-							pt:JSON.stringify(pt)
-						}
-							
-					})
-					var promise_ed = promise_ing.then(
-						function(data){
-							return data.data;
-						},
-						function(reason){
-							return $q.reject('edit payment type ajax error');
-						}
-					)
-					return promise_ed;
-				},
-				function(reason){
-					return $q.reject(reason);
-				}
-			);
-			return edit_promise;
-		}
-	}]);
+    var mod = angular.module('payment_type_app/service/edit',
+    [
+         'service/ui'
+        ,'payment_type_app/service/prompt'
+        ,'payment_type_app/service/api'         
+    ]);
+    mod.factory('payment_type_app/service/edit',
+    [
+         '$http'
+        ,'$q'
+        ,'payment_type_app/service/prompt'
+        ,'service/ui/alert'
+        ,'payment_type_app/service/api'
+    ,function(
+         $http
+        ,$q
+        ,prompt_service
+        ,alert_service
+        ,api
+    ){
+        return function(prefill_pt){
+            var defer = $q.defer();
+            prompt_service(prefill_pt).then(
+                function(prompt_pt){
+                    api.edit(prompt_pt).then(
+                        function(edited_pt){ 
+                            defer.resolve(edited_pt);
+                        }
+                        ,function(reason){ 
+                            defer.reject(reason); 
+                        }
+                    )
+                }
+                ,function(reason){ defer.reject(reason); }
+            )
+            return defer.promise;
+        }
+    }]);
 })

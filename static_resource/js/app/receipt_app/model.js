@@ -215,12 +215,12 @@ define(
     mod.factory('receipt_app/model/Tender_ln',[function(){
         function Tender_ln(
             id,
-            pt_id,
+            pt,
             amount,
             name
         ){
             this.id = id;
-            this.pt_id = pt_id;
+            this.pt = pt;
             this.amount = amount;
             this.name = name;
         }

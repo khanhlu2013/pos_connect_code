@@ -2,8 +2,8 @@ define(
 [
     'angular'
     //---
-    ,'service/ui'
     ,'app/payment_type_app/service/api'
+    ,'app/payment_type_app/service/prompt'
 ]
 ,function
 (
@@ -12,27 +12,27 @@ define(
 {
     var mod = angular.module('payment_type_app/service/create',
     [
-         'service/ui'
-        ,'payment_type_app/service/api'
+         'payment_type_app/service/api'
+        ,'payment_type_app/service/prompt'
     ]);
     mod.factory('payment_type_app/service/create',
     [
          '$http'
         ,'$q'
-        ,'service/ui/prompt'
         ,'payment_type_app/service/api'
+        ,'payment_type_app/service/prompt'
     ,function(
          $http
         ,$q
-        ,prompt_service
         ,api
+        ,prompt_service
     ){
         return function(){
             var defer = $q.defer();
 
-            prompt_service('create new payment type',null/*prefill*/,false/*is_null_allow*/,false/*is_float*/).then(
-                function(prompt_str){
-                    api.create(prompt_str).then(
+            prompt_service(null/*prefill*/).then(
+                function(pt){
+                    api.create(pt).then(
                          function(pt){ defer.resolve(pt); }
                         ,function(reason){ defer.reject(reason); }
                     )

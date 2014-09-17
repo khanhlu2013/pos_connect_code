@@ -10,6 +10,7 @@ define(
     //--------
     ,'app/receipt_app/model'
     ,'app/sale_app/model'    
+    ,'service/misc'
 ]
 ,function
 (
@@ -20,6 +21,7 @@ define(
     [
          'receipt_app/model'
         ,'sale_app/model'
+        ,'service/misc'
     ]);
     mod.factory('receipt_app/service/receipt_storage_adapter',
     [
@@ -30,6 +32,7 @@ define(
         ,'receipt_app/model/Mix_match_deal_info_stamp'
         ,'receipt_app/model/Store_product_stamp'        
         ,'sale_app/model/Non_inventory'
+        ,'service/misc'
     ,function(
          $rootScope
         ,Receipt
@@ -38,6 +41,7 @@ define(
         ,Mix_match_deal_info_stamp
         ,Store_product_stamp
         ,Non_inventory
+        ,misc_service
     ){
         function _java_2_pouch__receipt_ln(receipt_ln){
             /*  
@@ -99,9 +103,12 @@ define(
         }
 
         function _pouch_2_java__tender_ln(doc){
+            var pt = null;
+            if(doc.pt !== null){ pt = misc_service.get_item_from_lst_base_on_id(doc.pt.id,$rootScope.GLOBAL_SETTING.payment_type_lst); }
+            
             var tender_ln = new Tender_ln(
                 doc.id,
-                doc.pt_id,
+                pt,
                 doc.amount,
                 doc.name
             );

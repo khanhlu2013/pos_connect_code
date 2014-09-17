@@ -24,9 +24,10 @@ module.exports = {
             return browser.executeAsyncScript(function(pt_name_lst,callback) {
                 var api = angular.injector(['ng','service/csrf','payment_type_app/service/api']).get('payment_type_app/service/api');
                 var $q = angular.injector(['ng']).get('$q');
+                var Payment_type = angular.injector(['payment_type_app/model']).get('payment_type_app/model/Payment_type');
                 var promise_lst = [];
                 for(var i = 0;i<pt_name_lst.length;i++){
-                    promise_lst.push(api.create(pt_name_lst[i]));
+                    promise_lst.push(api.create(new Payment_type(null/*id*/,pt_name_lst[i]/*name*/,pt_name_lst[i]/*sort*/,true/*active*/)));
                 }
                 $q.all(promise_lst).then(
                      function(pt_lst){

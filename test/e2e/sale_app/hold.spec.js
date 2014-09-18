@@ -23,8 +23,8 @@ describe('sale_app/hold', function() {
     //sale page
     var tender_btn = element(by.id('sale_app/main_page/tender_btn'));
     var ds_lst = element.all(by.repeater('ds in ds_lst'))
-    var name_index = 1;
-    var price_index = 2;
+    var name_index = lib.sale_page.get_index('name');
+    var price_index = lib.sale_page.get_index('price');
     var void_btn = element(by.id('sale_app/main_page/void_btn'));
 
     beforeEach(function(){

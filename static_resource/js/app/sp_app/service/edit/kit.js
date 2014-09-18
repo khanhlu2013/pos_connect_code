@@ -5,6 +5,7 @@ define(
 	,'app/sp_app/service/search_dlg'
     ,'app/sp_app/service/api/kit'
     ,'service/ui'
+    ,'service/db'
 ]
 ,function
 (
@@ -16,19 +17,22 @@ define(
          'sp_app/service/search_dlg'
         ,'sp_app/service/api/kit'
         ,'service/ui'
+        ,'service/db'
     ]);
 
     mod.factory('sp_app/service/edit/kit',
     [
-        '$modal',
-        'sp_app/service/edit/kit/prompt',
-        'sp_app/service/api/kit',
-        'service/ui/alert',
-    function(
-        $modal,
-        prompt_service,
-        api_kit,
-        alert_service
+         '$modal'
+        ,'sp_app/service/edit/kit/prompt'
+        ,'sp_app/service/api/kit'
+        ,'service/ui/alert'
+        ,'service/db/sync_if_nessesary'
+    ,function(
+         $modal
+        ,prompt_service
+        ,api_kit
+        ,alert_service
+        ,sync_if_nessesary
     ){
         var template = 
             '<div class="modal-header">' +
@@ -105,7 +109,6 @@ define(
                         }else{
                             alert_service('alert',assoc.breakdown.name + ' can not be added to ' + $scope.sp.name,'red');
                         }
-                        
                     }
                 )
             }
@@ -113,10 +116,11 @@ define(
                 api_kit.update($scope.sp).then(
                     function(data){
                         angular.copy(data,$scope.original_sp);
-                        $modalInstance.close(data);    
-                    },function(reason){
-                        alert_service('alert',reason,'red');
-                    }
+                        sync_if_nessesary().then(
+                             function(){ $modalInstance.close(data); }
+                            ,function(reason){ alert_service('alert',reason,'red'); }
+                        )
+                    },function(reason){ alert_service('alert',reason,'red'); }
                 )
             }
         };

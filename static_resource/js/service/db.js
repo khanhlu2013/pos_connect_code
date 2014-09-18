@@ -23,9 +23,9 @@ define(
     }]);
 
     mod.factory('service/db/sync',['$q','$rootScope','blockUI',function($q,$rootScope,blockUI){
-        return function(store_id/*the benefit of passing store_id here simplify things: we don't need to know where stoer_id comming from*/){
+        return function(){
             var defer = $q.defer();
-            
+            var store_id = $rootScope.GLOBAL_SETTING.store_id;
             console.log('begin syncing for store_id: ' + store_id);
             blockUI.start('syncing database ...');
             var db_name = $rootScope.GLOBAL_SETTING.store_db_prefix + store_id;
@@ -81,5 +81,32 @@ define(
             }   
             return defer.promise;
         }        
+    }])
+
+    mod.factory('service/db/sync_if_nessesary',
+    [
+         'service/db/is_pouch_exist'
+        ,'service/db/sync'
+        ,'$q'
+    ,function(
+         is_pouch_exist
+        ,sync
+        ,$q
+    ){
+        return function(){ 
+            var defer = $q.defer();
+            is_pouch_exist().then(
+                function(db_existance){
+                    if(db_existance){
+                        sync().then(
+                             function(response){defer.resolve(null);}
+                            ,function(reason){defer.reject(reason);}
+                        )
+                    }else{ defer.resolve(null); }
+                }
+                ,function(reason){ defer.reject(reason);}
+            )
+            return defer.promise;
+        }
     }])
 })

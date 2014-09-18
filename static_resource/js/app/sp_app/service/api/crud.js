@@ -38,33 +38,29 @@ define(
             },
 
             insert_old : function(product_id,sku,sp){
-                var promise_ing = $http({
+                var defer = $q.defer();
+                $http({
                     url:'/product/sp_insert_old_angular',
                     method:'POST',
                     data:{product_id:product_id,sku_str:sku,sp:JSON.stringify(sp)}
-                });
-                var promise_ed = promise_ing.then(
-                    function(data){
-                        var defer = $q.defer();defer.resolve(Store_product.build(data.data));return defer.promise;
-                    },
-                    function(reason){
-                        return $q.reject('insert old sp product ajax error');
-                    }
+                }).then(
+                     function(data){ defer.resolve(Store_product.build(data.data)); }
+                    ,function(reason){ defer.reject('insert old sp product ajax error'); }
                 )
-                return promise_ed;              
+                return defer.promise;
             },
 
             update : function(sp){
-                var promise_ing =  $http({
+                var defer = $q.defer();
+                $http({
                     url:'/product/update_sp_angular',
                     method: 'POST',
                     data:{sp:JSON.stringify(sp)}
-                });
-                var promise_ed = promise_ing.then(
-                     function(data){ var defer = $q.defer();defer.resolve(Store_product.build(data.data));return defer.promise;}
-                    ,function(){ return $q.reject('update product ajax error');}
+                }).then(
+                     function(data){ defer.resolve(Store_product.build(data.data))}
+                    ,function(){ defer.reject('update product ajax error');}
                 )
-                return promise_ed;
+                return defer.promise;
             }
         }
     }])

@@ -15,7 +15,7 @@ define(
     ,'app/shortcut_app/shortcut_ui'
     ,'service/ui'
     ,'service/db'
-    ,'blockUI'
+    // ,'blockUI'
     ,'app/sale_app/service/hold/api'
     ,'app/sale_app/service/hold/get_hold_ui'
     ,'app/sale_app/service/offline_product'
@@ -163,18 +163,6 @@ define(
             }
             return result;
         }
-        // $scope.get_hold_ui = function(){
-        //     get_hold_ui().then(
-        //         function(hold){
-        //             for(var i = 0;i<hold.ds_lst.length;i++){
-        //                 var cur_ds = hold.ds_lst[i];
-        //                 var sp_doc_id = null;if(!cur_ds.is_non_inventory()){sp_doc_id = cur_ds.store_product.sp_doc_id;}
-        //                 append_pending_scan.by_doc_id(sp_doc_id,cur_ds.qty,cur_ds.non_inventory,cur_ds.override_price); 
-        //             }
-        //         }
-        //         ,function(reason){alert_service('alert',reason,'red');}
-        //     )
-        // }
         $scope.get_hold_ui = function(){
             get_hold_ui().then(
                  function(hold){ set_ds_lst(hold.ds_lst); }
@@ -261,13 +249,10 @@ define(
                     edit_product_offline(ds.store_product).then( function(){ $scope.refresh_ds(); } )
                 }else{
                     var sp_copy = angular.copy(ds.store_product);
-                    sp_info_service(sp_copy).then(
-                        function(){
-                            sync_db_service($rootScope.GLOBAL_SETTING.store_id).then(function(){
-                                $scope.refresh_ds();
-                            })                    
-                        }
-                    )                    
+                    sp_info_service(sp_copy).then( 
+                         function(){ $scope.refresh_ds(); }
+                        ,function(reason){ alert_service('alert',reason,'red'); }
+                    )
                 }
             }
         }
@@ -306,7 +291,7 @@ define(
                                 sku_scan_not_found_handler(extracted_result.sku).then(
                                      function(created_sp){ 
                                         if(created_sp.is_create_offline()){ $scope.sku_scan(); }
-                                        else{ sync_db_service($rootScope.GLOBAL_SETTING.store_id).then(function(){$scope.sku_scan();}) }
+                                        else{ sync_db_service().then(function(){$scope.sku_scan();}) }
                                     }
                                     ,function(reason){alert_service('alert',reason,'red');}
                                 )
@@ -320,7 +305,7 @@ define(
 
         //init code
         $scope.ds_lst = [];
-        sync_db_service($rootScope.GLOBAL_SETTING.store_id).then(
+        sync_db_service().then(
             function(){
                 shortcut_ui.init($scope);  
                 $scope.refresh_ds();

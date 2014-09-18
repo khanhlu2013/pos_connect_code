@@ -10,7 +10,7 @@ define(
     ,'service/ui'
     ,'app/sp_app/service/convert'
     ,'app/sp_app/service/api/search'
-    ,'blockUI'
+    // ,'blockUI'
     ,'service/db'
 ], function 
 (
@@ -28,7 +28,7 @@ define(
         ,'service/ui'
         ,'sp_app/service/convert'
         ,'sp_app/service/api/search'
-        ,'blockUI'
+        // ,'blockUI'
         ,'service/db'
     ]);
 

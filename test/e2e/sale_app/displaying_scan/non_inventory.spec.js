@@ -18,8 +18,8 @@ describe('sale_app/displaying_scan/non_inventory', function() {
     var void_btn = element(by.id('sale_app/main_page/void_btn'));
     var tender_btn = element(by.id('sale_app/main_page/tender_btn'));
     var ds_lst = element.all(by.repeater('ds in ds_lst'))
-    var name_index = 1;
-    var price_index = 2;
+    var name_index = lib.sale_page.get_index('name');
+    var price_index = lib.sale_page.get_index('price');
     beforeEach(function(){
         lib.auth.login(baseUrl,'1','1');
         browser.get(baseUrl); 

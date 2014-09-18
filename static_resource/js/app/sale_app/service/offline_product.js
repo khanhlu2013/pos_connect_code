@@ -134,12 +134,8 @@ define(
                     pouch.put(doc).then(
                         function(response){
                             offline_sp_api.by_sp_doc_id(response.id).then(
-                                 function(sp){ 
-                                    defer.resolve(sp); 
-                                }
-                                ,function(reason){ 
-                                    defer.reject(reason); 
-                                }
+                                 function(sp){ defer.resolve(sp); }
+                                ,function(reason){ defer.reject(reason); }
                             )
                         }
                         ,function(reason){ defer.reject(reason); }

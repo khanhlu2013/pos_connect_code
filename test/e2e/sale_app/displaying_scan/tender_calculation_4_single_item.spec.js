@@ -9,7 +9,6 @@ describe('sale_app/displaying_scan/tender_calculation_4_single_item', function()
     var ptor = protractor.getInstance();
     var enter_key = protractor.Key.ENTER;
 
-    var tax_rate = 8.725 //a hard code amount when create store fixture
     //prompt service
     var prompt_txt = element(by.id('service/ui/prompt/prompt_txt'));
     var prompt_ok_btn = element(by.id('service/ui/prompt/ok_btn'));

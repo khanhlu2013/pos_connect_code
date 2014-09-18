@@ -49,7 +49,7 @@ define(
                     && last_item.discount === cur_item.discount
                     && mm_deal_condition
                 ){
-                    last_item.qty += 1;
+                    last_item.qty += cur_item.qty;
                 }else{
                     result.push(cur_item);
                 }

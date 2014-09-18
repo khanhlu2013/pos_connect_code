@@ -8,7 +8,6 @@ define(
     ,'filter/filter'    
     ,'directive/share_directive'    
     ,'service/ui'
-    ,'app/sp_app/service/convert'
     ,'app/sp_app/service/api/search'
     // ,'blockUI'
     ,'service/db'
@@ -26,7 +25,6 @@ define(
         ,'filter'
         ,'share_directive'
         ,'service/ui'
-        ,'sp_app/service/convert'
         ,'sp_app/service/api/search'
         // ,'blockUI'
         ,'service/db'
@@ -43,7 +41,6 @@ define(
         ,'sp_app/service/duplicate'
         ,'service/ui/alert'
         ,'service/ui/confirm'
-        ,'sp_app/service/convert/lst'
         ,'sp_app/service/api/search'
         ,'blockUI'
         ,'service/db/is_pouch_exist'
@@ -57,7 +54,6 @@ define(
         ,duplicate_service
         ,alert_service
         ,confirm_service
-        ,convert_sp_lst
         ,api
         ,blockUI
         ,is_pouch_exist

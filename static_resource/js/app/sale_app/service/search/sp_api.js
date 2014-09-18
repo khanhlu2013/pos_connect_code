@@ -77,7 +77,7 @@ define(
                 var sp = get_sp_from_sp_lst_base_on_pid(assoc.product_id,sp_lst_of_bd_assoc);
                 breakdown_assoc_lst.push(new Kit_breakdown_assoc(null/*id*/,sp/*breakdown*/,assoc.qty))
             }
-
+            var kit_assoc_lst = null;/* Since sp.kit_assoc_lst does not need to collect sale data, i decided not to store this info offline to simplify the project. (this info is needed for client-side validation when updating sp.kit info) In this case, since we instantiate sp from searching from offline db (versus from ajax data), sp does not contain this info. If user decided to edit kit info from this sp instance, we will by pass client-side validation which prevent infinte loop when breakdown contain kit*/
             var sp = new Store_product(
                  sp_couch.id
                 ,sp_couch.product_id
@@ -96,7 +96,7 @@ define(
                 ,product
                 ,null//group_lst
                 ,breakdown_assoc_lst
-                ,null//kit_assoc_lst                            
+                ,kit_assoc_lst                           
                 ,sp_couch._id
                 ,sp_couch._rev
             );

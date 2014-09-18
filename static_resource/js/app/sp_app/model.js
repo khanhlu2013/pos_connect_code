@@ -93,9 +93,14 @@ define(
                 return result;                         
             },
             get_ancestor_lst: function(){
-                if(this.kit_assoc_lst.length == 0){
-                    return [];
-                }else{
+                /*
+                    this method get all direct and in-direct(grand-farther, great-grand-father ... ) ancestors of this sp. 
+                */
+                if(this.kit_assoc_lst === null){ 
+                    return [];//this is the case when this sp in instantiated from searching for sp from pouchdb (vesus from the server). we don't store kit_assoc_lst offline, which is only need for validation, to simplify this project
+                }
+                else if(this.kit_assoc_lst.length === 0){ return []; }
+                else{
                     var result = [];
                     for(var i = 0;i<this.kit_assoc_lst.length;i++){
                         var cur_kit = this.kit_assoc_lst[i];

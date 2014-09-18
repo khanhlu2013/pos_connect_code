@@ -37,7 +37,6 @@ urlpatterns = patterns('',
     url(r'^create_new_sp_for_receipt_ln$',login_required(create_new_sp_for_receipt_ln_view)),
 
     #UPDATE KIT
-    url(r'^kit/update$',login_required(sp_kit_update_view.sp_kit_update_view)),
     url(r'^kit/update_angular$',login_required(sp_kit_update_view.sp_kit_update_angular_view)),
 
     #LOOKUP TYPE TAG

@@ -1,8 +1,8 @@
-from store_product import add_sku_cm
+from store_product.cm import add_sku_cm,sp_kit_update_cm
 from store.models import Store
 import csv
 from store_product.models import Store_product
-from store_product import sp_updator,sp_kit_update_cm
+from store_product import sp_updator
 def exe():
     store = Store.objects.get(name = "x")
     

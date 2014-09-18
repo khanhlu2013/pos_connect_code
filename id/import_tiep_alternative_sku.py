@@ -1,4 +1,4 @@
-from store_product import add_sku_cm
+from store_product.cm import add_sku_cm
 from store.models import Store
 import csv
 from store_product.models import Store_product

@@ -19,10 +19,10 @@ urlpatterns = patterns('',
     url(r'^search_by_sku_angular$',login_required(sp_search_view.search_by_sku_angular)),
     url(r'^search_by_name$',login_required(sp_search_view.sp_search_by_name_view)),
     url(r'^search_by_name_angular$',login_required(sp_search_view.search_by_name_angular)),
-
+    url(r'^search_by_product_id$',login_required(sp_search_view.search_by_product_id_view)),
     url(r'^search_by_name_sku$',login_required(sp_search_view.sp_search_by_name_sku_view)),
     url(r'^search_by_name_sku_angular$',login_required(sp_search_view.sp_search_by_name_sku_angular_view)),
-    url(r'^search_by_pid$',login_required(sp_search_view.sp_search_by_pid_view)),
+    
 
     #SKU
     url(r'^sku/add$',login_required(sp_sku_view.add_ajax)),

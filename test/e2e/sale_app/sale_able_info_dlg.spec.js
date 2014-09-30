@@ -1,66 +1,19 @@
-var lib = require('./../lib');
+var base_path = './../';
+var lib = require(base_path + 'lib');
 
-describe('sale_app/sale_able_info_dlg', function() {
-    var baseUrl = 'http://127.0.0.1:8000/';
-    var ptor = protractor.getInstance();
-    var enter_key = protractor.Key.ENTER;
-
-    //service/ui/prompt
-    var prompt_txt = element(by.id('service/ui/prompt/prompt_txt'));
-    var prompt_ok_btn = element(by.id('service/ui/prompt/ok_btn'));
-
-    //menu
-    var sp_page_report_menu = element(by.id('sp_app/menu/report'));
-    var sp_page_receipt_menu = element(by.id('sp_app/menu/report/receipt'));
-    var sale_page_report_menu = element(by.id('sale_app/menu/report'));
-    var sale_page_receipt_menu = element(by.id('sale_app/menu/report/receipt'));
-
-    //receipt report_page
-    var offline_receipt_lst = element.all(by.repeater('receipt in offline_receipt_lst | orderBy : \'-date\''));
-    var cur_receipt_ln_lst = element.all(by.repeater('receipt_ln in cur_receipt.receipt_ln_lst | orderBy : \'date\''));
-    var report_exit_btn = element(by.id('receipt_app/service/report/exit_btn'))
-
-    //displaying scan info dlg
-    var info_dlg = element(by.id('sale_app/service/sale_able_info_dlg'));
-    var info_dlg_override_price_btn = element(by.id('sale_app/service/sale_able_info_dlg/override_price_btn'));
-    var info_dlg_remove_override_price_btn = element(by.id('sale_app/service/sale_able_info_dlg/remove_override_price_btn'));
-    var info_dlg_preset_price = element(by.id('sale_app/service/sale_able_info_dlg/preset_price'));
-    var info_dlg_override_price = element(by.id('sale_app/service/sale_able_info_dlg/override_price'));
-    var info_dlg_mm_deal_name = element(by.id('sale_app/service/sale_able_info_dlg/mm_deal_name'));
-    var info_dlg_mm_deal_unit_discount = element(by.id('sale_app/service/sale_able_info_dlg/mm_deal_unit_discount'));
-    var info_dlg_buydown = element(by.id('sale_app/service/sale_able_info_dlg/buydown'));
-    var info_dlg_advertise_price = element(by.id('sale_app/service/sale_able_info_dlg/advertise_price'));
-    var info_dlg_crv = element(by.id('sale_app/service/sale_able_info_dlg/crv'));
-    var info_dlg_buydown_tax = element(by.id('sale_app/service/sale_able_info_dlg/buydown_tax'));
-    var info_dlg_tax = element(by.id('sale_app/service/sale_able_info_dlg/tax'));
-    var info_dlg_otd_price = element(by.id('sale_app/service/sale_able_info_dlg/otd_price'));
-    var info_dlg_ok_btn = element(by.id('sale_app/service/sale_able_info_dlg/ok_btn'));
-    var info_dlg_cancel_btn = element(by.id('sale_app/service/sale_able_info_dlg/cancel_btn'));
-
-    //sale page
-    var void_btn = element(by.id('sale_app/main_page/void_btn'));
-    var tender_btn = element(by.id('sale_app/main_page/tender_btn'));
-    var non_inv_btn = element(by.id('sale_app/main_page/non_inventory_btn'));
-    var ds_lst = element.all(by.repeater('ds in ds_lst'))
-
-    //tender_ui
-    var cash_txt = element(by.id('sale_app/service/tender_ui/pt_txt/null'));
-    var tender_ok_btn = element(by.id('sale_app/service/tender_ui/ok_btn'));
+describe('sale page\'s Sale_able_info_dlg', function() {
+    
+    var Sale_able_info_dlg = require(base_path + 'page/sale/Sale_able_info_dlg.js');
+    var Sale_page = require(base_path + 'page/sale/Sale_page.js');
 
     beforeEach(function(){
-        lib.auth.login(baseUrl,'1','1');
-        browser.get(baseUrl); 
+        lib.auth.login('1','1');
         lib.setup.init_data();
         lib.auth.logout();
     })
 
-    afterEach(function(){
-        lib.auth.logout();
-    })
-
-    it('can display sale_able_info_dlg',function(){
-        lib.auth.login(baseUrl,'1','1');
-        browser.get(baseUrl); 
+    it('can display info',function(){
+        lib.auth.login('1','1');
 
         //deal_crv_buydown_buydonwtax <-> 0_0_0_0
         var product_name_1 = 'product name 1';
@@ -87,78 +40,70 @@ describe('sale_app/sale_able_info_dlg', function() {
         lib.api.insert_new(sku_4,product_name_4,price_4,null/*val_cus_price*/,null/*crv*/,true/*is_taxable*/,false/*is_sale_report*/,null/*p_type*/,null/*p_tag*/,null/*cost*/,null/*vendor*/,buydown_4);
 
         //test sale finalizer and receipt report data
-        lib.sale_page.load_this_page(); 
-        var override_price_index = lib.sale_page.get_index('price');
+        Sale_page.visit();
 
         //deal_crv_buydown_buydonwtax <-> 0_0_0_0
-        lib.sale_page.scan(sku_1);
-        ds_lst.get(0).all(by.tagName('td')).get(override_price_index).click();
-        expect(info_dlg_override_price_btn.isEnabled()).toBe(true);
-        expect(info_dlg_remove_override_price_btn.isEnabled()).toBe(true);
-        expect(info_dlg_preset_price.getText()).toEqual('$1.00');
-        expect(info_dlg_override_price.getText()).toEqual('None');
-        expect(info_dlg_mm_deal_name.isDisplayed()).toBeFalsy();
-        expect(info_dlg_mm_deal_unit_discount.isDisplayed()).toBeFalsy();
-        expect(info_dlg_buydown.isDisplayed()).toBeFalsy();
-        expect(info_dlg_advertise_price.getText()).toEqual('$1.00');
-        expect(info_dlg_crv.getText()).toEqual('');
-        expect(info_dlg_buydown_tax.isDisplayed()).toBeFalsy();
-        expect(info_dlg_tax.getText()).toEqual('');
-        expect(info_dlg_otd_price.getText()).toEqual('$1.00');
-        info_dlg_cancel_btn.click();
+        Sale_page.scan(sku_1);
+        Sale_page.click_col(0,'price');
+        expect(Sale_able_info_dlg.preset_price_lbl.getText()).toEqual('$1.00');
+        expect(Sale_able_info_dlg.override_price_lbl.getText()).toEqual('None');
+        expect(Sale_able_info_dlg.mm_deal_title_lbl.isDisplayed()).toBeFalsy();
+        expect(Sale_able_info_dlg.mm_deal_lbl.isDisplayed()).toBeFalsy();
+        expect(Sale_able_info_dlg.buydown_lbl.isDisplayed()).toBeFalsy();
+        expect(Sale_able_info_dlg.advertise_price_lbl.getText()).toEqual('$1.00');
+        expect(Sale_able_info_dlg.crv_lbl.getText()).toEqual('');
+        expect(Sale_able_info_dlg.buydown_tax_lbl.isDisplayed()).toBeFalsy();
+        expect(Sale_able_info_dlg.tax_lbl.getText()).toEqual('');
+        expect(Sale_able_info_dlg.otd_price_lbl.getText()).toEqual('$1.00');
+        Sale_able_info_dlg.cancel();
         
         //deal_crv_buydown_buydonwtax <-> 1_0_0_0
-        lib.sale_page.scan(_3_deal_qty + ' ' + sku_2);
-        ds_lst.get(1).all(by.tagName('td')).get(override_price_index).click();
-        expect(info_dlg_override_price_btn.isEnabled()).toBe(true);
-        expect(info_dlg_remove_override_price_btn.isEnabled()).toBe(true);
-        expect(info_dlg_preset_price.getText()).toEqual('$2.00');
-        expect(info_dlg_override_price.getText()).toEqual('None');
-        expect(info_dlg_mm_deal_name.getText()).toEqual(_3_deal_name + ' (discount):');
-        expect(info_dlg_mm_deal_unit_discount.getText()).toEqual('$0.67');
-        expect(info_dlg_buydown.isDisplayed()).toBeFalsy();
-        expect(info_dlg_advertise_price.getText()).toEqual('$1.33');
-        expect(info_dlg_crv.getText()).toEqual('');
-        expect(info_dlg_buydown_tax.isDisplayed()).toBeFalsy();
-        expect(info_dlg_tax.getText()).toEqual('');
-        expect(info_dlg_otd_price.getText()).toEqual('$1.33');
-        info_dlg_cancel_btn.click();
+        Sale_page.scan(_3_deal_qty + ' ' + sku_2);
+        Sale_page.click_col(1,'price');
+        expect(Sale_able_info_dlg.preset_price_lbl.getText()).toEqual('$2.00');
+        expect(Sale_able_info_dlg.override_price_lbl.getText()).toEqual('None');
+        expect(Sale_able_info_dlg.mm_deal_title_lbl.getText()).toEqual(_3_deal_name + ' (discount):');
+        expect(Sale_able_info_dlg.mm_deal_lbl.getText()).toEqual('$0.67');
+        expect(Sale_able_info_dlg.buydown_lbl.isDisplayed()).toBeFalsy();
+        expect(Sale_able_info_dlg.advertise_price_lbl.getText()).toEqual('$1.33');
+        expect(Sale_able_info_dlg.crv_lbl.getText()).toEqual('');
+        expect(Sale_able_info_dlg.buydown_tax_lbl.isDisplayed()).toBeFalsy();
+        expect(Sale_able_info_dlg.tax_lbl.getText()).toEqual('');
+        expect(Sale_able_info_dlg.otd_price_lbl.getText()).toEqual('$1.33');
+        Sale_able_info_dlg.cancel();
 
         //deal_crv_buydown_buydonwtax <-> 0_1_0_0
-        lib.sale_page.scan(sku_3);
-        ds_lst.get(2).all(by.tagName('td')).get(override_price_index).click();
-        expect(info_dlg_override_price_btn.isEnabled()).toBe(true);
-        expect(info_dlg_remove_override_price_btn.isEnabled()).toBe(true);
-        expect(info_dlg_preset_price.getText()).toEqual('$3.00');
-        expect(info_dlg_override_price.getText()).toEqual('None');
-        expect(info_dlg_mm_deal_name.isDisplayed()).toBeFalsy();
-        expect(info_dlg_mm_deal_unit_discount.isDisplayed()).toBeFalsy();
-        expect(info_dlg_buydown.isDisplayed()).toBeFalsy();
-        expect(info_dlg_advertise_price.getText()).toEqual('$3.00');
-        expect(info_dlg_crv.getText()).toEqual('$0.10');
-        expect(info_dlg_buydown_tax.isDisplayed()).toBeFalsy();
-        expect(info_dlg_tax.getText()).toEqual('');
-        expect(info_dlg_otd_price.getText()).toEqual('$3.10');
-        info_dlg_cancel_btn.click();
+        Sale_page.scan(sku_3);
+        Sale_page.click_col(2,'price');
+        expect(Sale_able_info_dlg.preset_price_lbl.getText()).toEqual('$3.00');
+        expect(Sale_able_info_dlg.override_price_lbl.getText()).toEqual('None');
+        expect(Sale_able_info_dlg.mm_deal_title_lbl.isDisplayed()).toBeFalsy();
+        expect(Sale_able_info_dlg.mm_deal_lbl.isDisplayed()).toBeFalsy();
+        expect(Sale_able_info_dlg.buydown_lbl.isDisplayed()).toBeFalsy();
+        expect(Sale_able_info_dlg.advertise_price_lbl.getText()).toEqual('$3.00');
+        expect(Sale_able_info_dlg.crv_lbl.getText()).toEqual('$0.10');
+        expect(Sale_able_info_dlg.buydown_tax_lbl.isDisplayed()).toBeFalsy();
+        expect(Sale_able_info_dlg.tax_lbl.getText()).toEqual('');
+        expect(Sale_able_info_dlg.otd_price_lbl.getText()).toEqual('$3.10');
+        Sale_able_info_dlg.cancel();
 
         //deal_crv_buydown_buydonwtax <-> 0_0_1_1
-        lib.sale_page.scan(sku_4);
-        ds_lst.get(3).all(by.tagName('td')).get(override_price_index).click();
-        expect(info_dlg_override_price_btn.isEnabled()).toBe(true);
-        expect(info_dlg_remove_override_price_btn.isEnabled()).toBe(true);
-        expect(info_dlg_preset_price.getText()).toEqual('$4.00');
-        expect(info_dlg_override_price.getText()).toEqual('None');
-        expect(info_dlg_mm_deal_name.isDisplayed()).toBeFalsy();
-        expect(info_dlg_mm_deal_unit_discount.isDisplayed()).toBeFalsy();
-        expect(info_dlg_buydown.getText()).toEqual('$0.50');
-        expect(info_dlg_advertise_price.getText()).toEqual('$3.50');
-        expect(info_dlg_crv.getText()).toEqual('');
-        expect(info_dlg_buydown_tax.getText()).toEqual('$0.04');
-        expect(info_dlg_tax.getText()).toEqual('$0.31');
-        expect(info_dlg_otd_price.getText()).toEqual('$3.85');
-        info_dlg_cancel_btn.click();
+        Sale_page.scan(sku_4);
+        Sale_page.click_col(3,'price');
+        expect(Sale_able_info_dlg.preset_price_lbl.getText()).toEqual('$4.00');
+        expect(Sale_able_info_dlg.override_price_lbl.getText()).toEqual('None');
+        expect(Sale_able_info_dlg.mm_deal_title_lbl.isDisplayed()).toBeFalsy();
+        expect(Sale_able_info_dlg.mm_deal_lbl.isDisplayed()).toBeFalsy();
+        expect(Sale_able_info_dlg.buydown_lbl.getText()).toEqual('$0.50');
+        expect(Sale_able_info_dlg.advertise_price_lbl.getText()).toEqual('$3.50');
+        expect(Sale_able_info_dlg.crv_lbl.getText()).toEqual('');
+        expect(Sale_able_info_dlg.buydown_tax_lbl.getText()).toEqual('$0.04');
+        expect(Sale_able_info_dlg.tax_lbl.getText()).toEqual('$0.31');
+        expect(Sale_able_info_dlg.otd_price_lbl.getText()).toEqual('$3.85');
+        Sale_able_info_dlg.cancel();
 
         //clean up
-        void_btn.click();
+        Sale_page.void();
+        lib.auth.logout();
     },60000)
 });

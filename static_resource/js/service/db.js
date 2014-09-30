@@ -109,4 +109,30 @@ define(
             return defer.promise;
         }
     }])
+
+    mod.factory('service/db/remove_doc',
+    [
+         '$q'
+        ,'service/db/get'
+    ,function(
+         $q
+        ,get_pouch_db
+    ){
+        return function(doc_id){
+            var defer = $q.defer();
+
+            var db = get_pouch_db();
+            db.get(doc_id).then(
+                 function(doc) { 
+                    db.remove(doc).then(
+                         function(response){ defer.resolve(response); }
+                        ,function(reason){ defer.reject(reason); }
+                    )
+                }
+                ,function(reason){ defer.reject(reason); }
+            );              
+            
+            return defer.promise;
+        }
+    }])    
 })

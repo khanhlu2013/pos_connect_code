@@ -2,6 +2,7 @@ from rest_framework import serializers,fields
 from store_product.sp_serializer import Breakdown_assoc_serializer,Kit_assoc_serializer
 from store_product.models import Store_product
 from receipt.models import Receipt,Receipt_ln,Tender_ln
+from payment_type.models import Payment_type
 
 class Store_product_serializer(serializers.ModelSerializer):
     """
@@ -23,26 +24,48 @@ class Store_product_serializer(serializers.ModelSerializer):
         model = Store_product
         fields = ('id','product_id','store_id','name','price','value_customer_price','crv','is_taxable','is_sale_report','p_type','p_tag','cost','vendor','buydown')
 
+class Payment_type_serializer(serializers.ModelSerializer):
+    class Meta:
+        model = Payment_type
+        fields = ('id','name','sort','active')
 
 class Tender_ln_serializer(serializers.ModelSerializer):
+    payment_type = Payment_type_serializer()
+
     class Meta:
         model = Tender_ln
-        fields = ('id','amount','name')
+        fields = ('id','amount','name','payment_type')
 
 class Receipt_ln_serializer(serializers.ModelSerializer):
     store_product = Store_product_serializer(many=False)
     class Meta:
         model = Receipt_ln
-        fields = ('id','qty','store_product','price','crv','discount','discount_mm_deal','non_product_name','is_taxable','p_type','p_tag','cost','buydown')
-
+        fields = (
+             'id','qty','discount','override_price','date'
+            ,'store_product'
+            ,'sp_stamp_name'
+            ,'sp_stamp_price'
+            ,'sp_stamp_value_customer_price'
+            ,'sp_stamp_crv'
+            ,'sp_stamp_is_taxable'
+            ,'sp_stamp_p_type'
+            ,'sp_stamp_p_tag'
+            ,'sp_stamp_cost'
+            ,'sp_stamp_vendor'
+            ,'sp_stamp_buydown'
+            ,'mm_deal_discount'
+            ,'mm_deal_name'
+            ,'non_inventory_name'
+            ,'non_inventory_price'
+        )
 
 class Receipt_serializer(serializers.ModelSerializer):
-    receipt_ln_set = Receipt_ln_serializer(many=True)
-    tender_ln_set = Tender_ln_serializer(many=True)
+    receipt_ln_lst = Receipt_ln_serializer(many=True)
+    tender_ln_lst = Tender_ln_serializer(many=True)
 
     class Meta:
         model = Receipt
-        fields = ('id','time_stamp','tax_rate','tender_ln_set','receipt_ln_set')
+        fields = ('id','date','tax_rate','tender_ln_lst','receipt_ln_lst')
 
 
 def serialize_receipt_lst(receipt_lst):

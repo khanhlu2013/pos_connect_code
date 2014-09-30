@@ -17,6 +17,7 @@ def exe( \
     ,cost
     ,vendor
     ,buydown
+    ,offline_doc_id = None
 ):
 
     prod_bus_assoc = exe_master( \
@@ -33,6 +34,7 @@ def exe( \
         ,cost = cost
         ,vendor = vendor
         ,buydown = buydown
+        ,offline_doc_id = offline_doc_id
     )
 
     insert_couch.exe(
@@ -69,6 +71,7 @@ def exe_master( \
     ,cost
     ,vendor
     ,buydown
+    ,offline_doc_id
 ):
 
     #CREATE PRODUCT
@@ -96,6 +99,7 @@ def exe_master( \
         ,cost = cost
         ,vendor = vendor
         ,buydown = buydown
+        ,sp_doc_id = offline_doc_id
     )
 
     #CREATE SKU

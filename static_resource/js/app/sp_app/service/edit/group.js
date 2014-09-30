@@ -50,7 +50,7 @@ define(
                     '</tr>' +    
                     '<tr ng-repeat="group_edit in sp.group_lst">' +
                         '<td>{{group_edit.name}}</td>' +    
-                        '<td><button ng-click="remove(group_edit)" class="btn btn-danger glyphicon glyphicon-trash"></button></td>' +                                            
+                        '<td class="alncenter"><button ng-click="remove(group_edit)" class="btn btn-danger glyphicon glyphicon-trash"></button></td>' +                                            
                     '</tr>' +                                                  
                 '</table>' +
                 '<div ng-show="sp.group_lst.length==0">' +

@@ -1,0 +1,71 @@
+var base_path = './../../';
+var lib = require(base_path + 'lib');
+
+var Sale_page = function () {
+
+    //menu
+    this.menu_report = element(by.id('sp_app/menu/report'));
+    this.menu_setting = element(by.id('sp_app/menu/setting'));
+
+    //txt
+    this.sku_txt = element(by.model('sku_search_str'));
+
+    //table
+    this.lst = element.all(by.repeater('sp in sp_lst | orderBy:cur_sort_column:cur_sort_desc | filter:local_filter'))
+
+    //menu function
+    this.menu_report_receipt = function(){ this.menu_report.click(); element(by.id('sp_app/menu/report/receipt')).click(); }
+    this.menu_setting_group = function(){ this.menu_setting.click(); element(by.id('sp_app/menu/setting/group')).click(); }
+    this.menu_setting_payment_type = function(){ this.menu_setting.click(); element(by.id('sp_app/menu/setting/payment_type')).click(); }
+    this.menu_setting_mix_match = function(){ this.menu_setting.click(); element(by.id('sp_app/menu/setting/mix_match')).click(); }
+    this.menu_setting_shortcut = function(){ this.menu_setting.click(); element(by.id('sp_app/menu/setting/shortcut')).click(); }
+    this.menu_setting_tax = function(){ this.menu_setting.click(); element(by.id('sp_app/menu/setting/tax')).click(); }
+
+    //txt function
+    this.sku_search = function(sku_search_str){ this.sku_txt.clear();this.sku_txt.sendKeys(sku_search_str,protractor.Key.ENTER); }
+
+    //index function
+    this.get_index = function(col_name){
+        if(col_name === 'product')                      { return 0; }
+        else if(col_name === 'price')                   { return 1; }
+        else if(col_name === 'crv')                     { return 2; }
+        else if(col_name === 'is_taxable')              { return 3; }
+        else if(col_name === 'is_sale_report')          { return 4; }
+        else if(col_name === 'p_type')                  { return 5; }
+        else if(col_name === 'p_tag')                   { return 6; }
+        else if(col_name === 'vendor')                  { return 7; }
+        else if(col_name === 'cost')                    { return 8; }
+        else if(col_name === 'buydown')                 { return 9; }
+        else if(col_name === 'value_customer_price')    { return 10; }
+        else if(col_name === 'info')                    { return 11; }
+        else                                            { return null; }
+    }
+
+    //table function
+    this.click_col = function(index,col_name){
+        var col_index = this.get_index(col_name);
+        this.lst.get(index).all(by.tagName('td')).get(col_index).click();
+    }
+    this.get_col = function(index,col_name){
+        var col_index = this.get_index(col_name);
+
+        if(col_name === 'is_taxable' || col_name === 'is_sale_report'){
+            var defer = protractor.promise.defer();
+            this.lst.get(index).all(by.tagName('td')).get(col_index).all(by.tagName('span')).get(0).getAttribute('class').then(
+                function(cls){
+                    var ret_val; 
+                    if(cls.indexOf('glyphicon-ok') !== -1){ret_val = true; }
+                    else{ ret_val = false; }
+                    defer.fulfill(ret_val);
+                }
+            )
+            return defer.promise;
+            return true;
+            
+        }else{
+            return this.lst.get(index).all(by.tagName('td')).get(col_index).getText(); 
+        }
+    }
+}
+
+module.exports = new Sale_page();

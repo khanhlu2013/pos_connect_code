@@ -6,6 +6,7 @@ define(
     ,'app/sp_app/service/edit/kit'   
     ,'app/sp_app/service/edit/sku'      
     ,'app/sp_app/service/edit/sp'       
+    ,'app/sp_app/service/api/search'
     ,'service/ui'
 ]
 ,function
@@ -19,6 +20,7 @@ define(
         ,'sp_app/service/edit/kit'
         ,'sp_app/service/edit/sp'
         ,'sp_app/service/edit/sku'
+        ,'sp_app/service/api/search'
         ,'service/ui'
     ]);
     
@@ -29,6 +31,7 @@ define(
         ,'sp_app/service/edit/kit'
         ,'sp_app/service/edit/sp'
         ,'sp_app/service/edit/sku'
+        ,'sp_app/service/api/search'
         ,'service/ui/alert'
     ,function (
          $modal
@@ -36,6 +39,7 @@ define(
         ,edit_kit
         ,edit_sp
         ,edit_sku
+        ,search_api
         ,alert_service
     ){
         var template =
@@ -170,7 +174,10 @@ define(
                 }else if($scope.cur_tab == 'group'){
                     edit_group($scope.sp);
                 }else if($scope.cur_tab == 'kit'){
-                    edit_kit($scope.sp);
+                    edit_kit($scope.sp).then(
+                         function(updated_sp){ angular.copy(updated_sp,$scope.sp); }
+                        ,function(reason){ alert_service('alert',reason,'red'); }
+                    )
                 }else if($scope.cur_tab == 'sku'){
                     edit_sku($scope.sp);
                 }
@@ -191,7 +198,10 @@ define(
                 template: template,
                 controller: ModalCtrl,
                 size: 'lg',
-                resolve : { sp : function(){return sp} }
+                resolve : { sp : function(){
+                    if(sp.is_instantiate_offline()){ return search_api.product_id_search(sp.product_id); }
+                    else{ return sp; }
+                }}
             });
             return dlg.result;
         } 

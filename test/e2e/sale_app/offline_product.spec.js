@@ -1,163 +1,125 @@
-var lib = require('./../lib');
+var base_path = './../'
+var lib = require(base_path + 'lib');
 
+describe('sale page', function() {
 
-describe('sale_app/offline_product', function() {
-    /*
-        when sku is not exist, it is the create module that kick in which should be tested separatly from this test.
-    */
-    var baseUrl = 'http://127.0.0.1:8000/';
-    var ptor = protractor.getInstance();
-    var enter_key = protractor.Key.ENTER;
+    var Ui_confirm_dlg = require(base_path + 'page/ui/Confirm_dlg');
+    var Sp_prompt_dlg = require(base_path + 'page/sp/Sp_prompt_dlg.js');
+    var Sale_page = require(base_path + 'page/sale/Sale_page.js');
 
-    //confirm service
-    var confirm_dlg = element(by.id('service/ui/confirm/dialog'));
-    var confirm_ok_btn = element(by.id('service/ui/confirm/ok_btn'));
-    var confirm_cancel_btn = element(by.id('service/ui/confirm/cancel_btn'));
-
-    //prompt service
-    var prompt_txt = element(by.id('service/ui/prompt/prompt_txt'));
-    var prompt_ok_btn = element(by.id('service/ui/prompt/ok_btn'));
-    
-
-    //sp prompt ui
-    var sp_prompt_name                  = element(by.id('sp_app/service/prompt/name_txt'));
-    var sp_prompt_price                 = element(by.id('sp_app/service/prompt/price_txt'));
-    var sp_prompt_crv                   = element(by.id('sp_app/service/prompt/crv_txt'));
-    var sp_prompt_cost                  = element(by.id('sp_app/service/prompt/cost_txt'));
-    var sp_prompt_p_type                = element(by.id('sp_app/service/prompt/p_type_txt'));
-    var sp_prompt_p_tag                 = element(by.id('sp_app/service/prompt/p_tag_txt'));
-    var sp_prompt_vendor                = element(by.id('sp_app/service/prompt/vendor_txt'));
-    var sp_prompt_buydown               = element(by.id('sp_app/service/prompt/buydown_txt'));  
-    var sp_prompt_value_customer_price  = element(by.id('sp_app/service/prompt/value_customer_price_txt')); 
-    var sp_prompt_sku                   = element(by.id('sp_app/service/prompt/sku_txt')); 
-    var sp_prompt_ok_btn                = element(by.id('sp_app/service/prompt/ok_btn')); 
-    var sp_prompt_cancel_btn            = element(by.id('sp_app/service/prompt/cancel_btn')); 
-
-    //sale page
-    var non_inv_btn = element(by.id('sale_app/main_page/non_inventory_btn'));
-    var void_btn = element(by.id('sale_app/main_page/void_btn'));
-    var tender_btn = element(by.id('sale_app/main_page/tender_btn'));
-    var ds_lst = element.all(by.repeater('ds in ds_lst'))
-    var name_index = lib.sale_page.get_index('name');
-    var price_index = lib.sale_page.get_index('price');
-    
     beforeEach(function(){
-        lib.auth.login(baseUrl,'1','1');
-        browser.get(baseUrl); 
+        lib.auth.login('1','1');
         lib.setup.init_data();
         lib.auth.logout();
     })
 
-    afterEach(function(){
-        lib.auth.logout();
-    })
-
     it('can create and edit offline product',function(){
-        lib.auth.login(baseUrl,'1','1');
-        lib.sale_page.load_this_page(10000,true/*is_offline*/);
+        lib.auth.login('1','1');
+        Sale_page.visit(true/*is_offline*/);
         
         //scan
         var sku = '123';
-        lib.sale_page.scan('123');
+        Sale_page.scan(sku);
 
         //confirm offline message
-        expect(confirm_dlg.isPresent()).toBeTruthy();   
-        confirm_ok_btn.click();
+        expect(Ui_confirm_dlg.self.isPresent()).toBeTruthy();   
+        Ui_confirm_dlg.ok();
 
         //fill out form
         var name = 'offline product';
         var price = 5.43;
         var crv = 0.12;
+        var is_taxable = false;
         var cost = 4.31;
+        var is_sale_report = true;
         var p_type = 'type';
         var p_tag = 'tag';
         var vendor = 'vendor';
         var buydown = 1.23;
         var value_customer_price = 4.11;
 
-        sp_prompt_name.sendKeys(name,enter_key);
-        sp_prompt_price.sendKeys(price,enter_key);
-        sp_prompt_crv.sendKeys(crv,enter_key);
-        sp_prompt_cost.sendKeys(cost,enter_key);
-        sp_prompt_p_type.sendKeys(p_type,enter_key);
-        sp_prompt_p_tag.sendKeys(p_tag,enter_key);
-        sp_prompt_vendor.sendKeys(vendor,enter_key);
-        sp_prompt_buydown.sendKeys(buydown,enter_key);    
-        sp_prompt_value_customer_price.sendKeys(value_customer_price,enter_key); 
-        expect(sp_prompt_sku.getAttribute('value')).toEqual(sku);
-        sp_prompt_ok_btn.click();
-
-        //verify product is created
-        ptor.sleep(2000);//wait for product to be saved offline and rescan
-        expect(ds_lst.count()).toEqual(1);
-        expect(tender_btn.getText()).toEqual('$4.32');
+        Sp_prompt_dlg.set_name(name);
+        Sp_prompt_dlg.set_price(price);
+        Sp_prompt_dlg.set_crv(crv);
+        Sp_prompt_dlg.set_is_taxable(is_taxable);
+        Sp_prompt_dlg.set_cost(cost);
+        Sp_prompt_dlg.set_is_sale_report(is_sale_report);
+        Sp_prompt_dlg.set_p_type(p_type);
+        Sp_prompt_dlg.set_p_tag(p_tag);
+        Sp_prompt_dlg.set_vendor(vendor);
+        Sp_prompt_dlg.set_buydown(buydown);
+        Sp_prompt_dlg.set_value_customer_price(value_customer_price);
+        expect(Sp_prompt_dlg.get_sku()).toEqual(sku);
+        Sp_prompt_dlg.ok();
+        // browser.sleep(2000);
+        
+        expect(Sale_page.lst.count()).toEqual(1);
+        expect(Sale_page.tender_btn.getText()).toEqual('$4.32');
 
         //attemp to edit this product offline
-        ds_lst.get(0).all(by.tagName('td')).get(name_index).click();
+        Sale_page.click_col(0,'name');
 
         //verify edit prefill
-        expect(sp_prompt_name.getAttribute('value')).toEqual(name);
-        expect(sp_prompt_price.getAttribute('value')).toEqual(price.toString());
-        expect(sp_prompt_crv.getAttribute('value')).toEqual(crv.toString());
-        expect(sp_prompt_cost.getAttribute('value')).toEqual(cost.toString());
-        expect(sp_prompt_p_type.getAttribute('value')).toEqual(p_type);
-        expect(sp_prompt_p_tag.getAttribute('value')).toEqual(p_tag);
-        expect(sp_prompt_vendor.getAttribute('value')).toEqual(vendor.toString());
-        expect(sp_prompt_buydown.getAttribute('value')).toEqual(buydown.toString());
-        expect(sp_prompt_value_customer_price.getAttribute('value')).toEqual(value_customer_price.toString());
+        expect(Sp_prompt_dlg.get_name()).toEqual(name);
+        expect(Sp_prompt_dlg.get_price()).toEqual(price.toString());
+        expect(Sp_prompt_dlg.get_crv()).toEqual(crv.toString());
+        expect(Sp_prompt_dlg.get_is_taxable()).toEqual(is_taxable);
+        expect(Sp_prompt_dlg.get_cost()).toEqual(cost.toString());
+        expect(Sp_prompt_dlg.get_is_sale_report()).toEqual(is_sale_report);
+        expect(Sp_prompt_dlg.get_p_type()).toEqual(p_type);
+        expect(Sp_prompt_dlg.get_p_tag()).toEqual(p_tag);
+        expect(Sp_prompt_dlg.get_vendor()).toEqual(vendor.toString());
+        expect(Sp_prompt_dlg.get_buydown()).toEqual(buydown.toString());
+        expect(Sp_prompt_dlg.get_value_customer_price()).toEqual(value_customer_price.toString());
 
         //edit data
         name = 'offline product_';
         price = 7.42;
         crv = 1.31;
+        is_taxable = true;
         cost = 4.21;
+        is_sale_report = false;
         p_type = 'type_';
         p_tag = 'tag_';
         vendor = 'vendor_';
         buydown = 0.21;
         value_customer_price = 4.13;
 
-        sp_prompt_name.clear();
-        sp_prompt_price.clear();
-        sp_prompt_crv.clear();
-        sp_prompt_cost.clear();
-        sp_prompt_p_type.clear();
-        sp_prompt_p_tag.clear();
-        sp_prompt_vendor.clear();
-        sp_prompt_buydown.clear();
-        sp_prompt_value_customer_price.clear();
+        Sp_prompt_dlg.set_name(name);
+        Sp_prompt_dlg.set_price(price);
+        Sp_prompt_dlg.set_crv(crv);
+        Sp_prompt_dlg.set_is_taxable(is_taxable);
+        Sp_prompt_dlg.set_cost(cost);
+        Sp_prompt_dlg.set_is_sale_report(is_sale_report);
+        Sp_prompt_dlg.set_p_type(p_type);
+        Sp_prompt_dlg.set_p_tag(p_tag);
+        Sp_prompt_dlg.set_vendor(vendor);
+        Sp_prompt_dlg.set_buydown(buydown);
+        Sp_prompt_dlg.set_value_customer_price(value_customer_price);
+        Sp_prompt_dlg.ok();
+        // browser.sleep(2000);
 
-        sp_prompt_name.sendKeys(name,enter_key);
-        sp_prompt_price.sendKeys(price,enter_key);
-        sp_prompt_crv.sendKeys(crv,enter_key);
-        sp_prompt_cost.sendKeys(cost,enter_key);
-        sp_prompt_p_type.sendKeys(p_type,enter_key);
-        sp_prompt_p_tag.sendKeys(p_tag,enter_key);
-        sp_prompt_vendor.sendKeys(vendor,enter_key);
-        sp_prompt_buydown.sendKeys(buydown,enter_key);    
-        sp_prompt_value_customer_price.sendKeys(value_customer_price,enter_key);       
-        sp_prompt_ok_btn.click();  
+        expect(Sale_page.lst.count()).toEqual(1);
+        expect(Sale_page.tender_btn.getText()).toEqual('$9.28');      
 
-        //verify edit result 
-        ptor.sleep(2000);//wait for product to be saved offline and rescan
-        expect(ds_lst.count()).toEqual(1);
-        expect(tender_btn.getText()).toEqual('$8.52');      
-
-        //come back to verify edit is success  
-        ds_lst.get(0).all(by.tagName('td')).get(name_index).click();
-        expect(sp_prompt_name.getAttribute('value')).toEqual(name);
-        expect(sp_prompt_price.getAttribute('value')).toEqual(price.toString());
-        expect(sp_prompt_crv.getAttribute('value')).toEqual(crv.toString());
-        expect(sp_prompt_cost.getAttribute('value')).toEqual(cost.toString());
-        expect(sp_prompt_p_type.getAttribute('value')).toEqual(p_type);
-        expect(sp_prompt_p_tag.getAttribute('value')).toEqual(p_tag);
-        expect(sp_prompt_vendor.getAttribute('value')).toEqual(vendor.toString());
-        expect(sp_prompt_buydown.getAttribute('value')).toEqual(buydown.toString());
-        expect(sp_prompt_value_customer_price.getAttribute('value')).toEqual(value_customer_price.toString());      
-        sp_prompt_cancel_btn.click();  
+        //come back to verify edit is success
+        Sale_page.click_col(0,'name');  
+        
+        expect(Sp_prompt_dlg.get_name()).toEqual(name);
+        expect(Sp_prompt_dlg.get_price()).toEqual(price.toString());
+        expect(Sp_prompt_dlg.get_crv()).toEqual(crv.toString());
+        expect(Sp_prompt_dlg.get_is_taxable()).toEqual(is_taxable);
+        expect(Sp_prompt_dlg.get_cost()).toEqual(cost.toString());
+        expect(Sp_prompt_dlg.get_is_sale_report()).toEqual(is_sale_report);
+        expect(Sp_prompt_dlg.get_p_type()).toEqual(p_type);
+        expect(Sp_prompt_dlg.get_p_tag()).toEqual(p_tag);
+        expect(Sp_prompt_dlg.get_vendor()).toEqual(vendor.toString());
+        expect(Sp_prompt_dlg.get_buydown()).toEqual(buydown.toString());
+        expect(Sp_prompt_dlg.get_value_customer_price()).toEqual(value_customer_price.toString());
+        Sp_prompt_dlg.cancel();
 
         //clean up
-        void_btn.click();
-
+        Sale_page.void();
+        lib.auth.logout();
     },60000);
 });

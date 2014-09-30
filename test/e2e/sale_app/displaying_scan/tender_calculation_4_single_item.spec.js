@@ -1,45 +1,24 @@
-var lib = require('./../../lib');
-
+var base_path = './../../';
+var lib = require(base_path + 'lib');
 
 describe('sale_app/displaying_scan/tender_calculation_4_single_item', function() {
-    /*
-        when sku is not exist, it is the create module that kick in which should be tested separatly from this test.
-    */
-    var baseUrl = 'http://127.0.0.1:8000/';
-    var ptor = protractor.getInstance();
-    var enter_key = protractor.Key.ENTER;
-
-    //prompt service
-    var prompt_txt = element(by.id('service/ui/prompt/prompt_txt'));
-    var prompt_ok_btn = element(by.id('service/ui/prompt/ok_btn'));
-
-    //sale page
-    var void_btn = element(by.id('sale_app/main_page/void_btn'));
-    var tender_btn = element(by.id('sale_app/main_page/tender_btn'));
-    var ds_lst = element.all(by.repeater('ds in ds_lst'))
-
-    //displaying scan info dlg
-    var info_dlg_override_price_btn = element(by.id('sale_app/service/sale_able_info_dlg/override_price_btn'));
-    var info_dlg_ok_btn = element(by.id('sale_app/service/sale_able_info_dlg/ok_btn'));
+    var Ui_prompt_dlg = require(base_path + 'page/ui/Prompt_dlg.js')
+    var Sale_page = require(base_path + 'page/sale/Sale_page.js');
+    var Sale_able_info_dlg = require(base_path + 'page/sale/Sale_able_info_dlg.js');
 
     beforeEach(function(){
-        lib.auth.login(baseUrl,'1','1');
-        browser.get(baseUrl); 
+        lib.auth.login('1','1');
         lib.setup.init_data();
         lib.auth.logout();
     })
 
-    afterEach(function(){
-        lib.auth.logout();
-    })
-
     function exe_override_price(new_price){
-        ds_lst.get(0).all(by.tagName('td')).get(2).click();
-        info_dlg_override_price_btn.click();
-        prompt_txt.sendKeys(new_price);
-        prompt_ok_btn.click();
-        info_dlg_ok_btn.click();
-        ptor.sleep(200);//wait for pouch to re-calculate ds_lst
+        Sale_page.click_col(0,'price');
+        Sale_able_info_dlg.override_price();
+        Ui_prompt_dlg.set_prompt(new_price);
+        Ui_prompt_dlg.ok();
+        Sale_able_info_dlg.ok();
+        // browser.sleep(200);//wait for pouch to re-calculate ds_lst
     }
 /*
 
@@ -68,8 +47,7 @@ B   1           1           0           1               0           0       0   
 
 */
     it('can calculate ds',function(){
-        lib.auth.login(baseUrl,'1','1');
-        browser.get(baseUrl); 
+        lib.auth.login('1','1');
         
         var price=12.34;override_price=11.28;var crv_=0.23;buyd = 1.75;_1=true;_0=false
 
@@ -107,70 +85,73 @@ B   1           1           0           1               0           0       0   
         .then(function(sp){lib.api.insert_mm('b4 deal',b4_deal_price,b4_deal_is_include,b4_deal_qty,[sp])})
 
         //LOAD SALE PAGE - SYNC OFFLINE DB--------------------------------------------------------------------------------------------------------------------
-        lib.sale_page.load_this_page();
+        Sale_page.visit();
 
         //TEST A GROUP ---------------------------------------------------------------------------------------------------------------------------------------
         //NO OVERRIDE PRICE
-        lib.sale_page.scan(a1_sku);
-        expect(tender_btn.getText()).toEqual('$12.34');        
-        void_btn.click();
-        lib.sale_page.scan(a2_sku);
-        expect(tender_btn.getText()).toEqual('$10.82');        
-        void_btn.click();
-        lib.sale_page.scan(a3_deal_qty + ' ' + a3_sku);
-        expect(tender_btn.getText()).toEqual('$1.66');        
-        void_btn.click();
-        lib.sale_page.scan(a4_deal_qty + ' ' + a4_sku);
-        expect(tender_btn.getText()).toEqual('$1.00');        
-        void_btn.click();        
+        Sale_page.scan(a1_sku);
+        expect(Sale_page.tender_btn.getText()).toEqual('$12.34');      
+        Sale_page.void();  
+        Sale_page.scan(a2_sku);
+        expect(Sale_page.tender_btn.getText()).toEqual('$10.82');        
+        Sale_page.void();  
+        Sale_page.scan(a3_deal_qty + ' ' + a3_sku);
+        expect(Sale_page.tender_btn.getText()).toEqual('$1.66');        
+        Sale_page.void();   
+        Sale_page.scan(a4_deal_qty + ' ' + a4_sku);
+        expect(Sale_page.tender_btn.getText()).toEqual('$1.00');        
+        Sale_page.void();        
         //YES OVERRIDE PRICE
-        lib.sale_page.scan(a1_sku);
+        Sale_page.scan(a1_sku);
         exe_override_price(override_price);
-        expect(tender_btn.getText()).toEqual('$11.28');        
-        void_btn.click();
-        lib.sale_page.scan(a2_sku);
+        expect(Sale_page.tender_btn.getText()).toEqual('$11.28');        
+        Sale_page.void();
+        Sale_page.scan(a2_sku);  
         exe_override_price(override_price);
-        expect(tender_btn.getText()).toEqual('$9.76');        
-        void_btn.click();
-        lib.sale_page.scan(a3_deal_qty + ' ' + a3_sku);
+        expect(Sale_page.tender_btn.getText()).toEqual('$9.76');        
+        Sale_page.void();  
+        Sale_page.scan(a3_deal_qty + ' ' + a3_sku);
         exe_override_price(override_price);
-        expect(tender_btn.getText()).toEqual('$1.66');        
-        void_btn.click();
-        lib.sale_page.scan(a4_deal_qty + ' ' + a4_sku);
+        expect(Sale_page.tender_btn.getText()).toEqual('$1.66');        
+        Sale_page.void();  
+        Sale_page.scan(a4_deal_qty + ' ' + a4_sku);
         exe_override_price(override_price);
-        expect(tender_btn.getText()).toEqual('$1.00');        
-        void_btn.click();      
+        expect(Sale_page.tender_btn.getText()).toEqual('$1.00');        
+        Sale_page.void();       
 
         //TEST B GROUP ---------------------------------------------------------------------------------------------------------------------------------------
         //NO OVERRIDE PRICE
-        lib.sale_page.scan(b1_sku);
-        expect(tender_btn.getText()).toEqual('$13.42');        
-        void_btn.click();
-        lib.sale_page.scan(b2_sku);
-        expect(tender_btn.getText()).toEqual('$11.92');        
-        void_btn.click();
-        lib.sale_page.scan(b3_deal_qty + ' ' + b3_sku);
-        expect(tender_btn.getText()).toEqual('$2.11');        
-        void_btn.click();
-        lib.sale_page.scan(b4_deal_qty + ' ' + b4_sku);
-        expect(tender_btn.getText()).toEqual('$1.00');        
-        void_btn.click();        
+        Sale_page.scan(b1_sku);
+        expect(Sale_page.tender_btn.getText()).toEqual('$13.42');        
+        Sale_page.void();  
+        Sale_page.scan(b2_sku);
+        expect(Sale_page.tender_btn.getText()).toEqual('$11.92');        
+        Sale_page.void();  
+        Sale_page.scan(b3_deal_qty + ' ' + b3_sku);
+        expect(Sale_page.tender_btn.getText()).toEqual('$2.11');        
+        Sale_page.void();
+        Sale_page.scan(b4_deal_qty + ' ' + b4_sku);  
+        expect(Sale_page.tender_btn.getText()).toEqual('$1.00');        
+        Sale_page.void();          
         //YES OVERRIDE PRICE
-        lib.sale_page.scan(b1_sku);
+        Sale_page.scan(b1_sku);  
         exe_override_price(override_price);
-        expect(tender_btn.getText()).toEqual('$12.26');        
-        void_btn.click();
-        lib.sale_page.scan(b2_sku);
+        expect(Sale_page.tender_btn.getText()).toEqual('$12.26');        
+        Sale_page.void();  
+        Sale_page.scan(b2_sku);  
         exe_override_price(override_price);
-        expect(tender_btn.getText()).toEqual('$10.76');        
-        void_btn.click();
-        lib.sale_page.scan(b3_deal_qty + ' ' + b3_sku);
+        expect(Sale_page.tender_btn.getText()).toEqual('$10.76');        
+        Sale_page.void();  
+        Sale_page.scan(b3_deal_qty + ' ' + b3_sku);
         exe_override_price(override_price);
-        expect(tender_btn.getText()).toEqual('$2.11');        
-        void_btn.click();
-        lib.sale_page.scan(b4_deal_qty + ' ' + b4_sku);
+        expect(Sale_page.tender_btn.getText()).toEqual('$2.11');        
+        Sale_page.void();  
+        Sale_page.scan(b4_deal_qty + ' ' + b4_sku);  
         exe_override_price(override_price);
-        expect(tender_btn.getText()).toEqual('$1.00');        
-        void_btn.click();                           
+        expect(Sale_page.tender_btn.getText()).toEqual('$1.00');        
+
+        //clean up
+        Sale_page.void();                            
+        lib.auth.logout();
     },60000/*60 second timeout*/)
 });

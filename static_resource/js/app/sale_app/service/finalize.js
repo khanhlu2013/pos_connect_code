@@ -46,11 +46,15 @@ define(
         }
         function _create_store_product_stamp(sp){
             return new Store_product_stamp(
-                 sp.name
+                 sp.id//sp_id
+                ,sp.sp_doc_id
+                ,sp.get_offline_create_sku()
+                ,sp.name
                 ,sp.price
                 ,sp.value_customer_price
                 ,sp.get_crv()
                 ,sp.is_taxable
+                ,sp.is_sale_report
                 ,sp.p_type
                 ,sp.p_tag
                 ,sp.cost
@@ -92,6 +96,7 @@ define(
                         ,$rootScope.GLOBAL_SETTING.tax_rate
                         ,tender_ln_lst
                         ,receipt_ln_lst
+                        ,null//receipt_doc_id . it is null because we don't know this doc_id until we saved into pouch
                     );
 
                     var pouch = get_pouch_db();

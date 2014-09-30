@@ -61,7 +61,7 @@ define(
                             '<td>{{pt_manage.name}}</td>' +
                             '<td>{{pt_manage.sort}}</td>' +
                             '<td class="alncenter"><span class="glyphicon" ng-class="pt_manage.active? \'glyphicon-check\' : \'glyphicon-unchecked\'"></span></td>' +
-                            '<th><button ng-click="edit(pt_manage)" class="btn btn-primary glyphicon glyphicon-pencil"></button></th>' +
+                            '<td class="alncenter"><button ng-click="edit(pt_manage)" class="btn btn-primary glyphicon glyphicon-pencil"></button></td>' +
                         '</tr>' +
                     '</table>' +
                     '<pre ng-show="pt_lst.length==0">there is no payment type</pre>' +

@@ -99,7 +99,6 @@ def insert_receipt_ln_to_master(receipt_couch_lst,receipt_id_c2mLookup,sp_id_c2m
                 ,buydown = sp_buydown
             )
             receipt_ln_master_lst.append(receipt_ln_master)
-
     Receipt_ln.objects.bulk_create(receipt_ln_master_lst)
 
 
@@ -116,10 +115,8 @@ def insert_receipt_to_master(receipt_couch_lst,store_id):
         receipt_master_lst.append(receipt_master)
 
     Receipt.objects.bulk_create(receipt_master_lst)
-
     #retrieve ids for create receipt in master
     receipt_master_lst = get_receipt_lst_from_master_based_on_receipt_couch_lst(receipt_couch_lst)
-
     #return lookup from receipt_couch to receipt_master
     return fomulate_receipt_id_c2mLookup(receipt_couch_lst,receipt_master_lst)
 
@@ -215,7 +212,6 @@ def get_sp_lookup(sp_couch_lst,store_id):
         if not pid in pid_lst:
             pid_lst.append(pid)
 
-
     if len(pid_lst) != 0:
         sp_master_lst = Store_product.objects.filter(store_id=store_id,product_id__in=pid_lst)
 
@@ -224,21 +220,15 @@ def get_sp_lookup(sp_couch_lst,store_id):
             pid = sp_couch['product_id']
             sp_master = get_sp_master_based_on_pid_from_sp_master_lst(sp_master_lst,pid)
             lookup_result[sp_couch['_id']] = sp_master.id
-        
     return lookup_result
-
 
 def get_sp_master_based_on_pid_from_sp_master_lst(sp_master_lst,pid):
     result = None
-
     for sp_master in sp_master_lst:
         if sp_master.product.id == pid:
             result = sp_master
             break
-
     return result
-
-
 
 def get_create_offline_sp(receipt_couch_lst,is_create_offline_criteria):
     result = []
@@ -251,7 +241,6 @@ def get_create_offline_sp(receipt_couch_lst,is_create_offline_criteria):
             is_create_offline = receipt_ln_couch['store_product']['product_id'] == None
             if is_create_offline == is_create_offline_criteria:
                 result.append(receipt_ln_couch['store_product']) 
-
     return result
 
 

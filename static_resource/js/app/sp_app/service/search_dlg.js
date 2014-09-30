@@ -50,7 +50,7 @@ define(
 							'<tr ng-repeat="sp_multiple in sp_lst | orderBy:\'name\' | filter:$parent.query">' + 
 								'<td>{{sp_multiple.name}}</td>' +
 								'<td class="alnright">{{sp_multiple.price | currency}}</td>' +
-								'<td class="alnright"><button ng-class="is_sp_selected(sp_multiple) ? \'btn-warning glyphicon-check\' : \'btn-primary glyphicon-unchecked\'" class="btn glyphicon" ng-click="toggle_select(sp_multiple)"></button></td>' +
+								'<td class="alncenter"><button ng-class="is_sp_selected(sp_multiple) ? \'btn-warning glyphicon-check\' : \'btn-primary glyphicon-unchecked\'" class="btn glyphicon" ng-click="toggle_select(sp_multiple)"></button></td>' +
 							'</tr>' +
 		 				'</table>' +
 					'</div>' +
@@ -66,7 +66,7 @@ define(
 							'<tr ng-repeat="sp_select in result_sp_lst | orderBy:\'name\'">' + 
 								'<td>{{sp_select.name}}</td>' +
 								'<td class="alnright">{{sp_select.price|currency}}</td>' +
-								'<td class="alnright"><button class="btn btn-warning glyphicon glyphicon-trash" ng-click="remove(sp_select)"></button></td>' +
+								'<td class="alncenter"><button class="btn btn-warning glyphicon glyphicon-trash" ng-click="remove(sp_select)"></button></td>' +
 							'</tr>' +							
 						'</table>' +
 					'</div>' +					
@@ -172,7 +172,7 @@ define(
 					'<tr ng-repeat="search_sp_single in sp_lst">' + 
 						'<td>{{search_sp_single.name}}</td>' +
 						'<td>{{search_sp_single.price}}</td>' +
-						'<td><button class="btn btn-primary btn-xs" ng-click="select(search_sp_single)">select</button></td>' +
+						'<td class="alncenter"><button class="btn btn-primary btn-xs" ng-click="select(search_sp_single)">select</button></td>' +
 					'</tr>' +
  				'</table>' +
  				'<div ng-hide="message.length == 0">' +

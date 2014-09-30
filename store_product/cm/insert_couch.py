@@ -38,3 +38,5 @@ def exe(
         ,buydown = couch_util.decimal_2_str(buydown)
         ,breakdown_assoc_lst = [] #when don't allow setting up kit-breakdown info when creating new sp. we only setup this info after sp is created
     )
+    db = couch_util.get_store_db(store_id)
+    store_product_document.store(db)     

@@ -74,11 +74,15 @@ define(
             var store_product_stamp = null;
             if(doc!==null){
                 store_product_stamp = new Store_product_stamp(
-                     doc.name
+                     doc.sp_id
+                    ,doc.doc_id
+                    ,doc.offline_create_sku
+                    ,doc.name
                     ,doc.price
                     ,doc.value_customer_price
                     ,doc.crv
                     ,doc.is_taxable
+                    ,doc.is_sale_report
                     ,doc.p_type
                     ,doc.p_tag
                     ,doc.cost
@@ -123,6 +127,7 @@ define(
                 ,doc.tax_rate
                 ,doc.tender_ln_lst.map(_pouch_2_java__tender_ln)
                 ,doc.receipt_ln_lst.map(_pouch_2_java__receipt_ln)
+                ,doc._id
             );
             return receipt;
         }

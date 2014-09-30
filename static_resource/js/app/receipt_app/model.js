@@ -3,13 +3,20 @@ define(
     'angular'
     //---
     ,'app/sp_app/model'
+    ,'app/payment_type_app/model'
+    ,'app/sale_app/model'
 ]
 ,function
 (
     angular
 )
 {
-    var mod = angular.module('receipt_app/model',['sp_app/model']);
+    var mod = angular.module('receipt_app/model',
+    [
+         'sp_app/model'
+        ,'payment_type_app/model'
+        ,'sale_app/model'
+    ]);
 
     //Receipt model
     mod.factory('receipt_app/model/Receipt',['receipt_app/model/Tender_ln','receipt_app/model/Receipt_ln',function(Tender_ln,Receipt_ln){
@@ -18,13 +25,15 @@ define(
             date,
             tax_rate,
             tender_ln_lst,
-            receipt_ln_lst
+            receipt_ln_lst,
+            receipt_doc_id
         ){
             this.id = id;
             this.date = date;
             this.tax_rate = tax_rate;
             this.tender_ln_lst = tender_ln_lst;
-            this.receipt_ln_lst = receipt_ln_lst
+            this.receipt_ln_lst = receipt_ln_lst;
+            this.doc_id = receipt_doc_id;
         }
 
         Receipt.prototype = {
@@ -104,10 +113,33 @@ define(
                 return result;                
             }
         }
+        Receipt.build = function(data){
+            var receipt_ln_lst = data.receipt_ln_lst.map(Receipt_ln.build);
+            var tender_ln_lst = data.tender_ln_lst.map(Tender_ln.build);
+            return new Receipt(
+                 data.id//id
+                ,new Date(data.date)
+                ,data.tax_rate
+                ,tender_ln_lst
+                ,receipt_ln_lst
+                ,null//doc_id
+            );
+        }        
         return Receipt;
     }]);
 
-    mod.factory('receipt_app/model/Receipt_ln',['sp_app/model/Store_product',function(Store_product){
+    mod.factory('receipt_app/model/Receipt_ln',
+    [
+         'sp_app/model/Store_product'
+        ,'sale_app/model/Non_inventory'
+        ,'receipt_app/model/Mix_match_deal_info_stamp'
+        ,'receipt_app/model/Store_product_stamp'
+    ,function(
+         Store_product
+        ,Non_inventory
+        ,Mix_match_deal_info_stamp
+        ,Store_product_stamp
+    ){
         function Receipt_ln(
              id
             ,qty
@@ -209,10 +241,61 @@ define(
                 return parseFloat(str);
             }
         }
+        Receipt_ln.build = function(data){
+            var non_inventory = null;
+            if(
+                data.non_inventory_name !== null 
+                && data.non_inventory_price !== null
+            ){
+                non_inventory = new Non_inventory(
+                     data.non_inventory_name
+                    ,data.non_inventory_price
+                );
+            }
+
+            var store_product_stamp = null;
+            if(data.sp_stamp_name !== null ){
+                store_product_stamp = new Store_product_stamp(
+                     null//sp_id
+                    ,null//doc_id
+                    ,null//offline_create_sku
+                    ,data.sp_stamp_name
+                    ,data.sp_stamp_price
+                    ,data.sp_stamp_value_customer_price
+                    ,data.sp_stamp_crv
+                    ,data.sp_stamp_is_taxable
+                    ,data.sp_stamp_is_sale_report
+                    ,data.sp_stamp_p_type
+                    ,data.sp_stamp_p_tag 
+                    ,data.sp_stamp_cost
+                    ,data.sp_stamp_vendor
+                    ,data.sp_stamp_buydown
+                );
+            }   
+
+            var mm_deal_info_stamp = null;
+            if(data.mm_deal_name !== null ){
+                mm_deal_info_stamp = new Mix_match_deal_info_stamp(
+                     data.mm_deal_name
+                    ,data.mm_deal_discount
+                );
+            }            
+
+            return new Receipt_ln(
+                 data.id
+                ,data.qty
+                ,data.discount
+                ,data.override_price
+                ,store_product_stamp
+                ,mm_deal_info_stamp
+                ,non_inventory
+                ,new Date(data.date)
+            );
+        }
         return Receipt_ln;
     }])
 
-    mod.factory('receipt_app/model/Tender_ln',[function(){
+    mod.factory('receipt_app/model/Tender_ln',['payment_type_app/model/Payment_type',function(Payment_type){
         function Tender_ln(
             id,
             pt,
@@ -223,6 +306,16 @@ define(
             this.pt = pt;
             this.amount = amount;
             this.name = name;
+        }
+        Tender_ln.build = function(data){
+            var pt = null;
+            if(data.payment_type !== null){ pt = Payment_type.build(data.payment_type) }
+            return new Tender_ln(
+                 data.id
+                ,pt
+                ,data.amount
+                ,data.name
+            );
         }
         return Tender_ln;
     }]);
@@ -245,22 +338,30 @@ define(
 
     mod.factory('receipt_app/model/Store_product_stamp',[function(){
         function Store_product_stamp(
-             name
+             sp_id
+            ,doc_id
+            ,offline_create_sku
+            ,name
             ,price
             ,value_customer_price
             ,crv
             ,is_taxable
+            ,is_sale_report
             ,p_type
             ,p_tag
             ,cost
             ,vendor
             ,buydown
         ){
+            this.sp_id = sp_id;
+            this.doc_id = doc_id;
+            this.offline_create_sku = offline_create_sku;
             this.name = name;
             this.price = price;
             this.value_customer_price = value_customer_price;
             this.crv = crv;
             this.is_taxable = is_taxable;
+            this.is_sale_report = is_sale_report;
             this.p_type = p_type;
             this.p_tag = p_tag;
             this.cost = cost;

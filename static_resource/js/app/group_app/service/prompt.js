@@ -48,7 +48,7 @@ define(
 
 						'<tr ng-repeat="sp in group.sp_lst">' +
 							'<td>{{sp.name}}</td>' +
-							'<td><button ng-click="remove_sp(sp)"class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button></td>' +
+							'<td class="alncenter"><button ng-click="remove_sp(sp)"class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button></td>' +
 						'</tr>' +
 					'</table>' +
 					'<pre ng-show="group.sp_lst.length == 0">there is no product in this group</pre>' +

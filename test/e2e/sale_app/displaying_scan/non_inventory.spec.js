@@ -1,86 +1,67 @@
-var lib = require('./../../lib');
+var base_path = './../../';
+var lib = require(base_path + 'lib');
 
 
 describe('sale_app/displaying_scan/non_inventory', function() {
-    /*
-        when sku is not exist, it is the create module that kick in which should be tested separatly from this test.
-    */
-    var baseUrl = 'http://127.0.0.1:8000/';
-    var ptor = protractor.getInstance();
-    var enter_key = protractor.Key.ENTER;
-
     //prompt service
-    var prompt_txt = element(by.id('service/ui/prompt/prompt_txt'));
-    var prompt_ok_btn = element(by.id('service/ui/prompt/ok_btn'));
+    var Ui_prompt_dlg = require(base_path + 'page/ui/Prompt_dlg.js');
+    var Sale_page = require(base_path + 'page/sale/Sale_page.js');
 
-    //sale page
-    var non_inv_btn = element(by.id('sale_app/main_page/non_inventory_btn'));
-    var void_btn = element(by.id('sale_app/main_page/void_btn'));
-    var tender_btn = element(by.id('sale_app/main_page/tender_btn'));
-    var ds_lst = element.all(by.repeater('ds in ds_lst'))
-    var name_index = lib.sale_page.get_index('name');
-    var price_index = lib.sale_page.get_index('price');
     beforeEach(function(){
-        lib.auth.login(baseUrl,'1','1');
-        browser.get(baseUrl); 
+        lib.auth.login('1','1');
         lib.setup.init_data();
         lib.auth.logout();
     })
 
-    afterEach(function(){
-        lib.auth.logout();
-    })
-
     it('can scan,edit price, edit name,remove non inventory',function(){
-        lib.auth.login(baseUrl,'1','1');
-        lib.sale_page.load_this_page();
+        lib.auth.login('1','1');
+        Sale_page.visit();
 
         //can scan non inventory
-        non_inv_btn.click();
-        prompt_txt.sendKeys('1.23');
-        prompt_ok_btn.click();
-        expect(ds_lst.count()).toEqual(1);
-        expect(tender_btn.getText()).toEqual('$1.23');
+        Sale_page.non_inventory();
+        Ui_prompt_dlg.set_prompt('1.23')
+        Ui_prompt_dlg.ok();
+        expect(Sale_page.lst.count()).toEqual(1);
+        expect(Sale_page.tender_btn.getText()).toEqual('$1.23');
 
         //can combine
-        non_inv_btn.click();
-        prompt_txt.sendKeys('1.23');
-        prompt_ok_btn.click();
-        expect(ds_lst.count()).toEqual(1);
-        expect(tender_btn.getText()).toEqual('$2.46');        
-        expect(ds_lst.get(0).all(by.tagName('td')).get(0).getText()).toEqual('2');
+        Sale_page.non_inventory();
+        Ui_prompt_dlg.set_prompt('1.23');
+        Ui_prompt_dlg.ok();
+        expect(Sale_page.lst.count()).toEqual(1);
+        expect(Sale_page.tender_btn.getText()).toEqual('$2.46');        
+        expect(Sale_page.get_col(0,'qty')).toEqual('2');
 
         //can separate 
-        non_inv_btn.click();
-        prompt_txt.sendKeys('1.11');
-        prompt_ok_btn.click();
-        expect(ds_lst.count()).toEqual(2);
-        expect(tender_btn.getText()).toEqual('$3.57');        
-        expect(ds_lst.get(1).all(by.tagName('td')).get(0).getText()).toEqual('1');       
+        Sale_page.non_inventory();
+        Ui_prompt_dlg.set_prompt('1.11');
+        Ui_prompt_dlg.ok();
+        expect(Sale_page.lst.count()).toEqual(2);
+        expect(Sale_page.tender_btn.getText()).toEqual('$3.57');        
+        expect(Sale_page.get_col(1,'qty')).toEqual('1');
 
         //can remove 
-        ds_lst.get(1).all(by.tagName('button')).get(0).click();
-        expect(ds_lst.count()).toEqual(1);
-        expect(tender_btn.getText()).toEqual('$2.46');          
+        Sale_page.click_col(1,'delete');
+        expect(Sale_page.lst.count()).toEqual(1);
+        expect(Sale_page.tender_btn.getText()).toEqual('$2.46');          
         
         //can change name   
         var new_name = 'new non product name';
-        ds_lst.get(0).all(by.tagName('td')).get(name_index).click();
-        prompt_txt.clear();
-        prompt_txt.sendKeys(new_name,enter_key);
-        prompt_ok_btn.click();
-        expect(ds_lst.get(0).all(by.tagName('td')).get(name_index).getText()).toEqual(new_name);
+        Sale_page.click_col(0,'name');
+        Ui_prompt_dlg.set_prompt(new_name);
+        Ui_prompt_dlg.ok();
+        expect(Sale_page.get_col(0,'name')).toEqual(new_name);
 
         //can change price
         var new_price = 1.11;
-        ds_lst.get(0).all(by.tagName('td')).get(price_index).click();
-        prompt_txt.clear();
-        prompt_txt.sendKeys(new_price,enter_key);
-        prompt_ok_btn.click();
-        expect(ds_lst.get(0).all(by.tagName('td')).get(price_index).getText()).toEqual('$1.11');        
-        expect(tender_btn.getText()).toEqual('$2.22');    
+        Sale_page.click_col(0,'price');
+        Ui_prompt_dlg.set_prompt(new_price);
+        Ui_prompt_dlg.ok();
+        expect(Sale_page.get_col(0,'price')).toEqual('$1.11');
+        expect(Sale_page.tender_btn.getText()).toEqual('$2.22');    
 
         //clean up
-        void_btn.click(); 
+        Sale_page.void();
+        lib.auth.logout();
     });
 });

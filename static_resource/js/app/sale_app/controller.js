@@ -256,9 +256,7 @@ define(
                 }
             }
         }
-        $scope.void = function(){
-            set_ps_lst([]);
-        }
+        $scope.void = function(){ set_ps_lst([]); }
         $scope.exe_shortcut_child = function(row,col){
             var child_shortcut = shortcut_ui.get_child_of_cur_parent(row,col,$scope);
             if(child_shortcut == null){ return; }

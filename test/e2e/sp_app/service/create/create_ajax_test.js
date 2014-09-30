@@ -1,13 +1,7 @@
-var lib = require('./../../../lib');
-
+var base_path = './../../../';
+var lib = require(base_path + 'lib');
 
 describe('sp_app/service/create', function() {
-    /*
-        when sku is not exist, it is the create module that kick in which should be tested separatly from this test.
-    */
-    var baseUrl = 'http://127.0.0.1:8000/';
-    var ptor = protractor.getInstance();
-    var enter_key = protractor.Key.ENTER;
 
     var sp_result = element.all(by.repeater('sp in sp_lst'));
     var sku_txt = element(by.model('sku_search_str'));
@@ -15,13 +9,8 @@ describe('sp_app/service/create', function() {
     var alert_ok_btn = element(by.id('service/ui/alert/ok_btn')); 
 
     beforeEach(function(){
-        lib.auth.login(baseUrl,'1','1');
-        browser.get(baseUrl); 
+        lib.auth.login('1','1');
         lib.setup.init_data();
-        lib.auth.logout();
-    })
-
-    afterEach(function(){
         lib.auth.logout();
     })
 
@@ -41,8 +30,7 @@ describe('sp_app/service/create', function() {
             value_customer_price : 5.5,
             sku : '12345'
         }
-        lib.auth.login(baseUrl,'1','1');
-        browser.get(baseUrl);   
+        lib.auth.login('1','1');
         sku_txt.clear();sku_txt.sendKeys(enter_key);
         sku_txt.sendKeys(data.sku,enter_key);  
         expect(sp_result.count()).toEqual(0);  
@@ -81,13 +69,15 @@ describe('sp_app/service/create', function() {
         lib.ui.click(element(by.id('sp_app/service/prompt/ok_btn')));
         expect(sp_result.count()).toEqual(1);
         lib.product_page.get_line_text(data).then(function(txt){expect(sp_result.get(0).getText()).toEqual(txt); })
+
+        //clean up
+        lib.auth.logout();
     })
 
 
     it('can insert old',function(){
         //FIXTURE: we going to insert a product into store 2
-        lib.auth.login(baseUrl,'2','2');
-        browser.get(baseUrl); 
+        lib.auth.login('2','2');
         var data = {
             name : 'new product name',
             price : 1.1,
@@ -107,8 +97,7 @@ describe('sp_app/service/create', function() {
         lib.auth.logout();
 
         //TEST
-        lib.auth.login(baseUrl,'1','1');
-        browser.get(baseUrl); 
+        lib.auth.login('1','1');
         sku_txt.sendKeys(sku,enter_key); 
 
         //select suggestion
@@ -133,13 +122,15 @@ describe('sp_app/service/create', function() {
                 expect(sp_result.get(0).getText()).toEqual(txt);
             }
         )
+
+        //clean up
+        lib.auth.logout();        
     });
 
 
     it('can suggest to add sku for product that existed in current store',function(){
         // SETUP:
-        lib.auth.login(baseUrl,'1','1');
-        browser.get(baseUrl); 
+        lib.auth.login('1','1');
         var original_sku = '111';
         var new_sku = '222';
         var product_id = null;
@@ -150,8 +141,7 @@ describe('sp_app/service/create', function() {
 
         lib.auth.logout();
 
-        lib.auth.login(baseUrl,'2','2');
-        browser.get(baseUrl); 
+        lib.auth.login('2','2');
         ptor.wait(function(){
             return product_id != null;
         }).then(function(){
@@ -160,8 +150,7 @@ describe('sp_app/service/create', function() {
         })
 
         lib.auth.logout();
-        lib.auth.login(baseUrl,'1','1');
-        browser.get(baseUrl);     
+        lib.auth.login('1','1');
         sku_txt.sendKeys(new_sku,enter_key); 
 
         expect(element(by.id('sp_app/service/create/select_suggestion/dialog')).isPresent()).toBeTruthy();
@@ -171,5 +160,8 @@ describe('sp_app/service/create', function() {
         lib.ui.click(sp.element(by.css('.btn')));
 
         expect(sp_result.count()).toEqual(1);
+        
+        //clean up
+        lib.auth.logout();        
     })
 });

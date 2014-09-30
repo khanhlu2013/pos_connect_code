@@ -59,9 +59,9 @@ define(
 
                         '<tr ng-repeat="group in group_lst">' +
                             '<td>{{group.name}}</td>' +
-                            '<td><button ng-click="action_group(group)" class="btn btn-primary"><span class="glyphicon glyphicon-play"></span></button></td>' +                            
-                            '<td><button ng-click="delete_group(group)" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button></td>' +
-                            '<td><button ng-click="edit_group(group)"class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span></button></td>' +
+                            '<td class="alncenter"><button ng-click="action_group(group)" class="btn btn-primary"><span class="glyphicon glyphicon-play"></span></button></td>' +                            
+                            '<td class="alncenter"><button ng-click="delete_group(group)" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button></td>' +
+                            '<td class="alncenter"><button ng-click="edit_group(group)"class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span></button></td>' +
                         '</tr>' +
                     '</table>' +
                     '<pre ng-show="group_lst.length == 0">there is no group</pre>' +

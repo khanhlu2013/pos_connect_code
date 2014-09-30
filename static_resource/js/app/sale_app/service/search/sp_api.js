@@ -119,7 +119,7 @@ define(
                     }else{
                         var promise_lst = [];
                         for(var i = 0;i<sp_couch.breakdown_assoc_lst.length;i++){
-                            promise_lst.push(exe(sp_couch.breakdown_assoc_lst[i].product_id))
+                            promise_lst.push(by_product_id(sp_couch.breakdown_assoc_lst[i].product_id))
                         }
                         $q.all(promise_lst).then(function(data){
                             defer.resolve(create_sp(sp_couch,data));

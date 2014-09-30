@@ -39,7 +39,7 @@ define(
                         '<div class="form-horizontal" >' +
                             '<div ng-repeat="pt_tender in pt_lst | orderBy:\'sort\'" class="form-group">' +
                                 '<ng-form name="inner_form">' +
-                                    '<label class="col-sm-4 control-label" >{{pt_tender.name}}:</label>' +
+                                    '<label ng-attr-id="{{\'sale_app/service/tender_ui/pt_lbl/\' + pt_tender.id}}" class="col-sm-4 control-label" >{{pt_tender.name}}:</label>' +
                                     '<div class="col-sm-8">' +
                                         '<input ng-attr-id="{{\'sale_app/service/tender_ui/pt_txt/\' + pt_tender.id}}"  name="a_pt" ng-model="temp_tender_ln_dic[pt_tender.id]" type="number" min="0.01">' +
                                         '<label ng-show="inner_form.a_pt.$error.number" class="error">invalid number</label>' +

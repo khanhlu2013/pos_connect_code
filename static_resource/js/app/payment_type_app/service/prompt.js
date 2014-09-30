@@ -52,7 +52,7 @@ define(
                     '</form>' + /* end modal body*/   
                 '</div>' +
                 '<div class="modal-footer">' + 
-                    '<button id="payment_type_app/service/prompt/ok_btn" ng-disabled="is_unchange()" ng-click="ok()" class="btn btn-success">ok</button>' +
+                    '<button id="payment_type_app/service/prompt/ok_btn" ng-disabled="is_unchange() || form.$invalid" ng-click="ok()" class="btn btn-success">ok</button>' +
                     '<button ng-disabled="is_unchange()" ng-click="reset()" class="btn btn-primary">reset</button>' +
                     '<button id="payment_type_app/service/prompt/cancel_btn" ng-click="cancel()" class="btn btn-warning">cancel</button>' +
                 '</div>' 

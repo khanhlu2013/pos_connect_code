@@ -55,12 +55,12 @@ define(
                                 '<tr>' +
                                     '<th>time</th>' +
                                     '<th>total</th>' +
-                                    '<th>selected</th>' +
+                                    '<th>select</th>' +
                                 '</tr>' +
                                 '<tr ng-repeat="hold in hold_lst | orderBy : \'-hold.timestamp\'">' +
                                     '<td>{{hold.timestamp | date : \'M/d h:mm a\'}}</td>' +
                                     '<td>{{hold.get_total(tax_rate)|currency}}</td>' +
-                                    '<td><button ng-click="set_cur_hold(hold)" class="btn glyphicon" ng-class="is_selected(hold) ? \'glyphicon-check btn-warning\' : \'glyphicon-unchecked btn-primary\'"></button></td>' +
+                                    '<td class="alncenter"><button ng-click="toogle_cur_hold(hold)" class="btn glyphicon" ng-class="is_selected(hold) ? \'glyphicon-check btn-warning\' : \'glyphicon-unchecked btn-primary\'"></button></td>' +
                                 '</tr>' +
                             '</table>' +
                         '</div>' +
@@ -94,8 +94,9 @@ define(
                 $scope.hold_lst = hold_lst;
                 $scope.cur_hold = null;
 
-                $scope.set_cur_hold = function(hold){
-                    $scope.cur_hold = hold;
+                $scope.toogle_cur_hold = function(hold){
+                    if($scope.is_selected(hold)){ $scope.cur_hold = null; }
+                    else{ $scope.cur_hold = hold; }
                 }
                 $scope.is_selected = function(hold){
                     return $scope.cur_hold == hold;

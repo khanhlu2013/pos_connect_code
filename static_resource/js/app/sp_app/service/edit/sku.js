@@ -49,9 +49,9 @@ define(
                         '<th>sku</th>' +
                         '<th>remove</th>' +
                     '</tr>' +
-                    '<tr ng-repeat="sku_assoc in sp.get_my_sku_assoc_lst() | orderBy : \'sku\'">' +
+                    '<tr ng-repeat="sku_assoc in sp.get_my_sku_assoc_lst() | orderBy:\'sku\'">' +
                         '<td>{{sku_assoc.sku_str}}</td>' +
-                        '<td><button ng-click="remove(sku_assoc)" class="btn btn-danger glyphicon glyphicon-trash"></button></td>' +
+                        '<td class="alncenter"><button ng-click="remove(sku_assoc)" class="btn btn-danger glyphicon glyphicon-trash"></button></td>' +
                     '</tr>' +
                 '</table>' +
                 '<pre ng-show="sp.get_my_sku_assoc_lst().length == 0">there is no sku</pre>' +
@@ -108,7 +108,7 @@ define(
             var dlg = $modal.open({
                 template:template,
                 controller:ModalCtrl,
-                size:'lg',
+                size:'md',
                 resolve:{
                     sp:function(){return sp},
                 }

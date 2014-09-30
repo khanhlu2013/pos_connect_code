@@ -28,7 +28,24 @@ define(
         ,Product
     ){
         return {
-            name_search: function(name_search_str){
+            product_id_search : function(product_id){
+                var defer = $q.defer();
+
+                $http({
+                    url:'/product/search_by_product_id',
+                    method:'GET',
+                    params:{product_id:product_id}
+                }).then(
+                     function(data){ 
+                        var sp = Store_product.build(data.data);
+                        defer.resolve(sp); 
+                    }
+                    ,function(reason){ defer.reject('search by product id ajax error'); }
+                )
+
+                return defer.promise;
+            }
+            ,name_search: function(name_search_str){
                 name_search_str = name_search_str.trim();
                 if(name_search_str.length == 0){
                     var defer = $q.defer();defer.reject('error: name search is empty');return defer.promise;

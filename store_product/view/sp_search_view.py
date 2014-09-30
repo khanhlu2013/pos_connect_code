@@ -68,6 +68,13 @@ def sp_search_by_name_view(request):
     prod_lst_serialized = sp_serializer.serialize_product_lst(qs)
     return HttpResponse(json.dumps(prod_lst_serialized,cls=DjangoJSONEncoder),content_type='application/json')
 
+def search_by_product_id_view(request):
+    cur_login_store = request.session.get('cur_login_store')
+    product_id = request.GET['product_id']
+    sp = Store_product.objects.get(store = cur_login_store, product_id=product_id);
+    sp_serialized = sp_serializer.Store_product_serializer(sp).data
+    return HttpResponse(json.dumps(sp_serialized,cls=DjangoJSONEncoder),content_type='application/json')
+
 def search_by_name_angular(request):
     search_str = request.GET['name_str']
     search_str = search_str.strip()
@@ -131,21 +138,6 @@ def search_by_sku_angular(request):
         response['prod_store__prod_sku__1_0'] = sp_serializer.Store_product_serializer(prod_store__prod_sku__1_0,many=True).data
 
     return HttpResponse(json.dumps(response,cls=DjangoJSONEncoder),content_type='application/json')
-
-    
-def sp_search_by_pid_view(request):
-    store_id = request.session.get('cur_login_store').id
-    product_id = request.GET['product_id']
-    is_include_other_store = request.GET['is_include_other_store']
-
-    product_serialized = sp_serializer.serialize_product_from_id(
-         product_id = product_id
-        ,store_id = store_id
-        ,is_include_other_store = is_include_other_store
-    )
-
-    return HttpResponse(json.dumps(product_serialized,cls=DjangoJSONEncoder),content_type='application/json')
-
 
 def sp_search_by_name_sku_view(request):
     search_str = request.GET['search_str']

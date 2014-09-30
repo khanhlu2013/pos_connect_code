@@ -52,8 +52,8 @@ define(
                     '<tr ng-repeat="assoc in sp.breakdown_assoc_lst | orderBy:\'breakdown.name\'">' +
                         '<td>{{assoc.breakdown.name}}</td>' +    
                         '<td>{{assoc.qty}}</td>' +
-                        '<td><button ng-click="edit(assoc)" class="btn btn-primary glyphicon glyphicon-pencil" type="button"></button></td>' +                                 
-                        '<td><button ng-click="remove(assoc)" class="btn btn-danger glyphicon glyphicon-trash" type="button"></button></td>' +                                            
+                        '<td class="alncenter"><button ng-click="edit(assoc)" class="btn btn-primary glyphicon glyphicon-pencil" type="button"></button></td>' +                                 
+                        '<td class="alncenter"><button ng-click="remove(assoc)" class="btn btn-danger glyphicon glyphicon-trash" type="button"></button></td>' +                                            
                     '</tr>' +                                                  
                 '</table>' +
                 '<div ng-show="sp.breakdown_assoc_lst.length==0">' +
@@ -99,7 +99,7 @@ define(
                 }
             }
             $scope.cancel = function(){
-                $modalInstance.dismiss('cancel');
+                $modalInstance.dismiss('_cancel_');
             }
             $scope.add = function(){
                 prompt_service(null).then(
@@ -115,14 +115,13 @@ define(
             $scope.ok = function(){
                 api_kit.update($scope.sp).then(
                     function(data){
-                        angular.copy(data,$scope.original_sp);
                         sync_if_nessesary().then(
                              function(){ $modalInstance.close(data); }
                             ,function(reason){ alert_service('alert',reason,'red'); }
                         )
                     },function(reason){ alert_service('alert',reason,'red'); }
                 )
-            }
+            }            
         };
         return function(sp){
             var dlg = $modal.open({

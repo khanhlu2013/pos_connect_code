@@ -85,7 +85,7 @@ define(
  						'<tr>' +
  						'<tr ng-repeat="sp in mm.sp_lst | orderBy : \'name\'">' +
  							'<td>{{sp.name}}</td>' +
- 							'<td><button ng-click="remove_child(sp)" class="btn btn-danger glyphicon glyphicon-trash"></button></td>' +
+ 							'<td class="alncenter"><button ng-click="remove_child(sp)" class="btn btn-danger glyphicon glyphicon-trash"></button></td>' +
  						'</tr>' +
  					'</table>' +
  					'<label ng-show="mm.sp_lst.length==0" class="error">empty deal</label>' +

@@ -63,6 +63,13 @@ define(
         //PULIC METHOD
         Store_product.prototype = {
              constructor : Store_product
+            ,get_offline_create_sku : function(){
+                if(this.is_create_offline){ return this.product.prod_sku_assoc_lst[0].sku_str }
+                else return null;
+            }
+            ,is_instantiate_offline : function(){
+                return this.get_rev() !== null;
+            }
             ,get_rev : function(){
                 return this.sp_doc_rev;
             }
@@ -96,10 +103,7 @@ define(
                 /*
                     this method get all direct and in-direct(grand-farther, great-grand-father ... ) ancestors of this sp. 
                 */
-                if(this.kit_assoc_lst === null){ 
-                    return [];//this is the case when this sp in instantiated from searching for sp from pouchdb (vesus from the server). we don't store kit_assoc_lst offline, which is only need for validation, to simplify this project
-                }
-                else if(this.kit_assoc_lst.length === 0){ return []; }
+                if(this.kit_assoc_lst.length === 0){ return []; }
                 else{
                     var result = [];
                     for(var i = 0;i<this.kit_assoc_lst.length;i++){
@@ -207,6 +211,7 @@ define(
                 var assoc = sp.breakdown_assoc_lst[i];
                 result += (compute_recursive_field(assoc.breakdown,field) * assoc.qty);
             }
+            result = parseFloat(result.toFixed(2));
             return result;
         }    
 

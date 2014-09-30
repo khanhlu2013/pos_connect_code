@@ -3,6 +3,7 @@ define(
     'angular'
     //--
     ,'service/ui'
+    ,'app/group_app/service/api'
 ]
 ,function
 (
@@ -13,14 +14,12 @@ define(
     mod.factory('group_app/service/search_dlg/multiple',
     [
          '$modal'
-        ,'$http'
-        ,'$q'
         ,'service/ui/alert'
+        ,'group_app/service/api'
     ,function(
          $modal
-        ,$http
-        ,$q
         ,alert_service
+        ,api
     ){
     	return function(){
     		var template = 
@@ -38,7 +37,7 @@ define(
                                 '</tr>' +
                                 '<tr ng-repeat="group in group_lst | orderBy:\'name\' | filter:query">' +
                                     '<td>{{group.name}}</td>' +
-                                    '<td class="alnright"><button ng-click="toggle_select(group)" class="btn glyphicon" ng-class="is_group_selected(group) ? \'btn-warning\' : \'btn-primary\'">{{is_group_selected(group) ? \'unselect\' : \'select\'}}</button></td>' +
+                                    '<td class="alncenter"><button ng-click="toggle_select(group)" class="btn glyphicon" ng-class="is_group_selected(group) ? \'btn-warning\' : \'btn-primary\'">{{is_group_selected(group) ? \'unselect\' : \'select\'}}</button></td>' +
                                 '</tr>' +
                             '</table>' +   
                             '<pre ng-show="group_lst.length==0">there is no group to select</pre>' +                 
@@ -108,21 +107,12 @@ define(
     			size:'lg',
     			resolve:{
                     group_lst : function(){
-                        var promise_ing = $http({
-                            url:'group/get_lst',
-                            method:'GET'
-                        })
-                        var promise_ed = promise_ing.then(
-                            function(data){
-                                return data.data;
-                            },
-                            function(reason){
-                                var message = 'get group list ajax error';
-                                alert_service('alert',message,'red');
-                                return $q.reject(message);
-                            }
+                        var promise = api.get_lst();
+                        promise.then(
+                             function(){ /*do nothing*/ }
+                            ,function(reason){ alert_service('alert',message,'red'); }
                         )
-                        return promise_ed;
+                        return promise;
                     }
     			}
     		})

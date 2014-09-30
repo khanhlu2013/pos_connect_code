@@ -1,86 +1,63 @@
-var lib = require('./../lib');
-
+var base_path = './../';
+var lib = require(base_path + 'lib');
 
 describe('payment_type_app', function() {
-    /*
-        when sku is not exist, it is the create module that kick in which should be tested separatly from this test.
-    */
-    var baseUrl = 'http://127.0.0.1:8000/';
-    var ptor = protractor.getInstance();
-    var enter_key = protractor.Key.ENTER;
     
     //pt_manage_dlg
-    var pt_lst = element.all(by.repeater("pt_manage in pt_lst | orderBy:\'sort\'"))
-    var pt_manage_create_btn = element(by.id('payment_type_app/service/manage/create_btn'));
-    var pt_manage_exit_btn = element(by.id('payment_type_app/service/manage/exit_btn'));
-
-    //pt_prompt_dlg
-    var name_txt = element(by.id('payment_type_app/service/prompt/name_txt'));
-    var sort_txt = element(by.id('payment_type_app/service/prompt/sort_txt'));
-    var active_check = element(by.id('payment_type_app/service/prompt/active_check'))
-    var prompt_ok_btn = element(by.id('payment_type_app/service/prompt/ok_btn'));
-    var prompt_cancel_btn = element(by.id('payment_type_app/service/prompt/cancel_btn'));
+    var Manage_dlg = require(base_path + 'page/payment_type/Manage_dlg.js');
+    var Pt_prompt_dlg = require(base_path + 'page/payment_type/Prompt_dlg.js');
+    var Sp_page = require(base_path + 'page/sp/Sp_page.js');
 
     beforeEach(function(){
-        lib.auth.login(baseUrl,'1','1');
-        browser.get(baseUrl); 
+        lib.auth.login('1','1');
         lib.setup.init_data();
         lib.auth.logout();
     })
 
-    afterEach(function(){
-        lib.auth.logout();
-    })
-
     it('can create,edit,payment type',function(){
-        lib.auth.login(baseUrl,'1','1');
-        browser.get(baseUrl);  
-        lib.ui.click(element(by.id('sp_app/menu/setting')));
-        lib.ui.click(element(by.id('sp_app/menu/setting/payment_type')));  
-        expect(pt_lst.count()).toEqual(0);
+        lib.auth.login('1','1'); 
+        Sp_page.menu_setting_payment_type();
+        expect(Manage_dlg.lst.count()).toEqual(0);
 
         //create pt
         var pt_name = 'credit card';
         var pt_sort = 'c';
-        pt_manage_create_btn.click();
-        name_txt.sendKeys(pt_name,enter_key);
-        sort_txt.sendKeys(pt_sort,enter_key);
-        expect(active_check.isSelected()).toBeTruthy();
-        active_check.click();
-        prompt_ok_btn.click();
-        pt_manage_exit_btn.click();
-        
+        Manage_dlg.add();
+        Pt_prompt_dlg.set_name(pt_name);
+        Pt_prompt_dlg.set_sort(pt_sort);
+        expect(Pt_prompt_dlg.get_is_active()).toBeTruthy();
+        Pt_prompt_dlg.set_is_active(false);
+        Pt_prompt_dlg.ok();
+        Manage_dlg.exit();
+
         //verify creation
-        lib.ui.click(element(by.id('sp_app/menu/setting')));
-        lib.ui.click(element(by.id('sp_app/menu/setting/payment_type')));          
-        expect(pt_lst.count()).toEqual(1);
-        pt_lst.get(0).all(by.css('.btn')).get(0).click();
-        expect(active_check.isSelected()).toBeFalsy();
-        expect(name_txt.getAttribute('value')).toEqual(pt_name);
-        expect(sort_txt.getAttribute('value')).toEqual(pt_sort);
+        Sp_page.menu_setting_payment_type();
+        expect(Manage_dlg.lst.count()).toEqual(1);
+        Manage_dlg.click_col(0,'edit');
+        expect(Pt_prompt_dlg.get_is_active()).toBeFalsy();
+        expect(Pt_prompt_dlg.get_name()).toEqual(pt_name);
+        expect(Pt_prompt_dlg.get_sort()).toEqual(pt_sort);
 
         //edit pt
         var new_pt_name = 'CREDIT CARD';
         var new_pt_sort = 'CC';
-        name_txt.clear();
-        name_txt.sendKeys(new_pt_name,enter_key);
-        sort_txt.clear();
-        sort_txt.sendKeys(new_pt_sort,enter_key);
-        active_check.click();
-        prompt_ok_btn.click();
-        pt_manage_exit_btn.click();
+        Pt_prompt_dlg.set_name(new_pt_name);
+        Pt_prompt_dlg.set_sort(new_pt_sort);
+        Pt_prompt_dlg.set_is_active(true);
+        Pt_prompt_dlg.ok();
+        Manage_dlg.exit();
 
         //verify edit
-        lib.ui.click(element(by.id('sp_app/menu/setting')));
-        lib.ui.click(element(by.id('sp_app/menu/setting/payment_type')));          
-        expect(pt_lst.count()).toEqual(1);   
-        pt_lst.get(0).all(by.css('.btn')).get(0).click();
-        expect(active_check.isSelected()).toBeTruthy();
-        expect(name_txt.getAttribute('value')).toEqual(new_pt_name);
-        expect(sort_txt.getAttribute('value')).toEqual(new_pt_sort);
-        prompt_cancel_btn.click();
+        Sp_page.menu_setting_payment_type();
+        expect(Manage_dlg.lst.count()).toEqual(1);
+        Manage_dlg.click_col(0,'edit');
+        expect(Pt_prompt_dlg.get_is_active()).toBeTruthy();
+        expect(Pt_prompt_dlg.get_name()).toEqual(new_pt_name);
+        expect(Pt_prompt_dlg.get_sort()).toEqual(new_pt_sort);
+        Pt_prompt_dlg.cancel();
 
         //clean up
-        pt_manage_exit_btn.click();
+        Manage_dlg.exit();
+        lib.auth.logout();
     });
 });

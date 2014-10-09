@@ -59,7 +59,7 @@
                         </button>     
                     </div>
                 </ul>
-                <ul ng-controller="controller.menu" class="nav navbar-nav navbar-right">
+                <ul ng-controller="service.menu" class="nav navbar-nav navbar-right">
                     <li class="dropdown">
                         <a id="sale_app/menu/setting" href="#" class="dropdown-toggle" data-toggle="dropdown">setting <b class="caret"></b></a>
                         <ul class="dropdown-menu">
@@ -73,8 +73,7 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">report <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li id='sale_report_menu'><a href='#'>sale report</a></li>
-                            <li id='non_sale_report_menu'><a href='#'>non-sale report</a></li>
+                            <li id='sale_app/menu/report/sale' ng-click="menu_report_sale()"><a href='#'>sale report</a></li>
                             <li class="divider"></li>
                             <li ng-click="menu_receipt_report()"><a href='#'>receipt</a></li>
                         </ul>

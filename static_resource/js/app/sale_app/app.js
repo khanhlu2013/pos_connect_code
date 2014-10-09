@@ -4,7 +4,7 @@ define(
     //------------------     
     ,'ui_bootstrap'
     ,'service/csrf'
-    ,'controller/menu'
+    ,'service/menu'
     ,'app/sale_app/controller'
     ,'blockUI'
     ,'service/init_global_setting'
@@ -18,18 +18,20 @@ define(
     var app = angular.module('sale_app',
     [
          'ui.bootstrap'
-        ,'service/csrf'     
-        ,'controller.menu'      
+        ,'service.csrf'     
+        ,'service.menu'      
         ,'sale_app/controller'
         ,'blockUI'
         ,'service/init_global_setting'
         ,'cfp.hotkeys'
     ]);
     
-    app.config(function(blockUIConfigProvider) {
-        // blockUIConfigProvider.message('Please wait ... ');
-        blockUIConfigProvider.delay(100);
+    app.config(function(blockUIConfig) {
+        // blockUIConfig.message = 'Please wait ... ';
+        // blockUIConfig.autoBlock = false;
+        blockUIConfig.delay = 10;
     });
+    
     app.config(function(hotkeysProvider) {
         hotkeysProvider.includeCheatSheet = true;
     });

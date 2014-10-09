@@ -14,12 +14,12 @@ var Sale_page = function () {
     this.lst = element.all(by.repeater('sp in sp_lst | orderBy:cur_sort_column:cur_sort_desc | filter:local_filter'))
 
     //menu function
-    this.menu_report_receipt = function(){ this.menu_report.click(); element(by.id('sp_app/menu/report/receipt')).click(); }
-    this.menu_setting_group = function(){ this.menu_setting.click(); element(by.id('sp_app/menu/setting/group')).click(); }
-    this.menu_setting_payment_type = function(){ this.menu_setting.click(); element(by.id('sp_app/menu/setting/payment_type')).click(); }
-    this.menu_setting_mix_match = function(){ this.menu_setting.click(); element(by.id('sp_app/menu/setting/mix_match')).click(); }
-    this.menu_setting_shortcut = function(){ this.menu_setting.click(); element(by.id('sp_app/menu/setting/shortcut')).click(); }
-    this.menu_setting_tax = function(){ this.menu_setting.click(); element(by.id('sp_app/menu/setting/tax')).click(); }
+    this.menu_report_receipt = function(){ lib.click(this.menu_report); lib.click(element(by.id('sp_app/menu/report/receipt'))); }
+    this.menu_setting_group = function(){ lib.click(this.menu_setting); lib.click(element(by.id('sp_app/menu/setting/group'))); }
+    this.menu_setting_payment_type = function(){ lib.click(this.menu_setting); lib.click(element(by.id('sp_app/menu/setting/payment_type'))); }
+    this.menu_setting_mix_match = function(){ lib.click(this.menu_setting); lib.click(element(by.id('sp_app/menu/setting/mix_match'))); }
+    this.menu_setting_shortcut = function(){ lib.click(this.menu_setting); lib.click(element(by.id('sp_app/menu/setting/shortcut'))); }
+    this.menu_setting_tax = function(){ lib.click(this.menu_setting); lib.click(element(by.id('sp_app/menu/setting/tax'))); }
 
     //txt function
     this.sku_search = function(sku_search_str){ this.sku_txt.clear();this.sku_txt.sendKeys(sku_search_str,protractor.Key.ENTER); }
@@ -44,7 +44,7 @@ var Sale_page = function () {
     //table function
     this.click_col = function(index,col_name){
         var col_index = this.get_index(col_name);
-        this.lst.get(index).all(by.tagName('td')).get(col_index).click();
+        lib.click(this.lst.get(index).all(by.tagName('td')).get(col_index));
     }
     this.get_col = function(index,col_name){
         var col_index = this.get_index(col_name);

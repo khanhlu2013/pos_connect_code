@@ -4,33 +4,35 @@ from store_product import sp_serializer
 from couch import couch_util
 
 
-def exe(kit,breakdown_assoc_lst):
+def exe(kit_product_id,assoc_json_lst,store_id):
     """
-        PARAMS:
-            .kit : sp
-            .breakdown_assoc_lst: json
-    """
-    sp = exe_master(kit=kit,breakdown_assoc_lst=breakdown_assoc_lst)
-    exe_couch(kit_pid=kit.product.id,store_id=kit.store.id,breakdown_assoc_lst=breakdown_assoc_lst)
+       assoc_json_lst: {kit,breakdown,qty}
+    """    
+    #verify kit belong to this store
+    kit = Store_product.objects.get(product_id=kit_product_id,store_id=store_id)
+
+    #verify breakdown list belong to this store
+    if len(assoc_json_lst) > 0:
+        bd_django_lst = Store_product.objects.filter(store_id=store_id,product_id__in=[assoc['breakdown']['product_id'] for assoc in assoc_json_lst])
+        if len(bd_django_lst) != len(assoc_json_lst):
+            raise Exception
+
+    sp = exe_master(kit=kit,assoc_json_lst=assoc_json_lst)
+    exe_couch(kit_pid=kit.product.id,store_id=store_id,assoc_json_lst=assoc_json_lst)
     return sp
 
 
-def exe_master(kit,breakdown_assoc_lst):
+def exe_master(kit,assoc_json_lst):
     """
-        PARAMS:
-            .kit : sp
-            .breakdown_assoc_lst: json
+       assoc_json_lst: {kit,breakdown,qty}
     """    
     kit.breakdown_lst.clear()
-    assoc_json_lst = breakdown_assoc_lst
-
-    assoc_django_lst = []
     if len(assoc_json_lst) != 0:
+        #we are creating assoc for django model which need the store_product.id(breakdown_id), which the client did not provide(the client only provide pid). so we are finding the corresponding sp.id from pid       
+        assoc_django_lst = []
         sp_django_db_lst = Store_product.objects.filter(store_id=kit.store.id,product_id__in=[assoc['breakdown']['product_id'] for assoc in assoc_json_lst])
         if len(sp_django_db_lst) != len(assoc_json_lst):
             raise Exception
-
-        #we are creating assoc for django model which need the store_product.id(breakdown_id), which the client did not provide(the client only provide pid). so we are finding the corresponding sp.id
         for assoc_json in assoc_json_lst:
             breakdown_id = None
             for item in sp_django_db_lst:
@@ -44,13 +46,16 @@ def exe_master(kit,breakdown_assoc_lst):
     return kit
 
 
-def exe_couch(kit_pid,store_id,breakdown_assoc_lst):
+def exe_couch(kit_pid,store_id,assoc_json_lst):
+    """
+       assoc_json_lst: {kit,breakdown,qty}
+    """        
     sp = store_product_couch_getter.exe(kit_pid,store_id)
 
-    if len(breakdown_assoc_lst) == 0:
+    if len(assoc_json_lst) == 0:
         sp['breakdown_assoc_lst'] = []
     else:
-        sp['breakdown_assoc_lst'] = [{'product_id':assoc['breakdown']['product_id'],'qty':assoc['qty']} for assoc in breakdown_assoc_lst]
+        sp['breakdown_assoc_lst'] = [{'product_id':assoc['breakdown']['product_id'],'qty':assoc['qty']} for assoc in assoc_json_lst]
     
     db = couch_util.get_store_db(store_id)
     db.save(sp)

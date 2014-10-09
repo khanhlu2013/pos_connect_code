@@ -54,21 +54,26 @@ define(
 
             receipt_api_offline.get_receipt_lst().then(
                 function(receipt_lst){
-                    $http({
-                         method: 'POST'
-                        ,url:'/receipt/push'
-                        ,data: {receipt_lst: JSON.stringify(receipt_lst)}
-                    }).then(
-                        function(response){
-                            var receipt_doc_id_lst = response.data.receipt_doc_id_lst;
-                            var sp_doc_id_lst = response.data.sp_doc_id_lst;
-                            clean_up(receipt_doc_id_lst,sp_doc_id_lst).then(
-                                 function(){ defer.resolve(receipt_doc_id_lst.length); }
-                                ,function(reason){ defer.reject(reason); }
-                            );
-                        }
-                        ,function(reason){ defer.reject('push receipt ajax error'); }
-                    )
+
+                    if(receipt_lst.length === 0){ defer.reject('_cancel_'); }
+                    else{
+                        $http({
+                             method: 'POST'
+                            ,url:'/receipt/push'
+                            ,data: {receipt_lst: JSON.stringify(receipt_lst)}
+                        }).then(
+                            function(response){
+                                var receipt_doc_id_lst = response.data.receipt_doc_id_lst;
+                                var sp_doc_id_lst = response.data.sp_doc_id_lst;
+                                clean_up(receipt_doc_id_lst,sp_doc_id_lst).then(
+                                     function(){ defer.resolve(receipt_doc_id_lst.length); }
+                                    ,function(reason){ defer.reject(reason); }
+                                );
+                            }
+                            ,function(reason){ defer.reject('push receipt ajax error'); }
+                        );                        
+                    }
+
                 }
                 ,function(reason){ defer.reject(reason); }
             )

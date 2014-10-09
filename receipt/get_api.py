@@ -5,7 +5,7 @@ import json
 from receipt.receipt_serializer import Receipt_serializer
 from django.core.paginator import Paginator
 from receipt.models import Receipt
-from reeipt import dao
+from receipt import dao
 
 def get_receipt_pagination(request):
     cur_login_store = request.session.get('cur_login_store')

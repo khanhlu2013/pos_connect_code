@@ -123,6 +123,7 @@ describe('sale page', function() {
         Sp_info_dlg.exit();
 
         //clean up
+        Sale_page.void();
         lib.auth.logout();
     },60000)
 });

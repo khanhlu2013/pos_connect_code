@@ -91,7 +91,7 @@ module.exports = {
     api_group:{
         insert_empty_group : function(group_name){
             return browser.executeAsyncScript(function(group_name,callback) {
-                var api = angular.injector(['ng','service/csrf','group_app/service/api']).get('group_app/service/api');
+                var api = angular.injector(['ng','service.csrf','group_app/service/api']).get('group_app/service/api');
                 var empty_group = {name:group_name,sp_lst:[]};
                 api.create(empty_group).then(
                      function(group){ callback(group); }
@@ -103,7 +103,7 @@ module.exports = {
     api_pt:{
         insert_lst : function(pt_name_lst){
             return browser.executeAsyncScript(function(pt_name_lst,callback) {
-                var api = angular.injector(['ng','service/csrf','payment_type_app/service/api']).get('payment_type_app/service/api');
+                var api = angular.injector(['ng','service.csrf','payment_type_app/service/api']).get('payment_type_app/service/api');
                 var $q = angular.injector(['ng']).get('$q');
                 var Payment_type = angular.injector(['payment_type_app/model']).get('payment_type_app/model/Payment_type');
                 var promise_lst = [];
@@ -133,7 +133,7 @@ module.exports = {
             };     
             var data = { mm : mm };
             return browser.executeAsyncScript(function(data,callback) {
-                var api = angular.injector(['ng','service/csrf','mix_match_app/service/api']).get('mix_match_app/service/api');
+                var api = angular.injector(['ng','service.csrf','mix_match_app/service/api']).get('mix_match_app/service/api');
                 api.create(data.mm).then(function(data){callback(data);} )
             },data)            
         },
@@ -157,7 +157,7 @@ module.exports = {
             var data = { sp:sp,sku:sku };
 
             return browser.executeAsyncScript(function(data,callback) {
-                var api = angular.injector(['ng','service/csrf','sp_app/service/api/crud']).get('sp_app/service/api/crud');
+                var api = angular.injector(['ng','service.csrf','sp_app/service/api/crud']).get('sp_app/service/api/crud');
                 api.insert_new(data.sp,data.sku).then(function(data){callback(data);} )
             },data)
         },
@@ -166,14 +166,14 @@ module.exports = {
             var data = {product_id:product_id,sku:sku,sp:sp };
 
             return browser.executeAsyncScript(function(data,callback) {
-                var api = angular.injector(['ng','service/csrf','sp_app/service/api/crud']).get('sp_app/service/api/crud');
+                var api = angular.injector(['ng','service.csrf','sp_app/service/api/crud']).get('sp_app/service/api/crud');
                 api.insert_old(data.product_id,data.sku,data.sp).then(function(data){callback(data);});
             },data)
         },
         add_sku : function(product_id,sku){
             var data = {product_id:product_id,sku:sku};
             return browser.executeAsyncScript(function(data,callback){
-                var api = angular.injector(['ng','service/csrf','sp_app/service/api/sku']).get('sp_app/service/api/sku');
+                var api = angular.injector(['ng','service.csrf','sp_app/service/api/sku']).get('sp_app/service/api/sku');
                 api.add_sku(data.product_id,data.sku).then(function(data){callback(data);});
             },data)
         }        
@@ -206,7 +206,7 @@ module.exports = {
                 PRECONDITION: make sure user is already logged in in order to access angular to inject stuff
             */
             browser.executeAsyncScript(function(callback) {
-                var $http = angular.injector(['ng','service/csrf']).get('$http');
+                var $http = angular.injector(['ng','service.csrf']).get('$http');
                 $http({
                     url:'protractor_test_cleanup',
                     method: 'POST'

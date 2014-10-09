@@ -51,7 +51,7 @@
                     </div>
                 </ul>
                 
-                <ul ng-controller="controller.menu" class="nav navbar-nav navbar-right">
+                <ul ng-controller="service.menu" class="nav navbar-nav navbar-right">
                     <div class="navbar-form navbar-left" role="search">
                         <input 
                             type="text" 
@@ -74,8 +74,7 @@
                     <li class="dropdown">
                         <a id="sp_app/menu/report" href="#" class="dropdown-toggle" data-toggle="dropdown">report <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li id='sale_report_menu'><a href='#'>sale report</a></li>
-                            <li id='non_sale_report_menu'><a href='#'>non-sale report</a></li>
+                            <li id='sale_app/menu/report/sale' ng-click="menu_report_sale()"><a href='#'>sale report</a></li>
                             <li class="divider"></li>
                             <li id="sp_app/menu/report/receipt" ng-click="menu_receipt_report()"><a href='#'>receipt</a></li>
                         </ul>
@@ -126,7 +125,7 @@
                 <td class="alncenter"><button ng-click="display_product_info(sp)" class="btn btn-sm btn-primary glyphicon glyphicon-info-sign"></button></td>
             </tr>
         </table>
-        {{sp_lst}}
+        <!-- {{sp_lst}} -->
         {% endverbatim sp_table%}         
     </div>
 

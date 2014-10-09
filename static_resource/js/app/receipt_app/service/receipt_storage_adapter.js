@@ -98,6 +98,7 @@ define(
                 ,doc.qty
                 ,doc.discount
                 ,doc.override_price
+                ,null//store_product
                 ,_pouch_2_java__store_product_stamp(doc.store_product_stamp)
                 ,_pouch_2_java__mm_deal_info_stamp(doc.mm_deal_info_stamp)
                 ,_pouch_2_java__non_inventory(doc.non_inventory)

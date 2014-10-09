@@ -113,12 +113,13 @@ def _create_receipt(receipt__json__lst,store_id):
         if receipt_django == None:
             raise Exception
         for receipt_ln_json in receipt_json['receipt_ln_lst']:
-            sp_stamp_product_id = None
+            sp_stamp_sp_id = None
             sp_stamp_name = None
             sp_stamp_price = None
             sp_stamp_value_customer_price = None
             sp_stamp_crv = None
             sp_stamp_is_taxable = None
+            sp_stamp_is_sale_report = None
             sp_stamp_p_type = None
             sp_stamp_p_tag = None
             sp_stamp_cost = None

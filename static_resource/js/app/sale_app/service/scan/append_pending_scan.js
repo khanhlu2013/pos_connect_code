@@ -26,26 +26,32 @@ define(
         ,'sale_app/service/pending_scan/set_api'
         ,'sale_app/model/Pending_scan'
         ,'sp_ll_app/service/api/offline/sp'
+        ,'blockUI'           
     ,function(
          $q
         ,get_ps_lst
         ,set_ps_lst
         ,Pending_scan
         ,search_sp
+        ,blockUI
     ){
         function by_product_id(product_id,qty,non_inventory,override_price){
+            blockUI.start();
             var defer = $q.defer();
             search_sp.by_product_id(product_id).then(
                  function(sp){
                     var ps_lst = by_doc_id(sp.sp_doc_id,qty,non_inventory,override_price);
                     defer.resolve(ps_lst); 
+                    blockUI.stop();
                 }
-                ,function(reason){return $q.reject(reason)}
+                ,function(reason){blockUI.stop();return $q.reject(reason)}
             )
             return defer.promise;
         }
 
         function by_doc_id(ps_doc_id,qty,non_inventory,override_price){
+            // blockUI.start();
+
             var ps_lst = get_ps_lst();
             var ps = new Pending_scan(
                  ps_doc_id
@@ -70,6 +76,7 @@ define(
                 }
             }
             set_ps_lst(ps_lst);
+            // blockUI.stop();
             return ps_lst;
         }
 

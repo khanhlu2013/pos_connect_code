@@ -1,5 +1,5 @@
 from group.models import Group
-from store_product import store_product_master_getter,sp_serializer
+from store_product import dao,sp_serializer
 from django.http import HttpResponse
 import json
 from django.core.serializers.json import DjangoJSONEncoder
@@ -10,7 +10,7 @@ def sp_group_update_angular_view(request):
     sp_json = json.loads(request.POST['sp']) 
 
     #validate sp belong to the store
-    sp = store_product_master_getter.get_item(product_id=sp_json['product_id'],store_id=cur_login_store.id)
+    sp = dao.get_item(product_id=sp_json['product_id'],store_id=cur_login_store.id)
 
     #validate group belong to store
     group_lst = []

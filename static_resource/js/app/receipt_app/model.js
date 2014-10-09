@@ -46,6 +46,15 @@ define(
 
         Receipt.prototype = {
              constructor: Receipt
+            ,get_total_non_cash_payment_type: function(){
+                var amount = 0.0;
+                for(var i = 0;i<this.tender_ln_lst.length;i++){
+                    if(this.tender_ln_lst[i].pt !== null){
+                        amount += this.tender_ln_lst[i].amount;
+                    }
+                }
+                return amount;
+            }
             ,get_change: function(){
                 return this.get_tender() - this.get_otd_price();
             }
@@ -154,15 +163,29 @@ define(
             ,qty
             ,discount
             ,override_price
+            ,store_product
             ,store_product_stamp
             ,mm_deal_info_stamp
             ,non_inventory
             ,date
         ){
+            if(
+                //we receipt is created from online data, store_product and store_product_stamp integrity is check here.
+                id !== null
+                &&
+                (
+                    (store_product === null && store_product_stamp !== null)
+                    ||
+                    (store_product !== null && store_product_stamp === null)
+                )
+            ){
+                alert('Receipt_ln model constructor raise error: store product information is not consistance');
+            }
             this.id = id;
             this.qty = qty;
             this.discount = discount;
             this.override_price = override_price;
+            this.store_product = store_product
             this.store_product_stamp = store_product_stamp;
             this.mm_deal_info_stamp = mm_deal_info_stamp;
             this.non_inventory = non_inventory;
@@ -252,7 +275,12 @@ define(
                     ,str_2_float(data.non_inventory_price)
                 );
             }
-
+            //build store product
+            var store_product = null;
+            if(data.store_product!==null){
+                store_product = Store_product.build(data.store_product);
+            }
+            
             var store_product_stamp = null;
             if(data.sp_stamp_name !== null ){
                 store_product_stamp = new Store_product_stamp(
@@ -272,7 +300,6 @@ define(
                     ,str_2_float(data.sp_stamp_buydown)
                 );
             }   
-
             var mm_deal_info_stamp = null;
             if(data.mm_deal_name !== null ){
                 mm_deal_info_stamp = new Mix_match_deal_info_stamp(
@@ -280,12 +307,12 @@ define(
                     ,str_2_float(data.mm_deal_discount)
                 );
             }            
-
             return new Receipt_ln(
                  data.id
                 ,str_2_float(data.qty)
                 ,str_2_float(data.discount)
                 ,data.override_price === null ? null : str_2_float(data.override_price)
+                ,store_product
                 ,store_product_stamp
                 ,mm_deal_info_stamp
                 ,non_inventory

@@ -20,10 +20,12 @@ define(
          '$q'
         ,'sp_ll_app/service/api/offline/sku'
         ,'sp_app/service/select_sp_dlg'
+        ,'blockUI'
     ,function(
          $q
         ,sku_search
         ,select_sp
+        ,blockUI
     ){
         var SKU_NOT_FOUND = 'sku not found';
 
@@ -45,7 +47,7 @@ define(
         }
 
         function exe(scan_str){
-            //init
+            blockUI.start();
             var defer = $q.defer();
             extract_qty_sku(scan_str).then(
                 function(sku_qty){
@@ -54,18 +56,19 @@ define(
                     sku_search(sku).then(
                         function(sp_lst){
                             if(sp_lst.length > 1){
+                                blockUI.stop();
                                 select_sp(sp_lst).then(
                                      function(sp){ defer.resolve({qty:qty,sp:sp}); }
-                                    ,function(reason){defer.reject(reason);}
+                                    ,function(reason){ defer.reject(reason); }
                                 )
                             }
-                            else if(sp_lst.length == 1){ defer.resolve({qty:qty,sp:sp_lst[0]}); }
-                            else{ defer.reject(SKU_NOT_FOUND); }
+                            else if(sp_lst.length == 1){ defer.resolve({qty:qty,sp:sp_lst[0]});blockUI.stop(); }
+                            else{ defer.reject(SKU_NOT_FOUND);blockUI.stop(); }
                         }
-                        ,function(reason){defer.reject(reason)}
+                        ,function(reason){defer.reject(reason);blockUI.stop();}
                     );
                 }
-                ,function(reason){defer.reject(reason)}
+                ,function(reason){defer.reject(reason);blockUI.stop()}
             )
             return defer.promise;
         }

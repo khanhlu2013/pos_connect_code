@@ -6,7 +6,6 @@ import requests
 from util.couch import master_account_util,user_util
 from couch import couch_util
 from django.conf import settings
-from sale.sale_couch.receipt import receipt_document_validator
 from util.couch import couch_acl_validator,old_security_4_test_purpose
 import hashlib
 import os
@@ -114,18 +113,10 @@ def _couch_db_insert_view(store_id):
 
 
 def _couch_db_insert_validation(business_id):
-
     db = couch_util.get_store_db(business_id)
-    
     #ACL - VALIDATION
     acl_validator_doc  = {"_id":"_design/validation",  "validate_doc_update":couch_acl_validator.src}
     db.save(acl_validator_doc)
-
-    #RECEIPT DOCUMENT VALIDATOR
-    receipt_validator = {"_id":"_design/receipt_validator",  "validate_doc_update":receipt_document_validator.src}
-    db.save(receipt_validator)
-
-
 
 def _is_local_env():
     return 'LOCAL_ENVIRONMENT' in os.environ.keys()

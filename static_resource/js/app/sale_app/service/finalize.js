@@ -73,6 +73,7 @@ define(
                     ,ds.qty
                     ,ds.discount
                     ,ds.override_price
+                    ,null//store_product
                     ,store_product_stamp
                     ,mm_deal_info_stamp
                     ,ds.non_inventory

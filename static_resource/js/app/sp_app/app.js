@@ -3,7 +3,7 @@ define(
      'angular'
     //------------------     
     ,'app/sp_app/controller'
-    ,'controller/menu'
+    ,'service/menu'
     ,'ui_bootstrap'
     ,'service/csrf'
     ,'blockUI'
@@ -18,17 +18,17 @@ define(
     [
          'ui.bootstrap'
         ,'sp_app.controller'
-        ,'controller.menu'
-        ,'service/csrf'
+        ,'service.menu'
+        ,'service.csrf'
         ,'blockUI'
         ,'service/init_global_setting'        
     ]);
     
-    app.config(function(blockUIConfigProvider) {
-        blockUIConfigProvider.message('Please wait ... ');
-        blockUIConfigProvider.delay(100);
-        blockUIConfigProvider.autoBlock = false;
-    });
+    // app.config(function(blockUIConfig) {
+    //     blockUIConfig.message = 'Please wait ... ';
+    //     blockUIConfig.delay = 100;
+    //     blockUIConfig.autoBlock = false;
+    // });
 
     app.run(['service/init_global_setting',function(init_global_setting){
         init_global_setting();

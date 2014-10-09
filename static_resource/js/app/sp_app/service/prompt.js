@@ -233,7 +233,6 @@ define(
                     '<input id="sp_app/service/prompt/p_type_txt" ng-model="$parent.sp.p_type" typeahead="item.type for item in lookup_type_tag | filter:$viewValue | limitTo:8" type="text" class="form-control">' +
                 '</div>' +
             '</div>' +
-// typeahead="state for state in states | filter:$viewValue | limitTo:8" xxx
             '<div class="form-group">' +
                 '<label class="col-sm-4 control-label">Tag:</label>' +
                 '<div class="col-sm-8">' +

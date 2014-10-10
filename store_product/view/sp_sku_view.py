@@ -1,4 +1,4 @@
-from store_product import sp_serializer,service
+from store_product import sp_serializer
 from store_product.cm import add_sku_cm,delete_sku_cm,sku_unsubcribe_cm
 from django.http import HttpResponse
 import json

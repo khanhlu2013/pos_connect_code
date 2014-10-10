@@ -119,6 +119,5 @@ def _couch_db_insert_validation(business_id):
     db.save(acl_validator_doc)
 
 def _is_local_env():
-    return 'LOCAL_ENVIRONMENT' in os.environ.keys()
-
+    return os.environ.get('LOCAL_ENVIRONMENT') == '1'
 

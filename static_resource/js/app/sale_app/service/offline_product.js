@@ -9,7 +9,7 @@ define(
     ,'app/sp_app/service/prompt'
     ,'service/db'
     ,'app/sp_app/model'
-    ,'app/sp_ll_app/service/api/offline/sp'
+    ,'app/sp_ll_app/service/api_offline'
 ]
 ,function
 (
@@ -21,7 +21,7 @@ define(
          'sp_app/service/prompt'
         ,'service/db'
         ,'sp_app/model'
-        ,'sp_ll_app/service/api/offline/sp'
+        ,'sp_ll_app/service/api_offline'
     ]);
 
     mod.factory('sale_app/service/offline_product/create',
@@ -31,7 +31,7 @@ define(
         ,'sp_app/service/prompt'
         ,'service/db/get'
         ,'sp_app/model/Store_product'
-        ,'sp_ll_app/service/api/offline/sp'
+        ,'sp_ll_app/service/api_offline'
     ,function(
          $q
         ,$rootScope
@@ -90,7 +90,7 @@ define(
         ,'$rootScope' 
         ,'sp_app/service/prompt'
         ,'service/db/get'
-        ,'sp_ll_app/service/api/offline/sp'
+        ,'sp_ll_app/service/api_offline'
     ,function(
          $q
         ,$rootScope

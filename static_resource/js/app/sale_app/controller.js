@@ -6,7 +6,6 @@ define(
     ,'app/sale_app/service/scan/preprocess'
     ,'app/sale_app/service/scan/append_pending_scan'
     ,'app/sale_app/service/pending_scan/get_api'
-    ,'app/sale_app/service/displaying_scan/get_ds_lst'
     ,'app/sp_ll_app/service/search/name_sku_online_dlg'
     ,'app/sale_app/service/pending_scan/set_api'
     ,'app/sale_app/service/displaying_scan/modify_ds'
@@ -22,6 +21,8 @@ define(
     ,'app/sale_app/service/scan/toogle_value_customer_price'
     ,'app/sale_app/service/finalize'
     ,'app/sale_app/service/displaying_scan/set_ds_lst'
+    ,'app/sale_app/service/displaying_scan/calculate_ds_lst'
+    ,'service/misc'
 ], function
 (
      angular
@@ -35,7 +36,6 @@ define(
         ,'sale_app/service/scan/preprocess'
         ,'sale_app/service/scan/append_pending_scan'
         ,'sale_app/service/pending_scan/get_api'
-        ,'sale_app/service/displaying_scan/get_ds_lst'
         ,'sp_ll_app/service/search/name_sku_online_dlg'
         ,'sale_app/service/pending_scan/set_api'
         ,'sale_app/service/displaying_scan/modify_ds'
@@ -51,6 +51,8 @@ define(
         ,'sale_app/service/scan/toogle_value_customer_price'
         ,'sale_app/service/finalize'
         ,'sale_app/service/displaying_scan/set_ds_lst'
+        ,'sale_app/service/displaying_scan/calculate_ds_lst'
+        ,'service/misc'
     ]);
     mod.controller('Sale_page_ctrl', 
     [
@@ -59,7 +61,6 @@ define(
         ,'sale_app/service/scan/preprocess'
         ,'sale_app/service/scan/append_pending_scan'
         ,'sale_app/service/pending_scan/get_api'
-        ,'sale_app/service/displaying_scan/get_ds_lst'
         ,'sp_ll_app/service/search/name_sku_online_dlg/multiple'
         ,'sale_app/service/pending_scan/set_api'
         ,'sale_app/model/Modify_ds_instruction'
@@ -81,13 +82,14 @@ define(
         ,'sale_app/model/Non_inventory'
         ,'sale_app/service/finalize'
         ,'sale_app/service/displaying_scan/set_ds_lst'
+        ,'sale_app/service/displaying_scan/calculate_ds_lst'
+        ,'service/misc'
     ,function(
          $scope
         ,$rootScope
         ,preprocess
         ,append_pending_scan
         ,get_ps_lst
-        ,get_ds_lst
         ,search_name_sku_multiple_dlg
         ,set_ps_lst
         ,Modify_ds_instruction
@@ -109,6 +111,8 @@ define(
         ,Non_inventory
         ,finalize
         ,set_ds_lst
+        ,calculate_ds_lst
+        ,misc_service
     ){
 
         hotkeys.bindTo($scope)
@@ -146,8 +150,7 @@ define(
                 ,function(reason){alert_service('alert',reason,'red')}
             )
         }
-
-        $scope.toogle_value_customer_price = function(){toogle_value_customer_price();}
+        $scope.toogle_value_customer_price = function(){toogle_value_customer_price($scope.ds_lst);}
         $scope.non_inventory = function(){
             prompt_service('enter none inventory price',null/*prefill*/,false/*is null allow*/,true/*is float*/).then(
                 function(price){
@@ -263,10 +266,25 @@ define(
             
             append_pending_scan.by_product_id(child_shortcut.store_product.product_id,1/*qty*/,null/*non_inventory*/,null/*override_price*/);
         }
+        function _get_distinct_sp_from_ds_lst(ds_lst){
+            var sp_lst = [];
+            for(var i = 0;i<ds_lst.length;i++){
+                var cur_ds = ds_lst[i];
+                if(!cur_ds.is_non_inventory()){
+                    var existed_sp = misc_service.get_item_from_lst_base_on_property('sp_doc_id'/*property*/,cur_ds.store_product.sp_doc_id/*value*/,sp_lst);
+                    if(existed_sp === null){
+                        sp_lst.push(cur_ds.store_product);
+                    }
+                }
+            }
+            return sp_lst;
+        }
         $scope.refresh_ds = function(){
-            console.log('refresh ds lst ...');
-            blockUI.start();
-            get_ds_lst().then(
+            blockUI.start('refresh page ...');
+            console.log('refresh ds ...');
+            var ps_lst = get_ps_lst();
+            calculate_ds_lst(ps_lst,_get_distinct_sp_from_ds_lst($scope.ds_lst)).then(
+                // calculate_ds_lst(ps_lst,[]).then(
                  function(data){
                     $scope.ds_lst = data;
                     blockUI.stop();

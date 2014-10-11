@@ -2,7 +2,7 @@ define(
 [
      'angular'
     //-------
-    ,'app/sp_ll_app/service/api/offline/sku'
+    ,'app/sp_ll_app/service/api_offline'
     ,'app/sp_app/service/select_sp_dlg'
 ]
 ,function
@@ -12,18 +12,18 @@ define(
 {
     var mod = angular.module('sale_app/service/scan/preprocess',
     [
-         'sp_ll_app/service/api/offline/sku'
+         'sp_ll_app/service/api_offline'
         ,'sp_app/service/select_sp_dlg'
     ]);
     mod.factory('sale_app/service/scan/preprocess',
     [
          '$q'
-        ,'sp_ll_app/service/api/offline/sku'
+        ,'sp_ll_app/service/api_offline'
         ,'sp_app/service/select_sp_dlg'
         ,'blockUI'
     ,function(
          $q
-        ,sku_search
+        ,search_sp_offline
         ,select_sp
         ,blockUI
     ){
@@ -47,13 +47,13 @@ define(
         }
 
         function exe(scan_str){
-            blockUI.start();
+            blockUI.start('process scan string');
             var defer = $q.defer();
             extract_qty_sku(scan_str).then(
                 function(sku_qty){
                     var sku = sku_qty.sku;var qty = sku_qty.qty;
 
-                    sku_search(sku).then(
+                    search_sp_offline.by_sku(sku).then(
                         function(sp_lst){
                             if(sp_lst.length > 1){
                                 blockUI.stop();

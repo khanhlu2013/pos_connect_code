@@ -131,7 +131,7 @@ define(
                  template : template
                 ,controller : controller
                 ,size : 'lg'
-                ,resolve:{ hold_lst:function(){return hold_api.get();} }
+                ,resolve:{ hold_lst:function(){return hold_api.get_lst();} }
             })
             return dlg.result;
 

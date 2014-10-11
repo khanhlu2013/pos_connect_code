@@ -44,7 +44,7 @@ define(
         ,get_ps_lst
         ,set_ps_lst
     ){
-        function get(){
+        function get_lst(){
             var defer = $q.defer();
 
             //take care of init hold_lst to emtpy array 
@@ -55,7 +55,7 @@ define(
             var raw_lst = JSON.parse(str);
             var promise_lst = []
             for(var i = 0;i<raw_lst.length;i++){
-                promise_lst.push(calculate_ds(raw_lst[i].ps_lst));
+                promise_lst.push(calculate_ds(raw_lst[i].ps_lst,[]/*sp_lst*/));
             }
             $q.all(promise_lst).then(
                 function(lst_of_ds_lst){
@@ -115,7 +115,7 @@ define(
         }
 
         return{
-             get:get
+             get_lst:get_lst
             ,set:set
             ,hold_current_pending_scan_lst:hold_current_pending_scan_lst
         }

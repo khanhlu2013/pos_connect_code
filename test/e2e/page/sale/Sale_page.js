@@ -21,17 +21,17 @@ var Sale_page = function () {
     this.shortcut_lst = element.all(by.repeater("row_usage in row_lst"));
 
     //function menu
-    this.menu_report_receipt = function(){this.menu_report.click();element(by.id('sale_app/menu/report/receipt')).click();}
-    this.menu_setting_payment_type = function(){this.menu_setting.click();element(by.id('sale_app/menu/setting/payment_type')).click();}
-    this.menu_setting_shortcut = function(){ this.menu_setting.click(); element(by.id('sale_app/menu/setting/shortcut')).click();}
-    this.menu_action_hold = function(){ this.menu_action.click(); element(by.id('sale_app/menu/action/hold')).click();}
-    this.menu_action_get_hold = function(){ this.menu_action.click(); element(by.id('sale_app/menu/action/get_hold')).click();}
+    this.menu_report_receipt = function(){lib.click(this.menu_report);lib.click(element(by.id('sale_app/menu/report/receipt')));}
+    this.menu_setting_payment_type = function(){lib.click(this.menu_setting);lib.click(element(by.id('sale_app/menu/setting/payment_type')));}
+    this.menu_setting_shortcut = function(){lib.click(this.menu_setting);lib.click(element(by.id('sale_app/menu/setting/shortcut')));}
+    this.menu_action_hold = function(){lib.click(this.menu_action);lib.click(element(by.id('sale_app/menu/action/hold')));}
+    this.menu_action_get_hold = function(){lib.click(this.menu_action);lib.click(element(by.id('sale_app/menu/action/get_hold')));}
 
 
     //function btn
-    this.void = function(){ this.void_btn.click() }
+    this.void = function(){ lib.click(this.void_btn) }
     this.tender = function(){ lib.click(this.tender_btn); }
-    this.non_inventory = function(){ this.non_inventory_btn.click(); }
+    this.non_inventory = function(){ lib.click(this.non_inventory_btn); }
 
     //function txt
     this.scan = function(str){ this.scan_txt.clear(); this.scan_txt.sendKeys(str,protractor.Key.ENTER); }

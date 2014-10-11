@@ -2,7 +2,7 @@ define(
 [
      'angular'
     //-------
-    ,'app/sp_ll_app/service/api/offline/sp'
+    ,'app/sp_ll_app/service/api_offline'
     ,'app/sale_app/service/displaying_scan/compress_ds_lst'
     ,'app/sale_app/model'
     ,'service/misc'
@@ -14,7 +14,7 @@ define(
 {
     var mod = angular.module('sale_app/service/displaying_scan/calculate_ds_lst',
     [
-         'sp_ll_app/service/api/offline/sp'
+         'sp_ll_app/service/api_offline'
         ,'sale_app/model'
         ,'service/misc'
         ,'sale_app/service/displaying_scan/compress_ds_lst'
@@ -23,7 +23,7 @@ define(
     [
          '$q'
         ,'$rootScope'
-        ,'sp_ll_app/service/api/offline/sp'
+        ,'sp_ll_app/service/api_offline'
         ,'sale_app/model/Displaying_scan'
         ,'sale_app/model/Mix_match_deal_info'        
         ,'service/misc'
@@ -31,7 +31,7 @@ define(
     ,function(
          $q
         ,$rootScope
-        ,search_sp
+        ,search_sp_offline
         ,Displaying_scan
         ,Mix_match_deal_info
         ,misc_service
@@ -180,28 +180,41 @@ define(
                 }
             }        
         }      
-        function get_distinct_doc_id_from_ps_lst(ps_lst){
-            var result = [];
-            for(var i = 0;i<ps_lst.length;i++){
-                var cur_sp_doc_id = ps_lst[i].sp_doc_id;
-                if(cur_sp_doc_id !=null ){
-                    if(result.indexOf(cur_sp_doc_id) == -1 ){
-                        result.push(ps_lst[i].sp_doc_id);
-                    }
-                }
 
-            }
-            return result;
-        }  
-        function search_sp_base_on_ps_lst(ps_lst){
-            var doc_id_lst = get_distinct_doc_id_from_ps_lst(ps_lst);
+        function search_sp_base_on_ps_lst(ps_lst,suggest_sp_lst){
             var defer = $q.defer();
             var promise_lst = [];
-            for(var i = 0;i<doc_id_lst.length;i++){
-                promise_lst.push(search_sp.by_sp_doc_id(doc_id_lst[i]));
-            }      
+
+            for(var i=0;i<ps_lst.length;i++){
+                var cur_ps = ps_lst[i];
+                if(cur_ps.sp_doc_id !== null){
+                    var existed_sp = misc_service.get_item_from_lst_base_on_property('sp_doc_id'/*property*/,cur_ps.sp_doc_id/*value*/,suggest_sp_lst);
+                    if(existed_sp===null){
+                        promise_lst.push(search_sp_offline.by_sp_doc_id(cur_ps.sp_doc_id));
+                    }                    
+                }
+            }
+ 
             $q.all(promise_lst).then(
-                 function(sp_lst){ defer.resolve(sp_lst); }
+                 function(missing_sp_lst){ 
+                    var distinct_sp_lst = [];
+                    for(var i = 0;i<ps_lst.length;i++){
+                        var cur_ps = ps_lst[i];
+                        if(cur_ps.sp_doc_id !== null){
+                            //make sure the return distinct_sp_lst is distinct
+                            var temp_sp = misc_service.get_item_from_lst_base_on_property('sp_doc_id'/*property*/,cur_ps.sp_doc_id/*value*/,distinct_sp_lst);
+                            if(temp_sp === null){
+                                //sp can either be found on suggest_sp_lst or missing_sp_lst
+                                temp_sp = misc_service.get_item_from_lst_base_on_property('sp_doc_id'/*property*/,cur_ps.sp_doc_id/*value*/,suggest_sp_lst);
+                                if(temp_sp === null){
+                                    temp_sp = misc_service.get_item_from_lst_base_on_property('sp_doc_id'/*property*/,cur_ps.sp_doc_id/*value*/,missing_sp_lst);
+                                }
+                                distinct_sp_lst.push(temp_sp);
+                            }
+                        }
+                    }
+                    defer.resolve(distinct_sp_lst); 
+                }
                 ,function(reason){ defer.reject(reason); }
             )            
             return defer.promise;   
@@ -209,7 +222,14 @@ define(
 
         //------------------------------------------------    
 
-        return function(ps_lst){
+        return function(ps_lst,suggest_sp_lst){
+            /*
+                suggest_sp_lst: this is some (possibly not all or none) the distinct sp we need from the provided ps_lst so that we don't need spend time to search for all sp from ps_lst. 
+                    . In case of pos page perform an appending_scan, this suggest_sp_lst will be missing for the sp that we most recently appended.
+                    . In case of remove ds, this suggest_sp_lst could contain more sp that the ps_lst
+                    when call from refresh_ds from the scan page, we have this suggest_sp_lst ready.
+                    when call from hold feature, we don't have this suggest_sp_lst in hand. this is why this suggest_sp_lst param is optional. 
+            */
             var mm_lst = angular.copy($rootScope.GLOBAL_SETTING.mix_match_lst);
             var tax_rate = $rootScope.GLOBAL_SETTING.tax_rate;
             mm_lst.sort(function(a,b){
@@ -217,7 +237,7 @@ define(
             })
             var defer = $q.defer();
 
-            search_sp_base_on_ps_lst(ps_lst).then(
+            search_sp_base_on_ps_lst(ps_lst,suggest_sp_lst).then(
                  function(sp_distinct_lst){
                     var possible_mm_lst = get_posible_deal_from_sp_lst(sp_distinct_lst,mm_lst);
                     var ds_extract_lst = form_ds_extract(ps_lst,sp_distinct_lst);

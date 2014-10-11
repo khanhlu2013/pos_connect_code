@@ -29,7 +29,7 @@ define(
     app.config(function(blockUIConfig) {
         // blockUIConfig.message = 'Please wait ... ';
         // blockUIConfig.autoBlock = false;
-        blockUIConfig.delay = 10;
+        blockUIConfig.delay = 1;
     });
     
     app.config(function(hotkeysProvider) {

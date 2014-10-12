@@ -36,13 +36,17 @@ define(
             var source_url = $rootScope.GLOBAL_SETTING.couch_server_url + '/' + db_name;
             PouchDB.replicate(source_url, local_db/*target*/, {batch_size:200 ,batches_limit:10 })
                 .on('change', function (info) {
-                    blockUI.message('docs_read: ' + info.docs_read + ', docs_written: ' + info.docs_written + ', doc_write_failures: ' + info.doc_write_failures );
+                    var message = 'docs_read: ' + info.docs_read + ', docs_written: ' + info.docs_written + ', doc_write_failures: ' + info.doc_write_failures;
+                    blockUI.message(message);
+                    console.log(message);
                 })
                 .on('complete', function (info) {
                     blockUI.stop();
                 })
                 .on('error', function (err) {
-                    blockUI.message('there is sync error: ' + err);
+                    var message = 'there is sync error: ' + err
+                    blockUI.message(message);
+                    console.log(message);
                 });            
 
             return defer.promise;

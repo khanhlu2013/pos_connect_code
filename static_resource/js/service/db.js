@@ -23,69 +23,69 @@ define(
         }
     }]);
 
-    mod.factory('service/db/sync',['$q','$rootScope','blockUI',function($q,$rootScope,blockUI){
-        return function(){
-            blockUI.start('syncing database ...');
-            console.log('begin syncing for store_id: ' + store_id);
-
-            var defer = $q.defer();
-            var store_id = $rootScope.GLOBAL_SETTING.store_id;
-
-            var db_name = $rootScope.GLOBAL_SETTING.store_db_prefix + store_id;
-            var local_db = new PouchDB(db_name);
-            var source_url = $rootScope.GLOBAL_SETTING.couch_server_url + '/' + db_name;
-            PouchDB.replicate(source_url, local_db/*target*/, {batch_size:200 ,batches_limit:10 })
-            // PouchDB.replicate(source_url, local_db/*target*/)
-                .on('change', function (info) {
-                    var message = 'docs_read: ' + info.docs_read + ', docs_written: ' + info.docs_written + ', doc_write_failures: ' + info.doc_write_failures;
-                    blockUI.message(message);
-                    console.log(message);
-                })
-                .on('complete', function (info) {
-                    blockUI.stop();
-                })
-                .on('error', function (err) {
-                    var message = 'there is sync error: ' + err
-                    blockUI.message(message);
-                    console.log(message);
-                });            
-
-            return defer.promise;
-        }
-    }]);
-
     // mod.factory('service/db/sync',['$q','$rootScope','blockUI',function($q,$rootScope,blockUI){
     //     return function(){
+    //         blockUI.start('syncing database ...');
+    //         console.log('begin syncing for store_id: ' + store_id);
+
     //         var defer = $q.defer();
     //         var store_id = $rootScope.GLOBAL_SETTING.store_id;
-    //         console.log('begin syncing for store_id: ' + store_id);
-    //         blockUI.start('syncing database ....');
+
     //         var db_name = $rootScope.GLOBAL_SETTING.store_db_prefix + store_id;
     //         var local_db = new PouchDB(db_name);
-    //         var store_db_url = $rootScope.GLOBAL_SETTING.couch_server_url + '/' + db_name;
-    //         local_db.replicate.from(
-    //              store_db_url
-    //             ,{
-    //                  batch_size:200
-    //                 ,batches_limit:10
-    //                 ,onChange:function(res,err){
-    //                     var message;
-    //                     if(res){ message = 'docs_read: ' + res.docs_read + ', docs_written: ' + res.docs_written + ', doc_write_failures: ' + res.doc_write_failures; }
-    //                     else{ message = 'there is syncing error ' + err; }
-    //                     blockUI.message(message);
-    //                     console.log(message);                        
-    //                 }
-    //             }
-    //             ,function(error,res){
+    //         var source_url = $rootScope.GLOBAL_SETTING.couch_server_url + '/' + db_name;
+    //         PouchDB.replicate(source_url, local_db/*target*/, {batch_size:200 ,batches_limit:10 })
+    //         // PouchDB.replicate(source_url, local_db/*target*/)
+    //             .on('change', function (info) {
+    //                 var message = 'docs_read: ' + info.docs_read + ', docs_written: ' + info.docs_written + ', doc_write_failures: ' + info.doc_write_failures;
+    //                 blockUI.message(message);
+    //                 console.log(message);
+    //             })
+    //             .on('complete', function (info) {
     //                 blockUI.stop();
-    //                 if(error){defer.reject(error);console.log('sync is done - error callback: ' + error);}
-    //                 else{defer.resolve(res);console.log('sync is done - response callback: ' + res);}
-    //             }
-    //         );
+    //             })
+    //             .on('error', function (err) {
+    //                 var message = 'there is sync error: ' + err
+    //                 blockUI.message(message);
+    //                 console.log(message);
+    //             });            
 
     //         return defer.promise;
     //     }
     // }]);
+
+    mod.factory('service/db/sync',['$q','$rootScope','blockUI',function($q,$rootScope,blockUI){
+        return function(){
+            var defer = $q.defer();
+            var store_id = $rootScope.GLOBAL_SETTING.store_id;
+            console.log('begin syncing for store_id: ' + store_id);
+            blockUI.start('syncing database ....');
+            var db_name = $rootScope.GLOBAL_SETTING.store_db_prefix + store_id;
+            var local_db = new PouchDB(db_name);
+            var store_db_url = $rootScope.GLOBAL_SETTING.couch_server_url + '/' + db_name;
+            local_db.replicate.from(
+                 store_db_url
+                ,{
+                     batch_size:200
+                    ,batches_limit:10
+                    ,onChange:function(res,err){
+                        var message;
+                        if(res){ message = 'docs_read: ' + res.docs_read + ', docs_written: ' + res.docs_written + ', doc_write_failures: ' + res.doc_write_failures; }
+                        else{ message = 'there is syncing error ' + err; }
+                        blockUI.message(message);
+                        console.log(message);                        
+                    }
+                }
+                ,function(error,res){
+                    blockUI.stop();
+                    if(error){defer.reject(error);console.log('sync is done - error callback: ' + error);}
+                    else{defer.resolve(res);console.log('sync is done - response callback: ' + res);}
+                }
+            );
+
+            return defer.promise;
+        }
+    }]);
 
     mod.factory('service/db/is_pouch_exist',
     [

@@ -66,9 +66,9 @@ define(
             local_db.replicate.from(
                  store_db_url
                 ,{
-                     batch_size:200
-                    ,batches_limit:10
-                    ,onChange:function(res,err){
+                    //  batch_size:200
+                    // ,batches_limit:10
+                    onChange:function(res,err){
                         var message;
                         if(res){ message = 'docs_read: ' + res.docs_read + ', docs_written: ' + res.docs_written + ', doc_write_failures: ' + res.doc_write_failures; }
                         else{ message = 'there is syncing error ' + err; }

@@ -34,8 +34,8 @@ define(
             var db_name = $rootScope.GLOBAL_SETTING.store_db_prefix + store_id;
             var local_db = new PouchDB(db_name);
             var source_url = $rootScope.GLOBAL_SETTING.couch_server_url + '/' + db_name;
-            // PouchDB.replicate(source_url, local_db/*target*/, {batch_size:200 ,batches_limit:10 })
-            PouchDB.replicate(source_url, local_db/*target*/)
+            PouchDB.replicate(source_url, local_db/*target*/, {batch_size:200 ,batches_limit:10 })
+            // PouchDB.replicate(source_url, local_db/*target*/)
                 .on('change', function (info) {
                     var message = 'docs_read: ' + info.docs_read + ', docs_written: ' + info.docs_written + ', doc_write_failures: ' + info.doc_write_failures;
                     blockUI.message(message);

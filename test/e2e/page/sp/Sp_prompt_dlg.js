@@ -42,11 +42,11 @@ var Sp_prompt_dlg = function () {
     this.set_value_customer_price = function(val_cus_price){ this.value_customer_price_txt.clear(); this.value_customer_price_txt.sendKeys(val_cus_price); }
     this.set_is_taxable = function(is_taxable){
         var is_taxable_check = this.is_taxable_check;
-        is_taxable_check.isSelected().then( function(val){ if(is_taxable !== val){ is_taxable_check.click(); } } );
+        is_taxable_check.isSelected().then( function(val){ if(is_taxable !== val){ lib.click(is_taxable_check); } } );
     }    
     this.set_is_sale_report = function(is_sale_report){
         var is_sale_report_check = this.is_sale_report_check;
-        is_sale_report_check.isSelected().then( function(val){ if(is_sale_report !== val){ is_sale_report_check.click(); } } );
+        is_sale_report_check.isSelected().then( function(val){ if(is_sale_report !== val){ lib.click(is_sale_report_check); } } );
     }    
 
     //get function

@@ -21,10 +21,10 @@ var Sp_info_dlg = function () {
     this.exit = function(){ lib.click(this.exit_btn); }
     
     this.switch_tab = function(tab_name){
-        if(tab_name === 'main')         { this.main_tab.click(); }
-        else if(tab_name === 'group')   { this.group_tab.click(); }
-        else if(tab_name === 'kit')     { this.kit_tab.click(); }
-        else if(tab_name === 'sku')     { this.sku_tab.click(); }
+        if(tab_name === 'main')         { lib.click(this.main_tab); }
+        else if(tab_name === 'group')   { lib.click(this.group_tab); }
+        else if(tab_name === 'kit')     { lib.click(this.kit_tab); }
+        else if(tab_name === 'sku')     { lib.click(this.sku_tab); }
     }
 
 }

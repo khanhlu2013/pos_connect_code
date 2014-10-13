@@ -2,7 +2,7 @@ var base_path = './../../../'
 var lib = require(base_path + 'lib');
 
 
-describe('sp_app/service/edit/group', function() {
+describe('sp page', function() {
     var Sp_page = require(base_path + 'page/sp/Sp_page.js');
     var Sp_info_dlg = require(base_path + 'page/sp/Sp_info_dlg.js');
     var Sp_group_dlg = require(base_path + 'page/sp/edit/Sp_group_dlg.js');
@@ -14,7 +14,7 @@ describe('sp_app/service/edit/group', function() {
         lib.auth.logout();
     })
 
-    it('can add and remove group',function(){
+    it('can crud sp.group',function(){
         lib.auth.login('1','1');
 
         //insert sp

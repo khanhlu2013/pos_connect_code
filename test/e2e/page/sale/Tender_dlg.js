@@ -17,8 +17,8 @@ var Tender_dlg = function () {
     this.set_pt = function(pt_id,amount){ element(by.id('sale_app/service/tender_ui/pt_txt/' + pt_id)).sendKeys(amount); }
 
     //function btn
-    this.ok = function(){this.ok_btn.click();}
-    this.cancel = function(){this.cancel_btn.click();}
+    this.ok = function(){ lib.click(this.ok_btn); }
+    this.cancel = function(){ lib.click(this.cancel_btn); }
 
     //function label
     this.get_pt_label_by_index = function(index){ return this.lst.get(index).all(by.tagName('label')).get(0).getText(); }

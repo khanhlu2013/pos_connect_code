@@ -30,7 +30,7 @@ var Get_hold_dlg = function () {
         lst : hold_lst
         ,click_col : function(index,col_name){
             var col_index = get_hold_col_index(col_name);
-            hold_lst.get(index).all(by.tagName('td')).get(col_index).click();
+            lib.click(hold_lst.get(index).all(by.tagName('td')).get(col_index));
         }
     },
     this.hold_ln = {

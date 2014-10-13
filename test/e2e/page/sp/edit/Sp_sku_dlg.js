@@ -8,7 +8,7 @@ var Sp_sku_dlg = function () {
     this.exit_btn = element(by.id('sp_app/service/edit/sku/exit_btn'));
 
     //table
-    this.lst = element.all(by.repeater('sku_assoc in sp.get_my_sku_assoc_lst() | orderBy:\'sku\''))
+    this.lst = element.all(by.repeater('sku_assoc in sp.get_my_sku_assoc_lst() | orderBy:\'sku_str\''))
 
     this.get_col_index = function(col_name){
         if(col_name === 'sku')          { return 0; }
@@ -18,11 +18,11 @@ var Sp_sku_dlg = function () {
 
     //function
     this.exit = function(){ lib.click(this.exit_btn); }
-    this.add = function(){ this.add_btn.click(); }
+    this.add = function(){ lib.click(this.add_btn); }
 
     this.click_col = function(index,col_name){
         var col_index = this.get_col_index(col_name);
-        this.lst.get(index).all(by.tagName('td')).get(col_index).click();
+        lib.click(this.lst.get(index).all(by.tagName('td')).get(col_index));
     }
     this.get_col = function(index,col_name){
         var col_index = this.get_col_index(col_name);

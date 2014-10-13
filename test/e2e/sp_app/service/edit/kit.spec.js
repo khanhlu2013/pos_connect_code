@@ -1,7 +1,7 @@
 var base_path = './../../../'
 var lib = require(base_path + 'lib');
 
-describe('sale page', function() {
+describe('sp page', function() {
 
     var Sp_page = require(base_path + 'page/sp/Sp_page.js');
     var Sp_info_dlg = require(base_path + 'page/sp/Sp_info_dlg.js');
@@ -16,7 +16,7 @@ describe('sale page', function() {
         lib.auth.logout();
     });
 
-    it('can create,edit,delete kit',function(){
+    it('can crud sp.kit',function(){
         //fixture: create 3 product
         lib.auth.login('1','1');
         var sku_1 = '1';var product_name_1 = 'product name 1';var product_price_1=1;

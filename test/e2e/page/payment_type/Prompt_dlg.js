@@ -22,13 +22,13 @@ var Prompt_dlg = function () {
     //function check
     this.set_is_active = function(is_active){
         var is_active_check = this.is_active_check;
-        is_active_check.isSelected().then( function(val){ if(is_active !== val){ is_active_check.click(); } } );        
+        is_active_check.isSelected().then( function(val){ if(is_active !== val){ lib.click(is_active_check); } } );        
     }
     this.get_is_active = function(){ return this.is_active_check.isSelected(); }
 
     //function btn
-    this.ok = function(){this.ok_btn.click();}
-    this.cancel = function(){this.cancel_btn.click();}
+    this.ok = function(){ lib.click(this.ok_btn); }
+    this.cancel = function(){ lib.click(this.cancel_btn);}
 }
 
 module.exports = new Prompt_dlg();

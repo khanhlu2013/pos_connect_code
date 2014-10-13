@@ -27,7 +27,7 @@ describe('sale page \'s scan table ', function() {
 
         //edit sp 1
         Sale_page.click_col(0,'name');
-        Sp_info_dlg.sku_tab.click();
+        lib.click(Sp_info_dlg.sku_tab);
         Sp_info_dlg.edit();
 
         //add sku
@@ -44,7 +44,7 @@ describe('sale page \'s scan table ', function() {
 
         //edit sp 1
         Sale_page.click_col(0,'name');
-        Sp_info_dlg.sku_tab.click();
+        lib.click(Sp_info_dlg.sku_tab);
         Sp_info_dlg.edit();
 
         //remove sku

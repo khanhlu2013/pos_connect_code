@@ -68,13 +68,13 @@ describe('sale_app/shortcut/setup_n_usage', function() {
         expect(folder_1_usage.getText()).toEqual(folder_1_name);
         expect(cell_usage_0.getText()).toEqual("");
         expect(cell_usage_4.getText()).toEqual("");            
-        folder_1_usage.click();
+        lib.click(folder_1_usage);
         expect(cell_usage_0.getText()).toEqual(cell_0_caption);
         expect(cell_usage_4.getText()).toEqual(cell_4_caption);     
 
         //verify
-        cell_usage_0.click();
-        cell_usage_4.click();
+        lib.click(cell_usage_0);
+        lib.click(cell_usage_4);
         expect(Sale_page.lst.count()).toEqual(2);
 
         //clean up

@@ -19,12 +19,12 @@ var Manage_dlg = function () {
     }
     this.click_col = function(index,col_name){
         var col_index = this.get_index(col_name);
-        this.lst.get(index).all(by.tagName('td')).get(col_index).click();
+        lib.click(this.lst.get(index).all(by.tagName('td')).get(col_index));
     }
 
     //function btn
-    this.exit = function(){ this.exit_btn.click(); }
-    this.add = function(){ this.add_btn.click(); }
+    this.exit = function(){ lib.click(this.exit_btn); }
+    this.add = function(){ lib.click(this.add_btn); }
 }
 
 module.exports = new Manage_dlg();

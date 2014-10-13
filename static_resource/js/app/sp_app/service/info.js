@@ -144,7 +144,7 @@ define(
                             '<tr>' +
                                 '<th>sku</th>' +              
                             '</tr>' +
-                            '<tr ng-repeat="sku_assoc_info in sp.get_my_sku_assoc_lst()">' +
+                            '<tr ng-repeat="sku_assoc_info in sp.get_my_sku_assoc_lst() | orderBy:\'sku_str\'">' +
                                 '<td>{{sku_assoc_info.sku_str}}</td>' +      
                             '</tr>' +
                         '</table>' +  

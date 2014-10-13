@@ -31,7 +31,7 @@ var Report_dlg = function () {
             }
             ,click_col:function(index,col_name){
                 if(col_name === 'info'){
-                    online_receipt_lst.get(0).all(by.css('.btn')).get(0).click();
+                    lib.click(online_receipt_lst.get(0).all(by.css('.btn')).get(0));
                 }else{
                     var col_index = get_receipt_col(col_name);
                     lib.click(online_receipt_lst.get(index).all(by.tagName('td')).get(col_index));                    
@@ -59,7 +59,7 @@ var Report_dlg = function () {
             }
             ,click_col:function(index,col_name){
                 var col = get_receipt_ln_col(col_name);
-                online_receipt_ln_lst.get(index).all(by.tagName('td')).get(col).click();
+                lib.click(online_receipt_ln_lst.get(index).all(by.tagName('td')).get(col));
             }            
         }
     }
@@ -72,7 +72,7 @@ var Report_dlg = function () {
             }
             ,click_col:function(index,col_name){
                 var col_index = get_receipt_col(col_name);
-                offline_receipt_lst.get(index).all(by.tagName('td')).get(col_index).click();
+                lib.click(offline_receipt_lst.get(index).all(by.tagName('td')).get(col_index));
             }
             ,summary : {
                 get_tender_title_lbl:function(pt_id){
@@ -96,7 +96,7 @@ var Report_dlg = function () {
             }
             ,click_col:function(index,col_name){
                 var col = get_receipt_ln_col(col_name);
-                offline_receipt_ln_lst.get(index).all(by.tagName('td')).get(col).click();
+                lib.click(offline_receipt_ln_lst.get(index).all(by.tagName('td')).get(col));
             }
         }
     }
@@ -117,8 +117,8 @@ var Report_dlg = function () {
 
     //function tab
     this.switch_tab = function(tab){
-        if(tab === 'online'){ this.online_tab.click(); }
-        else if(tab === 'offline'){ this.offline_tab.click(); }
+        if(tab === 'online'){ lib.click(this.online_tab); }
+        else if(tab === 'offline'){ lib.click(this.offline_tab); }
     }
 }
 

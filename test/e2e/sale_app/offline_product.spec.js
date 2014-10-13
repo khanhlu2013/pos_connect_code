@@ -22,6 +22,7 @@ describe('sale page', function() {
         Sale_page.scan(sku);
 
         //confirm offline message
+        lib.wait_for_block_ui();
         expect(Ui_confirm_dlg.self.isPresent()).toBeTruthy();   
         Ui_confirm_dlg.ok();
 

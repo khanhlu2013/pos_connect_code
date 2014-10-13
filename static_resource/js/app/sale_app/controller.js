@@ -7,6 +7,7 @@ define(
     ,'app/sale_app/service/scan/append_pending_scan'
     ,'app/sale_app/service/pending_scan/get_api'
     ,'app/sp_ll_app/service/search/name_sku_online_dlg'
+    ,'app/sp_ll_app/service/api_offline'
     ,'app/sale_app/service/pending_scan/set_api'
     ,'app/sale_app/service/displaying_scan/modify_ds'
     ,'app/sale_app/service/sale_able_info_dlg'
@@ -37,6 +38,7 @@ define(
         ,'sale_app/service/scan/append_pending_scan'
         ,'sale_app/service/pending_scan/get_api'
         ,'sp_ll_app/service/search/name_sku_online_dlg'
+        ,'sp_ll_app/service/api_offline'
         ,'sale_app/service/pending_scan/set_api'
         ,'sale_app/service/displaying_scan/modify_ds'
         ,'sale_app/service/sale_able_info_dlg'
@@ -62,6 +64,7 @@ define(
         ,'sale_app/service/scan/append_pending_scan'
         ,'sale_app/service/pending_scan/get_api'
         ,'sp_ll_app/service/search/name_sku_online_dlg/multiple'
+        ,'sp_ll_app/service/api_offline'
         ,'sale_app/service/pending_scan/set_api'
         ,'sale_app/model/Modify_ds_instruction'
         ,'sale_app/service/displaying_scan/modify_ds'
@@ -91,6 +94,7 @@ define(
         ,append_pending_scan
         ,get_ps_lst
         ,search_name_sku_multiple_dlg
+        ,sp_offline_api
         ,set_ps_lst
         ,Modify_ds_instruction
         ,modify_ds
@@ -249,15 +253,24 @@ define(
                 )
             }else{
                 if(ds.store_product.is_create_offline()){
-                    edit_product_offline(ds.store_product).then( function(){ $scope.refresh_ds(); } )
+                    edit_product_offline(ds.store_product).then( 
+                         function(){ _refresh_edited_ds(ds); } 
+                        ,function(reason){ alert_service('alert',reason,'red');return; }
+                    )
                 }else{
                     var sp_copy = angular.copy(ds.store_product);
                     sp_info_service(sp_copy).then( 
-                         function(){ $scope.refresh_ds(); }
-                        ,function(reason){ alert_service('alert',reason,'red'); }
+                         function(){ _refresh_edited_ds(ds); }
+                        ,function(reason){ alert_service('alert',reason,'red');return; }
                     )
                 }
             }
+        }
+        function _refresh_edited_ds(ds){
+            sp_offline_api.by_sp_doc_id(ds.store_product.sp_doc_id).then(
+                 function(sp){ ds.store_product = sp; set_ds_lst($scope.ds_lst); }
+                ,function(reason){ alert_service('alert',reason,'red'); }
+            )
         }
         $scope.void = function(){ set_ps_lst([]); }
         $scope.exe_shortcut_child = function(row,col){

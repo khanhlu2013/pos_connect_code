@@ -28,7 +28,7 @@ var Prompt_dlg = function () {
     this.set_price = function(val){ this.price_txt.clear(); this.price_txt.sendKeys(val); }
     this.set_is_include_crv_tax = function(is_include){
         var is_include_crv_tax_check = this.is_include_crv_tax_check;
-        is_include_crv_tax_check.isSelected().then( function(val){ if(is_include !== val){ is_include_crv_tax_check.click(); } } );
+        is_include_crv_tax_check.isSelected().then( function(val){ if(is_include !== val){ lib.click(is_include_crv_tax_check); } } );
     }
     this.get_name = function(){ return this.name_txt.getAttribute('value'); }
     this.get_qty = function(){ return this.qty_txt.getAttribute('value'); }

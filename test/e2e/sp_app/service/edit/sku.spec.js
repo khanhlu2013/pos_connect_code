@@ -2,7 +2,7 @@ var base_path = './../../../';
 var lib = require(base_path + 'lib');
 
 
-describe('sp_app/service/edit/sku', function() {
+describe('sp page', function() {
     var Sp_page = require(base_path + 'page/sp/Sp_page.js');
     var Sp_info_dlg = require(base_path + 'page/sp/Sp_info_dlg.js');
     var Sp_sku_dlg = require(base_path + 'page/sp/edit/Sp_sku_dlg.js');
@@ -15,7 +15,7 @@ describe('sp_app/service/edit/sku', function() {
         lib.auth.logout();
     })
 
-    it('can add new sku',function(){
+    it('can add sku to sp',function(){
         //fixture
         var old_sku = '111';
         var new_sku = '222';
@@ -48,7 +48,7 @@ describe('sp_app/service/edit/sku', function() {
     })
 
     
-    it('can add old sku, aka this sku is already assoc with this product through another store subscription but this sku is not yet subscribed by this store',function(){
+    it('can add old sku, aka this sku is already assoc with this product through another store but not yet assoc by this store',function(){
         lib.auth.login('2','2');
         var sku_1 = '111';
         var sku_2 = '222';

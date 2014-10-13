@@ -1,3 +1,6 @@
+var base_path = './../../';
+var lib = require(base_path + 'lib');
+
 var Prompt_dlg = function () {
 
     //txt
@@ -15,8 +18,8 @@ var Prompt_dlg = function () {
     this.get_prompt = function(){ return this.prompt_txt.getAttribute('value');}
 
     //function btn
-    this.ok = function(){ this.ok_btn.click(); }
-    this.cancel = function(){ this.cancel_btn.click(); }
+    this.ok = function(){ lib.click(this.ok_btn); }
+    this.cancel = function(){ lib.click(this.cancel_btn); }
 }
 
 module.exports = new Prompt_dlg();

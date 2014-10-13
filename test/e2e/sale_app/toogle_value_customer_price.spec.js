@@ -48,13 +48,13 @@ describe('sale_app/displaying_scan/toogle_value_customer_price', function() {
 
         lib.sale_page.scan(sku_1);
         lib.sale_page.scan(sku_2);
-        non_inv_btn.click();
+        lib.click(non_inv_btn);
         prompt_txt.sendKeys('3');
-        prompt_ok_btn.click();
+        lib.click(prompt_ok_btn);
 
         expect(tender_btn.getText()).toEqual('$22.00');
-        action_menu.click();
-        toogle_value_customer_price_menu.click();
+        lib.click(action_menu);
+        lib.click(toogle_value_customer_price_menu);
         expect(tender_btn.getText()).toEqual('$18.00');
         // console.log(protractor.Key.F5)
         ptor.actions().sendKeys(protractor.Key.F5).perform();
@@ -63,6 +63,6 @@ describe('sale_app/displaying_scan/toogle_value_customer_price', function() {
         expect(tender_btn.getText()).toEqual('$18.00');   
 
         //clean up
-        void_btn.click();     
+        lib.click(void_btn);     
     })
 });

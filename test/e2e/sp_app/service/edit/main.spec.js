@@ -13,7 +13,7 @@ describe('Sp page', function() {
         lib.auth.logout();
     })
 
-    it('can edit product main info',function(){
+    it('can crud sp.main_info',function(){
         //fixture
         var data = {
             name : 'new product name',

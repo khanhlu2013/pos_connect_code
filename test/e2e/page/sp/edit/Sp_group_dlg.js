@@ -25,7 +25,7 @@ var Sp_group_dlg = function () {
     //function table
     this.click_col = function(index,col_name){
         var col_index = this.get_index(col_name);
-        this.lst.get(index).all(by.tagName('td')).get(col_index).click();
+        lib.click(this.lst.get(index).all(by.tagName('td')).get(col_index));
     }
 }
 

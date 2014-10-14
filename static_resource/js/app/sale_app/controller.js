@@ -343,7 +343,11 @@ define(
         //init code
         $scope.ds_lst = [];
         sync_db_service().then(
-            function(){
+            function(response){
+                if(response.local !== response.remote){
+                    var message = 'local doc count: ' + response.local + '. Remote doc count: ' + response.remote + '.You might want to refresh the page to sync again';
+                    alert_service('alert',message,'red');
+                }
                 shortcut_ui.init($scope);  
                 $scope.refresh_ds();
                 $scope.$watchGroup(
@@ -354,6 +358,7 @@ define(
                     ,function(newVal,oldVal,scope){$scope.refresh_ds();}
                 );
             }
+            ,function(reason){ alert_service('alert',reason,'red'); }
         )
     }]);
 });

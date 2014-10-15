@@ -75,7 +75,9 @@ define(
                     }
 
                 }
-                ,function(reason){ defer.reject(reason); }
+                ,function(reason){ 
+                    defer.reject(reason); 
+                }
             )
 
             return defer.promise;

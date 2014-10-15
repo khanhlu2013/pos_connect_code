@@ -4,20 +4,19 @@ import csv
 from store_product.models import Store_product
 
 def exe():
-    store = Store.objects.get(name = "x")
+    store = Store.objects.get(name = "1")
     
     # Dept_ID,Description,Tax_1,itemnum,Vendor,ItemName,CRV,Price,Cost
     log_file = open('id/log','w')
 
-    with open('id/data_tiep_alternative_sku.csv', 'rb') as csvfile:
+    with open('id/data_alternative_sku_full_tiep.txt', 'rb') as csvfile:
         # Dept_ID,Description,Tax_1,itemnum,Vendor,ItemName,CRV,Quan_In_Case,Cost,Price
 
         spamreader = csv.reader(csvfile, delimiter=',', quotechar='"')
         for raw in spamreader:
             
-            store_id_raw = raw[0]
-            old_sku_raw = raw[1]
-            alternative_sku_raw = raw[2]
+            old_sku_raw = raw[0]
+            alternative_sku_raw = raw[1]
 
             sp_lst = Store_product.objects.filter(store_id=store.id,product__sku_set__sku=old_sku_raw)
             length = len(sp_lst)

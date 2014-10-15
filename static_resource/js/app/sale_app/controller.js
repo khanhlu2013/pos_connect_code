@@ -344,8 +344,8 @@ define(
         $scope.ds_lst = [];
         sync_db_service().then(
             function(response){
-                if(response.local !== response.remote){
-                    var message = 'local doc count: ' + response.local + '. Remote doc count: ' + response.remote + '.You might want to refresh the page to sync again';
+                if(response.local < response.remote){
+                    var message = response.remote - response.local + ' products not yet downloaded. Please refresh the page to download missing product';
                     alert_service('alert',message,'red');
                 }
                 shortcut_ui.init($scope);  

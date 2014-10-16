@@ -4,8 +4,6 @@ requirejs.config({
          app : 'app'
         ,lib : 'lib'
         ,service : 'service'
-        ,controller : 'controller'
-        ,domReady: ['lib/require/domReady']
 
         // ,'angular':["//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular",["lib/angular.min"]]
         ,'angular':["lib/angular_3_18"]
@@ -29,5 +27,14 @@ requirejs.config({
         ,'pouchdb_quick_search'     : { deps    : ['pouchdb_raw'] } 
         ,'blockUI'                  : { deps    : ['angular']}         
     }
-    ,deps : ['app/sale_app/app_2_test_offline/bootstrap']
+});
+
+require([
+    'angular',
+    'app/sale_app/app_2_test_offline/app'
+], function (angular) {
+    'use strict';
+    angular.element(document).ready(function() {
+        angular.bootstrap(document, ['sale_app_offline']);
+    });   
 });

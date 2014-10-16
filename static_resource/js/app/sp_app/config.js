@@ -4,8 +4,6 @@ requirejs.config({
          app : 'app'
         ,lib : 'lib'
         ,service : 'service'
-        ,controller : 'controller'
-        ,domReady: ['lib/require/domReady']
         // ,angular:["//ajax.googleapis.com/ajax/libs/angularjs/1.2.4/angular.min",["lib/angular.min"]]
         ,'angular':["lib/angular_3_18"]
 
@@ -22,6 +20,14 @@ requirejs.config({
         ,'ngTable'              : { deps      : ['angular']} 
         ,'blockUI'             :  { deps      : ['angular']} 
     }
-    ,deps : ['app/sp_app/bootstrap']
 });
 
+require([
+    'require',
+    'angular',
+    'app/sp_app/app',
+], function (require, angular) {
+    angular.element(document).ready(function() {
+        angular.bootstrap(document, ['store_product_app']);
+    });   
+});

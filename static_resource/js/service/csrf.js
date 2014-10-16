@@ -7,7 +7,7 @@ define(
      angular
 )
 {
-    angular.module('service.csrf',[], function($httpProvider) {
+    angular.module('service.csrf',[]).config(['$httpProvider',function($httpProvider) {
         //boilerplate code to make angularjs to work with django in ajax term
         $httpProvider.defaults.xsrfCookieName = 'csrftoken';
         $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';           
@@ -46,5 +46,5 @@ define(
         $httpProvider.defaults.transformRequest = [function(data) {
             return angular.isObject(data) && String(data) !== '[object File]' ? param(data) : data;
         }];
-    });
+    }]);
 });

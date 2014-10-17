@@ -437,7 +437,7 @@ define(
                 $modalInstance.close({sku:$scope.sku,sp:$scope.sp});
             };
         }
-
+        ModalCtrl.$inject = ['$scope','$modalInstance','$filter','original_sp','suggest_product','duplicate_sp','original_sku','lookup_type_tag'];
         function get_lookup_type_tag(){
             var defer = $q.defer();
             $http({

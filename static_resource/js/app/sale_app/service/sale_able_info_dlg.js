@@ -121,6 +121,7 @@ define(
                     $modalInstance.dismiss('_cancel_');
                 }
             }
+            ModalCtrl.$inject = ['$scope','$modalInstance','$filter','$rootScope','ds_original','is_enable_override_price'];               
             var dlg = $modal.open({
                 template:template,
                 controller:controller,

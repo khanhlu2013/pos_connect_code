@@ -123,6 +123,7 @@ define(
                 )
             }            
         };
+        ModalCtrl.$inject = ['$scope','$modalInstance','$http','original_sp'];        
         return function(sp){
             var dlg = $modal.open({
                 template:template,
@@ -211,6 +212,7 @@ define(
                 $modalInstance.close($scope.original_assoc);
             }
         }
+        ModalCtrl.$inject = ['$scope','$modalInstance','original_assoc'];        
         return function(original_assoc){
             var dlg = $modal.open({
                 template:template,

@@ -89,7 +89,7 @@ define(
                     '<button id="shortcut_app/service/manage/exit_btn" ng-click="exit()" class="btn btn-warning glyphicon glyphicon-remove"></button>' +
                 '</div>'                          
             ;
-
+ 
             var ModalCtrl = function($scope,$modalInstance,$http,$q,shortcut_lst){
                 //init shortcut_ui module
                 shortcut_ui.init($scope,shortcut_lst);
@@ -136,6 +136,7 @@ define(
                     }
                 }
             }
+            ModalCtrl.$inject = ['$scope','$modalInstance','$http','$q','shortcut_lst'];
             var dlg = $modal.open({
                 template:template,
                 controller:ModalCtrl,

@@ -178,7 +178,7 @@ define(
                 $modalInstance.close();
             }
         }
-
+        ModalCtrl.$inject = ['$scope','$modalInstance'];
         var dlg = $modal.open({
             template : template,
             controller : AlertCtrl,

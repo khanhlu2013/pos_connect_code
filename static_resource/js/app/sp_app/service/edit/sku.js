@@ -104,6 +104,7 @@ define(
                 $modalInstance.close();
             }
         }
+        ModalCtrl.$inject = ['$scope','$modalInstance','$filter','$q','sp'];        
         return function(sp){
             var dlg = $modal.open({
                 template:template,

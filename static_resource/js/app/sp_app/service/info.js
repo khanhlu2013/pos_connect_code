@@ -160,7 +160,7 @@ define(
             '</div>'
         ;      
 
-        var ModalCtrl = function($scope,$modalInstance,$filter,sp){
+        var ModalCtrl = function($scope,$modalInstance,sp){
             $scope.sp = sp;
             $scope.is_show_kit_group_info = true;
             $scope.cur_tab = "product";
@@ -192,6 +192,7 @@ define(
                 $modalInstance.close('duplicate');
             }
         }
+        ModalCtrl.$inject = ['$scope','$modalInstance','sp'];
 
         return function(sp){
             var dlg = $modal.open({

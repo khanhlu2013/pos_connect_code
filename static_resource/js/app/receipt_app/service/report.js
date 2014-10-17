@@ -367,7 +367,7 @@ define(
 
                 $scope.exit = function(){$modalInstance.dismiss('_cancel_');}
             }
-
+            ModalCtrl.$inject = ['$scope','$modalInstance','offline_receipt_lst'];    
             $modal.open({
                  template:template
                 ,controller:controller

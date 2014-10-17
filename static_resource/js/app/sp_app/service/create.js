@@ -208,7 +208,7 @@ define(
                     $modalInstance.dismiss('_cancel_');
                 }
             };
-
+            ModalCtrl.$inject = ['$scope','$modalInstance','prod_store__prod_sku__0_0','prod_store__prod_sku__1_0'];
             var dlg = $modal.open({
                 template:template,
                 controller:ModalCtrl,

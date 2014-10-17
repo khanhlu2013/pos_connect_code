@@ -137,6 +137,7 @@ define(
                 $modalInstance.dismiss('_cancel_');
             }
         }
+        ModalCtrl.$inject = ['$scope','$modalInstance','$http'];        
         return function(){
             var dlg = $modal.open({
                 template:template,
@@ -214,6 +215,7 @@ define(
                 $modalInstance.dismiss('_cancel_');
             }
         }
+        ModalCtrl.$inject = ['$scope','$modalInstance','$http'];        
         return function(){
             var dlg = $modal.open({
                 template:template,

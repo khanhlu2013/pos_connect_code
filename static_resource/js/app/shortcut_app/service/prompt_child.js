@@ -101,6 +101,7 @@ define(
     				$modalInstance.close($scope.child)
     			}
     		}
+            ModalCtrl.$inject = ['$scope','$modalInstance','original_child'];            
     		var dlg = $modal.open({
     			template:template,
     			controller:ModalCtrl,

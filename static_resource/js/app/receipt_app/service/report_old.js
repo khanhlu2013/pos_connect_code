@@ -88,6 +88,7 @@ define(
                     '<button ng-click="exit()" class="btn btn-warning">exit</button>' +
                 '</div>'                            
             ;
+
             var ModalCtrl = function($scope,$modalInstance,$http,$filter){
                 $scope.date_from = null;
                 $scope.date_to = null;
@@ -147,6 +148,7 @@ define(
                     $modalInstance.dismiss('_cancel_');
                 }
             }
+            ModalCtrl.$inject = ['$scope','$modalInstance','$http','$filter'];              
             var dlg = $modal.open({
                 // templateUrl: 'template/mixed-ng-snipped.html',
                 template:template,

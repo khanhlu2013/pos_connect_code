@@ -71,6 +71,7 @@ define(
                 var blank_pt = new Payment_type(null/*id*/,null/*name*/,null/*sort*/,true/*is_active*/);
                 $scope.reset();                
             }
+            ModalCtrl.$inject = ['$scope','$modalInstance','original_pt'];                
             var dlg = $modal.open({
                  template:template
                 ,controller:controller

@@ -104,6 +104,7 @@ define(
 					$modalInstance.dismiss('_cancel_');
 				}
 			}
+            ModalCtrl.$inject = ['$scope','$modalInstance','original_group'];
 			var dlg = $modal.open({
 				template:template,
 				controller:ModalCtrl,

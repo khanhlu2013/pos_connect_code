@@ -64,7 +64,7 @@ define(
                     $modalInstance.dismiss('_cancel_');
                 }               
             }
-
+            ModalCtrl.$inject = ['$scope','$modalInstance','prefill','is_null_allow','is_float'];
             var dlg = $modal.open({
                 template : template,
                 controller : ModalCtrl,
@@ -113,7 +113,7 @@ define(
                     $modalInstance.dismiss('_cancel_');
                 }               
             }
-
+            ModalCtrl.$inject = ['$scope','$modalInstance'];
             var dlg = $modal.open({
                 template : template,
                 controller : ModalCtrl,
@@ -158,7 +158,7 @@ define(
                     $modalInstance.close();
                 }
             }
-
+            ModalCtrl.$inject = ['$scope','$modalInstance'];
             var dlg = $modal.open({
                 template : template,
                 controller : ModalCtrl,

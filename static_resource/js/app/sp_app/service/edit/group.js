@@ -110,7 +110,7 @@ define(
                 )
             };
         }
-
+        ModalCtrl.$inject = ['$scope','$modalInstance','$http','original_sp'];
         return function(sp){
             var dlg = $modal.open({
                 template: template,

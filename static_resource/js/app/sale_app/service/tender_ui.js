@@ -94,6 +94,7 @@ define(
                 }
                 $scope.cancel = function(){ $modalInstance.dismiss('_cancel_'); }
             }
+            ModalCtrl.$inject = ['$scope','$modalInstance','ds_lst'];           
             var dlg = $modal.open({
                  template:template
                 ,controller:controller

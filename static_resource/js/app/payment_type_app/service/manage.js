@@ -92,6 +92,7 @@ define(
                     );
                 }
             }
+            ModalCtrl.$inject = ['$scope','$modalInstance','$q','pt_lst'];
             var dlg = $modal.open({
                 template:template,
                 controller:ModalCtrl,

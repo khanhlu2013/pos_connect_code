@@ -101,6 +101,7 @@ define(
                     $modalInstance.close($scope.group_result_lst);
     			}    			
     		}
+            ModalCtrl.$inject = ['$scope','$modalInstance','group_lst'];            
     		var dlg = $modal.open({
     			template:template,
     			controller:ModalCtrl,

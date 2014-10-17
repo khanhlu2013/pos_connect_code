@@ -159,6 +159,7 @@ define(
 					$modalInstance.dismiss('_cancel_');
 				}
 			}
+            ModalCtrl.$inject = ['$scope','$modalInstance','$filter','original_mm'];					
 			var dlg = $modal.open({
 				template:template,
 				controller:ModalCtrl,

@@ -24,11 +24,11 @@ define(
         ,'service/init_global_setting'        
     ]);
     
-    // app.config(function(blockUIConfig) {
-    //     blockUIConfig.message = 'Please wait ... ';
-    //     blockUIConfig.delay = 100;
-    //     blockUIConfig.autoBlock = false;
-    // });
+    app.config(['blockUIConfig',function(blockUIConfig) {
+        blockUIConfig.message = 'Please wait ..... ';
+        blockUIConfig.autoBlock = false;
+        blockUIConfig.delay = 0;
+    }]);
 
     app.run(['service/init_global_setting',function(init_global_setting){
         init_global_setting();

@@ -26,15 +26,16 @@ define(
         ,'cfp.hotkeys'
     ]);
     
-    app.config(function(blockUIConfig) {
-        // blockUIConfig.message = 'Please wait ... ';
-        // blockUIConfig.autoBlock = false;
+    app.config(['blockUIConfig',function(blockUIConfig) {
+        blockUIConfig.message = 'Please wait ..... ';
+        blockUIConfig.autoBlock = false;
         blockUIConfig.delay = 0;
-    });
-    
-    app.config(function(hotkeysProvider) {
+    }]);
+
+    app.config(['hotkeysProvider',function(hotkeysProvider) {
         hotkeysProvider.includeCheatSheet = true;
-    });
+    }]);
+
     app.constant('IS_USE_VALUE_CUSTOMER_PRICE','IS_USE_VALUE_CUSTOMER_PRICE');
     app.run(['service/init_global_setting',function(init_global_setting){
         init_global_setting();

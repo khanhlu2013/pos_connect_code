@@ -13,7 +13,7 @@ def exe():
     # Dept_ID,Description,Tax_1,itemnum,Vendor,ItemName,CRV,Price,Cost
     log_file = open('id/log','w')
 
-    with open('id/data_product_sample_tiep.txt', 'rb') as csvfile:
+    with open('id/data_tiep_full_product.txt', 'rb') as csvfile:
         #Vendor,Dept_ID,Case,Case Price,ItemNum,ItemName,Cost,Price,Tax_1,Quan_In_Case,CASE-CRV,CRV
 
         spamreader = csv.reader(csvfile, delimiter=',', quotechar='"')
@@ -68,7 +68,7 @@ def exe():
 def exe_kit():
     log_file = open('id/log_kit','w')
     store = Store.objects.get(name = "1")
-    with open('id/data_kit_full_tiep.txt', 'rb') as csvfile:
+    with open('id/data_tiep_full_kit.txt', 'rb') as csvfile:
         spamreader = csv.reader(csvfile, delimiter=',', quotechar='"')
         for raw in spamreader:
             #Kit_ID  Quantity    ItemNum ItemName    IsKit   Kit_Override

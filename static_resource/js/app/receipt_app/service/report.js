@@ -305,7 +305,7 @@ define(
                 '</div>' 
             ;
 
-            var controller = function($scope,$modalInstance,offline_receipt_lst){
+            var ModalCtrl = function($scope,$modalInstance,offline_receipt_lst){
                 $scope.offline_receipt_lst = offline_receipt_lst;
                 $scope.cur_offline_receipt = null;
                 $scope.display_sale_able_info_dlg = function(receipt_ln){
@@ -370,7 +370,7 @@ define(
             ModalCtrl.$inject = ['$scope','$modalInstance','offline_receipt_lst'];    
             $modal.open({
                  template:template
-                ,controller:controller
+                ,controller:ModalCtrl
                 ,size:'lg'
                 ,resolve:{ offline_receipt_lst : get_offline_receipt_lst }
             });

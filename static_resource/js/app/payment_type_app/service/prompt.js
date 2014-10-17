@@ -57,7 +57,7 @@ define(
                     '<button id="payment_type_app/service/prompt/cancel_btn" ng-click="cancel()" class="btn btn-warning">cancel</button>' +
                 '</div>' 
             ;
-            var controller = function($scope,$modalInstance,original_pt){
+            var ModalCtrl = function($scope,$modalInstance,original_pt){
                 $scope.reset = function(){
                     $scope.pt = (original_pt === null ? angular.copy(blank_pt) : angular.copy(original_pt));     
                 }
@@ -74,7 +74,7 @@ define(
             ModalCtrl.$inject = ['$scope','$modalInstance','original_pt'];                
             var dlg = $modal.open({
                  template:template
-                ,controller:controller
+                ,controller:ModalCtrl
                 ,size:'md'
                 ,resolve:{original_pt:function(){return original_pt}}
             })

@@ -127,7 +127,7 @@ define(
                 '</div>'                                
             ;
 
-            var controller = function($scope,$modalInstance){
+            var ModalCtrl = function($scope,$modalInstance){
                 var UNDEFINED_TYPE_STR = 'undefined';
                 var NON_INVENTORY_TYPE_STR = 'non inventory';
                 var TAXALBE = 'tax';
@@ -347,7 +347,7 @@ define(
             ModalCtrl.$inject = ['$scope','$modalInstance'];  
             var dlg = $modal.open({
                  template: template
-                ,controller : controller
+                ,controller : ModalCtrl
                 ,size : 'lg'
                 ,backdrop : 'static'
             });

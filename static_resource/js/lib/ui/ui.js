@@ -173,7 +173,7 @@ define(
         ;
 
 
-        var AlertCtrl = function($scope,$modalInstance){
+        var ModalCtrl = function($scope,$modalInstance){
             $scope.ok = function(){
                 $modalInstance.close();
             }
@@ -181,7 +181,7 @@ define(
         ModalCtrl.$inject = ['$scope','$modalInstance'];
         var dlg = $modal.open({
             template : template,
-            controller : AlertCtrl,
+            controller : ModalCtrl,
             size : 'sm'
         });
     }

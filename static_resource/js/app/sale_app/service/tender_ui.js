@@ -56,7 +56,7 @@ define(
                     '<button id="sale_app/service/tender_ui/cancel_btn" ng-click="cancel()" class="btn btn-warning">cancel</button>' +
                 '</div>'
             ;
-            var controller = function($scope,$modalInstance,ds_lst){
+            var ModalCtrl = function($scope,$modalInstance,ds_lst){
                 $scope.pt_lst = angular.copy($rootScope.GLOBAL_SETTING.payment_type_lst).filter(function(pt){return pt.active});
                 var cash_pt = new Payment_type(null,'cash','___'/*sort*/,true/*active*/);
                 $scope.pt_lst.unshift(cash_pt);
@@ -97,7 +97,7 @@ define(
             ModalCtrl.$inject = ['$scope','$modalInstance','ds_lst'];           
             var dlg = $modal.open({
                  template:template
-                ,controller:controller
+                ,controller:ModalCtrl
                 ,size:'lg'
                 ,resolve : {ds_lst:function(){return ds_lst;}}
             })

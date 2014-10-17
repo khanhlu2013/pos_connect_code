@@ -43,7 +43,7 @@ define(
                     '<button ng-click="exit()" class="btn btn-warning">exit</button>' +
                 '</div>'
             ;                               
-            var controller = function($scope,$modalInstance,sp_lst){
+            var ModalCtrl = function($scope,$modalInstance,sp_lst){
                 $scope.sp_lst = sp_lst;
                 $scope.select = function(sp){
                     $modalInstance.close(sp);
@@ -55,7 +55,7 @@ define(
             ModalCtrl.$inject = ['$scope','$modalInstance','sp_lst'];            
             var dlg = $modal.open({
                 template : template,
-                controller : controller,
+                controller : ModalCtrl,
                 size : 'md',
                 resolve:{ sp_lst:function(){return sp_lst}}
             })

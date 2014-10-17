@@ -94,7 +94,7 @@ define(
                 '</div>'
             ;
 
-            var controller = function($scope,$modalInstance,$filter,$rootScope,ds_original,is_enable_override_price){
+            var ModalCtrl = function($scope,$modalInstance,$filter,$rootScope,ds_original,is_enable_override_price){
                 $scope.ds = angular.copy(ds_original);
                 $scope.tax_rate = $rootScope.GLOBAL_SETTING.tax_rate;
                 $scope.is_enable_override_price = is_enable_override_price;
@@ -124,7 +124,7 @@ define(
             ModalCtrl.$inject = ['$scope','$modalInstance','$filter','$rootScope','ds_original','is_enable_override_price'];               
             var dlg = $modal.open({
                 template:template,
-                controller:controller,
+                controller:ModalCtrl,
                 size:'md',
                 resolve:{ 
                      ds_original : function(){ return ds_original }

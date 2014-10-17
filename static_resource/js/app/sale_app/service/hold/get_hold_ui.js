@@ -89,7 +89,7 @@ define(
                     '<button id="sale_app/service/hold/get_hold_ui/cancel_btn" class="btn btn-warning" ng-click="cancel()">cancel</button>' +
                 '</div>'
             ;
-            var controller = function($scope,$modalInstance,$rootScope,hold_lst){
+            var ModalCtrl = function($scope,$modalInstance,$rootScope,hold_lst){
                 $scope.tax_rate = $rootScope.GLOBAL_SETTING.tax_rate;
                 $scope.hold_lst = hold_lst;
                 $scope.cur_hold = null;
@@ -130,7 +130,7 @@ define(
             ModalCtrl.$inject = ['$scope','$modalInstance','$rootScope','hold_lst'];
             var dlg = $modal.open({
                  template : template
-                ,controller : controller
+                ,controller : ModalCtrl
                 ,size : 'lg'
                 ,resolve:{ hold_lst:function(){return hold_api.get_lst();} }
             })

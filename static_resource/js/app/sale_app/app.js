@@ -28,7 +28,7 @@ define(
     
     app.config(['blockUIConfig',function(blockUIConfig) {
         blockUIConfig.message = 'Please wait ..... ';
-        blockUIConfig.autoBlock = false;
+        blockUIConfig.autoBlock = true;
         blockUIConfig.delay = 0;
     }]);
 

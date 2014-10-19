@@ -142,7 +142,7 @@ define(
             var dlg = $modal.open({
                 template:template,
                 controller:ModalCtrl,
-                windowClass:'xlg-dialog'
+                size:'lg'
             });
             return dlg.result
         }

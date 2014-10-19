@@ -7,6 +7,7 @@ define(
     ,'app/group_app/service/create'
     ,'app/group_app/service/delete'
     ,'app/group_app/service/api'
+    ,'app/group_app/service/execute'
 ]
 ,function
 (
@@ -15,34 +16,37 @@ define(
 {
     var mod = angular.module('group_app/service/manage',
     [
-        'service/ui',
-        'group_app/service/edit',
-        'group_app/service/create',
-        'group_app/service/delete',
-        'group_app/service/api'
+         'service/ui'
+        ,'group_app/service/edit'
+        ,'group_app/service/create'
+        ,'group_app/service/delete'
+        ,'group_app/service/api'
+        ,'group_app/service/execute'
     ]);
 
     mod.factory('group_app/service/manage',
-        [
-            '$modal',
-            '$http',
-            'group_app/service/edit',
-            'service/ui/alert',
-            'service/ui/confirm',
-            'group_app/service/create',
-            'group_app/service/delete',
-            'group_app/service/api',
-        function
-        (
-            $modal,
-            $http,
-            edit_group_service,
-            angular_alert,
-            angular_confirm,
-            create_group,
-            delete_group,
-            api
-        ){
+    [
+         '$modal'
+        ,'$http'
+        ,'group_app/service/edit'
+        ,'service/ui/alert'
+        ,'service/ui/confirm'
+        ,'group_app/service/create'
+        ,'group_app/service/delete'
+        ,'group_app/service/api'
+        ,'group_app/service/execute'
+    ,function
+    (
+         $modal
+        ,$http
+        ,edit_group_service
+        ,angular_alert
+        ,angular_confirm
+        ,create_group
+        ,delete_group
+        ,api
+        ,exe_service
+    ){
         return function(){
             var template = 
                 '<div class="modal-header"><div class="modal-title"><h3>manage group</h3></div></div>' +
@@ -59,7 +63,7 @@ define(
 
                         '<tr ng-repeat="group in group_lst">' +
                             '<td>{{group.name}}</td>' +
-                            '<td class="alncenter"><button ng-click="action_group(group)" class="btn btn-primary"><span class="glyphicon glyphicon-play"></span></button></td>' +                            
+                            '<td class="alncenter"><button ng-click="execute_group(group.id)" class="btn btn-primary"><span class="glyphicon glyphicon-play"></span></button></td>' +                            
                             '<td class="alncenter"><button ng-click="delete_group(group)" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button></td>' +
                             '<td class="alncenter"><button ng-click="edit_group(group)"class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span></button></td>' +
                         '</tr>' +
@@ -74,8 +78,8 @@ define(
             var ModalCtrl = function($scope,$modalInstance,$http,group_lst){
                 $scope.group_lst = group_lst;
 
-                $scope.action_group = function(group_id){
-                    angular_alert('well ...','do we need this feature?','blue');
+                $scope.execute_group = function(group_id){
+                    exe_service(group_id);
                 }
                 $scope.delete_group = function(group){
                     var confirm_promise = angular_confirm('delete ' + group.name + ' group?');

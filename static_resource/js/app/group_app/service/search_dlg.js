@@ -37,7 +37,7 @@ define(
                                 '</tr>' +
                                 '<tr ng-repeat="group in group_lst | orderBy:\'name\' | filter:query">' +
                                     '<td>{{group.name}}</td>' +
-                                    '<td class="alncenter"><button ng-click="toggle_select(group)" class="btn glyphicon" ng-class="is_group_selected(group) ? \'btn-warning\' : \'btn-primary\'">{{is_group_selected(group) ? \'unselect\' : \'select\'}}</button></td>' +
+                                    '<td class="alncenter"><button ng-click="toggle_select(group)" class="btn glyphicon" ng-class="is_group_selected(group) ? \'btn-warning glyphicon-check\' : \'btn-primary glyphicon-unchecked\'"></button></td>' +
                                 '</tr>' +
                             '</table>' +   
                             '<pre ng-show="group_lst.length==0">there is no group to select</pre>' +                 

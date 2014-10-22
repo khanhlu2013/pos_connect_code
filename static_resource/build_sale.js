@@ -1,6 +1,6 @@
 ({
      baseUrl: './js'
-    ,name: "app/sale_app/config"
+    ,name: "sale_main"
     ,out: "sale.min.js"
     ,paths: {
          app : 'app'

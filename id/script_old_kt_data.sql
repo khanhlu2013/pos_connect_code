@@ -1,3 +1,4 @@
+pid,sku,name,price,crv,is_taxable,type,tag,cost
 select product.pid,sku.sku,CONCAT(product.name,' ',product.size),latest_layer.price,crv/pack,productoption.istaxable,product.cat,product.dep,(case_ - disc)/(pack*convertnum)
 from latest_layer 
 join product on latest_layer.pid = product.pid

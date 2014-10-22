@@ -1,6 +1,6 @@
 ({
      baseUrl: './js'
-    ,name: "app/sp_app/config"
+    ,name: "sp_main"
     ,out: "sp.min.js"
     ,paths: {
          app : 'app'

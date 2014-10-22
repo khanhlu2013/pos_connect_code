@@ -9,7 +9,7 @@ def exe():
     # Dept_ID,Description,Tax_1,itemnum,Vendor,ItemName,CRV,Price,Cost
     log_file = open('id/log','w')
 
-    with open('id/data_tiep_full_alternative_sku.txt', 'rb') as csvfile:
+    with open('id/data_tiep_alternative_sku_full.txt', 'rb') as csvfile:
         # Dept_ID,Description,Tax_1,itemnum,Vendor,ItemName,CRV,Quan_In_Case,Cost,Price
 
         spamreader = csv.reader(csvfile, delimiter=',', quotechar='"')

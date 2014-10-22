@@ -45,7 +45,6 @@ INSTALLED_APPS = (
     ,'django.contrib.sites'
     ,'rest_framework'
     ,'django_extensions'
-    # ,'compressor'
     ,'storages'
     ,'south'
     ,'django_nose' 
@@ -89,8 +88,8 @@ TEST_DISCOVER_PATTERN = "test_*"
 SOUTH_TESTS_MIGRATE = False
 
 #WHAT ARE THESE----------------------------------------------------------------------------------------------------------------------------------
-SITE_ID = 1 #is this related to staging?
 STATIC_ROOT = ''
+SITE_ID = 1 #is this related to staging?
 ALLOWED_HOSTS = []
 ALLOWED_HOSTS = ['*']
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
@@ -181,3 +180,5 @@ CLIENT_USER_NAME_PREFIX = os.environ.get('STORE_DB_PREFIX')
 STORE_DB_PREFIX = os.environ.get('STORE_DB_PREFIX')
 PROD_BUS_ASSOC_DOCUMENT_TYPE = 'prod_bus_assoc'
 SALE_RECORD_DOCUMENT_TYPE = 'sale_record'
+
+

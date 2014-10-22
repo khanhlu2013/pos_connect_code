@@ -69,7 +69,7 @@ define(
                 '<button id="sp_app/service/edit/kit/ok_btn" ng-disabled="is_unchange()||form.$invalid" class="btn btn-success" ng-click="ok()" type="button">ok</button>' +
             '</div>'        
         ;   
-        var ModalCtrl = function($scope,$modalInstance,$http,original_sp){
+        var ModalCtrl = function($scope,$modalInstance,original_sp){
             $scope.original_sp = original_sp;
             $scope.sp = angular.copy(original_sp);
 
@@ -123,7 +123,7 @@ define(
                 )
             }            
         };
-        ModalCtrl.$inject = ['$scope','$modalInstance','$http','original_sp'];        
+        ModalCtrl.$inject = ['$scope','$modalInstance','original_sp'];        
         return function(sp){
             var dlg = $modal.open({
                 template:template,

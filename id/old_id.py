@@ -7,8 +7,8 @@ import json
 from django.db import IntegrityError
 
 #CONFIGURATION
-store = Store.objects.get(name='y')
-cust_input_file_name = './id/data_full_tony.txt'
+store = Store.objects.get(name='2')
+cust_input_file_name = './id/data_long_product_full.txt'
 #END CONFIGURATION
 
 
@@ -230,21 +230,25 @@ def exe():
             our_prod_sku_assoc_lst = ProdSkuAssoc.objects.filter(sku__sku = sku).exclude(product__creator = store)
             
             if len(our_prod_sku_assoc_lst) == 0:
-                insert_new.exe(
-                    store_id = store.id,
-                    name = name,
-                    price = price,
-                    value_customer_price = None,
-                    crv = crv,
-                    is_taxable = is_taxable,
-                    is_sale_report = True,
-                    p_type = p_type,
-                    p_tag = p_tag,
-                    sku_str = sku,
-                    cost = cost,
-                    vendor = None,
-                    buydown = None
-                ) 
+                try:
+                    insert_new.exe(
+                        store_id = store.id,
+                        name = name,
+                        price = price,
+                        value_customer_price = None,
+                        crv = crv,
+                        is_taxable = is_taxable,
+                        is_sale_report = True,
+                        p_type = p_type,
+                        p_tag = p_tag,
+                        sku_str = sku,
+                        cost = cost,
+                        vendor = None,
+                        buydown = None
+                    ) 
+                except Exception:
+                    log_error_main.write('erro - insert new when we dont have sku - ' + cust_pid + ',' + sku + ',' + name + ',' + str(price) + ',' + str(crv) + '\n')
+
             elif len(our_prod_sku_assoc_lst) == 1:
                 prod_sku_assoc = our_prod_sku_assoc_lst[0]
                 our_system_name = str(prod_sku_assoc.product)
@@ -297,7 +301,7 @@ def exe():
 
             #customer product have multiple sku which associate with multiple pid in our system. TOO complicated, we skill this case
             if len(our_distinct_pid_lst) > 1:
-                log_error_main.write('customer product with many customer sku. these customer sku assoc with many pid in our system. we ignore this case. Cust pid: ' + str(cust_pid) +'\n')
+                log_error_main.write('erro - customer product with many customer sku. these customer sku assoc with many pid in our system. we ignore this case. Cust pid: ' + str(cust_pid) +'\n')
                 continue
 
             #at this code point, len(cust_sku_lst) >0 , and these multiple sku associate with at most one pid in our system: much easier to deal with now
@@ -310,6 +314,7 @@ def exe():
                     try:
                         ProdSkuAssoc.objects.get(product_id=our_distinct_pid_lst[0],sku__sku=a_cust_sku)                        
                         a_paticular_sku = a_cust_sku
+                        cust_sku_lst.remove(a_paticular_sku)
                         break
                     except ProdSkuAssoc.DoesNotExist:
                         continue
@@ -333,6 +338,7 @@ def exe():
                     vendor = None,
                     buydown = None
                 )
+                log_error_main.write('warn - multiple sku - insert old' +'\n')
             elif len(our_distinct_pid_lst) == 0:
                 #we can not find any pid in our system at assoc with 'cust_sku_lst' . 'a_paticular_sku' can be any sku and we going to use this to add new to our system
                 a_paticular_sku = cust_sku_lst.pop() 
@@ -351,7 +357,7 @@ def exe():
                     vendor = None,
                     buydown = None
                 ) 
-
+                log_error_main.write('warn - multiple sku - insert new' +'\n')
             #we found a_particular_sku that exist in our system, the rest of sku in 'cust_sku_lst' (we already pop a_particular_sku and took care of it) are going to be taking care here
             for sku in cust_sku_lst:
                 sku_obj,is_created = Sku.objects.get_or_create(sku=sku,defaults={'creator_id':store.id,'is_approved':False,})

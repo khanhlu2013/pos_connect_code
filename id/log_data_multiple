@@ -1,0 +1,18 @@
+Snapple Peach Tea 20oz Plastics
+{"exe": 0, "our_pid": 30565, "name": "Snapple 20oz Peach DDD"}
+{"exe": 0, "our_pid": 30561, "name": "Snapple 16oz Peach Tea"}
+*_*
+{"sku": "076183202012", "is_taxable": false, "cost": 0.72875, "crv": 0.05, "name": "Snapple Peach Tea 20oz Plastics", "p_type": "Beverages", "price": 1.45, "p_tag": "Juice"}
+-----
+New Product 12401
+{"exe": 0, "our_pid": 29210, "name": "Pinoy Special $4.5"}
+{"exe": 0, "our_pid": 32115, "name": "zzzTodo Central America $4.5"}
+*_*
+{"sku": "895556001102", "is_taxable": false, "cost": 3.5, "crv": 0.0, "name": "New Product 12401", "p_type": null, "price": 5.0, "p_tag": null}
+-----
+Ariel 525 Toilet Paper Regular
+{"exe": 0, "our_pid": 23720, "name": "Ariel Toilet Paper"}
+{"exe": 0, "our_pid": 24032, "name": "Bath Tissue"}
+*_*
+{"sku": "6924180010205", "is_taxable": true, "cost": 0.562083333333333, "crv": 0.0, "name": "Ariel 525 Toilet Paper Regular", "p_type": "Groceries & Misc", "price": 1.09, "p_tag": "Misc"}
+-----

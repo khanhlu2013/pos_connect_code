@@ -149,7 +149,7 @@ def _group_by_pid(cust_input_file_name):
             pid,sku,name,price,crv,is_taxable,p_type,p_tag,cost    
     """
 
-    master_data = {}
+    cust_dic = {}
     with open(cust_input_file_name, 'rb') as f:
         line = csv.reader(f, delimiter=',', quotechar='"')
         for raw in line:
@@ -176,7 +176,7 @@ def _group_by_pid(cust_input_file_name):
             if len(sku) == 0:
                 continue
 
-            if pid not in master_data:
+            if pid not in cust_dic:
                 data = {
                     "name" : name,
                     "price" : price,
@@ -190,12 +190,115 @@ def _group_by_pid(cust_input_file_name):
                     "data" : data,
                     "sku_lst" : [sku,]
                 }
-                master_data[pid] = cur_prod
+                cust_dic[pid] = cur_prod
             else:
-                if sku not in master_data[pid]['sku_lst']:
-                    master_data[pid]['sku_lst'].append(sku)    
+                if sku not in cust_dic[pid]['sku_lst']:
+                    cust_dic[pid]['sku_lst'].append(sku)    
 
-    return master_data;
+    return cust_dic;
+
+def _is_use_our_pid_when_cust_pid_have_1_sku_and_that_sku_assoc_with_1_our_pid(cust_pid,cust_sku,cust_dic,our_pid):
+    """
+        there are 2 case that we are not using our pid
+
+            . case1: customer have many product each have a sku. we only have 1 product containing all these sku
+
+                cust_pid_1 (jacklin original)  <--->  sku_1  <--->
+                cust_pid_2 (jacklin peperoni)  <--->  sku_2  <--->   our_pid (jackin) 
+                cust_pid_3 (jacklin terayaki)  <--->  sku_3  <--->
+
+
+            . case2: customer have many product sharing a same sku. we have only 1 product with that sku
+
+                cust_pid_1 (sierra nevada tumbler)  <--->
+                cust_pid_2 (sierra nevada topedo_)  <--->  sku  <--->  our_pid (sierra nevada)
+                cust_pid_3 (sierra nevada ruthles)  <--->
+
+    """
+    our_product = Product.objects.prefetch_related('sku_set').get(pk=our_pid)
+
+    our_sku_lst = [sku_obj.sku for sku_obj in our_product.sku_set.all()]
+    if len(our_sku_lst) == 0:
+        raise Exception
+    else:
+        is_use_our_pid = True
+        for temp_cust_pid in cust_dic:
+            if temp_cust_pid == cust_pid:#we are just going to verify data integrity here, and raise exception if need
+                if len(cust_dic[temp_cust_pid]['sku_lst']) != 1 and cust_dic[temp_cust_pid]['sku_lst'][0] != cust_sku:
+                    raise Exception
+                else:
+                    continue
+            else:
+                lst = [i for i in cust_dic[temp_cust_pid]['sku_lst'] if i in our_sku_lst]
+                if len(lst) != 0:
+                    is_use_our_pid = False
+                    break
+        return is_use_our_pid
+
+def _cus_sku_lst_is_1(cust_sku,cust_pid,cust_name,cust_price,cust_crv,cust_is_taxable,cust_p_type,cust_p_tag,cust_cost,log_error_main,log_data_single,log_data_multiple,cust_dic):
+    our_prod_sku_assoc_lst = ProdSkuAssoc.objects.filter(sku__sku = cust_sku).exclude(product__creator = store)
+    
+    if len(our_prod_sku_assoc_lst) == 0:
+        try:
+            insert_new.exe(
+                store_id = store.id,
+                name = cust_name,
+                price = cust_price,
+                value_customer_price = None,
+                crv = cust_crv,
+                is_taxable = cust_is_taxable,
+                is_sale_report = True,
+                p_type = cust_p_type,
+                p_tag = cust_p_tag,
+                sku_str = cust_sku,
+                cost = cust_cost,
+                vendor = None,
+                buydown = None
+            ) 
+        except Exception:
+            log_error_main.write('erro - insert new when we dont have sku - ' + cust_pid + ',' + cust_sku + ',' + cust_name + ',' + str(cust_price) + ',' + str(cust_crv) + '\n')
+
+    elif len(our_prod_sku_assoc_lst) == 1:
+        our_prod_sku_assoc = our_prod_sku_assoc_lst[0]
+        our_name = str(our_prod_sku_assoc.product)
+        our_pid = our_prod_sku_assoc.product.id
+        is_use_our_pid = _is_use_our_pid_when_cust_pid_have_1_sku_and_that_sku_assoc_with_1_our_pid(cust_pid,cust_sku,cust_dic,our_pid)
+        log_data_single.write(cust_name + '\n')
+        log_data_single.write(our_name + '\n')
+        log_data_single.write( ("1" if is_use_our_pid else "0") + '\n')
+        dic = {
+            "our_pid" : our_pid,
+            "sku" : cust_sku,
+            "name" : cust_name,
+            "price" : cust_price,
+            "crv" : cust_crv,
+            "is_taxable" : cust_is_taxable,
+            "p_type" : cust_p_type,
+            "p_tag" : cust_p_tag,
+            "cost" : cust_cost
+        }
+        log_data_single.write(json.dumps(dic) + '\n')
+        log_data_single.write(END_OF_RECORD + '\n')
+
+    else:# customer only has 1 sku, and that sku assoc with multiple pid in our system, we need to log into multiple file and select which our pid we want to use
+        log_data_multiple.write(cust_name + '\n')
+        for our_prod_sku_assoc in our_prod_sku_assoc_lst:
+            multiple_choice = {"exe" : 0,"name" : str(our_prod_sku_assoc.product),"our_pid": our_prod_sku_assoc.product.id}
+            log_data_multiple.write(json.dumps(multiple_choice) + '\n' )
+        log_data_multiple.write(END_OF_MULTIPLE_SELECTION + '\n')                    
+        dic = {
+            "sku" : cust_sku,
+            "name" : cust_name,
+            "price" : cust_price,
+            "crv" : cust_crv,
+            "is_taxable" : cust_is_taxable,
+            "p_type" : cust_p_type,
+            "p_tag" : cust_p_tag,
+            "cost" : cust_cost
+        }                
+        log_data_multiple.write(json.dumps(dic) + '\n')
+        log_data_multiple.write(END_OF_RECORD + '\n')
+
 
 
 
@@ -205,90 +308,42 @@ def exe():
     """
 
 
-    master_data = _group_by_pid(cust_input_file_name=cust_input_file_name)
+    cust_dic = _group_by_pid(cust_input_file_name=cust_input_file_name)
 
     log_data_single = open('./id/log_data_single','w')
     log_data_multiple = open('./id/log_data_multiple','w')
     log_error_main = open('./id/log_error_main','w')
 
-    for cust_pid in master_data:#we loop through group_by pid dictionary from customer file
-        data = master_data[cust_pid]['data']
-        cust_sku_lst = master_data[cust_pid]['sku_lst']
+    for cust_pid in cust_dic:#we loop through group_by pid dictionary from customer file
+        cust_data = cust_dic[cust_pid]['data']
+        cust_sku_lst = cust_dic[cust_pid]['sku_lst']
 
-        name = data['name']
-        price = data['price']
-        crv = data['crv']
-        is_taxable = data['is_taxable']
-        p_type = None if data['p_type'] == 'NULL' else data['p_type']
-        p_tag = None if data['p_tag'] == 'NULL' else data['p_tag']
-        cost = data['cost']
+        cust_name = cust_data['name']
+        cust_price = cust_data['price']
+        cust_crv = cust_data['crv']
+        cust_is_taxable = cust_data['is_taxable']
+        cust_p_type = None if cust_data['p_type'] == 'NULL' else cust_data['p_type']
+        cust_p_tag = None if cust_data['p_tag'] == 'NULL' else cust_data['p_tag']
+        cust_cost = cust_data['cost']
 
         if len(cust_sku_lst) == 0:
             raise Exception #this should not happen because if sku is emtpy, we skip them in the _group_by_pid process
         elif len(cust_sku_lst) == 1:
-            sku = cust_sku_lst[0]
-            our_prod_sku_assoc_lst = ProdSkuAssoc.objects.filter(sku__sku = sku).exclude(product__creator = store)
-            
-            if len(our_prod_sku_assoc_lst) == 0:
-                try:
-                    insert_new.exe(
-                        store_id = store.id,
-                        name = name,
-                        price = price,
-                        value_customer_price = None,
-                        crv = crv,
-                        is_taxable = is_taxable,
-                        is_sale_report = True,
-                        p_type = p_type,
-                        p_tag = p_tag,
-                        sku_str = sku,
-                        cost = cost,
-                        vendor = None,
-                        buydown = None
-                    ) 
-                except Exception:
-                    log_error_main.write('erro - insert new when we dont have sku - ' + cust_pid + ',' + sku + ',' + name + ',' + str(price) + ',' + str(crv) + '\n')
-
-            elif len(our_prod_sku_assoc_lst) == 1:
-                prod_sku_assoc = our_prod_sku_assoc_lst[0]
-                our_system_name = str(prod_sku_assoc.product)
-                their_system_name = name
-                log_data_single.write(their_system_name + '\n')
-                log_data_single.write(our_system_name + '\n')
-                log_data_single.write("1" + '\n')
-                dic = {
-                    "our_pid" : prod_sku_assoc.product.id,
-                    "sku" : sku,
-                    "name" : name,
-                    "price" : price,
-                    "crv" : crv,
-                    "is_taxable" : is_taxable,
-                    "p_type" : p_type,
-                    "p_tag" : p_tag,
-                    "cost" : cost
-                }
-                log_data_single.write(json.dumps(dic) + '\n')
-                log_data_single.write(END_OF_RECORD + '\n')
-
-            else:# customer only has 1 sku, and that sku assoc with multiple pid in our system, we need to log into multiple file and select which our pid we want to use
-                their_system_name = name
-                log_data_multiple.write(their_system_name + '\n')
-                for our_prod_sku_assoc in our_prod_sku_assoc_lst:
-                    multiple_choice = {"exe" : 0,"name" : str(our_prod_sku_assoc.product),"our_pid": our_prod_sku_assoc.product.id}
-                    log_data_multiple.write(json.dumps(multiple_choice) + '\n' )
-                log_data_multiple.write(END_OF_MULTIPLE_SELECTION + '\n')                    
-                dic = {
-                    "sku" : sku,
-                    "name" : name,
-                    "price" : price,
-                    "crv" : crv,
-                    "is_taxable" : is_taxable,
-                    "p_type" : p_type,
-                    "p_tag" : p_tag,
-                    "cost" : cost
-                }                
-                log_data_multiple.write(json.dumps(dic) + '\n')
-                log_data_multiple.write(END_OF_RECORD + '\n')
+            _cus_sku_lst_is_1(
+                cust_sku=cust_sku_lst[0],
+                cust_pid = cust_pid,
+                cust_name=cust_name,
+                cust_price=cust_price,
+                cust_crv=cust_crv,
+                cust_is_taxable=cust_is_taxable,
+                cust_p_type=cust_p_type,
+                cust_p_tag=cust_p_tag,
+                cust_cost=cust_cost,
+                log_error_main=log_error_main,
+                log_data_single=log_data_single,
+                log_data_multiple=log_data_multiple,
+                cust_dic=cust_dic
+            )
 
         else:# customer product has multiple sku
             
@@ -325,39 +380,37 @@ def exe():
                 sp = old_sp_inserter.exe(
                     product_id = our_distinct_pid_lst[0],
                     store_id = store.id,
-                    name=name,
-                    price=price,
+                    name=cust_name,
+                    price=cust_price,
                     value_customer_price=None,
-                    crv=crv,
-                    is_taxable=is_taxable,
+                    crv=cust_crv,
+                    is_taxable=cust_is_taxable,
                     is_sale_report=True,
-                    p_type = p_type,
-                    p_tag = p_tag,
+                    p_type = cust_p_type,
+                    p_tag = cust_p_tag,
                     assoc_sku_str = a_paticular_sku,
-                    cost = cost,
+                    cost = cust_cost,
                     vendor = None,
                     buydown = None
                 )
-                log_error_main.write('warn - multiple sku - insert old' +'\n')
             elif len(our_distinct_pid_lst) == 0:
                 #we can not find any pid in our system at assoc with 'cust_sku_lst' . 'a_paticular_sku' can be any sku and we going to use this to add new to our system
                 a_paticular_sku = cust_sku_lst.pop() 
                 sp = insert_new.exe(
                     store_id = store.id,
-                    name = name,
-                    price = price,
+                    name = cust_name,
+                    price = cust_price,
                     value_customer_price = None,
-                    crv = crv,
-                    is_taxable = is_taxable,
+                    crv = cust_crv,
+                    is_taxable = cust_is_taxable,
                     is_sale_report = True,
-                    p_type = p_type,
-                    p_tag = p_tag,
+                    p_type = cust_p_type,
+                    p_tag = cust_p_tag,
                     sku_str = a_paticular_sku,
-                    cost = cost,
+                    cost = cust_cost,
                     vendor = None,
                     buydown = None
                 ) 
-                log_error_main.write('warn - multiple sku - insert new' +'\n')
             #we found a_particular_sku that exist in our system, the rest of sku in 'cust_sku_lst' (we already pop a_particular_sku and took care of it) are going to be taking care here
             for sku in cust_sku_lst:
                 sku_obj,is_created = Sku.objects.get_or_create(sku=sku,defaults={'creator_id':store.id,'is_approved':False,})

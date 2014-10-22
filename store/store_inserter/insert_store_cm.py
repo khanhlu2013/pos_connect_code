@@ -13,7 +13,7 @@ from couch import couch_util
 
 def exe(store):
     store_id,api_key_name = exe_master(store)
-    exe_couch(store_id,store.tax_rate,api_key_name)
+    exe_couch(store_id,api_key_name)
 
 
 def exe_master(store):
@@ -32,7 +32,7 @@ def exe_master(store):
     return store.id,store.api_key_name
 
 
-def exe_couch(store_id,tax_rate,api_key_name):
+def exe_couch(store_id,api_key_name):
     _couch_db_insert_db(store_id)
     _couch_db_insert_view(store_id)
     _couch_db_insert_validation(store_id)

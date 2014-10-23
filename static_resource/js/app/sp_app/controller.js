@@ -114,6 +114,12 @@ define(
                 return;
             }
 
+            //3 character search minimum
+            if($scope.name_search_str.replace(' ','').length<3){
+                alert_service('alert','3 character search minimum','red');
+                return;
+            }
+
             api.name_search($scope.name_search_str).then(
                 function(data){
                     $scope.sp_lst = data;

@@ -86,7 +86,8 @@
                             <li ng-click="launch_pos()"><a href="#">lauch pos</a></li>
                         </ul>
                     </li>                      
-                    <li> <a id="logout_link" href='{% url "liquor_logout_named_url" %}'>{{ request.session.cur_login_store }} - {{ user }} - logout</a> </li>
+                    <!-- <li> <a id="logout_link" href='{% url "liquor_logout_named_url" %}'>{{ request.session.cur_login_store }} - {{ user }} - logout</a> </li> -->
+                    <li ng-click="logout()"><a id="logout_link" href='#'>{{ request.session.cur_login_store }} - {{ user }} - logout</a></li>
                 </ul>   
 
             </div><!-- /.navbar-collapse -->

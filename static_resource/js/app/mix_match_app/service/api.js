@@ -10,44 +10,68 @@ define(
 )
 {
     var mod = angular.module('mix_match_app/service/api',['mix_match_app/model']);
-    mod.factory('mix_match_app/service/api',['$http','$q','mix_match_app/model/Mix_match',function($http,$q,Mix_match){
+    mod.factory('mix_match_app/service/api',
+    [
+         '$http'
+        ,'$q'
+        ,'mix_match_app/model/Mix_match'
+    ,function(
+         $http
+        ,$q
+        ,Mix_match
+    ){
     	return {
     		create : function(mm){
- 				var promise_ing = $http({
+                var defer = $q.defer();
+ 				$http({
 					url:'/mix_match/insert_angular',
 					method:'POST',
 					data:{ mix_match:JSON.stringify(mm) }
 				})
-				var promise_ed = promise_ing.then(
-					 function(data){ return Mix_match.build(data.data); }
-					,function(reason){ return $q.reject('create mix match ajax error');}
+				.then(
+					function(data){ 
+                        defer.resolve(Mix_match.build(data.data));
+                    }
+					,function(reason){ 
+                        defer.reject(reason);
+                    }
 				)
-				return promise_ed;
+				return defer.promise;
     		}
 
             ,edit : function(mm){
-                var promise_ing = $http({
+                var defer = $q.defer();
+                $http({
                     url:'/mix_match/update_angular',
                     method:'POST',
                     data:{ mix_match:JSON.stringify(mm)}
                 })
-                var promise_ed = promise_ing.then(
-                     function(data){ return Mix_match.build(data.data)}
-                    ,function(reason){ return $q.reject('edit mix match ajax error');}
+                .then(
+                    function(data){ 
+                        defer.resolve(Mix_match.build(data.data))
+                    }
+                    ,function(reason){ 
+                        defer.reject(reason);
+                    }
                 );
-                return promise_ed;
+                return defer.promise;
             }
 
             ,get_lst : function(){
-                var promise_ing = $http({
+                var defer = $q.defer();
+                $http({
                     url:'/mix_match/get',
                     method:'GET'
-                });
-                var promise_ed = promise_ing.then(
-                     function(data){ return data.data.map(Mix_match.build); }
-                    ,function(reason){ return $q.reject('get mix match lst ajax error');}
+                })
+                .then(
+                    function(data){ 
+                        defer.resolve(data.data.map(Mix_match.build));
+                    }
+                    ,function(reason){ 
+                        defer.reject(reason);
+                    }
                 )             
-                return promise_ed;   
+                return defer.promise;   
             }
     	}
     }])

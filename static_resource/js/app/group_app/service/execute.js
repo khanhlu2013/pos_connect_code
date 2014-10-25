@@ -241,7 +241,7 @@ define(
                             $scope.group = Group.build(data.data);
                         }
                         ,function(reason){
-                            alert_service('alert','execute group ajax error','red');
+                            alert_service(reason);
                         }
                     )
                 }

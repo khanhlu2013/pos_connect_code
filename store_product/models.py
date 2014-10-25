@@ -23,7 +23,7 @@ class Store_product(models.Model):
     sp_doc_id = models.CharField(blank=True,null=True,max_length=100)# if not null, these are product that are created offline. these field prevent created_offline product to be re_create multiple time on the server due to the possibility of client's failure to remove offline create product after the server created them and sync them down. 
 
     class Meta:
-        unique_together = ("product","store")
+        unique_together = ( ("product","store"),("name","store") )
         
     def __unicode__(self):
         return self.name

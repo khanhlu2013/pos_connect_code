@@ -81,6 +81,6 @@ describe('shortcut_app/service/manage', function() {
 
         //clean up
         Shortcut_manage_dlg.exit();
-        lib.auth.logout();
+        lib.auth.logout();        
     })
 });

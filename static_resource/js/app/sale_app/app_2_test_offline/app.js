@@ -15,6 +15,9 @@ define(
         var regx = /\/product\/search_by_sku_angular\?sku_str=.+/;
         $httpBackend.whenGET(regx).respond(0/*status*/,null/*data*/);
 
+        var regx_2 = /\/receipt\/push/;
+        $httpBackend.whenPOST(regx_2).respond(0/*status*/,null/*data*/);
+
         // $httpBackend.whenGET(/^\/templates\//).passThrough();
     });
 })

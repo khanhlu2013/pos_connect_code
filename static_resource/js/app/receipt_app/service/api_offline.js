@@ -20,12 +20,14 @@ define(
          '$q'
         ,'$rootScope'
         ,'service/db/get'
+        ,'service/db/is_pouch_exist'
         ,'receipt_app/service/receipt_storage_adapter'
         ,'blockUI'
     ,function(
          $q
         ,$rootScope
         ,get_pouch_db
+        ,is_pouch_exist
         ,receipt_storage_adapter
         ,blockUI
     ){
@@ -33,24 +35,36 @@ define(
         function get_receipt_lst(){
             blockUI.start('getting offline receipt ...');
             var defer = $q.defer();
-            var return_lst = [];
-            var promise_lst = [];
 
-            var db = get_pouch_db();
-            db.query('views/by_d_type',{key:$rootScope.GLOBAL_SETTING.receipt_document_type}).then(
-                function(pouch_result){
-                    var result = [];
-                    for(var i = 0;i<pouch_result.rows.length;i++){
-                        result.push(pouch_result.rows[i].value);
+            is_pouch_exist().then(
+                function(is_exist){
+                    if(!is_exist){
+                        defer.resolve([]);
+                        blockUI.stop();
+                    }else{
+                        var db = get_pouch_db();
+                        db.query('views/by_d_type',{key:$rootScope.GLOBAL_SETTING.receipt_document_type})
+                        .then(
+                            function(pouch_result){
+                                var result = [];
+                                for(var i = 0;i<pouch_result.rows.length;i++){
+                                    result.push(pouch_result.rows[i].value);
+                                }
+                                defer.resolve(result.map(receipt_storage_adapter.pouch_2_javascript));
+                                blockUI.stop();
+                            }
+                            ,function(reason){
+                                defer.reject('Bug: get offline receipt has error');
+                                blockUI.stop();
+                            }
+                        );                        
                     }
-                    defer.resolve(result.map(receipt_storage_adapter.pouch_2_javascript));
-                    blockUI.stop();
-                }
-                ,function(reason){
+                },
+                function(reason){
                     defer.reject(reason);
                     blockUI.stop();
                 }
-            );
+            )
             return defer.promise;
         }
 

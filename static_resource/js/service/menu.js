@@ -7,7 +7,7 @@ define(
     ,'app/mix_match_app/service/manage'
     ,'app/payment_type_app/service/manage'
     ,'app/shortcut_app/service/manage'
-    ,'app/receipt_app/service/report'    
+    ,'app/receipt_app/service/report_new'    
     ,'app/report_app/service/report_dlg'
     ,'service/ui'
 ]
@@ -23,7 +23,7 @@ define(
         ,'mix_match_app/service/manage'
         ,'payment_type_app/service/manage'
         ,'shortcut_app/service/manage'
-        ,'receipt_app/service/report'
+        ,'receipt_app/service/report_new'
         ,'report_app/service/report_dlg'
         ,'service/ui'
     ]);
@@ -32,17 +32,19 @@ define(
     [
          '$scope'
         ,'$window'
+        // ,'$location'
         ,'group_app/service/manage'
         ,'tax_app/service/edit'
         ,'mix_match_app/service/manage'
         ,'payment_type_app/service/manage'
         ,'shortcut_app/service/manage'
-        ,'receipt_app/service/report'
+        ,'receipt_app/service/report_new'
         ,'report_app/service/report_dlg'
         ,'service/ui/confirm'
     ,function(
          $scope 
         ,$window
+        // ,$location
         ,manage_group
         ,edit_tax
         ,manage_mm
@@ -63,6 +65,7 @@ define(
             confirm_service('logout?','orange').then(
                 function(){
                     $window.location.href = '/account/logout/';
+                    // $location.path('/account/logout/');
                 }
             )
             

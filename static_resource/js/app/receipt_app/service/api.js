@@ -11,13 +11,31 @@ define(
     angular
 )
 {
-    var mod = angular.module('receipt_app/service/api',['service/date','receipt_app/model']);
+    var mod = angular.module('receipt_app/service/api',
+    [
+         'service/date'
+        ,'receipt_app/model'
+    ]);
 
-    mod.factory('receipt_app/service/api',['$http','$q','$filter','service/date/get_timezone_offset','receipt_app/model/Receipt',function($http,$q,$filter,get_timezone_offset,Receipt){
+    mod.factory('receipt_app/service/api',
+    [
+         '$http'
+        ,'$q'
+        ,'$filter'
+        ,'service/date/get_timezone_offset'
+        ,'receipt_app/model/Receipt'
+    ,function(
+         $http
+        ,$q
+        ,$filter
+        ,get_timezone_offset
+        ,Receipt
+    ){
         return{
             get_receipt_pagination: function(date_from,date_to,cur_page,receipt_per_page){
+                var defer = $q.defer();
                 var server_accepted_format = "M/d/yyyy";
-                var promise_ing = $http({
+                $http({
                     url:'/receipt/get_receipt_pagination',
                     method:'GET',
                     params:{
@@ -27,18 +45,18 @@ define(
                         to_date:$filter('date')(date_to,server_accepted_format),
                         time_zone_offset: get_timezone_offset()
                     }
-                });
-                var promise_ed = promise_ing.then(
+                })
+                .then(
                     function(data){
                         var result = {};
                         result.receipt_lst = data.data.receipt_lst.map(Receipt.build);
                         result.total = data.data.total;
-                        return result;
+                        defer.resolve(result);
                     },function(reason){
-                        return $q.reject('get receipt data ajax error');
+                        defer.reject(reason);
                     }
                 );              
-                return promise_ed;
+                return defer.promise;
             }
             ,get_receipt: function(date_from,date_to){
                 var defer = $q.defer();
@@ -53,11 +71,32 @@ define(
                         time_zone_offset: get_timezone_offset()
                     }
                 }).then(
-                     function(data){ defer.resolve(data.data.map(Receipt.build)); }
-                    ,function(reason){ return defer.reject('get receipt data ajax error'); }
+                    function(data){ 
+                        defer.resolve(data.data.map(Receipt.build)); 
+                    }
+                    ,function(reason){ 
+                        return defer.reject(reason); 
+                    }
                 );              
                 return defer.promise;
-            }            
+            }       
+            ,get_receipt_by_count: function(count){
+                var defer = $q.defer();
+
+                $http({
+                    url:'/receipt/get_receipt_by_count',
+                    method:'GET',
+                    params:{ count: count }
+                }).then(
+                    function(data){ 
+                        defer.resolve(data.data.map(Receipt.build)); 
+                    }
+                    ,function(reason){ 
+                        defer.reject(reason); 
+                    }
+                );              
+                return defer.promise;                
+            }
         }
     }])
 })

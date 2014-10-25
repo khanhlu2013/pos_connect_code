@@ -35,6 +35,17 @@ def get_receipt_pagination(request):
 
     return HttpResponse(json.dumps(response,cls=DjangoJSONEncoder),mimetype='application/javascript')
   
+def get_receipt_by_count(request):
+    cur_login_store = request.session.get('cur_login_store')
+    
+    #get param
+    count = request.GET['count']
+
+    #get receipt data
+    receipt_lst = dao.get_lst_by_count(cur_login_store.id,count)
+    receipt_lst_serialized = Receipt_serializer(receipt_lst,many=True).data
+
+    return HttpResponse(json.dumps(receipt_lst_serialized,cls=DjangoJSONEncoder),mimetype='application/javascript')
 
 def get_receipt(request):
     cur_login_store = request.session.get('cur_login_store')

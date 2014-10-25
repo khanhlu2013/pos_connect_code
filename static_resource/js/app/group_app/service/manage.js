@@ -5,7 +5,6 @@ define(
     ,'service/ui'    
     ,'app/group_app/service/edit'
     ,'app/group_app/service/create'
-    ,'app/group_app/service/delete'
     ,'app/group_app/service/api'
     ,'app/group_app/service/execute'
 ]
@@ -19,7 +18,6 @@ define(
          'service/ui'
         ,'group_app/service/edit'
         ,'group_app/service/create'
-        ,'group_app/service/delete'
         ,'group_app/service/api'
         ,'group_app/service/execute'
     ]);
@@ -32,7 +30,6 @@ define(
         ,'service/ui/alert'
         ,'service/ui/confirm'
         ,'group_app/service/create'
-        ,'group_app/service/delete'
         ,'group_app/service/api'
         ,'group_app/service/execute'
     ,function
@@ -40,10 +37,9 @@ define(
          $modal
         ,$http
         ,edit_group_service
-        ,angular_alert
+        ,alert_service
         ,angular_confirm
         ,create_group
-        ,delete_group
         ,api
         ,exe_service
     ){
@@ -85,33 +81,29 @@ define(
                     var confirm_promise = angular_confirm('delete ' + group.name + ' group?');
                     confirm_promise.then(
                         function(data){
-                            if(data == false){
+                            if(data === false){
                                 return;
                             }
 
-                            var promise = delete_group(group.id);
-                            promise.then(
-                                function(data){
-                                    if(data == true){ 
-                                        var index = null;
-                                        for(var i = 0;i<$scope.group_lst.length;i++){
-                                            if($scope.group_lst[i].id == group.id){
-                                                index = i;
-                                                break;
-                                            }
+                            api.delete_item(group.id)
+                            .then(
+                                function(){
+                                    var index = null;
+                                    for(var i = 0;i<$scope.group_lst.length;i++){
+                                        if($scope.group_lst[i].id === group.id){
+                                            index = i;
+                                            break;
                                         }
+                                    }
 
-                                        if(index == null){
-                                            angular_alert('alert','Bug: should be unreachable. can not find deleted index after success response','red');
-                                        }else{
-                                            $scope.group_lst.splice(i,1);
-                                        }
+                                    if(index === null){
+                                        alert_service('Bug: should be unreachable. can not find deleted index after success response');
                                     }else{
-                                        angular_alert('alert','Bug: should be unreachable. delete response data = false','red');
+                                        $scope.group_lst.splice(i,1);
                                     }
                                 },
                                 function(reason){
-                                    angular_alert('alert',reason,'red');
+                                    alert_service(reason);
                                 }
                             )                            
                         }
@@ -124,7 +116,7 @@ define(
                             $scope.group_lst.push(data);
                         },
                         function(reason){
-                            angular_alert('alert',reason,'red');
+                            alert_service(reason);
                         }
                     )
                 }
@@ -135,7 +127,7 @@ define(
                             angular.copy(data,group);
                         },
                         function(reason){
-                            angular_alert('error',reason,'red');
+                            alert_service(reason);
                         }
                     )
                 }

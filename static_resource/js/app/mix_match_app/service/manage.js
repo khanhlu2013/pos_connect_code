@@ -83,8 +83,12 @@ define(
                 $scope.add_mix_match = function(){
                     var promise = create_service();
                     promise.then(
-                         function(data){ $scope.mm_lst.push(data);}
-                        ,function(reason){ alert_service('alert',reason,'red'); }
+                         function(data){ 
+                            $scope.mm_lst.push(data);
+                        }
+                        ,function(reason){ 
+                            alert_service(reason); 
+                        }
                     )
                 }
                 $scope.delete = function(mm){
@@ -100,15 +104,21 @@ define(
                                         }
                                     }
                                 }
-                                ,function(reason){ alert_service('alert',reason,'red');}
+                                ,function(reason){ 
+                                    alert_service(reason);
+                                }
                             )
                         }
                     )
                 }
                 $scope.edit = function(mm){
                     edit_service(mm).then(
-                         function(data){ angular.copy(data,mm); }
-                        ,function(reason){ alert_service('alert',reason,'red');}
+                         function(data){ 
+                            angular.copy(data,mm); 
+                        }
+                        ,function(reason){ 
+                            alert_service(reason);
+                        }
                     )
                 }
                 $scope.exit = function(){ 

@@ -2,7 +2,6 @@ define(
 [
 	'angular'
 	//----
-	,'service/ui'	
 	,'app/sp_app/service/prompt'
  	,'app/sp_app/service/api/crud'
     ,'service/db' 	
@@ -15,7 +14,6 @@ define(
 	var mod = angular.module('sp_app/service/edit/sp',
 	[
 		 'sp_app/service/prompt'
-		,'service/ui'
 		,'sp_app/service/api/crud'
         ,'service/db'		
 	]);
@@ -25,7 +23,6 @@ define(
 		,'$filter'
 		,'$q'
 		,'sp_app/service/prompt'
-		,'service/ui/alert'
 		,'sp_app/service/api/crud'
         ,'service/db/sync_if_nessesary'		
 	,function(
@@ -33,14 +30,13 @@ define(
 		,$filter
 		,$q
 		,prompt_service
-		,alert_service
 		,sp_crud_api
 		,sync_if_nessesary
 	){
 		return function(sp){
 			var defer = $q.defer();
 
-			prompt_service(sp,null/*suggest_product*/,null/*duplicate_sp*/,null/*sku*/).then(
+			prompt_service(sp,null/*suggest_product*/,null/*duplicate_sp*/,null/*sku*/,false/*is_operate_offline*/).then(
 				 function(prompt_result){ 
 				 	sp_crud_api.update(prompt_result.sp).then(
 				 		function(updated_sp){

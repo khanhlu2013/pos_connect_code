@@ -156,7 +156,7 @@ define(
                             )
                         }
                         ,function(reason){
-                            alert_service('alert',reason,'red');
+                            alert_service(reason);
                         }
                     )
                 }
@@ -167,7 +167,7 @@ define(
                             _add_sp_lst_2_deal(sp_lst);
                         },
                         function(reason){
-                            alert_service('alert',reason,'red');
+                            alert_service(reason);
                         }
                     )
                 }

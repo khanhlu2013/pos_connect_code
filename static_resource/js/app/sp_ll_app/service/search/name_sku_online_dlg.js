@@ -12,7 +12,7 @@ define(
 {
     var mod = angular.module('sp_ll_app/service/search/name_sku_online_dlg',
     [
-        'share_directive',
+        'directive/share_directive',
         'sp_app/service/api/search',
         'service/misc'
     ]);
@@ -33,7 +33,14 @@ define(
             '</div>'+
 
             '<div class="modal-body">' + 
-                '<input id="sp_ll_app/service/search/name_sku_online_dlg/multiple/search_txt" type="text" ng-model="$parent.search_str" ng-enter="search()" placeholder="name/sku">' + 
+                '<input' +
+                    ' id="sp_ll_app/service/search/name_sku_online_dlg/multiple/search_txt"' +
+                    ' type="text"' +
+                    ' ng-model="$parent.search_str"' +
+                    ' ng-enter="search()"' +
+                    ' placeholder="name/sku"' +
+                    ' focus-me="{{true}}"' +
+                '>' + 
                 '<input ng-model="$parent.query" type="text" placeholder="local filter">' + 
                 '<div>' +
                     '<div class="col-sm-6">' +
@@ -162,7 +169,14 @@ define(
             '</div>'+
 
             '<div class="modal-body">' + 
-                '<input id="sp_ll_app/service/search/name_sku_online_dlg/single/search_txt" type="text" ng-model="$parent.search_str" ng-enter="search()" placeholder="name/sku">' +
+                '<input' +
+                    ' id="sp_ll_app/service/search/name_sku_online_dlg/single/search_txt"' +
+                    ' type="text"' +
+                    ' ng-model="$parent.search_str"' +
+                    ' ng-enter="search()"' +
+                    ' placeholder="name/sku"' +
+                    ' focus-me={{true}}' +
+                '>' +
                 '<table ng-hide="sp_lst.length==0" class="table table-hover table-bordered table-condensed table-striped">' +
                     '<tr>' +
                         '<th>name</th>' +

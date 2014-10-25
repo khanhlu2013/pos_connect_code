@@ -30,7 +30,7 @@ define(
 		sp_crud_api
 	){
 		return function(sp){
-			var prompt_promise = prompt_service(null/*original_sp*/,null/*suggest_product*/,sp/*duplicate_sp*/,null/*sku*/);
+			var prompt_promise = prompt_service(null/*original_sp*/,null/*suggest_product*/,sp/*duplicate_sp*/,null/*sku*/,false/*is_operate_offline*/);
 			var duplicate_promise = prompt_promise.then(
 				 function(prompt_result){ return sp_crud_api.insert_new(prompt_result.sp,prompt_result.sku); }
 				,function(reason){ return $q.reject(reason);}

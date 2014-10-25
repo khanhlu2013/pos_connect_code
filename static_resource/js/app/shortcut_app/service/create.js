@@ -21,10 +21,12 @@ define(
 		,prompt_service
 	){
 		return function(position){
-			var prompt_promise = prompt_service('create new shortcut',null/*prefill*/,false/*is_null_allow*/,false/*is_float*/);
-			var create_promise = prompt_promise.then(
+			var defer = $q.defer();
+
+			prompt_service('create new shortcut',null/*prefill*/,false/*is_null_allow*/,false/*is_float*/)
+			.then(
 				function(data){
-					var promise_ing = $http({
+					$http({
 						url:'/sale_shortcut/parent_create_angular',
 						method:'POST',
 						data:{
@@ -32,15 +34,20 @@ define(
 							caption:data
 						}
 					})
-					var promise_ed = promise_ing.then(
-						 function(data){ return data.data;}
-						,function(reason){ return $q.reject('create shortcut ajax error');}
+					.then(
+						function(data){ 
+						 	defer.resolve(data.data);
+						}
+						,function(reason){ 
+							defer.reject(reason);
+						}
 					)
-					return promise_ed;
 				},
-				function(reason){ return $q.reject(reason); }
+				function(reason){ 
+					defer.reject(reason);
+				}
 			);
-			return create_promise;
+			return defer.promise;
 		}
  	}])
 })

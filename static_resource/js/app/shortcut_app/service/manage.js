@@ -111,7 +111,7 @@ define(
                             else{ angular.copy(shortcut,cur_parent); }
                         },
                         function(reason){
-                            alert_service('alert',reason,'red');
+                            alert_service(reason);
                         }
                     )
                 }
@@ -123,15 +123,23 @@ define(
                         //edit
                         var promise = edit_service(parent);
                         promise.then(
-                             function(data){ angular.copy(data,parent); }
-                            ,function(reason){ alert_service('alert',reason,'red'); }
+                            function(data){ 
+                                angular.copy(data,parent); 
+                            }
+                            ,function(reason){ 
+                                alert_service(reason); 
+                            }
                         )
                     }else{
                         //create
                         var promise = create_service(position);
                         promise.then(
-                             function(shortcut){ add_shortcut(shortcut); }
-                            ,function(reason){ alert_service('alert',reason,'red'); }
+                            function(shortcut){ 
+                                add_shortcut(shortcut); 
+                            }
+                            ,function(reason){ 
+                                alert_service(reason); 
+                            }
                         )
                     }
                 }

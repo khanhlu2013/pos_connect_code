@@ -20,6 +20,6 @@ describe('group_app/service/create', function() {
         Sp_page.menu_setting_tax();
         expect(Ui_prompt_dlg.get_prompt()).toEqual(tax.toString());
         Ui_prompt_dlg.cancel();
-        lib.auth.logout();
+        lib.auth.logout();        
     })
 });

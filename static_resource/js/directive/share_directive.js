@@ -4,7 +4,7 @@ define(['angular'], function(angular) {
 
   /* Directives */
 
-  var mod = angular.module('share_directive', []);
+  var mod = angular.module('directive/share_directive', []);
 
   // var INTEGER_REGEXP = /^\-?\d+$/;
   // mod.directive('integer', function() {
@@ -57,7 +57,31 @@ define(['angular'], function(angular) {
               }
           });
       };
-  }); 
+  });
+
+  mod.directive('focusMe', ['$timeout','$parse',function($timeout, $parse) {
+    return {
+      //scope: true,   // optionally create a child scope
+      link: function(scope, element, attrs) {
+        var model = $parse(attrs.focusMe);
+        scope.$watch(model, function(value) {
+          if(value === true) { 
+            $timeout(function() {
+              element[0].focus(); 
+              element[0].select();
+            });
+          }
+        });
+        // to address @blesh's comment, set attribute value to 'false'
+        // on blur event:
+        element.bind('blur', function() {
+          if(model.assign !== undefined){
+            scope.$apply(model.assign(scope, false));
+          }
+        });
+      }
+    };
+  }]);  
 });
 
 

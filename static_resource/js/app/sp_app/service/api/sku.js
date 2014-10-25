@@ -25,29 +25,39 @@ define(
     ){
     	return{
     		add_sku : function(product_id,sku){
-				var promise_ing = $http({
+                var defer = $q.defer();
+				$http({
 					url:'/product/sku_add_angular',
 					method:'POST',
 					data: {product_id:product_id,sku_str:sku}
-				});
-				var promise_ed = promise_ing.then(
-					 function(data){ return Store_product.build(data.data); }
-					,function(reason){ return $q.reject('adding sku from another store for exiting product ajax error'); }
+				})
+                .then(
+					function(data){ 
+                        defer.resolve(Store_product.build(data.data));
+                    }
+					,function(reason){
+                        defer.reject(reason); 
+                    }
 				)    			
-				return promise_ed;
+				return defer.promise;
     		},
 
             delete_sku : function(product_id,sku){
-                var promise_ing = $http({
+                var defer = $q.defer();
+                $http({
                     url:'/product/sku_assoc_delete_angular',
                     method:'POST',
                     data:{product_id:product_id,sku_str:sku}
-                });
-                var promise_ed = promise_ing.then(
-                     function(data){ var defer=$q.defer();defer.resolve(Store_product.build(data.data));return defer.promise; }
-                    ,function(reason){ return $q.reject('deleting sku subription ajax error'); }
+                })
+                .then(
+                    function(data){ 
+                        defer.resolve(Store_product.build(data.data));
+                    }
+                    ,function(reason){ 
+                        defer.reject(reason); 
+                    }
                 )        
-                return promise_ed;        
+                return defer.promise;        
             }
     	}
     }])

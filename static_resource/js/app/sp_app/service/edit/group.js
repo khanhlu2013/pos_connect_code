@@ -105,7 +105,7 @@ define(
                         angular.copy(data,$scope.original_sp);
                         $modalInstance.close($scope.original_sp);
                     },function(reason){
-                        alert_service('alert',reason,'red');
+                        alert_service(reason);
                     }
                 )
             };

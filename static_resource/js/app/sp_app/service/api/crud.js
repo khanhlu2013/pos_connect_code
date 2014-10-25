@@ -31,8 +31,12 @@ define(
                     method: 'POST',
                     data:{sku_str:sku,sp:JSON.stringify(sp)}
                 }).then(
-                     function(data){ defer.resolve(Store_product.build(data.data)) }
-                    ,function(reason){ defer.reject('create new product ajax error')}
+                    function(data){ 
+                        defer.resolve(Store_product.build(data.data)) 
+                    }
+                    ,function(reason){ 
+                        defer.reject(reason);
+                    }
                 )
                 return defer.promise;
             },
@@ -44,8 +48,12 @@ define(
                     method:'POST',
                     data:{product_id:product_id,sku_str:sku,sp:JSON.stringify(sp)}
                 }).then(
-                     function(data){ defer.resolve(Store_product.build(data.data)); }
-                    ,function(reason){ defer.reject('insert old sp product ajax error'); }
+                    function(data){ 
+                        defer.resolve(Store_product.build(data.data)); 
+                    }
+                    ,function(reason){ 
+                        defer.reject(reason);
+                    }
                 )
                 return defer.promise;
             },
@@ -57,8 +65,12 @@ define(
                     method: 'POST',
                     data:{sp:JSON.stringify(sp)}
                 }).then(
-                     function(data){ defer.resolve(Store_product.build(data.data))}
-                    ,function(){ defer.reject('update product ajax error');}
+                    function(data){ 
+                        defer.resolve(Store_product.build(data.data))
+                    }
+                    ,function(reason){ 
+                        defer.reject(reason);
+                    }
                 )
                 return defer.promise;
             }

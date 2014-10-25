@@ -23,7 +23,7 @@ define(
         ,'sp_app/service/create'
         ,'sp_app/service/duplicate'
         ,'filter'
-        ,'share_directive'
+        ,'directive/share_directive'
         ,'service/ui'
         ,'sp_app/service/api/search'
         // ,'blockUI'
@@ -96,11 +96,15 @@ define(
                              function(created_sp){ 
                                 $scope.sp_lst = [created_sp];
                             }
-                            ,function(reason){alert_service('alert',reason,'red');}
+                            ,function(reason){
+                                alert_service(reason);
+                            }
                         );
                     } 
                 }
-                ,function(reason){ alert_service('alert',reason,'red') }
+                ,function(reason){ 
+                    alert_service(reason) 
+                }
             )
         }
         //NAME SEARCH
@@ -114,18 +118,16 @@ define(
                 return;
             }
 
-            //3 character search minimum
-            if($scope.name_search_str.replace(' ','').length<3){
-                alert_service('alert','3 character search minimum','red');
-                return;
-            }
-
             api.name_search($scope.name_search_str).then(
                 function(data){
                     $scope.sp_lst = data;
-                    if(data.length == 0){ alert_service('info','no result found for ' + '"' + $scope.name_search_str + '"','blue');}
+                    if(data.length == 0){ 
+                        alert_service('no result found for ' + '"' + $scope.name_search_str + '"','info','blue');
+                    }
                 }
-                ,function(reason){ alert_service('alert',reason,'red'); }
+                ,function(reason){ 
+                    alert_service(reason); 
+                }
             )
         }
         //SHOW SP INFO
@@ -135,12 +137,18 @@ define(
                     if(typeof(data) == 'string' && data == 'duplicate'){
                         duplicate_service(sp).then
                         (
-                             function(data){ $scope.sp_lst=[data]; }
-                            ,function(reason){ alert_service('alert',reason,'red');}
+                            function(data){ 
+                                $scope.sp_lst=[data]; 
+                            }
+                            ,function(reason){ 
+                                alert_service(reason);
+                            }
                         )
                     }
                 }
-                ,function(reason){ alert_service('alert',reason,'red');}
+                ,function(reason){ 
+                    alert_service(reason);
+                }
             )
         }
         function launch_pos_url(){
@@ -150,14 +158,18 @@ define(
             is_pouch_exist().then(
                  function(db_exitance){
                     if(db_exitance){
-                        launch_pos_url();
+                        confirm_service('launch pos?').then(function(){
+                            launch_pos_url();
+                        });                        
                     }else{
-                        confirm_service('you are about to download your product database offline. continue?').then(function(){
-                            launch_pos_url()
+                        confirm_service('first time download database. continue?').then(function(){
+                            launch_pos_url();
                         });
                     }
                  }
-                ,function(reason){alert_service('alert',reason,'red')}
+                ,function(reason){
+                    alert_service(reason)
+                }
             )
         }
     }]);

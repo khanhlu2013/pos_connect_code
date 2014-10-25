@@ -30,8 +30,12 @@ define(
                 method:'POST',
                 data:{ pt:JSON.stringify(pt) }
             }).then(
-                 function(data){ defer.resolve(Payment_type.build(data.data)); }
-                ,function(reason){ return $q.reject('edit payment type ajax error');}
+                function(data){ 
+                    defer.resolve(Payment_type.build(data.data)); 
+                }
+                ,function(reason){ 
+                    defer.reject(reason);
+                }
             )            
             return defer.promise;
         }
@@ -42,21 +46,31 @@ define(
                 method:'POST',
                 data:{ pt:JSON.stringify(pt) }
             }).then(
-                 function(data){ defer.resolve(Payment_type.build(data.data)); }
-                ,function(reason){ defer.reject('create payment type ajax error'); }
+                function(data){ 
+                    defer.resolve(Payment_type.build(data.data)); 
+                }
+                ,function(reason){ 
+                    defer.reject(reason);
+                }
             )
             return defer.promise;
         }
         function get_lst(){
-            var promise_ing = $http({
+            var defer = $q.defer();
+
+            $http({
                 url:'/payment_type/get',
                 method:'GET',                       
-            });
-            var promise_ed = promise_ing.then(
-                 function(data){ return data.data.map(Payment_type.build); }
-                ,function(reason){ return $q.reject('get payment type list ajax error'); }
+            })
+            .then(
+                function(data){ 
+                    defer.resolve(data.data.map(Payment_type.build));
+                }
+                ,function(reason){ 
+                    defer.reject(reason);
+                }
             );
-            return promise_ed;
+            return defer.promise;
         }
         return{
              get_lst : get_lst

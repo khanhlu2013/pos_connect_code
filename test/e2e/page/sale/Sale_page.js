@@ -21,7 +21,11 @@ var Sale_page = function () {
     this.shortcut_lst = element.all(by.repeater("row_usage in row_lst"));
 
     //function menu
-    this.menu_report_receipt = function(){lib.click(this.menu_report);lib.click(element(by.id('sale_app/menu/report/receipt')));}
+    this.menu_report_receipt = function(){
+        lib.click(this.menu_report);
+        lib.click(element(by.id('sale_app/menu/report/receipt')));
+        lib.wait_for_block_ui();//when receipt dialog open it automatically get offline receipt to push and auto download 15 latest receipts. lets wait for it before we do anything else
+    }
     this.menu_setting_payment_type = function(){lib.click(this.menu_setting);lib.click(element(by.id('sale_app/menu/setting/payment_type')));}
     this.menu_setting_shortcut = function(){lib.click(this.menu_setting);lib.click(element(by.id('sale_app/menu/setting/shortcut')));}
     this.menu_action_hold = function(){lib.click(this.menu_action);lib.click(element(by.id('sale_app/menu/action/hold')));}

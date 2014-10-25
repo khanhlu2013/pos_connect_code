@@ -10,56 +10,116 @@ define(
 )
 {
     var mod = angular.module('group_app/service/api',['group_app/model']);
-    mod.factory('group_app/service/api',['$http','$q','group_app/model/Group',function($http,$q,Group){
-        return{
-            create:function(group_prompt_result){
-                var promise = $http({
-                    url:'/group/insert_angular',
-                    method:'POST',
-                    data:{group:JSON.stringify(group_prompt_result)}
-                });
-                return promise.then(
-                    function(data){
-                        return Group.build(data.data);
-                    },
-                    function(){
-                        return $q.reject('insert ajax error');
-                    }
-                );
-            },
-            get_lst:function(){
-                /*
-                    data return is a group but not containing breakdown product for speed reason
-                */
-                var promise_ing = $http({
-                    url:'/group/get_lst',
-                    method:'GET',
-                });             
-                var promise_ed = promise_ing.then(
-                    function(data){
-                        return data.data.map(Group.build);
-                    },function(){
-                        return $q.reject('get group list ajax error');
-                    }
-                )
-                return promise_ed;
-            },
-            get_item:function(group_id){
-                var defer = $q.defer();
+    mod.factory('group_app/service/api',
+    [
+         '$http'
+        ,'$q'
+        ,'group_app/model/Group'
+    ,function(
+         $http
+        ,$q
+        ,Group
+    ){
+        function get_item(group_id){
+            var defer = $q.defer();
 
-                $http({
-                    url:'/group/get_item',
-                    method:'GET',
-                    params:{group_id:group_id}
-                }).then(
-                    function(data){
-                        defer.resolve(Group.build(data.data));
-                    },function(){
-                        defer.reject('get group item ajax error');
+            $http({
+                url:'/group/get_item',
+                method:'GET',
+                params:{group_id:group_id}
+            }).then(
+                function(data){
+                    defer.resolve(Group.build(data.data));
+                },function(reason){
+                    defer.reject(reason);
+                }
+            )
+            return defer.promise;
+        }
+        function edit_item(prompt_data,group_id){
+            var defer = $q.defer();
+            $http({
+                url:'/group/update_angular',
+                method:'POST',
+                data:{group:JSON.stringify(prompt_data),id:group_id}
+            })
+            .then(
+                function(data){
+                    defer.resolve(data.data);
+                }
+                ,function(reason){ 
+                    defer.reject(reason);
+                }
+            )
+            return defer.promise;
+        }
+        function get_lst(){
+            /*
+                data return is a group but not containing breakdown product for speed reason
+            */
+            var defer = $q.defer();
+            $http({
+                url:'/group/get_lst',
+                method:'GET',
+            }).then(
+                function(data){
+                    defer.resolve(data.data.map(Group.build));
+                },function(reason){
+                    defer.reject(reason);
+                }
+            )
+            return defer.promise;
+        }
+        function create(group_prompt_result){
+            var defer = $q.defer();
+            $http({
+                url:'/group/insert_angular',
+                method:'POST',
+                data:{group:JSON.stringify(group_prompt_result)}
+            }).then(
+                function(data){
+                    defer.resolve(Group.build(data.data));
+                },
+                function(reason){
+                    return $q.reject(reason);
+                }
+            );
+            return defer.promise;
+        }
+        function delete_item(group_id){
+            var defer = $q.defer();
+            get_item(group_id).then(
+                function(group){
+                    if(group.sp_lst.length === 0){
+                        $http({
+                            url:'/group/delete_angular',
+                            method:'POST',
+                            data:{group_id:group_id}
+                        }).then(
+                            function(){
+                                defer.resolve();
+                            },
+                            function(reason){
+                                defer.reject(reason);
+                            }
+                        );
+                    }else{
+                        defer.reject('group must be empty to be deleted');
                     }
-                )
-                return defer.promise;
-            }
+                }
+                ,function(reason){
+                    defer.reject(reason);
+                }
+            )
+            return defer.promise;
+        }        
+
+        return{
+            delete_item:delete_item,
+            create:create,
+            get_lst:get_lst,
+            get_item:get_item,
+            edit_item:edit_item
         }
     }])
 })

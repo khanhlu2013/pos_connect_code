@@ -58,6 +58,6 @@ describe('payment_type_app', function() {
 
         //clean up
         Manage_dlg.exit();
-        lib.auth.logout();
+        lib.auth.logout();        
     });
 });

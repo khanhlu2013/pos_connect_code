@@ -438,19 +438,8 @@ define(
             };
         }
         ModalCtrl.$inject = ['$scope','$modalInstance','$filter','original_sp','suggest_product','duplicate_sp','original_sku','lookup_type_tag'];
-        function get_lookup_type_tag(){
-            var defer = $q.defer();
-            $http({
-                url:'/product/get_lookup_type_tag',
-                method:'GET'
-            }).then(
-                 function(data){defer.resolve(data.data);}
-                ,function(reason){defer.resolve({});}
-            )
-            return defer.promise;
-        }
 
-        return function(original_sp,suggest_product,duplicate_sp,sku){
+        return function(original_sp,suggest_product,duplicate_sp,sku,is_operate_offline){
             var dlg = $modal.open({
                 template: template,
                 controller: ModalCtrl,
@@ -461,7 +450,26 @@ define(
                     ,suggest_product : function(){return suggest_product}
                     ,duplicate_sp : function(){return duplicate_sp}
                     ,original_sku : function(){return sku}
-                    ,lookup_type_tag : get_lookup_type_tag
+                    ,lookup_type_tag : function (){
+                        var defer = $q.defer();
+                        if(is_operate_offline){
+                            defer.resolve([]);
+                        }else{
+                            $http({
+                                url:'/product/get_lookup_type_tag',
+                                method:'GET'
+                            }).then(
+                                 function(data){
+                                    defer.resolve(data.data);
+                                }
+                                ,function(reason){
+                                    defer.reject(reason);
+                                }
+                            )                            
+                        }
+
+                        return defer.promise;
+                    }                    
                 }
             });
             return dlg.result;

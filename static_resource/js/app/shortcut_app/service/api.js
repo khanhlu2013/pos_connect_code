@@ -17,8 +17,12 @@ define(
                 url:'/sale_shortcut/get',
                 method:'GET',
             }).then(
-                 function(data){ defer.resolve(data.data); }
-                ,function(reason){ defer.reject('get shortcut list ajax error')}
+                function(data){ 
+                    defer.resolve(data.data); 
+                }
+                ,function(reason){ 
+                    defer.reject(reason)
+                }
             )
             return defer.promise; 
         }

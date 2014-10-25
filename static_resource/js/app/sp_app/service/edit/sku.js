@@ -71,15 +71,23 @@ define(
                         api_sku.add_sku($scope.sp.product_id,sku).then(
                             function(updated_sp){ 
                                 sync_if_nessesary().then(
-                                     function(){ angular.copy(updated_sp,$scope.sp); }
-                                    ,function(reason){ alert_service('alert',reason,'red'); }
+                                    function(){ 
+                                        angular.copy(updated_sp,$scope.sp); 
+                                    }
+                                    ,function(reason){ 
+                                        alert_service(reason); 
+                                    }
                                 )
 
                             }
-                            ,function(reason){alert_service('alert',reason,'red')}
+                            ,function(reason){
+                                alert_service(reason)
+                            }
                         )
                     }
-                    ,function(reason){ alert_service('alert',reason,'red'); }
+                    ,function(reason){ 
+                        alert_service(reason); 
+                    }
                 )
             }
 
@@ -89,11 +97,17 @@ define(
                         api_sku.delete_sku($scope.sp.product_id,prod_sku_assoc.sku_str).then(
                             function(updated_sp){
                                 sync_if_nessesary().then(
-                                     function(){angular.copy(updated_sp,$scope.sp);}
-                                    ,function(reason){alert_service('alert',reason,'red');}
+                                    function(){
+                                        angular.copy(updated_sp,$scope.sp);
+                                    }
+                                    ,function(reason){
+                                        alert_service(reason);
+                                    }
                                 )
                             }
-                            ,function(reason){alert_service('alert',reason,'red')}
+                            ,function(reason){
+                                alert_service(reason)
+                            }
                         )
                     }
                     ,function(){/*confirm cancel, do nothing*/}

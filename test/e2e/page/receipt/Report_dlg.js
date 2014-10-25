@@ -9,6 +9,8 @@ var Report_dlg = function () {
     var online_receipt_lst = element.all(by.repeater('online_receipt in online_receipt_lst | orderBy:\'-date\''));
     var online_receipt_ln_lst = element.all(by.repeater('receipt_ln in $parent.cur_online_receipt.receipt_ln_lst | orderBy:\'date\''));
 
+    this.control_panel = element(by.id('receipt_app/service/report/control_panel'));
+
     var get_receipt_col = function(col_name){
         if(col_name === 'time')         { return 0; }
         else if(col_name === 'total')   { return 1; }
@@ -30,12 +32,8 @@ var Report_dlg = function () {
                 return online_receipt_lst.get(index).all(by.tagName('td')).get(col_index).getText();
             }
             ,click_col:function(index,col_name){
-                if(col_name === 'info'){
-                    lib.click(online_receipt_lst.get(0).all(by.css('.btn')).get(0));
-                }else{
-                    var col_index = get_receipt_col(col_name);
-                    lib.click(online_receipt_lst.get(index).all(by.tagName('td')).get(col_index));                    
-                }
+                var col_index = get_receipt_col(col_name);
+                lib.click(online_receipt_lst.get(index).all(by.tagName('td')).get(col_index));    
             }
             ,summary : {
                 get_tender_title_lbl:function(pt_id){
@@ -101,25 +99,13 @@ var Report_dlg = function () {
         }
     }
 
-    //tab
-    this.offline_tab = element(by.id('receipt_app/service/report/tab/offline'));
-    this.online_tab = element(by.id('receipt_app/service/report/tab/online'));
-
     //btn
     this.exit_btn = element(by.id('receipt_app/service/report/exit_btn'));
-    this.push_btn = element(by.id('receipt_app/service/report/push_btn'));
     this.today_report_btn = element(by.id('receipt_app/service/report/today_report_btn'));
 
     //function btn
     this.exit = function(){ lib.click(this.exit_btn); }
-    this.push = function(){ lib.click(this.push_btn); }
     this.today_report = function() { lib.click(this.today_report_btn); }
-
-    //function tab
-    this.switch_tab = function(tab){
-        if(tab === 'online'){ lib.click(this.online_tab); }
-        else if(tab === 'offline'){ lib.click(this.offline_tab); }
-    }
 }
 
 module.exports = new Report_dlg();

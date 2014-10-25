@@ -62,6 +62,7 @@ describe('Receipt pusher', function() {
         var offline_buydown = 0.45;
         Sale_page.scan(offline_sku);
         Ui_confirm_dlg.ok();//confirm that product will be create offline
+        browser.sleep(3000);
         Sp_prompt_dlg.set_name(offline_name);
         Sp_prompt_dlg.set_price(offline_price);
         Sp_prompt_dlg.set_value_customer_price(offline_value_customer_price);
@@ -97,15 +98,6 @@ describe('Receipt pusher', function() {
 
         //push receipt
         Sale_page.menu_report_receipt();
-        expect(Report_dlg.offline.receipt.lst.count()).toEqual(1);
-
-        Report_dlg.push();
-        lib.wait_for_block_ui();
-        expect(Report_dlg.offline.receipt.lst.count()).toEqual(0);
-
-        //check online receipt
-        Report_dlg.switch_tab('online');
-        Report_dlg.today_report();
         expect(Report_dlg.online.receipt.lst.count()).toEqual(1);
         
         expect(Report_dlg.online.receipt.get_col(0,'total')).toEqual('$39.53');

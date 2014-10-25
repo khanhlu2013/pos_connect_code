@@ -19,7 +19,7 @@ describe('receipt_app\'s Report dialog', function() {
     it('can work on sp page without pouchdb',function(){
         lib.auth.login('1','1');
         Sp_page.menu_report_receipt();
-        expect(Report_dlg.offline.receipt.lst.count()).toEqual(0);
+        expect(Report_dlg.online.receipt.lst.count()).toEqual(0);
         
         //clean up
         Report_dlg.exit();
@@ -69,12 +69,12 @@ describe('receipt_app\'s Report dialog', function() {
 
         //test report
         Sale_page.menu_report_receipt();
-        expect(Report_dlg.offline.receipt.lst.count()).toEqual(1);
-        Report_dlg.offline.receipt.click_col(0,'info');
-        expect(Report_dlg.offline.receipt_ln.lst.count()).toEqual(4);
+        expect(Report_dlg.online.receipt.lst.count()).toEqual(1);
+        Report_dlg.online.receipt.click_col(0,'info');
+        expect(Report_dlg.online.receipt_ln.lst.count()).toEqual(4);
 
         //deal_crv_buydown_buydonwtax <-> 0_0_0_0
-        Report_dlg.offline.receipt_ln.click_col(0,'price');
+        Report_dlg.online.receipt_ln.click_col(0,'price');
 
         expect(Sale_able_info_dlg.override_price_btn.isDisplayed()).toBe(false);
         expect(Sale_able_info_dlg.remove_override_price_btn.isDisplayed()).toBe(false);
@@ -91,7 +91,7 @@ describe('receipt_app\'s Report dialog', function() {
         Sale_able_info_dlg.cancel();
 
         //deal_crv_buydown_buydonwtax <-> 1_0_0_0
-        Report_dlg.offline.receipt_ln.click_col(1,'price');
+        Report_dlg.online.receipt_ln.click_col(1,'price');
         expect(Sale_able_info_dlg.override_price_btn.isDisplayed()).toBe(false);
         expect(Sale_able_info_dlg.remove_override_price_btn.isDisplayed()).toBe(false);
         expect(Sale_able_info_dlg.preset_price_lbl.getText()).toEqual('$2.00');
@@ -107,7 +107,7 @@ describe('receipt_app\'s Report dialog', function() {
         Sale_able_info_dlg.cancel();
 
         //deal_crv_buydown_buydonwtax <-> 0_1_0_0
-        Report_dlg.offline.receipt_ln.click_col(2,'price');
+        Report_dlg.online.receipt_ln.click_col(2,'price');
         expect(Sale_able_info_dlg.override_price_btn.isDisplayed()).toBe(false);
         expect(Sale_able_info_dlg.remove_override_price_btn.isDisplayed()).toBe(false);
         expect(Sale_able_info_dlg.preset_price_lbl.getText()).toEqual('$3.00');
@@ -123,7 +123,7 @@ describe('receipt_app\'s Report dialog', function() {
         Sale_able_info_dlg.cancel();
 
         //deal_crv_buydown_buydonwtax <-> 0_0_1_1
-        Report_dlg.offline.receipt_ln.click_col(3,'price');
+        Report_dlg.online.receipt_ln.click_col(3,'price');
         expect(Sale_able_info_dlg.override_price_btn.isDisplayed()).toBe(false);
         expect(Sale_able_info_dlg.remove_override_price_btn.isDisplayed()).toBe(false);
         expect(Sale_able_info_dlg.preset_price_lbl.getText()).toEqual('$4.00');
@@ -237,50 +237,50 @@ describe('receipt_app\'s Report dialog', function() {
         )        
         //check receipt report
         Sale_page.menu_report_receipt();
-        expect(Report_dlg.offline.receipt.lst.count()).toEqual(7);
+        expect(Report_dlg.online.receipt.lst.count()).toEqual(7);
 
         //verify payment type
-        Report_dlg.offline.receipt.click_col(0,'info');
+        Report_dlg.online.receipt.click_col(0,'info');
         browser.wait(function(){
             return pt_lst_from_server !== null;//when it is true, quit waiting
         }).then(
             function(){
-                expect(Report_dlg.offline.receipt.summary.get_tender_lbl(null)).toEqual(lib.currency(cash_amount));
-                expect(Report_dlg.offline.receipt.summary.get_tender_lbl(pt_lst_from_server[0].id)).toEqual(lib.currency(pt_0_amount));
-                expect(Report_dlg.offline.receipt.summary.get_tender_lbl(pt_lst_from_server[1].id)).toEqual(lib.currency(pt_1_amount));
+                expect(Report_dlg.online.receipt.summary.get_tender_lbl(null)).toEqual(lib.currency(cash_amount));
+                expect(Report_dlg.online.receipt.summary.get_tender_lbl(pt_lst_from_server[0].id)).toEqual(lib.currency(pt_0_amount));
+                expect(Report_dlg.online.receipt.summary.get_tender_lbl(pt_lst_from_server[1].id)).toEqual(lib.currency(pt_1_amount));
 
-                expect(Report_dlg.offline.receipt.summary.get_tender_title_lbl(null)).toEqual('cash:');
-                expect(Report_dlg.offline.receipt.summary.get_tender_title_lbl(pt_lst_from_server[0].id)).toEqual(credit_card_pt + ':');
-                expect(Report_dlg.offline.receipt.summary.get_tender_title_lbl(pt_lst_from_server[1].id)).toEqual(check_pt + ':');
+                expect(Report_dlg.online.receipt.summary.get_tender_title_lbl(null)).toEqual('cash:');
+                expect(Report_dlg.online.receipt.summary.get_tender_title_lbl(pt_lst_from_server[0].id)).toEqual(credit_card_pt + ':');
+                expect(Report_dlg.online.receipt.summary.get_tender_title_lbl(pt_lst_from_server[1].id)).toEqual(check_pt + ':');
             }
         )    
 
         //buydown tax | 1
-        Report_dlg.offline.receipt.click_col(1,'info');
-        expect(Report_dlg.offline.receipt.summary.buydown_tax_lbl.getText()).toEqual('$0.04');
+        Report_dlg.online.receipt.click_col(1,'info');
+        expect(Report_dlg.online.receipt.summary.buydown_tax_lbl.getText()).toEqual('$0.04');
 
         //buydown tax | 0
-        Report_dlg.offline.receipt.click_col(2,'info');  
-        expect(Report_dlg.offline.receipt.summary.buydown_tax_lbl.isDisplayed()).toBeFalsy();
+        Report_dlg.online.receipt.click_col(2,'info');  
+        expect(Report_dlg.online.receipt.summary.buydown_tax_lbl.isDisplayed()).toBeFalsy();
 
         //crv-saving | 1-1
-        Report_dlg.offline.receipt.click_col(3,'info');
-        expect(Report_dlg.offline.receipt.summary.crv_lbl.getText()).toEqual('$0.10');
-        expect(Report_dlg.offline.receipt.summary.saving_lbl.getText()).toEqual('($2.01)');
+        Report_dlg.online.receipt.click_col(3,'info');
+        expect(Report_dlg.online.receipt.summary.crv_lbl.getText()).toEqual('$0.10');
+        expect(Report_dlg.online.receipt.summary.saving_lbl.getText()).toEqual('($2.01)');
                         
         //crv-saving | 0-1
-        Report_dlg.offline.receipt.click_col(4,'info');
-        expect(Report_dlg.offline.receipt.summary.crv_lbl.isDisplayed()).toBeFalsy();
-        expect(Report_dlg.offline.receipt.summary.saving_lbl.getText()).toEqual('($2.01)');
+        Report_dlg.online.receipt.click_col(4,'info');
+        expect(Report_dlg.online.receipt.summary.crv_lbl.isDisplayed()).toBeFalsy();
+        expect(Report_dlg.online.receipt.summary.saving_lbl.getText()).toEqual('($2.01)');
 
         //crv-saving | 1-0
-        Report_dlg.offline.receipt.click_col(5,'info'); 
-        expect(Report_dlg.offline.receipt.summary.crv_lbl.getText()).toEqual('$0.10');
-        expect(Report_dlg.offline.receipt.summary.saving_lbl.isDisplayed()).toBeFalsy();
+        Report_dlg.online.receipt.click_col(5,'info'); 
+        expect(Report_dlg.online.receipt.summary.crv_lbl.getText()).toEqual('$0.10');
+        expect(Report_dlg.online.receipt.summary.saving_lbl.isDisplayed()).toBeFalsy();
 
         //crv-saving | 0-0
-        Report_dlg.offline.receipt.click_col(6,'info'); 
-        expect(Report_dlg.offline.receipt.summary.subtotal_derivation_lbl.isDisplayed()).toBeFalsy();
+        Report_dlg.online.receipt.click_col(6,'info'); 
+        expect(Report_dlg.online.receipt.summary.subtotal_derivation_lbl.isDisplayed()).toBeFalsy();
 
         //clean up
         Report_dlg.exit();
@@ -326,21 +326,22 @@ describe('receipt_app\'s Report dialog', function() {
         )        
         //check receipt report
         Sale_page.menu_report_receipt();
-        expect(Report_dlg.offline.receipt.lst.count()).toEqual(1);
+        expect(Report_dlg.online.receipt.lst.count()).toEqual(1);
 
         //verify payment type
-        Report_dlg.offline.receipt.click_col(0,'info');
+        Report_dlg.online.receipt.click_col(0,'info');
+        browser.sleep(3000);
         browser.wait(function(){
             return pt_lst_from_server !== null;//when it is true, quit waiting
         }).then(
             function(){
-                expect(Report_dlg.offline.receipt.summary.get_tender_lbl(null)).toEqual(lib.currency(cash_amount));
-                expect(Report_dlg.offline.receipt.summary.get_tender_lbl(pt_lst_from_server[0].id)).toEqual(lib.currency(pt_0_amount));
-                expect(Report_dlg.offline.receipt.summary.get_tender_lbl(pt_lst_from_server[1].id)).toEqual(lib.currency(pt_1_amount));
+                expect(Report_dlg.online.receipt.summary.get_tender_lbl(null)).toEqual(lib.currency(cash_amount));
+                expect(Report_dlg.online.receipt.summary.get_tender_lbl(pt_lst_from_server[0].id)).toEqual(lib.currency(pt_0_amount));
+                expect(Report_dlg.online.receipt.summary.get_tender_lbl(pt_lst_from_server[1].id)).toEqual(lib.currency(pt_1_amount));
 
-                expect(Report_dlg.offline.receipt.summary.get_tender_title_lbl(null)).toEqual('cash:');
-                expect(Report_dlg.offline.receipt.summary.get_tender_title_lbl(pt_lst_from_server[0].id)).toEqual(credit_card_pt + ':');
-                expect(Report_dlg.offline.receipt.summary.get_tender_title_lbl(pt_lst_from_server[1].id)).toEqual(check_pt + ':');
+                expect(Report_dlg.online.receipt.summary.get_tender_title_lbl(null)).toEqual('cash:');
+                expect(Report_dlg.online.receipt.summary.get_tender_title_lbl(pt_lst_from_server[0].id)).toEqual(credit_card_pt + ':');
+                expect(Report_dlg.online.receipt.summary.get_tender_title_lbl(pt_lst_from_server[1].id)).toEqual(check_pt + ':');
             }
         )    
 
@@ -355,18 +356,18 @@ describe('receipt_app\'s Report dialog', function() {
 
         //verify new pt
         Sale_page.menu_report_receipt();
-        Report_dlg.offline.receipt.click_col(0,'info');
+        Report_dlg.online.receipt.click_col(0,'info');
         browser.wait(function(){
             return pt_lst_from_server !== null;//when it is true, quit waiting
         }).then(
             function(){
-                expect(Report_dlg.offline.receipt.summary.get_tender_lbl(null)).toEqual(lib.currency(cash_amount));
-                expect(Report_dlg.offline.receipt.summary.get_tender_lbl(pt_lst_from_server[0].id)).toEqual(lib.currency(pt_0_amount));
-                expect(Report_dlg.offline.receipt.summary.get_tender_lbl(pt_lst_from_server[1].id)).toEqual(lib.currency(pt_1_amount));
+                expect(Report_dlg.online.receipt.summary.get_tender_lbl(null)).toEqual(lib.currency(cash_amount));
+                expect(Report_dlg.online.receipt.summary.get_tender_lbl(pt_lst_from_server[0].id)).toEqual(lib.currency(pt_0_amount));
+                expect(Report_dlg.online.receipt.summary.get_tender_lbl(pt_lst_from_server[1].id)).toEqual(lib.currency(pt_1_amount));
 
-                expect(Report_dlg.offline.receipt.summary.get_tender_title_lbl(null)).toEqual('cash:');
-                expect(Report_dlg.offline.receipt.summary.get_tender_title_lbl(pt_lst_from_server[0].id)).toEqual(credit_card_pt + ':');
-                expect(Report_dlg.offline.receipt.summary.get_tender_title_lbl(pt_lst_from_server[1].id)).toEqual(new_check_pt + ':');
+                expect(Report_dlg.online.receipt.summary.get_tender_title_lbl(null)).toEqual('cash:');
+                expect(Report_dlg.online.receipt.summary.get_tender_title_lbl(pt_lst_from_server[0].id)).toEqual(credit_card_pt + ':');
+                expect(Report_dlg.online.receipt.summary.get_tender_title_lbl(pt_lst_from_server[1].id)).toEqual(new_check_pt + ':');
             }
         ) 
 

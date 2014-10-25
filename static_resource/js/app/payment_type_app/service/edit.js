@@ -2,7 +2,6 @@ define(
 [
     'angular'
     //--
-    ,'service/ui'
     ,'app/payment_type_app/service/prompt'
     ,'app/payment_type_app/service/api'    
 ]
@@ -13,8 +12,7 @@ define(
 {
     var mod = angular.module('payment_type_app/service/edit',
     [
-         'service/ui'
-        ,'payment_type_app/service/prompt'
+         'payment_type_app/service/prompt'
         ,'payment_type_app/service/api'         
     ]);
     mod.factory('payment_type_app/service/edit',
@@ -22,13 +20,11 @@ define(
          '$http'
         ,'$q'
         ,'payment_type_app/service/prompt'
-        ,'service/ui/alert'
         ,'payment_type_app/service/api'
     ,function(
          $http
         ,$q
         ,prompt_service
-        ,alert_service
         ,api
     ){
         return function(prefill_pt){

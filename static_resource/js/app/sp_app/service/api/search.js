@@ -30,7 +30,6 @@ define(
         return {
             product_id_search : function(product_id){
                 var defer = $q.defer();
-
                 $http({
                     url:'/product/search_by_product_id',
                     method:'GET',
@@ -40,33 +39,47 @@ define(
                         var sp = Store_product.build(data.data);
                         defer.resolve(sp); 
                     }
-                    ,function(reason){ defer.reject('search by product id ajax error'); }
+                    ,function(reason){ 
+                        defer.reject(reason); 
+                    }
                 )
 
                 return defer.promise;
             }
             ,name_search: function(name_search_str){
+                var defer = $q.defer();
+
                 name_search_str = name_search_str.trim();
                 if(name_search_str.length == 0){
-                    var defer = $q.defer();defer.reject('error: name search is empty');return defer.promise;
+                    defer.reject('error: name search is empty');
+                    return defer.promise;
                 }
+
                 var words = name_search_str.split(' ');
                 if(words.length > 2){
-                    var defer = $q.defer();defer.reject('error: search 2 words maximum');return defer.promise;
+                    defer.reject('error: search 2 words maximum');
+                    return defer.promise;
                 }
-                var promise_ing = $http({
+
+                //3 character search minimum
+                if(name_search_str.replace(' ','').length<3){
+                    defer.reject('error: 3 character search minimum');
+                    return defer.promise;
+                }
+
+                $http({
                     url: '/product/search_by_name_angular',
                     method : "GET",
                     params: {name_str:name_search_str}
-                });
-                var promise_ed = promise_ing.then(
+                })
+                .then(
                     function(data){
-                        return data.data.map(Store_product.build)
+                        defer.resolve(data.data.map(Store_product.build));
                     },function(reason){
-                        return $q.reject('name search ajax error');
+                        defer.reject(reason);
                     }
                 )
-                return promise_ed;
+                return defer.promise
             }
 
             ,sku_search: function(sku_search_str){
@@ -100,16 +113,21 @@ define(
                 if(token_lst.length > 2){
                     var defer=$q.defer();defer.reject('2 words search max');return defer.promise;
                 }
-                var promise_ing = $http({
+                var defer = $q.defer();
+                $http({
                     url : '/product/search_by_name_sku_angular',
                     method: 'GET',
                     params : {'search_str':search_str}
-                });
-                var promise_ed = promise_ing.then(
-                     function(data){ return data.data.map(Store_product.build);}
-                    ,function(){return $q.reject('name sku search ajax error')}
+                })
+                .then(
+                    function(data){ 
+                        defer.resolve(data.data.map(Store_product.build));
+                    }
+                    ,function(reason){
+                        defer.reject(reason);
+                    }
                 )
-                return promise_ed;
+                return defer.promise;
             }
         }
     }])

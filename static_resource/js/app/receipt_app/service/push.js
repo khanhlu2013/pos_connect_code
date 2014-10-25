@@ -22,12 +22,14 @@ define(
         ,'receipt_app/service/api_offline'
         ,'service/db/remove_doc'
         ,'service/db/sync'
+        ,'blockUI'
     ,function(
          $http
         ,$q
         ,receipt_api_offline
         ,remove_doc
         ,sync_db
+        ,blockUI
     ){
         function clean_up(receipt_doc_id_lst,sp_doc_id_lst){
             var defer = $q.defer();
@@ -50,12 +52,16 @@ define(
         }
 
         return function(){
+            //return the number of receipt that is pushed into the server (in promise)
+            blockUI.start('uploading receipts ...')
             var defer = $q.defer();
 
             receipt_api_offline.get_receipt_lst().then(
                 function(receipt_lst){
-
-                    if(receipt_lst.length === 0){ defer.reject('_cancel_'); }
+                    if(receipt_lst.length === 0){
+                        defer.resolve(0); 
+                        blockUI.stop();
+                    }
                     else{
                         $http({
                              method: 'POST'
@@ -66,17 +72,26 @@ define(
                                 var receipt_doc_id_lst = response.data.receipt_doc_id_lst;
                                 var sp_doc_id_lst = response.data.sp_doc_id_lst;
                                 clean_up(receipt_doc_id_lst,sp_doc_id_lst).then(
-                                     function(){ defer.resolve(receipt_doc_id_lst.length); }
-                                    ,function(reason){ defer.reject(reason); }
+                                    function(){ 
+                                        defer.resolve(receipt_doc_id_lst.length); 
+                                        blockUI.stop();
+                                    }
+                                    ,function(reason){ 
+                                        defer.reject(reason); 
+                                        blockUI.stop();
+                                    }
                                 );
                             }
-                            ,function(reason){ defer.reject('push receipt ajax error'); }
+                            ,function(reason){ 
+                                defer.reject(reason);
+                                blockUI.stop(); 
+                            }
                         );                        
                     }
-
                 }
                 ,function(reason){ 
                     defer.reject(reason); 
+                    blockUI.stop();
                 }
             )
 

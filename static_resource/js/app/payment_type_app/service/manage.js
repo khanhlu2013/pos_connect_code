@@ -79,16 +79,24 @@ define(
                     $modalInstance.dismiss('_cancel_');
                 }
                 $scope.create = function(){
-                    var promise = create_service();
-                    promise.then(
-                         function(data){$scope.pt_lst.push(data);}
-                        ,function(reason){alert_service('alert',reason,'red');}
+                    create_service()
+                    .then(
+                        function(data){
+                            $scope.pt_lst.push(data);
+                        }
+                        ,function(reason){
+                            alert_service(reason);
+                        }
                     )
                 }
                 $scope.edit = function(pt){
                     edit_service(pt).then(
-                         function(data){ angular.copy(data,pt);}
-                        ,function(reason){ alert_service('alert',reason,'red'); }
+                        function(data){
+                            angular.copy(data,pt);
+                        }
+                        ,function(reason){
+                            alert_service(reason); 
+                        }
                     );
                 }
             }

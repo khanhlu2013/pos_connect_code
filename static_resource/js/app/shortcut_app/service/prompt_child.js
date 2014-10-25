@@ -74,7 +74,7 @@ define(
                             $scope.child.store_product = data;
 						},
 						function(reason){
-							alert_service('alert',reason,'red');
+							alert_service(reason);
 						}
 					)
 				}

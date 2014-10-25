@@ -5,6 +5,6 @@ from receipt import get_api,push_api
 urlpatterns = patterns('',
     url(r'^get_receipt_pagination$',login_required(get_api.get_receipt_pagination)),
     url(r'^get_receipt$',login_required(get_api.get_receipt)),
+    url(r'^get_receipt_by_count$',login_required(get_api.get_receipt_by_count)),
     url(r'^push$',login_required(push_api.exe)),
-
 )

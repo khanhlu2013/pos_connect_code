@@ -110,7 +110,7 @@ define(
                         }
                     }
                     if(select_index == null){
-                        alert_service('alert','bug: can not find index','red');
+                        alert_service('bug: can not find index');
                         return;
                     }
                     $scope.hold_lst.splice(select_index,1);

@@ -168,15 +168,23 @@ define(
             $scope.edit = function(){
                 if($scope.cur_tab == 'product'){
                     edit_sp($scope.sp).then(
-                         function(updated_sp){ angular.copy(updated_sp,$scope.sp); }
-                        ,function(reason){ alert_service('alert',reason,'red'); }
+                        function(updated_sp){ 
+                            angular.copy(updated_sp,$scope.sp); 
+                        }
+                        ,function(reason){ 
+                            alert_service(reason); 
+                        }
                     )
                 }else if($scope.cur_tab == 'group'){
                     edit_group($scope.sp);
                 }else if($scope.cur_tab == 'kit'){
                     edit_kit($scope.sp).then(
-                         function(updated_sp){ angular.copy(updated_sp,$scope.sp); }
-                        ,function(reason){ alert_service('alert',reason,'red'); }
+                        function(updated_sp){ 
+                            angular.copy(updated_sp,$scope.sp); 
+                        }
+                        ,function(reason){ 
+                            alert_service(reason); 
+                        }
                     )
                 }else if($scope.cur_tab == 'sku'){
                     edit_sku($scope.sp);

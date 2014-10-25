@@ -2,15 +2,23 @@ define(
 [
     'angular'
     //---
+    ,'directive/share_directive'
 ]
 ,function
 (
     angular
 )
 {
-    var mod = angular.module('service/ui',[]);
+    var mod = angular.module('service/ui',['directive/share_directive']);
 
-    mod.factory('service/ui/prompt',['$modal','service/ui/alert',function($modal,alert_service){
+    mod.factory('service/ui/prompt',
+    [
+         '$modal'
+        ,'service/ui/alert'
+    ,function(
+         $modal
+        ,alert_service
+    ){
         return function(message,prefill,is_null_allow,is_float){
             var template = 
                 '<div id="service/ui/prompt/dialog" class="modal-header alert alert-info">' +
@@ -18,7 +26,7 @@ define(
                 '</div>' +
                 '<div class="modal-body">' +
                     '<form name="form" novalidate>' +
-                        '<input id="service/ui/prompt/prompt_txt" name="answer" ng-model="$parent.answer" type="text" ng-required="!is_null_allow">' +
+                        '<input id="service/ui/prompt/prompt_txt" name="answer" ng-model="$parent.answer" type="text" ng-required="!is_null_allow" focus-me={{true}}>' +
                         '<label class="error" ng-show="form.answer.$error.required">require</label>' +
                     '</form>' +
                 '</div>' +
@@ -45,7 +53,7 @@ define(
                 }
                 $scope.ok = function(){
                     if($scope.answer && $scope.is_float && isNaN(+$scope.answer)){
-                        alert_service('error','invalid number','red');
+                        alert_service('invalid number');
                         return;
                     }
 
@@ -124,9 +132,26 @@ define(
     }]);
 
     mod.factory('service/ui/alert',['$modal',function($modal){
-        return function(title,message,color){
-            if(message=='_cancel_' || message==undefined/*cancel click*/ || message == 'backdrop click'){
-                return
+        return function(alert_obj,title,color){
+            if(title === undefined){
+                title = 'alert';
+            }
+            if(color === undefined){
+                color = 'red';
+            }
+            var message;
+            if(typeof(alert_obj) === 'string'){
+                message = alert_obj;
+                if(message === '_cancel_' || message === undefined/*cancel click*/ || message === 'backdrop click'){
+                    return
+                }
+            }else{
+                if(alert_obj.status === 0){
+                    message = 'internet is disconnected!'
+                }else{
+                    title= 'please report ajax bug:'
+                    message = 'url: ' + alert_obj.config.url;
+                }
             }
 
             var warning_class = ""

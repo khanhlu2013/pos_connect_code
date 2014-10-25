@@ -25,16 +25,21 @@ define(
     ){
         return{
             update : function(sp){
-                var promise_ing = $http({
+                var defer = $q.defer();
+                $http({
                     url:'/product/kit/update_angular',
                     method:'POST',
                     data:{sp:JSON.stringify(sp)}
-                });
-                var promise_ed = promise_ing.then(
-                     function(data){return Store_product.build(data.data);}
-                    ,function(){return $q.reject('update kit ajax error');}
+                })
+                .then(
+                    function(data){
+                        defer.resolve(Store_product.build(data.data));
+                    }
+                    ,function(reason){
+                        defer.reject(reason);
+                    }
                 )
-                return promise_ed;
+                return defer.promise;
             }
         }
     }])

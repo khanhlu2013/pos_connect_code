@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="{{ STATIC_URL }}css/ng-table.css">
     <link rel="stylesheet" href="{{ STATIC_URL }}css/share.css">
     <link rel="stylesheet" href="{{ STATIC_URL }}css/angular-block-ui.css">
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/hotkeys.css">
 
     <nav class="navbar navbar-inverse" role="navigation">
         <div class="container-fluid">
@@ -37,25 +38,27 @@
                             placeholder="sku" 
                             onClick="this.select();"
                             ng-enter="sku_scan()"
-                            ng-model="sku_search_str"                            
+                            ng-model="sku_search_str"     
+                            focus-me="is_focus_sku_txt"
                         >
                         <button 
                             id="sale_app/main_page/search_btn" 
                             ng-click="search()" 
                             type="button" 
-                            class="btn btn-primary navbar-btn glyphicon glyphicon-search">
+                            class="btn btn-primary navbar-btn">
+                            <i class="glyphicon glyphicon-search"></i>
                         </button>    
                         <button 
                             id="sale_app/main_page/non_inventory_btn" 
                             ng-click="non_inventory()" 
                             type="button" 
-                            class="btn btn-primary navbar-btn glyphicon">none inv
+                            class="btn btn-primary navbar-btn">none inv
                         </button>                           
                         <button 
                             id="sale_app/main_page/void_btn" 
                             ng-click="void()" 
                             type="button" 
-                            class="btn btn-warning navbar-btn glyphicon">void
+                            class="btn btn-warning navbar-btn">void
                         </button>     
                     </div>
                 </ul>
@@ -63,7 +66,7 @@
                     <li class="dropdown">
                         <a id="sale_app/menu/setting" href="#" class="dropdown-toggle" data-toggle="dropdown">setting <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li id="sale_app/menu/setting/tax" ng-click="menu_tax_edit()"><a href='#'>tax</a></li>
+                            <li id="sale_app/menu/setting/tax" ng-click="menu_tax_edit()"><a href='#'>tax_</a></li>
                             <li id="sale_app/menu/setting/group" ng-click="menu_group_manage()"><a href='#'>group</a></li>                 
                             <li id="sale_app/menu/setting/shortcut" ng-click="menu_shortcut_manage()"><a href='#'>shortcut</a></li>
                             <li id="sale_app/menu/setting/mix_match" ng-click="menu_mix_match_manage()"><a href='#'>mix match</a></li>
@@ -71,23 +74,24 @@
                         </ul>
                     </li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">report <b class="caret"></b></a>
+                        <a id="sale_app/menu/report" href="#" class="dropdown-toggle" data-toggle="dropdown">report <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li id='sale_app/menu/report/sale' ng-click="menu_report_sale()"><a href='#'>sale report</a></li>
                             <li class="divider"></li>
-                            <li ng-click="menu_receipt_report()"><a href='#'>receipt</a></li>
+                            <li id="sale_app/menu/report/receipt" ng-click="menu_receipt_report()"><a href='#'>receipt</a></li>
                         </ul>
                     </li>   
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">action <b class="caret"></b></a>
+                        <a id="sale_app/menu/action" href="#" class="dropdown-toggle" data-toggle="dropdown">action <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li id='push_receipt_menu'><a href='#'>push receipt</a></li>
                             <li id='sale_app/menu/action/hold' ng-click="hold()"><a href='#'>hold - ctrl+h</a></li>
                             <li id='sale_app/menu/action/get_hold' ng-click="get_hold_ui()"><a href='#'>get hold - ctrl+g</a></li>  
-                            <li id='sale_app/menu/action/toogle_value_customer_price'><a href='#'>value customer price - F5</a></li>                 
+                            <li id='sale_app/menu/action/toogle_value_customer_price' ng-click="toogle_value_customer_price()"><a href='#'>toogle value customer price - F2</a></li>                 
                         </ul>
                     </li>                    
-                    <li> <a id="logout_link" href='{% url "liquor_logout_named_url" %}'>{{ request.session.cur_login_store }} - {{ user }} - logout</a> </li>
+                    <!-- <li> <a id="logout_link" href='{% url "liquor_logout_named_url" %}'>{{ request.session.cur_login_store }} - {{ user }} - logout</a> </li> -->
+                    <li ng-click="logout()"><a id="logout_link" href='#'>{{ request.session.cur_login_store }} - {{ user }} - logout</a></li>
                 </ul>   
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
@@ -100,22 +104,23 @@
                 <tr>
                     <th>qty</th>
                     <th>product</th>            
-                    <th>price</th>                 
+                    <th>price</th>                
                     <th>remove</th>
                 </tr>
                 <tr ng-repeat="ds in ds_lst">
                     <td ng-click="edit_qty(ds)">{{ds.qty}}</td>
                     <td ng-click="edit_sp(ds)">{{ds.get_name()}}</td>
-                    <td ng-click="show_detail_price(ds)" class="alnright">{{ds.get_advertise_price()|currency}}</td>                   
-                    <td><button ng-click="remove_ds(ds)" class="btn btn-danger glyphicon glyphicon-trash"></button></td>
+                    <td ng-click="show_detail_price(ds)" class="alnright">{{ds.get_advertise_price()|currency}}</td>            
+                    <td class="alncenter"><button ng-click="remove_ds(ds)" class="btn btn-danger glyphicon glyphicon-trash"></button></td>
                 </tr>
             </table>
             <button 
                 ng-hide="ds_lst.length == 0"
                 id="sale_app/main_page/tender_btn" 
                 type="button" 
+                ng-click="finalize()"
                 class="btn btn-primary btn-lg">{{get_tender_amount()|currency}}
-            </button>                
+            </button>
         </div>
         <div class="col-sm-6">
             <table class="table table-bordered table-condensed sale_shortcut_tbl">
@@ -131,7 +136,7 @@
             </table>
         </div>
         <div class="clear"></div>
-        {{ds_lst}}
+        <!-- {{ds_lst}} -->
     {% endverbatim %}         
     </div>
 
@@ -147,9 +152,11 @@
         window._SHORTCUT_ROW_COUNT_         = {{SHORTCUT_ROW_COUNT_}};
         window._SHORTCUT_COLUMN_COUNT_      = {{SHORTCUT_COLUMN_COUNT_}};
         window._STORE_PRODUCT_DOCUMENT_TYPE_= "{{STORE_PRODUCT_DOCUMENT_TYPE}}";
+        window._RECEIPT_DOCUMENT_TYPE_      = "{{RECEIPT_DOCUMENT_TYPE}}";
     </script>
 
     <script data-main = "{{ STATIC_URL }}js/app/sale_app/app_2_test_offline/config.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script>
+
 </body>
 </html>
 

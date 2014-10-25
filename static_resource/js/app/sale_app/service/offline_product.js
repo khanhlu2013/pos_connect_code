@@ -43,7 +43,7 @@ define(
         return function(sku){
             var defer = $q.defer();
 
-            sp_prompt(null/*original_sp*/,null/*suggest_product*/,null/*duplicate_sp*/,sku).then(
+            sp_prompt(null/*original_sp*/,null/*suggest_product*/,null/*duplicate_sp*/,sku,true/*is_operate_offline*/).then(
                 function(data){
                     var sp = data.sp;
                     var doc = {
@@ -104,7 +104,7 @@ define(
                 return $q.reject('Bug: this is not a created offline product');
             }
 
-            sp_prompt(offline_create_product/*original_sp*/,null/*suggest_product*/,null/*duplicate_sp*/,null/*sku*/).then(
+            sp_prompt(offline_create_product/*original_sp*/,null/*suggest_product*/,null/*duplicate_sp*/,null/*sku*/,true/*is_operate_offline*/).then(
                 function(data){
                     var sp = data.sp;
                     var doc = {

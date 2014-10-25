@@ -3,91 +3,6 @@ var request = require('request');
 
 module.exports = {
 
-    // misc:{
-    //     wait_for_sync_if_nessesary : function (){
-    //         protractor.getInstance().sleep(1000);//an improvement can be made here by may be waiting for the loading css to be gone
-    //     }        
-    // },
-    // sale_page:{
-    //     scan : function(str){
-    //         var ptor = protractor.getInstance();
-    //         var enter_key = protractor.Key.ENTER;            
-    //         var scan_txt = element(by.id('sale_app/main_page/scan_txt'));
-    //         scan_txt.clear();
-    //         scan_txt.sendKeys(str,enter_key);
-    //         ptor.sleep(500);
-    //     },
-    //     load_this_page : function(milisec,is_offline){
-    //         var posUrl
-    //         if(is_offline)  {posUrl = 'http://127.0.0.1:8000/sale/index_offline_angular';}
-    //         else            {posUrl = 'http://127.0.0.1:8000/sale/index_angular';}
-    //         browser.get(posUrl);
-
-    //         // browser.wait(function(){
-    //         //     return element(by.css('.block-ui-overlay:not(.ng-hide)')).isDisplayed();
-    //         // })    
-    //         browser.wait(function(){ return element(by.css('.block-ui-overlay')).isDisplayed().then(function(val){ return !val; })});                    
-    //     },
-    //     get_index : function(col_name){
-    //         if(col_name === 'qty')          { return 0; }
-    //         else if(col_name === 'name')    { return 1; }
-    //         else if(col_name === 'price')   { return 2; }
-    //         else if(col_name === 'delete')  { return 3; }
-    //     }
-    // },
-    
-    // menu_report_receipt_page:{
-    //     get_receipt_index : function(col_name){
-    //         if(col_name === 'total'){
-    //             return 1;
-    //         }else{
-    //             return null;
-    //         }
-    //     },
-  
-    //     get_receipt_ln_index : function(col_name){
-    //         if      (col_name ==='qty')          { return 0; }
-    //         else if (col_name ==='product')      { return 1; }
-    //         else if (col_name ==='price')        { return 2; }
-    //         else                                 { return null; }
-    //     }        
-    // },
-
-    // product_page:{
-    //     get_line_text : function(data){
-    //         return browser.executeAsyncScript(function(data,callback){
-    //             var currencyFilter = angular.injector(['ng']).get('currencyFilter') ;
-    //             var str =
-    //                 data.name +
-    //                 ' ' + currencyFilter(data.price) +
-    //                 (data.crv == null ? "" : (' ' + currencyFilter(data.crv))) +
-    //                 (data.p_type == null ? "" : (' ' + data.p_type)) +
-    //                 (data.p_tag == null ? "" : (' ' + data.p_tag)) +
-    //                 (data.vendor == null ? "" : (' ' + data.vendor)) +
-    //                 (data.cost == null ? "" : (' ' + currencyFilter(data.cost))) +
-    //                 (data.buydown == null ? "" : (' ' + currencyFilter(data.buydown))) +
-    //                 (data.value_customer_price == null ? "" : (' ' + currencyFilter(data.value_customer_price)))
-    //             ;
-    //             callback(str);
-    //         },data);
-    //     }
-    // },
-
-    // ui:{
-    //     wait_for_block_ui : function(){
-    //         browser.wait(function(){ return element(by.css('.block-ui-overlay')).isDisplayed().then(function(val){ return !val; })});
-    //     },        
-    //     // click : function(item){
-    //     //     item.click();
-    //     // },
-    // },
-
-    //------------------------------------------------------------------------------------------------------------------------------------------
-    //------------------------------------------------------------------------------------------------------------------------------------------
-    //------------------------------------------------------------------------------------------------------------------------------------------
-    //------------------------------------------------------------------------------------------------------------------------------------------
-    //------------------------------------------------------------------------------------------------------------------------------------------
-    
     api_group:{
         insert_empty_group : function(group_name){
             return browser.executeAsyncScript(function(group_name,callback) {
@@ -179,7 +94,6 @@ module.exports = {
         }        
     },
 
-    // -*- DEPROMOTE
     auth: {
         login : function(name,pwrd){
             //get the page.
@@ -196,8 +110,16 @@ module.exports = {
             browser.get(env.baseUrl); 
         },
         logout : function(){
-            protractor.getInstance().sleep(500); //black magic code to wait for backdrop (if exist) to clear before we can click logout link
+            // browser.wait(function(){ return element(by.css('.block-ui-overlay')).isDisplayed().then(function(val){ return !val; })});
+            // browser.executeAsyncScript(function(callback) {
+            //     var $window = angular.injector(['ng']).get('$window');       
+            //     $window.location.href = '/account/logout/';
+            // })
+            // .then(function (output) { /*console.log(output);*/ });
+
+            browser.wait(function(){ return element(by.css('.block-ui-overlay')).isDisplayed().then(function(val){ return !val; })});
             browser.findElement(by.id('logout_link')).click();
+            browser.findElement(by.id('service/ui/confirm/ok_btn')).click();
         }
     },
     setup:{
@@ -229,37 +151,4 @@ module.exports = {
         }
         return result;
     }
-
-    // setup_test : function(){
-    //     var jar = request.jar();
-    //     var req = request.defaults({
-    //         jar : jar
-    //     });
-         
-    //     function post(url, params) {
-    //         var defer = protractor.promise.defer();
-    //         console.log("Calling", url);
-    //         req.post(browser.baseUrl + url, params, function(error, message) {
-    //             console.log("Done call to", url);
-    //             if (error || message.statusCode >= 400) {
-    //                 defer.reject({
-    //                     error : error,
-    //                     message : message
-    //                 });
-    //             } else {
-    //                 defer.fulfill(message);
-    //             }
-    //         });
-    //         return defer.promise;
-    //     }
-
-
-    //     function setupCommon() {
-    //         return post('protractor_test_cleanup');
-    //     }
-         
-    //     var flow = protractor.promise.controlFlow();
-    //     flow.execute(setupCommon);
-    // }
-    // DEPROMOTE -*-
 };

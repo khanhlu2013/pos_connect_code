@@ -81,7 +81,7 @@ define(
         sp_crud_api
     ){
         return function(suggest_product,sku){
-            var prompt_promise = prompt_service(null/*original_sp*/,suggest_product,null/*duplicate_sp*/,sku);
+            var prompt_promise = prompt_service(null/*original_sp*/,suggest_product,null/*duplicate_sp*/,sku,false/*is_operate_offline*/);
             var insert_promise = prompt_promise.then(
                  function(prompt_data){ return sp_crud_api.insert_old(suggest_product.product_id,sku,prompt_data.sp);}
                 ,function(reason){ return $q.reject(reason);}
@@ -103,7 +103,7 @@ define(
         ,sp_crud_api
     ){
         return function(sku){
-            var prompt_promise = prompt_service(null/*original_sp*/,null/*suggest_product*/,null/*duplicate_sp*/,sku);
+            var prompt_promise = prompt_service(null/*original_sp*/,null/*suggest_product*/,null/*duplicate_sp*/,sku,false/*is_operate_offline*/);
             var insert_promise = prompt_promise.then(
                  function(prompt_data){ return sp_crud_api.insert_new(prompt_data.sp,sku);}
                 ,function(reason){ return $q.reject(reason); }

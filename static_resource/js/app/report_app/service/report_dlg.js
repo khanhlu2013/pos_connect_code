@@ -144,13 +144,19 @@ define(
                 $scope.payment_type_report_data = [];
                 push_receipt().then(
                      function(){/*do nothing*/}
-                    ,function(reason){ alert_service('alert',reason,'red'); }
+                    ,function(reason){ 
+                        alert_service(reason); 
+                    }
                 )
 
                 $scope.refresh_report = function(){
                     receipt_api.get_receipt($scope.from_date,$scope.to_date).then(
-                         function(data){ $scope.receipt_lst = data; }
-                        ,function(reason){ alert_service('alert',reason,'red');}
+                        function(data){ 
+                            $scope.receipt_lst = data; 
+                        }
+                        ,function(reason){ 
+                            alert_service(reason);
+                        }
                     )
                 }
                 $scope.report_type_2_string = function(type){

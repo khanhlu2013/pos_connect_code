@@ -9,6 +9,7 @@ define(
     ,'blockUI'
     ,'service/init_global_setting'
     ,'angular_hotkey'
+    ,'directive/share_directive'
 ]
 ,function
 (
@@ -24,6 +25,7 @@ define(
         ,'blockUI'
         ,'service/init_global_setting'
         ,'cfp.hotkeys'
+        ,'directive/share_directive'
     ]);
     
     app.config(['blockUIConfig',function(blockUIConfig) {

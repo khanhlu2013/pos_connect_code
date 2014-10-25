@@ -131,10 +131,16 @@ define(
             callback: function() {$scope.get_hold_ui()}
         })
         .add({
-            combo: 'f5',
+            combo: 'f2',
             description: 'toogle value customer price',
             allowIn: ['INPUT'],
             callback: function() {$scope.toogle_value_customer_price();}
+        })
+        .add({
+            combo: 'f6',
+            description: 'tender',
+            allowIn: ['INPUT'],
+            callback: function() {$scope.finalize();}
         })
 
         function get_ds_index(ds){
@@ -148,10 +154,14 @@ define(
             return index;
         }
         $scope.finalize = function(){
-            if($scope.ds_lst.length === 0){alert_service('alert','bug: should not be clickable','red');return;}
+            if($scope.ds_lst.length === 0){return;}
             finalize($scope.ds_lst).then(
-                 function(saved_receipt_doc_id){set_ps_lst([])}
-                ,function(reason){alert_service('alert',reason,'red')}
+                function(saved_receipt_doc_id){
+                    set_ps_lst([])
+                }
+                ,function(reason){
+                    alert_service(reason)
+                }
             )
         }
         $scope.toogle_value_customer_price = function(){toogle_value_customer_price($scope.ds_lst);}
@@ -172,12 +182,19 @@ define(
         }
         $scope.get_hold_ui = function(){
             get_hold_ui().then(
-                 function(hold){ set_ds_lst(hold.ds_lst); }
-                ,function(reason){ alert_service('alert',reason,'red'); }
+                function(hold){ 
+                    set_ds_lst(hold.ds_lst); 
+                }
+                ,function(reason){ 
+                    alert_service(reason); 
+                }
             );
         }        
         $scope.hold = function(){
-            if($scope.ds_lst.length == 0){alert_service('alert','there is nothing to hold','blue');return;}
+            if($scope.ds_lst.length == 0){
+                alert_service('there is nothing to hold','info','blue');
+                return;
+            }
             confirm_service('confirm hold?','orange').then(
                 function(){ hold_api.hold_current_pending_scan_lst(); }
             );
@@ -254,22 +271,36 @@ define(
             }else{
                 if(ds.store_product.is_create_offline()){
                     edit_product_offline(ds.store_product).then( 
-                         function(){ _refresh_edited_ds(ds); } 
-                        ,function(reason){ alert_service('alert',reason,'red');return; }
+                        function(){ 
+                            _refresh_edited_ds(ds); 
+                        } 
+                        ,function(reason){ 
+                            alert_service(reason);
+                            return; 
+                        }
                     )
                 }else{
                     var sp_copy = angular.copy(ds.store_product);
                     sp_info_service(sp_copy).then( 
-                         function(){ _refresh_edited_ds(ds); }
-                        ,function(reason){ alert_service('alert',reason,'red');return; }
+                        function(){ 
+                            _refresh_edited_ds(ds); 
+                        }
+                        ,function(reason){ 
+                            alert_service(reason);
+                            return; 
+                        }
                     )
                 }
             }
         }
         function _refresh_edited_ds(ds){
             sp_offline_api.by_sp_doc_id(ds.store_product.sp_doc_id).then(
-                 function(sp){ ds.store_product = sp; set_ds_lst($scope.ds_lst); }
-                ,function(reason){ alert_service('alert',reason,'red'); }
+                function(sp){ 
+                    ds.store_product = sp; set_ds_lst($scope.ds_lst); 
+                }
+                ,function(reason){ 
+                    alert_service(reason); 
+                }
             )
         }
         $scope.void = function(){ set_ps_lst([]); }
@@ -297,12 +328,16 @@ define(
             console.log('refresh ds ...');
             var ps_lst = get_ps_lst();
             calculate_ds_lst(ps_lst,_get_distinct_sp_from_ds_lst($scope.ds_lst)).then(
-                // calculate_ds_lst(ps_lst,[]).then(
                  function(data){
                     $scope.ds_lst = data;
+                    $scope.is_focus_sku_txt = true;
+                    console.log('is focus sku txt' + $scope.is_focus_sku_txt);                    
                     blockUI.stop();
                 }
-                ,function(reason){alert_service('alert',reason,'red');blockUI.stop()}
+                ,function(reason){
+                    alert_service(reason);
+                    blockUI.stop()
+                }
             )            
         }
         $scope.sku_scan = function(){
@@ -312,7 +347,10 @@ define(
                     append_pending_scan.by_doc_id(data.sp.sp_doc_id,data.qty,null/*non_inventory*/,null/*override price*/); 
                 }
                 ,function(reason){ 
-                    if(reason != preprocess.SKU_NOT_FOUND){ alert_service('alert',reason,'red');return; }
+                    if(reason != preprocess.SKU_NOT_FOUND){ 
+                        alert_service(reason);
+                        return; 
+                    }
                     else{ 
                         //SKU NOT FOUND HANDLER
                         preprocess.extract_qty_sku($scope.sku_search_str).then(
@@ -322,7 +360,9 @@ define(
                                         if(created_sp.is_create_offline()){ $scope.sku_scan(); }
                                         else{ sync_db_service().then(function(){$scope.sku_scan();}) }
                                     }
-                                    ,function(reason){alert_service('alert',reason,'red');}
+                                    ,function(reason){
+                                        alert_service(reason);
+                                    }
                                 )
                             }
                         )
@@ -341,12 +381,13 @@ define(
         }
 
         //init code
+        $scope.sku_search_str = "";
         $scope.ds_lst = [];
         sync_db_service().then(
             function(response){
                 if(response.local < response.remote){
                     var message = response.remote - response.local + ' products not yet downloaded. Please refresh the page to download missing product';
-                    alert_service('alert',message,'red');
+                    alert_service(message);
                 }
                 shortcut_ui.init($scope);  
                 $scope.refresh_ds();
@@ -358,7 +399,9 @@ define(
                     ,function(newVal,oldVal,scope){$scope.refresh_ds();}
                 );
             }
-            ,function(reason){ alert_service('alert',reason,'red'); }
+            ,function(reason){ 
+                alert_service(reason); 
+            }
         )
     }]);
 });

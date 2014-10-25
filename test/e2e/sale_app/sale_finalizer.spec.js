@@ -81,31 +81,31 @@ describe('sale_app', function() {
 
         //check receipt report
         Sale_page.menu_report_receipt();
-        expect(Receipt_dlg.offline.receipt.lst.count()).toEqual(1);
-        expect(Receipt_dlg.offline.receipt.get_col(0,'total')).toEqual('$12.72');
-        Receipt_dlg.offline.receipt.click_col(0,'info');
-        expect(Receipt_dlg.offline.receipt_ln.lst.count()).toEqual(5);
+        expect(Receipt_dlg.online.receipt.lst.count()).toEqual(1);
+        expect(Receipt_dlg.online.receipt.get_col(0,'total')).toEqual('$12.72');
+        Receipt_dlg.online.receipt.click_col(0,'info');
+        expect(Receipt_dlg.online.receipt_ln.lst.count()).toEqual(5);
 
         //verify receipt ln
-        expect(Receipt_dlg.offline.receipt_ln.get_col(0,'qty')).toEqual('1');
-        expect(Receipt_dlg.offline.receipt_ln.get_col(0,'product')).toEqual(product_name_1);
-        expect(Receipt_dlg.offline.receipt_ln.get_col(0,'price')).toEqual('$0.50');
+        expect(Receipt_dlg.online.receipt_ln.get_col(0,'qty')).toEqual('1');
+        expect(Receipt_dlg.online.receipt_ln.get_col(0,'product')).toEqual(product_name_1);
+        expect(Receipt_dlg.online.receipt_ln.get_col(0,'price')).toEqual('$0.50');
 
-        expect(Receipt_dlg.offline.receipt_ln.get_col(1,'qty')).toEqual('5');
-        expect(Receipt_dlg.offline.receipt_ln.get_col(1,'product')).toEqual(product_name_2);
-        expect(Receipt_dlg.offline.receipt_ln.get_col(1,'price')).toEqual('$1.00');
+        expect(Receipt_dlg.online.receipt_ln.get_col(1,'qty')).toEqual('5');
+        expect(Receipt_dlg.online.receipt_ln.get_col(1,'product')).toEqual(product_name_2);
+        expect(Receipt_dlg.online.receipt_ln.get_col(1,'price')).toEqual('$1.00');
 
-        expect(Receipt_dlg.offline.receipt_ln.get_col(2,'qty')).toEqual('3');
-        expect(Receipt_dlg.offline.receipt_ln.get_col(2,'product')).toEqual(product_name_2);
-        expect(Receipt_dlg.offline.receipt_ln.get_col(2,'price')).toEqual('$1.33');
+        expect(Receipt_dlg.online.receipt_ln.get_col(2,'qty')).toEqual('3');
+        expect(Receipt_dlg.online.receipt_ln.get_col(2,'product')).toEqual(product_name_2);
+        expect(Receipt_dlg.online.receipt_ln.get_col(2,'price')).toEqual('$1.33');
 
-        expect(Receipt_dlg.offline.receipt_ln.get_col(3,'qty')).toEqual('1');
-        expect(Receipt_dlg.offline.receipt_ln.get_col(3,'product')).toEqual(product_name_2);
-        expect(Receipt_dlg.offline.receipt_ln.get_col(3,'price')).toEqual('$2.00');
+        expect(Receipt_dlg.online.receipt_ln.get_col(3,'qty')).toEqual('1');
+        expect(Receipt_dlg.online.receipt_ln.get_col(3,'product')).toEqual(product_name_2);
+        expect(Receipt_dlg.online.receipt_ln.get_col(3,'price')).toEqual('$2.00');
 
-        expect(Receipt_dlg.offline.receipt_ln.get_col(4,'qty')).toEqual('1');
-        expect(Receipt_dlg.offline.receipt_ln.get_col(4,'product')).toEqual('non_inventory');
-        expect(Receipt_dlg.offline.receipt_ln.get_col(4,'price')).toEqual('$1.23');
+        expect(Receipt_dlg.online.receipt_ln.get_col(4,'qty')).toEqual('1');
+        expect(Receipt_dlg.online.receipt_ln.get_col(4,'product')).toEqual('non_inventory');
+        expect(Receipt_dlg.online.receipt_ln.get_col(4,'price')).toEqual('$1.23');
 
         Receipt_dlg.exit();
         lib.auth.logout();

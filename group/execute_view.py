@@ -13,7 +13,6 @@ def exe(request):
 
     group_id = request.POST['group_id']
     option = json.loads(request.POST['option'])
-    print(option)
     if len(option) == 0:
         return
 
@@ -46,6 +45,7 @@ def update_couch(pid_lst,store_id,option):
         if 'vendor' in option: sp['vendor'] = option['vendor']
         if 'cost' in option: sp['cost'] = str(option['cost'])
         if 'buydown' in option: sp['buydown'] = str(option['buydown'])
+        if 'value_customer_price' in option: sp['value_customer_price'] = str(option['buydown'])
 
     db = couch_util.get_store_db(store_id)
     db.update(sp_lst)

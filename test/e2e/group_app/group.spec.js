@@ -68,7 +68,7 @@ describe('group_app/service/create', function() {
         expect(Group_manage_dlg.lst.count()).toEqual(0);
         Group_manage_dlg.exit();
 
-        //clean up
+        //clearn up
         lib.auth.logout();
     })
 });

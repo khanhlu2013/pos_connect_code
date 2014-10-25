@@ -23,26 +23,32 @@ define(
 		,prompt_service
 	){
 		return function(ori_shortcut){
+			var defer = $q.defer();
 			var shortcut = angular.copy(ori_shortcut);
 			
-			var prompt_promise = prompt_service('edit shortcut',shortcut.caption/*prefill*/,true/*is_null_allow*/,false/*is_float*/);
-			var edit_promise = prompt_promise.then(
+			prompt_service('edit shortcut',shortcut.caption/*prefill*/,true/*is_null_allow*/,false/*is_float*/)
+			.then(
 				function(data){
 					shortcut.caption=data;
-					var promise_ing = $http({
-						url:'sale_shortcut/parent_update_angular',
+					$http({
+						url:'/sale_shortcut/parent_update_angular',
 						method:'POST',
 						data:{ shortcut:JSON.stringify(shortcut)}
 					})
-					var promise_ed = promise_ing.then(
-						 function(data){ return data.data; }
-						,function(reason){ return $q.reject('edit shortcut ajax error');}
+					.then(
+						function(data){ 
+						 	defer.resolve(data.data); 
+						}
+						,function(reason){
+							defer.reject(reason);
+						}
 					)
-					return promise_ed;
 				},
-				function(reason){ return $q.reject(reason);}
+				function(reason){ 
+					defer.reject(reason);
+				}
 			)
-			return edit_promise;
+			return defer.promise;
 		}
 	}])
 })

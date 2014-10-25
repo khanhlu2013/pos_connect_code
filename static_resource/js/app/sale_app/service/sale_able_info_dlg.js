@@ -50,7 +50,7 @@ define(
                         '</div>' +
 
                         //buydown
-                        '<div ng-hide="ds.get_buydown()===null" class="form-group">' +
+                        '<div ng-hide="ds.get_buydown()===null || ds.get_buydown() === 0.0" class="form-group">' +
                             '<label class="col-sm-5 control-label">buydown (discount):</label>' +
                             '<p id="sale_app/service/sale_able_info_dlg/buydown" class="col-sm-7 form-control-static">{{ds.get_buydown()|currency|not_show_zero}}</p>' +  
                         '</div>' +
@@ -68,7 +68,7 @@ define(
                         '</div>' +
 
                         //buydown tax
-                        '<div ng-hide="ds.get_buydown()===null" class="form-group">' +
+                        '<div ng-hide="ds.get_buydown() === null || ds.get_buydown() === 0.0" class="form-group">' +
                             '<label class="col-sm-5 control-label">buydown tax:</label>' +
                             '<p id="sale_app/service/sale_able_info_dlg/buydown_tax" class="col-sm-7 form-control-static">{{ds.get_buydown_tax(GLOBAL_SETTING.tax_rate)|currency|not_show_zero}}</p>' +  
                         '</div>' +

@@ -1,7 +1,7 @@
 var base_path = './../';
 var lib = require(base_path + 'lib');
 
-describe('group_app/service/create', function() {
+describe('mix match app', function() {
     var Ui_confirm_dlg = require(base_path + 'page/ui/Confirm_dlg.js');
     var Mm_prompt_dlg = require(base_path + 'page/mix_match/Prompt_dlg.js');
     var Mm_manage_dlg = require(base_path + 'page/mix_match/Manage_dlg.js');
@@ -14,7 +14,7 @@ describe('group_app/service/create', function() {
         lib.auth.logout();
     })
 
-    it('can create,edit,remove group',function(){
+    it('can create,edit,remove mix match deal',function(){
         //CREATE: create a mix match with 2 sp
         lib.auth.login('1','1');
         var name_1 = 'name 1';var name_2 = 'name 2';
@@ -93,6 +93,6 @@ describe('group_app/service/create', function() {
         
         //clean up
         Mm_manage_dlg.exit();
-        lib.auth.logout();      
+        lib.auth.logout();           
     })
 });

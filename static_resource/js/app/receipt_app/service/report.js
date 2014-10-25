@@ -50,12 +50,22 @@ define(
                 function(db_existance){
                     if(db_existance){
                         api_offline.get_receipt_lst().then(
-                             function(receipt_lst)  { defer.resolve(receipt_lst); }
-                            ,function(reason)       { alert_service('alert',reason,'red'); defer.resolve([]); }
+                            function(receipt_lst){
+                                defer.resolve(receipt_lst); 
+                            }
+                            ,function(reason){
+                                alert_service(reason);
+                                defer.resolve([]); 
+                            }
                         )
-                    }else{ defer.resolve([]); }
+                    }else{ 
+                        defer.resolve([]); 
+                    }
                 }
-                ,function(reason){ alert_service('alert',reason,'red'); defer.resolve([]); }
+                ,function(reason){
+                    alert_service(reason);
+                    defer.resolve([]); 
+                }
             )
             return defer.promise;
         }
@@ -323,11 +333,17 @@ define(
                     push_receipt().then(
                          function(response){ 
                             get_offline_receipt_lst().then(
-                                 function(offline_receipt_lst){ $scope.offline_receipt_lst = offline_receipt_lst; }
-                                ,function(reason){ alert_service('alert',reason,'red'); }
+                                 function(offline_receipt_lst){ 
+                                    $scope.offline_receipt_lst = offline_receipt_lst; 
+                                }
+                                ,function(reason){ 
+                                    alert_service(reason); 
+                                }
                             )
                         }
-                        ,function(reason){alert_service('alert',reason,'red');}
+                        ,function(reason){
+                            alert_service(reason);
+                        }
                     )
                 }
 
@@ -358,8 +374,12 @@ define(
                 }
                 $scope.refresh_report = function(){
                     online_api.get_receipt($scope.from_date,$scope.to_date).then(
-                         function(data){ $scope.online_receipt_lst = data; }
-                        ,function(reason){ alert_service('alert',reason,'red');}
+                        function(data){ 
+                            $scope.online_receipt_lst = data; 
+                        }
+                        ,function(reason){ 
+                            alert_service(reason);
+                        }
                     )
                 }
 

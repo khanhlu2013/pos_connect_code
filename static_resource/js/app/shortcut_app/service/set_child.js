@@ -9,13 +9,26 @@ define(
     angular
 )
 {
-    var mod = angular.module('shortcut_app/service/set_child',['shortcut_app/service/prompt_child']);
-    mod.factory('shortcut_app/service/set_child',['$http','$q','shortcut_app/service/prompt_child',function($http,$q,prompt_child_service){
+    var mod = angular.module('shortcut_app/service/set_child',
+    [
+        'shortcut_app/service/prompt_child'
+    ]);
+    mod.factory('shortcut_app/service/set_child',
+    [
+         '$http'
+        ,'$q'
+        ,'shortcut_app/service/prompt_child'
+    ,function(
+         $http
+        ,$q
+        ,prompt_child_service
+    ){
     	return function(parent_pos,child_pos,child){
-    		var prompt_promise = prompt_child_service(child);
-    		var set_promise = prompt_promise.then(
+            var defer = $q.defer();
+    		prompt_child_service(child)
+    		.then(
     			function(data){
-    				var promise_ing = $http({
+    				$http({
     					url:'/sale_shortcut/set_child_info',
     					method:'POST',
     					data:{
@@ -25,21 +38,20 @@ define(
     						product_id:data.store_product.product_id
     					}
     				})
-    				var promise_ed = promise_ing.then(
+    				.then(
     					function(data){
-    						return data.data
+    						defer.resolve(data.data);
     					},
     					function(reason){
-    						return $q.reject('set child shortcut ajax error');
+                            defer.reject(reason);
     					}
     				)
-    				return promise_ed;
     			},
     			function(reason){
-    				return $q.reject(reason);
+    				defer.reject(reason);
     			}
     		)
-    		return set_promise;
+    		return defer.promise;
     	}
     }])
 })

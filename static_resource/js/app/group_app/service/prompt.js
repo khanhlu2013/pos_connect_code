@@ -5,6 +5,7 @@ define(
     ,'app/sp_ll_app/service/search/name_sku_online_dlg'
     ,'service/ui'
     ,'service/misc'
+    ,'directive/share_directive'
 ]
 ,function
 (
@@ -16,6 +17,7 @@ define(
          'sp_ll_app/service/search/name_sku_online_dlg'
         ,'service/ui'
         ,'service/misc'
+        ,'directive/share_directive'
     ]);
     mod.factory('group_app/service/prompt',
     [
@@ -35,7 +37,7 @@ define(
                 '<div class="modal-body">' +
                     '<div name="form" class="form-group">' + 
                         '<label>group name:</label>' +
-                        '<input id="group_app/service/prompt/name_txt" name="name" ng-model="$parent.group.name" type="text" required>' +
+                        '<input id="group_app/service/prompt/name_txt" name="name" ng-model="$parent.group.name" type="text" focus-me={{true}} required>' +
                         '<label class="error" ng-show="form.name.$error.required">required</label>' +
                     '</div>' +
 
@@ -87,7 +89,7 @@ define(
                             }
                         },
                         function(reason){
-                            alert_service('alert',reason,'red');
+                            alert_service(reason);
                         }
                     )
                 }

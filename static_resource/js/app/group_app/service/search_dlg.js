@@ -4,13 +4,18 @@ define(
     //--
     ,'service/ui'
     ,'app/group_app/service/api'
+    ,'directive/share_directive'
 ]
 ,function
 (
     angular
 )
 {
-    var mod = angular.module('group_app/service/search_dlg',['service/ui']);
+    var mod = angular.module('group_app/service/search_dlg',
+    [
+         'service/ui'
+        ,'directive/share_directive'
+    ]);
     mod.factory('group_app/service/search_dlg/multiple',
     [
          '$modal'
@@ -27,7 +32,7 @@ define(
     				'<h3 class="modal-title">select groups</h3>' +
     			'</div>' +
     			'<div class="modal-body">' +
-                    '<input ng-model="query" type="text" placeholder="offline filter">' +
+                    '<input ng-model="query" type="text" placeholder="offline filter" focus-me={{true}}>' +
                     '<div>' +
                         '<div class="col-sm-6">' +
                             '<table ng-hide="group_lst.length==0" class="table table-hover table-bordered table-condensed table-striped">' +
@@ -111,7 +116,7 @@ define(
                         var promise = api.get_lst();
                         promise.then(
                              function(){ /*do nothing*/ }
-                            ,function(reason){ alert_service('alert',message,'red'); }
+                            ,function(reason){ alert_service(reason); }
                         )
                         return promise;
                     }

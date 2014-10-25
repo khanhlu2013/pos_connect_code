@@ -107,7 +107,7 @@ define(
                         if($scope.sp.is_breakdown_can_be_add(assoc.breakdown)){
                             $scope.sp.breakdown_assoc_lst.push(assoc);
                         }else{
-                            alert_service('alert',assoc.breakdown.name + ' can not be added to ' + $scope.sp.name,'red');
+                            alert_service(assoc.breakdown.name + ' can not be added to ' + $scope.sp.name);
                         }
                     }
                 )
@@ -117,9 +117,13 @@ define(
                     function(data){
                         sync_if_nessesary().then(
                              function(){ $modalInstance.close(data); }
-                            ,function(reason){ alert_service('alert',reason,'red'); }
+                            ,function(reason){ 
+                                alert_service(reason); 
+                            }
                         )
-                    },function(reason){ alert_service('alert',reason,'red'); }
+                    },function(reason){ 
+                        alert_service(reason); 
+                    }
                 )
             }            
         };

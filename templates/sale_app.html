@@ -38,7 +38,8 @@
                             placeholder="sku" 
                             onClick="this.select();"
                             ng-enter="sku_scan()"
-                            ng-model="sku_search_str"                            
+                            ng-model="sku_search_str"     
+                            focus-me="is_focus_sku_txt"
                         >
                         <button 
                             id="sale_app/main_page/search_btn" 
@@ -86,7 +87,7 @@
                             <li id='push_receipt_menu'><a href='#'>push receipt</a></li>
                             <li id='sale_app/menu/action/hold' ng-click="hold()"><a href='#'>hold - ctrl+h</a></li>
                             <li id='sale_app/menu/action/get_hold' ng-click="get_hold_ui()"><a href='#'>get hold - ctrl+g</a></li>  
-                            <li id='sale_app/menu/action/toogle_value_customer_price' ng-click="toogle_value_customer_price()"><a href='#'>toogle value customer price - F5</a></li>                 
+                            <li id='sale_app/menu/action/toogle_value_customer_price' ng-click="toogle_value_customer_price()"><a href='#'>toogle value customer price - F2</a></li>                 
                         </ul>
                     </li>                    
                     <!-- <li> <a id="logout_link" href='{% url "liquor_logout_named_url" %}'>{{ request.session.cur_login_store }} - {{ user }} - logout</a> </li> -->
@@ -154,8 +155,8 @@
         window._RECEIPT_DOCUMENT_TYPE_      = "{{RECEIPT_DOCUMENT_TYPE}}";
     </script>
 
-    <script data-main = "{{ STATIC_URL }}js/sale_main.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script>
-    <!-- // <script data-main = "{{ STATIC_URL }}sale.min.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script> -->
+    <!-- // <script data-main = "{{ STATIC_URL }}js/sale_main.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script> -->
+    <script data-main = "{{ STATIC_URL }}sale.min.1.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script>
 
 </body>
 </html>

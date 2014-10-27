@@ -1,0 +1,3000 @@
+sc103,"$1,000,000 Fortune $10",081,Scratchers
+sc508,"$500,000 Riches",081,Scratchers
+sc502,"$75,000 Poker $5",081,Scratchers
+group beer 05,000,NONE,None
+851780002124,1.M.R 224g FruitPunch,065,Power Capsule
+851780002216,1.M.R 224g Lemon Lime,065,Power Capsule
+088076165182,10 Cane 375,021,Liquor
+088076164444,10 Cane 750,021,Liquor
+080686833765,100 Anos 375 Blanc,021,Liquor
+080686833512,100 Anos 375 Repo,021,Liquor
+080686833703,100 Anos 375 Verde,021,Liquor
+080686833697,100 Anos 750 Anejo,021,Liquor
+080686833758,100 Anos 750 Blanco,021,Liquor
+080686833505,100 Anos 750 Repo (Blue),021,Liquor
+028000206307,100 Grand,051,Snack
+043000169544,100Calorie GranolaBar Chip Aho,051,Snack
+043000169612,100Calorie GranolaBar Nutter B,051,Snack
+043000169230,100Calorie GranolaBar Oreo,051,Snack
+sc218,10X the Money $2,081,Scratchers
+sc304,10X The Money $3,081,Scratchers
+183162,180 Energy,042,Energy Drink
+183902,180 Energy X3,042,Energy Drink
+811538010320,1800 100P Silver 375,021,Liquor
+811538010337,1800 100P Silver 750,021,Liquor
+811538010375,1800 750 Coconut,021,Liquor
+721059227513,1800 Anejo 750,021,Liquor
+721059321006,1800 Mix 1L Margarita,023,Liquor - Mixer
+082000193913,1800 Reposado 375,021,Liquor
+721059227506,1800 Reposado 750,021,Liquor
+811538010191,1800 Silver 200,021,Liquor
+811538010122,1800 Silver 375,021,Liquor
+811538010139,1800 Silver 750,021,Liquor
+721059457507,1800 Ultimate Margarita,023,Liquor - Mixer
+608604000015,1921 Blanco 750,021,Liquor
+608604000053,1921 Reposado 750,021,Liquor
+733428000672,1-NO Nitric Oxide Booter 5.9oz,065,Power Capsule
+1pk deal reynold 2,1Pk Deal Camel 75Off,011,Cigarrett Pack
+1pk phillip 3,1Pk Deal Marlboro 0.50OFF,011,Cigarrett Pack
+1pk phillip,1Pk Deal Marlboro 1Off,011,Cigarrett Pack
+1pk deal PallMall,1Pk Deal PallMall 0.50OFF,011,Cigarrett Pack
+1pk phillip 2,1Pk Deal Phillip 2Off DDD,011,Cigarrett Pack
+1pk deal reynold,1Pk Deal Reynold 1Off DDD,011,Cigarrett Pack
+837654093207,2:1 Protein Bar PB Brownie,052,Energy Bar
+sc104,20X Crossword $10,081,Scratchers
+859612001079,21st Amendment 6pk Black IPA,031,Beer
+859612001031,21st Amendment 6pk IPA,031,Beer
+859612001024,21st Amendment 6pk Watermelon,031,Beer
+sc102,250 Million Cash $10,081,Scratchers
+857566003019,2Ginger 750,021,Liquor
+B1G1F cig,2PK Deal cig DDD,011,Cigarrett Pack
+b1g1f,2Pk Deal DDD,011,Cigarrett Pack
+b1g1f phillip,2Pk Deal Marlboro $2OFF,011,Cigarrett Pack
+b1g1f newport,2Pk Deal Newport DDD,011,Cigarrett Pack
+b1g1f phillip 1,2Pk Deal Phillip Premium DDD,011,Cigarrett Pack
+b1g1f reynold,2Pk Deal Reynold DDD,011,Cigarrett Pack
+082100714506,3 Blind Moose 750 cab,025,Wine
+400030,3 Musketeers,051,Snack
+406030,3 Musketeers KingSize,051,Snack
+813497003337,3 Vodka 750,021,Liquor
+085592133756,360 Vodka 750,021,Liquor
+791851111303,3-AD 90Cap DDD,065,Power Capsule
+94922567612,3KO 3pill,061,Miscellaneous
+b2g1f,3Pk Deal,011,Cigarrett Pack
+b2g1f phillip,3Pk Deal Phillip,011,Cigarrett Pack
+b2g1f reynold,3Pk Deal Reynold,011,Cigarrett Pack
+080480284336,42 Below Vodka 50-12pk,021,Liquor
+080480284329,42 Below Vodka 750,021,Liquor
+sc109,4x $1,081,Scratchers
+028052020128,555 CT Box,012,Cigarrett Carton
+xxxxxxxxxxxx,555 CT Box Gold Box,012,Cigarrett Carton
+094765,555 International PK,011,Cigarrett Pack
+280525,555 Pk Box,011,Cigarrett Pack
+094766,555 Pk Gold Box,011,Cigarrett Pack
+group 5hour,5hour - Redline 7hour,NONE,None
+719410500016,5Hour Energy Berry,061,Miscellaneous
+719410400125,5Hour Energy Box Lemon Lime,061,Miscellaneous
+719410600013,5Hour Energy Decaf Citrus,061,Miscellaneous
+719410700010,5Hour Energy ExtraStrgh Berry,061,Miscellaneous
+719410720018,5Hour Energy ExtraStrgh Grape,061,Miscellaneous
+719410200015,5Hour Energy Grape,061,Miscellaneous
+719410400019,5Hour Energy Lemon Lime,061,Miscellaneous
+719410300012,5Hour Energy Orange,061,Miscellaneous
+719410800017,5Hour Energy Pomegranate,061,Miscellaneous
+341550,5th Avenue,051,Snack
+sc302,5X Crossword $3x,081,Scratchers
+sc311,5X Crossword (Organge) $3,081,Scratchers
+sc115,7-11-21 $1,081,Scratchers
+780380,7Up 12oz,041,Soda
+780790,7Up 12oz Diet,041,Soda
+078000011807,7Up 12pk Can,041,Soda
+078000011814,7Up 12pk Diet Can,041,Soda
+078000012194,7up 16oz Bottle,041,Soda
+078000012231,7up 16oz Bottle Diet,041,Soda
+780280,7Up 1L,041,Soda
+078000000696,7Up 1L Diet,041,Soda
+781610,7Up 20oz,041,Soda
+078000010404,7Up 20oz 99cent DDD,041,Soda
+078000001624,7Up 20oz Diet,041,Soda
+078000010411,7Up 20oz Diet 99cent,041,Soda
+780340,7Up 2L,041,Soda
+780750,7Up 2L Diet,041,Soda
+p780380,7Up 6pk (Order 36pk),041,Soda
+p780790,7Up 6pk Diet (Order 36pk),041,Soda
+089000118397,99 50ml-12pk Apple,021,Liquor
+080660620992,99 50ml-12pk Banana,021,Liquor
+089000990610,99 50ml-12pk Peach,021,Liquor
+080660000053,99 50ml-12pk Peppermint,021,Liquor
+089000991044,99 50ml-12pk Watermelon,021,Liquor
+080660118079,99 Bananas 375,021,Liquor
+054400000054,A1 10oz Steak Sauce,061,Miscellaneous
+054400000092,A1 5oz Steak Sauce,061,Miscellaneous
+080686251408,Aalborg Akvavit 750,021,Liquor
+715256900027,Aaron Rubbing Alcohol,061,Miscellaneous
+045529588271,ABB Adrenalyn Shot 8oz Berry ,042,Energy Drink
+045529588257,ABB AquaForce 18oz Berry Blast,042,Energy Drink
+045529588264,ABB AquaForce 18oz Lemon Light,042,Energy Drink
+045529588196,ABB BlueThunder 22oz Blue Rasp,042,Energy Drink
+045529588172,ABB BlueThunder 22oz FP,042,Energy Drink
+045529589209,ABB HydroDurance 18oz Orange,042,Energy Drink
+045529589223,ABB HydroDurance 18oz Watermel,042,Energy Drink
+045529556072,ABB MassRecovery 18oz FP,042,Energy Drink
+045529556089,ABB MassRecovery 18oz Grape,042,Energy Drink
+045529556232,ABB PurePro 11oz Cookie n Crea,042,Energy Drink
+045529556225,ABB PurePro 11oz StrwBan Shake,042,Energy Drink
+045529556218,ABB PurePro 11oz Van Smoothie,042,Energy Drink
+045529556201,ABB PurePro 35G 12oz Cho,042,Energy Drink
+045529556706,ABB PurePro 35G 12oz CnC,042,Energy Drink
+045529556720,ABB PurePro 35G 12oz Vanilla,042,Energy Drink
+045529585003,ABB Purepro 4.5lb Cho Malt DDD,063,Powder
+045529585027,ABB Purepro 4.5lb Straw Banan,063,Powder
+045529585010,ABB Purepro 4.5lb Van Pra DDD,063,Powder
+045529556645,ABB PurePro50 15oz Banana,042,Energy Drink
+045529556843,ABB PurePro50 15oz Milk Cho DD,042,Energy Drink
+045529587885,ABB RF 22oz FP,042,Energy Drink
+045529587861,ABB RF 22oz Grape,042,Energy Drink
+045529587878,ABB RippedF 22oz CranApple DDD,042,Energy Drink
+045529559011,ABB RippedForce 18oz FP,042,Energy Drink
+045529559028,ABB RippedForce 18oz Grape,042,Energy Drink
+045529559035,ABB RippedForce 18oz Le-Li DDD,042,Energy Drink
+045529589285,ABB SpdStck Pmp 22oz BlkCherry,042,Energy Drink
+045529588851,ABB SpdStck Pmp 22oz BlueBerry,042,Energy Drink
+045529588578,ABB SpdStck Pmp 22oz FP,042,Energy Drink
+045529588592,ABB SpdStck Pmp 22oz Grape,042,Energy Drink
+045529588714,ABB SpeedShot 8oz FP,042,Energy Drink
+045529588707,ABB SpeedShot 8oz Grape,042,Energy Drink
+045529588400,ABB SpeedShot 8oz Intensity,042,Energy Drink
+045529550797,ABB SpeedShot 8oz Subzero Red,042,Energy Drink
+045529589612,ABB SpeedShot 8oz Watermelon,042,Energy Drink
+045529588677,ABB SpeedStack 18oz Berry Bomb,042,Energy Drink
+045529559097,ABB SpeedStack 18oz FP,042,Energy Drink
+045529559103,ABB SpeedStack 18oz Grape,042,Energy Drink
+045529559110,ABB SpeedStack 18oz Le-Li,042,Energy Drink
+045529588226,ABB SpeedStack 18oz Lemon Tea,042,Energy Drink
+045529550803,ABB SpeedStack 22oz FP,042,Energy Drink
+045529620223,ABB TurboTea Diet 18oz GreeTea,042,Energy Drink
+045529620216,ABB TurboTea Diet 18oz Lemon,042,Energy Drink
+045529620186,ABB TurboTea Diet 18oz Raspby,042,Energy Drink
+045529587847,ABB Xtreme XXL 22oz Straw Bana,042,Energy Drink
+045529585034,ABB Xtreme XXL 6lb Chocolate,063,Powder
+045529585041,ABB Xtreme XXL 6lb Vanilla,063,Powder
+835229000605,Absolut 1.75,021,Liquor
+835229002609,Absolut 1.75 Mandrin,021,Liquor
+835229005440,Absolut 100P 200,021,Liquor
+835229005433,Absolut 100P 375,021,Liquor
+835229005426,Absolut 100P 750,021,Liquor
+835229000100,Absolut 200,021,Liquor
+835229001107,Absolut 200 Citron,021,Liquor
+835229002104,Absolut 200 Mandarin,021,Liquor
+835229001367,Absolut 200 Pears,021,Liquor
+835229001268,Absolut 200 Ruby Red,021,Liquor
+835229000209,Absolut 375,021,Liquor
+835229001206,Absolut 375 Citron,021,Liquor
+835229002203,Absolut 375 Mandrin,021,Liquor
+835229001008,Absolut 50 Citron-12pk,021,Liquor
+875690,Absolut 50 Mandrin,021,Liquor
+835229006003,Absolut 50 Vanilla,021,Liquor
+835229000001,Absolut 50-12pk,021,Liquor
+835229000308,Absolut 750,021,Liquor
+835229001138,Absolut 750 Apeach,021,Liquor
+835229000083,Absolut 750 Apple,021,Liquor
+835229001077,Absolut 750 Berri Acai,021,Liquor
+835229001305,Absolut 750 Citron,021,Liquor
+871890,Absolut 750 Kurant,021,Liquor
+835229002302,Absolut 750 Mandrin ,021,Liquor
+835229001428,Absolut 750 Mango,021,Liquor
+835229000278,Absolut 750 New Orleans,021,Liquor
+835229001336,Absolut 750 Pears,021,Liquor
+871860,Absolut 750 Peppar,021,Liquor
+835229008304,Absolut 750 Raspberri,021,Liquor
+835229001237,Absolut 750 Ruby Red,021,Liquor
+835229006300,Absolut 750 Vanilla ,021,Liquor
+018138509050,Acacia 750 Chardonnay,025,Wine
+018138509081,Acacia 750 Pinot Noir,025,Wine
+013114615862,ACE,061,Miscellaneous
+comb,Ace Comb,061,Miscellaneous
+712199070411,Acirrico 1.16oz,051,Snack
+076150721058,Act II Popcorn Butter,061,Miscellaneous
+076150232493,Act II Popcorn Light Butter,061,Miscellaneous
+076150216387,Act II Queso Jalapeno 3.5oz,061,Miscellaneous
+853759002029,Activate 16oz Berry DDD,041,Soda
+853759002005,Activate 16oz FP  DDD,041,Soda
+853759002036,Activate 16oz Lemon Lime DDD,041,Soda
+853759002012,Activate 16oz Orange DDD,041,Soda
+015522810013,Adept EFA Complete 90Cap,065,Power Capsule
+015522810051,Adept Gluco+Chondroitin 90Cap,065,Power Capsule
+015522810020,Adept High Potency Vita D 90Ca,065,Power Capsule
+015522810037,Adept Milk Thistle 90Cap,065,Power Capsule
+015522810006,Adept Omega-3 90Cap,065,Power Capsule
+086891071237,Adlerbrook 750 Zin,025,Wine
+088352119878,Admiral Nelson 50 Coconut Rum,021,Liquor
+088352116891,Admiral Nelson 50 Spiced Rum,021,Liquor
+088352121123,Admiral Nelson 50 Vanilla Rum,021,Liquor
+243232,Advil 4oz Children,061,Miscellaneous
+305730170307,Advil 4oz Children,061,Miscellaneous
+305730169202,Advil Liquid (50Box),061,Miscellaneous
+080069002214,Affligem 750 Dubbel DDD,031,Beer
+080069002221,Affligem 750 Triple Abbey Ale,031,Beer
+pc80,Africa special $4.5,091,Phone Card
+080686281603,After Shock 375,021,Liquor
+080686281405,After Shock 750,021,Liquor
+689768111007,Agavero 750,021,Liquor
+088320630008,Aguardiente Cristal 750,021,Liquor
+610466016554,Air Freshner Tube 1/4oz,061,Miscellaneous
+073390002206,Airhead .55z Blue Raspberry,051,Snack
+073390002015,Airhead .55z Cherry,051,Snack
+073390002077,Airhead .55z Green Apple,051,Snack
+073390002022,Airhead .55z Orange,051,Snack
+073390002053,Airhead .55z Strawberry,051,Snack
+073390002039,Airhead .55z Watermelon,051,Snack
+073390002213,Airhead .55z White Mystery,051,Snack
+073390008277,AirHead Xtreme 2z BlueRasp,051,Snack
+073390008260,AirHead Xtreme 2z LemonadeSour,051,Snack
+073390008383,AirHead Xtreme 2z Rnbw Berry,051,Snack
+073390006877,AirHead Xtreme 2z sr waterm,051,Snack
+079474920251,AirUp Tire Inflator,061,Miscellaneous
+040850020018,Alaskan 6pk Amber Disco,031,Beer
+040850020063,Alaskan 6pk Summer Ale,031,Beer
+717519001106,Alcapone pk,011,Cigarrett Pack
+aleve01,Aleve Dsp Box 50Cap,061,Miscellaneous
+320400,Alhambra Water .5 liter,041,Soda
+320620,Alhambra Water 1.5,041,Soda
+320190,Alhambra Water 1Gallon,041,Soda
+320410,Alhambra Water 1L,041,Soda
+082100012763,AliceWhite 187 Chard,025,Wine
+082100737031,AliceWhite 4pk Chard,025,Wine
+617573784451,AliceWhite 750 Shiraz,025,Wine
+084692200993,Alize 1L Gold Passion,021,Liquor
+084692201198,Alize 1L Red Passion,021,Liquor
+084692204090,Alize 1L Wild Passion Passion,021,Liquor
+084692204236,Alize 200 Red Passion,021,Liquor
+084692204335,Alize 200 Wild Passion,021,Liquor
+084692206155,Alize 375 Blue,021,Liquor
+084692200955,Alize 375 Gold Passion,021,Liquor
+084692201150,Alize 375 Red Passion DDD,021,Liquor
+084692207312,Alize 375 RoseDDD,021,Liquor
+084692204052,Alize 375 Wild Passion,021,Liquor
+084692206148,Alize 750 Bleu,021,Liquor
+084692200948,Alize 750 Gold Passion,021,Liquor
+084692201143,Alize 750 Red Passion,021,Liquor
+084692207343,Alize 750 Rose,021,Liquor
+084692204045,Alize 750 Wild Passion,021,Liquor
+084692153008,Alize Cognac VS 750,021,Liquor
+084692153039,Alize VS 200,021,Liquor
+084692153015,Alize VS 375,021,Liquor
+730985601717,All Nite Long ,061,Miscellaneous
+730985601724,All Nite Long Women,061,Miscellaneous
+pc207,All State $2,091,Phone Card
+pc82,All State $5,091,Phone Card
+366715972767,Allergy Sinus Relief 50Box,061,Miscellaneous
+080120501038,Almaden 1.5 Burgundy,025,Wine
+080120504138,Almaden 1.5 Bush chablis,025,Wine
+080120288304,Almaden 1.5 Cab,025,Wine
+080120000043,Almaden 1.5 Chablis,025,Wine
+080120288311,Almaden 1.5 Chardonnay,025,Wine
+080120304035,Almaden 1.5 Chenin Blanc,025,Wine
+080120115044,Almaden 1.5 Merlot,025,Wine
+080120000029,Almaden 1.5 Mountain Rose,025,Wine
+080120508037,Almaden 1.5 Rhine,025,Wine
+080120288915,Almaden 1.5 White Zin,025,Wine
+080120115075,Almaden 500 Sangria,025,Wine
+080120281534,Almaden 5L Chardonnay,025,Wine
+343200,Almond Joy (Blue),051,Snack
+345220,Almond Joy King,051,Snack
+648436300051,Aloe Vera 500ml ,041,Soda
+087666098008,Aloe Water 16oz Aloe Vera Juic,041,Soda
+087666098022,Aloe Water 16oz Cherry,041,Soda
+087666098039,Aloe Water 16oz Mix Fruit,041,Soda
+011132000011,Alpo Diced Cuts Dog Food,061,Miscellaneous
+059280202543,Altoids (Small) Cinnamon,051,Snack
+229730,Altoids (Small) Peppermint,051,Snack
+229740,Altoids (Small) Wintergreen,051,Snack
+059280205063,Altoids Cinnamon Strips,051,Snack
+022000159366,Altoids Ginger,051,Snack
+070221888824,Altoids Gum Cherry,051,Snack
+070221756086,Altoids Gum Cinnamon,051,Snack
+070221756024,Altoids Gum Peppermint,051,Snack
+070221888725,Altoids Gum Sour,051,Snack
+059280000200,Altoids Peppermints,051,Snack
+022000158734,Altoids Tangerine Sour,051,Snack
+022000159335,Altoids Tin1.7z  Peppermin,051,Snack
+022000159311,Altoids Tin1.7z  Spearmint,051,Snack
+022000159342,Altoids Tin1.7z Wintergreen,051,Snack
+083300048729,Amarula 750,021,Liquor
+018200009747,Amber Bock 6pk,031,Beer
+180552,Amber Rock 12oz,031,Beer
+844334001315,America Protein designer whey ,063,Powder
+018200149986,American Ale 6pk,031,Beer
+047995855178,American CT Black Box,012,Cigarrett Carton
+047995855185,American CT Blue Box,012,Cigarrett Carton
+047995855314,American CT Celadon Box,012,Cigarrett Carton
+047995855321,American CT Dark Green Box,012,Cigarrett Carton
+047995855338,American CT Orange Box,012,Cigarrett Carton
+047995855192,American CT Yellow Box,012,Cigarrett Carton
+047995855345,American Org CT Maroon Box,012,Cigarrett Carton
+047995855246,American Org Pk Maroon Box,011,Cigarrett Pack
+047995855253,American Org Pk MellowGold Box,011,Cigarrett Pack
+047995855215,American PK BalanceTaste Box,011,Cigarrett Pack
+047995855079,American Pk Black Box,011,Cigarrett Pack
+047995855086,American Pk Blue Box,011,Cigarrett Pack
+047995855222,American Pk Men FullBodied Box,011,Cigarrett Pack
+047995855055,American Pk Men MellowTast Box,011,Cigarrett Pack
+047995855239,American Pk Orange Box,011,Cigarrett Pack
+047995855093,American Pk Yellow Box,011,Cigarrett Pack
+047995000820,American Rolling Org Pk (Red),011,Cigarrett Pack
+047995000806,American Rolling Pk (Blue),011,Cigarrett Pack
+047995000837,American Rolling Pk (Purple),011,Cigarrett Pack
+811568003101,Aminovol 240cap DDD,065,Power Capsule
+012000016431,AMP 16oz DDD,041,Soda
+012000033421,AMP 16oz Lemonade DDD,041,Soda
+012000021145,AMP 16oz OverDrive DDD,041,Soda
+071725701435,AmPort Wasbi Peas 4z,051,Snack
+728984,Amstel Light 12oz,031,Beer
+072890100160,Amstel Light 12pk,031,Beer
+072890000934,Amstel Light 16oz,031,Beer
+p072890000934,Amstel Light 4pk,031,Beer
+072890100115,Amstel Light 6pk DDD,031,Beer
+085000014325,Amsterdam Gin 375,021,Liquor
+854020,Amsterdam Gin 50-12pk,021,Liquor
+085000014318,Amsterdam Gin 750,021,Liquor
+085000019474,Amsterdam Vodka 200,021,Liquor
+085000020401,Amsterdam Vodka 200 Peach,021,Liquor
+085000020371,Amsterdam Vodka 200 RedBerry,021,Liquor
+085000019481,Amsterdam Vodka 375,021,Liquor
+085000022368,Amsterdam Vodka 375 Orange,021,Liquor
+085000020395,Amsterdam Vodka 375 Peach,021,Liquor
+085000022306,Amsterdam Vodka 375 Pineapple,021,Liquor
+085000020364,Amsterdam Vodka 375 RedBerry,021,Liquor
+855965,Amsterdam Vodka 50 Coco-10pk,021,Liquor
+855780,Amsterdam Vodka 50 Peach-10pk,021,Liquor
+085000006214,Amsterdam Vodka 50 Pineapp10pk,021,Liquor
+855750,Amsterdam Vodka 50 RBerry-10pk,021,Liquor
+858800,Amsterdam Vodka 50-12pk,021,Liquor
+085000019498,Amsterdam Vodka 750,021,Liquor
+085000021361,Amsterdam Vodka 750 Coconut,021,Liquor
+085000020333,Amsterdam Vodka 750 Peach,021,Liquor
+085000022313,Amsterdam Vodka 750 Pineapple,021,Liquor
+085000020326,Amsterdam Vodka 750 Red Berry,021,Liquor
+631656700749,Anabolic Halo 2.4lb Blue Ras,063,Powder
+631656700633,Anabolic Halo 2.4lb Fpunch,063,Powder
+631656700787,Anabolic Halo 2.4lb Orange,063,Powder
+791851111105,Anabolic Xtreme Rebound 60cap,065,Power Capsule
+305730225250,Anbesol,061,Miscellaneous
+727837,Anchor 12oz Liberty Ale,031,Beer
+727836,Anchor 12oz Porter,031,Beer
+727835,Anchor 12oz Steam,031,Beer
+072783121005,Anchor 12pk Steam Beer,031,Beer
+072783000508,Anchor 6pk Christmas DDD,031,Beer
+072783003004,Anchor 6pk Liberty Ale,031,Beer
+072783002007,Anchor 6pk Porter DDD,031,Beer
+072783001000,Anchor 6pk Steam Beer,031,Beer
+072783006005,Anchor 6pk Summer DDD,031,Beer
+080244002114,Ancient Age 1.75,021,Liquor
+080244002121,Ancient Age 1L,021,Liquor
+080244002152,Ancient Age 200,021,Liquor
+080244002176,Ancient Age 375,021,Liquor
+080244002138,Ancient Age 750,021,Liquor
+091255,Anderson 12oz Boont Amber,031,Beer
+091256,Anderson 12oz IPA,031,Beer
+009125000162,Anderson 6pk Boont  Amber,031,Beer
+009125000568,Anderson 6pk Oatmeal Stout,031,Beer
+andesmint240count,Andes Mint 240 Count,051,Snack
+857430,Andre 750 Brut,024,Champange
+857480,Andre 750 Extra Dry,024,Champange
+857470,Andre Cold Duck,024,Champange
+026200471587,AndyCapp 3oz Cheddar Fries,051,Snack
+026200471594,AndyCapp 3oz Hot Fries,051,Snack
+6921807902912,Angel 500,061,Miscellaneous
+030400000485,Angel Soft TP,061,Miscellaneous
+075496000407,Angostura 4oz Aromatic Bitters,023,Liquor - Mixer
+087692821021,Angry Orchard 6pk Crsp Apple,031,Beer
+039442030528,Animal Flex 44pk,063,Powder
+039442030253,Animal Max 2.2lb Protein cho,063,Powder
+039442030405,Animal Nitro 16pk Grape DDD,063,Powder
+039442030351,Animal Nitro 44pk,063,Powder
+039442030580,Animal Omega 30pk DDD,063,Powder
+039442030122,Animal Pak 15pk,063,Powder
+039442030115,Animal Pak 44pk DDD,063,Powder
+039442030887,Animal Pak 88pk,063,Powder
+039442030542,Animal Pump 30pk DDD,063,Powder
+039442030238,Animal Stak 21pk DDD,063,Powder
+039442030320,Animal Test 21pk,063,Powder
+088076030060,Aniversario Ron Anejo 750,021,Liquor
+744607050524,Antiguo 750 Anejo,021,Liquor
+744607050500,Antiguo 750 Repo,021,Liquor
+087236350253,Antinori Chianti Classic 750,025,Wine
+085000017746,Apothic Red 750,025,Wine
+apple,Apple,061,Miscellaneous
+636191110404,Appleton 750 Reserve Rum,021,Liquor
+122090,Aquafina 1.5L,041,Soda
+121080,Aquafina 16oz,041,Soda
+121570,Aquafina 1L,041,Soda
+121590,Aquafina 20oz,041,Soda
+125890,Aquafina 24oz Cap,041,Soda
+877621000210,Aquiss Diet Supp,041,Soda
+080655203643,AR Morrow 1L,021,Liquor
+083103098549,AR Morrow 200,021,Liquor
+083103098648,AR Morrow 375,021,Liquor
+080655203636,AR Morrow 750 DDD,021,Liquor
+082100179022,Arbor Mist 750 Exotic Fruit,025,Wine
+082100179015,Arbor Mist 750 Peach,025,Wine
+028400036030,Arcoiris,051,Snack
+083300072106,Ardbeg 10yr 750,021,Liquor
+080686749028,Ardmore 750 Traditional Cask,021,Liquor
+6924180010205,Ariel Toilet Paper,061,Miscellaneous
+613008722869,Arizona 20oz Can Black & White,041,Soda
+893322001134,Arizona 20oz Can Cintron DDD,041,Soda
+613008727826,Arizona 20oz Can Cranberry,041,Soda
+613008721954,Arizona 20oz Can Energy,041,Soda
+613008718763,Arizona 20oz Can Fruit Punch,041,Soda
+613008722883,Arizona 20oz Can Georgia Gtea,041,Soda
+613008719296,Arizona 20oz Can Grapeade,041,Soda
+613008715267,Arizona 20oz Can Green Tea,041,Soda
+613008725853,Arizona 20oz Can HalfMango&IT,041,Soda
+088130994635,Arizona 20oz Can Lemon Tea,041,Soda
+613008726096,Arizona 20oz Can Lemonade,041,Soda
+073360709258,Arizona 20oz Can Mucho Mango,041,Soda
+613008715625,Arizona 20oz Can Orangeade,041,Soda
+613008719524,Arizona 20oz Can Peach IT,041,Soda
+613008722395,Arizona 20oz Can RApple Gtea,041,Soda
+088130994642,Arizona 20oz Can Raspberry Tea,041,Soda
+613008718459,Arizona 20oz Can RX Energy,041,Soda
+613008717711,Arizona 20oz Can Sweet Tea,041,Soda
+613008720209,Arizona 20oz Can Watermelon,041,Soda
+073360709494,Arizona 20oz CanKiwi Straw,041,Soda
+613008722111,Arizona Lite Half GTea&Lemon,041,Soda
+613008728571,Arizona Zero HHalf IT Lemonade,041,Soda
+033200011101,Arm & Hammer Baking Soda,061,Miscellaneous
+083664867103,Armadale 750,021,Liquor
+636251780004,Arrogant Bastard 24oz Ale,031,Beer
+071142000500,Arrowhead 0.5L DDD,041,Soda
+071142000159,Arrowhead 1.5 L,041,Soda
+071142000012,Arrowhead 1L,041,Soda
+071142000029,Arrowhead 24oz,041,Soda
+071142643370,Arrowhead 700,041,Soda
+856365000380,Asom Broso 750 Repo,021,Liquor
+856365000212,Asom Broso 750 Silver,021,Liquor
+878003,Aspen Edge 12oz,031,Beer
+736211052476,Assault 1.6lb Blue Rasp,063,Powder
+736211052575,Assault 1.6lb FP,063,Powder
+736211051172,Assault 1.6lb Watermelon,063,Powder
+sugar wafers,Assorted Sugar Wafers 3.5oz,051,Snack
+083960460015,Asti 750 Cinzano,023,Liquor - Mixer
+652908000011,ATP Cretine Serum 5oz,065,Power Capsule
+850483000024,Auchentoshan 10yrs,021,Liquor
+710168001022,Augustijn 24oz Ale,031,Beer
+030000050200,Aunt Jemima 16oz Panck&Waffle,061,Miscellaneous
+030000059500,Aunt Jemimaoriginal 12oz,061,Miscellaneous
+660973116551,AuSome Ironman,051,Snack
+079783406194,Austin Chedda Cheese,051,Snack
+079783406408,Austin Choco Crème,051,Snack
+079783406354,Austin Cookie Lemon Crème,051,Snack
+079783406125,Austin Peanut Butter,051,Snack
+079783406507,Austin Vanilla Crème,051,Snack
+736040519348,Avion 750 Silver,021,Liquor
+781870,AW 12oz Root Beer,041,Soda
+078000053166,AW 12pk Diet Root Beer,041,Soda
+078000052169,AW 12pk Root Beer,041,Soda
+078000052428,AW 16oz Bottle,041,Soda
+078000052459,AW 1L,041,Soda
+058000070738,AW 20oz 99cent,041,Soda
+078000054408,AW 20oz Cream,041,Soda
+078000053401,AW 20oz Diet RootBeer,041,Soda
+078000052404,AW 20oz RootBeer DDD,041,Soda
+078000052466,AW 2L RootBeer,041,Soda
+p702025,AW 6pk Rootbeer,041,Soda
+082422020347,Azteca De Oro 750,021,Liquor
+811538014519,Azul 750 Repo,021,Liquor
+080480545604,B&B 375,021,Liquor
+089540334691,B&B 375 Dom,021,Liquor
+080480545406,B&B 750,021,Liquor
+087000345072,B&G 750 Bistro Pinot Noir,025,Wine
+087000109070,B&G 750 Cab,025,Wine
+852450,B&J 12oz Berry,022,Liquor - Cocktail
+854460,B&J 12oz Blue Hawaiian,022,Liquor - Cocktail
+852080,B&J 12oz Fuzzy Navel,022,Liquor - Cocktail
+851270,B&J 12oz Margarita,022,Liquor - Cocktail
+851090,B&J 12oz Melon Splash,022,Liquor - Cocktail
+858850,B&J 12oz Mojito,022,Liquor - Cocktail
+852240,B&J 12oz Original,022,Liquor - Cocktail
+851390,B&J 12oz Pina Colada,022,Liquor - Cocktail
+858960,B&J 12oz Pome Raspberry,022,Liquor - Cocktail
+854860,B&J 12oz Sangria,022,Liquor - Cocktail
+851310,B&J 12oz Straw Daiquiri,022,Liquor - Cocktail
+854710,B&J 12oz Tropical Mango,022,Liquor - Cocktail
+085000002469,B&J 4pk Berry,022,Liquor - Cocktail
+085000044469,B&J 4pk Blue Hawaiian,022,Liquor - Cocktail
+085000002056,B&J 4pk Fuzzy Navel,022,Liquor - Cocktail
+085000001264,B&J 4pk Margarita,022,Liquor - Cocktail
+085000011812,B&J 4pk Melon Splash,022,Liquor - Cocktail
+085000048856,B&J 4pk Mojito,022,Liquor - Cocktail
+085000002254,B&J 4pk Original,022,Liquor - Cocktail
+085000001387,B&J 4pk Pina Colada,022,Liquor - Cocktail
+085000048962,B&J 4pk Pome Raspberry,022,Liquor - Cocktail
+085000044865,B&J 4pk Sangria,022,Liquor - Cocktail
+085000001301,B&J 4pk Straw Daiquiri,022,Liquor - Cocktail
+085000044711,B&J 4pk Tropical Mango,022,Liquor - Cocktail
+041116006524,Baby Bottle Pop,051,Snack
+041116005954,Baby Bottle Pop Blue Raspberry,051,Snack
+028000010775,BabyRuth,051,Snack
+028000001414,BabyRuth KingSize,051,Snack
+183822,Bacardi 12oz Blt Limon,031,Beer
+183722,Bacardi 12oz Blt Raz,031,Beer
+183562,Bacardi 12oz O,031,Beer
+183332,Bacardi 12oz Silver,031,Beer
+080480095703,Bacardi 151P 200,021,Liquor
+080480095604,Bacardi 151P 375,021,Liquor
+080480095406,Bacardi 151P 750,021,Liquor
+080480401054,Bacardi 200 Apple,021,Liquor
+080480001001,Bacardi 200 Cherry,021,Liquor
+080480000295,Bacardi 200 Dragon Berry,021,Liquor
+080480401566,Bacardi 200 Grand Melon,021,Liquor
+080480355708,Bacardi 200 Limon,021,Liquor
+080480400354,Bacardi 200 Razz,021,Liquor
+080480055707,Bacardi 200 Select,021,Liquor
+080480401047,Bacardi 375 Big Apple,021,Liquor
+080480000998,Bacardi 375 Cherry,021,Liquor
+080480400644,Bacardi 375 Coco,021,Liquor
+080480000288,Bacardi 375 Dragon Berry,021,Liquor
+080480401559,Bacardi 375 Grand Melon,021,Liquor
+080480355609,Bacardi 375 Limon,021,Liquor
+080480400033,Bacardi 375 O,021,Liquor
+080480402051,Bacardi 375 Peach Red,021,Liquor
+080480400347,Bacardi 375 Razz,021,Liquor
+080480400842,Bacardi 375 Vanila,021,Liquor
+080480401061,Bacardi 50 Apple,021,Liquor
+080480001018,Bacardi 50 Cherry,021,Liquor
+080480400668,Bacardi 50 Coco,021,Liquor
+080480000301,Bacardi 50 DragonBerry,021,Liquor
+080480401573,Bacardi 50 Grand Melon,021,Liquor
+080480356200,Bacardi 50 Limon-10pk,021,Liquor
+080480400057,Bacardi 50 O,021,Liquor
+080480001551,Bacardi 50 OakHeart Spiced,021,Liquor
+080480402075,Bacardi 50 Peach Red,021,Liquor
+080480400361,Bacardi 50 Razz,021,Liquor
+080480400866,Bacardi 50 Vanila,021,Liquor
+080480401030,Bacardi 750 Apple,021,Liquor
+080480401719,Bacardi 750 Artic Grape,021,Liquor
+080480000981,Bacardi 750 Cherry,021,Liquor
+080480400637,Bacardi 750 Coco,021,Liquor
+080480000271,Bacardi 750 Dragon Berry,021,Liquor
+080480401542,Bacardi 750 Grand Melon,021,Liquor
+080480355401,Bacardi 750 Limon,021,Liquor
+080480400026,Bacardi 750 O,021,Liquor
+080480402044,Bacardi 750 Peach Red,021,Liquor
+080480400330,Bacardi 750 Razz,021,Liquor
+080480400835,Bacardi 750 Vanila,021,Liquor
+080480505400,Bacardi 8 750,021,Liquor
+080480185305,Bacardi Anejo 1L,021,Liquor
+080480185404,Bacardi Anejo 750,021,Liquor
+080480400651,Bacardi Coco 200,021,Liquor
+080480025304,Bacardi Dark 1L,021,Liquor
+080480025205,Bacardi Gold 1.75,021,Liquor
+080480025809,Bacardi Gold 100,021,Liquor
+080480025700,Bacardi Gold 200,021,Liquor
+080480025601,Bacardi Gold 375,021,Liquor
+080480026219,Bacardi Gold 50-10pk,021,Liquor
+080480025403,Bacardi Gold 750,021,Liquor
+080480015206,Bacardi Light 1.75,021,Liquor
+080480015800,Bacardi Light 100,021,Liquor
+080480015305,Bacardi Light 1L,021,Liquor
+080480015701,Bacardi Light 200,021,Liquor
+080480015602,Bacardi Light 375,021,Liquor
+080480016210,Bacardi Light 50-10pk,021,Liquor
+080480015404,Bacardi Light 750,021,Liquor
+080480400040,Bacardi O 200,021,Liquor
+080480001520,Bacardi OakHeart 750,021,Liquor
+080480175405,Bacardi Reserve 750,021,Liquor
+080480015114,Bacardi RTD 1.75 Mojito,021,Liquor
+080480806019,Bacardi RTD 750 Hurricane,022,Liquor - Cocktail
+080480806033,Bacardi RTD 750 Long Island IT,022,Liquor - Cocktail
+080480015176,Bacardi RTD 750 Mojito,021,Liquor
+080480000479,Bacardi RTD 750 Mojito Raspber,021,Liquor
+080480001056,Bacardi RTD 750 Pina Colada,022,Liquor - Cocktail
+080480806194,Bacardi RTD 750 Rum Runner,022,Liquor - Cocktail
+080480001049,Bacardi RTD 750 Straw Daiquiri,022,Liquor - Cocktail
+080480806163,Bacardi RTD 750 Zombie,022,Liquor - Cocktail
+080480055202,Bacardi Select 1.75,021,Liquor
+080480055608,Bacardi Select 375,021,Liquor
+080480055400,Bacardi Select 750,021,Liquor
+080480345402,Bacardi Solera 750,021,Liquor
+080480395407,Bacardi Spice 750,021,Liquor
+080480400859,Bacardi Vanila 200,021,Liquor
+071610300170,Backwood CT Black n Sweet,012,Cigarrett Carton
+071610300187,Backwood CT Sweet Aromatic,012,Cigarrett Carton
+071610300064,Backwood Pk Black n Sweet,011,Cigarrett Pack
+071610300026,Backwood Pk SweetAromatic (Red,011,Cigarrett Pack
+071610301320,Backwood Pk Vanilla,011,Cigarrett Pack
+071610301955,Backwood Single Original,011,Cigarrett Pack
+071610301986,Backwood Single SweetAromatic,011,Cigarrett Pack
+028400085090,Bacon Chedder Cheetos,051,Snack
+083664990429,Bad Apfel 50,021,Liquor
+677053346111,Bafferts Gin 750,021,Liquor
+086767701756,Bailey 50 Caramel,021,Liquor
+bailey 50 flavor,Bailey 50 Flavor,021,Liquor
+086767210104,Baileys 200,021,Liquor
+086767210098,Baileys 375,021,Liquor
+086767702272,Baileys 375 Coffee,021,Liquor
+086767701367,Baileys 4pk Minis,021,Liquor
+086767210128,Baileys 50-10pk,021,Liquor
+086767210067,Baileys 750,021,Liquor
+086767701763,Baileys 750 Caramel,021,Liquor
+086767701787,Baileys 750 Chocolate Mint,021,Liquor
+086767702289,Baileys 750 Coffee,021,Liquor
+089708001151,Baja Rosa 750,021,Liquor
+083103088571,Baja Tequilla 200,021,Liquor
+080686015406,Baker 7yr 750,021,Liquor
+761073043751,Bali Shag CT Golden Shag,012,Cigarrett Carton
+090600530878,Bali Shag CT Halfzware Shag,012,Cigarrett Carton
+761073243755,Bali Shag Pk Golden Shag (Red),011,Cigarrett Pack
+090600530861,Bali Shag Pk Halfzware Shag,011,Cigarrett Pack
+660973115134,Ball Dart Candies ,051,Snack
+089540352817,Ballantines Scotch 1.75,021,Liquor
+672438000039,Ballast Point 24oz BigEye IPA,031,Beer
+672438000213,BallastPoint 24oz Sculpin IPA,031,Beer
+08500007570,Ballatore 750 Gran Spumante,024,Champange
+085000011379,Ballatore 750 Spumante Rosso,024,Champange
+736206000017,Ban Banna Head Gear,061,Miscellaneous
+banana,Banana,061,Miscellaneous
+072665719610,Banana Sandwich Cremes,051,Snack
+381370047544,Band-Aid 8pieces,061,Miscellaneous
+7503010658108,Bandolon 750 Anejo,021,Liquor
+7503010658092,Bandolon 750 Blanco,021,Liquor
+7503010658085,Bandolon 750 Repo,021,Liquor
+610764840356,Bang 16oz Black Cherry DDD,042,Energy Drink
+610764840325,Bang 16oz Exotic Fruit DDD,042,Energy Drink
+610764860095,Bang 16oz Mandarin Orange DDD,042,Energy Drink
+610764840639,Bang 16oz Watermelon DDD,042,Energy Drink
+610764840332,Bang 4pk Exotic Fruit,042,Energy Drink
+610764840646,Bang 4pk Watermelon,042,Energy Drink
+Barcel 149,Barcel 149,051,Snack
+Barcel 299,Barcel 299,051,Snack
+757528009120,Barcel 3.2oz Tostachos,051,Snack
+074323079869,Barcel 3.5oz Chicharron Pork R,051,Snack
+074323014990,Barcel Hot&Nut 3z Chile&Lime,051,Snack
+074323047530,Barcel Peanut 3z Haranero Chil,051,Snack
+074323024760,Barcel Peanut 3z Hot Chili Pep,051,Snack
+074323060041,Barcel Peanut 3z Salt&Lime,051,Snack
+757528009779,Barcel Takis 9.9oz BBQ picante,051,Snack
+757528005764,Barcel Takis 9.9oz Fuego,051,Snack
+757528008697,Barcel Takis 9.9oz Nitro,051,Snack
+074323075083,Barcel Takis Mini Fuego,051,Snack
+018341151015,Barefoot 1.5 Cab,025,Wine
+018341151053,Barefoot 1.5 Chard,025,Wine
+018341151107,Barefoot 1.5 Merlot,025,Wine
+085000014431,Barefoot 1.5 Pinot Grigio,025,Wine
+018341151022,Barefoot 1.5 Sau Blanc,025,Wine
+018341151060,Barefoot 1.5 White Zin,025,Wine
+855360,Barefoot 187 Chard,025,Wine
+855460,Barefoot 187 Merlot,025,Wine
+855280,Barefoot 187 Pinot Grigio,025,Wine
+855310,Barefoot 187 White Zin,025,Wine
+085000045367,BareFoot 4pk Chard,025,Wine
+085000045466,BareFoot 4pk Merlot,025,Wine
+085000045282,BareFoot 4pk Pinot Grigio,025,Wine
+085000045312,BareFoot 4pk White Zin,025,Wine
+018341751017,BareFoot 750 Cabernet,025,Wine
+018341751055,Barefoot 750 Chard,025,Wine
+018341751109,Barefoot 750 Merlot,025,Wine
+085000016688,Barefoot 750 Moscato,025,Wine
+085000020456,Barefoot 750 Pink Moscato,025,Wine
+085000014448,Barefoot 750 Pinot Grigio,025,Wine
+018341751024,Barefoot 750 Sau Blanc,025,Wine
+085000018491,Barefoot 750 Sweet Red,025,Wine
+018341751062,Barefoot 750 White Zin,025,Wine
+018341751260,BarefootBubbly 750 Brut,024,Champange
+085000017593,BarefootBubbly 750 MoscatoSpum,024,Champange
+085000019658,BarefootBubbly 750 PinkMoscato,024,Champange
+085000021019,BarefootBubbly 750 Red Moscato,024,Champange
+085000016039,BarefootBubbly 750 Rose Cuvee,024,Champange
+083089500005,Barenjager 750,021,Liquor
+pc48,Barkada $4.5,091,Phone Card
+087752002544,Baron Herzog 750 White Zin,025,Wine
+084380428067,Bartenders 200 Dry Gin Martini,022,Liquor - Cocktail
+084380428364,Bartenders 200 Long Island,022,Liquor - Cocktail
+084380428265,Bartenders 200 Manhattan,022,Liquor - Cocktail
+084380428760,Bartenders 200 Margarita,022,Liquor - Cocktail
+084380428562,Bartenders 200 Screwdriver,022,Liquor - Cocktail
+084380428166,Bartenders 200 Vodka Martini,022,Liquor - Cocktail
+084380428661,Bartenders 200 Whiskey Sour,022,Liquor - Cocktail
+087000101302,Barton& Guesier 750 Beaujolais,025,Wine
+bbdc,Basic Buy Down Carton,111,Coupons & CRV
+bbdct,Basic Buy Down Carton Tax,111,Coupons & CRV
+bbdp,Basic Buy Down Pack,111,Coupons & CRV
+bbdpt,Basic Buy Down Pack,111,Coupons & CRV
+028200304018,Basic CT 100 Box,012,Cigarrett Carton
+028200303714,Basic CT Box,012,Cigarrett Carton
+028200304612,Basic CT Gold 100 Box,012,Cigarrett Carton
+028200304315,Basic CT Gold Box,012,Cigarrett Carton
+028200304513,Basic CT MenGold 100 Soft,012,Cigarrett Carton
+028200304216,Basic CT MenGold Box,012,Cigarrett Carton
+028200304810,Basic CT MenSil 100 Box,012,Cigarrett Carton
+028200305312,Basic CT Menthol Box,012,Cigarrett Carton
+028200305411,Basic CT Nonfilter Soft,012,Cigarrett Carton
+028200303615,Basic CT Silver 100 Box,012,Cigarrett Carton
+028200305015,Basic CT Silver Box,012,Cigarrett Carton
+028200304025,Basic Pk 100 Box,011,Cigarrett Pack
+028200303622,Basic Pk Blue 100 Box,011,Cigarrett Pack
+028200305022,Basic Pk Blue Box,011,Cigarrett Pack
+028200303721,Basic Pk Box,011,Cigarrett Pack
+028200304629,Basic Pk Gold 100 Box,011,Cigarrett Pack
+028200304322,Basic Pk Gold Box,011,Cigarrett Pack
+028200304520,Basic Pk MenGold 100 Box,011,Cigarrett Pack
+028200304223,Basic Pk MenGold Box DDD,011,Cigarrett Pack
+028200304827,Basic Pk MenSil 100 Box,011,Cigarrett Pack
+028200305121,Basic Pk MenSil Box,011,Cigarrett Pack
+028200303929,Basic Pk Menthol 100 Soft,011,Cigarrett Pack
+028200305329,Basic Pk Menthol Box,011,Cigarrett Pack
+028200305428,Basic Pk Nonfilter Soft,011,Cigarrett Pack
+080686012405,Basil Haydens 750,021,Liquor
+762274072311,Bass 12oz,031,Beer
+762274075312,Bass 12pk,031,Beer
+762274071413,Bass 20oz,031,Beer
+762274071314,Bass 6pk DDD,031,Beer
+636251830006,Bastard 24oz Dbl Bastard Ale,031,Beer
+096619159895,Bath Tissue,061,Miscellaneous
+battery 9v 2pk,Battery 9V 2pk,061,Miscellaneous
+battery aa 2pk,Battery AA 2pk,061,Miscellaneous
+battery aa 4pk,Battery AA 4pk,061,Miscellaneous
+battery aaa 2pk,Battery AAA 2pk,061,Miscellaneous
+battery aaa 4pk,Battery AAA 4pk,061,Miscellaneous
+battery c 2pk,Battery C 2pk,061,Miscellaneous
+battery d 2pk,Battery D 2pk,061,Miscellaneous
+875754002279,Bauducco Wafer 4.9oz Hazelnut,051,Snack
+875754002286,Bauducco Wafer 4.9oz Lime,051,Snack
+875754000756,Bauducco Wafer 4.9oz TripleCho,051,Snack
+875754000589,Bauducco Wafer 5.8oz Cho Hazel,051,Snack
+875754000015,Bauducco Wafer 5.8oz Chocolate,051,Snack
+875754000053,Bauducco Wafer 5.8oz Coconut,051,Snack
+875754000046,Bauducco Wafer 5.8oz Dulce Lec,051,Snack
+875754000022,Bauducco Wafer 5.8oz Straw,051,Snack
+310119001066,Bausch & Lomb Saline 8oz ,061,Miscellaneous
+081986001199,Bavaria 6pk DDD,031,Beer
+590151,Bawls 10oz Guarana,042,Energy Drink
+637910113898,Bawls 10oz Guaranaxx,042,Energy Drink
+200071,Beach Cliff Sardines Mustard ,061,Miscellaneous
+884623510210,BearNKD TrailM 4.5oz ChoChery,051,Snack
+884623510289,BearNKD TrailM 4.5oz Cran Almd,051,Snack
+884623510258,BearNKD TrailM 4.5oz PeacanApp,051,Snack
+084692400249,Beaujolais 750 Louis Jadot,025,Wine
+892138000409,Beauregard 750 Chard,025,Wine
+080696920899,Beauzeaux 750 Red Wine,025,Wine
+85901513,Becher 50 herbal liqueur,021,Liquor
+824888,Beck 12oz,031,Beer
+082488123006,Beck 12pk,031,Beer
+824886,Beck 24oz Bottle,031,Beer
+082488123457,Beck 6pk,031,Beer
+082488123563,Beck 6pk Dark DDD,031,Beer
+082488128308,Beck 6pk Light,031,Beer
+018200189968,Beck 6pk Sapphire,031,Beer
+017082000088,Beef & Cheese,051,Snack
+648036202625,Beef Jerky,051,Snack
+Beef Jerky 1,Beef Jerky ,051,Snack
+bj109,Beef Jerky 109,051,Snack
+bj125,Beef Jerky 125,051,Snack
+bj149,Beef Jerky 149,051,Snack
+bj179,Beef Jerky 179,051,Snack
+bj200,Beef Jerky 200,051,Snack
+bj35,Beef Jerky 35,051,Snack
+bj59,Beef Jerky 59,051,Snack
+026200581705,Beef Jerky Mesquite BBQ,051,Snack
+079694222029,Beef Jerky Old Trapper Peppere,051,Snack
+020501792051,Beef Jerky Package 2oz,051,Snack
+079694225020,Beef Jerky Spicy,051,Snack
+089540333472,Beefeater Gin 1.75,021,Liquor
+089540333526,Beefeater Gin 200,021,Liquor
+089540334837,Beefeater Gin 375,021,Liquor
+089540333496,Beefeater Gin 750,021,Liquor
+beer,Beer 12oz,031,Beer
+Group corona 24oz,Beer 2/5,NONE,None
+group beer 02,Beer 3/4.99,NONE,None
+Group Beer 01,beer 3/5,NONE,None
+group beer 06,Beer 4 for 4.99,NONE,None
+group beer 04,Beer 5/5.28,NONE,None
+Group Bud 24oz,Beer Bud,NONE,None
+070842000131,Beer Nut .75oz Almond,051,Snack
+070842000124,Beer Nut .75oz Cashew,051,Snack
+070842000063,Beer Nut .75oz Peanuts,051,Snack
+070842441002,BeerNut 2.75oz Peanut,051,Snack
+070842001688,BeerNut Almond 2.0oz,051,Snack
+070842306004,BeerNut Bar mix 3.25 oz,051,Snack
+070842001671,BeerNut Cashew 2z,051,Snack
+070842001664,BeerNut Original Peanut 3oz,051,Snack
+089826230105,BeerofMexico 12pk,031,Beer
+856060,Bella Sera 187 Pinot Grigio,025,Wine
+085000046067,Bella Sera 4pk Pinot Grigio,025,Wine
+085000004456,Bella Sera 750 Cab,025,Wine
+085000010778,Bella Sera 750 Merlot,025,Wine
+085000004449,Bella Sera 750 Pinot Grigio,025,Wine
+085000010754,Bella Sera 750 Sangiovese,025,Wine
+087116069732,Belvedere 1.75,021,Liquor
+081753814458,Belvedere 1.75 100Proof,021,Liquor
+087116069794,Belvedere 200,021,Liquor
+087116069657,Belvedere 375,021,Liquor
+087116069978,Belvedere 375 Cytrus,021,Liquor
+087116069985,Belvedere 375 Orange,021,Liquor
+087116069688,Belvedere 750,021,Liquor
+081753815738,Belvedere 750 Blk Raspberry,021,Liquor
+081753820206,Belvedere 750 Bloody Mary,021,Liquor
+087116069954,Belvedere 750 Citrus,021,Liquor
+087116069961,Belvedere 750 Orange,021,Liquor
+ben & jerry bar,Ben & Jerry Bar,053,Ice Cream
+ben & jerry pint,Ben & Jerry Pint,053,Ice Cream
+076840081301,Ben&J Bar IC Fudgy Brownies,053,Ice Cream
+076840200160,Ben&J Cup IC Cho Fudge Brownie,053,Ice Cream
+076840200276,Ben&J Cup IC Cookie Dough,053,Ice Cream
+076840043132,Ben&J Cup IC Mint Cho Cookie,053,Ice Cream
+089540334332,Benedictine 750,021,Liquor
+028200172907,Benson CT Deluxe 100 Box,012,Cigarrett Carton
+028200172709,Benson CT Luxury 100 Box,012,Cigarrett Carton
+028200172365,Benson CT Men Premium 100 Box,012,Cigarrett Carton
+028200173003,Benson CT MenDeluxe 100 Box,012,Cigarrett Carton
+028200172808,Benson CT MenLuxury 100 Box,012,Cigarrett Carton
+028200172266,Benson CT Premium 100 Box,012,Cigarrett Carton
+287292,Benson Pk Deluxe 100 Box,011,Cigarrett Pack
+287272,Benson Pk Luxury 100  Box,011,Cigarrett Pack
+288422,Benson Pk Men Premium 100 Box,011,Cigarrett Pack
+287302,Benson Pk MenDeluxe 100 Box,011,Cigarrett Pack
+287282,Benson Pk MenLuxury 100 Box,011,Cigarrett Pack
+287222,Benson Pk Premium 100 Box,011,Cigarrett Pack
+785774000394,Benziger 750 Cab,025,Wine
+785774000219,Benziger 750 Chard,025,Wine
+785774000455,Benziger 750 Merlot,025,Wine
+089819095865,Beringer 1.5 chenin,025,Wine
+089819026937,Beringer 750 LVS,025,Wine
+089819067206,Beringer 750 Mascato,025,Wine
+089819760091,Beringer 750 Pinot Grigio,025,Wine
+089819068227,Beringer Cali 750 Cab,025,Wine
+089819001712,Beringer Cali 750 Chard,025,Wine
+089819068241,Beringer Cali 750 Merlot,025,Wine
+088586625848,Beringer California 750,025,Wine
+089819002085,Beringer California 750,025,Wine
+089819102235,Beringer Founder 1.5 Chard,025,Wine
+089819001705,Beringer Founder 750 Cab,025,Wine
+089819028504,Beringer Founder 750 Chard,025,Wine
+089819008728,Beringer Founder 750 Merlot,025,Wine
+089819001972,Beringer Founder 750 Pnt Noir,025,Wine
+089819006038,Beringer Founder 750 Sau Blanc,025,Wine
+089819003471,Beringer Knight 750 Cab,025,Wine
+089819072965,Beringer Napa 750 Chard,025,Wine
+089819714629,Beringer Napa 750 Merlot,025,Wine
+089819011506,Beringer Napa 750 Viognier,025,Wine
+089819090303,Beringer White Merlot 1.5,025,Wine
+089819090297,Beringer White Merlot 750,025,Wine
+089819038428,Beringer White Zin 1.5,025,Wine
+089819000999,Beringer White Zin 187-4pk,025,Wine
+089819784639,Beringer White Zin 4pk,025,Wine
+089819006526,Beringer White Zin 750,025,Wine
+089819038992,Beringer Zin 750,025,Wine
+072935012205,Berkeley Farms Half&Half 16oz,061,Miscellaneous
+072935043605,Berkeley Milk 12oz 2% Reduce F,041,Soda
+072935043506,Berkeley Milk 12oz Vitamin D,041,Soda
+072935034504,Berkeley Orange Juice 1/2G,041,Soda
+072935032500,BerkleyFarms Butter 8oz,041,Soda
+048001265523,Best Foods real Mayonnaise 8oz,061,Miscellaneous
+pc87,Best Link $4.5,091,Phone Card
+pc219,Beto $2,091,Phone Card
+pc99,Beto $4.5 DDD,091,Phone Card
+739958024058,Bianco 750 Pinot Grigio,025,Wine
+bic large,Bic Lighter Large,011,Cigarrett Pack
+070330617667,Bic Lighter Large Special,011,Cigarrett Pack
+bic small,Bic Lighter Small,011,Cigarrett Pack
+070330608450,Bic Multi Purpose Lighter,061,Miscellaneous
+611472010017,Bierschnaps 750,021,Liquor
+349510,Big Cat,051,Snack
+690926000361,Big Daddy 6pk,031,Beer
+732205000027,Big Ed,053,Ice Cream
+769434201260,Big House 750 Red,025,Wine
+769434207200,Big House 750 White,025,Wine
+070602739004,Big Hunk,051,Snack
+071817000378,Big Red 20oz  DDD,041,Soda
+077567404411,Big Stick,061,Miscellaneous
+786560050012,Big100 Bar ChChpCkieDough,052,Energy Bar
+786560071017,Big100 Bar ChoChipGramCracker,052,Energy Bar
+786560159357,Big100 Bar Clssl CApple Pie,052,Energy Bar
+786560149501,Big100 Bar Clssl PB Cara Crun,052,Energy Bar
+786560181402,Big100 Bar Clssl PB Pretzel,052,Energy Bar
+786560153126,Big100 Bar Clssl SuperCkCrnch,052,Energy Bar
+786560180658,Big100 Bar PB Delight,052,Energy Bar
+186560181402,Big100 Bar PB Pretzel,052,Energy Bar
+786560040013,Big100 Bar PeaButteCookieDough,052,Energy Bar
+786560181006,Big100 Bar Super Chocola Fudge,052,Energy Bar
+786560050128,Big100 BarBox Cchip Cookies Do,052,Energy Bar
+786560071123,Big100 BarBox Cchip Graham Cra,052,Energy Bar
+786560181426,Big100 BarBox Colssl PB Pretze,052,Energy Bar
+786560040129,Big100 BarBox PB CookieDough,052,Energy Bar
+786560153133,Big100 BarBox Super Cook Crunc,052,Energy Bar
+786560178709,Big100 Col 15oz Apple Pie,042,Energy Drink
+786560190107,Big100 Col 15oz Cho MilkShk,042,Energy Drink
+786560178655,Big100 Col 15oz CnC,042,Energy Drink
+786560178600,Big100 Col 15oz Peanut Caramel,042,Energy Drink
+014657812015,Binaca Fast Blast .5oz Pepperm,061,Miscellaneous
+sc309,Bingo 7's $3,081,Scratchers
+084652009079,Bio Bright Tooth Brush,061,Miscellaneous
+719751201030,Birra Moretti 6pk,031,Beer
+787143100230,Bison 24oz Choco Stout,031,Beer
+787143100452,Bison 6pk Choco Stout,031,Beer
+028000087005,Bit O Honey,051,Snack
+639736007306,Bitch Creek 6pk ESB,031,Beer
+c051943250588,bj109 Tillamook Stick HotPepni,051,Snack
+bj051943250540,bj109 Tillamook Stick Pepperon,051,Snack
+c051943250557,bj109 Tillamook Stick Teriyaki,051,Snack
+c051943419947,bj200 Tillamook Slab Hot,051,Snack
+c051943419916,bj200 Tillamook Slab OldFashio,051,Snack
+bj051943419923,bj200 Tillamook Slab Teriyaki,051,Snack
+083300083287,Black Bush 750,021,Liquor
+086767810090,Black Haus Blackberry Schnapps,021,Liquor
+098137002028,Black Opal 750 Cab,025,Wine
+098137002042,Black Opal 750 Cab,025,Wine
+098137002004,Black Opal 750 Chardonnay,025,Wine
+098137002080,Black Opal 750 Shiraz,025,Wine
+098137002066,Black Opal 750 Shiraz Cab,025,Wine
+633012640003,Black Powder 1.76lb Fruit Expl,063,Powder
+633012057818,Black Powder 1.76lb Grape,063,Powder
+085000011171,Black Swan 1.5 Cab,025,Wine
+085000011218,Black Swan 1.5 Chard,025,Wine
+085000011157,Black Swan 1.5 Merlot,025,Wine
+085000011188,Black Swan 750 Cab,025,Wine
+085000012130,Black Swan 750 Cab-Shiraz,025,Wine
+085000012093,Black Swan 750 Chard,025,Wine
+085000011225,Black Swan 750 Chardonnay,025,Wine
+085000011164,Black Swan 750 Merlot,025,Wine
+085000011201,Black Swan 750 Shiraz,025,Wine
+085000012116,Black Swan 750 Shiraz &Merlot,025,Wine
+088100134511,Black Velvet 1.75,021,Liquor
+088100134535,Black Velvet 1L,021,Liquor
+088100134580,Black Velvet 200,021,Liquor
+088100134573,Black Velvet 375,021,Liquor
+088100134696,Black Velvet 50,021,Liquor
+088100134894,Black Velvet 50 Caramel,021,Liquor
+088100134658,Black Velvet 750,021,Liquor
+070137210917,Black&Mild 2pk Classic 1.29,011,Cigarrett Pack
+070137210634,Black&Mild 2pk Classic 99c,011,Cigarrett Pack
+070137800828,Black&Mild 2pk Royale,011,Cigarrett Pack
+070137210924,Black&Mild 2pk Sweet 1.29,011,Cigarrett Pack
+070137210641,Black&Mild 2pk Sweets 99c,011,Cigarrett Pack
+070137210658,Black&Mild 2pk Wine 99c,011,Cigarrett Pack
+070137806929,Black&Mild 3pk Wine,011,Cigarrett Pack
+070137807025,Black&Mild 3pk WoodTip Wine,011,Cigarrett Pack
+070137801122,Black&Mild 5for4price Regular,011,Cigarrett Pack
+070137000181,Black&Mild 5Pk,011,Cigarrett Pack
+070137000884,Black&Mild 5Pk Apple,011,Cigarrett Pack
+070137000426,Black&Mild 5Pk Cream,011,Cigarrett Pack
+070137000389,Black&Mild 5Pk Mild,011,Cigarrett Pack
+070137210184,Black&Mild 5Pk Royale,011,Cigarrett Pack
+070137000235,Black&Mild 5Pk Wine,011,Cigarrett Pack
+070137005254,Black&Mild 5Pk WoodTip,011,Cigarrett Pack
+070137210375,Black&Mild 5Pk WoodTip Royale,011,Cigarrett Pack
+070137005292,Black&Mild 5Pk WoodTip Wine,011,Cigarrett Pack
+070137111139,Black&Mild 79cSingle DarkBlend,011,Cigarrett Pack
+070137111276,Black&Mild 79cSingle Jazz,011,Cigarrett Pack
+070137806325,Black&Mild 79cSingle WoodTip,011,Cigarrett Pack
+070137111146,Black&Mild 79cSingle Wtip Dark,011,Cigarrett Pack
+070137100188,Black&Mild Single,011,Cigarrett Pack
+070137801320,Black&Mild Single 25Cent OFF,011,Cigarrett Pack
+070137110972,Black&Mild Single SummerBlend,011,Cigarrett Pack
+070137105237,Black&Mild Single Wine,011,Cigarrett Pack
+070137105251,Black&Mild Single WoodTip,011,Cigarrett Pack
+070137105299,Black&Mild Single WoodTip Wine,011,Cigarrett Pack
+070137110989,Black&Mild Single WoodTiSummer,011,Cigarrett Pack
+096749011698,BlackHeart 50 Rum,021,Liquor
+610764010742,BlackPearl 8oz,042,Energy Drink
+883431000142,BlackStar 6pk Golden Larger,031,Beer
+081434500175,BlackStone 1.5 Merlot,025,Wine
+081434500090,BlackStone 750 Cab,025,Wine
+081434000590,BlackStone 750 Chard,025,Wine
+081434500151,BlackStone 750 Merlot,025,Wine
+081434500267,BlackStone 750 Pinot Noir,025,Wine
+080888308061,Blanco Madero 750,021,Liquor
+071250000768,Blast 24oz Grape,031,Beer
+686464480000,Blink Pop Candy,051,Snack
+041388220550,Blistex ,061,Miscellaneous
+080720919035,Blossom Hill 1.5 Symphony,025,Wine
+080720703634,Blossom Hill 1.5 White Zin,025,Wine
+080720283372,Blossom Hill 750 White Zin,025,Wine
+01406922,Blow Pop,051,Snack
+140692,Blow Pop (Champ 180ct),051,Snack
+092212111025,Blue Heron 12oz,031,Beer
+092212121024,Blue Heron 6pk Pale Ale,031,Beer
+815197000128,Blue Ice 750 Vodka,021,Liquor
+098137553537,Blue Marlin 1.5 Shiraz,025,Wine
+bluemoon 1/2keg,Blue Moon 1/2Keg,031,Beer
+071990095161,Blue Moon 12pk,031,Beer
+071990095543,Blue Moon 12pk Mix,031,Beer
+071990095369,Blue Moon 12pk Season,031,Beer
+071990095130,Blue Moon 22oz,031,Beer
+071990095390,Blue Moon 22oz Honey,031,Beer
+071990095116,Blue Moon 6pk,031,Beer
+071990095710,Blue Moon 6pk Pale Moon DDD,031,Beer
+071990095321,Blue Moon 6pk Season,031,Beer
+041570052273,BlueDiamd 1.5z Almd Jalapan,051,Snack
+041570051818,BlueDiamd 1.5z Almd WholeNat,051,Snack
+041570052303,BlueDiamd 1.5z Bold wasabi,051,Snack
+041570052297,BlueDiamd 1.5z Lime n Chili,051,Snack
+041570051801,BlueDiamd 1.5z Roasted Sal,051,Snack
+041570051795,BlueDiamd 1.5z smoke housel,051,Snack
+644536226925,Blunt Wrap Box Apple Martini,012,Cigarrett Carton
+644536227922,Blunt Wrap Box Kush,012,Cigarrett Carton
+644536226222,Blunt Wrap CT Blueberry,012,Cigarrett Carton
+644536226123,Blunt Wrap CT GrapeALicious,012,Cigarrett Carton
+644536227328,Blunt Wrap CT Mello Mango,012,Cigarrett Carton
+644536226024,Blunt Wrap CT Straw Kiwi,012,Cigarrett Carton
+644536226420,Blunt Wrap CT Watermelon,012,Cigarrett Carton
+644536227625,Blunt Wrap CT Wet Cherry,012,Cigarrett Carton
+644536226918,Blunt Wrap Pk Apple Martini,011,Cigarrett Pack
+644536226215,Blunt Wrap Pk Blueberry,011,Cigarrett Pack
+644536226116,Blunt Wrap Pk GapreALicous,011,Cigarrett Pack
+644536227915,Blunt Wrap Pk Kush,011,Cigarrett Pack
+644536227311,Blunt Wrap Pk Mello Mango,011,Cigarrett Pack
+644536226314,Blunt Wrap Pk Peach Passion,011,Cigarrett Pack
+644536226017,Blunt Wrap Pk Straw Kiwi,011,Cigarrett Pack
+644536226413,Blunt Wrap Pk Watermelon,011,Cigarrett Pack
+644536227618,Blunt Wrap Pk Wet Cherry,011,Cigarrett Pack
+083664864270,Bocca Guicciarda 750,025,Wine
+762274813938,Boddingstons 16oz 4pk Can Ale,031,Beer
+080887493966,Bogle 750 Cabernet,025,Wine
+080887493928,Bogle 750 Chard,025,Wine
+898267,Bohemia 12oz,031,Beer
+089826700127,Bohemia 12pk,031,Beer
+089826700011,Bohemia 6pk,031,Beer
+648930001539,Boitest HotRox Extreme 110cap,065,Power Capsule
+083300095204,Bolla 750 Chard,025,Wine
+083300074827,Bolla 750 Chianti,025,Wine
+083300095518,Bolla 750 Pinot Grigio,025,Wine
+080915038886,Bols 750 Sloe Gin,021,Liquor
+080480301002,Bombay 1.75 Sapphire,021,Liquor
+081440103117,Bombay 1L,021,Liquor
+080480301149,Bombay 200 Sapphire,021,Liquor
+081440103810,Bombay 375 Dry Gin,021,Liquor
+080480301033,Bombay 375 Sapphire,021,Liquor
+804884,Bombay 50 Sapphire,021,Liquor
+080480300029,Bombay 750 Gin,021,Liquor
+080480301026,Bombay 750 Sapphire,021,Liquor
+080480002114,Bombay 750 Sapphire East,021,Liquor
+snack179,Bon Appetit ,051,Snack
+snack 189,Bon Appetit 5.oz,051,Snack
+089819798681,Bonello 750 Cabernet Italia,025,Wine
+082896780402,Bonterra 750 Cab,025,Wine
+080686011408,Bookers 750 True Barrel,021,Liquor
+085000012161,Boones 750 Blue Hawaiian,022,Liquor - Cocktail
+857250,Boones 750 Country Kwencher,022,Liquor - Cocktail
+085000010488,Boones 750 Farm Blackberry,022,Liquor - Cocktail
+852950,Boones 750 Fuzzy Navel,022,Liquor - Cocktail
+085000001004,Boones 750 Hard Lemonade,022,Liquor - Cocktail
+851000,Boones 750 Hard Lemonade,022,Liquor - Cocktail
+859210,Boones 750 Kiwi Straw,022,Liquor - Cocktail
+085000013700,Boones 750 Mango Groove,022,Liquor - Cocktail
+85000013700,Boones 750 Mango Grove,022,Liquor - Cocktail
+851920,Boones 750 Margarita,022,Liquor - Cocktail
+085000011805,Boones 750 Melon Ball,022,Liquor - Cocktail
+853500,Boones 750 Mountain Berry,022,Liquor - Cocktail
+085000012895,Boones 750 Orange Hurricane,022,Liquor - Cocktail
+851930,Boones 750 Pina Colada,022,Liquor - Cocktail
+085000001158,Boones 750 Rasp Hard Lemonade,022,Liquor - Cocktail
+855120,Boones 750 Sangria,022,Liquor - Cocktail
+855610,Boones 750 Snow Creek Berry,022,Liquor - Cocktail
+851940,Boones 750 Straw Daiquiri,022,Liquor - Cocktail
+857300,Boones 750 Straw Hill,022,Liquor - Cocktail
+085000014929,Boones 750 Straw Margarita,022,Liquor - Cocktail
+851500,Boones 750 Sun Peak Peach,022,Liquor - Cocktail
+085000017111,Boones 750 Sunshine Pink,022,Liquor - Cocktail
+085000015469,Boones 750 Watermelon,022,Liquor - Cocktail
+085000016718,Boones 750 Wild Cherry,022,Liquor - Cocktail
+855820,Boones 750 Wild Island,022,Liquor - Cocktail
+085000010044,Boones 750 Wild Raspberry,022,Liquor - Cocktail
+073947004585,Borkum Riff Pk,011,Cigarrett Pack
+014615144523,Borski 1.75 Vodka,021,Liquor
+663881000004,Boru 750,021,Liquor
+037000360001,Bounce 25 Sheet,061,Miscellaneous
+037000800491,Bounce 40 Sheet,061,Miscellaneous
+paper towel,Bounty Paper Towel Roll,025,Wine
+086259231846,Bourbon de Luxe 1.75,021,Liquor
+080686466208,Bourbon de Luxe 1L,021,Liquor
+086259231884,Bourbon de Luxe 200,021,Liquor
+086259231860,Bourbon de Luxe 750,021,Liquor
+031146250103,Bowl Noodle hot spicy beef 3.,061,Miscellaneous
+031146262748,Bowl Noodle spicy shrimp 3.03,061,Miscellaneous
+850483000055,Bowmore 750 12yr,021,Liquor
+850483000048,Bowmore 750 Legend,021,Liquor
+064144043156,Boyardee 15oz Beef Ravioli,061,Miscellaneous
+064144043026,Boyardee 15oz Beefaroni,061,Miscellaneous
+064144043040,Boyardee 15oz Lasagna,061,Miscellaneous
+064144043064,Boyardee 15oz Mini Ravioli,061,Miscellaneous
+064144043224,Boyardee 15oz Spgti&Meatball,061,Miscellaneous
+7503010658047,Bracero 1L Gold,021,Liquor
+615441771183,Bracero 200 Repo,021,Liquor
+615441661187,Bracero 750 Anejo,021,Liquor
+615441661194,Bracero 750 Blanco,021,Liquor
+615441661170,Bracero 750 Reposado,021,Liquor
+852832104704,Brancott 750 Pinot Noir,025,Wine
+042000224000,Brawny,061,Miscellaneous
+042000240000,Brawny Paper Towel,061,Miscellaneous
+bread,Bread ,051,Snack
+347640,BreathSaver Peppermint,051,Snack
+347710,BreathSaver Spearmint,051,Snack
+347670,BreathSaver Wintergreen,051,Snack
+088320171013,Brennans 750 Oak Casks,021,Liquor
+077567027603,Breyers Fruit Bar,053,Ice Cream
+bridgeford 199,Bridgeford 199,051,Snack
+bridgeford 499,Bridgeford 499,051,Snack
+012000024511,Brisk 1L Diet Lemon IT,041,Soda
+012000567490,Brisk 1L Fruit Punch,041,Soda
+012000022142,Brisk 1L Green Tea,041,Soda
+012000034015,Brisk 1L IT Lemonade,041,Soda
+012000202384,Brisk 1L Lemon IT DDD,041,Soda
+012000101908,Brisk 1L Lemonade,041,Soda
+012000034022,Brisk 1L Peach IGT,041,Soda
+012000024528,Brisk 1L Raspberry IT DDD,041,Soda
+012000034039,Brisk 1L Straw Melon,041,Soda
+012000031878,Brisk 1L Sweet IT,041,Soda
+072250003094,BroadStBk Banana Puddie Cake,051,Snack
+698819292602,Bronco Pk Gold DDD,011,Cigarrett Pack
+082242487535,Brook Hollow 750 Merlot,025,Wine
+727344001332,Brother Thelonious 375ml,031,Beer
+727344001059,Brother Thelonious 4pk Abbey,031,Beer
+834266003303,BSN AminoX 15oz FP,063,Powder
+834266003280,BSN AminoX 15oz Green Apple,063,Powder
+834266001101,BSN Atro-Phex 98cap,065,Power Capsule
+834266003051,BSN Axis HT 120cap,065,Power Capsule
+834266001200,BSN Cheaters 120Cap DDD,065,Power Capsule
+834266001903,BSN Hyper Shred 90Cap,065,Power Capsule
+834266005031,BSN Nitrix 180cap,065,Power Capsule
+834266001040,BSN Thermonex 120cap DDD,065,Power Capsule
+bubble jug,Bubble Jug,051,Snack
+bubble tape,Bubble Tape Original,051,Snack
+072450040608,Bubble Up 20oz Le-Li,041,Soda
+012546917025,Bubblicious 5pc TropicalPunch ,051,Snack
+012546915199,Bubblicious Bubble Gum 5pieces,051,Snack
+bubblicious gum,Bubblicious Gum,051,Snack
+012546915526,Bubblicious Savage Sour Apple,051,Snack
+012546917568,Bubblicious Strawberry Splash,051,Snack
+743235,Bubu Lubu,051,Snack
+051902010048,Buchanan 4z Pistachios,051,Snack
+051902010079,Buchanan 7z Pistachios,051,Snack
+088110955335,Buchanans 12yr 375,021,Liquor
+088110955328,Buchanans 12yr 750,021,Liquor
+088110955304,Buchanans 12yrs 1L,021,Liquor
+088076177789,Buchanans 15yr Master Blended,021,Liquor
+088110955342,Buchanans 18yr 750,021,Liquor
+088076170087,Buchanans Red Seal 750,021,Liquor
+072890000309,Buckler 6pk,031,Beer
+bud keg,Bud 1/2 Keg,031,Beer
+bud 12oz nr,Bud 12oz Bottle,031,Beer
+180162,Bud 12oz Can,031,Beer
+181062,Bud 12oz Can Light ,031,Beer
+018200199875,Bud 12pk 8oz Can LimeArita,031,Beer
+018200209932,Bud 12pk 8oz Can Straw-Rita,031,Beer
+018200007712,Bud 12pk Bottle,031,Beer
+018200209956,Bud 12pk Bottle Blk Crown,031,Beer
+018200007699,Bud 12pk Bottle Light,031,Beer
+018200189920,Bud 12pk Bottle Light Platinum,031,Beer
+018200110474,Bud 12pk Can,031,Beer
+018200530470,Bud 12pk Can Light,031,Beer
+018200159831,Bud 12pk Light Lime Can,031,Beer
+018200149900,Bud 12pk Light Lime NR,031,Beer
+p180182,Bud 16oz 6pk,031,Beer
+p181152,Bud 16oz 6pk Light,031,Beer
+180182,Bud 16oz Can,031,Beer
+181152,Bud 16oz Can Light,031,Beer
+018200112188,Bud 18pk Can,031,Beer
+018200532184,Bud 18pk Can Light,031,Beer
+018200113086,Bud 18pk NR,031,Beer
+018200533082,Bud 18pk NR Light ,031,Beer
+018200530258,Bud 20pk Light,031,Beer
+018200110252,Bud 20pk NR,031,Beer
+184662,Bud 24oz Can,031,Beer
+184952,Bud 24oz Can Ice,031,Beer
+184682,Bud 24oz Can Light,031,Beer
+184592,Bud 24oz Can Select,031,Beer
+018200112355,Bud 24oz Case,031,Beer
+018200532351,Bud 24oz Case Light,031,Beer
+182662,Bud 24oz Lt Lime Can,031,Beer
+018200110306,Bud 30pk Can,031,Beer
+018200530302,Bud 30pk Can Light,031,Beer
+182452,Bud 32oz Bottle Ice,031,Beer
+181262,Bud 40oz Bottle,031,Beer
+181602,Bud 40oz Bottle Light,031,Beer
+018200008344,Bud 6pk Btl,031,Beer
+018200209963,Bud 6pk Btl Blk Crown,031,Beer
+018200008337,Bud 6pk Btl Light,031,Beer
+018200189937,Bud 6pk Btl Lt Platinum,031,Beer
+p180162,Bud 6pk Can,031,Beer
+p181062,Bud 6pk Can Light,031,Beer
+018200149917,Bud 6pk Light Lime NR,031,Beer
+018200159985,Bud 6pk Light Wheat DDD,031,Beer
+018200159961,Bud 6pk Select 55,031,Beer
+018200189814,Bud 8oz 12pk Can,031,Beer
+018200179990,Bud 8oz 12pk Can Light,031,Beer
+018200961472,Bud 8oz 24pk Can Light,031,Beer
+188632,Bud Chelada 16oz Can,031,Beer
+188662,Bud Chelada 16oz Can Light,031,Beer
+187452,Bud Chelada 24oz Can,031,Beer
+187462,Bud Chelada 24oz Can Light,031,Beer
+181702,Bud Chelada 24oz Can Picante,031,Beer
+189622,Bud LimeARita 24oz Can,031,Beer
+185952,Bud Straw-Ber-Rita 24oz Can,031,Beer
+081188107200,Buena Vista 750 Cab,025,Wine
+081188105800,Buena Vista 750 Cab Sauv,025,Wine
+081188105701,Buena Vista 750 Chardonnay,025,Wine
+081188000068,Buena Vista 750 Sauv Blanc,025,Wine
+081188104308,Buena Vista 750 Zinfandel,025,Wine
+081188107101,BuenaVista Carneros 750 Chard,025,Wine
+081188107408,BuenaVista Carneros 750 Pnt Nr,025,Wine
+027200005048,Bugler Can,011,Cigarrett Pack
+027200015009,Bugler CT,012,Cigarrett Carton
+027200366026,Bugler Pk,011,Cigarrett Pack
+071737981030,Bugler Pk 50c Off,011,Cigarrett Pack
+016000505377,Bugles 3.25oz ChoPB,051,Snack
+016000506091,Bugles Caramel cheddar 3.5 oz,051,Snack
+016000503311,Bugles Hot Buffalo 3. oz,051,Snack
+016000513792,Bugles Nacho Cheese 3 oz,051,Snack
+016000368309,Bugles Original 3.oz,051,Snack
+016000504257,Bugles swt & sa Caramel 3.5 oz,051,Snack
+874040,Bulleit Bourbon 1.75,021,Liquor
+874130,Bulleit Bourbon 200,021,Liquor
+874120,Bulleit Bourbon 375,021,Liquor
+875520,Bulleit Bourbon 750,021,Liquor
+082000752967,Bulleit Bourbon 750 95Rye,021,Liquor
+804879081661,Bump 10oz,042,Energy Drink
+028000139001,Buncha Crunch,051,Snack
+720495902770,Burger King cheesy fries,051,Snack
+720495902824,Burger King hot fries potato ,051,Snack
+720495901766,Burger King Onion rings 2 oz,051,Snack
+182312,Busch 24oz,031,Beer
+182422,Busch 24oz Light,031,Beer
+018200610301,Busch 30pk Can,031,Beer
+180702,Busch 32 oz,031,Beer
+088076171978,Bushmill 10yr 750,021,Liquor
+083300083751,Bushmill 16yr 750,021,Liquor
+080432566121,Bushmill 200,021,Liquor
+088076168978,Bushmill 375,021,Liquor
+821580,Bushmill 50-12pk,021,Liquor
+088076168985,Bushmill 750,021,Liquor
+088076171985,Bushmill Black 750,021,Liquor
+080432404492,Bushmill Irish Cream 750,021,Liquor
+028000011598,Butterfinger,051,Snack
+028000259105,ButterFinger Crisp,051,Snack
+028000001421,ButterFinger KingSize,051,Snack
+bd20,Buy Down $0.20,111,Coupons & CRV
+857641002005,BuzzBall Cran Blaster Case,022,Liquor - Cocktail
+857641002234,BuzzBall Forbidden Apple Case,022,Liquor - Cocktail
+857641002258,BuzzBall Lotta Colada Case,022,Liquor - Cocktail
+zzzz*****,BuzzBall Mix Case,022,Liquor - Cocktail
+857641002012,BuzzBall OJ Screamer Case,022,Liquor - Cocktail
+zzzzldasgljla,BuzzBall Peach Case,022,Liquor - Cocktail
+857641002272,BuzzBall Stiff Lemonade Case,022,Liquor - Cocktail
+857641002609,BuzzBall Straw Rum Case,022,Liquor - Cocktail
+080696211140,BV Carneros 750 Chard,025,Wine
+080696014130,BV Carneros 750 Pinot Noir,025,Wine
+080696915826,BV Century 1.5 Cab,025,Wine
+080696915819,BV Century 1.5 Chard,025,Wine
+080696915789,BV Century 1.5 Merlot,025,Wine
+080696111228,BV Coastal 750 Cab,025,Wine
+080696095702,BV Coastal 750 Chard,025,Wine
+080696092671,BV Coastal 750 Merlot,025,Wine
+080696920509,BV Coastal 750 Pinot Grigio,025,Wine
+080696151149,BV Coastal 750 Pinot Noir,025,Wine
+080696922640,BV Coastal 750 Red Blend,025,Wine
+080696921353,BV Coastal 750 Riesling,025,Wine
+080696095153,BV Coastal 750 Sau Blanc,025,Wine
+080696913341,BV Coastal 750 Shiraz,025,Wine
+080696636868,BV Coastal 750 Zinfandel,025,Wine
+080696911927,BV Dulcet 750,025,Wine
+080696921223,BV George De Latour 750,025,Wine
+080696096426,BV Napa 750 Cabernet,025,Wine
+080696916335,BV Napa 750 Chardonay,025,Wine
+080696014697,BV Napa 750 Merlot,025,Wine
+080696911132,BV Napa 750 Merlot disco,025,Wine
+080696221248,BV Napa 750 Sau Blanc,025,Wine
+080696057502,BV Napa 750 Zinfandel,025,Wine
+080696912405,BV Reserve 750 Chardonay,025,Wine
+080696121227,BV Rutherford 750 Cabernet,025,Wine
+080696921261,BV Tapestry 750 ,025,Wine
+015800030119,C&H Pure Cane Sugar Box,061,Miscellaneous
+015800030485,C&H sugar 32oz,061,Miscellaneous
+853883003008,C2O PureCoco Water 17z,041,Soda
+081932464429,Cabana boy Citrus,021,Liquor
+081932461428,Cabana boy Orange,021,Liquor
+081932465426,Cabana boy Pine-coco,021,Liquor
+081932466423,Cabana boy Raspberry,021,Liquor
+081932462425,Cabana boy Vanilla,021,Liquor
+081932463422,Cabana boy Wild Cherry,021,Liquor
+086816327371,Cabin Fever 50ml Whisky-10pk,021,Liquor
+086816327340,Cabin Fever 750 Whisky,021,Liquor
+721059743754,Cabo Wabo 375 Blanco,021,Liquor
+721059743761,Cabo Wabo 375 Reposado,021,Liquor
+720815910539,Cabo Wabo Anejo 750,021,Liquor
+720815910737,Cabo Wabo Blanco 750,021,Liquor
+720815910133,Cabo Wabo Reposado 750,021,Liquor
+749787500012,Cabrito 1L Repo,021,Liquor
+749787500111,Cabrito 375 Repo,021,Liquor
+749787500029,Cabrito 750 Repo,021,Liquor
+052679017179,Cacahuates 7oz Chile Limon,051,Snack
+087229987527,Caden Old Raj Gin 750,021,Liquor
+083960538905,Cadet 750 Cab,025,Wine
+083960538936,Cadet 750 Chard,025,Wine
+616513700056,Cala Nail Clipper Small,061,Miscellaneous
+075403000308,Calistoga 1.5L,041,Soda
+075403000209,Calistoga 1L,041,Soda
+075403000100,Calistoga 24oz Sport,041,Soda
+075403055056,Calistoga Mineral 1L Lemon,041,Soda
+075403066069,Calistoga Mineral 1L Lime,041,Soda
+075403001015,Calistoga Mineral 1L Original,041,Soda
+081339085050,Callaway 750 Chard,025,Wine
+081339085036,Callaway 750 Sauv Blanc,025,Wine
+081339121017,Callway 750 Viognier,025,Wine
+872050,Calvert 750,021,Liquor
+085000017340,Camarena 200 Reposado,021,Liquor
+085000017289,Camarena 200 Silver,021,Liquor
+085000017333,Camarena 375 Reposado,021,Liquor
+085000017272,Camarena 375 Silver,021,Liquor
+085000008829,Camarena 50 Reposado,021,Liquor
+085000008812,Camarena 50 Silver,021,Liquor
+085000017326,Camarena 750 Repo,021,Liquor
+085000016824,Camarena 750 Silver,021,Liquor
+cbdc,Camel Buy Down Carton,111,Coupons & CRV
+cbdct,Camel Buy Down Carton Tax,111,Coupons & CRV
+cbdp,Camel Buy Down Pack,111,Coupons & CRV
+cbdpt,Camel Buy Down Pack Tax,111,Coupons & CRV
+012300103138,Camel CT Box,012,Cigarrett Carton
+012300197403,Camel CT Crush Box,012,Cigarrett Carton
+012300260138,Camel CT Gold 99 Box,012,Cigarrett Carton
+012300265713,Camel CT Gold Box,012,Cigarrett Carton
+012300107136,Camel CT Gold Box,012,Cigarrett Carton
+012300356954,Camel CT Men No 9 Box,012,Cigarrett Carton
+012300194136,Camel CT MenGold Box,012,Cigarrett Carton
+012300193139,Camel CT Menthol Box,012,Cigarrett Carton
+012300351003,Camel CT No 9 100 Box,012,Cigarrett Carton
+012300356923,Camel CT No 9 Box,012,Cigarrett Carton
+012300212137,Camel CT Silver 99 Box,012,Cigarrett Carton
+012300215138,Camel CT Silver Box,012,Cigarrett Carton
+012300302890,Camel CT Tk Royal Box,012,Cigarrett Carton
+012300327916,Camel CT Tk Silver Box,012,Cigarrett Carton
+012300707138,Camel CT Wide Box,012,Cigarrett Carton
+012300708135,Camel CT Wide Gold Box,012,Cigarrett Carton
+012300101134,Camel NF CT Nonfilter Soft,012,Cigarrett Carton
+123013,Camel NF Pk Nonfilter Soft,011,Cigarrett Pack
+012300367318,Camel Pk 50CentOff 99DDD,011,Cigarrett Pack
+012300367370,Camel Pk 50CentOff 99GoldDDD,011,Cigarrett Pack
+012300200592,Camel Pk 99 Box,011,Cigarrett Pack
+012300200608,Camel Pk Blue 99 Box,011,Cigarrett Pack
+123073,Camel Pk Blue Box,011,Cigarrett Pack
+123033,Camel Pk Box,011,Cigarrett Pack
+012300199407,Camel Pk Crush Bold Box ,011,Cigarrett Pack
+012300197410,Camel Pk Crush Box,011,Cigarrett Pack
+123943,Camel Pk Men Silver Box,011,Cigarrett Pack
+123933,Camel Pk Menthol Box,011,Cigarrett Pack
+012300351065,Camel Pk No 9 100 Box,011,Cigarrett Pack
+012300265707,Camel Pk No 9 Box,011,Cigarrett Pack
+012300356947,Camel Pk No9 Men  Box,011,Cigarrett Pack
+012300200127,Camel Pk Silver 99 Box,011,Cigarrett Pack
+012300200158,Camel Pk Silver Box DDD,011,Cigarrett Pack
+012300667999,Camel Pk Special Gold 100 Box,011,Cigarrett Pack
+012300269858,Camel Pk Tk Gold 100 Box,011,Cigarrett Pack
+012300265706,Camel Pk Tk Gold Box,011,Cigarrett Pack
+012300283588,Camel Pk Tk Jade Box,011,Cigarrett Pack
+012300302883,Camel Pk Tk Royal Box,011,Cigarrett Pack
+012300327909,Camel Pk Tk Silver Box,011,Cigarrett Pack
+012300708999,Camel Pk Wide Blue Box,011,Cigarrett Pack
+012300707992,Camel Pk Wide Box,011,Cigarrett Pack
+012300340830,Camel Pk Wide MenGold Box,011,Cigarrett Pack
+123703,Camel Snus Pk Frost,011,Cigarrett Pack
+123233,Camel Snus Pk Mellow,011,Cigarrett Pack
+123693,Camel Snus Pk Robust,011,Cigarrett Pack
+123683,Camel Snus Pk WinterChill,011,Cigarrett Pack
+784799001027,Camelot 750 Cab ,025,Wine
+784799001041,Camelot 750 Chard ,025,Wine
+784799001799,Camelot 750 Merlot,025,Wine
+722650503891,Camera,061,Miscellaneous
+722650504362,Camera With Flash,061,Miscellaneous
+088110157296,Camp Romain 750,021,Liquor
+086767350060,Campari 750,021,Liquor
+051000012319,Campbell 10.5oz Vegetable beef,061,Miscellaneous
+051000000118,Campbell 10oz CdnSoup Tomato,061,Miscellaneous
+051000010216,Campbell 10oz CdnSoup Vege,061,Miscellaneous
+051000012517,Campbell 10oz chicken noodle,061,Miscellaneous
+051000011411,Campbell 10oz Minestrone,061,Miscellaneous
+delete 16,Campbell 12oz Can Tomato  Disc,041,Soda
+051000012937,Campbell 12oz Can Tomato Juice,041,Soda
+051000025128,Campbell 14oz Spaghetti,061,Miscellaneous
+051000142931,Campbell chunky 18.8oz Dumling,061,Miscellaneous
+051000038852,Campbell Chunky 18.8oz Nood,061,Miscellaneous
+051000025272,Campbell Spaghetti 14oz Frank,061,Miscellaneous
+051000025265,Campbell Spaghetti 14oz Meatba,061,Miscellaneous
+051000025241,Campbell Spaghetti 14oz Origin,061,Miscellaneous
+633438700091,Campo Viejo 750 Crianza,025,Wine
+087236350048,Campogrande 750 Antinori,025,Wine
+781140,CanadaDry 12oz Ginger Ale,041,Soda
+078000152166,CanadaDry 12pk Ginger Ale,041,Soda
+078000001174,CanadaDry 16oz GingerAle,041,Soda
+078000146455,CanadaDry 1L Club Soda,041,Soda
+078000145458,CanadaDry 1L Collins Mixer,041,Soda
+078000149456,CanadaDry 1L Diet Tonic Water,041,Soda
+078000152456,CanadaDry 1L Ginger Ale,041,Soda
+078000147452,CanadaDry 1L SparklingWater,041,Soda
+078000153453,CanadaDry 1L Tonic Water,041,Soda
+078000152401,CanadaDry 20oz Ginger Ale,041,Soda
+078000152463,CanadaDry 2L,041,Soda
+080686821120,Canadian Club 1.75,021,Liquor
+080686821700,Canadian Club 200,021,Liquor
+089540168449,Canadian Club 375,021,Liquor
+089540168463,Canadian Club 50,021,Liquor
+080686821052,Canadian Club 750,021,Liquor
+089540390581,Canadian Club 750 Citrus,021,Liquor
+089540418339,Canadian Club 750 Sherry Cask,021,Liquor
+089540415864,Canadian Club Reserve 750,021,Liquor
+081128023003,Canadian Mist 1.75,021,Liquor
+081128027209,Canadian Mist 1885 750,021,Liquor
+081128023300,Canadian Mist 200,021,Liquor
+081128023256,Canadian Mist 375,021,Liquor
+081128000011,Canadian Mist 50-10pk,021,Liquor
+081128023164,Canadian Mist 750,021,Liquor
+candle,Candle,061,Miscellaneous
+candy10,Candy 10,051,Snack
+candy100,Candy 100,051,Snack
+candy125,Candy 125,051,Snack
+candy150,Candy 150,051,Snack
+candy199,Candy 199,051,Snack
+candy25,Candy 25,051,Snack
+candy50,Candy 50,051,Snack
+candy75,Candy 75,051,Snack
+028000139575,Candy Bars Peanut Butter,051,Snack
+75030452,Canel Gum 60,051,Snack
+089708097086,Cantera 750 Anejo,021,Liquor
+083417042207,Canyon Road 750 Cab,025,Wine
+083417041200,Canyon Road 750 Chard,025,Wine
+083417054200,Canyon Road 750 Merlot,025,Wine
+088076163461,Caol ILa 12yr 750,021,Liquor
+088076163478,Caol ILa 18yr 750,021,Liquor
+721059047500,Capari 750,021,Liquor
+074957081115,Capital Pound Cake 8z,055,Bakery
+027200011636,Capri CT Magenta 100  Box,012,Cigarrett Carton
+027200011162,Capri CT Magenta 120 Box,012,Cigarrett Carton
+027200011643,Capri CT Men Indio 100 Box,012,Cigarrett Carton
+027200011179,Capri CT Men Indio 120 Box,012,Cigarrett Carton
+027200032501,Capri CT Violet 100 Box,012,Cigarrett Carton
+272382,Capri Pk Magenta 100 Box,011,Cigarrett Pack
+272162,Capri Pk Magenta 120 Box,011,Cigarrett Pack
+272392,Capri Pk Men Indio 100 Box,011,Cigarrett Pack
+272172,Capri Pk Men Indio 120 Box,011,Cigarrett Pack
+276612,Capri Pk Men Jade 100 Box,011,Cigarrett Pack
+276602,Capri Pk Violet 100 Box,011,Cigarrett Pack
+071737401002,Captain Black Pk,011,Cigarrett Pack
+087000201156,Captain Morgan 1.75,021,Liquor
+082000742005,Captain Morgan 100P 1.75,021,Liquor
+082000741985,Captain Morgan 100P 750,021,Liquor
+872730,Captain Morgan 200,021,Liquor
+872770,Captain Morgan 375,021,Liquor
+822650,Captain Morgan 50 LimeBit-10pk,021,Liquor
+873140,Captain Morgan 50-10pk,021,Liquor
+872710,Captain Morgan 750,021,Liquor
+082000750178,Captain Morgan 750 Lime Bite,021,Liquor
+082000766827,Captain Morgan 750 White,021,Liquor
+087000201781,Captain Morgan Private 750,021,Liquor
+087000505179,Captain Morgan Tattoo 750,021,Liquor
+082000743491,Captain RTD 750 Long Island IT,021,Liquor
+343400,Caramello ,051,Snack
+345240,Caramello King,051,Snack
+039442042002,Carb Block 60cap DDD,065,Power Capsule
+749826501017,CarboRush 20oz Grape Blitz,042,Energy Drink
+749826501024,CarboRush 20oz Power Punch,042,Energy Drink
+088110031053,Cardhu 12yrs 750,021,Liquor
+347450,Carefree Alpinemint PTP,051,Snack
+347600,Carefree Kooler Berry Splash,051,Snack
+192510,Carefree Kooler Mint Splash,051,Snack
+347620,Carefree Original PlenT pack,051,Snack
+347480,Carefree Peppermint PlenT pack,051,Snack
+190770,Carefree Spearmint PlenT pack,051,Snack
+854850,Carlo Rossi 1.5 Blush,025,Wine
+856980,Carlo Rossi 1.5 Burgandy,025,Wine
+857040,Carlo Rossi 1.5 Chablis,025,Wine
+854360,Carlo Rossi 1.5 Chianti,025,Wine
+857010,Carlo Rossi 1.5 Rhine,025,Wine
+857130,Carlo Rossi 1.5 Sangria,025,Wine
+280050,Carlos V chocolate,051,Snack
+082422010140,Carlosi Brandy 750,021,Liquor
+087600100187,Carlsberg 12pk,031,Beer
+087600100231,Carlsberg 6pk Elephant,031,Beer
+087600100217,Carlsberg 6pk Green Label,031,Beer
+080432200971,Carlton Brut 750,024,Champange
+043300020781,Carlton CT 100 Box,012,Cigarrett Carton
+043300029081,Carlton CT Box,012,Cigarrett Carton
+043300020583,Carlton CT Men 100 Box,012,Cigarrett Carton
+433053,Carlton Pk 100 Box,011,Cigarrett Pack
+433863,Carlton Pk Box,011,Cigarrett Pack
+433363,Carlton Pk Men 100 Box,011,Cigarrett Pack
+704206567888,Carmel 6pk Wheat Beer,031,Beer
+089819761029,Carmenet Cab,025,Wine
+089819761012,Carmenet Chard,025,Wine
+089819761036,Carmenet Merlot,025,Wine
+089819761043,Carmenet Sauvignon Blanc,025,Wine
+083078112141,Carmex,061,Miscellaneous
+083078112110,Carmex 0.25oz Jar,061,Miscellaneous
+083078113179,Carmex 0.35oz Lip Moisturizer,061,Miscellaneous
+050000010110,Carnation Evaporated Milk 12oz,061,Miscellaneous
+017900996272,Carnation Sandwidch,061,Miscellaneous
+017900996289,Carnation Sandwidch Vanilla,061,Miscellaneous
+721059517508,Carolans 750,021,Liquor
+898266,Carta Blanca 12oz,031,Beer
+089826000043,Carta Blanca 32oz,031,Beer
+089826600014,Carta Blanca 6pk,031,Beer
+011443260104,Cartlidge Brown 750 Chard,025,Wine
+011443260227,Cartlidge Brown 750 Syrah,025,Wine
+088110831226,Casa Lapostolle 750 Cab,025,Wine
+088110821012,Casa Lapostolle 750 Chard,025,Wine
+088110831257,Casa Lapostolle 750 Merlot,025,Wine
+081240050376,Casa Noble 750 Blanco,021,Liquor
+081240050499,Casa Noble 750 Repasado,021,Liquor
+698450502009,Casco Viejo 750 Gold,021,Liquor
+sc205,Cash Stack $2,081,Scratchers
+085000003947,Cask & Cream  50,021,Liquor
+854050,Cask & Cream 1.75,021,Liquor
+854030,Cask & Cream 200,021,Liquor
+085000012383,Cask & Cream 375 Caramel,021,Liquor
+085000012369,Cask & Cream 375 Chocolate,021,Liquor
+085000009574,Cask & Cream 50 Caramel,021,Liquor
+085000009567,Cask & Cream 50 Chocolate,021,Liquor
+853960,Cask & Cream 750,021,Liquor
+080480065201,Castillo Silver 1.75,021,Liquor
+catfood 5.5oz,Cat Food 5.5oz,061,Miscellaneous
+815829010204,CaymanJack 16oz Margarita ,031,Beer
+815829010068,CaymanJack 6pk Margarita,031,Beer
+017224799122,Caymus 750 Sauv Blanc,025,Wine
+080480170004,Cazadores 1.75 Repo,021,Liquor
+798135000018,Cazadores 1L,021,Liquor
+080480170127,Cazadores 200 Repo,021,Liquor
+080480170035,Cazadores 375 Repo,021,Liquor
+080480170042,Cazadores 50 Repo-12pk,021,Liquor
+080480172527,Cazadores 750 Anejo,021,Liquor
+080480170028,Cazadores 750 Reposado,021,Liquor
+080480172022,Cazadores Blanco 750,021,Liquor
+834266002207,Cell Mass 1.76lb Arctic Berryf,063,Powder
+834266002252,Cell Mass 1.76lb FP,063,Powder
+834266002153,Cell Mass 1.76lb Grape Cooler,063,Powder
+834266002351,Cell Mass 2.12lb Arcticberry,063,Powder
+834266002306,Cell Mass 2.12lb Grape,063,Powder
+631656700337,CellTech 4.5lb ?,063,Powder
+631656701623,CellTech 6lb FP,063,Powder
+631656700589,CellTech Pro 4.5lb Blue Rasp,063,Powder
+631656760323,CellTech Pro 4.5lb Fruit Punch,063,Powder
+631656700190,CellTech Pro 4.5lb Grape DDD,063,Powder
+631656700336,CellTech Pro 4.5lb Le-li DDD,063,Powder
+631656700237,CellTech Pro 4.5lb Orange,063,Powder
+080516048543,Centine 750 Banfi,025,Wine
+7498740930146,Centinela 750 Anejo,021,Liquor
+080696915796,Century Cellars 1.5L chard,025,Wine
+080696915987,Century cellars 750 merlot,025,Wine
+012546712729,Certs Cinnamon (Red),051,Snack
+012546711500,Certs Peppermint (Blue),051,Snack
+018138111024,Chalone 750 Chard,025,Wine
+018138117026,Chalone 750 Merlot,025,Wine
+018138117347,Chalone 750 Sau Blanc,025,Wine
+018138115022,Chalone Monterey 750 Cabernet,025,Wine
+018138114025,Chalone Monterey 750 PinotNoir,025,Wine
+084380420085,Chambord 375,021,Liquor
+084380420078,Chambord 50,021,Liquor
+084380420047,Chambord 750,021,Liquor
+083300000031,Chambord Vodka 750 Flavored,021,Liquor
+725181068013,Chamoy Muecas,051,Snack
+085155000037,Chandon 750 Blanc De Noir,024,Champange
+085155000013,Chandon 750 Brut Classic,024,Champange
+085155000495,Chandon 750 Extra Dry Riche,024,Champange
+085155000402,Chandon 750 Rose Sparkling,024,Champange
+036600813719,ChapStick Cherry,061,Miscellaneous
+036600828010,Chapstick Moisturizer,061,Miscellaneous
+036600813313,Chapstick Original,061,Miscellaneous
+036600814617,ChapStick Spearmint,061,Miscellaneous
+036600814013,ChapStick Strawberry,061,Miscellaneous
+086095750013,Charbay Blood Orange Vodka 750,021,Liquor
+896162000268,Chardonnay 750,025,Wine
+086012200430,Charles Krug 750 Cab,025,Wine
+086012200232,Charles Krug 750 Pinot,025,Wine
+071720531105,Charleston chew Chocolatey 1.8,051,Snack
+071720531303,Charleston chew vanilla 1.8oz,051,Snack
+037000468196,Charmin toilet paper,061,Miscellaneous
+087000313408,Chateau Greysac Medoc 750,025,Wine
+087000313507,Chateau Larose- Trintaudon,025,Wine
+089708002202,Chateau Monet Rasberry,021,Liquor
+088553094462,Chateau Souverain Merlot 750,025,Wine
+089819054305,Chateau st Jean,025,Wine
+089819055876,Chateau st Jean 750,025,Wine
+089819796861,Chateau st Jean 750 Cab,025,Wine
+089819055098,Chateau st Jean 750 Chard,025,Wine
+089819796885,Chateau st Jean 750 merlot,025,Wine
+088586603846,Chateau St Michelle 750 Chard,025,Wine
+088586601835,Chateau St Michelle Cab 750,025,Wine
+088586602832,Chateau St Michelle Merlot 750,025,Wine
+088586000751,Chateau St Michelle Syrah 750,025,Wine
+074718224027,Chatom 750 sau blanc,025,Wine
+074718251023,Chatom 750 Syrah,025,Wine
+031535525386,Checkers cookies Strawberry 8 ,051,Snack
+044000047887,Cheese Nips,051,Snack
+044000002121,Cheese Nips 1.38oz Peanut But,051,Snack
+044000002138,Cheese Nips 1.38oz Real Cheese,051,Snack
+044000047856,Cheese Nips Cheddar 8.5oz,051,Snack
+028400085038,Cheetos Cheddar Cracker,051,Snack
+028400036061,Cheetos Crunchy Flamin Hot ,051,Snack
+024100127962,Cheez-It 1.5oz Hot & Spicy,051,Snack
+024100126606,Cheez-It 1.5oz White Cheddar,051,Snack
+024100203628,Cheez-It 3oz Cheddar Jack,051,Snack
+024100372775,Cheez-It 3oz Hot & Spicy,051,Snack
+024100573820,Cheez-It 3oz Pepper Jack,051,Snack
+024100191345,Cheez-It 3oz Real Cheese,051,Snack
+024100315345,Cheez-It 3oz White Cheddar,051,Snack
+024100500901,Cheez-it baked white che 4.5oz,051,Snack
+024100465767,Cheez-it BBQ Chaddar 4.5 oz,051,Snack
+024100455461,Cheez-it Doulble cheese 4.5 oz,051,Snack
+024100447145,Cheez-it Duoz ched parms 4.5oz,051,Snack
+024100491155,Cheez-it Duoz smkd che m 4.5oz,051,Snack
+024100465781,Cheez-it extra Hot spicy 4.5oz,051,Snack
+790429225442,Cherry Delight Snack mix 11oz,051,Snack
+sc204,Cherry Twist $2,081,Scratchers
+791852,Chewy Spree,051,Snack
+079200414443,Chewy Spree Mix Berry,051,Snack
+016000126077,ChexMix 3.75oz bold party ble,051,Snack
+016000196391,ChexMix 3.75oz caramel crunch,051,Snack
+016000126060,ChexMix 3.75oz Cheddar,051,Snack
+016000126091,ChexMix 3.75oz hot spicy,051,Snack
+016000505827,ChexMix 3.75oz Jalapena chedd,051,Snack
+016000160101,ChexMix 3.75oz traditional,051,Snack
+016000507326,ChexMix 4.25oz Muddy Buddies,051,Snack
+016000507043,ChexMix 4.25z cookies cream,051,Snack
+016000168923,ChexMix 4.5oz PB,051,Snack
+016000168916,ChexMix 4.5oz Turtle,051,Snack
+041168006312,Chick-o-Stick .25oz,051,Snack
+041168006213,ChickOStick Small,051,Snack
+chilirokas8gmango,Chili Rokas 0.16oz Mango,051,Snack
+081706000075,Chimay 750 (Blue) Grande Res,031,Beer
+081706000044,Chimay 750 (Red) Premiere,031,Beer
+081706000136,Chimay 750 (White) Cinq Cents ,031,Beer
+012484523050,Chinaco Anejo 750,021,Liquor
+012484523036,Chinaco Reposado 750,021,Liquor
+012484523043,Chinaco Silver 750,021,Liquor
+chip,Chip,051,Snack
+chip 129,chip 129,051,Snack
+chip149,Chip 149,051,Snack
+chip 199,Chip 199,051,Snack
+chip200,Chip 200,051,Snack
+chip2,Chip 200,051,Snack
+chip 219,Chip 219,051,Snack
+chip 229,Chip 229,051,Snack
+chip 269,Chip 269,051,Snack
+chip 289,Chip 289,051,Snack
+chip 299,Chip 329,051,Snack
+chip 329,Chip 349,051,Snack
+chip 349,Chip 349,051,Snack
+chip 399,Chip 399,051,Snack
+fl429 Doritos 11.5oz,Chip 429,051,Snack
+chip 429,Chip 429,051,Snack
+044000007522,Chip Ahoy Cookies 6 oz,051,Snack
+044000005429,Chip Ahoy Soft Cookies,051,Snack
+085836070106,Chip Dirty,051,Snack
+044000024918,ChipAhoy 5oz Chewy,051,Snack
+044000037437,Chips Ahoy 4 Cookies 1.4oz,051,Snack
+445500,Chips Ahoy Cookies 12oz,051,Snack
+080432400463,Chivas Regal 12yr 1.75,021,Liquor
+080432400364,Chivas Regal 12yr 200,021,Liquor
+080432400371,Chivas Regal 12yr 375,021,Liquor
+080432400340,Chivas Regal 12yr 50,021,Liquor
+080432400395,Chivas Regal 12yr 750,021,Liquor
+087000004085,Chivas Regal 12yrs 1L,021,Liquor
+080432400487,Chivas Regal 18yr 750,021,Liquor
+070547014983,Choco Taco,053,Ice Cream
+041000054143,Chocolate Éclair Shortcake,053,Ice Cream
+044000011512,Chocolate Stix Nutter Butter,051,Snack
+023911130062,Chocolate Sundae Cup,053,Ice Cream
+044000011505,Chocosttix Oreo,051,Snack
+087116012332,Chopin Vodka 375,021,Liquor
+087116012257,Chopin Vodka 50,021,Liquor
+011642031017,Chowards Mint Violet,051,Snack
+086036860627,Christian Brohers 750 White,021,Liquor
+086036815474,Christian Brothers 1.75,021,Liquor
+086036815702,Christian Brothers 200,021,Liquor
+086036815672,Christian Brothers 375,021,Liquor
+086036100198,Christian Brothers 50,021,Liquor
+086036815597,Christian Brothers 750,021,Liquor
+086036862775,Christian Brothers 750 Honey,021,Liquor
+086036114591,Christian Brothers Port,025,Wine
+086036134599,Christian Brothers Port,025,Wine
+086036104592,Christian Brothers Port,025,Wine
+086036124590,Christian Brothers Port,025,Wine
+072965007417,Christopher Big Cherry 50g,051,Snack
+041900072131,Chug MilkShk 12oz Choc,041,Soda
+080480398040,Ciclon 200,021,Liquor
+080480398033,Ciclon 375,021,Liquor
+080480398057,Ciclon 50,021,Liquor
+080480398026,Ciclon 750 DDD,021,Liquor
+855288001177,Ciello 750 Anejo,021,Liquor
+855288001375,Ciello 750 Silver,021,Liquor
+cig150,Cigar 150,011,Cigarrett Pack
+cig79,Cigar 79cent,011,Cigarrett Pack
+cig92,Cigar 92cent,011,Cigarrett Pack
+cig99,Cigar 99cent,011,Cigarrett Pack
+cig,Cigarillo,011,Cigarrett Pack
+038000458798,Cinnabon 1.3oz Caramel,051,Snack
+038000458767,Cinnabon 1.3oz Original,051,Snack
+721059107525,Cinzana 750 Bianco,023,Liquor - Mixer
+086785900025,Cinzana 750 Extra Dry,023,Liquor - Mixer
+083960460121,Cinzano 375 Extra Dry,023,Liquor - Mixer
+086785900018,Cinzano 750 Rosso,023,Liquor - Mixer
+088076162648,Ciroc Vodka 1.75,021,Liquor
+088076177420,Ciroc Vodka 1.75 Peach,021,Liquor
+088076175075,Ciroc Vodka 1.75 RedBerry,021,Liquor
+088076173774,Ciroc Vodka 200,021,Liquor
+088076178403,Ciroc Vodka 200 Peach,021,Liquor
+088076177802,Ciroc Vodka 200 Red Berry,021,Liquor
+088076162655,Ciroc Vodka 375,021,Liquor
+088076177390,Ciroc Vodka 375 Peach,021,Liquor
+088076175044,Ciroc Vodka 375 Red Berry,021,Liquor
+823080,Ciroc Vodka 50 Peach-15pk,021,Liquor
+822580,Ciroc Vodka 50 Red Berry-15pk,021,Liquor
+821530,Ciroc Vodka 50-15pk,021,Liquor
+088076161863,Ciroc Vodka 750,021,Liquor
+088076178700,Ciroc Vodka 750 Armaretto,021,Liquor
+088076174955,Ciroc Vodka 750 Coconut,021,Liquor
+088076177406,Ciroc Vodka 750 Peach,021,Liquor
+088076175051,Ciroc Vodka 750 Red Berry,021,Liquor
+082100109685,Cisco 375 Berry,022,Liquor - Cocktail
+082100109661,Cisco 375 Black Cherry,022,Liquor - Cocktail
+082100013890,Cisco 375 Blue Raspberry,022,Liquor - Cocktail
+083804045811,Cisco 375 Orange,022,Liquor - Cocktail
+083804045798,Cisco 375 Peach,022,Liquor - Cocktail
+082100113156,Cisco 375 Straw,022,Liquor - Cocktail
+082100109692,Cisco 750 Berry,022,Liquor - Cocktail
+082100109678,Cisco 750 Black Cherry,022,Liquor - Cocktail
+082100013944,Cisco 750 Blue Raspberry,022,Liquor - Cocktail
+082100013883,Cisco 750 Green Apple,022,Liquor - Cocktail
+083804046207,Cisco 750 Peach,022,Liquor - Cocktail
+083804046214,Cisco 750 Red,022,Liquor - Cocktail
+082100112166,Cisco 750 Strawberry,022,Liquor - Cocktail
+721733000043,Citronge 750 Orange Liqueur,021,Liquor
+086012500943,CK Mondavi 1.5L cab,025,Wine
+086012400748,CK mondavi 1.5L chard,025,Wine
+086012500837,CK Mondavi 750,025,Wine
+086012500936,CK Mondavi 750 cab,025,Wine
+086012400731,CK Mondavi 750 Chardl,025,Wine
+014800511758,Clamato 16oz,041,Soda
+014800512748,Clamato 16oz Picante,041,Soda
+014800513240,Clamato 32oz,041,Soda
+014800512755,Clamato 32oz Picante,041,Soda
+014800516470,Clamato 64oz,041,Soda
+083664120420,Clan MacGregor 1Lmed,021,Liquor
+042572051011,Clausthaler 6pk N/A G Amber,031,Beer
+042572057150,Clausthaler 6pk N/A Premium,031,Beer
+750625653012,Clean Slate 750,025,Wine
+678112254187,Clear Eyes 0.2oz,061,Miscellaneous
+049185715026,Clear Lighter,061,Miscellaneous
+072084002157,Clicker Licker Pop,051,Snack
+722252102607,ClifBar 2.4oz BlueBerry Crisp,051,Snack
+722252101402,ClifBar 2.4oz Carrot Cake,051,Snack
+722252101600,ClifBar 2.4oz Cho Almnd Fudge,051,Snack
+722252101808,ClifBar 2.4oz Cho Brownie,051,Snack
+722252101303,ClifBar 2.4oz ChoChip Pea Crn,051,Snack
+722252100900,ClifBar 2.4oz Chocolate Chip,051,Snack
+722252160300,ClifBar 2.4oz Coco Chochip,051,Snack
+722252102003,ClifBar 2.4oz Cool Mint Chocol,051,Snack
+722252500038,ClifBar 2.4oz Oatml Rais Waln,051,Snack
+722252101204,ClifBar 2.4oz Peanut Butter,051,Snack
+722252161093,ClifBar 2.4oz white choc Maca,051,Snack
+012546620628,Clorets Gum (Green) DD,051,Snack
+044600024486,Clorex Ultra 48oz,061,Miscellaneous
+044600024523,Clorox 96oz Ultra Liquid,061,Miscellaneous
+044600001012,Clorox Bleach,061,Miscellaneous
+044600024509,Clorox Bleach 24oz,061,Miscellaneous
+087356405123,Clos Du Bois 750 Cab,025,Wine
+087356510124,Clos Du Bois 750 Chard,025,Wine
+087356421123,Clos Du Bois 750 Merlot,025,Wine
+087356510445,Clos Du Bois 750 Pinot Grigio,025,Wine
+087356442128,Clos Du Bois 750 Pinot Noir,025,Wine
+087356535127,Clos Du Bois 750 Sau Blanc,025,Wine
+087356172193,Clos Du Bois 750 Shiraz,025,Wine
+087356171127,Clos Du Bois 750 Zinfandel,025,Wine
+087356510421,Clos Du Bois Russian 750 Chard,025,Wine
+081761109126,Clos du Val 750 Cab,025,Wine
+828160,Club 200 Beach Case,022,Liquor - Cocktail
+821890,Club 200 Gin Martini Case,022,Liquor - Cocktail
+822160,Club 200 Long Island Case,022,Liquor - Cocktail
+828240,Club 200 Manhattan Case,022,Liquor - Cocktail
+828250,Club 200 Margarita Case,022,Liquor - Cocktail
+829510,Club 200 Mudslide Case,022,Liquor - Cocktail
+828260,Club 200 Pina Colada Case,022,Liquor - Cocktail
+828280,Club 200 ScrewDriver Case,022,Liquor - Cocktail
+822070,Club 200 Vodka Martini Case,022,Liquor - Cocktail
+827950,Club 200 Whiskey Sour Case,022,Liquor - Cocktail
+082000763956,Club 200Pouch Margarita,022,Liquor - Cocktail
+082000763963,Club 200Pouch Peach Daiquiri,022,Liquor - Cocktail
+082000763970,Club 200Pouch Straw Margarita,022,Liquor - Cocktail
+082000723516,Club 750 Brass Monkey,022,Liquor - Cocktail
+082000171171,Club 750 Censored on the Beach,022,Liquor - Cocktail
+082000009726,Club 750 Gin Martini,022,Liquor - Cocktail
+082000171201,Club 750 Gold Magarita,022,Liquor - Cocktail
+082000723523,Club 750 Long Island Iced Tea,022,Liquor - Cocktail
+082000723530,Club 750 Manhatan,022,Liquor - Cocktail
+082000171249,Club 750 Margarita,022,Liquor - Cocktail
+082000171250,Club 750 Mudslide,022,Liquor - Cocktail
+082000707066,Club 750 Mudslide,022,Liquor - Cocktail
+082000171256,Club 750 Pina Colada,022,Liquor - Cocktail
+082000002116,Club 750 Vodka Martini,022,Liquor - Cocktail
+822110,Club 750 Vodka Martini,022,Liquor - Cocktail
+group club 200,club can deal,NONE,None
+088076163485,Clynelish 14yr 750,021,Liquor
+855892001624,CMI Big 1.41lb Grape DDD,063,Powder
+855892001594,CMI NO3 Overload 120Cap,065,Power Capsule
+855892001587,Cmi Red Cell 180cap,065,Power Capsule
+689076418843,Cocaine 8.3oz,042,Energy Drink
+087666099005,Coco Water 16oz Coconut,041,Soda
+087666099029,Coco Water 16oz Lychee,041,Soda
+087666099036,Coco Water 16oz Pinapple,041,Soda
+cf99,Coffee $0.99,041,Soda
+cf129,Coffee $1.29,041,Soda
+cafe12,Coffee 12oz,041,Soda
+cafe16,Coffee 16oz,041,Soda
+cafe20,Coffee 20oz,041,Soda
+087236565206,Cointreau 375,021,Liquor
+087236565107,Cointreau 750,021,Liquor
+490080,Coke 12oz Bottle,041,Soda
+490130,Coke 12oz Bottle Diet,041,Soda
+496340,Coke 12oz Can,041,Soda
+490500,Coke 12oz Can Cherry,041,Soda
+496580,Coke 12oz Can Diet,041,Soda
+499290,Coke 12oz Can Diet Caffein,041,Soda
+049000042566,Coke 12oz Can Zero,041,Soda
+049000028904,Coke 12pk,041,Soda
+049000031034,Coke 12pk Cherry,041,Soda
+049000028911,Coke 12pk Diet,041,Soda
+049000029345,Coke 12pk Diet Caffeine Free,041,Soda
+049000042559,Coke 12pk Zero,041,Soda
+049000051155,Coke 16oz Bottle,041,Soda
+049000045840,Coke 16oz Bottle Zero,041,Soda
+049000051537,Coke 16oz Can,041,Soda
+049000051179,Coke 16oz Cherry Bottle,041,Soda
+049000051162,Coke 16oz Diet Bottle,041,Soda
+495220,Coke 1L,041,Soda
+490420,Coke 1L Cherry,041,Soda
+495240,Coke 1L Diet,041,Soda
+049000044362,Coke 1L Zero,041,Soda
+490440,Coke 20oz,041,Soda
+049000018011,Coke 20oz Cherry,041,Soda
+490450,Coke 20oz Diet,041,Soda
+049000031171,Coke 20oz Vanilla,041,Soda
+049000040869,Coke 20oz zero,041,Soda
+496390,Coke 2L,041,Soda
+490360,Coke 2L Cherry,041,Soda
+496630,Coke 2L Diet,041,Soda
+p496340,Coke 6pk - (Order 32pk),041,Soda
+P496580,Coke 6pk Diet - (Order 32pk),041,Soda
+049000004632,Coke Mexico 355ml Btl,041,Soda
+094187018491,Colgate,061,Miscellaneous
+058000300279,Colgate 75,061,Miscellaneous
+035000551009,Colgate Classic Toothbrush,061,Miscellaneous
+035000555007,Colgate Classic Toothbrush,061,Miscellaneous
+035000505002,Colgate reg 2.7,061,Miscellaneous
+8935102110055,Colgate Tooth Brush,061,Miscellaneous
+035000509000,Colgate Toothpaste 6.4oz,061,Miscellaneous
+088586425868,Columbia 750 Gewur,025,Wine
+088586421860,Columbia 750 Riesling,025,Wine
+088586000720,Columbia Crest 750 Cab,025,Wine
+088586403866,Columbia Crest 750 Chard,025,Wine
+088586001109,Columbia Crest 750 Merlot,025,Wine
+088586430862,Columbia Crest 750 Sau Blanc,025,Wine
+088586001338,Columbia Crest 750 Shiraz,025,Wine
+088586401848,Columbia Crest Grand 750 Cab,025,Wine
+088586498954,Columbia Crest Grand 750 Chard,025,Wine
+088586402845,Columbia Crest Grand 750 Merlo,025,Wine
+088586464942,Columbia Reserve 750,025,Wine
+094187011379,Comb Unbreakable,061,Miscellaneous
+792554203005,Combination Lock,061,Miscellaneous
+041419162873,Combos chedd chs cracker 7oz,051,Snack
+041419162842,Combos chedd chs pretzel 7oz,051,Snack
+041419714713,Combos chedd chs pretzel1.8,051,Snack
+041419300817,Combos Jala chedd tortilla 7oz,051,Snack
+041419714737,Combos pepperoni pizza 1.8,051,Snack
+041419162866,Combos pepperoni pizza 7oz,051,Snack
+041419162835,Combos Pizzeria Pretzel 7oz,051,Snack
+089627126508,Concannon 750 Cab,025,Wine
+081908632074,Concannon 750 cab,025,Wine
+089627129509,Concannon 750 Chard,025,Wine
+081908635471,Concannon 750 Conser Sirah,025,Wine
+081908630179,Concannon 750 merlot,025,Wine
+081908000101,Concannon 750 Petite Sirah,025,Wine
+682676700486,Con-Cret Creatine 1.35oz DDD,065,Power Capsule
+017224703136,Conundrum 750 White Table Wine,025,Wine
+pc25,Conversa Latino $2 DDD,091,Phone Card
+pc40,Conversa Lattino $4.5 DDD,091,Phone Card
+083804043152,Cooks 1.5 Brut,025,Wine
+083804043169,Cooks 1.5 Extra Dry,024,Champange
+083804077768,Cooks 187 Brut,024,Champange
+083804074712,Cooks 4pk Brut,024,Champange
+083804047211,Cooks 750 Brut,024,Champange
+083804047235,Cooks 750 Extra Dry,024,Champange
+083804047150,Cooks 750 Grand Reserve,024,Champange
+083804047198,Cooks 750 Grand Spumante,024,Champange
+083804047167,Cooks 750 White Zin,024,Champange
+789360,Coolah,041,Soda
+799118000278,Coopers 6pk Dark Ale,031,Beer
+9310441002336,Coopers 6pk Lager,031,Beer
+088119181292,Coopers 6pk Pale Ale DDD,031,Beer
+088119181285,Coopers 6pk Sparkling Ale,031,Beer
+Group Coor 24oz,Coor - Miller 24oz,NONE,None
+719914,Coors 12oz Bottle,031,Beer
+719904,Coors 12oz Bottle Light,031,Beer
+719974,Coors 12oz Can,031,Beer
+719984,Coors 12oz Can Light,031,Beer
+071990100742,Coors 12pk Bottle,031,Beer
+071990300692,Coors 12pk Bottle Light,031,Beer
+071990000479,Coors 12pk Can,031,Beer
+071990000486,Coors 12pk Can Light,031,Beer
+p071990100025,Coors 16oz 6pk ,031,Beer
+p071990320003,Coors 16oz 6pk Light,031,Beer
+071990301040,Coors 16oz 9pk Aluminum Light,031,Beer
+071990100025,Coors 16oz Can,031,Beer
+071990320003,Coors 16oz Can Light Disco,031,Beer
+071990100209,Coors 18pk can,031,Beer
+071990300173,Coors 18pk Can Light,031,Beer
+071990100780,Coors 18pk NR,031,Beer
+071990300784,Coors 18pk NR Light,031,Beer
+071990100711,Coors 24oz Can,031,Beer
+071990300654,Coors 24oz Can Light,031,Beer
+071990100728,Coors 24oz Case,031,Beer
+071990300661,Coors 24oz Case Light,031,Beer
+071990100339,Coors 30pk can,031,Beer
+071990300302,Coors 30pk can Light,031,Beer
+071990100377,Coors 32oz,031,Beer
+071990300425,Coors 40oz Light Disco,031,Beer
+071990100063,Coors 6pk Bottle,031,Beer
+071990300050,Coors 6pk bottle Light,031,Beer
+p719974,Coors 6pk Can,031,Beer
+p719984,Coors 6pk Can Light,031,Beer
+coors keg Light 1/2B,Coors Keg Light 1/2Barrel,031,Beer
+071990770051,Coors Non-Alcoholic 6pk,031,Beer
+073100018770,Copenhagen 2pk Long Cut,011,Cigarrett Pack
+073100018763,Copenhagen 2pk Snuff,011,Cigarrett Pack
+733591,Copenhagen Pk 1.99 LC Straight,011,Cigarrett Pack
+733491,Copenhagen Pk 1.99 LC Wintergn,011,Cigarrett Pack
+730091,Copenhagen Pk 2.15 LC Wintergr,011,Cigarrett Pack
+734771,Copenhagen Pk 2.19 LC Wintergr,011,Cigarrett Pack
+738841,Copenhagen Pk LC Natural,011,Cigarrett Pack
+735151,Copenhagen Pk LC Smoth Hickory,011,Cigarrett Pack
+738821,Copenhagen Pk LC Straight,011,Cigarrett Pack
+735141,Copenhagen Pk LC Whiskey Blend,011,Cigarrett Pack
+738761,Copenhagen Pk LC Wintergreen,011,Cigarrett Pack
+731211,Copenhagen Pk Long Cut,011,Cigarrett Pack
+733141,Copenhagen Pk Pouches,011,Cigarrett Pack
+731071,Copenhagen Pk Snuff,011,Cigarrett Pack
+739958974001,Coppola Claret 750 Cab,025,Wine
+739958974100,Coppola Claret 750Merlot,025,Wine
+739958984208,Coppola Gold Label 750 Chard,025,Wine
+739958963104,Coppola Rosso 750,025,Wine
+083089720007,Corazon Anejo 750,021,Liquor
+083089700153,Corazon Blanco 50,021,Liquor
+736040008613,Corazon Blanco 750,021,Liquor
+083089720151,Corazon Rep 50,021,Liquor
+083089710008,Corazon Reposado 750,021,Liquor
+041985313143,Corbett Canyon White Zin 1.5,025,Wine
+071139164208,Corkscrew Opener,061,Miscellaneous
+071159001347,CornNuts 1.7oz Barbecue,051,Snack
+071159001750,CornNuts 1.7oz Chile Picante,051,Snack
+071159001354,CornNuts 1.7oz Nacho Cheese,051,Snack
+071159001330,CornNuts 1.7oz Original,051,Snack
+071159000197,CornNuts 1.7oz Ranch,051,Snack
+071159078448,CornNuts 1.7oz Red hot,051,Snack
+071159000012,CornNuts 2.7oz Caliente Mix,051,Snack
+071159076550,CornNuts 4oz Chile picante,051,Snack
+071159000036,CornNuts 4oz Chorizo chipotl,051,Snack
+071159078387,CornNuts 4oz Nacho Cheese,051,Snack
+071159078196,CornNuts 4oz original,051,Snack
+071159073115,CornNuts 4oz Ranch,051,Snack
+071159078240,CornNuts BBQ 4 oz,051,Snack
+806614,Corona 12oz Bottle,031,Beer
+806624,Corona 12oz Bottle Light,031,Beer
+080660956855,Corona 12oz can ,031,Beer
+080660956954,Corona 12pk can,031,Beer
+080660956213,Corona 12pk can Light,031,Beer
+080660956756,Corona 12pk Light NR,031,Beer
+080660956152,Corona 12pk NR,031,Beer
+080660956411,Corona 24oz Bottle,031,Beer
+080660956435,Corona 24oz Can,031,Beer
+080660956268,Corona 24oz Can Light,031,Beer
+080660956084,Corona 24pk Loose,031,Beer
+080660956053,Corona 6pk Bottle,031,Beer
+080660956251,Corona 6pk Bottle Light,031,Beer
+p080660956855,Corona 6pk Can,031,Beer
+080660956831,Corona familiar 32oz Bottle,031,Beer
+080660954011,Coronita 6pk,031,Beer
+806684,Coronita 7oz,031,Beer
+080660954097,Coronita CS,031,Beer
+080660954110,Coronita CS Light,031,Beer
+720815930339,Corralejo Anejo 750,021,Liquor
+720815930636,Corralejo Blanco 750,021,Liquor
+720815930131,Corralejo Reposado 750,021,Liquor
+7503000677355,Corralejo Triple Repo 750,021,Liquor
+080480171520,Corzo 750 Repo,021,Liquor
+pc35,Cotorron $2,091,Phone Card
+pc61,Cotorron Casa & Cellular $4.5,091,Phone Card
+094187011591,Cotton Swabs,061,Miscellaneous
+043000995860,Country Time 20oz Iced Tea,041,Soda
+043000952719,Country Time 20oz Lemonade,041,Soda
+043000980804,Country Time 20oz PinkLemonade,041,Soda
+080686963028,Courvoisier Exlusive 750,021,Liquor
+089540410203,Courvoisier Millenium 750,021,Liquor
+089540128771,Courvoisier Napoleon 750,021,Liquor
+089540122427,Courvoisier VS 1L,021,Liquor
+080686961109,Courvoisier VS 200,021,Liquor
+089540143637,Courvoisier VS 375,021,Liquor
+089540127798,Courvoisier VS 50,021,Liquor
+080686961048,Courvoisier VS 750,021,Liquor
+089540132167,Courvoisier VSOP 1L,021,Liquor
+089540128986,Courvoisier VSOP 200,021,Liquor
+089540144368,Courvoisier VSOP 375,021,Liquor
+089540452289,Courvoisier VSOP 750 ,021,Liquor
+089540129310,Courvoisier VSOP 750,021,Liquor
+080686965022,Courvoisier XO 750,021,Liquor
+087357575603,Covey Run 750 Cab,025,Wine
+087357100355,Covey Run 750 Chard,025,Wine
+030000029121,Cracker Jack 1oz,051,Snack
+088110090050,Cragganmore 12yr 750,021,Liquor
+790429213845,Cranberry Health mix 12 oz,051,Snack
+719886120046,Crayon 1.13oz Grape,051,Snack
+725181123019,Crazy Hair Blue Raspberry,051,Snack
+725181046011,Crazy Hair Green Apple,051,Snack
+725181047018,Crazy Hair Strawberry,051,Snack
+613008720735,Crazy Stallion 40oz,031,Beer
+041396004906,CrazyRollz Bubble Gum,051,Snack
+194830,Creme Savers Hard Candy,051,Snack
+037000003120,Crest Toothpaste 6.4oz,061,Miscellaneous
+734599043055,Cristal Champange 750,024,Champange
+073230000164,Crown Prince Sardines 3.75oz,061,Miscellaneous
+087000700604,Crown Royal 1.75,021,Liquor
+877270,Crown Royal 200,021,Liquor
+877600,Crown Royal 375,021,Liquor
+871990,Crown Royal 50-6pk,021,Liquor
+877250,Crown Royal 750,021,Liquor
+082000759898,Crown Royal 750 Maple,021,Liquor
+082000003823,Crown Royal 750 XO,021,Liquor
+082000750437,Crown Royal Black 750,021,Liquor
+082000739555,Crown Royal Cask16 750,021,Liquor
+087000201330,Crown Royal Reserve 750,021,Liquor
+082000734338,Crown Royal XR 750,021,Liquor
+028000131708,Crunch Bar,051,Snack
+028000115951,Crunch Caramel,051,Snack
+028000111151,Crunch Caramel King,053,Ice Cream
+028000001360,Crunch Crispy Wafer Bar,051,Snack
+028000017507,Crunch IC Bar,053,Ice Cream
+028000173104,Crunch King,051,Snack
+064144106905,Crunch N Munch 4oz,051,Snack
+028000150884,Crunch White,051,Snack
+5000201468611,Crunchie Bar Milk Cho,051,Snack
+089016004509,Cruzan 200 Coconut,021,Liquor
+089016004721,Cruzan 375 Coconut,021,Liquor
+044286657503,Cruzan 750 Back Cherry,021,Liquor
+835229005037,Cruzan 750 Back Cherry,021,Liquor
+044286565501,Cruzan 750 Coconut,021,Liquor
+044286560506,Cruzan 750 Estate light,021,Liquor
+089016004578,Cruzan 750 single barrel,021,Liquor
+crv,CRV,111,Coupons & CRV
+crv 12b,CRV 12b,111,Coupons & CRV
+crv 12pk,CRV 12pk,111,Coupons & CRV
+crv 15b,CRV 15b,111,Coupons & CRV
+crv 18pk,CRV 18pk ,111,Coupons & CRV
+crv 20pk,CRV 20pk,111,Coupons & CRV
+crv 24pk,CRV 24pk,111,Coupons & CRV
+crv 30pk,CRV 30pk,111,Coupons & CRV
+crv 3b,CRV 3b,111,Coupons & CRV
+crv 4pk,CRV 4pk,111,Coupons & CRV
+crv 5b,CRV 5b,111,Coupons & CRV
+crv 6pk,CRV 6pk,111,Coupons & CRV
+crv 8pk,CRV 8pk,111,Coupons & CRV
+crv 9pk,CRV 9pk,111,Coupons & CRV
+crv b,CRV b,111,Coupons & CRV
+crv keg,CRV Keg,111,Coupons & CRV
+059642006352,Cry Baby (240Jar) Extra Sour,051,Snack
+072760006479,Cry Baby Gum,051,Snack
+pc220,Crystal $2 DDD,091,Phone Card
+pc72,Crystal $4.5 DDD,091,Phone Card
+070910002555,Crystal Egg Nog Quart,023,Liquor - Mixer
+075140005000,Crystal Geyser 1.5L,041,Soda
+075140005024,Crystal Geyser 16oz,041,Soda
+075140005154,Crystal Geyser 1Gallon,041,Soda
+075140005123,Crystal Geyser 1L,041,Soda
+075140005055,Crystal Geyser 1L SportCap,041,Soda
+075140700028,Crystal Geyser 700ml SportCap,041,Soda
+627040411414,Crystal Head Vodka 750,021,Liquor
+089540135137,Crystal Palace Gin 750,021,Liquor
+070910001909,Crystal Sour Cream,061,Miscellaneous
+654871180028,CrystalGeyser Spark 18z Lemon,041,Soda
+654871180042,CrystalGeyser Spark 18z Lime,041,Soda
+654871000425,CrystalGeyser Spark 1L Lemon,041,Soda
+654871000449,CrystalGeyser Spark 1L Lime,041,Soda
+654871000418,CrystalGeyser Sparkling 1L Wat,041,Soda
+627040411421,CrystalHead Vodka 750,021,Liquor
+pc22,Cuentame $2 DDD,091,Phone Card
+pc44,Cuentame $4.5 DDD,091,Phone Card
+070662030073,Cup Noodle Chicken,061,Miscellaneous
+070662031025,Cup noodle Seafood,061,Miscellaneous
+070662030080,Cup Noodle Seafood,061,Miscellaneous
+070662030110,Cup Noodle Spicy chicken,061,Miscellaneous
+zzzzlsdglj,CupCake 750 Velvet Red,025,Wine
+872513008077,CurlyWurly Bar,051,Snack
+081410100504,Cusano Rojo 50,021,Liquor
+081410107503,Cusano Rojo 750,021,Liquor
+089540343501,Cutty Sark 1L,021,Liquor
+721059052009,Cutty Sark 200,021,Liquor
+721059053754,Cutty Sark 375,021,Liquor
+721059057509,Cutty Sark 750,021,Liquor
+082148019823,Cuvaison Char,025,Wine
+094187066447,CV Advil PM Single,061,Miscellaneous
+094187028933,CV Advil Single Liquid Gel,061,Miscellaneous
+094187010136,CV Aleve Single,061,Miscellaneous
+094187027172,CV Alka Seltzer Plus Single,061,Miscellaneous
+094187027431,CV Aloe Vera - Fruit of Earth,061,Miscellaneous
+094187012901,CV Aloe Vero Lotion,061,Miscellaneous
+094187010174,CV Bayer ,061,Miscellaneous
+094187010075,CV Benadryl Allergy,061,Miscellaneous
+094187067628,CV Chap Ice,061,Miscellaneous
+094187027868,CV Claritin Single Non Drowsy,061,Miscellaneous
+094187028278,CV DayQuil Single,061,Miscellaneous
+094187011904,CV Degree .5oz WomenUltraClear,061,Miscellaneous
+094187012314,CV Ear Plugs,061,Miscellaneous
+094187067772,CV EmergenC Single VitaminC,061,Miscellaneous
+094187012338,CV Emery Board,061,Miscellaneous
+094187012413,CV Excedrin Single ExtraStrgth,061,Miscellaneous
+094187011430,CV Eye Glass Repair Kit,061,Miscellaneous
+094187067727,CV Gillette Foamy with Razor,061,Miscellaneous
+094187015209,CV Nail Clipper,061,Miscellaneous
+094187028285,CV NyQuil Single,061,Miscellaneous
+094187015315,CV Pepto Bismol Single,061,Miscellaneous
+094187014714,CV Scope,061,Miscellaneous
+094187011584,CV Sewing Repair Kit,061,Miscellaneous
+094187011959,CV Speed Stick Men,061,Miscellaneous
+094187018873,CV Tylenol Single ExtraStrgth,061,Miscellaneous
+094187029855,CV Visine,061,Miscellaneous
+094187028995,CV Zantac Pill,061,Miscellaneous
+089121058527,Cypress 750 chard,025,Wine
+660726502419,Cyto Mmilk 16oz cookieNcreme,042,Energy Drink
+660726501764,Cyto Preformance 3.08lb cho,063,Powder
+660726220900,CytoGainer 3.3lb Ban Crème DDD,063,Powder
+660726220405,CytoGainer 3.3lb cho caramel,063,Powder
+660726220108,CytoGainer 3.3lb cho malt,063,Powder
+660726220306,CytoGainer 3.3lb ChoMintShk DD,063,Powder
+660726220801,CytoGainer 3.3lb Cookie n Crèm,063,Powder
+660726220207,CytoGainer 3.3lb Rocky Road,063,Powder
+660726220702,CytoGainer 3.3lb Strw Crème DD,063,Powder
+660726220603,CytoGainer 3.3lb Van Caramel,063,Powder
+660726220504,CytoGainer 3.3lb Van MlkShk,063,Powder
+660726220962,CytoGainer 6lb Banana Crème,063,Powder
+660726220368,CytoGainer 6lb Choco Mint Shk,063,Powder
+660726220160,CytoGainer 6lb Chocolate Malt,063,Powder
+660726220863,CytoGainer 6lb CnC,063,Powder
+660726220764,CytoGainer 6lb Straw n Cream,063,Powder
+660726220665,CytoGainer 6lb Van Cara Swi,063,Powder
+660726220566,CytoGainer 6lb Vanilla Shake D,063,Powder
+660726103104,Cytomax 1.5lb Cool Citrus,063,Powder
+660726104101,Cytomax 1.5lb Cranberry Grpfrt,063,Powder
+660726103302,Cytomax 1.5lb Fresh apple,063,Powder
+660726103906,Cytomax 1.5lb Go Grape DDD,063,Powder
+660726104408,Cytomax 1.5lb Natural CrbyGpft,063,Powder
+660726104002,Cytomax 1.5lb Pgranate Berry,063,Powder
+660726103708,Cytomax 1.5lb Pink lemonade,063,Powder
+660726104705,Cytomax 1.5lb Tangy Orange DDD,063,Powder
+660726103500,Cytomax 1.5lb Tropical Fruit,063,Powder
+876063003001,Cytomax 16oz Cool Citrus,042,Energy Drink
+876063003018,Cytomax 16oz TropicalFruit,042,Energy Drink
+180530000050,Cytomax 20oz Acai Berry,042,Energy Drink
+180530000012,Cytomax 20oz Citrus,042,Energy Drink
+180530000067,Cytomax 20oz dragon Fruit,042,Energy Drink
+180530000074,Cytomax 20oz Goji Berry GT,042,Energy Drink
+180530000029,Cytomax 20oz Orange Tangerine,042,Energy Drink
+180530000043,Cytomax 20oz Pomegra Berry,042,Energy Drink
+180530000036,Cytomax 20oz Tropical Fruit,042,Energy Drink
+660726404102,Cytomax 4.5lb Cnby Gpft Disco,063,Powder
+660726404201,Cytomax 4.5lb Nat Citrus Disco,063,Powder
+660726404409,Cytomax 4.5lb Nat CrbyGpft Dis,063,Powder
+660726102404,Cytomax 40g Tropical Fruit DDD,063,Powder
+660726104200,Cytomax Natural 1.5lb C Citrus,063,Powder
+660726104309,Cytomax Natural 1.5lb T Orange,063,Powder
+876063003322,Cytomax Protein 20oz Tangeri,042,Energy Drink
+876063003339,Cytomax Protein 20oz Tropical,042,Energy Drink
+876063003315,Cytomax Protein 20oz WtrMeln,042,Energy Drink
+660726701300,Cytomax Recovery 2.48lb Orange,063,Powder
+660726701201,Cytomax Recovery 3lb Mocha Dis,063,Powder
+072410046404,Dads 20oz Root Beer,041,Soda
+074806019016,Dailys 1.75 Margaritas,023,Liquor - Mixer
+074806018132,Dailys 16,023,Liquor - Mixer
+074806002124,Dailys Mix 1L Mojito,023,Liquor - Mixer
+074806019023,Dailys RTD 1.75 Cosmopolitans,023,Liquor - Mixer
+040900500910,Dairy Fresh 6.5z Whip Cream,041,Soda
+50312597,DairyMilk Bar Whole Nut,051,Snack
+080686074403,Dalmore 12yr 750,021,Liquor
+087647111672,Dalmore 12yr 750 single highla,021,Liquor
+080686174400,Dalmore 21yr 750,021,Liquor
+088110100056,Dalwhinnie 15yr 750,021,Liquor
+892543000018,Damnation 12oz,031,Beer
+087236330002,Damrak 750,021,Liquor
+783103850443,Danielle 750 Port Chocolate,025,Wine
+835229009103,Danzka 50,021,Liquor
+835229009110,Danzka 50 Citrus,021,Liquor
+835229009134,Danzka 50 Grapefruit,021,Liquor
+835229009004,Danzka Vodka 750,021,Liquor
+041594695142,Dart Party Cups 16-16oz ,061,Miscellaneous
+049000026566,Dasani 1L,041,Soda
+499770,Dasani 20oz,041,Soda
+049000029710,Dasani 24oz Cap,041,Soda
+026200460727,David Kernel 3.75 oz,051,Snack
+079200460723,David Kernel 3.75oz,051,Snack
+026200463728,David PumpkinSeed 2.25oz,051,Snack
+026200463780,David PumpkinSeed 5oz,051,Snack
+267632,David SunFS 2/1,051,Snack
+262382,David SunFS 2/1 Bar-B-Q,051,Snack
+262372,David SunFS 2/1 Original,051,Snack
+262392,David SunFS 2/1 Ranch,051,Snack
+026200461694,David SunFS 3oz,051,Snack
+026200461960,David SunFS 4.5oz,051,Snack
+026200461724,David SunFS 5.2z,051,Snack
+026200467917,David SunFS 5.2z ChiliLime,051,Snack
+026200464725,David SunFS 5.2z Jalapeno,051,Snack
+026200467726,David SunFS 5.2z Ranch,051,Snack
+026200461359,David SunFS 5.2z ReduceSalt,051,Snack
+026200465722,David SunFS Bar B Q 5.25oz,051,Snack
+026200461885,David SunFS Jumbo 6oz Hot&Spic,051,Snack
+026200461861,David SunFS Jumbo 6oz Original,051,Snack
+026200461878,David SunFS Jumbo 6oz Ranch,051,Snack
+087512044500,Dawson 1.75,021,Liquor
+dayquil box,DayQuil 30 Cap,061,Miscellaneous
+323900007277,Dayquil 6oz Cold Flu,061,Miscellaneous
+delet35,ddddOld Trapper Hot One,051,Snack
+delet497,dddOld Trapper Teriyaki Stick,051,Snack
+856065002158,DeepEddy 50-12pk Cranberry,021,Liquor
+856065002073,DeepEddy 50-12pk Vodka,021,Liquor
+078000092400,Deja Blue 20oz,041,Soda
+080686610045,Dekuyper 50 Kamikaze,021,Liquor
+080686610168,Dekuyper 50 Lemon Drop,021,Liquor
+080686365907,Dekuyper 50 PeachTree Schnapps,021,Liquor
+080686610267,Dekuyper 50 Sex on The Beach,021,Liquor
+080686184904,Dekuyper 50 Straw Passion,021,Liquor
+080686610052,Dekuyper 50 Washington Apple,021,Liquor
+080686319405,Dekuyper 750 Buttershot,021,Liquor
+080686312208,Dekuyper Anisette 1L,021,Liquor
+080686312406,Dekuyper Anisette 750,021,Liquor
+080686314707,DeKuyper Apricot 200,021,Liquor
+080686314608,DeKuyper Apricot 375,021,Liquor
+080686314400,Dekuyper Apricot 750,021,Liquor
+080686315704,DeKuyper Blackberry 200,021,Liquor
+080686315605,DeKuyper Blackberry 375,021,Liquor
+082230547586,Dekuyper Blackberry 750,021,Liquor
+080686316404,Dekuyper Blue Curacao 750,021,Liquor
+080686319702,DeKuyper ButterShot 200,021,Liquor
+080686319603,Dekuyper ButterShot 375,021,Liquor
+082230652709,DeKuyper Cactus Juice 200,021,Liquor
+082230631605,DeKuyper Cactus Juice 375,021,Liquor
+082230631407,Dekuyper Cactus Juice 750,021,Liquor
+080686321408,DeKuyper Creme de Cacao 750,021,Liquor
+080686335207,Dekuyper Creme de Cassis 1L,021,Liquor
+082230600250,Dekuyper Crème de Menthe 200,021,Liquor
+082230600229,DeKuyper Creme de Menthe 375,021,Liquor
+082230600281,Dekuyper Creme de Menthe 750,021,Liquor
+080686373605,DeKuyper Hot Damn 375 DDD,021,Liquor
+080686374701,Dekuyper HotDamn 100P 200,021,Liquor
+080686374602,Dekuyper HotDamn 100P 375,021,Liquor
+080686374404,Dekuyper HotDamn 100P 750,021,Liquor
+080686373704,DeKuyper HotDamn 200,021,Liquor
+080686373407,Dekuyper HotDamn 750,021,Liquor
+080686349709,DeKuyper Peach 200,021,Liquor
+080686349600,Dekuyper Peach 375 DDD,021,Liquor
+080686397403,Dekuyper Peach 750,021,Liquor
+080686349402,DeKuyper Peach Brandy 750,021,Liquor
+080686397700,DeKuyper Peach Pucker 200,021,Liquor
+080686365709,DeKuyper Peachtree 200,021,Liquor
+082230579747,DeKuyper Peachtree 200,021,Liquor
+080686365600,DeKuyper Peachtree 375,021,Liquor
+080686351603,DeKuyper Peachtree 375,021,Liquor
+080686365402,DeKuyper Peachtree 750,021,Liquor
+080686351405,DeKuyper Peachtree 750,021,Liquor
+080686354208,DeKuyper Peppermint 100P 1L,021,Liquor
+080686354703,DeKuyper Peppermint 100P 200,021,Liquor
+080686354604,DeKuyper Peppermint 100P 375,021,Liquor
+080686354406,DeKuyper Peppermint 100P 750,021,Liquor
+080686353201,DeKuyper Peppermint 1L,021,Liquor
+080686353706,DeKuyper Peppermint 200,021,Liquor
+080686353607,DeKuyper Peppermint 375,021,Liquor
+080686353409,DeKuyper Peppermint 750,021,Liquor
+080686353904,DeKuyper Pepppermint 50-10pk,021,Liquor
+080686387404,Dekuyper Pineapple 750,021,Liquor
+080686347705,DeKuyper Root Beer 200,021,Liquor
+080686347606,DeKuyper Root Beer 375,021,Liquor
+080686347408,Dekuyper Root Beer 750,021,Liquor
+080686360407,DeKuyper Sloe Gin 750,021,Liquor
+080686395706,DeKuyper Sour Apple 200,021,Liquor
+080686395607,DeKuyper Sour Apple 375,021,Liquor
+080686395409,DeKuyper Sour Apple 750,021,Liquor
+080686363705,DeKuyper TripleSec 200,021,Liquor
+080686363620,Dekuyper TripleSec 375,021,Liquor
+080686363408,DeKuyper TripleSec 750,021,Liquor
+080686363200,Dekuyper Tripple Sec 1L,021,Liquor
+080686396703,DeKuyper Watermelon 200,021,Liquor
+080686396604,DeKuyper Watermelon 375,021,Liquor
+080686396406,DeKuyper Watermelon 750,021,Liquor
+083664990467,Del Dueno Jerezito,021,Liquor
+delarosa mazapan,DeLaRosa Mazapan,051,Snack
+725226066660,DeLaRosa Pulparindo 0.49oz,051,Snack
+725226022000,DelaRosa Pulparindo 0.49zPican,051,Snack
+087000007093,delete,021,Liquor
+087000006256,DELETE,021,Liquor
+086767513120,delete,021,Liquor
+613008717834,delete,041,Soda
+086259245492,delete,021,Liquor
+086003811850,delete,025,Wine
+086003871885,delete,025,Wine
+1pk deal phillip 2,delete,011,Cigarrett Pack
+080432401828,DELETE,021,Liquor
+080480001025,delete,021,Liquor
+73390006878,delete,051,Snack
+049000019230,delete,041,Soda
+070602339006,delete,051,Snack
+088110931070,delete,021,Liquor
+081440002113,delete,021,Liquor
+260192,delete,051,Snack
+082230630608,delete,021,Liquor
+260172,delete,051,Snack
+26200463781,delete,051,Snack
+1pk deal phillip,delete,011,Cigarrett Pack
+059280201638,delete,051,Snack
+041137001072,delete,061,Miscellaneous
+631656600650,delete,065,Power Capsule
+088100134597,delete,021,Liquor
+051000125415,delete,041,Soda
+083089700009,delete,021,Liquor
+052000328677,delete,041,Soda
+087236002596,delete,021,Liquor
+081440000539,delete,021,Liquor
+312546631564,delete,051,Snack
+088076159914,delete,021,Liquor
+078000016451,delete,041,Soda
+delete 20,delete,053,Ice Cream
+delete 32,delete,021,Liquor
+delete 54,delete,024,Champange
+delete dshgikhs,delete,021,Liquor
+delete 19,delete,053,Ice Cream
+DELETEKLG,delete,021,Liquor
+deletyesagkjhskldgs,delete,021,Liquor
+776103000918,delete,021,Liquor
+deletejlag,delete,051,Snack
+delete 13,delete,021,Liquor
+delete 121,delete,021,Liquor
+Casa Lapostolle Cab,delete,025,Wine
+delete 11,delete,021,Liquor
+delete 45,delete,021,Liquor
+delet154,delete,061,Miscellaneous
+798135000087,delete,021,Liquor
+821040,delete,021,Liquor
+825890,delete,021,Liquor
+828200,delete,022,Liquor - Cocktail
+829830,delete,022,Liquor - Cocktail
+delete 111,delete,021,Liquor
+736040008620,delete,021,Liquor
+744607062206,delete,021,Liquor
+877290,delete,021,Liquor
+jacklin 139,delete,051,Snack
+delete 9357,delete 5748,021,Liquor
+delete 24,delete dlg,021,Liquor
+deletellghklj,delete ldsghloh,021,Liquor
+delete 23,delete sdf,021,Liquor
+delete hwtl,delete1,021,Liquor
+delete gh,delete1,021,Liquor
+082242017534,Delicato 750 merlot,025,Wine
+082242018838,Delicato 750 Shiraz,025,Wine
+041433001202,DeliExpss Sdwh Chicken Salad,054,Fresh Deli
+041433001103,DeliExpss Sdwh DTurkey+Chd Chs,054,Fresh Deli
+024000167044,DelMonte 15oz Fruit Cocktail,061,Miscellaneous
+024000167174,DelMonte 15oz Slice Peach,061,Miscellaneous
+011607437502,Demoiselle Cuvee 21Century 750,024,Champange
+082928220043,Denaka Vodka 100P 750,021,Liquor
+064144021154,Dennison 15oz original chili,061,Miscellaneous
+094187011997,Dental Floss,061,Miscellaneous
+012546312417,DentyneIce 16pc Arctic Chill,051,Snack
+012546315098,DentyneIce 16pc Fire (Cinnamon,051,Snack
+012546312554,DentyneIce 16pc Peppermint,051,Snack
+012546315012,DentyneIce 16pc Spearmint,051,Snack
+012546300599,DentyneIce Arctic Chill DDD,051,Snack
+012546320276,DentyneIce Fire ddd,051,Snack
+012546312097,DentyneIce Mint Medley ddd,051,Snack
+012546300216,DentyneIce Peppermint ddd,051,Snack
+012546300094,DentyneIce Shiver Mint ddd,051,Snack
+012546300261,DentyneIce Spearmint DDD,051,Snack
+041670101642,Dep 12oz Sport Slying Gel,061,Miscellaneous
+733913005861,Detour Bar 30g  Caramel Peanut,052,Energy Bar
+733913007544,Detour Bar 30g Buzz,052,Energy Bar
+733913007551,Detour BarBox 30g Buzz,052,Energy Bar
+733913005878,Detour BarBox 30g Caramel Pea,052,Energy Bar
+733913009111,DetourLeanMuscle 32gPro PB Cho,052,Energy Bar
+894264666016,DevilJuice 12oz Blue Rasp,041,Soda
+894264666023,DevilJuice 12oz Citrus,041,Soda
+080480231019,Dewars 12yr 1L,021,Liquor
+080480231026,Dewars 12yr 750,021,Liquor
+080480000127,Dewars 18yr 750,021,Liquor
+080480230036,Dewars 375 DDD,021,Liquor
+080480230005,Dewars White Label 1.75,021,Liquor
+080480230029,Dewars White Label 750 ,021,Liquor
+080480230050,Dewars WhiteLabel 200,021,Liquor
+082928399824,Di Amore 750,021,Liquor
+017000085074,Dial 9oz Gold,061,Miscellaneous
+sc319,Diamond Dollars $3,081,Scratchers
+049000026573,Diasani 1.5L,041,Soda
+041548825533,Dibs IC 4oz Crunch,053,Ice Cream
+041548824536,Dibs IC 4oz Van/cho,053,Ice Cream
+dice,Dice 2,061,Miscellaneous
+833050007770,Diesel 16oz,041,Soda
+088394001124,Dinkel Acker 12pk ,031,Beer
+875440,Diplomatico 750,021,Liquor
+085836060015,Dirty Chip Mesquite BBQ,051,Snack
+083791520155,DirtyChip 2oz CrkPepper & Salt,051,Snack
+083791520162,DirtyChip 2oz Maui Onion,051,Snack
+083791520049,DirtyChip 2oz Mesquite BBQ,051,Snack
+083791520148,DirtyChip 2oz Ssalt & Vinegar,051,Snack
+050037015546,Disaronno 200,021,Liquor
+050037014518,Disaronno 375,021,Liquor
+050037014549,Disaronno 50,021,Liquor
+050037014501,Disaronno 750,021,Liquor
+delete 12,Disco,021,Liquor
+746198700086,Distinqt 750 Lemony,021,Liquor
+751667000253,Djarum CT Black,012,Cigarrett Carton
+751667009171,Djarum CT Cherry,012,Cigarrett Carton
+751667000352,Djarum CT Gold,012,Cigarrett Carton
+751667000093,Djarum CT Special,012,Cigarrett Carton
+751667009195,Djarum CT Vanilla,012,Cigarrett Carton
+751667046954,Djarum Pk Black,011,Cigarrett Pack
+751667009188,Djarum Pk Cherry,011,Cigarrett Pack
+751667000369,Djarum Pk Gold,011,Cigarrett Pack
+751667067591,Djarum Pk Special,011,Cigarrett Pack
+751667009201,Djarum Pk Vanilla,011,Cigarrett Pack
+pc4,Do Not Use,091,Phone Card
+PC10,Do Not Use,091,Phone Card
+pc8,Do Not Use,091,Phone Card
+pc2,Do Not Use,091,Phone Card
+pc20,DO NOT USE,091,Phone Card
+pc3,Do Not Use,091,Phone Card
+183042,Docs 12oz Hard Lemon,031,Beer
+dogfood 375,Dog Food 375,061,Miscellaneous
+638489000886,DogFish Head 4pk Brown Ale,031,Beer
+638489000619,DogFish Head 4pk Imperial IPA,031,Beer
+038900008185,Dole 100% Pineapple Juice 46oz,041,Soda
+121930,Dole 16oz Apple Juice,041,Soda
+124510,Dole 16oz Cran Grape,041,Soda
+121890,Dole 16oz Cranberry Cocktail,041,Soda
+124530,Dole 16oz Orange Banana,041,Soda
+121870,Dole 16oz Orange Juice,041,Soda
+123730,Dole 16oz Paradise Blend,041,Soda
+121880,Dole 16oz PineApple Citrus,041,Soda
+124250,Dole 16oz Pineapple Passion,041,Soda
+012000017810,Dole 16oz Pineapple Peach Mang,041,Soda
+121940,Dole 16oz Ruby Red,041,Soda
+121950,Dole 16oz Straw Kiwi,041,Soda
+038900004699,Dole Pineapple Chunks,061,Miscellaneous
+038900004736,Dole Pineapple Chunks,061,Miscellaneous
+pc1,Dollar Phone Pinless,091,Phone Card
+088110554057,Dom Perignon 750 Champange,024,Champange
+085155010111,Domaine Chandon 750 Chard,025,Wine
+088586600241,Domaine Ste Michelle 750 Brut,024,Champange
+088586600258,Domaine Ste Michelle 750 Dry,024,Champange
+082417160072,Dominoes ,061,Miscellaneous
+759933007036,Don Alejo Blanco 750,021,Liquor
+759933007135,Don Alejo Reposado 750,021,Liquor
+618115946061,Don Amado 750,021,Liquor
+628586967090,Don Chelada Cup Blue,061,Miscellaneous
+083300032650,Don Eduardo Anejo 750,021,Liquor
+083300032551,Don Eduardo Blanco 750,021,Liquor
+083300032612,Don Eduardo Reposado 750,021,Liquor
+674545000322,Don Julio 1942 750,021,Liquor
+674545000612,Don Julio 375 Anejo,021,Liquor
+674545000599,Don Julio 375 Blanco,021,Liquor
+674545000605,Don Julio 375 Reposado,021,Liquor
+674545000070,Don Julio 50 Anejo 10pk,021,Liquor
+674545000025,Don Julio 50 Blanco 10pk,021,Liquor
+674545000421,Don Julio 50 Rep 10pk,021,Liquor
+674545000063,Don Julio 750 Anejo,021,Liquor
+674545000001,Don Julio 750 Blanco,021,Liquor
+674545000414,Don Julio 750 Reposado,021,Liquor
+082422020118,Don Pedro 200,021,Liquor
+082422020149,Don Pedro 750,021,Liquor
+044885095089,Don Picoso 1.5z Limon Rico,051,Snack
+082422020156,Don Predro 1L,021,Liquor
+082422020132,Don Predro 375,021,Liquor
+dbdc,Doral Buy Down Carton,111,Coupons & CRV
+dbdct,Doral Buy Down Carton Tax,111,Coupons & CRV
+dbdpt,Doral Buy Down Pack,111,Coupons & CRV
+dbdp,Doral Buy Down Pack,111,Coupons & CRV
+012300220804,Doral Ct 100 Box,012,Cigarrett Carton
+012300220835,Doral CT Gold 100 Box,012,Cigarrett Carton
+012300158138,Doral CT MenGold 100 Box,012,Cigarrett Carton
+012300842136,Doral CT MenGold Box,012,Cigarrett Carton
+012300844130,Doral CT Silver Box,012,Cigarrett Carton
+012300220798,Doral Pk 100 Box,011,Cigarrett Pack
+012300220828,Doral Pk 100 Gold Box DDD,011,Cigarrett Pack
+012300840996,Doral Pk Box,011,Cigarrett Pack
+012300841993,Doral Pk Gold Box,011,Cigarrett Pack
+123583,Doral Pk MenGold 100 Box,011,Cigarrett Pack
+012300842990,Doral Pk MenGold Box,011,Cigarrett Pack
+012300845991,Doral Pk Silver 100 Box,011,Cigarrett Pack
+012300844994,Doral Pk Silver Box,011,Cigarrett Pack
+029126150888,Dorval SourPowerStraws GApple,051,Snack
+029126150871,Dorval SourPowerStraws Strawby,051,Snack
+072311130110,Dos Equis 12oz Amber (Red),031,Beer
+072311130127,Dos Equis 12oz Lager (Green),031,Beer
+072311331401,Dos Equis 12pk Amber (Red),031,Beer
+072311230124,Dos Equis 12pk Lager (Green),031,Beer
+072311412131,Dos Equis 12pk Lager Can,031,Beer
+072311321242,Dos Equis 24oz Can Lager,031,Beer
+072311630115,Dos Equis 6pk Amber (Red),031,Beer
+072311630122,Dos Equis 6pk Lager (Green),031,Beer
+221160,Doublemint Twins MintCreme,051,Snack
+221140,Doublemint Twins WinterCreme,051,Snack
+011111611955,Dove,061,Miscellaneous
+402960,Dove 1.30 oz milk choc,051,Snack
+040000467052,Dove Bar CNC,051,Snack
+067238891183,Dove Pink 3.5oz,061,Miscellaneous
+403260,Dove Silky Dark Coco,051,Snack
+047677001169,Dove Vanilla 3.67oz,053,Ice Cream
+783150,Dr Pepper 12oz,041,Soda
+549303,Dr Pepper 12oz Diet,041,Soda
+078000082166,Dr Pepper 12pk,041,Soda
+078000003208,Dr Pepper 16oz,041,Soda
+078000082456,Dr Pepper 1L,041,Soda
+078000082401,Dr Pepper 20oz,041,Soda
+078000083408,Dr Pepper 20oz diet,041,Soda
+078000001655,Dr Pepper 20oz Ten,041,Soda
+078000082616,Dr Pepper 24oz,041,Soda
+078000083613,Dr Pepper 24oz Diet,041,Soda
+078000082463,Dr Pepper 2L,041,Soda
+078000098464,Dr Pepper 2L Cherry,041,Soda
+078000099461,Dr Pepper 2L Diet Cherry,041,Soda
+p783150,Dr Pepper 6pk (order 36pk Can),041,Soda
+078000082043,Dr Pepper 8pk can,041,Soda
+077324076509,Drakes 6pk IPA,031,Beer
+080480302030,Drambuie 375,021,Liquor
+089540128542,Drambuie 750,021,Liquor
+080480302023,Drambuie 750,021,Liquor
+751667001199,Dream CT Belgian Blend Box,012,Cigarrett Carton
+751667001076,Dream CT Jubilee Blend Box,012,Cigarrett Carton
+751667047340,Dream CT Pink Box,012,Cigarrett Carton
+751667001205,Dream Pk Belgian Blend Box,011,Cigarrett Pack
+751667001083,Dream Pk Cherry,011,Cigarrett Pack
+751667001069,Dream Pk French Blend,011,Cigarrett Pack
+751667047333,Dream Pk Pink Box,011,Cigarrett Pack
+751667097673,Dream Pk Vanilla,011,Cigarrett Pack
+041548610108,Dreyers IC FruitBar,053,Ice Cream
+group fanta 20oz,Drink 2/2,NONE,None
+group drink 04,Drink 2/2,NONE,None
+group drink 06,Drink 2/2.50,NONE,None
+group drink 1,Drink 2/3,NONE,None
+group drink 05,Drink 2/5,NONE,None
+group energy 3pk,Drink 3/5,NONE,None
+group drink 2for5,Drink 3/6,NONE,None
+group drink 2,Drink 3/6,NONE,None
+010684152049,Drinker buddy,061,Miscellaneous
+077170460019,Drum Rolling Pk,011,Cigarrett Pack
+072554001628,DrumStick IC Van Car Cone,053,Ice Cream
+082491010324,Dry Creek Merlot Reserve 750,025,Wine
+029000076259,Dry Roasted Peanuts,051,Snack
+059300502943,Du Maurier CT Box,012,Cigarrett Carton
+059300002948,Du Maurier Pk Box,011,Cigarrett Pack
+686464810005,Dubble Blow,051,Snack
+686464470001,Dubble Bub proball 0.42,051,Snack
+686464100311,Dubble Bubble,051,Snack
+686464101110,DubbleBubble  GumBall Dispense,051,Snack
+070953475002,Duchess Pecan Pie 3oz,051,Snack
+083664990054,Dueno 750,021,Liquor
+083103701227,Duggans 1.75 Irish Cream,021,Liquor
+082000731979,Dulseda 750 dulce de leche,021,Liquor
+027200599219,Dunhill FC Pk Black,011,Cigarrett Pack
+027200599271,Dunhill FC PK Green DDD,011,Cigarrett Pack
+027200599240,Dunhill FC Pk White,011,Cigarrett Pack
+027200356850,Dunhill Int Pk Blue,011,Cigarrett Pack
+027200356768,Dunhill Int Pk Green,011,Cigarrett Pack
+027200356843,Dunhill Int Pk Red,011,Cigarrett Pack
+041137000273,Duraflame FireLog 5lb,061,Miscellaneous
+084279188539,Durango 750 Gold,021,Liquor
+084279187686,Durango 750 Silver,021,Liquor
+859996000750,Duvel 750 Golden Ale,031,Beer
+dvd,DVD,061,Miscellaneous
+705016175017,Dymatize Glutamine 500g 1.1lb,065,Power Capsule
+018138312025,Dynamite Blanc,025,Wine
+854150,E&J VS 1.75,021,Liquor
+854470,E&J VS 100,021,Liquor
+854180,E&J VS 1L,021,Liquor
+854210,E&J VS 200,021,Liquor
+854260,E&J VS 375,021,Liquor
+085000003404,E&J VS 50-10pk,021,Liquor
+854130,E&J VS 750,021,Liquor
+853930,E&J VSOP 1.75,021,Liquor
+851080,E&J VSOP 100,021,Liquor
+853790,E&J VSOP 200,021,Liquor
+853830,E&J VSOP 375,021,Liquor
+085000003862,E&J VSOP 50,021,Liquor
+853810,E&J VSOP 750,021,Liquor
+085000018828,E&J XO 1.75,021,Liquor
+085000009253,E&J XO 200,021,Liquor
+085000009116,E&J XO 50-12pk,021,Liquor
+085000009154,E&J XO 750,021,Liquor
+855653003607,Earl Stevens 750 Function Red,025,Wine
+855653003898,Earl Stevens 750 Mangoscato,025,Wine
+855653003591,Earl Stevens 750 Moscato,025,Wine
+081128010508,Early Times 1.75,021,Liquor
+081128010560,Early Times 1L,021,Liquor
+081128007799,Early Times 1L,021,Liquor
+081128010683,Early Times 200,021,Liquor
+081128010676,Early Times 375,021,Liquor
+081128000028,Early Times 50,021,Liquor
+081128010621,Early Times 750,021,Liquor
+791083007443,EAS Whey 5lb Bannana,063,Powder
+791083007412,EAS Whey 5lb Chocolate,063,Powder
+791083007429,EAS Whey 5lb Vanilla,063,Powder
+791083598347,EAS Whey 6lb Vanilla,063,Powder
+718122086450,Easy Rider 1cap,061,Miscellaneous
+018138905029,Echelon 750 cab,025,Wine
+018138901021,Echelon 750 chard,025,Wine
+018138907023,Echolon 750 merlot,025,Wine
+022000013194,Eclipse 18pc Peppermint,051,Snack
+022000013279,Eclipse 18pc Polar Ice,051,Snack
+022000013316,Eclipse 18pc Spearmint,051,Snack
+022000013200,Eclipse 18pc WinterFrost,051,Snack
+022000010339,Eclipse Breeze Exotic Berry,051,Snack
+228240,Eclipse Flash Spearmint,051,Snack
+225520,Eclipse Fusion FreshMint Tropi,051,Snack
+223510,Eclipse Fusion Spearmint Melon,051,Snack
+229970,Eclipse Gum Peppermint,051,Snack
+229990,Eclipse Gum Polar Ice,051,Snack
+229960,Eclipse Gum Spearmint,051,Snack
+229980,Eclipse Gum WinterFrost,051,Snack
+221300,Eclipse Mint Cinnamon,051,Snack
+123813,Eclipse pk Box Blue,011,Cigarrett Pack
+676758300039,Econ Lighter,061,Miscellaneous
+095542,Economy Lighters,061,Miscellaneous
+857414004038,Ed Hardy 16oz Apple,041,Soda
+857414004168,Ed Hardy 16oz Light,041,Soda
+857414004045,Ed Hardy 16oz Orange,041,Soda
+857414004052,Ed Hardy 16oz Pomegrante,041,Soda
+046500020339,Edge Shave 2.75oz,061,Miscellaneous
+081308318264,Edgewood Napa 750 Cab,025,Wine
+081308324265,Edgewood Napa 750 Merlot,025,Wine
+018138209028,EdnaValley 750 Cab,025,Wine
+018138201022,EdnaValley 750 Chard,025,Wine
+018138209035,EdnaValley 750 Merlot,025,Wine
+018138204023,EdnaValley 750 Pinot Noir,025,Wine
+018138202029,EdnaValley 750 Sau Blanc,025,Wine
+018138206522,EdnaValley 750 Syrah,025,Wine
+856075000229,Effen Vodka 50 Black cherry,021,Liquor
+856075000212,Effen Vodka 750,021,Liquor
+856075000113,Effen Vodka 750,021,Liquor
+080686938248,Effen Vodka 750 Cucumber,021,Liquor
+813805005060,Efrutti 10g Gummi Pizza,051,Snack
+813805005046,Efrutti 10g HotDog,051,Snack
+813805005008,Efrutti Mini Burger,051,Snack
+813805005121,Efrutti Mini Burger Sour,051,Snack
+egg,Egg Large AA Dozen,061,Miscellaneous
+855159000292,El Avisador paper,061,Miscellaneous
+7503010658139,El Camichin 750 Blanco,021,Liquor
+7507023200071,El Camichin 750 Joven,021,Liquor
+759380113526,El Charro Anejo 750,021,Liquor
+759380113021,El Charro Reposa 750,021,Liquor
+744607050654,El Jimador 12oz RTD Margarita,022,Liquor - Cocktail
+744607050715,El Jimador 12oz RTD Paloma,022,Liquor - Cocktail
+744607050630,El Jimador 12oz RTD Spy Mango ,022,Liquor - Cocktail
+744607068703,El Jimador 200 Blanco,021,Liquor
+744607069700,El Jimador 200 Reposado,021,Liquor
+744607063203,El Jimador Anejo 750,021,Liquor
+744607068208,El Jimador Blanco 750,021,Liquor
+744607069304,El Jimador Reposado 1L,021,Liquor
+744607069601,El Jimador Reposado 375,021,Liquor
+744607069205,El Jimador Reposado 750,021,Liquor
+015918330026,El Mezcalito 750,021,Liquor
+080686761402,El Tesoro Anejo 750,021,Liquor
+012484111134,El Tesoro Anejo 750,021,Liquor
+012484111141,El Tesoro Paradiso,021,Liquor
+080686760405,El Tesoro Plata 750,021,Liquor
+080686762409,El Tesoro Resp 750,021,Liquor
+012484111127,El Tesoro Resposado 750,021,Liquor
+012484040458,El Tesoro Silver 750,021,Liquor
+802365181093,El Ultimo Agave 50 Blanco,021,Liquor
+802365183097,El Ultimo Agave 50 Repo,021,Liquor
+042743125527,ElMexicano Yogurt 7oz Guava,041,Soda
+042743125534,ElMexicano Yogurt 7oz Mango,041,Soda
+042743125541,ElMexicano Yogurt 7oz Pina Col,041,Soda
+042743122496,ElMexicano Yogurt 7oz StrawBan,041,Soda
+042743125510,ElMexicano Yogurt 7oz Strawber,041,Soda
+071007031137,ElMonterey XXLg RHot  Burrito,054,Fresh Deli
+071007213625,ElMonterey XXLg RHot Chimichan,054,Fresh Deli
+078907916342,ElSabroso 1.8oz Pock cra hot,051,Snack
+078907916335,ElSabroso 2.3z PorkCracklins,051,Snack
+078907916465,ElSabroso 2oz Pork,051,Snack
+078907916458,ElSabroso 2oz Pork hot & spi,051,Snack
+078907440489,ElSabroso 3oz Baja Limon,051,Snack
+078907450679,ElSabroso 3oz Jalapenitos,051,Snack
+078907917189,ElSabroso 3oz MexiCrisp Ch-Lem,051,Snack
+078907450310,ElSabroso 3ozTortilla Guacachi,051,Snack
+078907450396,ElSabroso 3ozTortilla Salsitas,051,Snack
+075386049752,Embasa Sliced Jalapenos 7oz,061,Miscellaneous
+010300940197,Emerald 1.25oz Cashew Half&Pcs,051,Snack
+010300843191,Emerald 1.25oz Cocoa Rst Almon,051,Snack
+010300840190,Emerald 1.25oz D Roast Almond,051,Snack
+010300938194,Emerald 1.25oz Slt&Pper Cashew,051,Snack
+010300930198,Emerald 1.25oz Swt&Slt MixNut,051,Snack
+010300586197,Emerald 1.5oz Berry Nut Blend,051,Snack
+079944409439,Emerald 4roll Bath Tissue,061,Miscellaneous
+079944409422,Emerald paper towels 75 sheets,061,Miscellaneous
+076314306466,Emergen-C 1000mg VitaC SOrange,065,Power Capsule
+076314302031,Emergen-C 1000mg VitaC SOrange,065,Power Capsule
+834266001354,Endorush 16oz FruitPunch,042,Energy Drink
+834266001309,Endorush 16oz Grape Fix,042,Energy Drink
+834266001408,Endorush 16oz Le-Li Fix,042,Energy Drink
+834266001453,Endorush 16oz Orange Fix,042,Energy Drink
+834266001606,Endorush 16oz Tropical Fussion,042,Energy Drink
+834266008650,Endorush 8oz  Green Apple,042,Energy Drink
+834266008551,Endorush 8oz Blue Raz,042,Energy Drink
+834266008353,Endorush 8oz FP,042,Energy Drink
+834266008308,Endorush 8oz Grape,042,Energy Drink
+883488001079,Energize Bullet Blue Rage,041,Soda
+energy drink 1.99,Energy Drink 16oz,041,Soda
+018355200020,Energy Now,061,Miscellaneous
+018355400048,Energy Now Ginkgo Biloba,061,Miscellaneous
+018355100016,Energy Now Ginseng,061,Miscellaneous
+835433000002,Energy Now Ginseng,061,Miscellaneous
+665100000017,Energy Shooter,061,Miscellaneous
+665100000031,Energy Shooter,061,Miscellaneous
+052679009464,EnergyClub 2.7oz Trail Mix,051,Snack
+052679009570,EnergyClub 2.7oz Tropical Mix,051,Snack
+052679009631,EnergyClub 3oz Yogurt Mix,051,Snack
+052679019418,EnergyClub 4.25oz Pistachios s,051,Snack
+052679019319,EnergyClub 8oz Bttr Toffee Pea,051,Snack
+052679019586,EnergyClub 8oz Energy Mix,051,Snack
+052679019487,EnergyClub 8oz Fancy Mojo Mix,051,Snack
+052679019289,EnergyClub 8oz Fruity Gumy Bea,051,Snack
+052679019463,EnergyClub 8oz Natural TrailM,051,Snack
+052679019579,EnergyClub 8oz Tropical TrailM,051,Snack
+052679018237,EnergyClub 9.oz Sour Glo Worms,051,Snack
+052679019173,EnergyClub 9oz Fruity GumyWorm,051,Snack
+052679018220,EnergyClub 9oz SourGmy GloBear,051,Snack
+823332100121,Engage 8oz Pure addrenaline,042,Energy Drink
+081073000081,Enjoy BJ 1oz Hot,051,Snack
+081073000098,Enjoy BJ 1oz OldFashion Pepper,051,Snack
+081073000074,Enjoy BJ 1oz Teriyaki,051,Snack
+689037020016,Envy 200,021,Liquor
+689037075016,Envy 750,021,Liquor
+089037075010,Envy 750,021,Liquor
+084287950623,EOS Cab 750,025,Wine
+084287900628,EOS Chard 750,025,Wine
+084287956625,EOS Zin 750,025,Wine
+187160000177,Ephedra Tea 16oz Fruit Punch,042,Energy Drink
+187160000092,Ephedra Tea 16oz Mango,042,Energy Drink
+080480296025,Eristoff Vodka 750,021,Liquor
+080480296087,Eristoff Vodka 750 Black,021,Liquor
+080480296056,Eristoff Vodka 750 Red,021,Liquor
+072554110924,Eskimopie IC Vanilla KingSize,053,Ice Cream
+721059707510,Espolon 750 Repo,021,Liquor
+721059707503,Espolon 750 Silver,021,Liquor
+664804000118,Espolon Anejo 50,021,Liquor
+664804000071,Espolon Anejo 750,021,Liquor
+664804000057,Espolon Reposado 750,021,Liquor
+664804000064,Espolon Silver 750,021,Liquor
+083085300265,Estancia 750 Cab,025,Wine
+083085300968,Estancia 750 Merlot,025,Wine
+096749021864,Evan William 50 Cherry,021,Liquor
+096749021246,Evan Williams 1L,021,Liquor
+096749021345,Evan Williams 7yr 750,021,Liquor
+011000126119,Eve CT 120 Men Slim Emerald,012,Cigarrett Carton
+112980,Eve pk 120 Menthol Slim,011,Cigarrett Pack
+088352123110,Everclear 200,021,Liquor
+088352123103,Everclear 375,021,Liquor
+088352123097,Everclear Vodka 750,021,Liquor
+792985,Evian 1.5L DDD,041,Soda
+079298075007,Evian 750,041,Soda
+792987,Evian Water 1L,041,Soda
+660726780206,Evopro 2.25lb Chocolate,063,Powder
+076940292058,Export A Pk Full Flavor Box,011,Cigarrett Pack
+076940292072,Export A Pk Gold Box,011,Cigarrett Pack
+076940292065,Export A Pk Medium Box,011,Cigarrett Pack
+076940292096,Export A Pk Silver Box,011,Cigarrett Pack
+076940192099,ExportA CT Ultra Lt Box,012,Cigarrett Carton
+897343001067,Extenze 4pill,061,Miscellaneous
+897343001739,Extenze 4pill Women,061,Miscellaneous
+228380,Extra  FruitSent Watermelon,051,Snack
+022000013187,Extra Dsrt Orange Creme,051,Snack
+022000115621,Extra Dstr Key Lime Pie,051,Snack
+022000115638,Extra Dstr Mint ChoChip,051,Snack
+022000115614,Extra Dstr Straw ShrtCk,051,Snack
+228440,Extra FruitSen Berry Smoothie,051,Snack
+228660,Extra FruitSen Island Cooler,051,Snack
+022000112163,Extra FruitSen Mango Smoothie,051,Snack
+228970,Extra FruitSen Straw Banana,051,Snack
+228450,Extra Gum Classic Bubble,051,Snack
+228910,Extra Gum Peppermint,051,Snack
+228980,Extra Gum Polar Ice,051,Snack
+228990,Extra Gum Spearmint,051,Snack
+229000,Extra Gum Supermint,051,Snack
+022000011602,Extra Gum Sweet Tropical,051,Snack
+228400,Extra Gum Winterfresh,051,Snack
+045529556942,ExtremeBody50 15oz Bana Crm,042,Energy Drink
+045529556935,ExtremeBody50 15oz Cho PB DD,042,Energy Drink
+045529556867,ExtremeBody50 15oz Van Bean DD,042,Energy Drink
+092212111056,Eye Of The Hawk 12oz,031,Beer
+092212121055,Eye Of the Hawk 6pk,031,Beer
+807006012750,Eye Poppers,051,Snack
+897343001609,Eztenze Shot,061,Miscellaneous
+648930000808,Fahrenheit 72caps,065,Power Capsule
+076677191372,Famous Amos 3.OZ Choco chip,051,Snack
+076677264731,Famous Amos 3.OZ PB ckies,051,Snack
+076677100145,Famous Amous Cookies 2oz,051,Snack
+087236400385,Famous Grouse 12yr 750,021,Liquor
+083960138037,Famous Grouse 750,021,Liquor
+049000014235,Fanta 12oz Orange,041,Soda
+049000014273,Fanta 12oz Pineapple,041,Soda
+049000014266,Fanta 12oz Strawberry,041,Soda
+049000030730,Fanta 12pk Orange,041,Soda
+049000030761,Fanta 12pk Pineapple,041,Soda
+049000030754,Fanta 12pk Strawberry,041,Soda
+049000026276,Fanta 20oz Grape,041,Soda
+049000019162,Fanta 20oz Orange,041,Soda
+049000028201,Fanta 20oz Pineapple,041,Soda
+049000026207,Fanta 20oz Strawberry,041,Soda
+049000016314,Fanta 2L Grape,041,Soda
+049000047592,Fanta 2L GrapeFruit,041,Soda
+049000016321,Fanta 2L Orange,041,Soda
+049000016352,Fanta 2L Pineapple,041,Soda
+049000017021,Fanta 2L Strawberry,041,Soda
+p049000014235,Fanta 6pk Orange,041,Soda
+p049000014273,Fanta 6pk Pineapple,041,Soda
+p049000014266,Fanta 6pk Strawberry,041,Soda
+sc509,Fantastic 10 $5,081,Scratchers
+088232004546,Farallon Cab 750,025,Wine
+088232004522,Farallon Chard 750,025,Wine
+088232004553,Farallon Merlot 750,025,Wine
+039383007337,Faretti 750 Biscotti Famosi,021,Liquor
+349520,Fast Break,051,Snack
+660726800027,FastTwitch 2.04lb Go Grape,063,Powder
+660726800058,FastTwitch 2.04lb Orange DDD,063,Powder
+660726800010,FastTwitch 2.04lb Power Punch,063,Powder
+876063003520,FastTwitch 20oz Blue,042,Energy Drink
+876063003537,FastTwitch 20oz Purple,042,Energy Drink
+876063003513,FastTwitch 20oz Red,042,Energy Drink
+077865006515,Fat Boy Vanilla,053,Ice Cream
+fax,Fax,061,Miscellaneous
+185051301600,Feather Rose ,061,Miscellaneous
+742651114193,Ferrari Carano Chard 750,025,Wine
+009800123018,Ferrero Rocher 3cookies,051,Snack
+082896066667,Fetzer 5River Ranch Merlot,025,Wine
+082896700134,Fetzer 750 Cab,025,Wine
+082896710294,Fetzer 750 Chard,025,Wine
+082896700257,Fetzer 750 Gewurztraminer,025,Wine
+082896700394,Fetzer 750 Merlot,025,Wine
+082896062355,Fetzer 750 Pinot Noir,025,Wine
+082896710232,Fetzer 750 Riesling,025,Wine
+082896780327,Fetzer 750 White Zin,025,Wine
+082896718290,Fetzer Barrel Select Chard 750,025,Wine
+082896713240,Fetzer Echo Sauv Blanc,025,Wine
+082896100132,Fetzer Oaks Cab 1.5,025,Wine
+082896710270,Fetzer Sauv Blanc 750,025,Wine
+016000504622,Fiber One oats choc 1.4,051,Snack
+016000504639,Fiber One oats pb 1.4oz,051,Snack
+082899000019,Ficklin Port,025,Wine
+044000037444,Fig Newtons 2oz,051,Snack
+044000001452,Fig Newtons Fat Free,051,Snack
+044000007508,FigNewton 8oz Cookies,051,Snack
+632565000036,Fiji Water 1.5L,041,Soda
+632565000029,Fiji Water 1L,041,Soda
+070491800953,Finest Call 1L Bloody Mary,023,Liquor - Mixer
+070491538009,Finest Call 1L Cosmopolitan,023,Liquor - Mixer
+070491807952,Finest Call 1L Grenadine,023,Liquor - Mixer
+070491544000,Finest Call 1L Mojito,023,Liquor - Mixer
+070491804951,Finest Call 1L Pina Colada,023,Liquor - Mixer
+070491543003,Finest Call 1L Sour Apple,023,Liquor - Mixer
+070491728974,Finest Call 1L Spicy Bloody,023,Liquor - Mixer
+070491803954,Finest Call 1L Strawberry,023,Liquor - Mixer
+081128074050,Finlandia 1.75,021,Liquor
+081128074159,Finlandia 375DDD,021,Liquor
+081128774172,Finlandia 50,021,Liquor
+081128074111,Finlandia 750,021,Liquor
+081128074302,Finlandia 750 Cranberry,021,Liquor
+081128074289,Finlandia 750 Lime,021,Liquor
+pc23,Fire $2 DDD,091,Phone Card
+pc9,Fire $4.5 DDD,091,Phone Card
+796030114977,Fire Rock 6pk,031,Beer
+089708000154,Fire Water 750,021,Liquor
+zzzzkahfdkjdh,FireBall 100 Cinnamon,021,Liquor
+088004144739,FireBall 200 Cinnamon,021,Liquor
+088004144722,FireBall 375 Cinnamon,021,Liquor
+088004144708,FireBall 50 Cinnamon-10pk,021,Liquor
+088004146689,FireBall 750 Cinnamon,021,Liquor
+897291000075,FireFly 750 SweetTea,021,Liquor
+602755001075,FireStone 12pk DBA,031,Beer
+602755006025,FireStone 24oz Union Jack,031,Beer
+602755001037,FireStone 6pk DBA,031,Beer
+082915001020,Firestone Merlot 750,025,Wine
+pc217,First Class $2,091,Phone Card
+pc95,First Class $4.5,091,Phone Card
+080069933341,Fischer Amber 650,031,Beer
+080069061297,Fischer Amber 6pk,031,Beer
+028400078924,fl109 Cheetos 2.1/4 FlaminPuff,051,Snack
+028400078740,fl109 Cheetos 2.3/8 Crunchy,051,Snack
+028400078764,fl109 Cheetos 2.3/8 FlaminHot,051,Snack
+028400078771,fl109 Cheetos 2.3/8 FlamnLimon,051,Snack
+028400078962,fl109 ChestersFries FlaminHot,051,Snack
+028400004817,fl109 CrackerJack 2.7/8 Origin,051,Snack
+028400009799,fl109 Dinamita 4oz Chile Limon,051,Snack
+028400009867,fl109 Dinamita 4oz Nacho Picos,051,Snack
+028400078795,fl109 Doritos 2.1/8 Cool Ranch,051,Snack
+028400078818,fl109 Doritos 2.1/8 Nacho Chs,051,Snack
+028400078801,fl109 Doritos 2.1/8 Salsa Verd,051,Snack
+028400034876,fl109 Doritos 2.1/8 Tapatio,051,Snack
+028400097482,fl109 Fritos 2.7/8 ChiliCheese,051,Snack
+028400078979,fl109 Funyuns 1.5/8 Onion,051,Snack
+028400078597,fl109 Lays 1.7/8 Barbecue,051,Snack
+028400078580,fl109 Lays 1.7/8 Classic,051,Snack
+028400078658,fl109 Lays 1.7/8 Limon,051,Snack
+028400078696,fl109 Ruffles 1.7/8 Cheddar SC,051,Snack
+028400079112,fl109 Sabritones 2.1/8 Lime,051,Snack
+028400097420,fl109 Turbos 2.7/8 Flamas,051,Snack
+028400047708,fl329 RoldGold 16oz Sticks,051,Snack
+028400039154,fl349 Cheetos 9oz Chdr Jalapen,051,Snack
+028400039130,fl349 Cheetos 9oz Crunchy,051,Snack
+028400039161,fl349 Cheetos 9oz FlaminHot,051,Snack
+028400039178,fl349 Cheetos 9oz FlaminLimon,051,Snack
+028400039208,fl349 Cheetos 9oz FlaminPuff,051,Snack
+028400157759,fl349 Cheetos 9oz Xtra FlamHot,051,Snack
+028400039246,fl349 Fritos 10oz Original ,051,Snack
+028400039222,fl349 Fritos 10oz Twt HoneyBBQ,051,Snack
+028400082907,fl349 KettleCooked 8oz JalapDD,051,Snack
+028400063999,fl399 Tostitos 13oz Restaurant,051,Snack
+028400038546,fl429 Doritos 11oz Cool Ranch,051,Snack
+028400038751,fl429 Doritos 11oz Nacho Chees,051,Snack
+028400038676,fl429 Doritos 11oz SalsaVerde,051,Snack
+028400038775,fl429 Doritos 11oz Spicy Nacho,051,Snack
+028400034180,fl429 Flays 10oz BBQ,051,Snack
+028400033466,fl429 Flays Wavy 10oz Original,051,Snack
+028400033459,fl429 Lays 10oz Classic,051,Snack
+028400033671,fl429 Lays 10oz Garden Tomato,051,Snack
+028400083140,fl499 Tostitos 14oz Scroops,051,Snack
+50312351,Flake Bar,051,Snack
+flanax 01,Flanax Pain Relief Tablet 25/2,061,Miscellaneous
+677172120005,Flash Camera 27,061,Miscellaneous
+686464455008,Flash Pop Candy,051,Snack
+082928304637,Fleischmann Lime 1L,021,Liquor
+082928304651,Fleischmanns Lime 750,021,Liquor
+082928214318,Fleischmanns Vodka 1.75,021,Liquor
+082928214394,Fleischmanns Vodka 50,021,Liquor
+872181001202,Flipz 4oz PB Cho,051,Snack
+872181000540,Flipz 4oz white fudge,051,Snack
+872181000069,Flipz 5oz Prtzl MilkCho,051,Snack
+026964824735,Flore de Cana 375,021,Liquor
+026964852745,Flore de Cana 750,021,Liquor
+flower 199,Flower 199,061,Miscellaneous
+014200003259,FluffyStuff 2.5z Cotton Candy,051,Snack
+786243611028,Flying Dog 6pk Pale Ale,031,Beer
+802018,Flying Horse 650 Lager,031,Beer
+025500003658,Folgers coffe classic roast 11,061,Miscellaneous
+025500000336,Folgers Coffee Crystals,061,Miscellaneous
+088110641757,Fonte AL Sole Ruffino,025,Wine
+718122042722,ForceX 1pill 1400mg,061,Miscellaneous
+081054174404,Forest Ville 750 chard,025,Wine
+083664864294,Formulae 750,025,Wine
+090600301904,Fortuna CT Blue 100 Box,012,Cigarrett Carton
+090600301911,Fortuna CT Men 100 Box,012,Cigarrett Carton
+090600001408,Fortuna CT PaleBlue Box,012,Cigarrett Carton
+090600301898,Fortuna CT Red 100 Box,012,Cigarrett Carton
+906903,Fortuna Pk Blue 100 Box,011,Cigarrett Pack
+906913,Fortuna Pk Men 100 Box,011,Cigarrett Pack
+906403,Fortuna Pk PaleBlue Box,011,Cigarrett Pack
+906893,Fortuna Pk Red 100 Box,011,Cigarrett Pack
+906383,Fortuna Pk Red Box,011,Cigarrett Pack
+sc504,Fortune 55 $5,081,Scratchers
+088320580105,Forty Creek 1L Barrel Select,021,Liquor
+070897011250,Foster 12pk Bottle Disco,031,Beer
+070897013254,Foster 12pk Can,031,Beer
+070897013315,Foster 24oz (Blue),031,Beer
+070897183315,Foster 24oz Bitter (Green),031,Beer
+070897011212,Fosters 12oz,031,Beer
+070897011236,Fosters 6pk Disco,031,Beer
+895216001848,Four Loko 16oz Blk Cherry,031,Beer
+895216001862,Four Loko 16oz GApple,031,Beer
+895216001831,Four Loko 16oz Lemonade,031,Beer
+895216001084,Four Loko 24oz Coco,031,Beer
+895216001343,Four Loko 24oz Cran Lenonade,031,Beer
+895216001046,Four Loko 24oz Fruit Punch,031,Beer
+895216001442,Four Loko 24oz Lemon limeDDD,031,Beer

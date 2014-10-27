@@ -4,10 +4,9 @@ from helper import test_helper
 from couch import couch_util
 from couchdb.http import Unauthorized
 from sale.sale_couch.receipt import receipt_inserter_for_test_purpose,receipt_ln_constructor_for_test_purpose,receipt_document_validator,receipt_lst_couch_getter
-from store_product.cm import insert_new
 from store_product.sp_couch import store_product_couch_getter
 from util.couch import couch_acl_validator
-
+from store_product.cm import insert_new
 
 # class Test(WebTest):
     

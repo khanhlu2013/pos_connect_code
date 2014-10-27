@@ -71,9 +71,9 @@ def exe_couch(
     
     #update
     sp['name'] = name
-    sp['price'] = couch_util.decimal_2_str(price)
-    sp['value_customer_price'] = couch_util.decimal_2_str(value_customer_price)
-    sp['crv'] = couch_util.decimal_2_str(crv)
+    sp['price'] = price
+    sp['value_customer_price'] = value_customer_price
+    sp['crv'] = crv
     sp['is_taxable'] = is_taxable
     sp['is_sale_report'] = is_sale_report
     sp['p_type'] = p_type

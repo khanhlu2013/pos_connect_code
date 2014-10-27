@@ -2,8 +2,8 @@ from store_product.models import Store_product,Kit_breakdown_assoc
 import csv
 from product.models import Sku,Product,ProdSkuAssoc
 from store.models import Store
-from store_product import old_sp_inserter,dao
-from store_product.cm import insert_new,sp_kit_update_angular_cm
+from store_product import dao
+from store_product.cm import sp_kit_update_angular_cm,insert_new,insert_old
 
 
 #STEP1: exe to insert unique sku
@@ -13,7 +13,7 @@ def exe():
     # Dept_ID,Description,Tax_1,itemnum,Vendor,ItemName,CRV,Price,Cost
     log_file = open('id/log','w')
 
-    with open('id/data_tiep_product_full.txt', 'rb') as csvfile:
+    with open('id/data_tiep_product_sample.txt', 'rb') as csvfile:
         #Vendor,Dept_ID,Case,Case Price,ItemNum,ItemName,Cost,Price,Tax_1,Quan_In_Case,CASE-CRV,CRV
 
         spamreader = csv.reader(csvfile, delimiter=',', quotechar='"')
@@ -141,7 +141,7 @@ def _record(log_file,store,name,sku,cost,price,crv,is_taxable,vendor,buydown,p_t
                     ,buydown = buydown
                 )                
             except Store_product.DoesNotExist:
-                old_sp_inserter.exe(
+                insert_old.exe(
                      product_id=product.id
                     ,store_id=store.id
                     ,name=name

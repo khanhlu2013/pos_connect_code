@@ -1,10 +1,9 @@
-from store_product import old_sp_inserter
-from store_product.cm import insert_new
 from product.models import Sku,Product,ProdSkuAssoc
 from store.models import Store
 import csv
 import json
 from django.db import IntegrityError
+from store_product.cm import insert_new,insert_old
 
 #CONFIGURATION
 store = Store.objects.get(name='2')
@@ -40,8 +39,8 @@ def exe_multiple():
 
                 dic = json.loads(data[index+1].strip())#this contain sp info
                 if selected_pid != None:
-                    print('old_sp_inserter ' + dic["name"])
-                    old_sp_inserter.exe(
+                    print('insert_old ' + dic["name"])
+                    insert_old.exe(
                         product_id = selected_pid,
                         store_id = store.id,
                         name=dic["name"],
@@ -92,9 +91,9 @@ def exe_single():
                 is_exe = data[2]
                 dic = json.loads(data[3])
                 if is_exe == '1\n':
-                    print('old_sp_inserter ' + dic['name'])
+                    print('insert_old ' + dic['name'])
                     try:
-                        old_sp_inserter.exe(
+                        insert_old.exe(
                             product_id = dic["our_pid"],
                             store_id = store.id,
                             name=dic["name"],
@@ -377,7 +376,7 @@ def exe():
                     raise Exception
 
                 #after we find that a_particular_sku that exist in our system, lets use that sku and insert old that single pid in our system    
-                sp = old_sp_inserter.exe(
+                sp = insert_old.exe(
                     product_id = our_distinct_pid_lst[0],
                     store_id = store.id,
                     name=cust_name,

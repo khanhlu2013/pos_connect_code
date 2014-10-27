@@ -5,7 +5,7 @@ import json
 from django.core.serializers.json import DjangoJSONEncoder
 
 
-def sp_group_update_angular_view(request):
+def exe(request):
     cur_login_store = request.session.get('cur_login_store')
     sp_json = json.loads(request.POST['sp']) 
 

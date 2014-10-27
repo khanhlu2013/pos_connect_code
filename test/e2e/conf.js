@@ -18,11 +18,11 @@ exports.config = {
                                                                 
         //-------------------------------------------------
 
-        './group_app/group.spec.js'  
-        // ,'./tax_app/tax.spec.js' 
-        // ,'./payment_type_app/payment_type.spec.js'  
-        // ,'./shortcut_app/shortcut.setup.spec.js'   
-        // ,'./mix_match_app/mix_match.spec.js'       
+         './group_app/group.spec.js'  
+        ,'./tax_app/tax.spec.js' 
+        ,'./payment_type_app/payment_type.spec.js'  
+        ,'./shortcut_app/shortcut.setup.spec.js'   
+        ,'./mix_match_app/mix_match.spec.js'       
 
         // ,'./sp_app/service/edit/kit.spec.js'    
         // ,'./sp_app/service/edit/group.spec.js'  

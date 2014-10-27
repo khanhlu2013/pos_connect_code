@@ -1,10 +1,7 @@
 from store_product.models import Store_product
-from product.models import ProdSkuAssoc,Product
-from store_product.sp_couch import store_product_couch_getter
+from product.models import ProdSkuAssoc
 from store_product.cm import insert_couch
 from couch import couch_util
-from django.conf import settings
-from django.db import IntegrityError
 
 def exe(
      product_id
@@ -99,6 +96,3 @@ def exe_master(
     prod_sku_assoc.store_product_set.add(prod_bus_assoc);
 
     return prod_bus_assoc
-
-
-

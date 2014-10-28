@@ -57,27 +57,31 @@ def exe_left_over():
         print('master data length = ' + str(len(master_data)) + '\n' )
         sp_lst = Store_product.objects.filter(store=store,p_type=None)
         for sp in sp_lst:
-            a_sku = sp.product.sku_set.all()[0].sku
-            if a_sku in master_data:
-                p_type = master_data[a_sku]
-                if p_type != None:
-                    sp_updator.exe(
-                         product_id = sp.product.id
-                        ,store_id = store.id
-                        ,name = sp.name
-                        ,price = float(sp.price) if sp.price != None else None
-                        ,value_customer_price = float(sp.value_customer_price) if sp.value_customer_price != None else None
-                        ,crv = float(sp.crv) if sp.crv != None else None
-                        ,is_taxable = sp.is_taxable
-                        ,is_sale_report  = sp.is_sale_report
-                        ,p_type = p_type
-                        ,p_tag = sp.p_tag
-                        ,vendor = sp.vendor
-                        ,cost = float(sp.cost) if sp.cost != None else None
-                        ,buydown = float(sp.buydown) if sp.buydown != None else None
-                    )
-                    print('exe pid: ' + str(sp.product.id) + ' - ptype: ' + p_type + '\n')
-            else:
-                print(a_sku + ' is not in master data\n')
+            found = False
+            for a_sku in sp.product.sku_set.all()
+                if a_sku in master_data:
+                    p_type = master_data[a_sku]
+                    if p_type != None:
+                        sp_updator.exe(
+                             product_id = sp.product.id
+                            ,store_id = store.id
+                            ,name = sp.name
+                            ,price = float(sp.price) if sp.price != None else None
+                            ,value_customer_price = float(sp.value_customer_price) if sp.value_customer_price != None else None
+                            ,crv = float(sp.crv) if sp.crv != None else None
+                            ,is_taxable = sp.is_taxable
+                            ,is_sale_report  = sp.is_sale_report
+                            ,p_type = p_type
+                            ,p_tag = sp.p_tag
+                            ,vendor = sp.vendor
+                            ,cost = float(sp.cost) if sp.cost != None else None
+                            ,buydown = float(sp.buydown) if sp.buydown != None else None
+                        )
+                        print('exe pid: ' + str(sp.product.id) + ' - ptype: ' + p_type + '\n')
+                    found = True
+                    break
+            if found == False:
+                print('can not find p_type for pid: ' + str(sp.product.id))
+
 
  

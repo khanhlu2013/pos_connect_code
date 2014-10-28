@@ -13,6 +13,7 @@ describe('group_app/service/create', function() {
         lib.auth.login('1','1');
         lib.setup.init_data();
         lib.auth.logout();
+        
     })
 
     it('can create,edit,remove group',function(){
@@ -69,6 +70,6 @@ describe('group_app/service/create', function() {
         Group_manage_dlg.exit();
 
         //clearn up
-        lib.auth.logout();
+        // lib.auth.logout();
     })
 });

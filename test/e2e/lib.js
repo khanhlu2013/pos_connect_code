@@ -98,6 +98,15 @@ module.exports = {
         login : function(name,pwrd){
             //get the page.
             browser.driver.get(env.baseUrl);
+            browser.driver.isElementPresent(by.id('logout_link')).then(
+                function(is_present){
+                    if(is_present){
+                        browser.driver.findElement(by.id('logout_link')).click();
+                        browser.driver.findElement(by.id('service/ui/confirm/ok_btn')).click();
+                        // browser.driver.get(env.baseUrl);//make sure the logout finished
+                    }
+                }
+            )
 
             //login
             browser.driver.findElement(by.id('id_username')).clear();

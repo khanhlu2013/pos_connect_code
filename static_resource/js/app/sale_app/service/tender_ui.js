@@ -33,9 +33,10 @@ define(
     ){
         return function(ds_lst){
             var template = 
+            '<form name="form" novalidate role="form">' +
                 '<div class="modal-header"><h3>payment</h3></div>' +
                 '<div class="modal-body">' +
-                    '<form name="form" novalidate role="form">' +
+                    // '<form name="form" novalidate role="form">' +
                         '<div class="form-horizontal" >' +
                             '<div ng-repeat="pt_tender in pt_lst | orderBy:\'sort\'" class="form-group">' +
                                 '<ng-form name="inner_form">' +
@@ -57,13 +58,22 @@ define(
                                 '</ng-form>' +
                             '</div>' +
                         '</div>' + /* end form horizontal*/
-                    '</form>' + /* end modal body*/             
+                    // '</form>' + /* end modal body*/             
                 '</div>' +
                 
                 '<div class="modal-footer">' + 
-                    '<button id="sale_app/service/tender_ui/ok_btn" ng-disabled="get_change() < 0.0 || form.$invalid" ng-click="ok()" class="btn btn-lg btn-success">change: {{get_change()|currency}}</button>' +
-                    '<button id="sale_app/service/tender_ui/cancel_btn" ng-click="cancel()" class="btn btn-lg btn-warning">cancel</button>' +
-                '</div>'
+                    '<button' +
+                        ' id="sale_app/service/tender_ui/ok_btn"' +
+                        ' ng-disabled="get_change() < 0.0 || form.$invalid"' +
+                        ' ng-click="ok()"' +
+                        ' class="btn btn-lg btn-success"' +
+                        ' type="submit"' +
+                        ' modal-enter="ok()">' +
+                            'change: {{get_change()|currency}}' +
+                    '</button>' +
+                    '<button id="sale_app/service/tender_ui/cancel_btn" ng-click="cancel()" class="btn btn-lg btn-warning" type="button">cancel</button>' +
+                '</div>' +
+            '</form>'
             ;
             var ModalCtrl = function($scope,$modalInstance,ds_lst){
                 $scope.get_due = function(){

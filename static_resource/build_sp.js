@@ -1,7 +1,7 @@
 ({
      baseUrl: './js'
     ,name: "sp_main"
-    ,out: "sp.min.js"
+    ,out: "sp.min.3.js"
     ,paths: {
          app : 'app'
         ,lib : 'lib'

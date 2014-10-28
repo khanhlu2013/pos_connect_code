@@ -21,20 +21,22 @@ define(
     ){
         return function(message,prefill,is_null_allow,is_float){
             var template = 
+            '<form name="form" novalidate>' +
                 '<div id="service/ui/prompt/dialog" class="modal-header alert alert-info">' +
                     '<h3 class="modal-title">' + message + '</h3>' +
                 '</div>' +
                 '<div class="modal-body">' +
-                    '<form name="form" novalidate>' +
+                    // '<form name="form" novalidate>' +
                         '<input id="service/ui/prompt/prompt_txt" name="answer" ng-model="$parent.answer" type="text" ng-required="!is_null_allow" focus-me={{true}}>' +
                         '<label class="error" ng-show="form.answer.$error.required">require</label>' +
-                    '</form>' +
+                    // '</form>' +
                 '</div>' +
                 '<div class="modal-footer">' +
                     '<button id="service/ui/prompt/cancel_btn" class="btn btn-warning" ng-click="cancel()" type="button">cancel</button>' +           
                     '<button ng-show="$parent.prefill!=null" ng-disabled="is_unchange()" ng-click="reset()" class="btn btn-primary" type="button">reset</button>' +
                     '<button id="service/ui/prompt/ok_btn" ng-disabled="form.$invalid || is_unchange()" type="submit" class="btn btn-success" ng-click="ok()">ok</button>' +
                 '</div>'
+            '</form>'             
             ;
 
             var ModalCtrl = function($scope,$modalInstance,prefill,is_null_allow,is_float){

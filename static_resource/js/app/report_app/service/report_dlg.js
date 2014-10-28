@@ -150,7 +150,7 @@ define(
                 )
 
                 $scope.refresh_report = function(){
-                    receipt_api.get_receipt($scope.from_date,$scope.to_date).then(
+                    receipt_api.get_receipt_by_range($scope.from_date,$scope.to_date).then(
                         function(data){ 
                             $scope.receipt_lst = data; 
                         }

@@ -239,6 +239,18 @@ define(
                     }).then(
                         function(data){
                             $scope.group = Group.build(data.data);
+                            alert_service('execute is complete successfully','info','green');
+                            $scope.option = {};
+                            $scope.enable_price = false;
+                            $scope.enable_crv = false;
+                            $scope.enable_is_taxable = false;
+                            $scope.enable_cost = false;
+                            $scope.enable_is_sale_report = false;
+                            $scope.enable_p_tag = false;
+                            $scope.enable_p_tag = false;
+                            $scope.enable_vendor = false;
+                            $scope.enable_buydown = false;
+                            $scope.enable_value_customer_price = false;
                         }
                         ,function(reason){
                             alert_service(reason);

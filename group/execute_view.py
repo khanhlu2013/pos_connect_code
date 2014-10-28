@@ -4,7 +4,6 @@ from group.group_serializer import Group_sp_lst_serializer
 from group import group_getter
 import json
 from store_product.models import Store_product
-from util import number,boolean
 from store_product.sp_couch import store_product_couch_getter
 from couch import couch_util
 

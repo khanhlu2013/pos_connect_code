@@ -6,7 +6,7 @@ from mix_match import mix_match_getter
 from mix_match.mix_match_serializer import Mix_match_serializer
 import json
 from store_product.models import Store_product
-from util import boolean 
+
 
 def get_view(request):
     cur_login_store = request.session.get('cur_login_store')
@@ -18,13 +18,6 @@ def mix_match_update_angular_view(request):
     cur_login_store = request.session.get('cur_login_store')
 
     mm = json.loads(request.POST['mix_match'])
-
-    # id = request.POST['id'] 
-    # name = request.POST['name'] 
-    # qty = request.POST['qty'] 
-    # mm_price = request.POST['mm_price'] 
-    # is_include_crv_tax = boolean.get_boolean_from_str(request.POST['is_include_crv_tax'])
-    # mix_match_child_pid_lst = request.POST['pid_comma_separated_lst_str'].split(",")
 
     #validate child is not emtpy
     if len(mm['sp_lst']) == 0:

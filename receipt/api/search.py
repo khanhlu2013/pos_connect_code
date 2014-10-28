@@ -47,7 +47,7 @@ def get_receipt_by_count(request):
 
     return HttpResponse(json.dumps(receipt_lst_serialized,cls=DjangoJSONEncoder),mimetype='application/javascript')
 
-def get_receipt(request):
+def get_receipt_by_range(request):
     cur_login_store = request.session.get('cur_login_store')
     
     #get param

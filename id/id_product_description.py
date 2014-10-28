@@ -58,7 +58,7 @@ def exe_left_over():
         sp_lst = Store_product.objects.filter(store=store,p_type=None)
         for sp in sp_lst:
             found = False
-            for a_sku in sp.product.sku_set.all()
+            for a_sku in sp.product.sku_set.all():
                 if a_sku in master_data:
                     p_type = master_data[a_sku]
                     if p_type != None:

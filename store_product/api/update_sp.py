@@ -9,12 +9,13 @@ from util import value_cleaner
 def exe(request):
     cur_login_store = request.session.get('cur_login_store')
     sp = json.loads(request.POST['sp'])
-
+    product_id = value_cleaner.to_int(sp['product_id'])
+    
     #verify sp belong to this store
     Store_product.objects.get(product_id=product_id,store_id=cur_login_store.id)
 
     updated_sp = sp_updator.exe( \
-         product_id = value_cleaner.to_int(sp['product_id'])
+         product_id = product_id
         ,store_id = cur_login_store.id
         ,name = value_cleaner.to_string(sp['name'])
         ,price = value_cleaner.to_float(sp['price'])

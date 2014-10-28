@@ -75,6 +75,7 @@ describe('sale_app/shortcut/setup_n_usage', function() {
         //verify
         lib.click(cell_usage_0);
         lib.click(cell_usage_4);
+        lib.wait_for_block_ui();
         expect(Sale_page.lst.count()).toEqual(2);
 
         //clean up

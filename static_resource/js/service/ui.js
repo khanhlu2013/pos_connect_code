@@ -168,6 +168,7 @@ define(
             }
 
             var template = 
+            '<form name="form" novalidate>' +
                 '<div id="service/ui/alert/dialog" class="modal-header ' + warning_class + '">' +
                     '<h3 class="modal-title">' + title + '</h3>' +
                 '</div>' +
@@ -176,7 +177,8 @@ define(
                 '</div>' +
                 '<div class="modal-footer">' +
                     '<button id="service/ui/alert/ok_btn" type="submit" class="btn btn-success" ng-click="ok()">ok</button>' +
-                '</div>'
+                '</div>' +
+            '</form>'
             ;
 
 

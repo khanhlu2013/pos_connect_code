@@ -47,6 +47,7 @@
                             onClick="this.select();" 
                             ng-enter="name_search()"
                             ng-model="name_search_str"
+                            blur-me="is_blur_name_search_text_box"
                         >
                     </div>
                 </ul>
@@ -93,8 +94,7 @@
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </nav>        
-
-    <div ng-hide="sp_lst.length == 0">
+    <div ng-hide="sp_lst.length == 0" infinite-scroll='name_search()' infinite-scroll-distance='0'>
         {% verbatim sp_table %}        
         <table id='product_tbl' class="table table-hover table-bordered table-condensed table-striped">
             <tr>
@@ -128,7 +128,6 @@
         </table>
         {% endverbatim sp_table%}         
     </div>
-
     <script type="text/javascript">
         var STATIC_URL                      = "{{STATIC_URL}}"
         window._STORE_ID_                   = Number("{{STORE_ID_}}")
@@ -146,7 +145,7 @@
 
     </script>
 
-    <script data-main = "{{ STATIC_URL }}js/sp_main.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script>
-    <!-- // <script data-main = "{{ STATIC_URL }}sp.min.3.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script> -->
+    <!-- // <script data-main = "{{ STATIC_URL }}js/sp_main.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script> -->
+    <script data-main = "{{ STATIC_URL }}sp.min.4.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script>
 </body>
 </html>

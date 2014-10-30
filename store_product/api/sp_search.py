@@ -5,7 +5,7 @@ from store_product import sp_serializer
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db.models import Q
 from store_product.models import Store_product
-
+from django.conf import settings
 
 def _name_search_qs_alterer_angular(qs,search_str):
     words = search_str.split()
@@ -20,13 +20,15 @@ def _name_search_qs_alterer_angular(qs,search_str):
 
 def search_by_name_angular(request):
     search_str = request.GET['name_str']
+    after = int(request.GET['after'])
     search_str = search_str.strip()
     if len(search_str) == 0:
         return
 
     cur_login_store = request.session.get('cur_login_store')
     qs = Store_product.objects.filter(store_id = cur_login_store.id)
-    qs = list(_name_search_qs_alterer_angular(qs,search_str))
+    qs = _name_search_qs_alterer_angular(qs,search_str)
+    qs = qs[after:after + settings.SP_PAGE_NAME_SEARCH_PAGINATION_SIZE]
     sp_lst_serialized = sp_serializer.Store_product_serializer(qs,many=True).data
     return HttpResponse(json.dumps(sp_lst_serialized,cls=DjangoJSONEncoder),content_type='application/json')    
 

@@ -9,16 +9,20 @@ requirejs.config({
 
         ,ui_bootstrap:["//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.11.0/ui-bootstrap-tpls.min",["lib/ui-bootstrap-tpls-0.11.0.min"]]
         // ,ui_bootstrap:['lib/ui-bootstrap-tpls-0.11.0']
-
+        
+        ,jquery: ['lib/jquery-2.1.1']
+        
         ,ngTable : ['lib/ng-table']
+        ,infiniteScroll : ['lib/infinite-scroll']
         ,pouchdb_raw : ['lib/pouchdb-3.0.6']
         ,blockUI : ['lib/angular-block-ui']
     }
     ,shim:{
-         'angular'              : { exports   : 'angular'}
+         'angular'              : { deps:['jquery'], exports : 'angular'}
         ,'ui_bootstrap'         : { deps      : ['angular']}
         ,'ngTable'              : { deps      : ['angular']} 
-        ,'blockUI'             :  { deps      : ['angular']} 
+        ,'blockUI'              : { deps      : ['angular']} 
+        ,'infiniteScroll'       : { deps      : ['angular','jquery']}
     }
 });
 

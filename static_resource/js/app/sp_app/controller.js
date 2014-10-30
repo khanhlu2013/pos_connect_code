@@ -54,7 +54,7 @@ define(
         ,duplicate_service
         ,alert_service
         ,confirm_service
-        ,api
+        ,search_api
         ,blockUI
         ,is_pouch_exist
     ){
@@ -87,7 +87,7 @@ define(
                 $scope.sp_lst = [];
                 return;
             }
-            api.sku_search($scope.sku_search_str).then(
+            search_api.sku_search($scope.sku_search_str).then(
                 function(data){
                     $scope.sp_lst = data.prod_store__prod_sku__1_1;
                     if($scope.sp_lst.length == 0){
@@ -109,21 +109,44 @@ define(
         }
         //NAME SEARCH
         $scope.name_search = function(){
+            if($scope.busy === true){
+                return;
+            }
+
             $scope.sku_search_str = "";
             $scope.local_filter = "";
             $scope.name_search_str = $scope.name_search_str.trim();
             
-            if($scope.name_search_str.length == 0){
+            if($scope.name_search_str.length === 0){
                 $scope.sp_lst = [];
                 return;
             }
-
-            api.name_search($scope.name_search_str).then(
+            var after = null;
+            $scope.busy = true;
+            if($scope.old_name_search_str === null){
+                after = 0;
+                $scope.sp_lst = [];
+                $scope.old_name_search_str = $scope.name_search_str;
+            }else{
+                if($scope.old_name_search_str !== $scope.name_search_str){
+                    after = 0;
+                    $scope.sp_lst = [];
+                    $scope.old_name_search_str = $scope.name_search_str;
+                }else{
+                    after = $scope.sp_lst.length;
+                }
+            }
+            search_api.name_search($scope.name_search_str,after).then(
                 function(data){
-                    $scope.sp_lst = data;
-                    if(data.length == 0){ 
-                        alert_service('no result found for ' + '"' + $scope.name_search_str + '"','info','blue');
+                    for(var i = 0;i<data.length;i++){
+                        $scope.sp_lst.push(data[i]);
                     }
+                    if($scope.sp_lst.length == 0){ 
+                        alert_service('no result found for ' + '"' + $scope.name_search_str + '"','info','blue');
+                    }else{
+                        $scope.is_blur_name_search_text_box = true;
+                    }
+                    $scope.busy = false;
                 }
                 ,function(reason){ 
                     alert_service(reason); 
@@ -172,6 +195,10 @@ define(
                 }
             )
         }
+        $scope.name_search_str = '';
+        $scope.is_blur_name_search_text_box = false;
+        $scope.busy = false;
+        $scope.old_name_search_str = null;
     }]);
     return mod;
 });

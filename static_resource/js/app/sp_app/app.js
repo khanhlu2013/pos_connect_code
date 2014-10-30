@@ -8,6 +8,7 @@ define(
     ,'service/csrf'
     ,'blockUI'
     ,'service/init_global_setting'    
+    ,'infiniteScroll'
 ]
 ,function
 (
@@ -21,7 +22,8 @@ define(
         ,'service.menu'
         ,'service.csrf'
         ,'blockUI'
-        ,'service/init_global_setting'        
+        ,'service/init_global_setting'   
+        ,'infinite-scroll'     
     ]);
     
     app.config(['blockUIConfig',function(blockUIConfig) {

@@ -137,7 +137,7 @@ define(
             callback: function() {$scope.toogle_value_customer_price();}
         })
         .add({
-            combo: 'f6',
+            combo: 'f7',
             description: 'tender',
             allowIn: ['INPUT'],
             callback: function() {$scope.finalize();}

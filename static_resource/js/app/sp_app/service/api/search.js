@@ -46,7 +46,7 @@ define(
 
                 return defer.promise;
             }
-            ,name_search: function(name_search_str){
+            ,name_search: function(name_search_str,after){
                 var defer = $q.defer();
 
                 name_search_str = name_search_str.trim();
@@ -61,16 +61,16 @@ define(
                     return defer.promise;
                 }
 
-                //3 character search minimum
-                if(name_search_str.replace(' ','').length<3){
-                    defer.reject('error: 3 character search minimum');
-                    return defer.promise;
-                }
+                // //3 character search minimum
+                // if(name_search_str.replace(' ','').length<3){
+                //     defer.reject('error: 3 character search minimum');
+                //     return defer.promise;
+                // }
 
                 $http({
                     url: '/product/search_by_name_angular',
                     method : "GET",
-                    params: {name_str:name_search_str}
+                    params: {name_str:name_search_str,after:after}
                 })
                 .then(
                     function(data){

@@ -1,7 +1,7 @@
 ({
      baseUrl: './js'
     ,name: "sale_main"
-    ,out: "sale.min.3.js"
+    ,out: "sale.min.4.js"
     ,paths: {
          app : 'app'
         ,lib : 'lib'
@@ -10,6 +10,7 @@
 
         // ,ui_bootstrap: 'lib/ui-bootstrap-tpls-0.11.0'
         ,ui_bootstrap: 'empty:'
+        // ,jquery: 'empty:'
 
         ,ngTable : 'lib/ng-table'
         ,pouchdb_raw :  'lib/pouchdb-3.0.6'

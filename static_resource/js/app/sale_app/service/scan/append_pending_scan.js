@@ -5,7 +5,7 @@ define(
     ,'app/sale_app/service/pending_scan/get_api'
     ,'app/sale_app/service/pending_scan/set_api'
     ,'app/sale_app/model'
-    ,'app/sale_app/service/search/sp_api'
+    ,'app/sp_ll_app/service/api/offline/sp'
 ]
 ,function
 (
@@ -17,7 +17,7 @@ define(
          'sale_app/service/pending_scan/get_api'
         ,'sale_app/service/pending_scan/set_api'
         ,'sale_app/model'
-        ,'sale_app/service/search/sp_api'
+        ,'sp_ll_app/service/api/offline/sp'
     ]);
     mod.factory('sale_app/service/scan/append_pending_scan',
     [   
@@ -25,7 +25,7 @@ define(
         ,'sale_app/service/pending_scan/get_api'
         ,'sale_app/service/pending_scan/set_api'
         ,'sale_app/model/Pending_scan'
-        ,'sale_app/service/search/sp_api'
+        ,'sp_ll_app/service/api/offline/sp'
     ,function(
          $q
         ,get_ps_lst

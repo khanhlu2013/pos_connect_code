@@ -5,7 +5,6 @@ import json
 from receipt.receipt_serializer import Receipt_serializer
 from django.core.paginator import Paginator
 from receipt.models import Receipt,Receipt_ln,Tender_ln
-from receipt import copy_receipt_from_couch_2_master
 from payment_type.models import Payment_type
 from store_product.cm import insert_new
 from store_product.models import Store_product

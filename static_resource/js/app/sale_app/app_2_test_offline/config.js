@@ -14,7 +14,7 @@ requirejs.config({
         ,'ui_bootstrap':['lib/ui-bootstrap-tpls-0.11.0']
 
         ,'ngTable' : ['lib/ng-table']
-        ,'pouchdb_raw' : ['lib/pouchdb']
+        ,'pouchdb_raw' : ['lib/pouchdb-3.0.6']
         ,'pouchdb_quick_search' : ['lib/pouchdb.quick-search']
         ,'blockUI' : ['lib/angular-block-ui']
         ,'angular_mock' : ['lib/angular-mocks']

@@ -2,7 +2,7 @@ define(
 [
 	'angular'
 	//
-	,'app/sp_app/service/search_dlg'
+	,'app/sp_ll_app/service/search/name_sku_online_dlg'
 	,'service/ui'
 ]
 ,function
@@ -12,7 +12,7 @@ define(
 {
 	var mod = angular.module('mix_match_app/service/prompt',
 	[
-		 'sp_app/service/search_dlg'
+		 'sp_ll_app/service/search/name_sku_online_dlg'
 		,'service/ui'
 	]);
 
@@ -20,7 +20,7 @@ define(
 	[
 		 '$modal'
 		,'service/ui/alert'
-		,'sp_app/service/search_dlg/multiple'
+		,'sp_ll_app/service/search/name_sku_online_dlg/multiple'
 	,function(
 		 $modal
 		,alert_service

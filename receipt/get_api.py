@@ -5,6 +5,7 @@ import json
 from receipt.receipt_serializer import Receipt_serializer
 from django.core.paginator import Paginator
 from receipt.models import Receipt
+from reeipt import dao
 
 def get_receipt_pagination(request):
     cur_login_store = request.session.get('cur_login_store')
@@ -24,7 +25,7 @@ def get_receipt_pagination(request):
     to_date += datetime.timedelta(hours = time_zone_offset)
 
     #get receipt data
-    query = Receipt.objects.filter(store=cur_login_store,date__range=(from_date,to_date)).prefetch_related('receipt_ln_lst').prefetch_related('tender_ln_lst')
+    query = dao.get_lst(cur_login_store.id,from_date,to_date)
     paginator = Paginator(query,receipt_per_page)
 
     #response
@@ -51,7 +52,7 @@ def get_receipt(request):
     to_date += datetime.timedelta(hours = time_zone_offset)
 
     #get receipt data
-    receipt_lst = Receipt.objects.filter(store=cur_login_store,date__range=(from_date,to_date)).prefetch_related('receipt_ln_lst').prefetch_related('tender_ln_lst')
+    receipt_lst = dao.get_lst(cur_login_store.id,from_date,to_date)
     receipt_lst_serialized = Receipt_serializer(receipt_lst,many=True).data
 
     return HttpResponse(json.dumps(receipt_lst_serialized,cls=DjangoJSONEncoder),mimetype='application/javascript')

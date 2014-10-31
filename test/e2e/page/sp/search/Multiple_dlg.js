@@ -3,13 +3,13 @@ var lib = require('./../../../lib');
 var Multiple_dlg = function () {
 
     //txt
-    this.search_txt = element(by.id('sp_app/service/search_dlg/multiple/search_txt'));
+    this.search_txt = element(by.id('sp_ll_app/service/search/name_sku_online_dlg/multiple/search_txt'));
 
     //table
     this.lst = element.all(by.repeater('sp_multiple in sp_lst'));
 
     //btn
-    this.ok_btn = element(by.id('sp_app/service/search_dlg/multiple/ok_btn'));
+    this.ok_btn = element(by.id('sp_ll_app/service/search/name_sku_online_dlg/multiple/ok_btn'));
 
     //function btn
     this.ok = function(){ lib.click(this.ok_btn); }

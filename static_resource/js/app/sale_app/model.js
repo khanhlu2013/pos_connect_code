@@ -1,13 +1,15 @@
 define(
 [
     'angular'
+    //-----
+    ,'service/misc'
 ]
 ,function
 (
     angular
 )
 {
-    var mod = angular.module('sale_app/model',[]);
+    var mod = angular.module('sale_app/model',['service/misc']);
     mod.factory('sale_app/model/Pending_scan',[function(){
         //CONSTRUCTOR
         function Pending_scan(
@@ -148,7 +150,7 @@ define(
         return Displaying_scan;
     }]);    
 
-    mod.factory('sale_app/model/Mix_match_deal_info',[function(){
+    mod.factory('sale_app/model/Mix_match_deal_info',['service/misc',function(misc_service){
         //CONSTRUCTOR
         function Mix_match_deal_info(
              mm_deal
@@ -196,7 +198,8 @@ define(
                         total_reg_price += ds.get_genesis_price();//we NOT include crv here
                     }   
 
-                    return (total_reg_price - this.mm_deal.mm_price) / this.mm_deal.qty;      
+                    var result = (total_reg_price - this.mm_deal.mm_price) / this.mm_deal.qty;     
+                    return misc_service.round_float_2_decimal(result); 
                 }
             } 
         }

@@ -10,7 +10,6 @@ import tax.urls
 import group.urls
 import store_product.urls
 import mix_match.urls
-import sale_report.urls
 import receipt.urls
 import payment_type.urls
 from store_product.view import sp_search_view
@@ -25,7 +24,6 @@ urlpatterns = patterns('',
     url(r'^account/login/$','django.contrib.auth.views.login',{'template_name':'login.html'},name = 'liquor_login_named_url'),
     url(r'^account/logout/$','django.contrib.auth.views.logout_then_login',name = 'liquor_logout_named_url'),
     url(r'^sale/',include(sale.urls,namespace='sale')),
-    url(r'^sale_report/',include(sale_report.urls,namespace='sale_report')),
     url(r'^sale_shortcut/',include(sale_shortcut.urls,namespace='sale_shortcut')),
     url(r'^tax/',include(tax.urls,namespace='tax')),
     url(r'^product/',include(store_product.urls,namespace='store_product')),

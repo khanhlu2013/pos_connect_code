@@ -2,7 +2,7 @@ define(
 [
      'angular'
     //-------
-    ,'app/sale_app/service/search/sku_api'
+    ,'app/sp_ll_app/service/api/offline/sku'
     ,'app/sp_app/service/select_sp_dlg'
 ]
 ,function
@@ -12,13 +12,13 @@ define(
 {
     var mod = angular.module('sale_app/service/scan/preprocess',
     [
-         'sale_app/service/search/sku_api'
+         'sp_ll_app/service/api/offline/sku'
         ,'sp_app/service/select_sp_dlg'
     ]);
     mod.factory('sale_app/service/scan/preprocess',
     [
          '$q'
-        ,'sale_app/service/search/sku_api'
+        ,'sp_ll_app/service/api/offline/sku'
         ,'sp_app/service/select_sp_dlg'
     ,function(
          $q

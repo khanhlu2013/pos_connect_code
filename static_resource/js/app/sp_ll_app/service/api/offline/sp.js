@@ -13,20 +13,22 @@ define(
     ,'service/db'
     ,'app/sp_app/model'
     ,'app/product_app/model'
+    ,'service/misc'
 ]
 ,function
 (
     angular
 )
 {
-    var mod = angular.module('sale_app/service/search/sp_api',
+    var mod = angular.module('sp_ll_app/service/api/offline/sp',
     [
          'service/db'
         ,'sp_app/model'
         ,'product_app/model'
+        ,'service/misc'
     ]);
 
-    mod.factory('sale_app/service/search/sp_api',
+    mod.factory('sp_ll_app/service/api/offline/sp',
     [
          '$q'
         ,'service/db/get'
@@ -34,6 +36,7 @@ define(
         ,'sp_app/model/Kit_breakdown_assoc'        
         ,'product_app/model/Product'   
         ,'product_app/model/Prod_sku_assoc'   
+        ,'service/misc'
     ,function(
          $q
         ,get_db
@@ -41,20 +44,9 @@ define(
         ,Kit_breakdown_assoc
         ,Product
         ,Prod_sku_assoc
+        ,misc_service
     ){
-        function get_sp_from_sp_lst_base_on_pid(pid,sp_lst){
-            //_TODO_
-            var ret = null;
-            for(var i = 0;i<sp_lst.length;i++){
-                if(sp_lst[i].product_id==pid){
-                    ret = sp_lst[i];
-                    break;
-                }
-            }
-            return ret;
-        }
-
-        function create_sp(sp_couch,sp_lst_of_bd_assoc){
+        function _create_sp(sp_couch,sp_lst_of_bd_assoc){
             var prod_sku_assoc_lst = [];
             for(var i = 0;i<sp_couch.sku_lst.length;i++){
                 var temp = new Prod_sku_assoc(
@@ -74,7 +66,7 @@ define(
             var breakdown_assoc_lst = [];
             for(var i = 0;i<sp_couch.breakdown_assoc_lst.length;i++){
                 var assoc = sp_couch.breakdown_assoc_lst[i];
-                var sp = get_sp_from_sp_lst_base_on_pid(assoc.product_id,sp_lst_of_bd_assoc);
+                var sp = misc_service.get_item_from_lst_base_on_property('product_id'/*property*/,assoc.product_id,sp_lst_of_bd_assoc);
                 breakdown_assoc_lst.push(new Kit_breakdown_assoc(null/*id*/,sp/*breakdown*/,assoc.qty))
             }
             var kit_assoc_lst = null;/* Since sp.kit_assoc_lst does not need to collect sale data, i decided not to store this info offline to simplify the project. (this info is needed for client-side validation when updating sp.kit info) In this case, since we instantiate sp from searching from offline db (versus from ajax data), sp does not contain this info. If user decided to edit kit info from this sp instance, we will by pass client-side validation which prevent infinte loop when breakdown contain kit*/
@@ -115,14 +107,14 @@ define(
                 }else{
                     var sp_couch = lst.rows[0].value;
                     if(sp_couch.breakdown_assoc_lst.length == 0){
-                        defer.resolve(create_sp(sp_couch,[]/*breakdown assoc lst*/));
+                        defer.resolve(_create_sp(sp_couch,[]/*breakdown assoc lst*/));
                     }else{
                         var promise_lst = [];
                         for(var i = 0;i<sp_couch.breakdown_assoc_lst.length;i++){
                             promise_lst.push(by_product_id(sp_couch.breakdown_assoc_lst[i].product_id))
                         }
                         $q.all(promise_lst).then(function(data){
-                            defer.resolve(create_sp(sp_couch,data));
+                            defer.resolve(_create_sp(sp_couch,data));
                         })
                     }
                 }
@@ -142,14 +134,14 @@ define(
                 }else{
                     var sp_couch = lst.rows[0].doc;
                     if(sp_couch.breakdown_assoc_lst.length == 0){
-                        defer.resolve(create_sp(sp_couch,[]/*breakdown assoc lst*/));
+                        defer.resolve(_create_sp(sp_couch,[]/*breakdown assoc lst*/));
                     }else{
                         var promise_lst = [];
                         for(var i = 0;i<sp_couch.breakdown_assoc_lst.length;i++){
                             promise_lst.push(by_product_id(sp_couch.breakdown_assoc_lst[i].product_id))
                         }
                         $q.all(promise_lst).then(function(data){
-                            defer.resolve(create_sp(sp_couch,data));
+                            defer.resolve(_create_sp(sp_couch,data));
                         })
                     }
                 }

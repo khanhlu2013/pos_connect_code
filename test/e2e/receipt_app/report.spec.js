@@ -266,12 +266,12 @@ describe('receipt_app\'s Report dialog', function() {
         //crv-saving | 1-1
         Report_dlg.offline.receipt.click_col(3,'info');
         expect(Report_dlg.offline.receipt.summary.crv_lbl.getText()).toEqual('$0.10');
-        expect(Report_dlg.offline.receipt.summary.saving_lbl.getText()).toEqual('($2.00)');
+        expect(Report_dlg.offline.receipt.summary.saving_lbl.getText()).toEqual('($2.01)');
                         
         //crv-saving | 0-1
         Report_dlg.offline.receipt.click_col(4,'info');
         expect(Report_dlg.offline.receipt.summary.crv_lbl.isDisplayed()).toBeFalsy();
-        expect(Report_dlg.offline.receipt.summary.saving_lbl.getText()).toEqual('($2.00)');
+        expect(Report_dlg.offline.receipt.summary.saving_lbl.getText()).toEqual('($2.01)');
 
         //crv-saving | 1-0
         Report_dlg.offline.receipt.click_col(5,'info'); 

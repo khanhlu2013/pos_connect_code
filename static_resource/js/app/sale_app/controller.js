@@ -7,7 +7,7 @@ define(
     ,'app/sale_app/service/scan/append_pending_scan'
     ,'app/sale_app/service/pending_scan/get_api'
     ,'app/sale_app/service/displaying_scan/get_ds_lst'
-    ,'app/sale_app/service/search/name_sku_dlg'
+    ,'app/sp_ll_app/service/search/name_sku_online_dlg'
     ,'app/sale_app/service/pending_scan/set_api'
     ,'app/sale_app/service/displaying_scan/modify_ds'
     ,'app/sale_app/service/sale_able_info_dlg'
@@ -36,7 +36,7 @@ define(
         ,'sale_app/service/scan/append_pending_scan'
         ,'sale_app/service/pending_scan/get_api'
         ,'sale_app/service/displaying_scan/get_ds_lst'
-        ,'sale_app/service/search/name_sku_dlg'
+        ,'sp_ll_app/service/search/name_sku_online_dlg'
         ,'sale_app/service/pending_scan/set_api'
         ,'sale_app/service/displaying_scan/modify_ds'
         ,'sale_app/service/sale_able_info_dlg'
@@ -60,7 +60,7 @@ define(
         ,'sale_app/service/scan/append_pending_scan'
         ,'sale_app/service/pending_scan/get_api'
         ,'sale_app/service/displaying_scan/get_ds_lst'
-        ,'sale_app/service/search/name_sku_dlg'
+        ,'sp_ll_app/service/search/name_sku_online_dlg/multiple'
         ,'sale_app/service/pending_scan/set_api'
         ,'sale_app/model/Modify_ds_instruction'
         ,'sale_app/service/displaying_scan/modify_ds'
@@ -88,7 +88,7 @@ define(
         ,append_pending_scan
         ,get_ps_lst
         ,get_ds_lst
-        ,search_name_sku_dlg
+        ,search_name_sku_multiple_dlg
         ,set_ps_lst
         ,Modify_ds_instruction
         ,modify_ds
@@ -299,7 +299,15 @@ define(
                 }
             )
         }
-        $scope.search = function(){ search_name_sku_dlg(); }
+        $scope.search = function(){ 
+            search_name_sku_multiple_dlg().then(
+                function(sp_lst){
+                    for(var i = 0;i<sp_lst.length;i++){
+                        append_pending_scan.by_product_id(sp_lst[i].product_id,1/*qty*/,null/*non_inventory*/,null/*override_price*/);
+                    }
+                }
+            )
+        }
 
         //init code
         $scope.ds_lst = [];

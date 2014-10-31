@@ -18,6 +18,14 @@ define(
         ,'sale_app/model'
     ]);
 
+    function str_2_float(str){
+        if(str == null){
+            return 0.0;
+        }else{
+            return parseFloat(str);
+        }
+    }   
+
     //Receipt model
     mod.factory('receipt_app/model/Receipt',['receipt_app/model/Tender_ln','receipt_app/model/Receipt_ln',function(Tender_ln,Receipt_ln){
         function Receipt(
@@ -113,13 +121,14 @@ define(
                 return result;                
             }
         }
+
         Receipt.build = function(data){
             var receipt_ln_lst = data.receipt_ln_lst.map(Receipt_ln.build);
             var tender_ln_lst = data.tender_ln_lst.map(Tender_ln.build);
             return new Receipt(
                  data.id//id
                 ,new Date(data.date)
-                ,data.tax_rate
+                ,str_2_float(data.tax_rate)
                 ,tender_ln_lst
                 ,receipt_ln_lst
                 ,null//doc_id
@@ -234,22 +243,13 @@ define(
                 return result;
             }                            
         }
-        function str_2_float(str){
-            if(str == null){
-                return 0.0;
-            }else{
-                return parseFloat(str);
-            }
-        }
+
         Receipt_ln.build = function(data){
             var non_inventory = null;
-            if(
-                data.non_inventory_name !== null 
-                && data.non_inventory_price !== null
-            ){
+            if( data.non_inventory_name !== null && data.non_inventory_price !== null ){
                 non_inventory = new Non_inventory(
                      data.non_inventory_name
-                    ,data.non_inventory_price
+                    ,str_2_float(data.non_inventory_price)
                 );
             }
 
@@ -260,16 +260,16 @@ define(
                     ,null//doc_id
                     ,null//offline_create_sku
                     ,data.sp_stamp_name
-                    ,data.sp_stamp_price
-                    ,data.sp_stamp_value_customer_price
-                    ,data.sp_stamp_crv
+                    ,str_2_float(data.sp_stamp_price)
+                    ,str_2_float(data.sp_stamp_value_customer_price)
+                    ,str_2_float(data.sp_stamp_crv)
                     ,data.sp_stamp_is_taxable
                     ,data.sp_stamp_is_sale_report
                     ,data.sp_stamp_p_type
                     ,data.sp_stamp_p_tag 
-                    ,data.sp_stamp_cost
+                    ,str_2_float(data.sp_stamp_cost)
                     ,data.sp_stamp_vendor
-                    ,data.sp_stamp_buydown
+                    ,str_2_float(data.sp_stamp_buydown)
                 );
             }   
 
@@ -277,15 +277,15 @@ define(
             if(data.mm_deal_name !== null ){
                 mm_deal_info_stamp = new Mix_match_deal_info_stamp(
                      data.mm_deal_name
-                    ,data.mm_deal_discount
+                    ,str_2_float(data.mm_deal_discount)
                 );
             }            
 
             return new Receipt_ln(
                  data.id
-                ,data.qty
-                ,data.discount
-                ,data.override_price
+                ,str_2_float(data.qty)
+                ,str_2_float(data.discount)
+                ,data.override_price === null ? null : str_2_float(data.override_price)
                 ,store_product_stamp
                 ,mm_deal_info_stamp
                 ,non_inventory
@@ -313,7 +313,7 @@ define(
             return new Tender_ln(
                  data.id
                 ,pt
-                ,data.amount
+                ,str_2_float(data.amount)
                 ,data.name
             );
         }

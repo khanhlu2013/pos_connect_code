@@ -215,6 +215,9 @@ module.exports = {
             .then(function (output) { /*console.log(output);*/ });
         }
     },    
+    wait_for_block_ui : function(){
+        browser.wait(function(){ return element(by.css('.block-ui-overlay')).isDisplayed().then(function(val){ return !val; })});
+    },
     click : function(el){
         browser.wait(function(){ return element(by.css('.block-ui-overlay')).isDisplayed().then(function(val){ return !val; })});
         el.click();

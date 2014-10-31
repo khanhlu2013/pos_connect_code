@@ -65,7 +65,7 @@ describe('sale_app', function() {
         
         //finalize sale
         expect(Sale_page.lst.count()).toEqual(5);  
-        expect(Sale_page.tender_btn.getText()).toEqual('$12.73');
+        expect(Sale_page.tender_btn.getText()).toEqual('$12.72');
         Sale_page.tender();
 
         browser.wait(function(){
@@ -82,7 +82,7 @@ describe('sale_app', function() {
         //check receipt report
         Sale_page.menu_report_receipt();
         expect(Receipt_dlg.offline.receipt.lst.count()).toEqual(1);
-        expect(Receipt_dlg.offline.receipt.get_col(0,'total')).toEqual('$12.73');
+        expect(Receipt_dlg.offline.receipt.get_col(0,'total')).toEqual('$12.72');
         Receipt_dlg.offline.receipt.click_col(0,'info');
         expect(Receipt_dlg.offline.receipt_ln.lst.count()).toEqual(5);
 

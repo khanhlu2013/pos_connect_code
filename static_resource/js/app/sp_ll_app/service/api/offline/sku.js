@@ -3,23 +3,23 @@ define(
      'angular'
     //-----
     ,'service/db'
-    ,'app/sale_app/service/search/sp_api'
+    ,'app/sp_ll_app/service/api/offline/sp'
 ]
 ,function
 (
     angular
 )
 {
-    var mod = angular.module('sale_app/service/search/sku_api',
+    var mod = angular.module('sp_ll_app/service/api/offline/sku',
     [
          'service/db'
-        ,'sale_app/service/search/sp_api'
+        ,'sp_ll_app/service/api/offline/sp'
     ]);
-    mod.factory('sale_app/service/search/sku_api',
+    mod.factory('sp_ll_app/service/api/offline/sku',
     [
          '$q'
         ,'service/db/get'
-        ,'sale_app/service/search/sp_api'
+        ,'sp_ll_app/service/api/offline/sp'
     ,function(
          $q
         ,get_db

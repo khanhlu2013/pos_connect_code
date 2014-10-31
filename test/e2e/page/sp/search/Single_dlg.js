@@ -2,7 +2,7 @@ var lib = require('./../../../lib');
 
 var Single_dlg = function () {
     //txt
-    this.search_txt = element(by.id('sp_app/service/search_dlg/single/search_txt'));
+    this.search_txt = element(by.id('sp_ll_app/service/search/name_sku_online_dlg/single/search_txt'));
 
     //table
     this.lst = element.all(by.repeater('search_sp_single in sp_lst'));

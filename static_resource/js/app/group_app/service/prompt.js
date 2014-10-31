@@ -2,7 +2,7 @@ define(
 [
 	'angular'
 	//----
-	,'app/sp_app/service/search_dlg'
+	,'app/sp_ll_app/service/search/name_sku_online_dlg'
 	,'service/ui'
 	,'service/misc'
 ]
@@ -13,14 +13,14 @@ define(
 {
 	var mod = angular.module('group_app/service/prompt',
 	[
-		 'sp_app/service/search_dlg'
+		 'sp_ll_app/service/search/name_sku_online_dlg'
 		,'service/ui'
 		,'service/misc'
 	]);
 	mod.factory('group_app/service/prompt',
 	[
 		 '$modal'
-		,'sp_app/service/search_dlg/multiple'
+		,'sp_ll_app/service/search/name_sku_online_dlg/multiple'
 		,'service/ui/alert'
 		,'service/misc'
 	,function(

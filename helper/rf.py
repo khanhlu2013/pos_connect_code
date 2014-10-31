@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from store.models import Store
 from model_mommy import mommy
 from helper import test_helper
-from util.couch import master_account_util,old_security_4_test_purpose
+from util.couch import old_security_4_test_purpose
 import json
 from couch import couch_util
 import requests

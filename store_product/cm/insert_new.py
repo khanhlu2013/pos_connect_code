@@ -53,6 +53,7 @@ def exe( \
         ,cost = cost
         ,vendor = vendor
         ,buydown = buydown
+        ,breakdown_assoc_lst = [] #when don't allow setting up kit-breakdown info when creating new sp. we only setup this info after sp is created
     )
 
     return prod_bus_assoc

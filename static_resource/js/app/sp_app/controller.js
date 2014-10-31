@@ -109,7 +109,7 @@ define(
         }
         //NAME SEARCH
         $scope.name_search = function(){
-            if($scope.busy === true){
+            if($scope.name_search_busy === true){
                 return;
             }
 
@@ -122,31 +122,40 @@ define(
                 return;
             }
             var after = null;
-            $scope.busy = true;
             if($scope.old_name_search_str === null){
                 after = 0;
                 $scope.sp_lst = [];
                 $scope.old_name_search_str = $scope.name_search_str;
+                $scope.name_search_reach_the_end = false;
             }else{
                 if($scope.old_name_search_str !== $scope.name_search_str){
                     after = 0;
                     $scope.sp_lst = [];
                     $scope.old_name_search_str = $scope.name_search_str;
+                    $scope.name_search_reach_the_end = false;
+                }else if($scope.name_search_reach_the_end){
+                    return;
                 }else{
                     after = $scope.sp_lst.length;
                 }
             }
+            $scope.name_search_busy = true;
             search_api.name_search($scope.name_search_str,after).then(
                 function(data){
-                    for(var i = 0;i<data.length;i++){
-                        $scope.sp_lst.push(data[i]);
+                    if(data.length === 0){
+                        $scope.name_search_reach_the_end = true;
+                    }else{
+                        for(var i = 0;i<data.length;i++){
+                            $scope.sp_lst.push(data[i]);
+                        }                        
                     }
+
                     if($scope.sp_lst.length == 0){ 
                         alert_service('no result found for ' + '"' + $scope.name_search_str + '"','info','blue');
                     }else{
                         $scope.is_blur_name_search_text_box = true;
                     }
-                    $scope.busy = false;
+                    $scope.name_search_busy = false;
                 }
                 ,function(reason){ 
                     alert_service(reason); 
@@ -195,9 +204,10 @@ define(
                 }
             )
         }
+        $scope.name_search_reach_the_end = false;
         $scope.name_search_str = '';
         $scope.is_blur_name_search_text_box = false;
-        $scope.busy = false;
+        $scope.name_search_busy = false;
         $scope.old_name_search_str = null;
     }]);
     return mod;

@@ -26,7 +26,7 @@ def search_by_name_angular(request):
         return
 
     cur_login_store = request.session.get('cur_login_store')
-    qs = Store_product.objects.filter(store_id = cur_login_store.id)
+    qs = Store_product.objects.filter(store_id = cur_login_store.id).order_by('name')
     qs = _name_search_qs_alterer_angular(qs,search_str)
     qs = qs[after:after + settings.SP_PAGE_NAME_SEARCH_PAGINATION_SIZE]
     sp_lst_serialized = sp_serializer.Store_product_serializer(qs,many=True).data

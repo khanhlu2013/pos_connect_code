@@ -3,13 +3,14 @@ from product.models import Product
 import store.models
 import json
 import requests
-from util.couch import master_account_util,user_util
+from util.couch import user_util
 from couch import couch_util
 from django.conf import settings
-from util.couch import couch_acl_validator,old_security_4_test_purpose
+from util.couch import old_security_4_test_purpose
 import hashlib
 import os
 from couch import couch_util
+
 
 def exe(store):
     store_id,api_key_name = exe_master(store)
@@ -39,13 +40,13 @@ def exe_couch(store_id,api_key_name):
     if _is_local_env():
         old_security_4_test_purpose.exe(store_id)
     else:
-        _couch_db_grant_cloudant_access_to_api_key(api_key_name,store_id,['_reader','_writer'])
-
+        # _couch_db_grant_cloudant_access_to_api_key(api_key_name,store_id,['_reader','_writer'])
+        _couch_db_grant_cloudant_access_to_api_key(api_key_name,store_id,['_reader'])
 
 def get_cloudant_api_key():
-    headers={'referer': 'https://%s.cloudant.com' % (master_account_util.get_master_user_name()), 'content-type': 'multipart/form-data'}
+    headers={'referer': 'https://%s.cloudant.com' % (settings.COUCH_MASTER_USER_NAME), 'content-type': 'multipart/form-data'}
     url='https://cloudant.com/api/generate_api_key'
-    r = requests.post(url,headers=headers,auth=(master_account_util.get_master_user_name(),master_account_util.get_master_user_password()))
+    r = requests.post(url,headers=headers,auth=(settings.COUCH_MASTER_USER_NAME,settings.COUCH_MASTER_USER_PASSWORD))
 
     if not r.ok:
         raise Exception('error code: ' + str(r.status_code) + ' ,reason: ' + r.reason)
@@ -57,7 +58,7 @@ def get_cloudant_api_key():
 
 def _couch_db_grant_cloudant_access_to_api_key(api_key_name,store_id,roles):
     url = 'https://cloudant.com/api/set_permissions'
-    prefix = master_account_util.get_master_user_name()
+    prefix = settings.COUCH_MASTER_USER_NAME
 
     role_str = ""
     for item in roles:
@@ -68,7 +69,8 @@ def _couch_db_grant_cloudant_access_to_api_key(api_key_name,store_id,roles):
     data_str += role_str
     headers = {'content-type': 'application/x-www-form-urlencoded'}
 
-    r = requests.post(url,data=data_str,headers=headers,auth=(master_account_util.get_master_user_name(),master_account_util.get_master_user_password()))    
+    r = requests.post(url,data=data_str,headers=headers,auth=(settings.COUCH_MASTER_USER_NAME,settings.COUCH_MASTER_USER_PASSWORD))    
+
 
 def _couch_db_insert_db(store_id):
     #CREATE LIQUOR DATABASE
@@ -115,7 +117,22 @@ def _couch_db_insert_view(store_id):
 def _couch_db_insert_validation(business_id):
     db = couch_util.get_store_db(business_id)
     #ACL - VALIDATION
-    acl_validator_doc  = {"_id":"_design/validation",  "validate_doc_update":couch_acl_validator.src}
+
+    src = """function(newDoc, oldDoc, userCtx, secObj){
+        /*
+            Algorithm:  authorization of user's request to couch_server is based on the account user name. If the user
+                        is the Client, we can only do insert and read. Only Master can create and update.
+        */
+        if(userCtx.name.localeCompare('%s') == 0){
+            return;//admin is allow any operation
+        }
+        else{
+            throw({ unauthorized: 'regular user is not allow any update operation'});
+        }
+    }
+    """ % (settings.COUCH_MASTER_USER_NAME,)
+
+    acl_validator_doc  = {"_id":"_design/validation",  "validate_doc_update":src}
     db.save(acl_validator_doc)
 
 def _is_local_env():

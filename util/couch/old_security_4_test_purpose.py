@@ -1,5 +1,5 @@
 from couch import couch_util
-from util.couch import reader_lst_getter,master_account_util
+from util.couch import reader_lst_getter
 import requests
 import json
 from util.couch import user_util
@@ -10,7 +10,7 @@ def exe(store_id):
     _couch_db_insert_user_2_store(store_id)
 
 def _couch_db_insert_user_2_store(store_id):
-    admin_name = master_account_util.get_master_user_name()
+    admin_name = settings.COUCH_MASTER_USER_NAME
     reader_name = user_util.get_client_user_name(store_id)
     db_name = couch_util._get_store_db_name(store_id)
     secure_url = get_url_using_admin_account() + "/" + db_name + '/_security'

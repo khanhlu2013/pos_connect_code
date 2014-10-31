@@ -18,6 +18,7 @@ def exe(
     ,cost
     ,vendor
     ,buydown
+    ,breakdown_assoc_lst
 ):
     store_product_document = Store_product_document(
          id = id
@@ -36,7 +37,7 @@ def exe(
         ,cost = cost
         ,vendor = vendor
         ,buydown = buydown
-        ,breakdown_assoc_lst = [] #when don't allow setting up kit-breakdown info when creating new sp. we only setup this info after sp is created
+        ,breakdown_assoc_lst = breakdown_assoc_lst 
     )
     db = couch_util.get_store_db(store_id)
     store_product_document.store(db)     

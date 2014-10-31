@@ -9,6 +9,9 @@ def get_item(product_id,store_id):
 def get_lst_by_sku(sku,store_id):
     return Store_product.objects.filter(store_id=store_id,product__prodskuassoc__store_product_set__store_id=store_id,product__prodskuassoc__sku__sku=sku)
 
+def get_lst(store_id):
+    return Store_product.objects.prefetch_related('prodskuassoc_set__store_product_set').filter(store_id=store_id)
+
 def get_type_tag_lst(store_id):
     result = {}
     type_tag_lst =  Store_product.objects.filter(store_id=store_id).values_list('p_type','p_tag').distinct().order_by('p_type','p_tag')

@@ -32,7 +32,9 @@ def exe(store_id):
     user_name = None
     user_pwrd = None
     if settings.IS_LOCAL_ENV:
-        user_name,user_pwrd = insert_user_into_old_couch_4_test_purpose
+        insert_user_into_old_couch_4_test_purpose.exe(store_id)
+        user_name = str(store_id)
+        user_pwrd = str(store_id)
     else:
         xxx = xxx
 

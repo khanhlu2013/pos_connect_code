@@ -48,7 +48,5 @@ def get_store_db_name(store_id):
 
 #-PRIVATE--------------------------------------------------------------------------------------
 
-
-
 def _get_full_view_name(view_name): # 1111 rethink about this
     return settings.VIEW_DOCUMENT_ID + '/_view/' + view_name

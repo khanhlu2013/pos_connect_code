@@ -169,8 +169,6 @@ LOGIN_REDIRECT_URL  = 'sp_search'
 #COUCHDB-
 #URL
 
-#USER
-USER_ID_PREFIX = 'org.couchdb.user:'
 
 #STORE DB
 STORE_DB_PREFIX = os.environ.get('STORE_DB_PREFIX')

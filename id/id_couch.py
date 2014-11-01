@@ -1,5 +1,5 @@
-from util import couch_util
-from store.store_inserter import insert_store_cm
+from couch import couch_util
+from store.cm import insert_couch
 from store.models import Store
 from store_product.models import Store_product
 from store_product import dao
@@ -15,7 +15,10 @@ def exe(store_id):
         return
 
     #insert store
-    insert_store_cm.exe_couch(store_id,store.api_key_name)
+    api_key_name,api_key_pwrd = insert_couch.exe(store_id)
+    store.pid_key_name = api_key_name
+    store.pid_key_pwrd = api_key_pwrd
+    store.save()
 
     #insert product
     sp_lst = dao.get_lst(store_id)

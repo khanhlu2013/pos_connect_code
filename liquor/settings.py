@@ -76,9 +76,9 @@ AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
 
 COUCH_DB_HTTP_S = True if os.environ.get('COUCH_DB_HTTP_S') == 'True' else False
-COUCHDB_URL = os.environ.get('COUCHDB_URL')
-COUCH_MASTER_USER_NAME = os.environ.get('COUCH_MASTER_USER_NAME')
-COUCH_MASTER_USER_PASSWORD = os.environ.get('COUCH_MASTER_USER_PASSWORD')
+COUCH_LOCAL_ADMIN_NAME = os.environ.get('COUCH_LOCAL_ADMIN_NAME')
+COUCH_LOCAL_ADMIN_PWRD = os.environ.get('COUCH_LOCAL_ADMIN_PWRD')
+COUCH_LOCAL_URL = os.environ.get('COUCH_LOCAL_URL')
 
 #TEST
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
@@ -172,14 +172,9 @@ LOGIN_REDIRECT_URL  = 'sp_search'
 #USER
 USER_ID_PREFIX = 'org.couchdb.user:'
 
-
-#LIQUOR USER
-CLIENT_USER_NAME_PREFIX = os.environ.get('STORE_DB_PREFIX')
-
-
 #STORE DB
 STORE_DB_PREFIX = os.environ.get('STORE_DB_PREFIX')
 PROD_BUS_ASSOC_DOCUMENT_TYPE = 'prod_bus_assoc'
 SALE_RECORD_DOCUMENT_TYPE = 'sale_record'
 
-
+IS_LOCAL_ENV = os.environ.get('IS_LOCAL_ENV') == '1'

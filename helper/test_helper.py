@@ -69,10 +69,16 @@ def create_user_then_store():
     membership = mommy.make('liqUser.Membership',business=store,user=user)
     return (membership.user,membership.user.business_set.all()[0].store)
 
+def _delete_store_db(store_id):
+    url = couch_util.get_couch_access_url()
+    server = Server(url)    
+    store_db_name = get_store_db_name(store_id)
+    server.delete(store_db_name)
+
 def _delete_liquor_db_and_user(store_id):
     store_db = couch_util.get_store_db(store_id)
     if store_db:    
-        couch_util.delete_store_db(store_id)
+        _delete_store_db(store_id)
 
 def setup_test_couchdb():
     _delete_liquor_db_and_user(1)

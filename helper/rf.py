@@ -10,10 +10,10 @@ import requests
 from group.models import Group
 from mix_match.models import Mix_match
 from django.conf import settings
+from couchdb import Server
 
 def d():
     print('----------- init protractor test ----------------')
-    print settings.STORE_DB_PREFIX
     delete_data()
 
     user1,store1=test_helper.create_user_then_store_detail(user_name = "1",user_password="1",store_name="1")
@@ -117,10 +117,10 @@ def delete_data():
     Sku.objects.all().delete()
     Store.objects.all().delete()
 
-    server = couch_util._get_couch_server()
+    url = couch_util.get_couch_access_url()
+    server = Server(url)
     for db in server:
-        if settings.STORE_DB_PREFIX in db:
-            del server[db]
+        del server[db]
 
     #delete store on master
     Store.objects.all().delete()

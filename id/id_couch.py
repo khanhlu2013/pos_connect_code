@@ -7,6 +7,7 @@ from store_product.sp_couch.document import Store_product_document
 from store_product.cm import insert_sp_2_couch
 from store_product.models import Kit_breakdown_assoc
 from django.conf import settings
+from couchdb import Server,ResourceNotFound
 
 def exe(store_id,switch_couch_admin_name=None,switch_couch_admin_pwrd=None,switch_couch_url=None):
     store = Store.objects.get(pk=store_id)

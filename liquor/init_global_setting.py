@@ -17,7 +17,7 @@ def exe(context,cur_login_store):
 
     context['STORE_ID_'] = cur_login_store.id
     context['TAX_RATE_'] = cur_login_store.tax_rate
-    context['COUCH_SERVER_URL_'] = couch_util.get_couch_access_url(store = cur_login_store)
+    context['COUCH_SERVER_URL_'] = couch_util.get_couch_access_url(store=cur_login_store)
     context['STORE_DB_PREFIX_'] = settings.STORE_DB_PREFIX  
     context['MIX_MATCH_LST_'] = json.dumps(Mix_match_serializer(mix_match_lst,many=True).data,cls=DjangoJSONEncoder)
     context['PAYMENT_TYPE_LST_'] = json.dumps(Payment_type_serializer(pt_lst,many=True).data,cls=DjangoJSONEncoder)

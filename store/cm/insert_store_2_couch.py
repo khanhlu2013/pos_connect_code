@@ -3,6 +3,8 @@ from util import couch_util
 from store.cm import insert_user_into_old_couch_4_test_purpose
 from couchdb import Server
 import requests
+import json
+
 
 def exe(store_id,couch_admin_name=None,couch_admin_pwrd=None,couch_url=None):
     """
@@ -99,7 +101,7 @@ def _grant_cloudant_access_to_api_key(api_key_name,store_id,roles,couch_admin_na
     for item in roles:
         role_str += ('&roles=' + item)
 
-    db_name = couch_util._get_store_db_name(store_id)
+    db_name = couch_util.get_store_db_name(store_id)
     data_str = 'database=%s/%s&username=%s' % (prefix,db_name,api_key_name)
     data_str += role_str
     headers = {'content-type': 'application/x-www-form-urlencoded'}

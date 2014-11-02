@@ -11,8 +11,6 @@ def get_couch_access_url(*args, **kwargs):
             raise Exception
         elif kwargs_len == 1:
             store = kwargs['store']
-            print('------')
-            print(type(store))
             name = store.couch_admin_name
             pwrd = store.couch_admin_pwrd
             url = store.couch_url

@@ -6,6 +6,10 @@ class sp_page_view(TemplateView):
     
     def dispatch(self,request,*args,**kwargs):
         self.cur_login_store = self.request.session.get('cur_login_store')
+        print('---------')
+        print(self.cur_login_store.tax_rate)
+        print(self.cur_login_store.couch_admin_name)
+        raise Exception 
         return super(sp_page_view,self).dispatch(request,*args,**kwargs)
     
     def get_context_data(self,**kwargs):

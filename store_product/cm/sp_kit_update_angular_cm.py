@@ -1,7 +1,7 @@
 from store_product.models import Store_product,Kit_breakdown_assoc
 from store_product.sp_couch import store_product_couch_getter
 from store_product import sp_serializer
-from couch import couch_util
+from util import couch_db_util
 
 
 def exe(kit_product_id,assoc_json_lst,store_id):
@@ -57,5 +57,5 @@ def exe_couch(kit_pid,store_id,assoc_json_lst):
     else:
         sp['breakdown_assoc_lst'] = [{'product_id':assoc['breakdown']['product_id'],'qty':assoc['qty']} for assoc in assoc_json_lst]
     
-    db = couch_util.get_store_db(store_id)
+    db = couch_db_util.get_store_db(store_id)
     db.save(sp)

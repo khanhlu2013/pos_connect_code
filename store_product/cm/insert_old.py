@@ -1,7 +1,7 @@
 from store_product.models import Store_product
 from product.models import ProdSkuAssoc
 from store_product.cm import insert_couch
-from couch import couch_util
+from util import couch_util
 
 def exe(
      product_id

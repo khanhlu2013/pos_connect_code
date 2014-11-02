@@ -1,4 +1,4 @@
-from couch import couch_util
+from util import couch_util
 from couchdb import Server
 
 def get_client_user_id(store_id):

@@ -1,4 +1,4 @@
-from couch import couch_util
+from util import couch_util,couch_db_util
 from django.conf import settings
 
 def exe(product_id,store_id):
@@ -7,7 +7,7 @@ def exe(product_id,store_id):
         RETURN
             . a document inside couchdb with product_id and store_id
     """
-    db = couch_util.get_store_db(store_id)
+    db = couch_db_util.get_store_db(store_id)
     view_name = couch_util._get_full_view_name(settings.STORE_DB_VIEW_NAME_BY_PRODUCT_ID)
     key = int(product_id)
     view_result = db.view(view_name)[key]
@@ -20,7 +20,7 @@ def exe(product_id,store_id):
     else: return rows[0].value
 
 def get_lst(pid_lst,store_id):
-    db = couch_util.get_store_db(store_id)
+    db = couch_db_util.get_store_db(store_id)
     view_name = couch_util._get_full_view_name(settings.STORE_DB_VIEW_NAME_BY_PRODUCT_ID)
     rows = db.view(view_name,keys=pid_lst,include_docs=True)
 

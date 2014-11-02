@@ -1,6 +1,6 @@
 from store_product.sp_couch.document import Store_product_document
 from django.conf import settings
-from couch import couch_util
+from util import couch_db_util
 
 def exe(
      id
@@ -39,5 +39,5 @@ def exe(
         ,buydown = buydown
         ,breakdown_assoc_lst = breakdown_assoc_lst 
     )
-    db = couch_util.get_store_db(store_id)
+    db = couch_db_util.get_store_db(store_id)
     store_product_document.store(db)     

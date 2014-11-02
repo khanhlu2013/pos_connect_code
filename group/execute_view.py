@@ -5,7 +5,7 @@ from group import group_getter
 import json
 from store_product.models import Store_product
 from store_product.sp_couch import store_product_couch_getter
-from couch import couch_util
+from util import couch_db_util
 
 def exe(request):
     cur_login_store = request.session.get('cur_login_store')
@@ -25,14 +25,14 @@ def exe(request):
 
     #update    
     row = Store_product.objects.filter(store_id=cur_login_store.id,product_id__in=pid_lst).update(**option)    
-    update_couch(pid_lst,cur_login_store.id, option)
+    update_couch(pid_lst,cur_login_store, option)
     group = group_getter.get_group_item(id=group_id,store_id=cur_login_store.id)
     group_serialized = Group_sp_lst_serializer(group).data
     return HttpResponse(json.dumps(group_serialized,cls=DjangoJSONEncoder), mimetype='application/json')
 
 
-def update_couch(pid_lst,store_id,option):
-    sp_lst = store_product_couch_getter.get_lst(pid_lst,store_id)
+def update_couch(pid_lst,store,option):
+    sp_lst = store_product_couch_getter.get_lst(pid_lst,store.id)
 
     for sp in sp_lst:
         if 'price' in option: sp['price'] = str(option['price'])
@@ -46,7 +46,7 @@ def update_couch(pid_lst,store_id,option):
         if 'buydown' in option: sp['buydown'] = str(option['buydown'])
         if 'value_customer_price' in option: sp['value_customer_price'] = str(option['buydown'])
 
-    db = couch_util.get_store_db(store_id)
+    db = couch_db_util.get_store_db(store.id)
     db.update(sp_lst)
 
 

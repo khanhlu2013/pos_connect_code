@@ -1,6 +1,5 @@
 from product.models import Product,Sku,ProdSkuAssoc
 from store_product.models import Store_product
-from couch import couch_util
 from store_product.cm import insert_couch
 
 def exe( \

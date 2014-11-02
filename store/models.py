@@ -8,6 +8,9 @@ class Store(Business):
     tax_rate = models.DecimalField(max_digits=5,decimal_places=3)
     api_key_name = models.CharField(max_length=25,blank=True)
     api_key_pwrd = models.CharField(max_length=25,blank=True)
+    couch_admin_name = models.CharField(max_length=25)
+    couch_admin_pwrd = models.CharField(max_length=25)
+    couch_url = models.CharField(max_length=25)
 
     def save(self,*args,**kwargs):
         if self.id == None:

@@ -1,4 +1,4 @@
-from couch import couch_util
+from util import couch_util
 from util.couch import reader_lst_getter
 import requests
 import json
@@ -10,7 +10,7 @@ def exe(store_id):
     _insert_user_to_store(store_id)
 
 def _insert_user_to_store(store_id):
-    admin_name = settings.COUCH_MASTER_USER_NAME
+    admin_name = settings.COUCH_LOCAL_ADMIN_NAME
     reader_name = str(store_id)
     db_name = couch_util.get_store_db_name(store_id)
     secure_url = couch_util.get_couch_access_url() + "/" + db_name + '/_security'

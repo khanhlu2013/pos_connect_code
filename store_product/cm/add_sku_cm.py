@@ -1,6 +1,6 @@
 from product.models import ProdSkuAssoc,Sku
 from store_product.sp_couch import store_product_couch_getter
-from couch import couch_util
+from util import couch_db_util
 from store_product.models import Store_product
 
 SKU_IS_EXIST_FOR_PRODUCT = 'Sku is exist for product'
@@ -58,5 +58,5 @@ def exe_couch(sku_str,product_id,store_id):
         return
     else:
         prod_bus_assoc_doc['sku_lst'].append(sku_str)
-        db = couch_util.get_store_db(store_id)
+        db = couch_db_util.get_store_db(store_id)
         db.save(prod_bus_assoc_doc)

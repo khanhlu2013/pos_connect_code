@@ -1,4 +1,4 @@
-from couch import couch_util
+from util import couch_util
 
 def exe(store):
     exe_master(store)

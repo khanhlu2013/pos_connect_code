@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from couch import couch_util
+from util import couch_util
 from couchdb import Server
 from product.models import Product,Unit,ProdSkuAssoc,Sku
 from store.models import Store
@@ -11,10 +11,10 @@ def d():
     print('----------- creating 4 empty stores ----------------')
     delete_data()
 
-    user1,store1=test_helper._create_user_then_store_detail(user_name = "1",user_password="1",store_name="1")
-    user2,store2=test_helper._create_user_then_store_detail(user_name = "2",user_password="2",store_name="2")
-    user3,store3=test_helper._create_user_then_store_detail(user_name = "3",user_password="3",store_name="3") 
-    user4,store4=test_helper._create_user_then_store_detail(user_name = "4",user_password="4",store_name="4") 
+    user1,store1=_create_user_then_store_detail(user_name = "1",user_password="1",store_name="1")
+    user2,store2=_create_user_then_store_detail(user_name = "2",user_password="2",store_name="2")
+    user3,store3=_create_user_then_store_detail(user_name = "3",user_password="3",store_name="3") 
+    user4,store4=_create_user_then_store_detail(user_name = "4",user_password="4",store_name="4") 
 
 def _create_user_then_store_detail(user_name,user_password,store_name,tax_rate=8.725):
     #helper: create user belong to that single store

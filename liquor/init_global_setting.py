@@ -1,16 +1,13 @@
 from django.conf import settings
-from couch import couch_util
+from util import couch_util
 import json
-from django.core.serializers.json import DjangoJSONEncoder
-#dao
 from sale_shortcut import shortcut_getter
 from mix_match import mix_match_getter
-#serializer
 from mix_match.mix_match_serializer import Mix_match_serializer
 from payment_type.payment_type_serializer import Payment_type_serializer
 from sale_shortcut.sale_shortcut_serializer import Parent_serializer
-#model
 from payment_type.models import Payment_type
+from django.core.serializers.json import DjangoJSONEncoder
 
 def exe(context,cur_login_store):
 

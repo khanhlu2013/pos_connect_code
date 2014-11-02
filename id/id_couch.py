@@ -1,4 +1,4 @@
-from couch import couch_util
+from util import couch_util,couch_db_util
 from store.cm import insert_couch
 from store.models import Store
 from store_product.models import Store_product
@@ -10,7 +10,7 @@ from store_product.models import Kit_breakdown_assoc
 def exe(store_id):
     store = Store.objects.get(pk=store_id)
 
-    db = couch_util.get_store_db(store_id)
+    db = couch_db_util.get_store_db(store_id)
     if db != None:
         return
 

@@ -1,7 +1,7 @@
 from product.models import Product
 from store_product.sp_couch import store_product_couch_getter
 from store_product import sp_serializer
-from couch import couch_util
+from util import couch_db_util
 from store_product.models import Store_product
 
 def exe(product_id,store_id,sku_str):
@@ -31,5 +31,5 @@ def exe_couch(product_id,store_id,sku_str):
         if(cur_sku == sku_str):
             del sku_lst[idx]
             break
-    db = couch_util.get_store_db(store_id)
+    db = couch_db_util.get_store_db(store_id)
     db.update([prod_bus_assoc_doc,])

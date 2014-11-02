@@ -1,7 +1,6 @@
 from django.db import models
 from store.models import Store
 from product.models import Product    
-from couch import couch_util
 
 
 class Store_product(models.Model):

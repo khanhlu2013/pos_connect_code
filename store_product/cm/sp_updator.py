@@ -1,6 +1,6 @@
 from store_product.sp_couch import store_product_couch_getter
 from store_product.models import Store_product
-from couch import couch_util
+from util import couch_db_util
 
 def exe(
      product_id
@@ -83,7 +83,7 @@ def exe_couch(
     sp['buydown'] = buydown
 
     #save
-    db = couch_util.get_store_db(store_id)
+    db = couch_db_util.get_store_db(store_id)
     db.save(sp)
 
 def exe_master( \

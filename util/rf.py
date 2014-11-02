@@ -33,7 +33,7 @@ def delete_data():
     Sku.objects.all().delete()
     Store.objects.all().delete()
 
-    url = couch_util.get_couch_access_url()
+    url = couch_util.get_couch_access_url(name='khanhlu82',pwrd='_Mother3169_',url='khanhlu82.cloudant.com')
     server = Server(url)
     for db in server:
         del server[db]

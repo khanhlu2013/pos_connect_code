@@ -41,9 +41,3 @@ def select_default_login_store(sender,user,request,**kwargs):
     #finally save this store into session    
     cur_store = Store.objects.get(pk=cur_store.id)#download store specific info
     request.session['cur_login_store'] = cur_store
-    print('-----------------------------------------')
-    print(cur_store.tax_rate)
-    print(cur_store.name)
-    print(cur_store.couch_url)
-    print(cur_store.couch_admin_name)
-    print(cur_store.couch_admin_pwrd)

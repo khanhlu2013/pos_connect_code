@@ -1,6 +1,6 @@
 from bus.models import Business
 from django.db import models
-from store.cm import insert_couch
+from store.cm import insert_store_2_couch
 
 
 class Store(Business):
@@ -18,6 +18,6 @@ class Store(Business):
             self.api_key_name = ''
             self.api_key_pwrd = ''
             super(Business,self).save(*args,**kwargs)
-            self.api_key_name,self.api_key_pwrd = insert_couch.exe(self.id)
+            self.api_key_name,self.api_key_pwrd = insert_store_2_couch.exe(self.id,self.couch_admin_name,self.couch_admin_pwrd,self.couch_url)
 
         super(Business,self).save(*args,**kwargs)

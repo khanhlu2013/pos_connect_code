@@ -20,32 +20,33 @@ def exe(store_id,couch_admin_name=None,couch_admin_pwrd=None,couch_url=None):
         STEP4: return user_name,user_pwrd that can access to this couch db
     """
     #STEP1
-    couch_url = None
+    couch_access_url = None
     if settings.IS_LOCAL_ENV:
-        couch_url = couch_util.get_couch_access_url()
+        couch_access_url = couch_util.get_couch_access_url()
     else:
-        couch_url = couch_util.get_couch_access_url(name=couch_admin_name,pwrd=couch_admin_pwrd,url=couch_url)
-    server = Server(couch_url)
+        couch_access_url = couch_util.get_couch_access_url(name=couch_admin_name,pwrd=couch_admin_pwrd,url=couch_url)
+    server = Server(couch_access_url)
     db_name = couch_util.get_store_db_name(store_id)
     couch_db = server.create(db_name) 
 
     #STEP2
-    user_name = None
-    user_pwrd = None
+    api_key_name = None
+    api_key_pwrd = None
     if settings.IS_LOCAL_ENV:
         insert_user_into_old_couch_4_test_purpose.exe(store_id)
-        user_name = str(store_id)
-        user_pwrd = str(store_id)
+        api_key_name = str(store_id)
+        api_key_pwrd = str(store_id)
     else:
-        xxx = xxx
+        api_key_name,api_key_pwrd = _get_cloudant_api_key(couch_admin_name)
+        _grant_cloudant_access_to_api_key(api_key_name,store_id,['_reader',])
 
     #STEP3:insert design documents
-    _couch_db_insert_view(couch_db)
+    _insert_view(couch_db)
 
     #STEP4:return user_name,user_pwrd 
-    return (user_name,user_pwrd)
+    return (api_key_name,api_key_pwrd)
 
-def _couch_db_insert_view(couch_db):
+def _insert_view(couch_db):
     d_type_view_map_function = \
         """function(doc) {
           if(doc.d_type != undefined){
@@ -77,3 +78,29 @@ def _couch_db_insert_view(couch_db):
 
     view_doc = {"_id":settings.VIEW_DOCUMENT_ID,"language":"javascript","views":views}
     couch_db.save(view_doc)    
+
+def _get_cloudant_api_key(couch_admin_name):
+    headers={'referer': 'https://%s.cloudant.com' % (couch_admin_name), 'content-type': 'multipart/form-data'}
+    url='https://cloudant.com/api/generate_api_key'
+    r = requests.post(url,headers=headers,auth=(master_account_util.get_master_user_name(),master_account_util.get_master_user_password()))
+
+    if not r.ok:
+        raise Exception('error code: ' + str(r.status_code) + ' ,reason: ' + r.reason)
+    else:
+        dic = json.loads(r._content)
+        return (dic['key'],dic['password'])    
+
+def _grant_cloudant_access_to_api_key(api_key_name,store_id,roles):
+    url = 'https://cloudant.com/api/set_permissions'
+    prefix = master_account_util.get_master_user_name()
+
+    role_str = ""
+    for item in roles:
+        role_str += ('&roles=' + item)
+
+    db_name = couch_util._get_store_db_name(store_id)
+    data_str = 'database=%s/%s&username=%s' % (prefix,db_name,api_key_name)
+    data_str += role_str
+    headers = {'content-type': 'application/x-www-form-urlencoded'}
+
+    r = requests.post(url,data=data_str,headers=headers,auth=(master_account_util.get_master_user_name(),master_account_util.get_master_user_password()))            

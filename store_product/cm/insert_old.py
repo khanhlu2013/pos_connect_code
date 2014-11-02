@@ -1,6 +1,6 @@
 from store_product.models import Store_product
 from product.models import ProdSkuAssoc
-from store_product.cm import insert_couch
+from store_product.cm import insert_sp_2_couch
 from util import couch_util
 
 def exe(
@@ -39,7 +39,7 @@ def exe(
 
     sku_lst = [assoc_sku_str,]
     
-    insert_couch.exe(
+    insert_sp_2_couch.exe(
          id = prod_bus_assoc.id
         ,store_id = store_id
         ,product_id = product_id

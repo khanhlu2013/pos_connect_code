@@ -1,23 +1,31 @@
 from util import couch_util,couch_db_util
-from store.cm import insert_couch
+from store.cm import insert_store_2_couch
 from store.models import Store
 from store_product.models import Store_product
 from store_product import dao
 from store_product.sp_couch.document import Store_product_document
-from store_product.cm import insert_couch
+from store_product.cm import insert_sp_2_couch
 from store_product.models import Kit_breakdown_assoc
+from django.conf import settings
 
-def exe(store_id):
+def exe(store_id,couch_admin_name=None,couch_admin_pwrd=None,couch_url=None):
     store = Store.objects.get(pk=store_id)
 
     db = couch_db_util.get_store_db(store_id)
     if db != None:
         return
 
+    if settings.IS_LOCAL_ENV and couch_admin_name == None:
+        raise Exception
+
     #insert store
-    api_key_name,api_key_pwrd = insert_couch.exe(store_id)
+    api_key_name,api_key_pwrd = insert_store_2_couch.exe(store_id,couch_admin_name,couch_admin_pwrd,couch_url)
     store.pid_key_name = api_key_name
     store.pid_key_pwrd = api_key_pwrd
+    if not settings.IS_LOCAL_ENV:
+        store.couch_admin_name = couch_admin_name
+        store.couch_admin_pwrd = couch_admin_pwrd
+        store.couch_url = couch_url
     store.save()
 
     #insert product
@@ -29,7 +37,7 @@ def exe(store_id):
         bd_assoc_lst = Kit_breakdown_assoc.objects.filter(kit=sp)
         bd_assoc_json_lst = [{'qty':assoc.qty,'product_id':assoc.breakdown.product.id} for assoc in bd_assoc_lst]
 
-        insert_couch.exe(
+        insert_sp_2_couch.exe(
              id = sp.id
             ,store_id = store_id
             ,product_id = sp.product.id

@@ -41,7 +41,7 @@ def exe(store_id,couch_admin_name=None,couch_admin_pwrd=None,couch_url=None):
         api_key_pwrd = str(store_id)
     else:
         api_key_name,api_key_pwrd = _get_cloudant_api_key(couch_admin_name,couch_admin_pwrd)
-        _grant_cloudant_access_to_api_key(api_key_name,store_id,['_reader',])
+        _grant_cloudant_access_to_api_key(api_key_name,store_id,['_reader',],couch_admin_name,couch_admin_pwrd)
 
     #STEP3:insert design documents
     _insert_view(couch_db)

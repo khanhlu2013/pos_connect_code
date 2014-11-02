@@ -3,7 +3,7 @@ from util import couch_util
 from store.cm import insert_user_into_old_couch_4_test_purpose
 from couchdb import Server
 
-def exe(store_id):
+def exe(store_id,couch_admin_name=None,couch_admin_pwrd=None,couch_url=None):
     """
         intro: by now, a store is already record in master and we have that store_id but we don't have a corresponding information on couch
 
@@ -24,7 +24,7 @@ def exe(store_id):
     if settings.IS_LOCAL_ENV:
         couch_url = couch_util.get_couch_access_url()
     else:
-        couch_url = xxx
+        couch_url = couch_util.get_couch_access_url(name=couch_admin_name,pwrd=couch_admin_pwrd,url=couch_url)
     server = Server(couch_url)
     db_name = couch_util.get_store_db_name(store_id)
     couch_db = server.create(db_name) 

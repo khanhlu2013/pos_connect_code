@@ -2,6 +2,7 @@ from django.conf import settings
 from util import couch_util
 from store.cm import insert_user_into_old_couch_4_test_purpose
 from couchdb import Server
+import requests
 
 def exe(store_id,couch_admin_name=None,couch_admin_pwrd=None,couch_url=None):
     """
@@ -37,7 +38,7 @@ def exe(store_id,couch_admin_name=None,couch_admin_pwrd=None,couch_url=None):
         api_key_name = str(store_id)
         api_key_pwrd = str(store_id)
     else:
-        api_key_name,api_key_pwrd = _get_cloudant_api_key(couch_admin_name)
+        api_key_name,api_key_pwrd = _get_cloudant_api_key(couch_admin_name,couch_admin_pwrd)
         _grant_cloudant_access_to_api_key(api_key_name,store_id,['_reader',])
 
     #STEP3:insert design documents
@@ -79,10 +80,10 @@ def _insert_view(couch_db):
     view_doc = {"_id":settings.VIEW_DOCUMENT_ID,"language":"javascript","views":views}
     couch_db.save(view_doc)    
 
-def _get_cloudant_api_key(couch_admin_name):
+def _get_cloudant_api_key(couch_admin_name,couch_admin_pwrd):
     headers={'referer': 'https://%s.cloudant.com' % (couch_admin_name), 'content-type': 'multipart/form-data'}
     url='https://cloudant.com/api/generate_api_key'
-    r = requests.post(url,headers=headers,auth=(master_account_util.get_master_user_name(),master_account_util.get_master_user_password()))
+    r = requests.post(url,headers=headers,auth=(couch_admin_name,couch_admin_pwrd))
 
     if not r.ok:
         raise Exception('error code: ' + str(r.status_code) + ' ,reason: ' + r.reason)
@@ -90,9 +91,9 @@ def _get_cloudant_api_key(couch_admin_name):
         dic = json.loads(r._content)
         return (dic['key'],dic['password'])    
 
-def _grant_cloudant_access_to_api_key(api_key_name,store_id,roles):
+def _grant_cloudant_access_to_api_key(api_key_name,store_id,roles,couch_admin_name,couch_admin_pwrd):
     url = 'https://cloudant.com/api/set_permissions'
-    prefix = master_account_util.get_master_user_name()
+    prefix = couch_admin_name
 
     role_str = ""
     for item in roles:
@@ -103,4 +104,4 @@ def _grant_cloudant_access_to_api_key(api_key_name,store_id,roles):
     data_str += role_str
     headers = {'content-type': 'application/x-www-form-urlencoded'}
 
-    r = requests.post(url,data=data_str,headers=headers,auth=(master_account_util.get_master_user_name(),master_account_util.get_master_user_password()))            
+    r = requests.post(url,data=data_str,headers=headers,auth=(couch_admin_name,couch_admin_pwrd))            

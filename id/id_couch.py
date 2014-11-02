@@ -1,4 +1,4 @@
-from util import couch_util,couch_db_util
+from util import couch_util
 from store.cm import insert_store_2_couch
 from store.models import Store
 from store_product.models import Store_product
@@ -11,10 +11,6 @@ from django.conf import settings
 def exe(store_id,switch_couch_admin_name=None,switch_couch_admin_pwrd=None,switch_couch_url=None):
     store = Store.objects.get(pk=store_id)
 
-    db = couch_db_util.get_store_db(store_id)
-    if db != None:
-        return
-
     if switch_couch_admin_name != None:
         couch_admin_name = switch_couch_admin_name
         couch_admin_pwrd = switch_couch_admin_pwrd
@@ -23,6 +19,10 @@ def exe(store_id,switch_couch_admin_name=None,switch_couch_admin_pwrd=None,switc
         couch_admin_name = store.couch_admin_name
         couch_admin_pwrd = store.couch_admin_pwrd
         couch_url = store.couch_url        
+
+    db = _get_store_db(store_id,couch_admin_name,couch_admin_pwrd,couch_url)
+    if db != None:
+        return
 
     #insert store
     api_key_name,api_key_pwrd = insert_store_2_couch.exe(store_id,couch_admin_name,couch_admin_pwrd,couch_url)
@@ -63,3 +63,13 @@ def exe(store_id,switch_couch_admin_name=None,switch_couch_admin_pwrd=None,switc
             ,buydown = sp.buydown
             ,breakdown_assoc_lst = bd_assoc_json_lst
         );
+
+def _get_store_db(store_id,name,pwrd,url):
+
+    try:
+        url = couch_util.get_couch_access_url(name=name,pwrd=pwrd,url=url)
+        server = Server(url)        
+        store_db_name = couch_util.get_store_db_name(store_id)
+        return server[store_db_name]
+    except ResourceNotFound:
+        return None        

@@ -8,25 +8,33 @@ from store_product.cm import insert_sp_2_couch
 from store_product.models import Kit_breakdown_assoc
 from django.conf import settings
 
-def exe(store_id,couch_admin_name=None,couch_admin_pwrd=None,couch_url=None):
+def exe(store_id,switch_couch_admin_name=None,switch_couch_admin_pwrd=None,switch_couch_url=None):
     store = Store.objects.get(pk=store_id)
 
     db = couch_db_util.get_store_db(store_id)
     if db != None:
         return
 
-    if settings.IS_LOCAL_ENV and couch_admin_name == None:
-        raise Exception
+    if switch_couch_admin_name != None:
+        couch_admin_name = switch_couch_admin_name
+        couch_admin_pwrd = switch_couch_admin_pwrd
+        couch_url = switch_couch_url
+    else:
+        couch_admin_name = store.couch_admin_name
+        couch_admin_pwrd = store.couch_admin_pwrd
+        couch_url = store.couch_url        
 
     #insert store
     api_key_name,api_key_pwrd = insert_store_2_couch.exe(store_id,couch_admin_name,couch_admin_pwrd,couch_url)
-    store.pid_key_name = api_key_name
-    store.pid_key_pwrd = api_key_pwrd
+
     if not settings.IS_LOCAL_ENV:
-        store.couch_admin_name = couch_admin_name
-        store.couch_admin_pwrd = couch_admin_pwrd
-        store.couch_url = couch_url
-    store.save()
+        store.pid_key_name = api_key_name
+        store.pid_key_pwrd = api_key_pwrd
+        if switch_couch_admin_name != None: 
+            store.couch_admin_name = switch_couch_admin_name
+            store.couch_admin_pwrd = switch_couch_admin_pwrd
+            store.couch_url = switch_couch_url
+        store.save()
 
     #insert product
     sp_lst = dao.get_lst(store_id)

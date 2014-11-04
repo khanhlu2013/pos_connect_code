@@ -10,7 +10,12 @@ define(
     angular
 )
 {
-    var mod = angular.module('sp_app/model',['group_app/model','product_app/model']);
+    var mod = angular.module('sp_app/model',
+    [
+         'group_app/model'
+        ,'product_app/model'
+        ,'sp_app/model'
+    ]);
 
     //Store_product model
     mod.factory('sp_app/model/Store_product',['$injector',function($injector){
@@ -289,5 +294,41 @@ define(
             );
         }
         return Kit_breakdown_assoc;
-    }])
+    }]);
+
+    mod.factory('sp_app/model/Non_inventory',[function(){
+        //CONSTRUCTOR
+        function Non_inventory(
+             name
+            ,price
+            ,is_taxable
+            ,crv
+            ,cost
+        ){
+            this.name = name;
+            this.price = price;
+            this.is_taxable = is_taxable;
+            this.crv = crv;
+            this.cost = cost;
+        }
+        Non_inventory.prototype = {
+             constructor : Non_inventory
+            ,get_b4_tax_price : function(){
+                var result =  this.price + this.crv;
+                return result;
+            }
+            ,get_product_tax : function(tax_rate){
+                var result = 0.0;
+                if(this.is_taxable){
+                    result = this.get_b4_tax_price() * tax_rate / 100.0
+                }
+                return result;
+            }
+            ,get_otd_price : function(tax_rate){
+                return this.get_b4_tax_price() + this.get_product_tax(tax_rate);
+            }
+        }        
+
+        return Non_inventory;
+    }]);    
 })

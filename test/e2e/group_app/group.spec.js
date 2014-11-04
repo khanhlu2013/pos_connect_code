@@ -15,6 +15,11 @@ describe('group_app/service/create', function() {
         lib.auth.logout();
         
     })
+    
+    afterEach(function () {
+        browser.executeScript('window.sessionStorage.clear();');
+        browser.executeScript('window.localStorage.clear();');
+    });
 
     it('can create,edit,remove group',function(){
         lib.auth.login('1','1');

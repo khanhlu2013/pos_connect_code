@@ -16,6 +16,7 @@ define(
          'sp_app/model'
         ,'payment_type_app/model'
         ,'sale_app/model'
+        ,'sp_app/model'
     ]);
 
     function str_2_float(str){
@@ -149,7 +150,7 @@ define(
     mod.factory('receipt_app/model/Receipt_ln',
     [
          'sp_app/model/Store_product'
-        ,'sale_app/model/Non_inventory'
+        ,'sp_app/model/Non_inventory'
         ,'receipt_app/model/Mix_match_deal_info_stamp'
         ,'receipt_app/model/Store_product_stamp'
     ,function(
@@ -213,50 +214,95 @@ define(
                 get_line_total            
             */
             ,get_name:function(){
-                if(this.is_non_inventory()) { return this.non_inventory.name; }
-                else                        { return this.store_product_stamp.name }
+                if(this.is_non_inventory()){ 
+                    return this.non_inventory.name; 
+                }
+                else{
+                    return this.store_product_stamp.name;
+                }
             }
-            ,is_non_inventory:function(){ return this.store_product_stamp === null; }
-            ,get_preset_price:function(){
-                if(this.is_non_inventory())     { return this.non_inventory.price; }
-                else                            { return this.store_product_stamp.price; }
+            ,is_non_inventory:function(){ 
+                return this.store_product_stamp === null; 
             }
-            ,get_override_price:function(){ return this.override_price; }
-            ,get_genesis_price : function(){
-                if(this.override_price !== null)    { return this.override_price; }
-                else                                { return this.get_preset_price(); }
+            ,get_cost:function(){
+                if(this.is_non_inventory()){
+                    return this.non_inventory.cost;
+                }else{
+                    return this.store_product_stamp.cost; 
+                }                
+            }
+            ,get_crv: function(){
+                if(this.is_non_inventory()){
+                    return this.non_inventory.crv; 
+                }else{
+                    return this.store_product_stamp.crv; 
+                }
+            }       
+            ,get_is_taxable: function(){
+                if(this.is_non_inventory()){
+                    return this.non_inventory.is_taxable;
+                }else{
+                    return this.store_product_stamp.is_taxable;
+                }
             }            
-            ,get_mm_deal_info:function(){ return this.mm_deal_info_stamp; }
-            ,get_discount:function(){ return this.discount; }
+            ,get_preset_price:function(){
+                if(this.is_non_inventory()){
+                    return this.non_inventory.price; 
+                }else{
+                    return this.store_product_stamp.price; 
+                }
+            }
+            ,get_override_price:function(){
+                return this.override_price; 
+            }
+            ,get_genesis_price : function(){
+                if(this.override_price !== null){
+                    return this.override_price; 
+                }else{
+                    return this.get_preset_price(); 
+                }
+            }            
+            ,get_mm_deal_info:function(){
+                return this.mm_deal_info_stamp; 
+            }
+            ,get_discount:function(){
+                return this.discount; 
+            }
             ,get_buydown: function(){ 
-                if(this.is_non_inventory()) { return 0.0; }
-                else                        { return this.store_product_stamp.buydown; }
+                if(this.is_non_inventory()){
+                    return 0.0; 
+                }else{
+                    return this.store_product_stamp.buydown; 
+                }
             }
             ,get_saving: function () {
                 var result = 0.0;
                 result += this.get_discount();
                 result += this.get_buydown();
-                if(this.get_mm_deal_info() !== null) { result += this.get_mm_deal_info().get_unit_discount(); }
+                if(this.get_mm_deal_info() !== null){
+                    result += this.get_mm_deal_info().get_unit_discount(); 
+                }
                 return result;
             }            
-            ,get_advertise_price: function () { return this.get_genesis_price() - this.get_saving(); }
-            ,get_crv: function(){
-                if(this.is_non_inventory())     { return 0.0; }
-                else                            { return this.store_product_stamp.crv; }
-            }   
+            ,get_advertise_price: function (){
+                return this.get_genesis_price() - this.get_saving(); 
+            }
             ,_get_b4_tax_price: function(){
                 return this.get_advertise_price() + this.get_crv();
             }            
             ,get_buydown_tax: function(tax_rate){
-                if(
-                       this.is_non_inventory()
-                    || this.store_product_stamp.is_taxable === false 
-                ){ return 0; }
-                return this.get_buydown() * tax_rate/100.0
+                var result = 0.0;
+                if(this.get_is_taxable()){
+                    result = this.get_buydown()*tax_rate/100.0;
+                }
+                return result;                
             }
             ,get_product_tax: function(tax_rate){
-                if(this.is_non_inventory() || this.store_product_stamp.is_taxable == false){ return 0; }
-                return this._get_b4_tax_price()*tax_rate/100.0;
+                var result = 0.0;
+                if(this.get_is_taxable()){
+                    result = this._get_b4_tax_price()*tax_rate/100.0;
+                }
+                return result;
             }   
             ,get_otd_price: function(tax_rate){
                 return this._get_b4_tax_price() + this.get_product_tax(tax_rate) + this.get_buydown_tax(tax_rate);
@@ -269,11 +315,14 @@ define(
 
         Receipt_ln.build = function(data){
             var non_inventory = null;
-            if( data.non_inventory_name !== null && data.non_inventory_price !== null ){
+            if( data.non_inventory_name !== null){
                 non_inventory = new Non_inventory(
                      data.non_inventory_name
                     ,str_2_float(data.non_inventory_price)
-                );
+                    ,data.non_inventory_is_taxable
+                    ,str_2_float(data.non_inventory_crv)
+                    ,str_2_float(data.non_inventory_cost)                            
+                );                  
             }
             //build store product
             var store_product = null;

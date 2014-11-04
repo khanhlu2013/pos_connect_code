@@ -38,6 +38,7 @@ class Tender_ln_serializer(serializers.ModelSerializer):
 
 class Receipt_ln_serializer(serializers.ModelSerializer):
     store_product = Store_product_serializer(many=False)
+    
     class Meta:
         model = Receipt_ln
         fields = (
@@ -57,6 +58,9 @@ class Receipt_ln_serializer(serializers.ModelSerializer):
             ,'mm_deal_name'
             ,'non_inventory_name'
             ,'non_inventory_price'
+            ,'non_inventory_crv'
+            ,'non_inventory_cost'
+            ,'non_inventory_is_taxable'
         )
 
 class Receipt_serializer(serializers.ModelSerializer):

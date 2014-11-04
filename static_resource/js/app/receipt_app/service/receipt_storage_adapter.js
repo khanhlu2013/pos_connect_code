@@ -9,7 +9,7 @@ define(
      'angular'
     //--------
     ,'app/receipt_app/model'
-    ,'app/sale_app/model'    
+    ,'app/sp_app/model'    
     ,'service/misc'
 ]
 ,function
@@ -20,7 +20,7 @@ define(
     var mod = angular.module('receipt_app/service/receipt_storage_adapter',
     [
          'receipt_app/model'
-        ,'sale_app/model'
+        ,'sp_app/model'
         ,'service/misc'
     ]);
     mod.factory('receipt_app/service/receipt_storage_adapter',
@@ -31,7 +31,7 @@ define(
         ,'receipt_app/model/Tender_ln'
         ,'receipt_app/model/Mix_match_deal_info_stamp'
         ,'receipt_app/model/Store_product_stamp'        
-        ,'sale_app/model/Non_inventory'
+        ,'sp_app/model/Non_inventory'
         ,'service/misc'
     ,function(
          $rootScope
@@ -66,7 +66,10 @@ define(
                 non_inventory = new Non_inventory(
                      doc.name
                     ,doc.price
-                )
+                    ,doc.is_taxable
+                    ,doc.crv
+                    ,doc.cost                            
+                );                
             }
             return non_inventory;
         }

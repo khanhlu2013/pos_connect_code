@@ -15,7 +15,6 @@ define(
     ,'app/shortcut_app/shortcut_ui'
     ,'service/ui'
     ,'service/db'
-    // ,'blockUI'
     ,'app/sale_app/service/hold/api'
     ,'app/sale_app/service/hold/get_hold_ui'
     ,'app/sale_app/service/offline_product'
@@ -24,6 +23,7 @@ define(
     ,'app/sale_app/service/displaying_scan/set_ds_lst'
     ,'app/sale_app/service/displaying_scan/calculate_ds_lst'
     ,'service/misc'
+    ,'app/sp_app/service/non_inventory_prompt'
 ], function
 (
      angular
@@ -44,6 +44,7 @@ define(
         ,'sale_app/service/sale_able_info_dlg'
         ,'sale_app/service/scan/sku_scan_not_found_handler'
         ,'sale_app/model'
+        ,'sp_app/model'
         ,'shortcut_app/shortcut_ui'
         ,'service/ui'
         ,'service/db'
@@ -55,6 +56,7 @@ define(
         ,'sale_app/service/displaying_scan/set_ds_lst'
         ,'sale_app/service/displaying_scan/calculate_ds_lst'
         ,'service/misc'
+        ,'sp_app/service/non_inventory_prompt'
     ]);
     mod.controller('Sale_page_ctrl', 
     [
@@ -82,11 +84,11 @@ define(
         ,'sale_app/service/offline_product/edit'
         ,'hotkeys'
         ,'sale_app/service/scan/toogle_value_customer_price'
-        ,'sale_app/model/Non_inventory'
         ,'sale_app/service/finalize'
         ,'sale_app/service/displaying_scan/set_ds_lst'
         ,'sale_app/service/displaying_scan/calculate_ds_lst'
         ,'service/misc'
+        ,'sp_app/service/non_inventory_prompt'
     ,function(
          $scope
         ,$rootScope
@@ -112,11 +114,11 @@ define(
         ,edit_product_offline
         ,hotkeys
         ,toogle_value_customer_price
-        ,Non_inventory
         ,finalize
         ,set_ds_lst
         ,calculate_ds_lst
         ,misc_service
+        ,non_inventory_prompt_service
     ){
 
         hotkeys.bindTo($scope)
@@ -156,8 +158,9 @@ define(
         $scope.finalize = function(){
             if($scope.ds_lst.length === 0){return;}
             finalize($scope.ds_lst).then(
-                function(saved_receipt_doc_id){
-                    set_ps_lst([])
+                function(change_amount){
+                    $scope.previous_change = change_amount;
+                    set_ps_lst([]);
                 }
                 ,function(reason){
                     alert_service(reason)
@@ -166,9 +169,8 @@ define(
         }
         $scope.toogle_value_customer_price = function(){toogle_value_customer_price($scope.ds_lst);}
         $scope.non_inventory = function(){
-            prompt_service('enter none inventory price',null/*prefill*/,false/*is null allow*/,true/*is float*/).then(
-                function(price){
-                    var non_inventory = new Non_inventory('non_inventory',price);
+            non_inventory_prompt_service(null/*original_non_inventory*/).then(
+                function(non_inventory){
                     append_pending_scan.by_doc_id(null/*sp_doc_id*/,1/*qty*/,non_inventory,null/*override price*/);
                 }
             )
@@ -200,31 +202,16 @@ define(
             );
         }
         $scope.show_detail_price = function(ds){
-            if(ds.is_non_inventory()){
-                prompt_service('change price',ds.override_price,false/*is null allow*/,true/*is float*/).then(
-                    function(new_price){
-                        var instruction = new Modify_ds_instruction(
-                             undefined/*is_delete*/
-                            ,undefined/*new_qty*/
-                            ,new_price
-                            ,undefined/*new_discount*/
-                            ,undefined/*new_non_product_name*/
-                        );
-                        modify_ds(get_ds_index(ds),instruction,$scope.ds_lst);    
-                    }
-                )
-            }else{
-                detail_price_dlg(ds,true/*is_enable_override_price*/).then(function(new_ds){
-                    var instruction = new Modify_ds_instruction(
-                         undefined/*is_delete*/
-                        ,undefined/*new_qty*/
-                        ,new_ds.override_price/*new_price*/
-                        ,undefined/*new_discount*/
-                        ,undefined/*new_non_product_name*/
-                    );
-                    modify_ds(get_ds_index(ds),instruction,$scope.ds_lst);                      
-                });
-            }
+            detail_price_dlg(ds,true/*is_enable_override_price*/).then(function(new_ds){
+                var instruction = new Modify_ds_instruction(
+                     undefined/*is_delete*/
+                    ,undefined/*new_qty*/
+                    ,new_ds.override_price/*new_price*/
+                    ,undefined/*new_discount*/
+                    ,undefined/*new_non_product_name*/
+                );
+                modify_ds(get_ds_index(ds),instruction,$scope.ds_lst);                      
+            });          
         }
         $scope.remove_ds = function(ds){
             var instruction = new Modify_ds_instruction(
@@ -256,16 +243,10 @@ define(
         }
         $scope.edit_sp = function(ds){
             if(ds.is_non_inventory()){
-                prompt_service('edit name',ds.non_inventory.name/*prefill*/,false/*is null allow*/,false/*is float*/).then(
-                    function(new_non_product_name){
-                        var instruction = new Modify_ds_instruction(
-                             undefined/*is_delete*/
-                            ,undefined/*qty*/
-                            ,undefined/*new_price*/
-                            ,undefined/*new_discount*/
-                            ,new_non_product_name
-                        );
-                        modify_ds(get_ds_index(ds),instruction,$scope.ds_lst);                        
+                non_inventory_prompt_service(ds.non_inventory).then(
+                    function(updated_non_inventory){
+                        angular.copy(updated_non_inventory,ds.non_inventory);
+                        set_ds_lst($scope.ds_lst); 
                     }
                 )
             }else{
@@ -383,6 +364,7 @@ define(
         //init code
         $scope.sku_search_str = "";
         $scope.ds_lst = [];
+        $scope.previous_change = null;
         sync_db_service().then(
             function(response){
                 if(response.local < response.remote){

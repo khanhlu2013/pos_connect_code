@@ -42,12 +42,8 @@ class Receipt_ln(models.Model):
     mm_deal_discount = models.DecimalField(max_digits=6, decimal_places=2,blank=True,null=True)
     mm_deal_name = models.CharField(max_length=100,blank=True,null=True) 
 
-    non_inventory_name = models.CharField(max_length=100,blank=True,null=True)  
+    non_inventory_name = models.CharField(max_length=100,blank=True,null=True)   
     non_inventory_price = models.DecimalField(max_digits=6, decimal_places=2,blank=True,null=True)
-
-    def get_total_out_the_door_price(self):
-        discount = self.discount if self.discount!=None else decimal.Decimal(0.0)
-        buydown = self.buydown if self.buydown!=None else decimal.Decimal(0.0)
-        discount_mm_deal = self.discount_mm_deal if self.discount_mm_deal != None else decimal.Decimal(0.0)
-        crv = self.crv if self.crv!=None else decimal.Decimal('0.0')
-        return (self.price - discount - buydown - discount_mm_deal + crv) * self.qty
+    non_inventory_crv = models.DecimalField(max_digits=6, decimal_places=2,blank=True,null=True)
+    non_inventory_is_taxable = models.NullBooleanField(blank=True,null=True)
+    non_inventory_cost = models.DecimalField(max_digits=6, decimal_places=2,blank=True,null=True)

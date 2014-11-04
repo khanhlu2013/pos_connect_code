@@ -5,6 +5,7 @@ describe('sale page\'s Sale_able_info_dlg', function() {
     
     var Sale_able_info_dlg = require(base_path + 'page/sale/Sale_able_info_dlg.js');
     var Sale_page = require(base_path + 'page/sale/Sale_page.js');
+    var Non_inventory_prompt_dlg = require(base_path + 'page/sp/Non_inventory_prompt_dlg.js');
 
     beforeEach(function(){
         lib.auth.login('1','1');
@@ -100,6 +101,26 @@ describe('sale page\'s Sale_able_info_dlg', function() {
         expect(Sale_able_info_dlg.buydown_tax_lbl.getText()).toEqual('$0.04');
         expect(Sale_able_info_dlg.tax_lbl.getText()).toEqual('$0.31');
         expect(Sale_able_info_dlg.otd_price_lbl.getText()).toEqual('$3.85');
+        Sale_able_info_dlg.cancel();
+
+        //non inventory
+        var ni_price=1.1;var ni_crv=2.2; var ni_is_taxable=true;
+        Sale_page.non_inventory();
+        Non_inventory_prompt_dlg.set_price(ni_price);
+        Non_inventory_prompt_dlg.set_crv(ni_crv);
+        Non_inventory_prompt_dlg.set_is_taxable(ni_is_taxable);
+        Non_inventory_prompt_dlg.ok();   
+        Sale_page.click_col(4,'price');
+        expect(Sale_able_info_dlg.preset_price_lbl.getText()).toEqual(lib.currency(ni_price));
+        expect(Sale_able_info_dlg.override_price_lbl.getText()).toEqual('None');
+        expect(Sale_able_info_dlg.mm_deal_title_lbl.isDisplayed()).toBeFalsy();
+        expect(Sale_able_info_dlg.mm_deal_lbl.isDisplayed()).toBeFalsy();
+        expect(Sale_able_info_dlg.buydown_lbl.isDisplayed()).toBeFalsy();
+        expect(Sale_able_info_dlg.advertise_price_lbl.getText()).toEqual(lib.currency(ni_price));
+        expect(Sale_able_info_dlg.crv_lbl.getText()).toEqual(lib.currency(ni_crv));
+        expect(Sale_able_info_dlg.buydown_tax_lbl.isDisplayed()).toBeFalsy();
+        expect(Sale_able_info_dlg.tax_lbl.getText()).toEqual('$0.29');
+        expect(Sale_able_info_dlg.otd_price_lbl.getText()).toEqual('$3.59');
         Sale_able_info_dlg.cancel();
 
         //clean up

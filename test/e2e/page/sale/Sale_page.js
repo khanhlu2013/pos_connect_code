@@ -13,6 +13,7 @@ var Sale_page = function () {
 
     //btn
     this.tender_btn = element(by.id('sale_app/main_page/tender_btn'));
+    this.change_btn = element(by.id('sale_app/main_page/change_btn'));
     this.void_btn = element(by.id('sale_app/main_page/void_btn'));
     this.non_inventory_btn = element(by.id('sale_app/main_page/non_inventory_btn'));
 

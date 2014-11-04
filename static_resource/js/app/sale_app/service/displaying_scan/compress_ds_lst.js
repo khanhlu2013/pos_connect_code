@@ -26,7 +26,11 @@ define(
                 var non_product_condition = 
                        last_item.non_inventory !== null 
                     && cur_item.non_inventory !== null
-                    && last_item.non_inventory.name === cur_item.non_inventory.name;
+                    && last_item.non_inventory.name === cur_item.non_inventory.name
+                    && last_item.non_inventory.price === cur_item.non_inventory.price
+                    && last_item.non_inventory.crv === cur_item.non_inventory.crv
+                    && last_item.non_inventory.cost === cur_item.non_inventory.cost
+                    && last_item.non_inventory.is_taxable === cur_item.non_inventory.is_taxable;
 
                 var product_condition = 
                        last_item.store_product !== null 

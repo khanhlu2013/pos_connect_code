@@ -37,3 +37,4 @@ class Kit_breakdown_assoc(models.Model):
     kit = models.ForeignKey(Store_product,related_name='breakdown_assoc_lst')
     breakdown = models.ForeignKey(Store_product,related_name='kit_assoc_lst')
     qty = models.IntegerField()
+

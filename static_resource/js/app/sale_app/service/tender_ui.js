@@ -81,7 +81,7 @@ define(
                     for(var i = 0;i<$scope.ds_lst.length;i++){
                         due += $scope.ds_lst[i].get_line_total($rootScope.GLOBAL_SETTING.tax_rate);
                     }      
-                    return due;              
+                    return misc_service.round_float_2_decimal(due);              
                 }
                 $scope.get_change = function(){
                     var tender_amount = 0.0;

@@ -9,6 +9,7 @@ describe('receipt_app\'s Report dialog', function() {
     var Sp_page = require(base_path + 'page/sp/Sp_page');
     var Pt_manage_dlg = require(base_path + 'page/payment_type/Manage_dlg.js');
     var Pt_prompt_dlg = require(base_path + 'page/payment_type/Prompt_dlg.js');
+    var Non_inventory_prompt_dlg = require(base_path + 'page/sp/Non_inventory_prompt_dlg.js');
 
     beforeEach(function(){
         lib.auth.login('1','1');
@@ -26,7 +27,7 @@ describe('receipt_app\'s Report dialog', function() {
         lib.auth.logout();
     });
 
-    it('can display deal,crv,buydown,buydonw_tax in sale_able_info_dlg for receipt_ln',function(){
+    it('can display deal,crv,buydown,buydown_tax in sale_able_info_dlg for receipt_ln store_product and non_inventory',function(){
         lib.auth.login('1','1');
 
         //deal_crv_buydown_buydonwtax <-> 0_0_0_0
@@ -63,6 +64,14 @@ describe('receipt_app\'s Report dialog', function() {
         Sale_page.scan(sku_3);
         //deal_crv_buydown_buydonwtax <-> 0_0_1_1
         Sale_page.scan(sku_4);
+        //non_inventory
+        var ni_price=1.1;var ni_crv=2.2; var ni_is_taxable=true;
+        Sale_page.non_inventory();
+        Non_inventory_prompt_dlg.set_price(ni_price);
+        Non_inventory_prompt_dlg.set_crv(ni_crv);
+        Non_inventory_prompt_dlg.set_is_taxable(ni_is_taxable);
+        Non_inventory_prompt_dlg.ok();   
+
         Sale_page.tender();
         Tender_dlg.cash_txt.sendKeys('100');
         Tender_dlg.ok();
@@ -71,7 +80,7 @@ describe('receipt_app\'s Report dialog', function() {
         Sale_page.menu_report_receipt();
         expect(Report_dlg.online.receipt.lst.count()).toEqual(1);
         Report_dlg.online.receipt.click_col(0,'info');
-        expect(Report_dlg.online.receipt_ln.lst.count()).toEqual(4);
+        expect(Report_dlg.online.receipt_ln.lst.count()).toEqual(5);
 
         //deal_crv_buydown_buydonwtax <-> 0_0_0_0
         Report_dlg.online.receipt_ln.click_col(0,'price');
@@ -136,6 +145,22 @@ describe('receipt_app\'s Report dialog', function() {
         expect(Sale_able_info_dlg.buydown_tax_lbl.getText()).toEqual('$0.04');
         expect(Sale_able_info_dlg.tax_lbl.getText()).toEqual('$0.31');
         expect(Sale_able_info_dlg.otd_price_lbl.getText()).toEqual('$3.85');
+        Sale_able_info_dlg.cancel();
+
+        //non invenotry
+        Report_dlg.online.receipt_ln.click_col(4,'price');
+        expect(Sale_able_info_dlg.override_price_btn.isDisplayed()).toBe(false);
+        expect(Sale_able_info_dlg.remove_override_price_btn.isDisplayed()).toBe(false);
+        expect(Sale_able_info_dlg.preset_price_lbl.getText()).toEqual(lib.currency(ni_price));
+        expect(Sale_able_info_dlg.override_price_lbl.getText()).toEqual('None');
+        expect(Sale_able_info_dlg.mm_deal_title_lbl.isDisplayed()).toBeFalsy();
+        expect(Sale_able_info_dlg.mm_deal_lbl.isDisplayed()).toBeFalsy();
+        expect(Sale_able_info_dlg.buydown_lbl.isDisplayed()).toBeFalsy();
+        expect(Sale_able_info_dlg.advertise_price_lbl.getText()).toEqual(lib.currency(ni_price));
+        expect(Sale_able_info_dlg.crv_lbl.getText()).toEqual(lib.currency(ni_crv));
+        expect(Sale_able_info_dlg.buydown_tax_lbl.isDisplayed()).toBeFalsy();
+        expect(Sale_able_info_dlg.tax_lbl.getText()).toEqual('$0.29');
+        expect(Sale_able_info_dlg.otd_price_lbl.getText()).toEqual('$3.59');
         Sale_able_info_dlg.cancel();
 
         //clean up

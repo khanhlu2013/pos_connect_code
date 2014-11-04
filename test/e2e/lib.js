@@ -91,7 +91,14 @@ module.exports = {
                 var api = angular.injector(['ng','service.csrf','sp_app/service/api/sku']).get('sp_app/service/api/sku');
                 api.add_sku(data.product_id,data.sku).then(function(data){callback(data);});
             },data)
-        }        
+        },
+        update_kit : function(sp){
+            return browser.executeAsyncScript(function(sp,callback){
+                var api = angular.injector(['ng','service.csrf','sp_app/service/api/kit']).get('sp_app/service/api/kit');
+                api.update(sp).then(function(updated_sp){callback(updated_sp);});
+            },sp)
+        }      
+
     },
 
     auth: {
@@ -119,13 +126,6 @@ module.exports = {
             browser.get(env.baseUrl); 
         },
         logout : function(){
-            // browser.wait(function(){ return element(by.css('.block-ui-overlay')).isDisplayed().then(function(val){ return !val; })});
-            // browser.executeAsyncScript(function(callback) {
-            //     var $window = angular.injector(['ng']).get('$window');       
-            //     $window.location.href = '/account/logout/';
-            // })
-            // .then(function (output) { /*console.log(output);*/ });
-
             browser.wait(function(){ return element(by.css('.block-ui-overlay')).isDisplayed().then(function(val){ return !val; })});
             browser.findElement(by.id('logout_link')).click();
             browser.findElement(by.id('service/ui/confirm/ok_btn')).click();

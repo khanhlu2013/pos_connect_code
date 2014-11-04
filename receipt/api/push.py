@@ -129,6 +129,9 @@ def _create_receipt(receipt__json__lst,store_id):
             mm_deal_name = None
             non_inventory_name = None
             non_inventory_price = None
+            non_inventory_crv = None
+            non_inventory_is_taxable = None
+            non_inventory_cost = None
 
             if receipt_ln_json['store_product_stamp'] != None:
                 sp_stamp_sp_id = receipt_ln_json['store_product_stamp']['sp_id']
@@ -146,9 +149,12 @@ def _create_receipt(receipt__json__lst,store_id):
             if receipt_ln_json['mm_deal_info_stamp'] != None:                
                 mm_deal_discount = receipt_ln_json['mm_deal_info_stamp']['unit_discount']
                 mm_deal_name = receipt_ln_json['mm_deal_info_stamp']['name']
-            if receipt_ln_json['non_inventory'] != None:                       
+            if receipt_ln_json['non_inventory'] != None:     
                 non_inventory_name = receipt_ln_json['non_inventory']['name']
                 non_inventory_price = receipt_ln_json['non_inventory']['price']
+                non_inventory_crv = receipt_ln_json['non_inventory']['crv']
+                non_inventory_is_taxable = receipt_ln_json['non_inventory']['is_taxable']
+                non_inventory_cost = receipt_ln_json['non_inventory']['cost']             
 
             receipt_ln_django = Receipt_ln(
                  receipt = receipt_django
@@ -172,6 +178,9 @@ def _create_receipt(receipt__json__lst,store_id):
                 ,mm_deal_name = mm_deal_name
                 ,non_inventory_name = non_inventory_name
                 ,non_inventory_price = non_inventory_price
+                ,non_inventory_crv = non_inventory_crv
+                ,non_inventory_is_taxable = non_inventory_is_taxable
+                ,non_inventory_cost = non_inventory_cost
             )
             receipt_ln_django_lst.append(receipt_ln_django)
     Receipt_ln.objects.bulk_create(receipt_ln_django_lst)

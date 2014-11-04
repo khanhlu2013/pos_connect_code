@@ -40,9 +40,10 @@ exports.config = {
         ,'./sale_app/displaying_scan/non_inventory.spec.js'    
         ,'./sale_app/displaying_scan/tender_calculation_4_single_item.spec.js'
         ,'./sale_app/setup_shortcut.spec.js'  
+        ,'./sale_app/sale_page.spec.js'  
 
-        ,'./receipt_app/report_offline.spec.js'
-        ,'./receipt_app/report_online.spec.js'
+        ,'./receipt_app/report_offline_ui.spec.js'
+        ,'./receipt_app/report_online_ui.spec.js'
         ,'./receipt_app/push.spec.js'
 
     ]

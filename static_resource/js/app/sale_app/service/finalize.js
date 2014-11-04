@@ -57,9 +57,9 @@ define(
                 ,sp.is_sale_report
                 ,sp.p_type
                 ,sp.p_tag
-                ,sp.cost
+                ,sp.get_cost()
                 ,sp.vendor
-                ,sp.buydown
+                ,sp.get_buydown()
             )
         }
         function _create_receipt_ln_lst(ds_lst){
@@ -102,11 +102,17 @@ define(
 
                     var pouch = get_pouch_db();
                     pouch.post(receipt_storage_adapter.javascript_2_pouch(receipt)).then(
-                         function(response){ defer.resolve(response.id); }
-                        ,function(reason){ defer.reject(reason); }
+                        function(response){ 
+                            defer.resolve(receipt.get_change()); 
+                        }
+                        ,function(reason){ 
+                            defer.reject(reason); 
+                        }
                     )          
                 }
-                ,function(reason){defer.reject(reason);}
+                ,function(reason){
+                    defer.reject(reason);
+                }
             );
             return defer.promise;
         }

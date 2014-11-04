@@ -60,6 +60,22 @@
                             type="button" 
                             class="btn btn-warning navbar-btn">void
                         </button>     
+                        {% verbatim %} 
+                        <button 
+                            ng-hide="ds_lst.length === 0"
+                            id="sale_app/main_page/tender_btn" 
+                            type="button" 
+                            ng-click="finalize()"
+                            class="btn btn-primary btn-lg">
+                                {{get_tender_amount()|currency}}
+                        </button>      
+                        <button 
+                            ng-hide="previous_change === null || ds_lst.length !== 0" 
+                            class="btn btn-success btn-lg"
+                            id="sale_app/main_page/change_btn" >
+                                change: {{previous_change|currency}}
+                        </button>
+                        {% endverbatim %} 
                     </div>
                 </ul>
                 <ul ng-controller="service.menu" class="nav navbar-nav navbar-right">
@@ -97,8 +113,8 @@
         </div><!-- /.container-fluid -->
     </nav>        
 
+    {% verbatim %}   
     <div>
-    {% verbatim %}        
         <div class="col-sm-6">
             <table id='sale_app/scan_tbl' class="table table-hover table-bordered table-condensed table-striped">
                 <tr>
@@ -114,13 +130,6 @@
                     <td class="alncenter"><button ng-click="remove_ds(ds)" class="btn btn-danger glyphicon glyphicon-trash"></button></td>
                 </tr>
             </table>
-            <button 
-                ng-hide="ds_lst.length == 0"
-                id="sale_app/main_page/tender_btn" 
-                type="button" 
-                ng-click="finalize()"
-                class="btn btn-primary btn-lg">{{get_tender_amount()|currency}}
-            </button>
         </div>
         <div class="col-sm-6">
             <table class="table table-bordered table-condensed sale_shortcut_tbl">
@@ -136,9 +145,8 @@
             </table>
         </div>
         <div class="clear"></div>
-        <!-- {{ds_lst}} -->
-    {% endverbatim %}         
     </div>
+    {% endverbatim %}  
 
     <script type="text/javascript">
         var STATIC_URL                      = "{{STATIC_URL}}"
@@ -156,7 +164,7 @@
     </script>
 
     <!-- // <script data-main = "{{ STATIC_URL }}js/sale_main.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script> -->
-    <script data-main = "{{ STATIC_URL }}sale.min.4.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script>
+    <script data-main = "{{ STATIC_URL }}sale.min.5.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script>
 
 </body>
 </html>

@@ -59,14 +59,16 @@ define(
                             '<th>qty</th>' +
                             '<th>price</th>' +
                             '<th>include crv&tax</th>' +
+                            '<th>disable</th>' +                            
                             '<th>delete</th>' +
                             '<th>edit</th>' +
                         '</tr>' +
-                        '<tr ng-repeat="mm in mm_lst">' +
+                        '<tr ng-repeat="mm in mm_lst | orderBy:\'name\'">' +
                             '<td>{{mm.name}}</td>' +
                             '<td>{{mm.qty}}</td>' +
                             '<td>{{mm.mm_price|currency}}</td>' +
                             '<td><span ng-class="mm.is_include_crv_tax ? \'glyphicon glyphicon-ok\' : \'glyphicon glyphicon-remove\'"></span></td>' +
+                            '<td><span ng-class="mm.is_disable ? \'glyphicon glyphicon-ok\' : \'glyphicon glyphicon-remove\'"></span></td>' +                            
                             '<td class="alncenter"><button ng-click="delete(mm)" class="btn btn-danger glyphicon glyphicon-trash"></button></td>' +
                             '<td class="alncenter"><button ng-click="edit(mm)" class="btn btn-primary glyphicon glyphicon-pencil"></button></td>' +
                         '</tr>' +

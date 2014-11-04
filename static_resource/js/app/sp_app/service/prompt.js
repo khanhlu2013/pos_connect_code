@@ -1,14 +1,34 @@
 define(
 [
     'angular'
+    //-------
+    ,'app/sp_ll_app/service/search/name_sku_online_dlg'
+    ,'service/ui'
 ]
 ,function
 (
     angular
 )
 {
-    var mod = angular.module('sp_app/service/prompt',[]);
-    mod.factory('sp_app/service/prompt',['$modal','$http','$q',function($modal,$http,$q){
+    var mod = angular.module('sp_app/service/prompt',
+    [
+         'sp_ll_app/service/search/name_sku_online_dlg'
+        ,'service/ui'
+    ]);
+    mod.factory('sp_app/service/prompt',
+    [
+         '$modal'
+        ,'$http'
+        ,'$q'
+        ,'sp_ll_app/service/search/name_sku_online_dlg/single'
+        ,'service/ui/alert'
+    ,function(
+         $modal
+        ,$http
+        ,$q
+        ,search_single_sp_dlg
+        ,alert_service
+    ){
 
         //- NAME -------------------------------------------------------------------------------------------------------------------------------------------------------
         var template_name_main_suggestion = 
@@ -308,7 +328,13 @@ define(
                 '</form>' + /* end modal body*/   
             '</div>' +
 
-            '<div class="modal-footer">' +          
+            '<div class="modal-footer">' +       
+                '<button' +
+                    ' id="sp_app/service/prompt/duplicate_from_btn"' +
+                    ' class="btn btn-primary btn-float-left"' +
+                    ' ng-click="duplicate_from()"' +
+                    ' ng-show="original_sp===null"' +
+                    ' type="button">duplicate from</button>' +    
                 '<button id="sp_app/service/prompt/cancel_btn" class="btn btn-warning" ng-click="cancel()" type="button">cancel</button>' + 
                 '<button ng-disabled="is_unchange()" class="btn btn-primary" ng-click="reset()" type="button">reset</button>' +                               
                 '<button id="sp_app/service/prompt/ok_btn" ng-disabled="is_unchange()||form.$invalid" class="btn btn-success" ng-click="ok()" type="button">ok</button>' +
@@ -430,6 +456,26 @@ define(
                     return 'Edit: ' + $scope.original_sp.name;
                 }
             };
+            $scope.duplicate_from = function(){
+                search_single_sp_dlg().then(
+                    function(dup_from_sp){
+                        $scope.sp.name = dup_from_sp.name;
+                        $scope.sp.price = dup_from_sp.price;
+                        $scope.sp.crv = dup_from_sp.crv;//if this is a kit product, you have to setup kit manually
+                        $scope.sp.is_taxable = dup_from_sp.is_taxable;
+                        $scope.sp.cost = dup_from_sp.cost;
+                        $scope.sp.is_sale_report = dup_from_sp.is_sale_report;
+                        $scope.sp.p_type = dup_from_sp.p_type;
+                        $scope.sp.p_tag = dup_from_sp.p_tag;
+                        $scope.sp.vendor = dup_from_sp.vendor;
+                        $scope.sp.buydown = dup_from_sp.buydown;
+                        $scope.sp.value_customer_price = dup_from_sp.value_customer_price;
+                    }
+                    ,function(reason){
+                        alert_service(reason);
+                    }
+                )
+            }
             $scope.cancel = function(){
                 $modalInstance.dismiss('_cancel_');
             };

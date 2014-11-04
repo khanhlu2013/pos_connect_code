@@ -35,7 +35,7 @@ define(
         ,Displaying_scan
         ,Mix_match_deal_info
         ,misc_service
-        ,compress_ds_lst
+        ,compress_ds_lst_function
     ){
         //HELPER-
         function is_deal_contain_pid(mm,pid){
@@ -50,7 +50,7 @@ define(
 
             return result;
         }  
-        function get_posible_deal_from_pid(pid,mm_lst){
+        function _get_posible_deal_from_pid(pid,mm_lst){
             var result = [];
 
             for(var i = 0;i<mm_lst.length;i++){
@@ -74,7 +74,7 @@ define(
             var result = [];
 
             for(var i = 0;i<sp_distinct_lst.length;i++){
-                var temp_deal_lst = get_posible_deal_from_pid(sp_distinct_lst[i].product_id,mm_lst);
+                var temp_deal_lst = _get_posible_deal_from_pid(sp_distinct_lst[i].product_id,mm_lst);
                 merge_a_to_b(temp_deal_lst,result);
             }
 
@@ -99,6 +99,7 @@ define(
                                 ,null//mm deal info
                                 ,cur_ps.non_inventory
                                 ,cur_ps.date
+                                ,[]//posible deal list to suggest
                             )                    
                     result.push(ds);                
                 }
@@ -113,7 +114,7 @@ define(
                 return false;
             }        
         }             
-        function get_total_deal_can_be_form(ds_extract_lst,mm_deal){
+        function _get_total_deal_count_that_can_be_form(ds_extract_lst,mm_deal){
             /*
                 RETURN the total of deal we can form. lets say the deal.qty = 3 and we have 7 item to for this deal. its mean that we can form 2 deals.        
             */
@@ -130,7 +131,7 @@ define(
             return Math.floor(avail_qty / mm_deal.qty); 
         }
         function form_deal(ds_extract_lst,mm_deal,tax_rate){
-            var num_deal = get_total_deal_can_be_form(ds_extract_lst,mm_deal);
+            var num_deal = _get_total_deal_count_that_can_be_form(ds_extract_lst,mm_deal);
             if(num_deal == 0){ return ;}
 
 
@@ -218,8 +219,20 @@ define(
                 ,function(reason){ defer.reject(reason); }
             )            
             return defer.promise;   
-        }            
+        }        
 
+        function _assign_possible_deal_to_ds_lst_4_suggestion(ds_lst,mm_lst){
+            for(var i = 0;i<ds_lst.length;i++){
+                var ds = ds_lst[i];
+                if(ds.is_non_inventory()){
+                    continue;
+                }
+                if(ds.store_product.product_id===null || ds.store_product.product_id===undefined){
+                    continue;
+                }
+                ds.possible_deal_lst = _get_posible_deal_from_pid(ds.store_product.product_id,mm_lst);
+            }
+        }
         //------------------------------------------------    
 
         return function(ps_lst,suggest_sp_lst){
@@ -230,11 +243,13 @@ define(
                     when call from refresh_ds from the scan page, we have this suggest_sp_lst ready.
                     when call from hold feature, we don't have this suggest_sp_lst in hand. this is why this suggest_sp_lst param is optional. 
             */
-            var mm_lst = angular.copy($rootScope.GLOBAL_SETTING.mix_match_lst);
+            var all_mm_lst = angular.copy($rootScope.GLOBAL_SETTING.mix_match_lst);
+            var mm_lst = all_mm_lst.filter(function(mm){return !mm.is_disable;})
             var tax_rate = $rootScope.GLOBAL_SETTING.tax_rate;
             mm_lst.sort(function(a,b){
                 return b.qty - a.qty;
             })
+
             var defer = $q.defer();
 
             search_sp_base_on_ps_lst(ps_lst,suggest_sp_lst).then(
@@ -245,7 +260,9 @@ define(
                     for(var i = 0;i<possible_mm_lst.length;i++){
                         form_deal(ds_extract_lst,possible_mm_lst[i],tax_rate);
                     }            
-                    defer.resolve(compress_ds_lst(ds_extract_lst,true/*is_consider_mm_deal*/))
+                    var compress_ds_lst = compress_ds_lst_function(ds_extract_lst,true/*is_consider_mm_deal*/);
+                    _assign_possible_deal_to_ds_lst_4_suggestion(compress_ds_lst,possible_mm_lst)
+                    defer.resolve(compress_ds_lst)
                 }
                 ,function(reason){defer.reject(reason)}
             )

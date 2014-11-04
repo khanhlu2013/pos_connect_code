@@ -1,4 +1,4 @@
-var base_path = './../';
+var base_path = './../../';
 var lib = require(base_path + 'lib');
 
 describe('sale_app/shortcut/setup_n_usage', function() {

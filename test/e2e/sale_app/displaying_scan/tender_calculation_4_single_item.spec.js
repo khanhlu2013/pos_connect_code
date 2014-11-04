@@ -21,12 +21,15 @@ describe('sale_app/displaying_scan/tender_calculation_4_single_item', function()
         // browser.sleep(200);//wait for pouch to re-calculate ds_lst
     }
 /*
+    GroupA: is_taxable = false
+    GroupB: is_taxable = true
 
    case        taxable     override    regular_price   buydown     crv     mm_deal     mm_deal_include
 A   1           0           0           1               0           0       0           0
     2           0           0           1               1           1       0           0           
     3           0           0           1               1           1       1           0
     4           0           0           1               1           1       1           1
+        
 
     1           0           1           1               0           0       0           0
     2           0           1           1               1           1       0           0           
@@ -64,9 +67,9 @@ B   1           1           0           1               0           0       0   
         lib.api.insert_new(a1_sku,a1_name,price,null/*value_cust_price*/,a1_crv,a1_taxable,null/*sale_report*/,null/*p_type*/,null/*p_tag*/,null/*cost*/,null/*vendor*/,a1_buydown);
         lib.api.insert_new(a2_sku,a2_name,price,null/*value_cust_price*/,a2_crv,a2_taxable,null/*sale_report*/,null/*p_type*/,null/*p_tag*/,null/*cost*/,null/*vendor*/,a2_buydown);
         lib.api.insert_new(a3_sku,a3_name,price,null/*value_cust_price*/,a3_crv,a3_taxable,null/*sale_report*/,null/*p_type*/,null/*p_tag*/,null/*cost*/,null/*vendor*/,a3_buydown)
-        .then(function(sp){lib.api.insert_mm('a3 deal',a3_deal_price,a3_deal_is_include,a3_deal_qty,[sp])})
+        .then(function(sp){lib.api.insert_mm('a3 deal',a3_deal_price,a3_deal_is_include,a3_deal_qty,[sp],false)})
         lib.api.insert_new(a4_sku,a4_name,price,null/*value_cust_price*/,a4_crv,a4_taxable,null/*sale_report*/,null/*p_type*/,null/*p_tag*/,null/*cost*/,null/*vendor*/,a4_buydown)
-        .then(function(sp){lib.api.insert_mm('a4 deal',a4_deal_price,a4_deal_is_include,a4_deal_qty,[sp])})
+        .then(function(sp){lib.api.insert_mm('a4 deal',a4_deal_price,a4_deal_is_include,a4_deal_qty,[sp],false)})
 
         //FIXTURE GROUP B (NON TAX GROUP) -------------------------------------------------------------------------------------------------------------------
         var b1_sku='b1',b1_name='b1',b1_crv=null,b1_taxable=_1,b1_buydown=null;
@@ -80,9 +83,9 @@ B   1           1           0           1               0           0       0   
         lib.api.insert_new(b1_sku,b1_name,price,null/*value_cust_price*/,b1_crv,b1_taxable,null/*sale_report*/,null/*p_type*/,null/*p_tag*/,null/*cost*/,null/*vendor*/,b1_buydown);
         lib.api.insert_new(b2_sku,b2_name,price,null/*value_cust_price*/,b2_crv,b2_taxable,null/*sale_report*/,null/*p_type*/,null/*p_tag*/,null/*cost*/,null/*vendor*/,b2_buydown);
         lib.api.insert_new(b3_sku,b3_name,price,null/*value_cust_price*/,b3_crv,b3_taxable,null/*sale_report*/,null/*p_type*/,null/*p_tag*/,null/*cost*/,null/*vendor*/,b3_buydown)
-        .then(function(sp){lib.api.insert_mm('b3 deal',b3_deal_price,b3_deal_is_include,b3_deal_qty,[sp])})
+        .then(function(sp){lib.api.insert_mm('b3 deal',b3_deal_price,b3_deal_is_include,b3_deal_qty,[sp],false)})
         lib.api.insert_new(b4_sku,b4_name,price,null/*value_cust_price*/,b4_crv,b4_taxable,null/*sale_report*/,null/*p_type*/,null/*p_tag*/,null/*cost*/,null/*vendor*/,b4_buydown)
-        .then(function(sp){lib.api.insert_mm('b4 deal',b4_deal_price,b4_deal_is_include,b4_deal_qty,[sp])})
+        .then(function(sp){lib.api.insert_mm('b4 deal',b4_deal_price,b4_deal_is_include,b4_deal_qty,[sp],false)})
 
         //LOAD SALE PAGE - SYNC OFFLINE DB--------------------------------------------------------------------------------------------------------------------
         Sale_page.visit();

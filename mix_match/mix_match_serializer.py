@@ -9,4 +9,4 @@ class Mix_match_serializer(serializers.ModelSerializer):
 
     class Meta:
         model = Mix_match
-        fields = ('id','name','mm_price','is_include_crv_tax','qty','sp_lst')
+        fields = ('id','name','mm_price','is_include_crv_tax','qty','sp_lst','is_disable')

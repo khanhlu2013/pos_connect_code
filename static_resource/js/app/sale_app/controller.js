@@ -360,6 +360,22 @@ define(
                 }
             )
         }
+        $scope.get_abbreviate_cur_deal = function(ds){
+            var result = "";
+            if(ds.mm_deal_info !==null){
+                result = '(' + ds.mm_deal_info.mm_deal.qty + '$' + ds.mm_deal_info.mm_deal.mm_price + ')';
+            }
+            return result;
+        }
+        $scope.get_abbreviate_suggest_deal_lst = function(ds){
+            var result = "";
+            if(ds.mm_deal_info ===null &&ds.possible_deal_lst.length !== 0){
+                for(var i = 0;i<ds.possible_deal_lst.length;i++){
+                    result += '(' + ds.possible_deal_lst[i].qty + '$' + ds.possible_deal_lst[i].mm_price + ')';
+                }
+            }
+            return result;
+        }
 
         //init code
         $scope.sku_search_str = "";

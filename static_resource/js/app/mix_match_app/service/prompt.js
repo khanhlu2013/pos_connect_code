@@ -83,6 +83,14 @@ define(
                                 '<label ng-show="form.is_include_crv_tax.$error.required" class="error">required</label>' +
                             '</div>' +
                         '</div>' +
+
+                        '<div class="form-group">' +
+                            '<label class="col-sm-4">disable</label>' +
+                            '<div class="col-sm-8">' +
+                                '<input id="mix_match_app/service/prompt/is_disable_check" ng-model="$parent.mm.is_disable" type="checkbox">' +
+                                '<label ng-show="form.is_disable.$error.required" class="error">required</label>' +
+                            '</div>' +
+                        '</div>' +                        
                     '</form>' +
 
                     '<button id="mix_match_app/service/prompt/add_sp_btn" ng-click="add_product()" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> product</button>' +
@@ -110,7 +118,7 @@ define(
                 $scope.original_mm = original_mm;
                 $scope.mm = angular.copy(original_mm);
                 $scope.integer_validation = /^\d*$/;
-                initial_mm = {is_include_crv_tax:false,sp_lst:[]};
+                initial_mm = {is_include_crv_tax:false,is_disable:false,sp_lst:[]};
 
                 if($scope.mm == null){
                     $scope.mm = angular.copy(initial_mm);

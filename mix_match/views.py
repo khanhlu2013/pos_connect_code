@@ -38,6 +38,7 @@ def mix_match_update_angular_view(request):
     parent.qty = mm['qty']
     parent.mm_price = mm['mm_price']
     parent.is_include_crv_tax = mm['is_include_crv_tax']
+    parent.is_disable = mm['is_disable']
     parent.save()
 
     #update child
@@ -62,9 +63,15 @@ def mix_match_insert_angular_view(request):
     sp_lst = Store_product.objects.filter(store_id=cur_login_store.id,product_id__in=[ child['product_id'] for child in mix_match['sp_lst']])
     if len(sp_lst) != len(mix_match['sp_lst']):
         return
-
     #create 
-    parent = Mix_match.objects.create(store_id=cur_login_store.id,name=mix_match['name'],qty=mix_match['qty'],mm_price=mix_match['mm_price'],is_include_crv_tax=mix_match['is_include_crv_tax'])
+    parent = Mix_match.objects.create(
+         store_id = cur_login_store.id
+        ,name = mix_match['name']
+        ,qty = mix_match['qty']
+        ,mm_price = mix_match['mm_price']
+        ,is_include_crv_tax = mix_match['is_include_crv_tax']
+        ,is_disable = mix_match['is_disable']
+    )
     parent.sp_lst.add(*sp_lst)
 
     #response

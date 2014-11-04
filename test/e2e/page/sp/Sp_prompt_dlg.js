@@ -27,6 +27,7 @@ var Sp_prompt_dlg = function () {
     this.is_sale_report_check = element(by.id('sp_app/service/prompt/is_sale_report_check'));
 
     //btn
+    this.duplicate_from_btn = element(by.id('sp_app/service/prompt/duplicate_from_btn'));
     this.ok_btn = element(by.id('sp_app/service/prompt/ok_btn'));
     this.cancel_btn = element(by.id('sp_app/service/prompt/cancel_btn'));
 
@@ -66,6 +67,7 @@ var Sp_prompt_dlg = function () {
     //button function
     this.ok = function(){ lib.click(this.ok_btn); }
     this.cancel = function(){ lib.click(this.cancel_btn); }
+    this.duplicate_from = function(){ lib.click(this.duplicate_from_btn); }
 }
 
 module.exports = new Sp_prompt_dlg();

@@ -1,7 +1,7 @@
 var base_path = './../';
 var lib = require(base_path + 'lib');
 
-describe('mix match app', function() {
+describe('mix match manage in sp_page', function() {
     var Ui_confirm_dlg = require(base_path + 'page/ui/Confirm_dlg.js');
     var Mm_prompt_dlg = require(base_path + 'page/mix_match/Prompt_dlg.js');
     var Mm_manage_dlg = require(base_path + 'page/mix_match/Manage_dlg.js');
@@ -45,7 +45,7 @@ describe('mix match app', function() {
         expect(Mm_prompt_dlg.get_col(0,'product')).toEqual(name_1);
         expect(Mm_prompt_dlg.get_col(1,'product')).toEqual(name_2);
         Mm_prompt_dlg.ok();
-        Mm_manage_dlg.exit();
+        Mm_manage_dlg.exit();//FAIL_HERE:element is not clickable
 
         //lets comeback and verify the creation info
         Sp_page.menu_setting_mix_match();   

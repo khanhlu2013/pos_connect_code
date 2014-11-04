@@ -27,7 +27,7 @@ describe('sale page\'s Sale_able_info_dlg', function() {
         var _3_deal_name = "3 items deal";var _3_deal_price = 4; var _3_deal_is_include = false; _3_deal_qty = 3;
         lib.api.insert_new(sku_2,product_name_2,price_2)
         .then(function(sp){
-            lib.api.insert_mm(_3_deal_name,_3_deal_price,_3_deal_is_include,_3_deal_qty,[sp]);
+            lib.api.insert_mm(_3_deal_name,_3_deal_price,_3_deal_is_include,_3_deal_qty,[sp],false);
         })
 
         //deal_crv_buydown_buydonwtax <-> 0_1_0_0

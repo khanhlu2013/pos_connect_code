@@ -59,6 +59,7 @@ define(
             ,mm_deal_info
             ,non_inventory
             ,date
+            ,possible_deal_lst
         ){
             this.store_product = store_product;
             this.qty = qty;
@@ -67,6 +68,7 @@ define(
             this.mm_deal_info = mm_deal_info;
             this.non_inventory = non_inventory;
             this.date = date;
+            this.possible_deal_lst = possible_deal_lst;
         }
         Displaying_scan.prototype = {
              constructor:Displaying_scan

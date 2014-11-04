@@ -8,6 +8,7 @@ var Prompt_dlg = function () {
     this.qty_txt = element(by.id('mix_match_app/service/prompt/qty_txt'));
     this.price_txt = element(by.id('mix_match_app/service/prompt/price_txt'));
     this.is_include_crv_tax_check = element(by.id('mix_match_app/service/prompt/is_include_crv_tax_check'));
+    this.is_disable_check = element(by.id('mix_match_app/service/prompt/is_disable_check'));
 
     //btn 
     this.ok_btn = element(by.id('mix_match_app/service/prompt/ok_btn'));
@@ -26,10 +27,14 @@ var Prompt_dlg = function () {
     this.set_name = function(val){ this.name_txt.clear(); this.name_txt.sendKeys(val); }
     this.set_qty = function(val){ this.qty_txt.clear(); this.qty_txt.sendKeys(val); }
     this.set_price = function(val){ this.price_txt.clear(); this.price_txt.sendKeys(val); }
-    this.set_is_include_crv_tax = function(is_include){
+    this.set_is_include_crv_tax = function(set_val){
         var is_include_crv_tax_check = this.is_include_crv_tax_check;
-        is_include_crv_tax_check.isSelected().then( function(val){ if(is_include !== val){ lib.click(is_include_crv_tax_check); } } );
+        is_include_crv_tax_check.isSelected().then( function(val){ if(set_val !== val){ lib.click(is_include_crv_tax_check); } } );
     }
+    this.set_is_disable = function(set_val){
+        var is_disable_check = this.is_disable_check;
+        is_disable_check.isSelected().then( function(val){ if(set_val !== val){ lib.click(is_disable_check); } } );
+    }    
     this.get_name = function(){ return this.name_txt.getAttribute('value'); }
     this.get_qty = function(){ return this.qty_txt.getAttribute('value'); }
     this.get_price = function(){ return this.price_txt.getAttribute('value'); }

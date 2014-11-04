@@ -37,14 +37,15 @@ module.exports = {
         }
     },
     api:{
-        insert_mm : function(name,price,is_include,qty,sp_lst){
+        insert_mm : function(name,price,is_include,qty,sp_lst,is_disable){
             var mm = 
             {
-                name:name,
-                mm_price:price,
-                is_include_crv_tax:is_include,
-                qty:qty,
-                sp_lst:sp_lst
+                 name:name
+                ,mm_price:price
+                ,is_include_crv_tax:is_include
+                ,qty:qty
+                ,sp_lst:sp_lst
+                ,is_disable:is_disable
             };     
             var data = { mm : mm };
             return browser.executeAsyncScript(function(data,callback) {

@@ -31,7 +31,7 @@ var Sale_page = function () {
     this.menu_setting_shortcut = function(){lib.click(this.menu_setting);lib.click(element(by.id('sale_app/menu/setting/shortcut')));}
     this.menu_action_hold = function(){lib.click(this.menu_action);lib.click(element(by.id('sale_app/menu/action/hold')));}
     this.menu_action_get_hold = function(){lib.click(this.menu_action);lib.click(element(by.id('sale_app/menu/action/get_hold')));}
-
+    this.menu_setting_mix_match = function(){ lib.click(this.menu_setting); lib.click(element(by.id('sale_app/menu/setting/mix_match'))); }
 
     //function btn
     this.void = function(){ lib.click(this.void_btn) }
@@ -49,9 +49,18 @@ var Sale_page = function () {
         else if(col_name === 'delete')  { return 3; }
         else                            { return null; }
     }
-    this.click_col = function(index,col_name){ var col = this.get_col_index(col_name); lib.click(this.lst.get(index).all(by.tagName('td')).get(col)); }
-    this.get_col = function(index,col_name){ var col = this.get_col_index(col_name); return this.lst.get(index).all(by.tagName('td')).get(col).getText(); }
-    
+    this.click_col = function(index,col_name){
+        var col = this.get_col_index(col_name);
+        lib.click(this.lst.get(index).all(by.tagName('td')).get(col)); 
+    }
+    this.get_col = function(index,col_name){
+        var col = this.get_col_index(col_name); 
+        return this.lst.get(index).all(by.tagName('td')).get(col).getText(); 
+    }
+    this.get_col_html = function(index,col_name){
+        var col = this.get_col_index(col_name); 
+        return this.lst.get(index).all(by.tagName('td')).get(col).getWebElement().getInnerHtml();      
+    }
     //function misc
     this.visit = function(is_offline){
         var posUrl

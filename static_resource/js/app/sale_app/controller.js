@@ -144,6 +144,12 @@ define(
             allowIn: ['INPUT'],
             callback: function() {$scope.finalize();}
         })
+        .add({
+            combo: 'ctrl+n',
+            description: 'none inventory',
+            allowIn: ['INPUT'],
+            callback: function() {$scope.non_inventory_handler();}
+        })
 
         function get_ds_index(ds){
             var index = -1;
@@ -167,8 +173,10 @@ define(
                 }
             )
         }
-        $scope.toogle_value_customer_price = function(){toogle_value_customer_price($scope.ds_lst);}
-        $scope.non_inventory = function(){
+        $scope.toogle_value_customer_price = function(){
+            toogle_value_customer_price($scope.ds_lst);
+        }
+        $scope.non_inventory_handler = function(){
             non_inventory_prompt_service(null/*original_non_inventory*/).then(
                 function(non_inventory){
                     append_pending_scan.by_doc_id(null/*sp_doc_id*/,1/*qty*/,non_inventory,null/*override price*/);
@@ -288,8 +296,11 @@ define(
         $scope.exe_shortcut_child = function(row,col){
             var child_shortcut = shortcut_ui.get_child_of_cur_parent(row,col,$scope);
             if(child_shortcut == null){ return; }
-            
-            append_pending_scan.by_product_id(child_shortcut.store_product.product_id,1/*qty*/,null/*non_inventory*/,null/*override_price*/);
+            if(child_shortcut.store_product === null){
+                $scope.non_inventory_handler();
+            }else{
+                append_pending_scan.by_product_id(child_shortcut.store_product.product_id,1/*qty*/,null/*non_inventory*/,null/*override_price*/);
+            }
         }
         function _get_distinct_sp_from_ds_lst(ds_lst){
             var sp_lst = [];

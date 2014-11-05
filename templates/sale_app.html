@@ -50,7 +50,7 @@
                         </button>    
                         <button 
                             id="sale_app/main_page/non_inventory_btn" 
-                            ng-click="non_inventory()" 
+                            ng-click="non_inventory_handler()" 
                             type="button" 
                             class="btn btn-primary navbar-btn">none inv
                         </button>                           
@@ -103,6 +103,7 @@
                             <li id='push_receipt_menu'><a href='#'>push receipt</a></li>
                             <li id='sale_app/menu/action/hold' ng-click="hold()"><a href='#'>hold - ctrl+h</a></li>
                             <li id='sale_app/menu/action/get_hold' ng-click="get_hold_ui()"><a href='#'>get hold - ctrl+g</a></li>  
+                            <li id='sale_app/menu/action/non_inventory' ng-click="non_inventory_handler()"><a href='#'>none inventory - ctrl+n</a></li>  
                             <li id='sale_app/menu/action/toogle_value_customer_price' ng-click="toogle_value_customer_price()"><a href='#'>toogle value customer price - F2</a></li>                 
                         </ul>
                     </li>                    
@@ -163,8 +164,8 @@
         window._RECEIPT_DOCUMENT_TYPE_      = "{{RECEIPT_DOCUMENT_TYPE}}";
     </script>
 
-    <!-- // <script data-main = "{{ STATIC_URL }}js/sale_main.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script> -->
-    <script data-main = "{{ STATIC_URL }}sale.min.6.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script>
+    <script data-main = "{{ STATIC_URL }}js/sale_main.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script>
+    <!-- // <script data-main = "{{ STATIC_URL }}sale.min.6.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script> -->
 
 </body>
 </html>

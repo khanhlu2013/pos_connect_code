@@ -3,6 +3,8 @@ var lib = require(base_path + 'lib');
 
 var Non_inventory_prompt_dlg = function () {
 
+    this.self = element(by.id('sp_app/service/non_inventory_prompt/self'));
+
     //text box
     this.name_txt = element(by.id('sp_app/service/non_inventory_prompt/name_txt'));
     this.price_txt = element(by.id('sp_app/service/non_inventory_prompt/price_txt'));

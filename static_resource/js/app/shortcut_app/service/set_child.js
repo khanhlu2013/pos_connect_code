@@ -27,16 +27,18 @@ define(
             var defer = $q.defer();
     		prompt_child_service(child)
     		.then(
-    			function(data){
+    			function(prompt_data){
+                    var post_data = 
+                    {
+                        parent_position:parent_pos,
+                        child_position:child_pos,
+                        child_caption:prompt_data.caption,
+                        product_id:(prompt_data.store_product === null ? null : prompt_data.store_product.product_id)
+                    };
     				$http({
     					url:'/sale_shortcut/set_child_info',
     					method:'POST',
-    					data:{
-    						parent_position:parent_pos,
-    						child_position:child_pos,
-    						child_caption:data.caption,
-    						product_id:data.store_product.product_id
-    					}
+    					data:{post_data:JSON.stringify(post_data)}
     				})
     				.then(
     					function(data){

@@ -43,9 +43,10 @@ define(
     					'<div class="form-group">' +
 	    					'<label class="col-sm-4 control-label">product</label>' +
 	    					'<div class="col-sm-8">' +
-	    						'<input id="shortcut_app/service/prompt/sp_txt" ng-model="$parent.child.store_product.name" disabled name="product" type="text" required>' +
-	    						'<label ng-show="form.product.$error.required" class="error">require</label>' +
-	    						'<button id="shortcut_app/service/prompt/sp_btn" ng-click=select_sp() class="btn btn-primary glyphicon glyphicon-plus" type="button"></button>' +
+	    						'<input id="shortcut_app/service/prompt/sp_txt" ng-model="$parent.child.store_product.name" disabled name="product" type="text">' +
+                                '<button id="shortcut_app/service/prompt/sp_btn" ng-click=select_sp() class="btn btn-primary glyphicon glyphicon-plus" type="button"></button>' +
+                                '<button ng-hide="$parent.child.store_product === null" id="shortcut_app/service/prompt/remove_sp_btn" ng-click="$parent.child.store_product=null" class="btn btn-danger glyphicon glyphicon-trash" type="button"></button>' +
+                                '<label id="shortcut_app/service/prompt/non_inventory_warning_lbl" ng-show="$parent.child.store_product === null"> you are setting up none inventory shortcut</label>' +
 	    					'</div>' +    					
     					'</div>' +
  					'</form>' +
@@ -60,8 +61,8 @@ define(
     		var ModalCtrl = function($scope,$modalInstance,original_child){
     			$scope.original_child = original_child;
     			$scope.child = null;
-    			var initial_child = {};
-				if(original_child == null){
+    			var initial_child = {store_product:null};
+				if(original_child === null){
 					$scope.child = angular.copy(initial_child);
 				}else{
 					$scope.child = angular.copy(original_child);

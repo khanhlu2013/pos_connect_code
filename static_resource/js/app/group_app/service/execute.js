@@ -5,6 +5,7 @@ define(
     ,'app/group_app/service/api'
     ,'service/ui'
     ,'app/group_app/model'    
+    ,'service/db'
 ]
 ,function
 (
@@ -16,6 +17,7 @@ define(
          'group_app/service/api'
         ,'service/ui'
         ,'group_app/model'
+        ,'service/db'
     ]);
 
     mod.factory('group_app/service/execute',
@@ -24,11 +26,13 @@ define(
         ,'group_app/service/api'
         ,'service/ui/alert'
         ,'group_app/model/Group'
+        ,'service/db/sync_if_nessesary'
     ,function(
          $modal
         ,group_api
         ,alert_service
         ,Group
+        ,sync_if_nessesary
     ){
         return function(group_id){
 
@@ -237,20 +241,27 @@ define(
                         ,url:'/group/execute'
                         ,data:{group_id:group.id,option:JSON.stringify($scope.option)}
                     }).then(
-                        function(data){
-                            $scope.group = Group.build(data.data);
-                            alert_service('execute is complete successfully','info','green');
-                            $scope.option = {};
-                            $scope.enable_price = false;
-                            $scope.enable_crv = false;
-                            $scope.enable_is_taxable = false;
-                            $scope.enable_cost = false;
-                            $scope.enable_is_sale_report = false;
-                            $scope.enable_p_tag = false;
-                            $scope.enable_p_tag = false;
-                            $scope.enable_vendor = false;
-                            $scope.enable_buydown = false;
-                            $scope.enable_value_customer_price = false;
+                        function(group_response_data){
+                            sync_if_nessesary().then(
+                                function(){
+                                    $scope.group = Group.build(group_response_data.data);
+                                    alert_service('execute is complete successfully','info','green');
+                                    $scope.option = {};
+                                    $scope.enable_price = false;
+                                    $scope.enable_crv = false;
+                                    $scope.enable_is_taxable = false;
+                                    $scope.enable_cost = false;
+                                    $scope.enable_is_sale_report = false;
+                                    $scope.enable_p_tag = false;
+                                    $scope.enable_p_tag = false;
+                                    $scope.enable_vendor = false;
+                                    $scope.enable_buydown = false;
+                                    $scope.enable_value_customer_price = false;
+                                }
+                                ,function(reason){
+                                    alert_service(reason);
+                                }
+                            )
                         }
                         ,function(reason){
                             alert_service(reason);

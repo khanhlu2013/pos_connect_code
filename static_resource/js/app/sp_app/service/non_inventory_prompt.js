@@ -68,7 +68,7 @@ define(
             ;                                                          
             var template =
                 '<form name="form" novalidate role="form">' +
-                    '<div class="modal-header"><h3>none inventory {{get_otd_price()|currency}}</h3></div>'+
+                    '<div id="sp_app/service/non_inventory_prompt/self" class="modal-header"><h3>none inventory {{get_otd_price()|currency}}</h3></div>'+
                     '<div class="modal-body">' +
                         '<div class="form-horizontal" >' +
                             template_name +

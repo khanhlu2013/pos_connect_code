@@ -32,7 +32,6 @@ def create_parent_angular_view(request):
 
     parent = Parent.objects.create(store=cur_login_store,position=position,caption=caption)
     parent_serialized = sale_shortcut_serializer.Parent_serializer(parent).data
-    print(parent_serialized)
     return HttpResponse(json.dumps(parent_serialized,cls=DjangoJSONEncoder),content_type="application/json")
 
 
@@ -68,18 +67,21 @@ def set_parent_name_view(request):
 
 
 def set_child_info_view(request):
-    parent_position = request.POST['parent_position']
-    child_position = request.POST['child_position']
-    child_caption = request.POST['child_caption']
-    product_id = request.POST['product_id']
+    post_data = json.loads(request.POST['post_data'])
+    parent_position = post_data['parent_position']
+    child_position = post_data['child_position']
+    child_caption = post_data['child_caption']
+    product_id = post_data['product_id']
     cur_login_store = request.session.get('cur_login_store')
 
-    store_product = Store_product.objects.get(product_id=product_id,store_id=cur_login_store.id)
+    store_product = None
+    if product_id != None:
+        store_product = Store_product.objects.get(product_id=product_id,store_id=cur_login_store.id)
 
-    parent,created_p = Parent.objects.get_or_create(store_id=cur_login_store.id,position=parent_position)
-    child,created_c = Child.objects.get_or_create(parent_id=parent.id,position=child_position,defaults={'store_product_id':store_product.id,'caption':child_caption})
+    parent,is_create_parent = Parent.objects.get_or_create(store_id=cur_login_store.id,position=parent_position)
+    child,is_create_child = Child.objects.get_or_create(parent_id=parent.id,position=child_position,defaults={'store_product':store_product,'caption':child_caption})
     
-    if not created_c:
+    if not is_create_child:
         child.caption = child_caption
         child.store_product = store_product
         child.save()

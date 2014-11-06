@@ -1,7 +1,7 @@
 ({
      baseUrl: './js'
     ,name: "sale_main"
-    ,out: "sale.min.6.js"
+    ,out: "sale.min.7.js"
     ,paths: {
          app : 'app'
         ,lib : 'lib'

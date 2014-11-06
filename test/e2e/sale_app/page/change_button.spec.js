@@ -32,7 +32,6 @@ describe('sale page', function() {
 
         //change button disapear
         Sale_page.scan(sku_1);
-        lib.wait_for_block_ui();
         expect(Sale_page.change_btn.isDisplayed()).toEqual(false);
 
         //clean up

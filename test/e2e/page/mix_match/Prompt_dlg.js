@@ -20,7 +20,9 @@ var Prompt_dlg = function () {
 
     //function btn
     this.add = function(){ lib.click(this.add_btn); }
-    this.ok = function(){ lib.click(this.ok_btn); }
+    this.ok = function(){ 
+        lib.click(this.ok_btn); 
+    }
     this.cancel = function(){ lib.click(this.cancel_btn); }
 
     //function txt

@@ -82,11 +82,11 @@
                     <li class="dropdown">
                         <a id="sale_app/menu/setting" href="#" class="dropdown-toggle" data-toggle="dropdown">setting <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li id="sale_app/menu/setting/tax" ng-click="menu_tax_edit()"><a href='#'>tax_</a></li>
-                            <li id="sale_app/menu/setting/group" ng-click="menu_group_manage()"><a href='#'>group</a></li>                 
-                            <li id="sale_app/menu/setting/shortcut" ng-click="menu_shortcut_manage()"><a href='#'>shortcut</a></li>
-                            <li id="sale_app/menu/setting/mix_match" ng-click="menu_mix_match_manage()"><a href='#'>mix match</a></li>
-                            <li id="sale_app/menu/setting/payment_type" ng-click="menu_payment_type_manage()"><a href='#'>payment type</a></li>
+                            <li id="sale_app/menu/setting/tax" ng-click="menu_setting_tax()"><a href='#'>tax_</a></li>
+                            <li id="sale_app/menu/setting/group" ng-click="menu_setting_group_in_sale_page()"><a href='#'>group</a></li>                 
+                            <li id="sale_app/menu/setting/shortcut" ng-click="menu_setting_shortcut()"><a href='#'>shortcut</a></li>
+                            <li id="sale_app/menu/setting/mix_match" ng-click="menu_setting_mix_match()"><a href='#'>mix match</a></li>
+                            <li id="sale_app/menu/setting/payment_type" ng-click="menu_setting_payment_type()"><a href='#'>payment type</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -94,13 +94,13 @@
                         <ul class="dropdown-menu">
                             <li id='sale_app/menu/report/sale' ng-click="menu_report_sale()"><a href='#'>sale report</a></li>
                             <li class="divider"></li>
-                            <li id="sale_app/menu/report/receipt" ng-click="menu_receipt_report()"><a href='#'>receipt</a></li>
+                            <li id="sale_app/menu/report/receipt" ng-click="menu_report_receipt()"><a href='#'>receipt</a></li>
                         </ul>
                     </li>   
                     <li class="dropdown">
                         <a id="sale_app/menu/action" href="#" class="dropdown-toggle" data-toggle="dropdown">action <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li id='push_receipt_menu'><a href='#'>push receipt</a></li>
+                            <li id='sale_app/menu/action/push_receipt' ng-click="menu_action_push_receipt()"><a href='#'>push receipt</a></li>
                             <li id='sale_app/menu/action/hold' ng-click="hold()"><a href='#'>hold - ctrl+h</a></li>
                             <li id='sale_app/menu/action/get_hold' ng-click="get_hold_ui()"><a href='#'>get hold - ctrl+g</a></li>  
                             <li id='sale_app/menu/action/non_inventory' ng-click="non_inventory_handler()"><a href='#'>none inventory - ctrl+n</a></li>  

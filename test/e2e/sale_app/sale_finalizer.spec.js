@@ -112,12 +112,12 @@ describe('sale_app', function() {
         )            
 
         //finalize sale
-        expect(Sale_page.lst.count()).toEqual(5);  
-        expect(Sale_page.tender_btn.getText()).toEqual('$16.68');
+        expect(Sale_page.lst.count()).toEqual(6);  
+        expect(Sale_page.tender_btn.getText()).toEqual('$16.68');//FAIL_HERE: wrong expectation '$15.08'
         Sale_page.tender();
 
         browser.wait(function(){
-            return pt_lst_from_server !== null;//when it is true, quit waiting
+            return pt_lst_from_server !== null;
         }).then(
             function(){
                 Tender_dlg.cash_txt.sendKeys('10');

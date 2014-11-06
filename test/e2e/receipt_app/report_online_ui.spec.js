@@ -355,7 +355,6 @@ describe('receipt_app\'s Report dialog', function() {
 
         //verify payment type
         Report_dlg.online.receipt.click_col(0,'info');
-        browser.sleep(3000);
         browser.wait(function(){
             return pt_lst_from_server !== null;//when it is true, quit waiting
         }).then(

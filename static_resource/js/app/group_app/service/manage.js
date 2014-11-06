@@ -52,7 +52,7 @@ define(
                     '<table ng-hide="group_lst.length == 0" class="table table-hover table-bordered table-condensed table-striped">' +
                         '<tr>' + 
                             '<th>group</th>' +
-                            '<th>action</th>' +                            
+                            '<th>execute</th>' +                            
                             '<th>delete</th>' +                            
                             '<th>edit</th>' +
                         '</tr>' +
@@ -144,7 +144,8 @@ define(
                 resolve:{
                     group_lst: function(){return api.get_lst();}
                 }
-            })
+            });
+            return dlg.result;
         }
     }]);
 })

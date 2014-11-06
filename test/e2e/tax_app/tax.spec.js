@@ -11,11 +11,6 @@ describe('tax app', function() {
         lib.auth.logout();
     })
 
-    afterEach(function () {
-        browser.executeScript('window.sessionStorage.clear();');
-        browser.executeScript('window.localStorage.clear();');
-    });
-
     it('can edit tax',function(){
         lib.auth.login('1','1');
         Sp_page.menu_setting_tax();

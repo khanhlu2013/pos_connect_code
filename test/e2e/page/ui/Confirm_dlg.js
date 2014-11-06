@@ -14,8 +14,8 @@ var Confirm_dlg = function () {
     this.cancel_btn = element(by.id('service/ui/confirm/cancel_btn')); 
 
     //function button
-    this.ok = function(is_wait_for_block_ui){ lib.click(this.ok_btn); }
-    this.cancel = function(is_wait_for_block_ui){ lib.click(this.cancel_btn); }
+    this.ok = function(){ lib.click(this.ok_btn); }
+    this.cancel = function(){ lib.click(this.cancel_btn); }
 }
 
 module.exports = new Confirm_dlg();

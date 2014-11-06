@@ -9,8 +9,8 @@ define(
     ,'directive/share_directive'    
     ,'service/ui'
     ,'app/sp_app/service/api/search'
-    // ,'blockUI'
     ,'service/db'
+    ,'app/group_app/service/manage'
 ], function 
 (
      angular
@@ -26,8 +26,8 @@ define(
         ,'directive/share_directive'
         ,'service/ui'
         ,'sp_app/service/api/search'
-        // ,'blockUI'
         ,'service/db'
+        ,'group_app/service/manage'
     ]);
 
     mod.controller('MainCtrl',
@@ -44,6 +44,7 @@ define(
         ,'sp_app/service/api/search'
         ,'blockUI'
         ,'service/db/is_pouch_exist'
+        ,'group_app/service/manage'
     ,function(
          $window
         ,$scope
@@ -57,6 +58,7 @@ define(
         ,search_api
         ,blockUI
         ,is_pouch_exist
+        ,manage_group_service
     ){
         //SORT
         $scope.cur_sort_column = 'name';
@@ -108,7 +110,20 @@ define(
             )
         }
         //NAME SEARCH
-        $scope.name_search = function(){
+        $scope.name_search = function(search_by){
+            /*
+                EXPLAIN is_programmatically_call
+
+                    There are 2 way the user can call this method: either enter on the search box, or scroll down to the end. 
+                        . if we scroll down in the search box, name search str will be the same and thus we going to get the next page
+                        . if we hit enter in the search box, with a same name, we will also go to the next page. (WE NEED TO FIX THIS BY DOING NOTHING)
+
+                    There is 1 way the code will call this method: after group execution, the code will call this method with the same name (if we are currently search by name)
+                        . in this case we want to reset the whole thing to refresh all data.
+
+
+            */
+            
             if($scope.name_search_busy === true){
                 return;
             }
@@ -123,20 +138,35 @@ define(
             }
             var after = null;
             if($scope.old_name_search_str === null){
+                //first time search, we will init the search
                 after = 0;
                 $scope.sp_lst = [];
                 $scope.old_name_search_str = $scope.name_search_str;
                 $scope.name_search_reach_the_end = false;
-            }else{
+            }else{//this is not the first time search
                 if($scope.old_name_search_str !== $scope.name_search_str){
+                    //if search str is different than previous search, we will init the search
                     after = 0;
                     $scope.sp_lst = [];
                     $scope.old_name_search_str = $scope.name_search_str;
                     $scope.name_search_reach_the_end = false;
-                }else if($scope.name_search_reach_the_end){
-                    return;
                 }else{
-                    after = $scope.sp_lst.length;
+                    //the search str is the same
+                    if(search_by === 'user'){
+                        return;
+                    }else if(search_by === 'infinite_scroll'){
+                        if($scope.name_search_reach_the_end){
+                            return;
+                        }else{
+                            after = $scope.sp_lst.length;
+                        }                        
+                    }else if(search_by === 'code'){
+                        //if search str is different than previous search, we will init the search
+                        after = 0;
+                        $scope.sp_lst = [];
+                        $scope.old_name_search_str = $scope.name_search_str;
+                        $scope.name_search_reach_the_end = false;                        
+                    }
                 }
             }
             $scope.name_search_busy = true;
@@ -204,6 +234,21 @@ define(
                 }
             )
         }
+        $scope.menu_setting_group_in_sp_page = function(){
+            manage_group_service().then(
+                function(){
+                    if($scope.name_search_str.length !== 0){
+                        $scope.name_search('code');
+                    }else if($scope.sku_search_str.length !== 0){
+                        $scope.sku_search();
+                    }
+                }
+                ,function(reason){
+                    alert_service(reason);
+                }
+            );
+        }
+
         $scope.name_search_reach_the_end = false;
         $scope.name_search_str = '';
         $scope.is_blur_name_search_text_box = false;

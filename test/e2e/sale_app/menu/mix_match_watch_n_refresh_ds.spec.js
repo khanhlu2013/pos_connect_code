@@ -43,14 +43,12 @@ describe('sale page', function() {
         
         //qty
         Sale_page.scan('4 ' + product_sku);
-        lib.wait_for_block_ui();
         expect(Sale_page.lst.count()).toEqual(2);
         Sale_page.menu_setting_mix_match();
         Mm_manage_dlg.click_col(0,'edit');
         Mm_prompt_dlg.set_qty(4);
         Mm_prompt_dlg.ok();
         Mm_manage_dlg.exit();
-        lib.wait_for_block_ui();
         expect(Sale_page.lst.count()).toEqual(1);        
         expect(Sale_page.tender_btn.getText()).toEqual('$4.80');
 
@@ -61,7 +59,6 @@ describe('sale page', function() {
         Mm_prompt_dlg.set_price(_3_deal_price_new);
         Mm_prompt_dlg.ok();
         Mm_manage_dlg.exit();
-        lib.wait_for_block_ui();
         expect(Sale_page.tender_btn.getText()).toEqual('$5.40');
 
         //is_include_crv_tax
@@ -70,7 +67,6 @@ describe('sale page', function() {
         Mm_prompt_dlg.set_is_include_crv_tax(true);
         Mm_prompt_dlg.ok();
         Mm_manage_dlg.exit();
-        lib.wait_for_block_ui();
         expect(Sale_page.tender_btn.getText()).toEqual(lib.currency(_3_deal_price_new));
 
         //is_disable
@@ -79,7 +75,6 @@ describe('sale page', function() {
         Mm_prompt_dlg.set_is_disable(true);
         Mm_prompt_dlg.ok();
         Mm_manage_dlg.exit();
-        lib.wait_for_block_ui();
         expect(Sale_page.tender_btn.getText()).toEqual('$8.00');
 
         //clean up

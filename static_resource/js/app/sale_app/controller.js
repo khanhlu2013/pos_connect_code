@@ -24,6 +24,7 @@ define(
     ,'app/sale_app/service/displaying_scan/calculate_ds_lst'
     ,'service/misc'
     ,'app/sp_app/service/non_inventory_prompt'
+    ,'app/group_app/service/manage'
 ], function
 (
      angular
@@ -57,6 +58,7 @@ define(
         ,'sale_app/service/displaying_scan/calculate_ds_lst'
         ,'service/misc'
         ,'sp_app/service/non_inventory_prompt'
+        ,'group_app/service/manage'
     ]);
     mod.controller('Sale_page_ctrl', 
     [
@@ -89,6 +91,7 @@ define(
         ,'sale_app/service/displaying_scan/calculate_ds_lst'
         ,'service/misc'
         ,'sp_app/service/non_inventory_prompt'
+        ,'group_app/service/manage'
     ,function(
          $scope
         ,$rootScope
@@ -119,6 +122,7 @@ define(
         ,calculate_ds_lst
         ,misc_service
         ,non_inventory_prompt_service
+        ,manage_group_service
     ){
 
         hotkeys.bindTo($scope)
@@ -315,11 +319,16 @@ define(
             }
             return sp_lst;
         }
-        $scope.refresh_ds = function(){
+        $scope.refresh_ds = function(is_optimize_aka_use_sp_from_cur_ds_lst_without_re_search){
+            //is_optimize_aka_use_sp_from_cur_ds_lst_without_re_search if this param is true, we don't hit the local db to search for product
             blockUI.start('refresh page ...');
             console.log('refresh ds ...');
             var ps_lst = get_ps_lst();
-            calculate_ds_lst(ps_lst,_get_distinct_sp_from_ds_lst($scope.ds_lst)).then(
+            var optimize_distinct_sp = [];
+            if(is_optimize_aka_use_sp_from_cur_ds_lst_without_re_search){
+                optimize_distinct_sp = _get_distinct_sp_from_ds_lst($scope.ds_lst);
+            }
+            calculate_ds_lst(ps_lst,optimize_distinct_sp).then(
                  function(data){
                     $scope.ds_lst = data;
                     $scope.is_focus_sku_txt = true;
@@ -387,7 +396,16 @@ define(
             }
             return result;
         }
-
+        $scope.menu_setting_group_in_sale_page = function(){
+            manage_group_service().then(
+                function(){
+                    $scope.refresh_ds(false/*we do not optimize here*/);
+                }
+                ,function(reason){
+                    alert_service(reason);
+                }
+            )
+        }
         //init code
         $scope.sku_search_str = "";
         $scope.ds_lst = [];
@@ -399,13 +417,13 @@ define(
                     alert_service(message);
                 }
                 shortcut_ui.init($scope);  
-                $scope.refresh_ds();
+                $scope.refresh_ds(true/*we wish to optimize but it make no differece since this is the first time, cur ds_lst is empty anyway*/);
                 $scope.$watchGroup(
                     [
                          function(){return JSON.stringify(get_ps_lst());}//the reason i return a string representation of ps_lst is that get_ps_lst() always return a new created ps_lst which have a new identity all the time. This cause the watch to do infinite loop
                         ,function(){return $rootScope.GLOBAL_SETTING.mix_match_lst;}
                     ]
-                    ,function(newVal,oldVal,scope){$scope.refresh_ds();}
+                    ,function(newVal,oldVal,scope){$scope.refresh_ds(true);}
                 );
             }
             ,function(reason){ 

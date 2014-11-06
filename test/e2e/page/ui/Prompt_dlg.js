@@ -18,7 +18,10 @@ var Prompt_dlg = function () {
     this.get_prompt = function(){ return this.prompt_txt.getAttribute('value');}
 
     //function btn
-    this.ok = function(){ lib.click(this.ok_btn); }
+    this.ok = function(){ 
+        lib.click(this.ok_btn); 
+        lib.wait_for_block_ui();
+    }
     this.cancel = function(){ lib.click(this.cancel_btn); }
 }
 

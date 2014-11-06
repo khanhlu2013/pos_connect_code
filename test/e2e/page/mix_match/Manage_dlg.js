@@ -11,7 +11,10 @@ var Manage_dlg = function () {
 
     //function btn
     this.add = function(){ lib.click(this.add_btn); }
-    this.exit = function(){ lib.click(this.exit_btn); }
+    this.exit = function(){ 
+        lib.click(this.exit_btn); 
+        lib.wait_for_block_ui();//exit change global_setting for mm, which can cause ds_lst to refresh and blocking ui.
+    }
 
     //function table
     this.get_index = function(col_name){

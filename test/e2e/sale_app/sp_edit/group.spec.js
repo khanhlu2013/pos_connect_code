@@ -29,7 +29,7 @@ describe('sp_app/service/edit/group', function() {
         Sale_page.scan(sku);
 
         //add group to sp
-        Sale_page.click_col(0,'name'); //fail here xxx
+        Sale_page.click_col(0,'name');
         Sp_info_dlg.switch_tab('group');
         Sp_info_dlg.edit();
         Sp_group_dlg.add();

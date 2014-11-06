@@ -13,6 +13,15 @@ module.exports = {
                     ,function(reason){ callback(null); }
                 )
             },group_name)            
+        },
+        edit_group : function(group){
+            return browser.executeAsyncScript(function(group,callback) {
+                var api = angular.injector(['ng','service.csrf','group_app/service/api']).get('group_app/service/api');
+                api.edit_item(group,group.id).then(
+                     function(edited_group){ callback(edited_group); }
+                    ,function(reason){ callback(null); }
+                )
+            },group)              
         }
     },
     api_pt:{

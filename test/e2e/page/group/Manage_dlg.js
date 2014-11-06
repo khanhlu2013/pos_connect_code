@@ -17,7 +17,7 @@ var Manage_dlg = function () {
     //function table
     this.get_index = function(col_name){
         if(col_name ==='group'){ return 0; }
-        else if(col_name ==='action'){ return 1; }
+        else if(col_name ==='execute'){ return 1; }
         else if(col_name ==='remove'){ return 2; }
         else if(col_name ==='edit'){ return 3; }
     }

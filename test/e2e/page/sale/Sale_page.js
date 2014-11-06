@@ -26,6 +26,7 @@ var Sale_page = function () {
         lib.click(element(by.id('sale_app/menu/report/receipt')));
         lib.wait_for_block_ui();//when receipt dialog open it automatically get offline receipt to push and auto download 15 latest receipts. lets wait for it before we do anything else
     }
+    this.menu_setting_group = function(){lib.click(this.menu_setting);lib.click(element(by.id('sale_app/menu/setting/group')));}
     this.menu_setting_payment_type = function(){lib.click(this.menu_setting);lib.click(element(by.id('sale_app/menu/setting/payment_type')));}
     this.menu_setting_shortcut = function(){lib.click(this.menu_setting);lib.click(element(by.id('sale_app/menu/setting/shortcut')));}
     this.menu_action_hold = function(){lib.click(this.menu_action);lib.click(element(by.id('sale_app/menu/action/hold')));}
@@ -38,7 +39,11 @@ var Sale_page = function () {
     this.non_inventory = function(){ lib.click(this.non_inventory_btn); }
 
     //function txt
-    this.scan = function(str){ this.scan_txt.clear(); this.scan_txt.sendKeys(str,protractor.Key.ENTER); }
+    this.scan = function(str){
+        this.scan_txt.clear();
+        this.scan_txt.sendKeys(str,protractor.Key.ENTER); 
+        lib.wait_for_block_ui();
+    }
 
     //function table
     this.get_col_index = function(col_name){
@@ -49,8 +54,9 @@ var Sale_page = function () {
         else                            { return null; }
     }
     this.click_col = function(index,col_name){
+        lib.wait_for_block_ui();
         var col = this.get_col_index(col_name);
-        lib.click(this.lst.get(index).all(by.tagName('td')).get(col)); 
+        this.lst.get(index).all(by.tagName('td')).get(col).click();
     }
     this.get_col = function(index,col_name){
         var col = this.get_col_index(col_name); 
@@ -93,6 +99,7 @@ var Sale_page = function () {
     }
     this.click_child = function(position){
         lib.click(this._get_child_td(position));
+        lib.wait_for_block_ui();
     }
     this.get_child_text = function(position){
         return this._get_child_td(position).getText();

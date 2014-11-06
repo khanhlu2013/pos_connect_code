@@ -40,8 +40,8 @@ define(
                 '<div class="form-group">' +
                     '<label class="col-sm-5 control-label">Price:</label>' +   
                     '<div class="col-sm-7">' +
-                        '<input ng-click="checkbox_click(\'price\')" ng-model="$parent.enable_price" type="checkbox"></input>' +                
-                        '<input ng-disabled="!$parent.enable_price" ng-required="$parent.enable_price" ng-model="$parent.option.price" name="price" type="number" min="0.01">' +
+                        '<input id="group_app/service/execute/enable_price_check" ng-click="checkbox_click(\'price\')" ng-model="$parent.enable_price" type="checkbox"></input>' +                
+                        '<input id="group_app/service/execute/price_txt" ng-disabled="!$parent.enable_price" ng-required="$parent.enable_price" ng-model="$parent.option.price" name="price" type="number" min="0.01">' +
                         '<label ng-show="form.price.$error.required && !form.price.$error.number && !form.price.$error.min" class="error">required</label>' +                        
                         '<label ng-show="form.price.$error.number" class="error">invalid number</label>' +
                         '<label ng-show="form.price.$error.min" class="error">minimum error</label>' +
@@ -53,8 +53,8 @@ define(
                 '<div class="form-group">' +
                     '<label class="col-sm-5 control-label">Crv:</label>' +
                     '<div class="col-sm-7">' +
-                        '<input ng-click="checkbox_click(\'crv\')" ng-model="$parent.enable_crv" type="checkbox"></input>' +
-                        '<input ng-disabled="!$parent.enable_crv" ng-model="$parent.option.crv" name="crv" type="number" min="0.01">' +
+                        '<input id="group_app/service/execute/enable_crv_check" ng-click="checkbox_click(\'crv\')" ng-model="$parent.enable_crv" type="checkbox"></input>' +
+                        '<input id="group_app/service/execute/crv_txt" ng-disabled="!$parent.enable_crv" ng-model="$parent.option.crv" name="crv" type="number" min="0.01">' +
                         '<label ng-show="form.crv.$error.number" class="error">invalid number</label>' +
                         '<label ng-show="form.crv.$error.min" class="error">minimum error</label>' +
                     '</div>' +
@@ -65,8 +65,8 @@ define(
                 '<div class="form-group">' +
                     '<label class="col-sm-5 control-label">Tax:</label>' +
                     '<div class="col-sm-7">' +
-                        '<input ng-click="checkbox_click(\'is_taxable\')" ng-model="$parent.enable_is_taxable" type="checkbox"></input>' +
-                        '<input ng-disabled="!$parent.enable_is_taxable" ng-model="$parent.option.is_taxable" name="is_taxable" type="checkbox">' +
+                        '<input id="group_app/service/execute/enable_is_taxable_check" ng-click="checkbox_click(\'is_taxable\')" ng-model="$parent.enable_is_taxable" type="checkbox"></input>' +
+                        '<input id="group_app/service/execute/is_taxable_check" ng-disabled="!$parent.enable_is_taxable" ng-model="$parent.option.is_taxable" name="is_taxable" type="checkbox">' +
                     '</div>' +
                 '</div>'
             ; 
@@ -75,8 +75,8 @@ define(
                 '<div class="form-group">' +
                     '<label class="col-sm-5 control-label">Cost:</label>' +
                     '<div class="col-sm-7">' +
-                        '<input ng-click="checkbox_click(\'cost\')" ng-model="$parent.enable_cost" type="checkbox"></input>' +
-                        '<input ng-disabled="!$parent.enable_cost" ng-model="$parent.option.cost" name="cost" type="number" min="0.01">' +
+                        '<input id="group_app/service/execute/enable_cost_check" ng-click="checkbox_click(\'cost\')" ng-model="$parent.enable_cost" type="checkbox"></input>' +
+                        '<input id="group_app/service/execute/cost_txt" ng-disabled="!$parent.enable_cost" ng-model="$parent.option.cost" name="cost" type="number" min="0.01">' +
                         '<label ng-show="form.cost.$error.number" class="error">invalid number</label>' +
                         '<label ng-show="form.cost.$error.min" class="error">minimum error</label>' +
                     '</div>' +
@@ -87,8 +87,8 @@ define(
                 '<div class="form-group">' +
                     '<label class="col-sm-5 control-label">sale report:</label>' +
                     '<div class="col-sm-7">' +
-                        '<input ng-click="checkbox_click(\'is_sale_report\')" ng-model="$parent.enable_is_sale_report" type="checkbox"></input>' +
-                        '<input ng-disabled="!$parent.enable_is_sale_report" ng-model="$parent.option.is_sale_report" name="is_sale_report" type="checkbox">' +
+                        '<input id="group_app/service/execute/enable_is_sale_report_check" ng-click="checkbox_click(\'is_sale_report\')" ng-model="$parent.enable_is_sale_report" type="checkbox"></input>' +
+                        '<input id="group_app/service/execute/is_sale_report_check" ng-disabled="!$parent.enable_is_sale_report" ng-model="$parent.option.is_sale_report" name="is_sale_report" type="checkbox">' +
                     '</div>' +
                 '</div>'
             ; 
@@ -97,8 +97,8 @@ define(
                 '<div class="form-group">' +
                     '<label class="col-sm-5 control-label">Type:</label>' +
                     '<div class="col-sm-7">' +
-                        '<input ng-click="checkbox_click(\'p_type\')" ng-model="$parent.enable_p_type" type="checkbox"></input>' +
-                        '<input ng-disabled="!$parent.enable_p_type" ng-model="$parent.option.p_type" name="p_type" type="text">' +
+                        '<input id="group_app/service/execute/enable_p_type_check" ng-click="checkbox_click(\'p_type\')" ng-model="$parent.enable_p_type" type="checkbox"></input>' +
+                        '<input id="group_app/service/execute/p_type_txt" ng-disabled="!$parent.enable_p_type" ng-model="$parent.option.p_type" name="p_type" type="text">' +
                     '</div>' +
                 '</div>'
             ; 
@@ -107,8 +107,8 @@ define(
                 '<div class="form-group">' +
                     '<label class="col-sm-5 control-label">Tag:</label>' +
                     '<div class="col-sm-7">' +
-                        '<input ng-click="checkbox_click(\'p_tag\')" ng-model="$parent.enable_p_tag" type="checkbox"></input>' +
-                        '<input ng-disabled="!$parent.enable_p_tag" ng-model="$parent.option.p_tag" name="p_tag" type="text">' +
+                        '<input id="group_app/service/execute/enable_p_tag_check" ng-click="checkbox_click(\'p_tag\')" ng-model="$parent.enable_p_tag" type="checkbox"></input>' +
+                        '<input id="group_app/service/execute/p_tag_txt" ng-disabled="!$parent.enable_p_tag" ng-model="$parent.option.p_tag" name="p_tag" type="text">' +
                     '</div>' +
                 '</div>'
             ; 
@@ -116,8 +116,8 @@ define(
                 '<div class="form-group">' +
                     '<label class="col-sm-5 control-label">Vendor:</label>' +
                     '<div class="col-sm-7">' +
-                        '<input ng-click="checkbox_click(\'vendor\')" ng-model="$parent.enable_vendor" type="checkbox"></input>' +
-                        '<input ng-disabled="!$parent.enable_vendor" ng-model="$parent.option.vendor" name="vendor" type="text">' +
+                        '<input id="group_app/service/execute/enable_vendor_check" ng-click="checkbox_click(\'vendor\')" ng-model="$parent.enable_vendor" type="checkbox"></input>' +
+                        '<input id="group_app/service/execute/vendor_txt" ng-disabled="!$parent.enable_vendor" ng-model="$parent.option.vendor" name="vendor" type="text">' +
                     '</div>' +
                 '</div>'
             ; 
@@ -125,8 +125,8 @@ define(
                 '<div class="form-group">' +
                     '<label class="col-sm-5 control-label">Buydown:</label>' +
                     '<div class="col-sm-7">' +
-                        '<input ng-click="checkbox_click(\'buydown\')" ng-model="$parent.enable_buydown" type="checkbox"></input>' +
-                        '<input ng-disabled="!$parent.enable_buydown" ng-model="$parent.option.buydown" name="buydown" type="number" min="0.01">' +
+                        '<input id="group_app/service/execute/enable_buydown_check" ng-click="checkbox_click(\'buydown\')" ng-model="$parent.enable_buydown" type="checkbox"></input>' +
+                        '<input id="group_app/service/execute/buydown_txt" ng-disabled="!$parent.enable_buydown" ng-model="$parent.option.buydown" name="buydown" type="number" min="0.01">' +
                         '<label ng-show="form.buydown.$error.number" class="error">invalid number</label>' +
                         '<label ng-show="form.buydown.$error.min" class="error">minimum error</label>' +
                     '</div>' +
@@ -137,8 +137,8 @@ define(
                 '<div class="form-group">' +
                     '<label class="col-sm-5 control-label">value_cus_price:</label>' +
                     '<div class="col-sm-7">' +
-                        '<input ng-click="checkbox_click(\'value_customer_price\')" ng-model="$parent.enable_value_customer_price" type="checkbox"></input>' +
-                        '<input ng-disabled="!$parent.enable_value_customer_price" ng-model="$parent.option.value_customer_price" name="value_customer_price" type="number" min="0.01">' +
+                        '<input id="group_app/service/execute/enable_value_customer_price_check" ng-click="checkbox_click(\'value_customer_price\')" ng-model="$parent.enable_value_customer_price" type="checkbox"></input>' +
+                        '<input id="group_app/service/execute/value_customer_price_txt" ng-disabled="!$parent.enable_value_customer_price" ng-model="$parent.option.value_customer_price" name="value_customer_price" type="number" min="0.01">' +
                         '<label ng-show="form.value_customer_price.$error.number" class="error">invalid number</label>' +
                         '<label ng-show="form.value_customer_price.$error.min" class="error">minimum error</label>' +
                     '</div>' +
@@ -196,12 +196,12 @@ define(
                         '</div>' +                        
                         '<div class="clear"></div>' +
                     '</div>' +
-                    '<pre ng-show="group.sp_lst.length === 0">there is no product in this group</pre>' +              
+                    '<pre id="group_app/service/execute/empty_group_warning_lbl" ng-show="group.sp_lst.length === 0" class="error">there is no product in this group</pre>' +              
                 '</div>' +
 
                 '<div class="modal-footer">' + 
-                    '<button ng-disabled="is_option_empty() || form.$invalid" ng-click="ok()" class="btn btn-success">ok</button>' +
-                    '<button ng-click="exit()" class="btn btn-warning">exit</button>' +
+                    '<button id="group_app/service/execute/ok_btn" ng-disabled="is_option_empty() || form.$invalid" ng-click="ok() || group.sp_lst.length === 0" class="btn btn-success">ok</button>' +
+                    '<button id="group_app/service/execute/exit_btn" ng-click="exit()" class="btn btn-warning">exit</button>' +
                 '</div>'
             ;
             var ModalCtrl = function($scope,$modalInstance,$http,group){

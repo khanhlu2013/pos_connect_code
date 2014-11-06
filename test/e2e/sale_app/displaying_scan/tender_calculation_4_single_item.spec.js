@@ -92,10 +92,10 @@ B   1           1           0           1               0           0       0   
 
         //TEST A GROUP ---------------------------------------------------------------------------------------------------------------------------------------
         //NO OVERRIDE PRICE
-        Sale_page.scan(a1_sku);lib.wait_for_block_ui();expect(Sale_page.tender_btn.getText()).toEqual('$12.34');Sale_page.void();
-        Sale_page.scan(a2_sku);lib.wait_for_block_ui();expect(Sale_page.tender_btn.getText()).toEqual('$10.82');Sale_page.void();
-        Sale_page.scan(a3_deal_qty + ' ' + a3_sku);lib.wait_for_block_ui();expect(Sale_page.tender_btn.getText()).toEqual('$1.66');Sale_page.void();
-        Sale_page.scan(a4_deal_qty + ' ' + a4_sku);lib.wait_for_block_ui();expect(Sale_page.tender_btn.getText()).toEqual('$1.00');Sale_page.void();
+        Sale_page.scan(a1_sku);expect(Sale_page.tender_btn.getText()).toEqual('$12.34');Sale_page.void();
+        Sale_page.scan(a2_sku);expect(Sale_page.tender_btn.getText()).toEqual('$10.82');Sale_page.void();
+        Sale_page.scan(a3_deal_qty + ' ' + a3_sku);expect(Sale_page.tender_btn.getText()).toEqual('$1.66');Sale_page.void();
+        Sale_page.scan(a4_deal_qty + ' ' + a4_sku);expect(Sale_page.tender_btn.getText()).toEqual('$1.00');Sale_page.void();
 
         //YES OVERRIDE PRICE
         Sale_page.scan(a1_sku);exe_override_price(override_price);expect(Sale_page.tender_btn.getText()).toEqual('$11.28');Sale_page.void();

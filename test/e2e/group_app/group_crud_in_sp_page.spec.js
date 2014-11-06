@@ -1,7 +1,7 @@
 var base_path = './../';
 var lib = require(base_path + 'lib');
 
-describe('group_app/service/create', function() {
+describe('group menu in sp page', function() {
     var Sp_page = require(base_path + 'page/sp/Sp_page.js');
     var Group_manage_dlg = require(base_path + 'page/group/Manage_dlg.js');
     var Group_prompt_dlg = require(base_path + 'page/group/Prompt_dlg.js');
@@ -13,13 +13,7 @@ describe('group_app/service/create', function() {
         lib.auth.login('1','1');
         lib.setup.init_data();
         lib.auth.logout();
-        
     })
-    
-    afterEach(function () {
-        browser.executeScript('window.sessionStorage.clear();');
-        browser.executeScript('window.localStorage.clear();');
-    });
 
     it('can create,edit,remove group',function(){
         lib.auth.login('1','1');

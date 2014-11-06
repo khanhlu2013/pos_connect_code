@@ -75,7 +75,6 @@ describe('sale app', function() {
         //verify clicking shortcut will scan the product
         Sale_page.click_child(child_0_position);
         Sale_page.click_child(child_4_position);
-        lib.wait_for_block_ui();
         expect(Sale_page.lst.count()).toEqual(2);
 
         // //verify that create a shortcut in manage dialog will update shortcut usage grid in sale page

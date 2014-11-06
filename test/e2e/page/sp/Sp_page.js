@@ -9,6 +9,7 @@ var Sale_page = function () {
 
     //txt
     this.sku_txt = element(by.model('sku_search_str'));
+    this.name_txt = element(by.model('name_search_str'));
 
     //table
     this.lst = element.all(by.repeater('sp in sp_lst | orderBy:cur_sort_column:cur_sort_desc | filter:local_filter'))
@@ -23,6 +24,7 @@ var Sale_page = function () {
 
     //txt function
     this.sku_search = function(sku_search_str){ this.sku_txt.clear();this.sku_txt.sendKeys(sku_search_str,protractor.Key.ENTER); }
+    this.name_search = function(name_search_str){ this.name_txt.clear();this.name_txt.sendKeys(name_search_str,protractor.Key.ENTER); }
 
     //index function
     this.get_index = function(col_name){

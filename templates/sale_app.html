@@ -100,7 +100,7 @@
                     <li class="dropdown">
                         <a id="sale_app/menu/action" href="#" class="dropdown-toggle" data-toggle="dropdown">action <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li id='sale_app/menu/action/push_receipt' ng-click="menu_action_push_receipt()"><a href='#'>push receipt</a></li>
+                            <li id='sale_app/menu/action/sync' ng-click="menu_action_sync()"><a href='#'>sync</a></li>
                             <li id='sale_app/menu/action/hold' ng-click="hold()"><a href='#'>hold - ctrl+h</a></li>
                             <li id='sale_app/menu/action/get_hold' ng-click="get_hold_ui()"><a href='#'>get hold - ctrl+g</a></li>  
                             <li id='sale_app/menu/action/non_inventory' ng-click="non_inventory_handler()"><a href='#'>none inventory - ctrl+n</a></li>  
@@ -127,7 +127,7 @@
                 <tr ng-repeat="ds in ds_lst">
                     <td ng-click="edit_qty(ds)">{{ds.qty}}</td>
                     <td ng-click="edit_sp(ds)">{{ds.get_name()}} {{get_abbreviate_cur_deal(ds)}}<mark>{{get_abbreviate_suggest_deal_lst(ds)}}</mark></td>
-                    <td ng-click="show_detail_price(ds)" class="alnright">{{ds.get_advertise_price()|currency}}{{ds.get_is_taxable()?'T':''}}</td>            
+                    <td ng-click="show_detail_price(ds)" class="alnright">{{ds.get_advertise_price()|currency}}{{ds.get_is_taxable()?'T':''}}{{ds.get_crv()>0?'C':''}}</td>            
                     <td class="alncenter"><button ng-click="remove_ds(ds)" class="btn btn-danger glyphicon glyphicon-trash"></button></td>
                 </tr>
             </table>
@@ -165,7 +165,7 @@
     </script>
 
     <!-- // <script data-main = "{{ STATIC_URL }}js/sale_main.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script> -->
-    <script data-main = "{{ STATIC_URL }}sale.min.7.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script>
+    <script data-main = "{{ STATIC_URL }}sale.min.8.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script>
 
 </body>
 </html>

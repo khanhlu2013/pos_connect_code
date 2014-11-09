@@ -228,7 +228,7 @@ define(
                             launch_pos_url();
                         });
                     }
-                 }
+                }
                 ,function(reason){
                     alert_service(reason)
                 }

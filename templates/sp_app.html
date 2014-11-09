@@ -81,9 +81,9 @@
                         </ul>
                     </li>   
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">action <b class="caret"></b></a>
+                        <a id="sp_app/menu/action" href="#" class="dropdown-toggle" data-toggle="dropdown">action <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li id='sp_app/menu/action/push_receipt' ng-click="menu_action_push_receipt()"><a href='#'>push receipt</a></li>
+                            <li id='sp_app/menu/action/sync' ng-click="menu_action_sync()"><a href='#'>sync</a></li>
                             <li ng-click="launch_pos()"><a href="#">lauch pos</a></li>
                         </ul>
                     </li>                      
@@ -146,6 +146,6 @@
     </script>
 
     <!-- // <script data-main = "{{ STATIC_URL }}js/sp_main.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script> -->
-    <script data-main = "{{ STATIC_URL }}sp.min.7.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script>
+    <script data-main = "{{ STATIC_URL }}sp.min.8.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script>
 </body>
 </html>

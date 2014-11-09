@@ -24,12 +24,14 @@ describe('receipt_app\'s Report dialog', function() {
 
         Sale_page.visit(true);
         Sale_page.scan(sku_1);
+        lib.wait_for_block_ui();
         Sale_page.tender();
         Tender_dlg.cash_txt.sendKeys('100');
         Tender_dlg.ok();
 
         //test report
         Sale_page.menu_report_receipt();
+        lib.wait_for_block_ui();
         expect(Alert_page.message_lbl.getText()).toEqual('internet is disconnected. you can only access to offline receipt');
         Alert_page.ok();
         expect(Report_dlg.online.receipt.lst.count()).toEqual(1);

@@ -3,6 +3,7 @@ define(
     'angular'
     //------
     ,'app/sp_app/model'
+    ,'directive/share_directive'
 ]
 ,function
 (
@@ -11,7 +12,8 @@ define(
 {
     var mod = angular.module('sp_app/service/non_inventory_prompt',
     [
-        'sp_app/model'
+         'sp_app/model'
+        ,'directive/share_directive'
     ]);
     mod.factory('sp_app/service/non_inventory_prompt',
     [
@@ -35,7 +37,7 @@ define(
                 '<div class="form-group">' +
                     '<label class="col-sm-4 control-label">Price:</label>' +
                     '<div class="col-sm-8">' +
-                        '<input id="sp_app/service/non_inventory_prompt/price_txt" name="price" ng-model="$parent.ni.price" type="number" required>' +
+                        '<input id="sp_app/service/non_inventory_prompt/price_txt" focus-me="true" name="price" ng-model="$parent.ni.price" type="number" required>' +
                         '<label class="error" ng-show="form.price.$invalid">require</label>' +
                     '</div>' +
                 '</div>'

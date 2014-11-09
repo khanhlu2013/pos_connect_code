@@ -58,17 +58,28 @@ define(
                             if(sp_lst.length > 1){
                                 blockUI.stop();
                                 select_sp(sp_lst).then(
-                                     function(sp){ defer.resolve({qty:qty,sp:sp}); }
-                                    ,function(reason){ defer.reject(reason); }
+                                    function(sp){ 
+                                        defer.resolve({qty:qty,sp:sp}); 
+                                    }
+                                    ,function(reason){
+                                        defer.reject(reason); 
+                                    }
                                 )
                             }
-                            else if(sp_lst.length == 1){ defer.resolve({qty:qty,sp:sp_lst[0]});blockUI.stop(); }
-                            else{ defer.reject(SKU_NOT_FOUND);blockUI.stop(); }
+                            else if(sp_lst.length == 1){ 
+                                defer.resolve({qty:qty,sp:sp_lst[0]});blockUI.stop(); 
+                            }else{ 
+                                defer.reject(SKU_NOT_FOUND);blockUI.stop(); 
+                            }
                         }
-                        ,function(reason){defer.reject(reason);blockUI.stop();}
+                        ,function(reason){
+                            defer.reject(reason);blockUI.stop();
+                        }
                     );
                 }
-                ,function(reason){defer.reject(reason);blockUI.stop()}
+                ,function(reason){
+                    defer.reject(reason);blockUI.stop()
+                }
             )
             return defer.promise;
         }

@@ -49,6 +49,7 @@ define(
                 
                 '<div class="modal-body">' +
                     '<button id="group_app/service/manage/add_btn" ng-click="add_group()" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span></button>' +
+                    '<input type="text" ng-model="local_filter.name" placeHolder="local filter">' +
                     '<table ng-hide="group_lst.length == 0" class="table table-hover table-bordered table-condensed table-striped">' +
                         '<tr>' + 
                             '<th>group</th>' +
@@ -57,7 +58,7 @@ define(
                             '<th>edit</th>' +
                         '</tr>' +
 
-                        '<tr ng-repeat="group in group_lst">' +
+                        '<tr ng-repeat="group in group_lst | filter:local_filter">' +
                             '<td>{{group.name}}</td>' +
                             '<td class="alncenter"><button ng-click="execute_group(group.id)" class="btn btn-primary"><span class="glyphicon glyphicon-play"></span></button></td>' +                            
                             '<td class="alncenter"><button ng-click="delete_group(group)" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button></td>' +

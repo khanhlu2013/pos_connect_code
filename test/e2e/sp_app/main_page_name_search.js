@@ -1,5 +1,5 @@
-var lib = require('./../lib');
-
+var base_path = './../';
+var lib = require(base_path + 'lib');
 
 describe('main page', function() {
     var baseUrl = 'http://127.0.0.1:8000/';

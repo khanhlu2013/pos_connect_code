@@ -7,13 +7,12 @@ var Manage_dlg = function () {
     this.exit_btn = element(by.id('mix_match_app/service/manage/exit_btn'));
 
     //table
-    this.lst = element.all(by.repeater('mm in mm_lst | orderBy:\'name\''));
+    this.lst = element.all(by.repeater('mm in mm_lst | filter:local_filter | orderBy:\'name\''));
 
     //function btn
     this.add = function(){ lib.click(this.add_btn); }
     this.exit = function(){ 
         lib.click(this.exit_btn); 
-        lib.wait_for_block_ui();//exit change global_setting for mm, which can cause ds_lst to refresh and blocking ui.
     }
 
     //function table

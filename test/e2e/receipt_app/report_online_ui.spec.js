@@ -20,6 +20,7 @@ describe('receipt_app\'s Report dialog', function() {
     it('can work on sp page without pouchdb',function(){
         lib.auth.login('1','1');
         Sp_page.menu_report_receipt();
+        lib.wait_for_block_ui();
         expect(Report_dlg.online.receipt.lst.count()).toEqual(0);
         
         //clean up
@@ -57,13 +58,13 @@ describe('receipt_app\'s Report dialog', function() {
         //create a sale
         Sale_page.visit();
         //deal_crv_buydown_buydonwtax <-> 0_0_0_0
-        Sale_page.scan(sku_1);
+        Sale_page.scan(sku_1);lib.wait_for_block_ui();
         //deal_crv_buydown_buydonwtax <-> 1_0_0_0
-        Sale_page.scan(_3_deal_qty + ' ' + sku_2);
+        Sale_page.scan(_3_deal_qty + ' ' + sku_2);lib.wait_for_block_ui();
         //deal_crv_buydown_buydonwtax <-> 0_1_0_0
-        Sale_page.scan(sku_3);
+        Sale_page.scan(sku_3);lib.wait_for_block_ui();
         //deal_crv_buydown_buydonwtax <-> 0_0_1_1
-        Sale_page.scan(sku_4);
+        Sale_page.scan(sku_4);lib.wait_for_block_ui();
         //non_inventory
         var ni_price=1.1;var ni_crv=2.2; var ni_is_taxable=true;
         Sale_page.non_inventory();
@@ -78,6 +79,7 @@ describe('receipt_app\'s Report dialog', function() {
 
         //test report
         Sale_page.menu_report_receipt();
+        lib.wait_for_block_ui();
         expect(Report_dlg.online.receipt.lst.count()).toEqual(1);
         Report_dlg.online.receipt.click_col(0,'info');
         expect(Report_dlg.online.receipt_ln.lst.count()).toEqual(5);
@@ -209,38 +211,39 @@ describe('receipt_app\'s Report dialog', function() {
         Sale_page.visit();
 
         //crv-saving | 0-0 
-        Sale_page.scan(sku_1);
+        Sale_page.scan(sku_1);lib.wait_for_block_ui();
         Sale_page.tender();
         Tender_dlg.cash_txt.sendKeys('100');
         Tender_dlg.ok();
 
         //crv-saving | 1-0
-        Sale_page.scan(sku_3);
+        Sale_page.scan(sku_3);lib.wait_for_block_ui();
         Sale_page.tender();
         Tender_dlg.cash_txt.sendKeys('100');
         Tender_dlg.ok();
 
         //crv-saving | 0-1
-        Sale_page.scan(qty_2 + ' ' + sku_2);
+        Sale_page.scan(qty_2 + ' ' + sku_2);lib.wait_for_block_ui();
         Sale_page.tender();
         Tender_dlg.cash_txt.sendKeys('100');
         Tender_dlg.ok();
 
         //crv-saving | 1-1
         Sale_page.scan(qty_2 + ' ' + sku_2);
-        Sale_page.scan(sku_3);        
+        Sale_page.scan(sku_3);
+        lib.wait_for_block_ui();        
         Sale_page.tender();
         Tender_dlg.cash_txt.sendKeys('100');
         Tender_dlg.ok();
 
         //buydown tax | 0
-        Sale_page.scan(sku_1);
+        Sale_page.scan(sku_1);lib.wait_for_block_ui();
         Sale_page.tender();
         Tender_dlg.cash_txt.sendKeys('100');
         Tender_dlg.ok();
 
         //buydown tax | 1
-        Sale_page.scan(sku_4);
+        Sale_page.scan(sku_4);lib.wait_for_block_ui();
         Sale_page.tender();
         Tender_dlg.cash_txt.sendKeys('100');
         Tender_dlg.ok();
@@ -250,7 +253,7 @@ describe('receipt_app\'s Report dialog', function() {
         var pt_0_amount = 20;
         var pt_1_amount = 30;
 
-        Sale_page.scan(sku_1);
+        Sale_page.scan(sku_1);lib.wait_for_block_ui();
         Sale_page.tender();
         browser.wait(function(){ return pt_lst_from_server !== null;/* when it is true, quit waiting */}).then(
             function(){
@@ -262,6 +265,7 @@ describe('receipt_app\'s Report dialog', function() {
         )        
         //check receipt report
         Sale_page.menu_report_receipt();
+        lib.wait_for_block_ui();
         expect(Report_dlg.online.receipt.lst.count()).toEqual(7);
 
         //verify payment type
@@ -339,7 +343,7 @@ describe('receipt_app\'s Report dialog', function() {
         var pt_0_amount = 20;
         var pt_1_amount = 30;
 
-        Sale_page.scan(sku_1);
+        Sale_page.scan(sku_1);lib.wait_for_block_ui();
         Sale_page.tender();
         browser.wait(function(){ return pt_lst_from_server !== null;/* when it is true, quit waiting */}).then(
             function(){
@@ -351,6 +355,7 @@ describe('receipt_app\'s Report dialog', function() {
         )        
         //check receipt report
         Sale_page.menu_report_receipt();
+        lib.wait_for_block_ui();
         expect(Report_dlg.online.receipt.lst.count()).toEqual(1);
 
         //verify payment type
@@ -380,6 +385,7 @@ describe('receipt_app\'s Report dialog', function() {
 
         //verify new pt
         Sale_page.menu_report_receipt();
+        lib.wait_for_block_ui();
         Report_dlg.online.receipt.click_col(0,'info');
         browser.wait(function(){
             return pt_lst_from_server !== null;//when it is true, quit waiting

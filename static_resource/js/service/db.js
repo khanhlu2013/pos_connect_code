@@ -12,7 +12,10 @@ define(
     // ,pouchdb_quick_search
 )
 {
-    var mod = angular.module('service/db',['blockUI']);
+    var mod = angular.module('service/db',
+    [
+         'blockUI'
+    ]);
 
     mod.factory('service/db/get',['$rootScope',function($rootScope){
         return function(){
@@ -22,8 +25,126 @@ define(
             return new PouchDB(db_name);            
         }
     }]);
+    
+    mod.factory('service/db/is_pouch_exist',
+    [
+         '$q'
+        ,'$rootScope'
+    ,function(
+         $q
+        ,$rootScope
+    ){
+        return function(){
+            var defer = $q.defer();
+            var db_name = '_pouch_' + $rootScope.GLOBAL_SETTING.store_db_prefix + $rootScope.GLOBAL_SETTING.store_id;
+            var request = indexedDB.open(db_name);
 
-    mod.factory('service/db/get_local_and_remote_doc_count',['$rootScope','$q',function($rootScope,$q){
+            request.onupgradeneeded = function (e){
+                e.target.transaction.abort();
+                // defer.resolve(false);
+            }
+            request.onsuccess = function(e) {
+                defer.resolve(true);
+            }
+            request.onerror = function(e) {
+                if(e.target.error.name == "AbortError"){
+                    indexedDB.deleteDatabase(db_name);
+                    defer.resolve(false);
+                }else{
+                    defer.reject('error when checking db existance');
+                }
+            }   
+            return defer.promise;
+        }        
+    }])
+
+    mod.factory('service/db/remove_doc',
+    [
+         '$q'
+        ,'service/db/get'
+    ,function(
+         $q
+        ,get_pouch_db
+    ){
+        return function(doc_id){
+            var defer = $q.defer();
+
+            var db = get_pouch_db();
+            db.get(doc_id).then(
+                 function(doc) { 
+                    db.remove(doc).then(
+                        function(response){ 
+                            defer.resolve(response); 
+                        }
+                        ,function(reason){ 
+                            defer.reject(reason); 
+                        }
+                    )
+                }
+                ,function(reason){ defer.reject(reason); }
+            );              
+            
+            return defer.promise;
+        }
+    }])    
+
+    mod.factory('service/db/download_product',
+    [
+         '$q'
+        ,'service/db/_force_download_product'
+        ,'service/db/is_pouch_exist'
+    ,function(
+         $q
+        ,_force_download_product
+        ,is_pouch_exist
+    ){
+        return function(is_force){
+            /*
+                return {
+                    local: the_number_of_local_doc
+                    remote: the_number_of_remote_doc
+                    docs_written : pouch_response_docs_written
+                }
+            */
+            var defer = $q.defer();
+
+            if(is_force){
+                _force_download_product().then(
+                    function(response){
+                        defer.resolve(response);
+                    },function(reason){
+                        defer.reject(reason);
+                    }
+                )
+            }else{
+                is_pouch_exist().then(
+                    function(is_db_exist){
+                        if(is_db_exist){
+                            _force_download_product().then(
+                                function(response){
+                                    defer.resolve(response);
+                                },function(reason){
+                                    defer.reject(reason);
+                                }
+                            )
+                        }else{
+                            defer.resolve(null);
+                        }
+                    },
+                    function(reason){
+                        return defer.reject(reason);
+                    }
+                )
+            }
+            return defer.promise;
+        }
+    }]);
+
+    //--------------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------------
+
+    mod.factory('service/db/_get_local_and_remote_doc_count',['$rootScope','$q',function($rootScope,$q){
         return function(){
             var defer = $q.defer();
 
@@ -52,20 +173,28 @@ define(
         }
     }]);
 
-    mod.factory('service/db/sync',
+    mod.factory('service/db/_force_download_product',
     [
          '$q'
         ,'$rootScope'
         ,'blockUI'
-        ,'service/db/get_local_and_remote_doc_count'
+        ,'service/db/_get_local_and_remote_doc_count'
     ,function(
          $q
         ,$rootScope
         ,blockUI
-        ,get_local_and_remote_doc_count
+        ,_get_local_and_remote_doc_count
     ){
         return function(){
+            /*
+                return {
+                    local: the_number_of_local_doc
+                    remote: the_number_of_remote_doc
+                    docs_written : pouch_response_docs_written
+                }
+            */
             var defer = $q.defer();
+
             var store_id = $rootScope.GLOBAL_SETTING.store_id;
             var db_name = $rootScope.GLOBAL_SETTING.store_db_prefix + store_id;
             var local_db = new PouchDB(db_name);
@@ -83,12 +212,9 @@ define(
                     });                            
                 })
                 .on('complete', function (info) {
-                    get_local_and_remote_doc_count().then(
+                    _get_local_and_remote_doc_count().then(
                         function(response){
-                            // $rootScope.$apply(function()  {
-                            //     defer.resolve(response);
-                            //     blockUI.stop();  
-                            // }); 
+                            response.docs_written = info.docs_written;
                             defer.resolve(response);
                             blockUI.stop();                            
                         }
@@ -111,88 +237,4 @@ define(
             return defer.promise;
         }
     }]);
-    
-    mod.factory('service/db/is_pouch_exist',
-    [
-         '$q'
-        ,'$rootScope'
-    ,function(
-         $q
-        ,$rootScope
-    ){
-        return function(){
-            var defer = $q.defer();
-            var db_name = '_pouch_' + $rootScope.GLOBAL_SETTING.store_db_prefix + $rootScope.GLOBAL_SETTING.store_id;
-            var request = indexedDB.open(db_name);
-
-            request.onupgradeneeded = function (e){
-                e.target.transaction.abort();
-                defer.resolve(false);
-            }
-            request.onsuccess = function(e) {
-                defer.resolve(true);
-            }
-            request.onerror = function(e) {
-                if(e.target.error.name == "AbortError"){
-                    indexedDB.deleteDatabase(db_name);
-                }else{
-                    defer.reject('error when checking db existance');
-                }
-            }   
-            return defer.promise;
-        }        
-    }])
-
-    mod.factory('service/db/sync_if_nessesary',
-    [
-         'service/db/is_pouch_exist'
-        ,'service/db/sync'
-        ,'$q'
-    ,function(
-         is_pouch_exist
-        ,sync
-        ,$q
-    ){
-        return function(){ 
-            var defer = $q.defer();
-            is_pouch_exist().then(
-                function(db_existance){
-                    if(db_existance){
-                        sync().then(
-                             function(response){defer.resolve(null);}
-                            ,function(reason){defer.reject(reason);}
-                        )
-                    }else{ defer.resolve(null); }
-                }
-                ,function(reason){ defer.reject(reason);}
-            )
-            return defer.promise;
-        }
-    }])
-
-    mod.factory('service/db/remove_doc',
-    [
-         '$q'
-        ,'service/db/get'
-    ,function(
-         $q
-        ,get_pouch_db
-    ){
-        return function(doc_id){
-            var defer = $q.defer();
-
-            var db = get_pouch_db();
-            db.get(doc_id).then(
-                 function(doc) { 
-                    db.remove(doc).then(
-                         function(response){ defer.resolve(response); }
-                        ,function(reason){ defer.reject(reason); }
-                    )
-                }
-                ,function(reason){ defer.reject(reason); }
-            );              
-            
-            return defer.promise;
-        }
-    }])    
 })

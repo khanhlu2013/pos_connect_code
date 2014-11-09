@@ -144,8 +144,8 @@ define(
             var message;
             if(typeof(alert_obj) === 'string'){
                 message = alert_obj;
-                if(message === '_cancel_' || message === undefined/*cancel click*/ || message === 'backdrop click'){
-                    return
+                if(message === '_cancel_' || message === undefined/*cancel click*/ || message === 'backdrop click' || message === 'escape key press'){
+                    return;
                 }
             }else{
                 if(alert_obj.status === 0){

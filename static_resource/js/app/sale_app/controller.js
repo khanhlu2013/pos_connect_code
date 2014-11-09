@@ -25,6 +25,7 @@ define(
     ,'service/misc'
     ,'app/sp_app/service/non_inventory_prompt'
     ,'app/group_app/service/manage'
+    ,'app/sale_app/service/init_db'
 ], function
 (
      angular
@@ -59,6 +60,7 @@ define(
         ,'service/misc'
         ,'sp_app/service/non_inventory_prompt'
         ,'group_app/service/manage'
+        ,'sale_app/service/init_db'
     ]);
     mod.controller('Sale_page_ctrl', 
     [
@@ -67,7 +69,7 @@ define(
         ,'sale_app/service/scan/preprocess'
         ,'sale_app/service/scan/append_pending_scan'
         ,'sale_app/service/pending_scan/get_api'
-        ,'sp_ll_app/service/search/name_sku_online_dlg/multiple'
+        ,'sp_ll_app/service/search/name_sku_online_dlg/single'
         ,'sp_ll_app/service/api_offline'
         ,'sale_app/service/pending_scan/set_api'
         ,'sale_app/model/Modify_ds_instruction'
@@ -78,7 +80,7 @@ define(
         ,'service/ui/alert'
         ,'service/ui/prompt'
         ,'service/ui/confirm'
-        ,'service/db/sync'
+        ,'service/db/download_product'
         ,'blockUI'   
         ,'sp_app/service/info'    
         ,'sale_app/service/hold/api'
@@ -92,13 +94,14 @@ define(
         ,'service/misc'
         ,'sp_app/service/non_inventory_prompt'
         ,'group_app/service/manage'
+        ,'sale_app/service/init_db'
     ,function(
          $scope
         ,$rootScope
         ,preprocess
         ,append_pending_scan
         ,get_ps_lst
-        ,search_name_sku_multiple_dlg
+        ,search_name_sku_single_dlg
         ,sp_offline_api
         ,set_ps_lst
         ,Modify_ds_instruction
@@ -109,7 +112,7 @@ define(
         ,alert_service
         ,prompt_service
         ,confirm_service
-        ,sync_db_service
+        ,download_product
         ,blockUI     
         ,sp_info_service   
         ,hold_api
@@ -123,6 +126,7 @@ define(
         ,misc_service
         ,non_inventory_prompt_service
         ,manage_group_service
+        ,init_db
     ){
 
         hotkeys.bindTo($scope)
@@ -319,7 +323,7 @@ define(
             }
             return sp_lst;
         }
-        $scope.refresh_ds = function(is_optimize_aka_use_sp_from_cur_ds_lst_without_re_search){
+        $scope.refresh_ds = function(is_optimize_aka_use_sp_from_cur_ds_lst_without_re_search,sp_lst__extra_optimize_to_not_lookup){
             //is_optimize_aka_use_sp_from_cur_ds_lst_without_re_search if this param is true, we don't hit the local db to search for product
             blockUI.start('refresh page ...');
             console.log('refresh ds ...');
@@ -327,6 +331,11 @@ define(
             var optimize_distinct_sp = [];
             if(is_optimize_aka_use_sp_from_cur_ds_lst_without_re_search){
                 optimize_distinct_sp = _get_distinct_sp_from_ds_lst($scope.ds_lst);
+                if(sp_lst__extra_optimize_to_not_lookup !== null && sp_lst__extra_optimize_to_not_lookup !== undefined){
+                    for(var i = 0;i<sp_lst__extra_optimize_to_not_lookup.length;i++){
+                        optimize_distinct_sp.push(sp_lst__extra_optimize_to_not_lookup[i]);
+                    }
+                }
             }
             calculate_ds_lst(ps_lst,optimize_distinct_sp).then(
                  function(data){
@@ -345,6 +354,7 @@ define(
             $scope.sku_search_str = $scope.sku_search_str.trim();
             preprocess.exe($scope.sku_search_str).then(
                  function(data){ 
+                    $scope.sp_lst__extra_optimize_to_not_lookup = [data.sp,];
                     append_pending_scan.by_doc_id(data.sp.sp_doc_id,data.qty,null/*non_inventory*/,null/*override price*/); 
                 }
                 ,function(reason){ 
@@ -359,7 +369,7 @@ define(
                                 sku_scan_not_found_handler(extracted_result.sku).then(
                                      function(created_sp){ 
                                         if(created_sp.is_create_offline()){ $scope.sku_scan(); }
-                                        else{ sync_db_service().then(function(){$scope.sku_scan();}) }
+                                        else{ download_product(false/*not forcing because db should be here already*/).then(function(){$scope.sku_scan();}) }
                                     }
                                     ,function(reason){
                                         alert_service(reason);
@@ -372,11 +382,9 @@ define(
             )
         }
         $scope.search = function(){ 
-            search_name_sku_multiple_dlg().then(
-                function(sp_lst){
-                    for(var i = 0;i<sp_lst.length;i++){
-                        append_pending_scan.by_product_id(sp_lst[i].product_id,1/*qty*/,null/*non_inventory*/,null/*override_price*/);
-                    }
+            search_name_sku_single_dlg().then(
+                function(sp){
+                    append_pending_scan.by_product_id(sp.product_id,1/*qty*/,null/*non_inventory*/,null/*override_price*/);
                 }
             )
         }
@@ -399,35 +407,34 @@ define(
         $scope.menu_setting_group_in_sale_page = function(){
             manage_group_service().then(
                 function(){
-                    $scope.refresh_ds(false/*we do not optimize here*/);
+                    $scope.refresh_ds(false/*we do not optimize here*/,null/*extra sp to optimize and prevent lookup sp*/);
                 }
                 ,function(reason){
                     alert_service(reason);
                 }
             )
         }
+
         //init code
         $scope.sku_search_str = "";
         $scope.ds_lst = [];
         $scope.previous_change = null;
-        sync_db_service().then(
-            function(response){
-                if(response.local < response.remote){
-                    var message = response.remote - response.local + ' products not yet downloaded. Please refresh the page to download missing product';
-                    alert_service(message);
-                }
+        $scope.sp_lst__extra_optimize_to_not_lookup = null;//the most reasently searched sp should be added both place: pending_scan_lst to trigger the watch, and here to help refresh_ds not to relook for sp
+
+        init_db().then(
+            function(){
                 shortcut_ui.init($scope);  
-                $scope.refresh_ds(true/*we wish to optimize but it make no differece since this is the first time, cur ds_lst is empty anyway*/);
+                $scope.refresh_ds(true/*we wish to optimize but it make no differece since this is the first time, cur ds_lst is empty anyway*/,null/*extra sp to optimize and prevent lookup sp*/);
                 $scope.$watchGroup(
                     [
                          function(){return JSON.stringify(get_ps_lst());}//the reason i return a string representation of ps_lst is that get_ps_lst() always return a new created ps_lst which have a new identity all the time. This cause the watch to do infinite loop
                         ,function(){return $rootScope.GLOBAL_SETTING.mix_match_lst;}
                     ]
-                    ,function(newVal,oldVal,scope){$scope.refresh_ds(true);}
+                    ,function(newVal,oldVal,scope){$scope.refresh_ds(true,$scope.sp_lst__extra_optimize_to_not_lookup/*extra sp to optimize and prevent lookup sp*/);}
                 );
-            }
-            ,function(reason){ 
-                alert_service(reason); 
+            },
+            function(reason){
+                alert_service(reason);
             }
         )
     }]);

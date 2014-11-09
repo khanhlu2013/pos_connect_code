@@ -26,7 +26,7 @@ describe('sp_app/service/edit/group', function() {
         lib.api_group.insert_empty_group(group_name);
 
         Sale_page.visit();
-        Sale_page.scan(sku);
+        Sale_page.scan(sku);lib.wait_for_block_ui();
 
         //add group to sp
         Sale_page.click_col(0,'name');

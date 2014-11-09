@@ -34,7 +34,7 @@ describe('sp page', function() {
         //add new sku
         Sp_sku_dlg.add();
         Ui_prompt_dlg.set_prompt(new_sku);
-        Ui_prompt_dlg.ok();
+        Ui_prompt_dlg.ok();lib.wait_for_block_ui();
 
         //verify new added sku
         expect(Sp_sku_dlg.lst.count()).toEqual(2);
@@ -73,7 +73,7 @@ describe('sp page', function() {
         expect(Sp_sku_dlg.lst.count()).toEqual(1);
         //add new sku
         Ui_prompt_dlg.set_prompt(sku_2);
-        Ui_prompt_dlg.ok();
+        Ui_prompt_dlg.ok();lib.wait_for_block_ui();
 
         //verify sku is added
         expect(Sp_sku_dlg.lst.count()).toEqual(2);

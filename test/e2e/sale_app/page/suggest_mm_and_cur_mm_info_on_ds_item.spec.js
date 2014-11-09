@@ -36,7 +36,7 @@ describe('sale page', function() {
 
         Sale_page.visit();
 
-        Sale_page.scan('4 ' + product_sku);
+        Sale_page.scan('4 ' + product_sku);lib.wait_for_block_ui();
         expect(Sale_page.lst.count()).toEqual(2);
         expect(Sale_page.get_col_html(0,'name')).toEqual('deal product (3$4)<mark class="ng-binding"></mark>');
         expect(Sale_page.get_col_html(1,'name')).toEqual('deal product <mark class="ng-binding">(3$4)</mark>');

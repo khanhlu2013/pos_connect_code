@@ -29,6 +29,8 @@ exports.config = {
         ,'./sp_app/service/edit/sku.spec.js'   
         ,'./sp_app/service/edit/main.spec.js'  
 
+        ,'./sp_app/menu/sync.spec.js' 
+
         ,'./sale_app/sp_edit/main.spec.js'   
         ,'./sale_app/sp_edit/sku.spec.js'     
         ,'./sale_app/sp_edit/kit.spec.js'     
@@ -38,6 +40,7 @@ exports.config = {
         ,'./sale_app/menu/sale_shortcut.spec.js'
         ,'./sale_app/menu/mix_match_watch_n_refresh_ds.spec.js'  
         ,'./sale_app/menu/group_execute_refresh_ds.spec.js'  
+        ,'./sale_app/menu/sync.spec.js'  
 
         ,'./sale_app/page/change_button.spec.js'
         ,'./sale_app/page/suggest_mm_and_cur_mm_info_on_ds_item.spec.js'
@@ -52,6 +55,5 @@ exports.config = {
         ,'./receipt_app/report_offline_ui.spec.js'
         ,'./receipt_app/report_online_ui.spec.js'
         ,'./receipt_app/push.spec.js'
-
     ]
 }

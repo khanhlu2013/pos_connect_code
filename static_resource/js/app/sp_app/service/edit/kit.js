@@ -26,13 +26,13 @@ define(
         ,'sp_app/service/edit/kit/prompt'
         ,'sp_app/service/api/kit'
         ,'service/ui/alert'
-        ,'service/db/sync_if_nessesary'
+        ,'service/db/download_product'
     ,function(
          $modal
         ,prompt_service
         ,api_kit
         ,alert_service
-        ,sync_if_nessesary
+        ,download_product
     ){
         var template = 
             '<div class="modal-header">' +
@@ -115,7 +115,7 @@ define(
             $scope.ok = function(){
                 api_kit.update($scope.sp).then(
                     function(data){
-                        sync_if_nessesary().then(
+                        download_product(false/*no force*/).then(
                              function(){ $modalInstance.close(data); }
                             ,function(reason){ 
                                 alert_service(reason); 

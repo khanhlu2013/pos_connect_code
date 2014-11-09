@@ -23,7 +23,7 @@ describe('sale_app/setup_pt', function() {
         Sale_page.visit();
 
         //verify there is no pt beside the default cash
-        Sale_page.scan(sku);
+        Sale_page.scan(sku);lib.wait_for_block_ui();
         Sale_page.tender();
         expect(Tender_dlg.lst.count()).toEqual(1);
         Tender_dlg.cancel();

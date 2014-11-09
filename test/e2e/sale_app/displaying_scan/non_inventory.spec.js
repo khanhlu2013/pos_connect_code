@@ -4,7 +4,6 @@ var lib = require(base_path + 'lib');
 
 describe('sale_app/displaying_scan/non_inventory', function() {
     //prompt service
-    var Ui_prompt_dlg = require(base_path + 'page/ui/Prompt_dlg.js');
     var Non_inventory_prompt_dlg = require(base_path + 'page/sp/Non_inventory_prompt_dlg.js');
     var Sale_page = require(base_path + 'page/sale/Sale_page.js');
 
@@ -74,7 +73,7 @@ describe('sale_app/displaying_scan/non_inventory', function() {
         Non_inventory_prompt_dlg.set_cost(new_cost);
         Non_inventory_prompt_dlg.ok();
         expect(Sale_page.get_col(0,'name')).toEqual(new_name);
-        expect(Sale_page.get_col(0,'price')).toEqual(lib.currency(new_price));
+        expect(Sale_page.get_col(0,'price')).toEqual(lib.currency(new_price) + 'C');
         expect(Sale_page.tender_btn.getText()).toEqual('$6.60');  
         Sale_page.click_col(0,'name');
         expect(Non_inventory_prompt_dlg.get_cost()).toEqual('3.3');

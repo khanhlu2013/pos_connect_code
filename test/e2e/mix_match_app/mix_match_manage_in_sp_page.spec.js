@@ -45,7 +45,7 @@ describe('mix match manage in sp_page', function() {
         expect(Mm_prompt_dlg.get_col(0,'product')).toEqual(name_1);
         expect(Mm_prompt_dlg.get_col(1,'product')).toEqual(name_2);
         Mm_prompt_dlg.ok();
-        Mm_manage_dlg.exit();//FAIL_HERE:element is not clickable
+        Mm_manage_dlg.exit();
 
         //lets comeback and verify the creation info
         Sp_page.menu_setting_mix_match();   

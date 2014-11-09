@@ -100,7 +100,7 @@ define(
         function _post_search_aka_recursive_search_for_bd_and_form_sp(sp_couch){
             var defer = $q.defer();
 
-            if(sp_couch.breakdown_assoc_lst.length == 0){
+            if(sp_couch.breakdown_assoc_lst.length === 0){
                 defer.resolve(_create_sp(sp_couch,[]/*breakdown assoc lst*/));
             }else{
                 var promise_lst = [];

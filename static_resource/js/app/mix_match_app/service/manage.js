@@ -53,6 +53,7 @@ define(
 
                 '<div class="modal-body">' +
                     '<button id="mix_match_app/service/manage/add_btn" ng-click="add_mix_match()" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span></button>' +
+                    '<input type="text" ng-model="local_filter.name" placeHolder="local filter">' +
                     '<table ng-hide="mm_lst.length == 0" class="table table-hover table-bordered table-condensed table-striped">' +
                         '<tr>' +
                             '<th>name</th>' +
@@ -63,7 +64,7 @@ define(
                             '<th>delete</th>' +
                             '<th>edit</th>' +
                         '</tr>' +
-                        '<tr ng-repeat="mm in mm_lst | orderBy:\'name\'">' +
+                        '<tr ng-repeat="mm in mm_lst | filter:local_filter | orderBy:\'name\'">' +
                             '<td>{{mm.name}}</td>' +
                             '<td>{{mm.qty}}</td>' +
                             '<td>{{mm.mm_price|currency}}</td>' +

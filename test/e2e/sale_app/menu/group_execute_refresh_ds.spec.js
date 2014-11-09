@@ -49,7 +49,7 @@ describe('sale page menu_group_execute', function() {
 
         //scan a product
         Sale_page.visit();
-        Sale_page.scan(product_sku);
+        Sale_page.scan(product_sku);lib.wait_for_block_ui();
 
         //execute group
         Sale_page.menu_setting_group();

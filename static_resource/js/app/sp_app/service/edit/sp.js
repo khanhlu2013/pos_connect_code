@@ -24,14 +24,14 @@ define(
 		,'$q'
 		,'sp_app/service/prompt'
 		,'sp_app/service/api/crud'
-        ,'service/db/sync_if_nessesary'		
+        ,'service/db/download_product'		
 	,function(
 		 $http
 		,$filter
 		,$q
 		,prompt_service
 		,sp_crud_api
-		,sync_if_nessesary
+		,download_product
 	){
 		return function(sp){
 			var defer = $q.defer();
@@ -40,7 +40,7 @@ define(
 				 function(prompt_result){ 
 				 	sp_crud_api.update(prompt_result.sp).then(
 				 		function(updated_sp){
-				 			sync_if_nessesary().then(
+				 			download_product(false/*not force*/).then(
 				 				 function(){ defer.resolve(updated_sp); }
 				 				,function(reason){ defer.reject(reason); }
 				 			)

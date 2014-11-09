@@ -34,7 +34,7 @@ describe('shortcut manager at sp_page', function() {
         Shortcut_manage_dlg.click_parent(parent_position);
         Shortcut_manage_dlg.click_parent_edit(parent_position);
         Ui_prompt_dlg.set_prompt(folder_1_name);
-        Ui_prompt_dlg.ok();
+        Ui_prompt_dlg.ok();lib.wait_for_block_ui();
         expect(Shortcut_manage_dlg.get_parent_text(parent_position)).toEqual(folder_1_name);
 
         //in this parent folder(position 1), create 2 shortcut at position 0 and 4.verify the caption text for these 2 shortcut at the manage dialog

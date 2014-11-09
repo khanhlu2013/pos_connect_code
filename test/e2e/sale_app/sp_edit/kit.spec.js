@@ -33,6 +33,7 @@ describe('sale page', function() {
         Sale_page.scan(sku_1);
         Sale_page.scan(sku_2);
         Sale_page.scan(sku_3);
+        lib.wait_for_block_ui();
         expect(Sale_page.lst.count()).toEqual(3);
 
         //add 2 and 3 into 1        

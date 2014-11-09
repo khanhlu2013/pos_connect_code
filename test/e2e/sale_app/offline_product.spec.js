@@ -19,7 +19,7 @@ describe('sale page', function() {
         
         //scan
         var sku = '123';
-        Sale_page.scan(sku);
+        Sale_page.scan(sku);lib.wait_for_block_ui();
 
         //confirm offline message
         expect(Ui_confirm_dlg.self.isPresent()).toBeTruthy();   

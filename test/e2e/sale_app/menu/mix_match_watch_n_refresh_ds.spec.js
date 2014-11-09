@@ -42,13 +42,14 @@ describe('sale page', function() {
         Sale_page.visit();
         
         //qty
-        Sale_page.scan('4 ' + product_sku);
+        Sale_page.scan('4 ' + product_sku);lib.wait_for_block_ui();
         expect(Sale_page.lst.count()).toEqual(2);
         Sale_page.menu_setting_mix_match();
         Mm_manage_dlg.click_col(0,'edit');
         Mm_prompt_dlg.set_qty(4);
         Mm_prompt_dlg.ok();
         Mm_manage_dlg.exit();
+        lib.wait_for_block_ui();
         expect(Sale_page.lst.count()).toEqual(1);        
         expect(Sale_page.tender_btn.getText()).toEqual('$4.80');
 

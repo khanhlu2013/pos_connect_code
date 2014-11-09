@@ -26,7 +26,7 @@ define(
         ,'service/ui/alert'
         ,'service/ui/prompt'
         ,'sp_app/service/api/sku'
-        ,'service/db/sync_if_nessesary'
+        ,'service/db/download_product'
     ,function(
          $modal
         ,$http
@@ -35,7 +35,7 @@ define(
         ,alert_service
         ,prompt_service
         ,api_sku
-        ,sync_if_nessesary
+        ,download_product
     ){
         var template = 
             '<div id="sp_app/service/edit/sku/dialog" class="modal-header">' + 
@@ -70,7 +70,7 @@ define(
                     function(sku){
                         api_sku.add_sku($scope.sp.product_id,sku).then(
                             function(updated_sp){ 
-                                sync_if_nessesary().then(
+                                download_product(false/*not force*/).then(
                                     function(){ 
                                         angular.copy(updated_sp,$scope.sp); 
                                     }
@@ -96,7 +96,7 @@ define(
                     function(){
                         api_sku.delete_sku($scope.sp.product_id,prod_sku_assoc.sku_str).then(
                             function(updated_sp){
-                                sync_if_nessesary().then(
+                                download_product(false/*not force*/).then(
                                     function(){
                                         angular.copy(updated_sp,$scope.sp);
                                     }

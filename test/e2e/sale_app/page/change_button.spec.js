@@ -24,14 +24,14 @@ describe('sale page', function() {
 
         //setup and override price item
         expect(Sale_page.change_btn.isDisplayed()).toEqual(false);
-        Sale_page.scan(sku_1);
+        Sale_page.scan(sku_1);lib.wait_for_block_ui();
         Sale_page.tender();
         Tender_dlg.cash_txt.sendKeys('10');
         Tender_dlg.ok();
         expect(Sale_page.change_btn.getText()).toEqual('change: ' + lib.currency(9))
 
         //change button disapear
-        Sale_page.scan(sku_1);
+        Sale_page.scan(sku_1);lib.wait_for_block_ui();
         expect(Sale_page.change_btn.isDisplayed()).toEqual(false);
 
         //clean up

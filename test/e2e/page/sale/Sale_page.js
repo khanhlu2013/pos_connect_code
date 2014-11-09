@@ -24,14 +24,14 @@ var Sale_page = function () {
     this.menu_report_receipt = function(){
         lib.click(this.menu_report);
         lib.click(element(by.id('sale_app/menu/report/receipt')));
-        lib.wait_for_block_ui();//when receipt dialog open it automatically get offline receipt to push and auto download 15 latest receipts. lets wait for it before we do anything else
     }
     this.menu_setting_group = function(){lib.click(this.menu_setting);lib.click(element(by.id('sale_app/menu/setting/group')));}
     this.menu_setting_payment_type = function(){lib.click(this.menu_setting);lib.click(element(by.id('sale_app/menu/setting/payment_type')));}
     this.menu_setting_shortcut = function(){lib.click(this.menu_setting);lib.click(element(by.id('sale_app/menu/setting/shortcut')));}
+    this.menu_setting_mix_match = function(){ lib.click(this.menu_setting); lib.click(element(by.id('sale_app/menu/setting/mix_match'))); }
     this.menu_action_hold = function(){lib.click(this.menu_action);lib.click(element(by.id('sale_app/menu/action/hold')));}
     this.menu_action_get_hold = function(){lib.click(this.menu_action);lib.click(element(by.id('sale_app/menu/action/get_hold')));}
-    this.menu_setting_mix_match = function(){ lib.click(this.menu_setting); lib.click(element(by.id('sale_app/menu/setting/mix_match'))); }
+    this.menu_action_sync = function(){lib.click(this.menu_action);lib.click(element(by.id('sale_app/menu/action/sync')));}
 
     //function btn
     this.void = function(){ lib.click(this.void_btn) }
@@ -42,7 +42,6 @@ var Sale_page = function () {
     this.scan = function(str){
         this.scan_txt.clear();
         this.scan_txt.sendKeys(str,protractor.Key.ENTER); 
-        lib.wait_for_block_ui();
     }
 
     //function table
@@ -54,7 +53,6 @@ var Sale_page = function () {
         else                            { return null; }
     }
     this.click_col = function(index,col_name){
-        lib.wait_for_block_ui();
         var col = this.get_col_index(col_name);
         this.lst.get(index).all(by.tagName('td')).get(col).click();
     }
@@ -99,7 +97,6 @@ var Sale_page = function () {
     }
     this.click_child = function(position){
         lib.click(this._get_child_td(position));
-        lib.wait_for_block_ui();
     }
     this.get_child_text = function(position){
         return this._get_child_td(position).getText();

@@ -39,7 +39,7 @@ define(
             is_pouch_exist().then(
                 function(is_exist){
                     if(!is_exist){
-                        defer.resolve([]);
+                        defer.resolve(null);
                         blockUI.stop();
                     }else{
                         var db = get_pouch_db();

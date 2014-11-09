@@ -16,7 +16,7 @@ describe('tax app', function() {
         Sp_page.menu_setting_tax();
         var tax = 9.725;
         Ui_prompt_dlg.set_prompt(tax);
-        Ui_prompt_dlg.ok();
+        Ui_prompt_dlg.ok();lib.wait_for_block_ui();
         Sp_page.menu_setting_tax();
         expect(Ui_prompt_dlg.get_prompt()).toEqual(tax.toString());
         Ui_prompt_dlg.cancel();

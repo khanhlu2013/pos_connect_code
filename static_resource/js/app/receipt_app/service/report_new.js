@@ -73,51 +73,51 @@ define(
                 '<div class="form-horizontal" >' +
                     '<div id="receipt_app/service/report/online/receipt_summary/subtotal_derivation" ng-hide="cur_online_receipt.get_saving()===0.0 && cur_online_receipt.get_crv()===0.0">' +
                         '<div class="form-group">' +
-                            '<label class="col-sm-4 control-label">original price:</label>' +
-                            '<p id="receipt_app/service/report/online/receipt_summary/genesis_price" class="col-sm-8 form-control-static">{{cur_online_receipt.get_genesis_price()}}</p>' +
+                            '<label class="col-xs-4 control-label">original price:</label>' +
+                            '<p id="receipt_app/service/report/online/receipt_summary/genesis_price" class="col-xs-8 form-control-static">{{cur_online_receipt.get_genesis_price()}}</p>' +
                         '</div>' +
                         '<div ng-hide="cur_online_receipt.get_saving()===0.0" class="form-group">' +
-                            '<label class="col-sm-4 control-label">saving:</label>' +
-                            '<p id="receipt_app/service/report/online/receipt_summary/saving" class="col-sm-8 form-control-static">{{(cur_online_receipt.get_saving() * -1) | currency}}</p>' +
+                            '<label class="col-xs-4 control-label">saving:</label>' +
+                            '<p id="receipt_app/service/report/online/receipt_summary/saving" class="col-xs-8 form-control-static">{{(cur_online_receipt.get_saving() * -1) | currency}}</p>' +
                         '</div>' +
                         '<div ng-hide="cur_online_receipt.get_crv()===0.0" class="form-group">' +
-                            '<label class="col-sm-4 control-label">crv:</label>' +
-                            '<p id="receipt_app/service/report/online/receipt_summary/crv" class="col-sm-8 form-control-static">{{cur_online_receipt.get_crv()|currency}}</p>' +
+                            '<label class="col-xs-4 control-label">crv:</label>' +
+                            '<p id="receipt_app/service/report/online/receipt_summary/crv" class="col-xs-8 form-control-static">{{cur_online_receipt.get_crv()|currency}}</p>' +
                         '</div>' +
                         '<hr>' +
                     '</div>' +
 
                     '<div class="form-group">' +
-                        '<label class="col-sm-4 control-label">subtotal:</label>' +
-                        '<p id="receipt_app/service/report/online/receipt_summary/subtotal" class="col-sm-8 form-control-static">{{cur_online_receipt._get_b4_tax_price()|currency}}</p>' +
+                        '<label class="col-xs-4 control-label">subtotal:</label>' +
+                        '<p id="receipt_app/service/report/online/receipt_summary/subtotal" class="col-xs-8 form-control-static">{{cur_online_receipt._get_b4_tax_price()|currency}}</p>' +
                     '</div>' +
                     
                     '<div ng-hide="cur_online_receipt.get_buydown_tax()===0.0" class="form-group">' +
-                        '<label class="col-sm-4 control-label">buydown tax:</label>' +
-                        '<p id="receipt_app/service/report/online/receipt_summary/buydown_tax" class="col-sm-8 form-control-static">{{cur_online_receipt.get_buydown_tax()|currency}}</p>' +
+                        '<label class="col-xs-4 control-label">buydown tax:</label>' +
+                        '<p id="receipt_app/service/report/online/receipt_summary/buydown_tax" class="col-xs-8 form-control-static">{{cur_online_receipt.get_buydown_tax()|currency}}</p>' +
                     '</div>' +
 
                     '<div class="form-group">' +
-                        '<label class="col-sm-4 control-label">tax ({{cur_online_receipt.tax_rate}}%):</label>' +
-                        '<p id="receipt_app/service/report/online/receipt_summary/tax" class="col-sm-8 form-control-static">{{cur_online_receipt.get_product_tax()|currency}}</p>' +
+                        '<label class="col-xs-4 control-label">tax ({{cur_online_receipt.tax_rate}}%):</label>' +
+                        '<p id="receipt_app/service/report/online/receipt_summary/tax" class="col-xs-8 form-control-static">{{cur_online_receipt.get_product_tax()|currency}}</p>' +
                     '</div>' +
 
                     '<hr>' +
 
                     '<div class="form-group">' +
-                        '<label class="col-sm-4 control-label">total:</label>' +
-                        '<p id="receipt_app/service/report/receipt_summary/total" class="col-sm-8 form-control-static">{{cur_online_receipt.get_otd_price()|currency}}</p>' +
+                        '<label class="col-xs-4 control-label">total:</label>' +
+                        '<p id="receipt_app/service/report/receipt_summary/total" class="col-xs-8 form-control-static">{{cur_online_receipt.get_otd_price()|currency}}</p>' +
                     '</div>' +
 
                     '<div ng-repeat="tender_ln in cur_online_receipt.tender_ln_lst" class="form-group">' +
                         '<label' +
                             ' ng-attr-id="receipt_app/service/report/online/receipt_summary/tender_lbl/{{tender_ln.pt === null ? \'null\' : tender_ln.pt.id}}"' +
-                            ' class="col-sm-4 control-label">' +
+                            ' class="col-xs-4 control-label">' +
                                 '{{tender_ln.name === null ? \'cash\' : tender_ln.pt.name}}:' + 
                         '</label>' +
                         '<p' +
                             ' ng-attr-id="receipt_app/service/report/online/receipt_summary/tender_txt/{{tender_ln.pt === null ? \'null\' : tender_ln.pt.id}}"' +
-                            ' class="col-sm-8 form-control-static">' +
+                            ' class="col-xs-8 form-control-static">' +
                                 '{{(tender_ln.amount)|currency}}' +
                         '</p>' +
                     '</div>' +
@@ -125,8 +125,8 @@ define(
                     '<hr>' +
 
                     '<div class="form-group">' +
-                        '<label class="col-sm-4 control-label">change:</label>' +
-                        '<p id="receipt_app/service/report/online/receipt_summary/change" class="col-sm-8 form-control-static">{{cur_online_receipt.get_change()|currency}}</p>' +
+                        '<label class="col-xs-4 control-label">change:</label>' +
+                        '<p id="receipt_app/service/report/online/receipt_summary/change" class="col-xs-8 form-control-static">{{cur_online_receipt.get_change()|currency}}</p>' +
                     '</div>' + 
                 '</div>'  /* end form horizontal*/
             ;                    
@@ -155,8 +155,8 @@ define(
                         '</p>' +
 
                         '<div>' +
-                            '<div class="col-sm-4">' + template_left_online_table + '</div>' +
-                            '<div ng-hide="$parent.cur_online_receipt==null" class="col-sm-8">' + 
+                            '<div id="receipt_app/service/report/master" class="col-xs-4">' + template_left_online_table + '</div>' +
+                            '<div id="receipt_app/service/report/detail" ng-hide="$parent.cur_online_receipt===null" class="col-xs-8">' + 
                                 template_right_online_table + 
                                 receipt_summary_online_template +
                             '</div>' +
@@ -165,6 +165,7 @@ define(
                     '</div>' +
                 '</div>' +
                 '<div class="modal-footer">' +
+                    '<button id="receipt_app/service/report/print_btn" ng-hide="$parent.cur_online_receipt===null" class="btn btn-success" ng-click="print()">print</button>' +
                     '<button id="receipt_app/service/report/exit_btn" class="btn btn-warning" ng-click="exit()">exit</button>' +
                 '</div>' 
             ;
@@ -201,6 +202,19 @@ define(
                         }
                     )
                 }
+                $scope.print = function() {
+                    var printContents = document.getElementById('receipt_app/service/report/detail').innerHTML;
+                    var originalContents = document.body.innerHTML;        
+                    var popupWin = window.open('', '_blank', 'width=300,height=300');
+                    var css_str = 
+                        '<link rel="stylesheet" type ="text/css" href="/static/css/bootstrap.css">' +
+                        '<link rel="stylesheet" type ="text/css" href="/static/css/bootstrap-theme.css">' +
+                        '<link rel="stylesheet" type ="text/css" href="/static/css/share.css">'
+                    ;
+                    popupWin.document.open();
+                    popupWin.document.write('<html><head>' + css_str + '</head><body onload="window.print()">' + printContents + '</html>');
+                    popupWin.document.close();
+                }                 
                 $scope.exit = function(){$modalInstance.dismiss('_cancel_');}
 
                 // $scope.online_receipt_lst = [];
@@ -227,6 +241,9 @@ define(
                             alert_service('internet is disconnected. you can only access to offline receipt');
                             receipt_offline_api.get_receipt_lst().then(
                                 function(lst){
+                                    if(lst === null){
+                                        lst = [];
+                                    }
                                     $scope.online_receipt_lst = lst;
                                 }
                                 ,function(reason){

@@ -6,6 +6,7 @@ var Sale_page = function () {
     //menu
     this.menu_report = element(by.id('sp_app/menu/report'));
     this.menu_setting = element(by.id('sp_app/menu/setting'));
+    this.menu_action = element(by.id('sp_app/menu/action'));
 
     //txt
     this.sku_txt = element(by.model('sku_search_str'));
@@ -15,6 +16,7 @@ var Sale_page = function () {
     this.lst = element.all(by.repeater('sp in sp_lst | orderBy:cur_sort_column:cur_sort_desc | filter:local_filter'))
 
     //menu function
+    this.menu_action_sync = function(){ lib.click(this.menu_action); lib.click(element(by.id('sp_app/menu/action/sync'))); }
     this.menu_report_receipt = function(){ lib.click(this.menu_report); lib.click(element(by.id('sp_app/menu/report/receipt'))); }
     this.menu_setting_group = function(){ lib.click(this.menu_setting); lib.click(element(by.id('sp_app/menu/setting/group'))); }
     this.menu_setting_payment_type = function(){ lib.click(this.menu_setting); lib.click(element(by.id('sp_app/menu/setting/payment_type'))); }

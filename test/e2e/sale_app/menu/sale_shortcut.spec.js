@@ -41,7 +41,7 @@ describe('sale app', function() {
         Shortcut_manage_dlg.click_parent(parent_position);
         Shortcut_manage_dlg.click_parent_edit(parent_position);
         Ui_prompt_dlg.set_prompt(folder_1_name);
-        Ui_prompt_dlg.ok();
+        Ui_prompt_dlg.ok();lib.wait_for_block_ui();
         expect(Shortcut_manage_dlg.get_parent_text(parent_position)).toEqual(folder_1_name);
 
         //create 2 shortcut inside this parent folder
@@ -73,8 +73,8 @@ describe('sale app', function() {
         expect(Sale_page.get_child_text(child_4_position)).toEqual(child_4_caption);     
 
         //verify clicking shortcut will scan the product
-        Sale_page.click_child(child_0_position);
-        Sale_page.click_child(child_4_position);
+        Sale_page.click_child(child_0_position);lib.wait_for_block_ui();
+        Sale_page.click_child(child_4_position);lib.wait_for_block_ui();
         expect(Sale_page.lst.count()).toEqual(2);
 
         // //verify that create a shortcut in manage dialog will update shortcut usage grid in sale page
@@ -89,7 +89,7 @@ describe('sale app', function() {
         expect(Sale_page.get_child_text(child_5_position)).toEqual(child_5_caption);
 
         //verify that clicking a non_inventory shortcut will bring up non_inventory dialog
-        Sale_page.click_child(child_5_position);
+        Sale_page.click_child(child_5_position);lib.wait_for_block_ui();
         expect(Non_inventory_prompt_dlg.self.isPresent()).toEqual(true);
         Non_inventory_prompt_dlg.cancel();
 

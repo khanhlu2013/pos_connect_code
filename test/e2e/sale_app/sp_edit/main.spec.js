@@ -24,7 +24,7 @@ describe('sale page \'s scan table ', function() {
         lib.api.insert_new(sku_2,product_name_2);
 
         Sale_page.visit();             
-        Sale_page.scan(sku_1);
+        Sale_page.scan(sku_1);lib.wait_for_block_ui();
 
         //edit sp 1
         Sale_page.click_col(0,'name');

@@ -8,7 +8,7 @@ var Manage_dlg = function () {
     this.add_btn = element(by.id('group_app/service/manage/add_btn'));
 
     //table
-    this.lst = element.all(by.repeater('group in group_lst'));
+    this.lst = element.all(by.repeater('group in group_lst | filter:local_filter'));
 
     //function btn
     this.exit = function(){ lib.click(this.exit_btn);}

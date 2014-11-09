@@ -26,13 +26,13 @@ define(
         ,'group_app/service/api'
         ,'service/ui/alert'
         ,'group_app/model/Group'
-        ,'service/db/sync_if_nessesary'
+        ,'service/db/download_product'
     ,function(
          $modal
         ,group_api
         ,alert_service
         ,Group
-        ,sync_if_nessesary
+        ,download_product
     ){
         return function(group_id){
 
@@ -242,7 +242,7 @@ define(
                         ,data:{group_id:group.id,option:JSON.stringify($scope.option)}
                     }).then(
                         function(group_response_data){
-                            sync_if_nessesary().then(
+                            download_product(false/*is_force*/).then(
                                 function(){
                                     $scope.group = Group.build(group_response_data.data);
                                     alert_service('execute is complete successfully','info','green');

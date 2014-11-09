@@ -84,7 +84,7 @@ describe('sale_app', function() {
         Sale_page.visit();
 
         //setup and override price item
-        Sale_page.scan(sku_1);
+        Sale_page.scan(sku_1);lib.wait_for_block_ui();
         Sale_page.click_col(0,'price');
         Sale_able_info_dlg.override_price();
         Ui_prompt_dlg.set_prompt(override_price_1);
@@ -92,7 +92,7 @@ describe('sale_app', function() {
         Sale_able_info_dlg.ok();
 
         //setup mm_deal item
-        Sale_page.scan(qty_2 + ' ' + sku_2)
+        Sale_page.scan(qty_2 + ' ' + sku_2);lib.wait_for_block_ui();
         
         //setup non_inventory
         var ni_price=1.1;var ni_crv=2.2; var ni_is_taxable=true;
@@ -107,7 +107,7 @@ describe('sale_app', function() {
             return updated_kit_successfully;
         }).then(
             function(){
-                Sale_page.scan(sku_kit);
+                Sale_page.scan(sku_kit);lib.wait_for_block_ui();
             }
         )            
 
@@ -129,6 +129,7 @@ describe('sale_app', function() {
 
         //check receipt report
         Sale_page.menu_report_receipt();
+        lib.wait_for_block_ui();
         expect(Receipt_dlg.online.receipt.lst.count()).toEqual(1);
         expect(Receipt_dlg.online.receipt.get_col(0,'total')).toEqual('$16.68');
         Receipt_dlg.online.receipt.click_col(0,'info');

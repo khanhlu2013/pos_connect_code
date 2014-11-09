@@ -48,6 +48,7 @@ describe('sale_app/displaying_scan/toogle_value_customer_price', function() {
 
         lib.sale_page.scan(sku_1);
         lib.sale_page.scan(sku_2);
+        lib.wait_for_block_ui();
         lib.click(non_inv_btn);
         prompt_txt.sendKeys('3');
         lib.click(prompt_ok_btn);

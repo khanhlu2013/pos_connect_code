@@ -44,7 +44,7 @@ describe('sale page\'s Sale_able_info_dlg', function() {
         Sale_page.visit();
 
         //deal_crv_buydown_buydonwtax <-> 0_0_0_0
-        Sale_page.scan(sku_1);
+        Sale_page.scan(sku_1);lib.wait_for_block_ui();
         Sale_page.click_col(0,'price');
         expect(Sale_able_info_dlg.preset_price_lbl.getText()).toEqual('$1.00');
         expect(Sale_able_info_dlg.override_price_lbl.getText()).toEqual('None');
@@ -59,7 +59,7 @@ describe('sale page\'s Sale_able_info_dlg', function() {
         Sale_able_info_dlg.cancel();
         
         //deal_crv_buydown_buydonwtax <-> 1_0_0_0
-        Sale_page.scan(_3_deal_qty + ' ' + sku_2);
+        Sale_page.scan(_3_deal_qty + ' ' + sku_2);lib.wait_for_block_ui();
         Sale_page.click_col(1,'price');
         expect(Sale_able_info_dlg.preset_price_lbl.getText()).toEqual('$2.00');
         expect(Sale_able_info_dlg.override_price_lbl.getText()).toEqual('None');
@@ -74,7 +74,7 @@ describe('sale page\'s Sale_able_info_dlg', function() {
         Sale_able_info_dlg.cancel();
 
         //deal_crv_buydown_buydonwtax <-> 0_1_0_0
-        Sale_page.scan(sku_3);
+        Sale_page.scan(sku_3);lib.wait_for_block_ui();
         Sale_page.click_col(2,'price');
         expect(Sale_able_info_dlg.preset_price_lbl.getText()).toEqual('$3.00');
         expect(Sale_able_info_dlg.override_price_lbl.getText()).toEqual('None');
@@ -89,7 +89,7 @@ describe('sale page\'s Sale_able_info_dlg', function() {
         Sale_able_info_dlg.cancel();
 
         //deal_crv_buydown_buydonwtax <-> 0_0_1_1
-        Sale_page.scan(sku_4);
+        Sale_page.scan(sku_4);lib.wait_for_block_ui();
         Sale_page.click_col(3,'price');
         expect(Sale_able_info_dlg.preset_price_lbl.getText()).toEqual('$4.00');
         expect(Sale_able_info_dlg.override_price_lbl.getText()).toEqual('None');

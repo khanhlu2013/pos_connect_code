@@ -38,11 +38,11 @@ describe('sale_app/hold', function() {
         Get_hold_dlg.cancel();
 
         //scan 3 item, the first 2 put on hold
-        Sale_page.scan(sku_1);
+        Sale_page.scan(sku_1);lib.wait_for_block_ui();
         hold_cur_ps();
-        Sale_page.scan(sku_2);
+        Sale_page.scan(sku_2);lib.wait_for_block_ui();
         hold_cur_ps();
-        Sale_page.scan(sku_3);
+        Sale_page.scan(sku_3);lib.wait_for_block_ui();
 
         //call get hold ui and expect we have 2 current hold 
         Sale_page.menu_action_get_hold();

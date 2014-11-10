@@ -129,10 +129,11 @@
         {% endverbatim sp_table%}         
     </div>
     <script type="text/javascript">
-        var STATIC_URL                      = "{{STATIC_URL}}"
-        window._STORE_ID_                   = Number("{{STORE_ID_}}")
+        var STATIC_URL                      = "{{STATIC_URL}}";
+        window._STATIC_URL_                 = "{{STATIC_URL}}";
+        window._STORE_ID_                   = Number("{{STORE_ID_}}");
         window._TAX_RATE_                   = {{TAX_RATE_}};
-        window._COUCH_SERVER_URL_           = "{{COUCH_SERVER_URL_}}"
+        window._COUCH_SERVER_URL_           = "{{COUCH_SERVER_URL_}}";
         window._STORE_DB_PREFIX_            = "{{STORE_DB_PREFIX_}}";
         window._MIX_MATCH_LST_              = {{MIX_MATCH_LST_|safe}};
         window._PAYMENT_TYPE_LST_           = {{PAYMENT_TYPE_LST_|safe}};
@@ -146,6 +147,6 @@
     </script>
 
     <!-- // <script data-main = "{{ STATIC_URL }}js/sp_main.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script> -->
-    <script data-main = "{{ STATIC_URL }}sp.min.8.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script>
+    <script data-main = "{{ STATIC_URL }}sp.min.9.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script>
 </body>
 </html>

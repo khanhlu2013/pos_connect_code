@@ -208,9 +208,9 @@ define(
                     var popupWin = window.open('', '_blank', 'width=300,height=300');
                     var static_url = $rootScope.GLOBAL_SETTING.static_url;
                     var css_str = 
-                        '<link rel="stylesheet" type ="text/css" href="' + static_url + '/css/bootstrap.css">' +
-                        '<link rel="stylesheet" type ="text/css" href="' + static_url + '/css/bootstrap-theme.css">' +
-                        '<link rel="stylesheet" type ="text/css" href="' + static_url + '/css/share.css">'
+                        '<link rel="stylesheet" type ="text/css" href="' + static_url + 'css/bootstrap.css">' +
+                        '<link rel="stylesheet" type ="text/css" href="' + static_url + 'css/bootstrap-theme.css">' +
+                        '<link rel="stylesheet" type ="text/css" href="' + static_url + 'css/share.css">'
                     ;
                     popupWin.document.open();
                     popupWin.document.write('<html><head>' + css_str + '</head><body onload="window.print()">' + printContents + '</html>');

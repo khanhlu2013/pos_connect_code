@@ -45,6 +45,7 @@ define(
                 ,shortcut_column_count:         $window._SHORTCUT_COLUMN_COUNT_
                 ,store_product_document_type:   $window._STORE_PRODUCT_DOCUMENT_TYPE_
                 ,receipt_document_type:         $window._RECEIPT_DOCUMENT_TYPE_
+                ,static_url:                    $window._STATIC_URL_
             }
 
             delete $window._STORE_ID_;

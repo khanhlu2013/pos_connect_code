@@ -170,7 +170,7 @@ define(
                 '</div>' 
             ;
 
-            var ModalCtrl = function($scope,$modalInstance){
+            var ModalCtrl = function($scope,$modalInstance,$rootScope){
                 $scope.display_sale_able_info_dlg = function(receipt_ln){
                     sale_able_info_dlg(receipt_ln,false/*is_enable_override_price*/);
                 }
@@ -206,10 +206,11 @@ define(
                     var printContents = document.getElementById('receipt_app/service/report/detail').innerHTML;
                     var originalContents = document.body.innerHTML;        
                     var popupWin = window.open('', '_blank', 'width=300,height=300');
+                    var static_url = $rootScope.GLOBAL_SETTING.static_url;
                     var css_str = 
-                        '<link rel="stylesheet" type ="text/css" href="/static/css/bootstrap.css">' +
-                        '<link rel="stylesheet" type ="text/css" href="/static/css/bootstrap-theme.css">' +
-                        '<link rel="stylesheet" type ="text/css" href="/static/css/share.css">'
+                        '<link rel="stylesheet" type ="text/css" href="' + static_url + '/css/bootstrap.css">' +
+                        '<link rel="stylesheet" type ="text/css" href="' + static_url + '/css/bootstrap-theme.css">' +
+                        '<link rel="stylesheet" type ="text/css" href="' + static_url + '/css/share.css">'
                     ;
                     popupWin.document.open();
                     popupWin.document.write('<html><head>' + css_str + '</head><body onload="window.print()">' + printContents + '</html>');
@@ -256,7 +257,7 @@ define(
                     }
                 )
             }
-            ModalCtrl.$inject = ['$scope','$modalInstance'];    
+            ModalCtrl.$inject = ['$scope','$modalInstance','$rootScope'];    
             $modal.open({
                  template:template
                 ,controller:ModalCtrl

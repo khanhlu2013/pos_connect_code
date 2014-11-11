@@ -51,7 +51,6 @@ describe('sale page', function() {
         Sp_prompt_dlg.set_value_customer_price(value_customer_price);
         expect(Sp_prompt_dlg.get_sku()).toEqual(sku);
         Sp_prompt_dlg.ok();
-        // browser.sleep(2000);
         
         expect(Sale_page.lst.count()).toEqual(1);
         expect(Sale_page.tender_btn.getText()).toEqual('$4.32');

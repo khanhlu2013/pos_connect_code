@@ -24,6 +24,7 @@ var Sale_page = function () {
     this.menu_report_receipt = function(){
         lib.click(this.menu_report);
         lib.click(element(by.id('sale_app/menu/report/receipt')));
+        lib.wait_for_block_ui();
     }
     this.menu_setting_group = function(){lib.click(this.menu_setting);lib.click(element(by.id('sale_app/menu/setting/group')));}
     this.menu_setting_payment_type = function(){lib.click(this.menu_setting);lib.click(element(by.id('sale_app/menu/setting/payment_type')));}
@@ -109,7 +110,7 @@ var Sale_page = function () {
         if(is_offline=== true)  {posUrl = 'http://127.0.0.1:8000/sale/index_offline_angular';}
         else                    {posUrl = 'http://127.0.0.1:8000/sale/index_angular';}
         browser.get(posUrl);
-        browser.wait(function(){ return element(by.css('.block-ui-overlay')).isDisplayed().then(function(val){ return !val; })});                    
+        lib.wait_for_block_ui();               
     }
 }
 

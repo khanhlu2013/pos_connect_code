@@ -219,8 +219,10 @@ define(
                         '<link rel="stylesheet" type ="text/css" href="' + static_url + 'css/share.css">'
                     ;
                     popupWin.document.open();
-                    popupWin.document.write('<html><head>' + css_str + '</head><body onload="window.print()">' + printContents + '</html>');
+                    popupWin.document.write('<html><head>' + css_str + '</head><body>' + printContents + '</html>');
                     popupWin.document.close();
+                    popupWin.print();
+                    popupWin.close();
                 }                 
                 $scope.exit = function(){$modalInstance.dismiss('_cancel_');}
                 function handle_internet_offline(){

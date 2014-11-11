@@ -50,7 +50,7 @@
                         </button>    
                         <button 
                             id="sale_app/main_page/non_inventory_btn" 
-                            ng-click="non_inventory()" 
+                            ng-click="non_inventory_handler()" 
                             type="button" 
                             class="btn btn-primary navbar-btn">none inv
                         </button>                           
@@ -60,6 +60,22 @@
                             type="button" 
                             class="btn btn-warning navbar-btn">void
                         </button>     
+                        {% verbatim %} 
+                        <button 
+                            ng-hide="ds_lst.length === 0"
+                            id="sale_app/main_page/tender_btn" 
+                            type="button" 
+                            ng-click="finalize()"
+                            class="btn btn-primary btn-lg">
+                                {{get_tender_amount()|currency}}
+                        </button>      
+                        <button 
+                            ng-hide="previous_change === null || ds_lst.length !== 0" 
+                            class="btn btn-success btn-lg"
+                            id="sale_app/main_page/change_btn" >
+                                change: {{previous_change|currency}}
+                        </button>
+                        {% endverbatim %} 
                     </div>
                 </ul>
                 <ul ng-controller="service.menu" class="nav navbar-nav navbar-right">
@@ -67,7 +83,7 @@
                         <a id="sale_app/menu/setting" href="#" class="dropdown-toggle" data-toggle="dropdown">setting <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li id="sale_app/menu/setting/tax" ng-click="menu_setting_tax()"><a href='#'>tax_</a></li>
-                            <li id="sale_app/menu/setting/group" ng-click="menu_setting_group()"><a href='#'>group</a></li>                 
+                            <li id="sale_app/menu/setting/group" ng-click="menu_setting_group_in_sale_page()"><a href='#'>group</a></li>                 
                             <li id="sale_app/menu/setting/shortcut" ng-click="menu_setting_shortcut()"><a href='#'>shortcut</a></li>
                             <li id="sale_app/menu/setting/mix_match" ng-click="menu_setting_mix_match()"><a href='#'>mix match</a></li>
                             <li id="sale_app/menu/setting/payment_type" ng-click="menu_setting_payment_type()"><a href='#'>payment type</a></li>
@@ -87,6 +103,7 @@
                             <li id='sale_app/menu/action/sync' ng-click="menu_action_sync()"><a href='#'>sync</a></li>
                             <li id='sale_app/menu/action/hold' ng-click="hold()"><a href='#'>hold - ctrl+h</a></li>
                             <li id='sale_app/menu/action/get_hold' ng-click="get_hold_ui()"><a href='#'>get hold - ctrl+g</a></li>  
+                            <li id='sale_app/menu/action/non_inventory' ng-click="non_inventory_handler()"><a href='#'>none inventory - ctrl+n</a></li>  
                             <li id='sale_app/menu/action/toogle_value_customer_price' ng-click="toogle_value_customer_price()"><a href='#'>toogle value customer price - F2</a></li>                 
                         </ul>
                     </li>                    
@@ -97,30 +114,25 @@
         </div><!-- /.container-fluid -->
     </nav>        
 
+    {% verbatim %}   
     <div>
-    {% verbatim %}        
         <div class="col-sm-6">
             <table id='sale_app/scan_tbl' class="table table-hover table-bordered table-condensed table-striped">
                 <tr>
                     <th>qty</th>
-                    <th>product</th>            
+                    <th>product</th>   
+                    <th>crv</th>         
                     <th>price</th>                
                     <th>remove</th>
                 </tr>
                 <tr ng-repeat="ds in ds_lst">
                     <td ng-click="edit_qty(ds)">{{ds.qty}}</td>
-                    <td ng-click="edit_sp(ds)">{{ds.get_name()}}</td>
-                    <td ng-click="show_detail_price(ds)" class="alnright">{{ds.get_advertise_price()|currency}}</td>            
+                    <td ng-click="edit_sp(ds)">{{ds.get_name()}} {{get_abbreviate_cur_deal(ds)}}<mark>{{get_abbreviate_suggest_deal_lst(ds)}}</mark></td>
+                    <td>{{ds.get_crv()|currency}}</td>
+                    <td ng-click="show_detail_price(ds)" class="alnright">{{ds.get_advertise_price()|currency}}{{ds.get_is_taxable()?'T':''}}</td>            
                     <td class="alncenter"><button ng-click="remove_ds(ds)" class="btn btn-danger glyphicon glyphicon-trash"></button></td>
                 </tr>
             </table>
-            <button 
-                ng-hide="ds_lst.length == 0"
-                id="sale_app/main_page/tender_btn" 
-                type="button" 
-                ng-click="finalize()"
-                class="btn btn-primary btn-lg">{{get_tender_amount()|currency}}
-            </button>
         </div>
         <div class="col-sm-6">
             <table class="table table-bordered table-condensed sale_shortcut_tbl">
@@ -136,15 +148,15 @@
             </table>
         </div>
         <div class="clear"></div>
-        <!-- {{ds_lst}} -->
-    {% endverbatim %}         
     </div>
+    {% endverbatim %}  
 
     <script type="text/javascript">
-        var STATIC_URL                      = "{{STATIC_URL}}"
-        window._STORE_ID_                   = Number("{{STORE_ID_}}")
+        var STATIC_URL                      = "{{STATIC_URL}}";
+        window._STATIC_URL_                 = "{{STATIC_URL}}";
+        window._STORE_ID_                   = Number("{{STORE_ID_}}");
         window._TAX_RATE_                   = {{TAX_RATE_}};
-        window._COUCH_SERVER_URL_           = "{{COUCH_SERVER_URL_}}"
+        window._COUCH_SERVER_URL_           = "{{COUCH_SERVER_URL_}}";
         window._STORE_DB_PREFIX_            = "{{STORE_DB_PREFIX_}}";
         window._MIX_MATCH_LST_              = {{MIX_MATCH_LST_|safe}};
         window._PAYMENT_TYPE_LST_           = {{PAYMENT_TYPE_LST_|safe}};
@@ -156,9 +168,11 @@
     </script>
 
     <script data-main = "{{ STATIC_URL }}js/app/sale_app/app_2_test_offline/config.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script>
+    <!-- // <script data-main = "{{ STATIC_URL }}sale.min.9.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script> -->
 
 </body>
 </html>
 
 
 
+    

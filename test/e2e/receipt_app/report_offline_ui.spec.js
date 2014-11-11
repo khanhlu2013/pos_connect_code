@@ -32,7 +32,8 @@ describe('receipt_app\'s Report dialog', function() {
         //test report
         Sale_page.menu_report_receipt();
         lib.wait_for_block_ui();
-        expect(Alert_page.message_lbl.getText()).toEqual('internet is disconnected. you can only access to offline receipt');
+        expect(Alert_page.message_lbl.getText()).toEqual('Internet is disconnected! You can only access offline receipts.');
+                                                          
         Alert_page.ok();
         expect(Report_dlg.online.receipt.lst.count()).toEqual(1);
         expect(Report_dlg.control_panel.isPresent()).toBeFalsy();

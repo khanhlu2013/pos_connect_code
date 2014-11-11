@@ -120,14 +120,16 @@
             <table id='sale_app/scan_tbl' class="table table-hover table-bordered table-condensed table-striped">
                 <tr>
                     <th>qty</th>
-                    <th>product</th>            
+                    <th>product</th>   
+                    <th>crv</th>         
                     <th>price</th>                
                     <th>remove</th>
                 </tr>
                 <tr ng-repeat="ds in ds_lst">
                     <td ng-click="edit_qty(ds)">{{ds.qty}}</td>
                     <td ng-click="edit_sp(ds)">{{ds.get_name()}} {{get_abbreviate_cur_deal(ds)}}<mark>{{get_abbreviate_suggest_deal_lst(ds)}}</mark></td>
-                    <td ng-click="show_detail_price(ds)" class="alnright">{{ds.get_advertise_price()|currency}}{{ds.get_is_taxable()?'T':''}}{{ds.get_crv()>0?'C':''}}</td>            
+                    <td>{{ds.get_crv()|currency}}</td>
+                    <td ng-click="show_detail_price(ds)" class="alnright">{{ds.get_advertise_price()|currency}}{{ds.get_is_taxable()?'T':''}}</td>            
                     <td class="alncenter"><button ng-click="remove_ds(ds)" class="btn btn-danger glyphicon glyphicon-trash"></button></td>
                 </tr>
             </table>
@@ -165,8 +167,8 @@
         window._RECEIPT_DOCUMENT_TYPE_      = "{{RECEIPT_DOCUMENT_TYPE}}";
     </script>
 
-    <!-- // <script data-main = "{{ STATIC_URL }}js/sale_main.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script> -->
-    <script data-main = "{{ STATIC_URL }}sale.min.9.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script>
+    <script data-main = "{{ STATIC_URL }}js/sale_main.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script>
+    <!-- // <script data-main = "{{ STATIC_URL }}sale.min.9.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script> -->
 
 </body>
 </html>

@@ -73,51 +73,51 @@ define(
                 '<div class="form-horizontal" >' +
                     '<div id="receipt_app/service/report/online/receipt_summary/subtotal_derivation" ng-hide="cur_online_receipt.get_saving()===0.0 && cur_online_receipt.get_crv()===0.0">' +
                         '<div class="form-group">' +
-                            '<label class="col-xs-4 control-label">original price:</label>' +
-                            '<p id="receipt_app/service/report/online/receipt_summary/genesis_price" class="col-xs-8 form-control-static">{{cur_online_receipt.get_genesis_price()}}</p>' +
+                            '<label ng-class="receipt_summary_lbl_class">original price:</label>' +
+                            '<p id="receipt_app/service/report/online/receipt_summary/genesis_price" ng-class="receipt_summary_value_class">{{cur_online_receipt.get_genesis_price()}}</p>' +
                         '</div>' +
                         '<div ng-hide="cur_online_receipt.get_saving()===0.0" class="form-group">' +
-                            '<label class="col-xs-4 control-label">saving:</label>' +
-                            '<p id="receipt_app/service/report/online/receipt_summary/saving" class="col-xs-8 form-control-static">{{(cur_online_receipt.get_saving() * -1) | currency}}</p>' +
+                            '<label ng-class="receipt_summary_lbl_class">saving:</label>' +
+                            '<p id="receipt_app/service/report/online/receipt_summary/saving" ng-class="receipt_summary_value_class">{{(cur_online_receipt.get_saving() * -1) | currency}}</p>' +
                         '</div>' +
                         '<div ng-hide="cur_online_receipt.get_crv()===0.0" class="form-group">' +
-                            '<label class="col-xs-4 control-label">crv:</label>' +
-                            '<p id="receipt_app/service/report/online/receipt_summary/crv" class="col-xs-8 form-control-static">{{cur_online_receipt.get_crv()|currency}}</p>' +
+                            '<label ng-class="receipt_summary_lbl_class">crv:</label>' +
+                            '<p id="receipt_app/service/report/online/receipt_summary/crv" ng-class="receipt_summary_value_class">{{cur_online_receipt.get_crv()|currency}}</p>' +
                         '</div>' +
                         '<hr>' +
                     '</div>' +
 
                     '<div class="form-group">' +
-                        '<label class="col-xs-4 control-label">subtotal:</label>' +
-                        '<p id="receipt_app/service/report/online/receipt_summary/subtotal" class="col-xs-8 form-control-static">{{cur_online_receipt._get_b4_tax_price()|currency}}</p>' +
+                        '<label ng-class="receipt_summary_lbl_class">subtotal:</label>' +
+                        '<p id="receipt_app/service/report/online/receipt_summary/subtotal" ng-class="receipt_summary_value_class">{{cur_online_receipt._get_b4_tax_price()|currency}}</p>' +
                     '</div>' +
                     
                     '<div ng-hide="cur_online_receipt.get_buydown_tax()===0.0" class="form-group">' +
-                        '<label class="col-xs-4 control-label">buydown tax:</label>' +
-                        '<p id="receipt_app/service/report/online/receipt_summary/buydown_tax" class="col-xs-8 form-control-static">{{cur_online_receipt.get_buydown_tax()|currency}}</p>' +
+                        '<label ng-class="receipt_summary_lbl_class">buydown tax:</label>' +
+                        '<p id="receipt_app/service/report/online/receipt_summary/buydown_tax" ng-class="receipt_summary_value_class">{{cur_online_receipt.get_buydown_tax()|currency}}</p>' +
                     '</div>' +
 
                     '<div class="form-group">' +
-                        '<label class="col-xs-4 control-label">tax ({{cur_online_receipt.tax_rate}}%):</label>' +
-                        '<p id="receipt_app/service/report/online/receipt_summary/tax" class="col-xs-8 form-control-static">{{cur_online_receipt.get_product_tax()|currency}}</p>' +
+                        '<label ng-class="receipt_summary_lbl_class">tax ({{cur_online_receipt.tax_rate}}%):</label>' +
+                        '<p id="receipt_app/service/report/online/receipt_summary/tax" ng-class="receipt_summary_value_class">{{cur_online_receipt.get_product_tax()|currency}}</p>' +
                     '</div>' +
 
-                    '<hr>' +
+                    '<hr>' + /* total and tender amount-------------------------------------------------------------------------------------------------------------- */
 
                     '<div class="form-group">' +
-                        '<label class="col-xs-4 control-label">total:</label>' +
-                        '<p id="receipt_app/service/report/receipt_summary/total" class="col-xs-8 form-control-static">{{cur_online_receipt.get_otd_price()|currency}}</p>' +
+                        '<label ng-class="receipt_summary_lbl_class">total:</label>' +
+                        '<p id="receipt_app/service/report/receipt_summary/total" ng-class="receipt_summary_value_class">{{cur_online_receipt.get_otd_price()|currency}}</p>' +
                     '</div>' +
 
                     '<div ng-repeat="tender_ln in cur_online_receipt.tender_ln_lst" class="form-group">' +
                         '<label' +
                             ' ng-attr-id="receipt_app/service/report/online/receipt_summary/tender_lbl/{{tender_ln.pt === null ? \'null\' : tender_ln.pt.id}}"' +
-                            ' class="col-xs-4 control-label">' +
+                            ' ng-class="receipt_summary_lbl_class">' +
                                 '{{tender_ln.name === null ? \'cash\' : tender_ln.pt.name}}:' + 
                         '</label>' +
                         '<p' +
                             ' ng-attr-id="receipt_app/service/report/online/receipt_summary/tender_txt/{{tender_ln.pt === null ? \'null\' : tender_ln.pt.id}}"' +
-                            ' class="col-xs-8 form-control-static">' +
+                            ' ng-class="receipt_summary_value_class">' +
                                 '{{(tender_ln.amount)|currency}}' +
                         '</p>' +
                     '</div>' +
@@ -125,13 +125,13 @@ define(
                     '<hr>' +
 
                     '<div class="form-group">' +
-                        '<label class="col-xs-4 control-label">change:</label>' +
-                        '<p id="receipt_app/service/report/online/receipt_summary/change" class="col-xs-8 form-control-static">{{cur_online_receipt.get_change()|currency}}</p>' +
+                        '<label ng-class="receipt_summary_lbl_class">change:</label>' +
+                        '<p id="receipt_app/service/report/online/receipt_summary/change" ng-class="receipt_summary_value_class">{{cur_online_receipt.get_change()|currency}}</p>' +
                     '</div>' + 
                 '</div>'  /* end form horizontal*/
             ;                    
             var template = 
-                '<div class="modal-header"><h3>Receipts</h3></div>' +
+                '<div class="modal-header"><h3>{{is_internet_offline? \'Offline receipts\' : \'Receipts\'}}</h3></div>' +
                 '<div class="modal-body">' +
                     '<div>' +                  
                         '<p ng-hide="is_internet_offline" class="input-group" id="receipt_app/serivce/report/control_panel">' +
@@ -171,6 +171,12 @@ define(
             ;
 
             var ModalCtrl = function($scope,$modalInstance,$rootScope){
+                $scope.receipt_summary_lbl_class = 'col-xs-4 control-label';
+                $scope.receipt_summary_value_class = 'col-xs-8 form-control-static';
+
+                // $scope.receipt_summary_lbl_class = 'col-xs-4';
+                // $scope.receipt_summary_value_class = 'col-xs-8';
+
                 $scope.display_sale_able_info_dlg = function(receipt_ln){
                     sale_able_info_dlg(receipt_ln,false/*is_enable_override_price*/);
                 }
@@ -217,13 +223,29 @@ define(
                     popupWin.document.close();
                 }                 
                 $scope.exit = function(){$modalInstance.dismiss('_cancel_');}
-
+                function handle_internet_offline(){
+                    $scope.is_internet_offline = true;
+                    receipt_offline_api.get_receipt_lst().then(
+                        function(lst){
+                            $scope.online_receipt_lst = lst;
+                            var message = 'Internet is disconnected! ';
+                            if(lst.length ===0){
+                                message += 'You can only see offline receipt but there is none.'
+                            }else{
+                                message += 'You can only access offline receipts.'
+                            }
+                            alert_service(message);                            
+                        }
+                        ,function(reason){
+                            alert_service(reason);
+                        }
+                    );
+                }
                 // $scope.online_receipt_lst = [];
                 $scope.cur_online_receipt = null;
                 $scope.from_date = null;
                 $scope.to_date = null;
                 $scope.is_internet_offline = false;
-
                 push_receipt().then(
                     function(){
                         var default_number_receipt = 15;
@@ -232,25 +254,17 @@ define(
                                 $scope.online_receipt_lst = data; 
                             }
                             ,function(reason){ 
-                                alert_service(reason); 
+                                if(reason.status === 0){
+                                    handle_internet_offline();//usually, when internet is offline, push_receipt will reject the promise (which cause the code to jump into the reject function and not here) unless offline_receipt.length === 0. if could get here under this case, thus we have to handle offline internet here as well. this method will go and get offline receipt again eventhough we already know that offline_receipt.lenght === 0 now. this could be an optimization to pass in handle_offline_internet method a param saying don't bother getting receipt_offline since it is empty anyway,but the code is messy and it is rare so i don't bother.
+                                }else{
+                                    alert_service(reason);
+                                }
                             }
                         )
                     }
                     ,function(reason){
                         if(reason.status === 0){
-                            $scope.is_internet_offline = true;
-                            alert_service('internet is disconnected. you can only access to offline receipt');
-                            receipt_offline_api.get_receipt_lst().then(
-                                function(lst){
-                                    if(lst === null){
-                                        lst = [];
-                                    }
-                                    $scope.online_receipt_lst = lst;
-                                }
-                                ,function(reason){
-                                    alert_service(reason);
-                                }
-                            );
+                            handle_internet_offline();
                         }else{
                             alert_service(reason);
                         }

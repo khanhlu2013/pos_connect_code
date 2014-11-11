@@ -48,8 +48,9 @@ var Sale_page = function () {
     this.get_col_index = function(col_name){
         if(col_name === 'qty')          { return 0; }
         else if(col_name === 'name')    { return 1; }
-        else if(col_name === 'price')   { return 2; }
-        else if(col_name === 'delete')  { return 3; }
+        else if(col_name === 'crv')    { return 2; }
+        else if(col_name === 'price')   { return 3; }
+        else if(col_name === 'delete')  { return 4; }
         else                            { return null; }
     }
     this.click_col = function(index,col_name){

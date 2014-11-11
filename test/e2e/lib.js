@@ -159,15 +159,27 @@ module.exports = {
     wait_for_block_ui : function(){
         browser.wait(function(){ return element(by.css('.block-ui-overlay')).isDisplayed().then(function(val){ return !val; })});
     },
+    // click : function(el){
+    //     browser.wait(function(){ return element(by.css('.block-ui-overlay')).isDisplayed().then(function(val){ return !val; })}).then(
+    //         function(){
+    //             el.click();
+    //         }
+    //     )
+    // },
     click : function(el){
         browser.wait(function(){ return element(by.css('.block-ui-overlay')).isDisplayed().then(function(val){ return !val; })});
         el.click();
-    },
+    },    
     currency : function(amount){
-        var result = '$' + amount.toFixed(2);
-        if(amount < 0){
-            result = '(' + result + ')';
+        if(amount === null){
+            return '';
+        }else{
+            var result = '$' + amount.toFixed(2);
+            if(amount < 0){
+                result = '(' + result + ')';
+            }
+            return result;            
         }
-        return result;
+
     }
 };

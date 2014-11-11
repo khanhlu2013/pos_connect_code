@@ -8,6 +8,8 @@ describe('sale_app', function() {
     var Sale_able_info_dlg = require(base_path + 'page/sale/Sale_able_info_dlg');
     var Tender_dlg = require(base_path + 'page/sale/Tender_dlg');
     var Non_inventory_prompt_dlg = require(base_path + 'page/sp/Non_inventory_prompt_dlg.js');
+    var Ui_confirm_dlg = require(base_path + 'page/ui/Confirm_dlg.js');
+    var Sp_prompt_dlg = require(base_path + 'page/sp/Sp_prompt_dlg.js');
 
     beforeEach(function(){
         lib.auth.login('1','1');
@@ -15,7 +17,7 @@ describe('sale_app', function() {
         lib.auth.logout();
     })
     
-    it('can record receipt data offline: different payment type, and different kind of receipt_ln such as override_price item, deal item, non_inventory item, kit item',function(){
+    it('can record receipt: different payment type, and different kind of receipt_ln such as override_price item, deal item, non_inventory item, kit item,offline product',function(){
         lib.auth.login('1','1');
 
         //setup override price item
@@ -80,12 +82,40 @@ describe('sale_app', function() {
             lib.api.insert_mm(_3_deal_name,_3_deal_price,_3_deal_is_include,_3_deal_qty,[sp],false);
         })
 
-        //test sale finalizer and receipt report data
-        Sale_page.visit();
+        //setup offline product
+        Sale_page.visit(true/*is_offline*/);
+        //create offline product
+        var offline_name = 'offline product'
+        var offline_sku = 'off_sku';
+        var offline_price = 12.34;
+        var offline_value_customer_price = 11.23;
+        var offline_crv = 1.2;
+        var offline_is_taxable = true;
+        var offline_is_sale_report = false;
+        var offline_p_type = 'p type';
+        var offline_p_tag = 'p tag';
+        var offline_cost = 7.21;
+        var offline_vendor = 'vendor';
+        var offline_buydown = 0.45;
+        Sale_page.scan(offline_sku);
+        lib.wait_for_block_ui();
+        Ui_confirm_dlg.ok();//confirm that product will be create offline
+        Sp_prompt_dlg.set_name(offline_name);
+        Sp_prompt_dlg.set_price(offline_price);
+        Sp_prompt_dlg.set_value_customer_price(offline_value_customer_price);
+        Sp_prompt_dlg.set_crv(offline_crv);
+        Sp_prompt_dlg.set_is_taxable(offline_is_taxable);
+        Sp_prompt_dlg.set_is_sale_report(offline_is_sale_report);
+        Sp_prompt_dlg.set_p_type(offline_p_type);
+        Sp_prompt_dlg.set_p_tag(offline_p_tag);
+        Sp_prompt_dlg.set_cost(offline_cost);
+        Sp_prompt_dlg.set_vendor(offline_vendor);
+        Sp_prompt_dlg.set_buydown(offline_buydown);
+        Sp_prompt_dlg.ok();
 
         //setup and override price item
         Sale_page.scan(sku_1);lib.wait_for_block_ui();
-        Sale_page.click_col(0,'price');
+        Sale_page.click_col(1,'price');
         Sale_able_info_dlg.override_price();
         Ui_prompt_dlg.set_prompt(override_price_1);
         Ui_prompt_dlg.ok();
@@ -112,8 +142,8 @@ describe('sale_app', function() {
         )            
 
         //finalize sale
-        expect(Sale_page.lst.count()).toEqual(6);  
-        expect(Sale_page.tender_btn.getText()).toEqual('$16.68');//FAIL_HERE: wrong expectation '$15.08'
+        expect(Sale_page.lst.count()).toEqual(7);  
+        expect(Sale_page.tender_btn.getText()).toEqual('$30.95');
         Sale_page.tender();
 
         browser.wait(function(){
@@ -128,39 +158,45 @@ describe('sale_app', function() {
         )        
 
         //check receipt report
+        Sale_page.visit();//switch back online
         Sale_page.menu_report_receipt();
         lib.wait_for_block_ui();
         expect(Receipt_dlg.online.receipt.lst.count()).toEqual(1);
-        expect(Receipt_dlg.online.receipt.get_col(0,'total')).toEqual('$16.68');
+        expect(Receipt_dlg.online.receipt.get_col(0,'total')).toEqual('$30.95');
         Receipt_dlg.online.receipt.click_col(0,'info');
-        expect(Receipt_dlg.online.receipt_ln.lst.count()).toEqual(6);
+        expect(Receipt_dlg.online.receipt_ln.lst.count()).toEqual(7);
 
         //verify receipt ln
+
         expect(Receipt_dlg.online.receipt_ln.get_col(0,'qty')).toEqual('1');
-        expect(Receipt_dlg.online.receipt_ln.get_col(0,'product')).toEqual(product_name_1);
-        expect(Receipt_dlg.online.receipt_ln.get_col(0,'price')).toEqual('$0.50');
+        expect(Receipt_dlg.online.receipt_ln.get_col(0,'product')).toEqual(offline_name);
+        expect(Receipt_dlg.online.receipt_ln.get_col(0,'price')).toEqual('$11.89');
 
-        // expect(Receipt_dlg.online.receipt_ln.get_col(1,'qty')).toEqual('5');
-        // expect(Receipt_dlg.online.receipt_ln.get_col(1,'product')).toEqual(product_name_2);
-        // expect(Receipt_dlg.online.receipt_ln.get_col(1,'price')).toEqual('$1.00');
+        expect(Receipt_dlg.online.receipt_ln.get_col(1,'qty')).toEqual('1');
+        expect(Receipt_dlg.online.receipt_ln.get_col(1,'product')).toEqual(product_name_1);
+        expect(Receipt_dlg.online.receipt_ln.get_col(1,'price')).toEqual('$0.50');
 
-        // expect(Receipt_dlg.online.receipt_ln.get_col(2,'qty')).toEqual('3');
+        // expect(Receipt_dlg.online.receipt_ln.get_col(2,'qty')).toEqual('5');
         // expect(Receipt_dlg.online.receipt_ln.get_col(2,'product')).toEqual(product_name_2);
-        // expect(Receipt_dlg.online.receipt_ln.get_col(2,'price')).toEqual('$1.33');
+        // expect(Receipt_dlg.online.receipt_ln.get_col(2,'price')).toEqual('$1.00');
 
-        // expect(Receipt_dlg.online.receipt_ln.get_col(3,'qty')).toEqual('1');
+        // expect(Receipt_dlg.online.receipt_ln.get_col(3,'qty')).toEqual('3');
         // expect(Receipt_dlg.online.receipt_ln.get_col(3,'product')).toEqual(product_name_2);
-        // expect(Receipt_dlg.online.receipt_ln.get_col(3,'price')).toEqual('$2.00');
+        // expect(Receipt_dlg.online.receipt_ln.get_col(3,'price')).toEqual('$1.33');
 
-        expect(Receipt_dlg.online.receipt_ln.get_col(4,'qty')).toEqual('1');
-        expect(Receipt_dlg.online.receipt_ln.get_col(4,'product')).toEqual('none inventory');
-        expect(Receipt_dlg.online.receipt_ln.get_col(4,'price')).toEqual(lib.currency(ni_price));
+        // expect(Receipt_dlg.online.receipt_ln.get_col(4,'qty')).toEqual('1');
+        // expect(Receipt_dlg.online.receipt_ln.get_col(4,'product')).toEqual(product_name_2);
+        // expect(Receipt_dlg.online.receipt_ln.get_col(4,'price')).toEqual('$2.00');
 
         expect(Receipt_dlg.online.receipt_ln.get_col(5,'qty')).toEqual('1');
-        expect(Receipt_dlg.online.receipt_ln.get_col(5,'product')).toEqual(product_kit);
-        expect(Receipt_dlg.online.receipt_ln.get_col(5,'price')).toEqual('$1.40');
+        expect(Receipt_dlg.online.receipt_ln.get_col(5,'product')).toEqual('none inventory');
+        expect(Receipt_dlg.online.receipt_ln.get_col(5,'price')).toEqual(lib.currency(ni_price));
+
+        expect(Receipt_dlg.online.receipt_ln.get_col(6,'qty')).toEqual('1');
+        expect(Receipt_dlg.online.receipt_ln.get_col(6,'product')).toEqual(product_kit);
+        expect(Receipt_dlg.online.receipt_ln.get_col(6,'price')).toEqual('$1.40');
 
         Receipt_dlg.exit();
         lib.auth.logout();
-    });
+    },60000);
 });

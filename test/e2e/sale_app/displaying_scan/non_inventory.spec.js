@@ -73,7 +73,8 @@ describe('sale_app/displaying_scan/non_inventory', function() {
         Non_inventory_prompt_dlg.set_cost(new_cost);
         Non_inventory_prompt_dlg.ok();
         expect(Sale_page.get_col(0,'name')).toEqual(new_name);
-        expect(Sale_page.get_col(0,'price')).toEqual(lib.currency(new_price) + 'C');
+        expect(Sale_page.get_col(0,'crv')).toEqual(lib.currency(new_crv));
+        expect(Sale_page.get_col(0,'price')).toEqual(lib.currency(new_price));
         expect(Sale_page.tender_btn.getText()).toEqual('$6.60');  
         Sale_page.click_col(0,'name');
         expect(Non_inventory_prompt_dlg.get_cost()).toEqual('3.3');

@@ -26,7 +26,7 @@ describe('sale page \'s scan table ', function() {
         Sale_page.scan(sku_1);lib.wait_for_block_ui();
 
         //edit sp 1
-        Sale_page.click_col(0,'name');
+        Sale_page.click_col(0,'name');//FAIL_HERE: there is no ds_lst
         lib.click(Sp_info_dlg.sku_tab);
         Sp_info_dlg.edit();
 

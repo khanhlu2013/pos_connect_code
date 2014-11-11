@@ -114,6 +114,7 @@ describe('sp page', function() {
         Ui_confirm_dlg.ok();
 
         //verify sku is removed
+        lib.wait_for_block_ui();
         expect(Sp_sku_dlg.lst.count()).toEqual(1);
         Sp_sku_dlg.exit();
         Sp_info_dlg.exit();

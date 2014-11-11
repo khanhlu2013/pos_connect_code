@@ -164,10 +164,14 @@ module.exports = {
         el.click();
     },
     currency : function(amount){
-        var result = '$' + amount.toFixed(2);
-        if(amount < 0){
-            result = '(' + result + ')';
+        if(amount === null){
+            return '';
+        }else{
+            var result = '$' + amount.toFixed(2);
+            if(amount < 0){
+                result = '(' + result + ')';
+            }
+            return result;
         }
-        return result;
     }
 };

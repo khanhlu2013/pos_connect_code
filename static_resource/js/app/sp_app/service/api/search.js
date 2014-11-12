@@ -102,16 +102,17 @@ define(
                 return defer.promise;
             }
 
-            ,name_sku_search: function(search_str){
+            ,name_sku_search: function(search_str,after){
                 var token_lst = search_str.split(' ');
                 if(token_lst.length > 2){
-                    var defer=$q.defer();defer.reject('2 words search max');return defer.promise;
+                    return $q.reject('2 words search max');
                 }
+
                 var defer = $q.defer();
                 $http({
                     url : '/product/search_by_name_sku_angular',
                     method: 'GET',
-                    params : {'search_str':search_str}
+                    params : {'search_str':search_str,'after':after}
                 })
                 .then(
                     function(data){ 

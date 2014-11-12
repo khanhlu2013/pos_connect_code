@@ -130,8 +130,8 @@ define(
                     $scope.message = "";
                     return;
                 }
-
-                api.name_sku_search($scope.search_str).then(
+                var after = 0;
+                api.name_sku_search($scope.search_str,after).then(
                     function(result_lst){
                         $scope.sp_lst = result_lst;
                         if($scope.sp_lst.length == 0){ $scope.message = "no result for " + "'" + $scope.search_str + "'";}
@@ -168,14 +168,15 @@ define(
                 '<h3 class="modal-title">search</h3>' +
             '</div>'+
 
-            '<div class="modal-body">' + 
+            '<div class="modal-body" infinite-scroll="search(\'infinite_scroll\')" infinite-scroll-distance="0">' + 
                 '<input' +
                     ' id="sp_ll_app/service/search/name_sku_online_dlg/single/search_txt"' +
                     ' type="text"' +
                     ' ng-model="$parent.search_str"' +
-                    ' ng-enter="search()"' +
+                    ' ng-enter="search(\'user\')"' +
                     ' placeholder="name/sku"' +
                     ' focus-me={{true}}' +
+                    ' blur-me="is_blur_search_text_box"' +
                 '>' +
                 '<table ng-hide="sp_lst.length==0" class="table table-hover table-bordered table-condensed table-striped">' +
                     '<tr>' +
@@ -206,29 +207,78 @@ define(
             $scope.select = function(sp){
                 $modalInstance.close(sp);
             }
-            $scope.search = function(){
-                $scope.search_str = $scope.search_str.trim();
-                $scope.last_search_str = $scope.search_str;
-
-                if($scope.search_str.length == 0){
-                    $scope.sp_lst = [];
-                    $scope.message = "";
+            $scope.cancel = function(){
+                $modalInstance.dismiss('_cancel_');
+            }            
+            $scope.search = function(search_by){
+                if($scope.search_busy === true){
                     return;
                 }
 
-                api.name_sku_search($scope.search_str).then(
-                    function(result_lst){
-                        $scope.sp_lst = result_lst;
-                        if($scope.sp_lst.length == 0){ $scope.message = "no result for " + "'" + $scope.search_str + "'";}
-                        else{ $scope.message = ""; }
+                $scope.search_str = $scope.search_str.trim();
+                
+                if($scope.search_str.length === 0){
+                    $scope.sp_lst = [];
+                    $scope.message = "";                    
+                    return;
+                }
+                var after = null;
+                if($scope.old_search_str === null){
+                    //first time search, we will init the search
+                    after = 0;
+                    $scope.sp_lst = [];
+                    $scope.old_search_str = $scope.search_str;
+                    $scope.search_reach_the_end = false;
+                }else{//this is not the first time search
+                    if($scope.old_search_str !== $scope.search_str){
+                        //if search str is different than previous search, we will init the search
+                        after = 0;
+                        $scope.sp_lst = [];
+                        $scope.old_search_str = $scope.search_str;
+                        $scope.search_reach_the_end = false;
+                    }else{
+                        //the search str is the same
+                        if(search_by === 'user'){
+                            return;
+                        }else if(search_by === 'infinite_scroll'){
+                            if($scope.search_reach_the_end){
+                                return;
+                            }else{
+                                after = $scope.sp_lst.length;
+                            }                        
+                        }
                     }
-                    ,function(reason){ $scope.message = reason; }
-                )               
+                }
+                $scope.search_busy = true;
+                api.name_sku_search($scope.search_str,after).then(
+                    function(data){
+                        if(data.length === 0){
+                            $scope.search_reach_the_end = true;
+                        }else{
+                            for(var i = 0;i<data.length;i++){
+                                $scope.sp_lst.push(data[i]);
+                            }                        
+                        }
+
+                        if($scope.sp_lst.length === 0){ 
+                            $scope.message = "no result for " + "'" + $scope.search_str + "'";
+                        }else{
+                            $scope.message = "";
+                            $scope.is_blur_search_text_box = true;
+                        }
+                        $scope.name_search_busy = false;
+                    }
+                    ,function(reason){ 
+                        $scope.message = reason;
+                    }
+                )
             }
-            $scope.cancel = function(){
-                $modalInstance.dismiss('_cancel_');
-            }
-       
+
+            $scope.search_reach_the_end = false;
+            $scope.search_str = '';
+            $scope.is_blur_search_text_box = false;
+            $scope.search_busy = false;
+            $scope.old_search_str = null;            
         }
         ModalCtrl.$inject = ['$scope','$modalInstance','$http'];        
         return function(){

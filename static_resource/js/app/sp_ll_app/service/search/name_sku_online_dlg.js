@@ -228,6 +228,7 @@ define(
             $scope.cancel = function(){
                 $modalInstance.dismiss('_cancel_');
             }
+       
         }
         ModalCtrl.$inject = ['$scope','$modalInstance','$http'];        
         return function(){

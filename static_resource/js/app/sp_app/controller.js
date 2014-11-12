@@ -112,16 +112,10 @@ define(
         //NAME SEARCH
         $scope.name_search = function(search_by){
             /*
-                EXPLAIN is_programmatically_call
-
-                    There are 2 way the user can call this method: either enter on the search box, or scroll down to the end. 
-                        . if we scroll down in the search box, name search str will be the same and thus we going to get the next page
-                        . if we hit enter in the search box, with a same name, we will also go to the next page. (WE NEED TO FIX THIS BY DOING NOTHING)
-
-                    There is 1 way the code will call this method: after group execution, the code will call this method with the same name (if we are currently search by name)
-                        . in this case we want to reset the whole thing to refresh all data.
-
-
+                EXPLAIN search_by. accept 3 constance
+                    . user
+                    . infinite_scroll
+                    . code -> when we execute group, we want to call this name_search again to refresh the data on the page
             */
             
             if($scope.name_search_busy === true){
@@ -161,7 +155,6 @@ define(
                             after = $scope.sp_lst.length;
                         }                        
                     }else if(search_by === 'code'){
-                        //if search str is different than previous search, we will init the search
                         after = 0;
                         $scope.sp_lst = [];
                         $scope.old_name_search_str = $scope.name_search_str;

@@ -9,15 +9,18 @@
         
         ,angular: 'lib/angular_3_18'
         ,ui_bootstrap: 'empty:'
+        ,jquery: 'lib/jquery-2.1.1'
         ,ngTable : 'lib/ng-table'
         ,pouchdb_raw :  'lib/pouchdb-3.0.6'
         ,blockUI : 'lib/angular-block-ui'
+        ,infiniteScroll : 'lib/infinite-scroll'
         ,angular_hotkey : 'lib/hotkeys'
     }
     ,shim:{
-         angular              : { exports   : 'angular'}
+         angular              : { deps:['jquery'], exports : 'angular'}
         ,ui_bootstrap         : { deps      : ['angular']}
         ,ngTable              : { deps      : ['angular']} 
         ,blockUI              : { deps      : ['angular']} 
+        ,infiniteScroll       : { deps      : ['angular','jquery']}
     }
 })

@@ -98,10 +98,12 @@ define(
                     '<table ng-hide="mm.sp_lst.length==0" class="table table-hover table-bordered table-condensed table-striped">' +
                         '<tr>' +    
                             '<th>product</th>' +
+                            '<th>price</th>' +
                             '<th>remove</th>' +
                         '<tr>' +
                         '<tr ng-repeat="sp in mm.sp_lst | orderBy : \'name\'">' +
                             '<td>{{sp.name}}</td>' +
+                            '<td class="alnright">{{sp.price|currency}}</td>' +                            
                             '<td class="alncenter"><button ng-click="remove_child(sp)" class="btn btn-danger glyphicon glyphicon-trash"></button></td>' +
                         '</tr>' +
                     '</table>' +

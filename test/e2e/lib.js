@@ -136,7 +136,8 @@ module.exports = {
             browser.get(env.baseUrl); 
         },
         logout : function(){
-            browser.wait(function(){ return element(by.css('.block-ui-overlay')).isDisplayed().then(function(val){ return !val; })});
+            // browser.wait(function(){ return element(by.css('.block-ui-overlay')).isDisplayed().then(function(val){ return !val; })});
+            browser.wait(function(){ return element(by.css('.block-ui-overlay')).getSize().then(function(size){ return size.height === 0 })});
             browser.findElement(by.id('logout_link')).click();
             browser.findElement(by.id('service/ui/confirm/ok_btn')).click();
         }
@@ -157,10 +158,12 @@ module.exports = {
         }
     },    
     wait_for_block_ui : function(){
-        browser.wait(function(){ return element(by.css('.block-ui-overlay')).isDisplayed().then(function(val){ return !val; })});
+        // browser.wait(function(){ return element(by.css('.block-ui-overlay')).isDisplayed().then(function(val){ return !val; })});
+        browser.wait(function(){ return element(by.css('.block-ui-overlay')).getSize().then(function(size){ return size.height === 0 })});
     },
     click : function(el){
-        browser.wait(function(){ return element(by.css('.block-ui-overlay')).isDisplayed().then(function(val){ return !val; })});
+        // browser.wait(function(){ return element(by.css('.block-ui-overlay')).isDisplayed().then(function(val){ return !val; })});
+        browser.wait(function(){ return element(by.css('.block-ui-overlay')).getSize().then(function(size){ return size.height === 0 })});
         el.click();
     },
     currency : function(amount){

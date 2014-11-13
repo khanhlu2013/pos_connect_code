@@ -10,6 +10,7 @@ define(
     ,'service/init_global_setting'
     ,'angular_hotkey'
     ,'directive/share_directive'
+    ,'infiniteScroll'
 ]
 ,function
 (
@@ -26,6 +27,7 @@ define(
         ,'service/init_global_setting'
         ,'cfp.hotkeys'
         ,'directive/share_directive'
+        ,'infinite-scroll'
     ]);
     
     app.config(['blockUIConfig',function(blockUIConfig) {

@@ -97,7 +97,7 @@ def sp_search_by_name_sku_angular_view(request):
     else:
         return
     qs = qs.distinct() #since we are joining with sku db and if a product have many sku, we could end up with duplicate result. (lets say product with name 'a' have 3 sku, and we search for name 'a' which comeout 3 results)                
-    qs = qs[after:after + settings.SP_PAGE_NAME_SEARCH_PAGINATION_SIZE]
+    # qs = qs[after:after + settings.SP_PAGE_NAME_SEARCH_PAGINATION_SIZE]
     
     sp_lst_serialized = sp_serializer.Store_product_serializer(qs,many=True).data
     return HttpResponse(json.dumps(sp_lst_serialized,cls=DjangoJSONEncoder),content_type='application/json')

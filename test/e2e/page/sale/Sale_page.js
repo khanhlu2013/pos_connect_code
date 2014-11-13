@@ -107,8 +107,8 @@ var Sale_page = function () {
     //function misc
     this.visit = function(is_offline){
         var posUrl
-        if(is_offline=== true)  {posUrl = 'http://127.0.0.1:8000/sale/index_offline_angular';}
-        else                    {posUrl = 'http://127.0.0.1:8000/sale/index_angular';}
+        if(is_offline === true)  {posUrl = 'http://127.0.0.1:8000/sale/index_offline_angular';}
+        else                     {posUrl = 'http://127.0.0.1:8000/sale/index_angular';}
         browser.get(posUrl);
         lib.wait_for_block_ui();               
     }

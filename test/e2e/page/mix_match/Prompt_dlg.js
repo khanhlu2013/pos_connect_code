@@ -45,7 +45,8 @@ var Prompt_dlg = function () {
     //function table
     this.get_index = function(col_name){
         if(col_name === 'product'){ return 0; }
-        else if(col_name === 'remove'){ return 1; }
+        else if(col_name ==='price'){ return 1; }
+        else if(col_name === 'remove'){ return 2; }
     }
     this.get_col = function(index,col_name){
         var col_index = this.get_index(col_name);

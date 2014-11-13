@@ -75,7 +75,6 @@ define(
                 )
                 return defer.promise
             }
-
             ,sku_search: function(sku_search_str){
                 sku_search_str = sku_search_str.trim();
                 if(sku_search_str.length == 0){ return $q.reject('error: sku is empty'); }
@@ -101,7 +100,6 @@ define(
                 )
                 return defer.promise;
             }
-
             ,name_sku_search: function(search_str,after){
                 var token_lst = search_str.split(' ');
                 if(token_lst.length > 2){
@@ -112,7 +110,7 @@ define(
                 $http({
                     url : '/product/search_by_name_sku_angular',
                     method: 'GET',
-                    params : {'search_str':search_str,'after':after}
+                    params : {'search_str':search_str,'after':0}
                 })
                 .then(
                     function(data){ 

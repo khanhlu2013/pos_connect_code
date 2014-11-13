@@ -1,7 +1,14 @@
 from mix_match.models import Mix_match
 from rest_framework import serializers,fields
 from store_product.models import Store_product
-from store_product.sp_serializer import Store_product_serializer
+
+
+class Store_product_serializer(serializers.ModelSerializer):
+    product_id = serializers.Field(source='product.id')
+
+    class Meta:
+        model = Store_product
+        fields = ('id','product_id','name','price')
 
 
 class Mix_match_serializer(serializers.ModelSerializer):

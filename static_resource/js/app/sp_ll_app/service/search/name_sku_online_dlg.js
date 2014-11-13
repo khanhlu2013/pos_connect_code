@@ -41,7 +41,7 @@ define(
                     ' placeholder="name/sku"' +
                     ' focus-me="{{true}}"' +
                 '>' + 
-                '<input ng-model="$parent.query" type="text" placeholder="local filter">' + 
+                '<input ng-model="local_filter" type="text" placeholder="local filter">' + 
                 '<div>' +
                     '<div class="col-sm-6">' +
                         '<div ng-hide="message.length == 0">' +
@@ -54,7 +54,7 @@ define(
                                 '<th>select</th>' +                 
                             '</tr>' +
 
-                            '<tr ng-repeat="sp_multiple in sp_lst | orderBy:\'name\' | filter:$parent.query">' + 
+                            '<tr ng-repeat="sp_multiple in sp_lst | orderBy:\'name\' | filter:local_filter">' + 
                                 '<td>{{sp_multiple.name}}</td>' +
                                 '<td class="alnright">{{sp_multiple.price | currency}}</td>' +
                                 '<td class="alncenter"><button ng-class="is_sp_selected(sp_multiple) ? \'btn-warning glyphicon-check\' : \'btn-primary glyphicon-unchecked\'" class="btn glyphicon" ng-click="toggle_select(sp_multiple)"></button></td>' +
@@ -168,7 +168,7 @@ define(
                 '<h3 class="modal-title">search</h3>' +
             '</div>'+
 
-            '<div class="modal-body" infinite-scroll="search(\'infinite_scroll\')" infinite-scroll-distance="0">' + 
+            '<div class="modal-body">' + 
                 '<input' +
                     ' id="sp_ll_app/service/search/name_sku_online_dlg/single/search_txt"' +
                     ' type="text"' +
@@ -178,6 +178,7 @@ define(
                     ' focus-me={{true}}' +
                     ' blur-me="is_blur_search_text_box"' +
                 '>' +
+                '<input ng-model="local_filter" type="text" placeholder="local filter">' +
                 '<table ng-hide="sp_lst.length==0" class="table table-hover table-bordered table-condensed table-striped">' +
                     '<tr>' +
                         '<th>name</th>' +
@@ -185,12 +186,13 @@ define(
                         '<th>select</th>' +                 
                     '</tr>' +
 
-                    '<tr ng-repeat="search_sp_single in sp_lst">' + 
+                    '<tr ng-repeat="search_sp_single in sp_lst | filter:local_filter">' + 
                         '<td>{{search_sp_single.name}}</td>' +
-                        '<td>{{search_sp_single.price}}</td>' +
+                        '<td>{{search_sp_single.price|currency}}</td>' +
                         '<td class="alncenter"><button class="btn btn-primary btn-xs" ng-click="select(search_sp_single)">select</button></td>' +
                     '</tr>' +
                 '</table>' +
+
                 '<div ng-hide="message.length == 0">' +
                     '<pre>{{message}}</pre>' +
                 '</div>' +
@@ -266,7 +268,7 @@ define(
                             $scope.message = "";
                             $scope.is_blur_search_text_box = true;
                         }
-                        $scope.name_search_busy = false;
+                        $scope.search_busy = false;
                     }
                     ,function(reason){ 
                         $scope.message = reason;

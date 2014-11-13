@@ -144,13 +144,16 @@ define(
             combo: 'f2',
             description: 'toogle value customer price',
             allowIn: ['INPUT'],
-            callback: function() {$scope.toogle_value_customer_price();}
+            callback: function() {
+                $scope.toogle_value_customer_price();
+                blockUI.start('testing')
+            }
         })
         .add({
             combo: 'f7',
             description: 'tender',
             allowIn: ['INPUT'],
-            callback: function() {$scope.finalize();}
+            callback: function() {$scope.finalize();blockUI.stop();}
         })
         .add({
             combo: 'ctrl+n',

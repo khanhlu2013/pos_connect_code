@@ -46,14 +46,14 @@ exports.config = {
         // ,'./sale_app/page/suggest_mm_and_cur_mm_info_on_ds_item.spec.js'
         // ,'./sale_app/sale_able_info_dlg.spec.js'
         // ,'./sale_app/hold.spec.js'   
-        // ,'./sale_app/init_db.spec.js'    
+        './sale_app/init_db.spec.js'    
         // ,'./sale_app/displaying_scan/non_inventory.spec.js'    
         // ,'./sale_app/displaying_scan/tender_calculation_4_single_item.spec.js'
         // ,'./sale_app/sale_finalizer.spec.js'        
         // ,'./sale_app/offline_product.spec.js'    
 
-        // ,'./receipt_app/report_online_ui.spec.js'
-        // ,'./receipt_app/report_offline_ui.spec.js'
+        ,'./receipt_app/report_online_ui.spec.js'
+        ,'./receipt_app/report_offline_ui.spec.js'
              
     ]
 }

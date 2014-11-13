@@ -33,7 +33,7 @@ describe('sale page \'s init_db_service when refresh/loading page', function() {
         Sale_page.visit(true);//this visit we will go to receipt to view offline receipt and expect to see none since it is already push up
         Sale_page.menu_report_receipt();
 
-        expect(Report_dlg.online.receipt.lst.count()).toEqual(0);
+        expect(Report_dlg.receipt.lst.count()).toEqual(0);
         expect(Alert_dlg.message_lbl.getText()).toEqual('Internet is disconnected! You can only see offline receipt but there is none.');
     })
 

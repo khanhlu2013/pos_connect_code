@@ -37,24 +37,24 @@ define(
         ,sale_able_info_dlg
     ){
         return function(){
-            var template_left_online_table = 
-                '<table ng-hide="online_receipt_lst.length===0" class="table table-hover table-bordered table-condensed table-striped">' +
+            var template_receipt_table = 
+                '<table ng-hide="receipt_lst.length===0" class="table table-hover table-bordered table-condensed table-striped">' +
                     '<tr>' +
                         '<th>time</th>' +
                         '<th>total</th>' +
                         '<th>info</th>' +
                     '</tr>' +
 
-                    '<tr ng-repeat="online_receipt in online_receipt_lst | orderBy:\'-date\'">' +
-                        '<td>{{online_receipt.date | date : \'M/d h:mm a\'}}</td>' +
-                        '<td>{{online_receipt.get_otd_price() | currency}}</td>' +
-                        '<td class="alncenter"><button class="btn glyphicon glyphicon-info-sign" ng-class="is_cur_online_receipt(online_receipt) ? \'btn-warning\' : \'btn-primary\'" ng-click="toogle_cur_online_receipt(online_receipt)"></button></td>' +
+                    '<tr ng-repeat="receipt in receipt_lst | orderBy:\'-date\'">' +
+                        '<td>{{receipt.date | date : \'M/d h:mm a\'}}</td>' +
+                        '<td>{{receipt.get_otd_price() | currency}}</td>' +
+                        '<td class="alncenter"><button class="btn glyphicon glyphicon-info-sign" ng-class="is_cur_receipt(receipt) ? \'btn-warning\' : \'btn-primary\'" ng-click="toogle_cur_receipt(receipt)"></button></td>' +
                     '</tr>' +                        
                 '</table>' +
-                '<pre ng-show="online_receipt_lst.length===0">there is no receipt data</pre>'
+                '<pre ng-show="receipt_lst.length===0">there is no receipt data</pre>'
             ;
 
-            var template_right_online_table = 
+            var template_receipt_ln_table = 
                 '<table id="receipt_app/service/report/ds_lst" class="table table-hover table-bordered table-condensed table-striped">' +
                     '<tr>' +
                         '<th>qty</th>' +
@@ -62,61 +62,61 @@ define(
                         '<th>price</th>' +
                     '</tr>' +
 
-                    '<tr ng-repeat="receipt_ln in $parent.cur_online_receipt.receipt_ln_lst | orderBy:\'date\'">' +
+                    '<tr ng-repeat="receipt_ln in $parent.cur_receipt.receipt_ln_lst | orderBy:\'date\'">' +
                         '<td>{{receipt_ln.qty}}</td>' +
                         '<td>{{receipt_ln.get_name()}}</td>' +
                         '<td class="alncenter"><button ng-click="display_sale_able_info_dlg(receipt_ln)" class="btn btn-primary">{{receipt_ln.get_advertise_price() | currency}}</button></td>' +
                     '</tr>' +
                 '</table>'
             ;    
-            var receipt_summary_online_template = 
+            var receipt_summary_template = 
                 '<div class="form-horizontal" >' +
-                    '<div id="receipt_app/service/report/online/receipt_summary/subtotal_derivation" ng-hide="cur_online_receipt.get_saving()===0.0 && cur_online_receipt.get_crv()===0.0">' +
-                        '<div id="receipt_app/service/report/online/receipt_summary/original_price" class="form-group">' +
+                    '<div id="receipt_app/service/report/receipt_summary/subtotal_derivation" ng-hide="cur_receipt.get_saving()===0.0 && cur_receipt.get_crv()===0.0">' +
+                        '<div id="receipt_app/service/report/receipt_summary/original_price" class="form-group">' +
                             '<label ng-class="receipt_summary_lbl_class">original price:</label>' +
-                            '<p id="receipt_app/service/report/online/receipt_summary/genesis_price" ng-class="receipt_summary_value_class">{{cur_online_receipt.get_genesis_price()}}</p>' +
+                            '<p ng-class="receipt_summary_value_class">{{cur_receipt.get_genesis_price()}}</p>' +
                         '</div>' +
-                        '<div id="receipt_app/service/report/online/receipt_summary/saving_div" ng-hide="cur_online_receipt.get_saving()===0.0" class="form-group">' +
+                        '<div id="receipt_app/service/report/receipt_summary/saving_div" ng-hide="cur_receipt.get_saving()===0.0" class="form-group">' +
                             '<label ng-class="receipt_summary_lbl_class">saving:</label>' +
-                            '<p id="receipt_app/service/report/online/receipt_summary/saving" ng-class="receipt_summary_value_class">{{(cur_online_receipt.get_saving() * -1) | currency}}</p>' +
+                            '<p id="receipt_app/service/report/receipt_summary/saving" ng-class="receipt_summary_value_class">{{(cur_receipt.get_saving() * -1) | currency}}</p>' +
                         '</div>' +
-                        '<div id="receipt_app/service/report/online/receipt_summary/crv_div" ng-hide="cur_online_receipt.get_crv()===0.0" class="form-group">' +
+                        '<div id="receipt_app/service/report/receipt_summary/crv_div" ng-hide="cur_receipt.get_crv()===0.0" class="form-group">' +
                             '<label ng-class="receipt_summary_lbl_class">crv:</label>' +
-                            '<p id="receipt_app/service/report/online/receipt_summary/crv" ng-class="receipt_summary_value_class">{{cur_online_receipt.get_crv()|currency}}</p>' +
+                            '<p id="receipt_app/service/report/receipt_summary/crv" ng-class="receipt_summary_value_class">{{cur_receipt.get_crv()|currency}}</p>' +
                         '</div>' +
                         '<hr>' +
                     '</div>' +
 
-                    '<div id="receipt_app/service/report/online/receipt_summary/subtotal_div" class="form-group">' +
+                    '<div id="receipt_app/service/report/receipt_summary/subtotal_div" class="form-group">' +
                         '<label ng-class="receipt_summary_lbl_class">subtotal:</label>' +
-                        '<p id="receipt_app/service/report/online/receipt_summary/subtotal" ng-class="receipt_summary_value_class">{{cur_online_receipt._get_b4_tax_price()|currency}}</p>' +
+                        '<p id="receipt_app/service/report/receipt_summary/subtotal" ng-class="receipt_summary_value_class">{{cur_receipt._get_b4_tax_price()|currency}}</p>' +
                     '</div>' +
                     
-                    '<div id="receipt_app/service/report/online/receipt_summary/buydown_tax_div" ng-hide="cur_online_receipt.get_buydown_tax()===0.0" class="form-group">' +
+                    '<div id="receipt_app/service/report/receipt_summary/buydown_tax_div" ng-hide="cur_receipt.get_buydown_tax()===0.0" class="form-group">' +
                         '<label ng-class="receipt_summary_lbl_class">buydown tax:</label>' +
-                        '<p id="receipt_app/service/report/online/receipt_summary/buydown_tax" ng-class="receipt_summary_value_class">{{cur_online_receipt.get_buydown_tax()|currency}}</p>' +
+                        '<p id="receipt_app/service/report/receipt_summary/buydown_tax" ng-class="receipt_summary_value_class">{{cur_receipt.get_buydown_tax()|currency}}</p>' +
                     '</div>' +
 
-                    '<div id="receipt_app/service/report/online/receipt_summary/tax_div" class="form-group">' +
-                        '<label ng-class="receipt_summary_lbl_class">tax ({{cur_online_receipt.tax_rate}}%):</label>' +
-                        '<p id="receipt_app/service/report/online/receipt_summary/tax" ng-class="receipt_summary_value_class">{{cur_online_receipt.get_product_tax()|currency}}</p>' +
+                    '<div id="receipt_app/service/report/receipt_summary/tax_div" class="form-group">' +
+                        '<label ng-class="receipt_summary_lbl_class">tax ({{cur_receipt.tax_rate}}%):</label>' +
+                        '<p id="receipt_app/service/report/receipt_summary/tax" ng-class="receipt_summary_value_class">{{cur_receipt.get_product_tax()|currency}}</p>' +
                     '</div>' +
 
                     '<hr>' + /* total and tender amount-------------------------------------------------------------------------------------------------------------- */
 
-                    '<div id="receipt_app/service/report/online/receipt_summary/total_div" class="form-group">' +
+                    '<div id="receipt_app/service/report/receipt_summary/total_div" class="form-group">' +
                         '<label ng-class="receipt_summary_lbl_class">total:</label>' +
-                        '<p id="receipt_app/service/report/receipt_summary/total" ng-class="receipt_summary_value_class">{{cur_online_receipt.get_otd_price()|currency}}</p>' +
+                        '<p id="receipt_app/service/report/receipt_summary/total" ng-class="receipt_summary_value_class">{{cur_receipt.get_otd_price()|currency}}</p>' +
                     '</div>' +
 
-                    '<div id="receipt_app/service/report/online/receipt_summary/tender_div" ng-repeat="tender_ln in cur_online_receipt.tender_ln_lst" class="form-group">' +
+                    '<div id="receipt_app/service/report/receipt_summary/tender_div" ng-repeat="tender_ln in cur_receipt.tender_ln_lst" class="form-group">' +
                         '<label' +
-                            ' ng-attr-id="receipt_app/service/report/online/receipt_summary/tender_lbl/{{tender_ln.pt === null ? \'null\' : tender_ln.pt.id}}"' +
+                            ' ng-attr-id="receipt_app/service/report/receipt_summary/tender_lbl/{{tender_ln.pt === null ? \'null\' : tender_ln.pt.id}}"' +
                             ' ng-class="receipt_summary_lbl_class">' +
                                 '{{tender_ln.name === null ? \'cash\' : tender_ln.pt.name}}:' + 
                         '</label>' +
                         '<p' +
-                            ' ng-attr-id="receipt_app/service/report/online/receipt_summary/tender_txt/{{tender_ln.pt === null ? \'null\' : tender_ln.pt.id}}"' +
+                            ' ng-attr-id="receipt_app/service/report/receipt_summary/tender_value/{{tender_ln.pt === null ? \'null\' : tender_ln.pt.id}}"' +
                             ' ng-class="receipt_summary_value_class">' +
                                 '{{(tender_ln.amount)|currency}}' +
                         '</p>' +
@@ -124,9 +124,9 @@ define(
 
                     '<hr>' +
 
-                    '<div id="receipt_app/service/report/online/receipt_summary/change_div" class="form-group">' +
+                    '<div id="receipt_app/service/report/receipt_summary/change_div" class="form-group">' +
                         '<label ng-class="receipt_summary_lbl_class">change:</label>' +
-                        '<p id="receipt_app/service/report/online/receipt_summary/change" ng-class="receipt_summary_value_class">{{cur_online_receipt.get_change()|currency}}</p>' +
+                        '<p id="receipt_app/service/report/receipt_summary/change" ng-class="receipt_summary_value_class">{{cur_receipt.get_change()|currency}}</p>' +
                     '</div>' + 
                 '</div>'  /* end form horizontal*/
             ;                    
@@ -155,17 +155,17 @@ define(
                         '</p>' +
 
                         '<div>' +
-                            '<div id="receipt_app/service/report/master" class="col-xs-4">' + template_left_online_table + '</div>' +
-                            '<div id="receipt_app/service/report/detail" ng-hide="$parent.cur_online_receipt===null" class="col-xs-8">' + 
-                                template_right_online_table + 
-                                receipt_summary_online_template +
+                            '<div id="receipt_app/service/report/master" class="col-xs-4">' + template_receipt_table + '</div>' +
+                            '<div id="receipt_app/service/report/detail" ng-hide="$parent.cur_receipt===null" class="col-xs-8">' + 
+                                template_receipt_ln_table + 
+                                receipt_summary_template +
                             '</div>' +
                             '<div class="clear"></div>' +                    
                         '</div>' +
                     '</div>' +
                 '</div>' +
                 '<div class="modal-footer">' +
-                    '<button id="receipt_app/service/report/print_btn" ng-hide="$parent.cur_online_receipt===null" class="btn btn-success" ng-click="print()">print</button>' +
+                    '<button id="receipt_app/service/report/print_btn" ng-hide="$parent.cur_receipt===null" class="btn btn-success" ng-click="print()">print</button>' +
                     '<button id="receipt_app/service/report/exit_btn" class="btn btn-warning" ng-click="exit()">exit</button>' +
                 '</div>' 
             ;
@@ -180,13 +180,13 @@ define(
                 $scope.display_sale_able_info_dlg = function(receipt_ln){
                     sale_able_info_dlg(receipt_ln,false/*is_enable_override_price*/);
                 }
-                $scope.toogle_cur_online_receipt = function(receipt){
-                    if($scope.is_cur_online_receipt(receipt)){ $scope.cur_online_receipt = null;}
-                    else{ $scope.cur_online_receipt = receipt; }
+                $scope.toogle_cur_receipt = function(receipt){
+                    if($scope.is_cur_receipt(receipt)){ $scope.cur_receipt = null;}
+                    else{ $scope.cur_receipt = receipt; }
                 }
-                $scope.is_cur_online_receipt = function(receipt){
-                    if($scope.cur_online_receipt === null){ return false; }
-                    else{ return $scope.cur_online_receipt === receipt }
+                $scope.is_cur_receipt = function(receipt){
+                    if($scope.cur_receipt === null){ return false; }
+                    else{ return $scope.cur_receipt === receipt }
                 }    
                 $scope.open_date_dlg = function($event,from_or_to) {
                     $event.preventDefault();
@@ -201,7 +201,7 @@ define(
                 $scope.refresh_report = function(){
                     receipt_online_api.get_receipt_by_range($scope.from_date,$scope.to_date).then(
                         function(data){ 
-                            $scope.online_receipt_lst = data; 
+                            $scope.receipt_lst = data; 
                         }
                         ,function(reason){ 
                             alert_service(reason);
@@ -211,24 +211,24 @@ define(
                 $scope.print = function() {
                     var ds_lst_html = document.getElementById('receipt_app/service/report/ds_lst').outerHTML;
                     var subtotal_derivation_html = "";
-                    if($scope.cur_online_receipt.get_saving()!==0.0 || $scope.cur_online_receipt.get_crv()!==0.0){
-                        subtotal_derivation_html += document.getElementById('receipt_app/service/report/online/receipt_summary/original_price').innerHTML;                          
+                    if($scope.cur_receipt.get_saving()!==0.0 || $scope.cur_receipt.get_crv()!==0.0){
+                        subtotal_derivation_html += document.getElementById('receipt_app/service/report/receipt_summary/original_price').innerHTML;                          
                     }                        
-                    if($scope.cur_online_receipt.get_saving()!==0.0){
-                        subtotal_derivation_html += document.getElementById('receipt_app/service/report/online/receipt_summary/saving_div').innerHTML;
+                    if($scope.cur_receipt.get_saving()!==0.0){
+                        subtotal_derivation_html += document.getElementById('receipt_app/service/report/receipt_summary/saving_div').innerHTML;
                     }
-                    if($scope.cur_online_receipt.get_crv()!==0.0){
-                        subtotal_derivation_html += document.getElementById('receipt_app/service/report/online/receipt_summary/crv_div').innerHTML;
+                    if($scope.cur_receipt.get_crv()!==0.0){
+                        subtotal_derivation_html += document.getElementById('receipt_app/service/report/receipt_summary/crv_div').innerHTML;
                     }                      
-                    var subtotal_html = document.getElementById('receipt_app/service/report/online/receipt_summary/subtotal_div').innerHTML;
+                    var subtotal_html = document.getElementById('receipt_app/service/report/receipt_summary/subtotal_div').innerHTML;
                     var buydown_tax_html = "";
-                    if($scope.cur_online_receipt.get_buydown_tax()!==0.0){
-                        buydown_tax_html += document.getElementById('receipt_app/service/report/online/receipt_summary/buydown_tax_div').innerHTML;
+                    if($scope.cur_receipt.get_buydown_tax()!==0.0){
+                        buydown_tax_html += document.getElementById('receipt_app/service/report/receipt_summary/buydown_tax_div').innerHTML;
                     }                     
-                    var tax_html = document.getElementById('receipt_app/service/report/online/receipt_summary/tax_div').innerHTML;                    
-                    var total_html = document.getElementById('receipt_app/service/report/online/receipt_summary/total_div').innerHTML;    
-                    var tender_html = document.getElementById('receipt_app/service/report/online/receipt_summary/tender_div').innerHTML;                        
-                    var change_html = document.getElementById('receipt_app/service/report/online/receipt_summary/change_div').innerHTML;    
+                    var tax_html = document.getElementById('receipt_app/service/report/receipt_summary/tax_div').innerHTML;                    
+                    var total_html = document.getElementById('receipt_app/service/report/receipt_summary/total_div').innerHTML;    
+                    var tender_html = document.getElementById('receipt_app/service/report/receipt_summary/tender_div').innerHTML;                        
+                    var change_html = document.getElementById('receipt_app/service/report/receipt_summary/change_div').innerHTML;    
 
                     var main_html = 
                         ds_lst_html + '\n' +
@@ -262,7 +262,7 @@ define(
                     $scope.is_internet_offline = true;
                     receipt_offline_api.get_receipt_lst().then(
                         function(lst){
-                            $scope.online_receipt_lst = lst;
+                            $scope.receipt_lst = lst;
                             var message = 'Internet is disconnected! ';
                             if(lst.length ===0){
                                 message += 'You can only see offline receipt but there is none.'
@@ -276,8 +276,7 @@ define(
                         }
                     );
                 }
-                // $scope.online_receipt_lst = [];
-                $scope.cur_online_receipt = null;
+                $scope.cur_receipt = null;
                 $scope.from_date = null;
                 $scope.to_date = null;
                 $scope.is_internet_offline = false;
@@ -286,7 +285,7 @@ define(
                         var default_number_receipt = 15;
                         receipt_online_api.get_receipt_by_count(default_number_receipt).then(
                             function(data){ 
-                                $scope.online_receipt_lst = data; 
+                                $scope.receipt_lst = data; 
                             }
                             ,function(reason){ 
                                 if(reason.status === 0){

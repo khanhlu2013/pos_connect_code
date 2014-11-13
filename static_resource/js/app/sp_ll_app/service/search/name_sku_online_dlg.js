@@ -4,6 +4,7 @@ define(
     ,'directive/share_directive'       
     ,'app/sp_app/service/api/search'
     ,'service/misc'
+    ,'service/ui'
 ]
 ,function
 (
@@ -12,20 +13,24 @@ define(
 {
     var mod = angular.module('sp_ll_app/service/search/name_sku_online_dlg',
     [
-        'directive/share_directive',
-        'sp_app/service/api/search',
-        'service/misc'
+         'directive/share_directive'
+        ,'sp_app/service/api/search'
+        ,'service/misc'
+        ,'service/ui'
+
     ]);
 
     mod.factory('sp_ll_app/service/search/name_sku_online_dlg/multiple',
     [
-        '$modal',
-        'sp_app/service/api/search',
-        'service/misc',
-    function(
-        $modal,
-        api,
-        misc_service
+         '$modal'
+        ,'sp_app/service/api/search'
+        ,'service/misc'
+        ,'service/ui/alert'
+    ,function(
+        $modal
+        ,api
+        ,misc_service
+        ,alert_service
     ){
         var template = 
             '<div class="modal-header">' +
@@ -159,9 +164,11 @@ define(
     [
          '$modal'
         ,'sp_app/service/api/search'
+        ,'service/ui/alert'
     ,function(
          $modal
         ,api
+        ,alert_service
     ){
         var template = 
             '<div class="modal-header">' +
@@ -271,7 +278,8 @@ define(
                         $scope.search_busy = false;
                     }
                     ,function(reason){ 
-                        $scope.message = reason;
+                        $scope.message = '';
+                        alert_service(reason);
                     }
                 )
             }

@@ -12,7 +12,7 @@ define(
 {
     // $httpBackend.whenGET(/^\/templates\//).passThrough();
     var mod = angular.module('sale_app_offline',['sale_app','ngMockE2E']);
-    mod.run(function($httpBackend) {
+    mod.run(['$httpBackend',function($httpBackend) {
 
         // var regx = /\/product\/search_by_sku_angular\?sku_str=.+/;
         // $httpBackend.whenGET(regx).respond(0/*status*/,null/*data*/);
@@ -23,6 +23,6 @@ define(
         var regx = /\/.*/;
         $httpBackend.whenGET(regx).respond(0/*status*/,null/*data*/);
         $httpBackend.whenPOST(regx).respond(0/*status*/,null/*data*/);        
-    });
+    }]);
 })
 

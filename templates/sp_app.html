@@ -83,8 +83,8 @@
                     <li class="dropdown">
                         <a id="sp_app/menu/action" href="#" class="dropdown-toggle" data-toggle="dropdown">action <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li id='sp_app/menu/action/sync' ng-click="menu_action_sync()"><a href='#'>sync</a></li>
                             <li ng-click="launch_pos()"><a href="#">lauch pos</a></li>
+                            <li id='sp_app/menu/action/sync' ng-click="menu_action_sync()"><a href='#'>sync</a></li>
                         </ul>
                     </li>                      
                     <!-- <li> <a id="logout_link" href='{% url "liquor_logout_named_url" %}'>{{ request.session.cur_login_store }} - {{ user }} - logout</a> </li> -->
@@ -146,7 +146,7 @@
 
     </script>
 
-    <script data-main = "{{ STATIC_URL }}js/sp_main.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script>
-    <!-- // <script data-main = "{{ STATIC_URL }}sp.min.10.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script> -->
+    <!-- // <script data-main = "{{ STATIC_URL }}js/sp_main.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script> -->
+    <script data-main = "{{ STATIC_URL }}sp.min.10.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script>
 </body>
 </html>

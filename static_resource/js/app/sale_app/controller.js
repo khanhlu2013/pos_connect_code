@@ -66,6 +66,7 @@ define(
     [
          '$scope'
         ,'$rootScope'
+        ,'$window'
         ,'sale_app/service/scan/preprocess'
         ,'sale_app/service/scan/append_pending_scan'
         ,'sale_app/service/pending_scan/get_api'
@@ -98,6 +99,7 @@ define(
     ,function(
          $scope
         ,$rootScope
+        ,$window
         ,preprocess
         ,append_pending_scan
         ,get_ps_lst
@@ -417,7 +419,11 @@ define(
                 }
             )
         }
-
+        $scope.launch_product = function(){
+            confirm_service('launch product page?').then(function(){
+                $window.open('/');
+            });  
+        }
         //init code
         $scope.sku_search_str = "";
         $scope.ds_lst = [];

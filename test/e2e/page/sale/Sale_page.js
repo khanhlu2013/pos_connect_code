@@ -56,7 +56,7 @@ var Sale_page = function () {
     }
     this.click_col = function(index,col_name){
         var col = this.get_col_index(col_name);
-        this.lst.get(index).all(by.tagName('td')).get(col).click();
+        lib.click(this.lst.get(index).all(by.tagName('td')).get(col));
     }
     this.get_col = function(index,col_name){
         var col = this.get_col_index(col_name); 

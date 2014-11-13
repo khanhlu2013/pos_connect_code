@@ -18,11 +18,13 @@ requirejs.config({
         ,pouchdb_raw :            ['lib/pouchdb-3.0.6']
         ,pouchdb_quick_search :   ['lib/pouchdb.quick-search']
         ,blockUI :                ['lib/angular-block-ui']
+        ,angular_mock :           ['lib/angular-mocks']
         ,angular_hotkey :         ['lib/hotkeys']
     }
     ,shim:{
          'angular'                  : { deps:['jquery'], exports : 'angular'}
         ,'ui_bootstrap'             : { deps    : ['angular'] }
+        ,'angular_mock'             : { deps    : ['angular'] }
         ,'angular_hotkey'           : { deps    : ['angular'] }
         ,'ngTable'                  : { deps    : ['angular'] } 
         ,'pouchdb_quick_search'     : { deps    : ['pouchdb_raw'] } 
@@ -31,14 +33,25 @@ requirejs.config({
     }
 });
 
-require([
-    'angular',
-    'app/sale_app/app'
-], function (angular) {
-    'use strict';
-
-    angular.element(document).ready(function() {
-        angular.bootstrap(document, ['sale_app']);
-    });  
-
-});
+if(window._IS_OFFLINE_ === 'True'){
+    delete window._IS_OFFLINE_;
+    require([
+         'angular' 
+        ,'app/sale_app/app_offline'
+    ], function (angular) {
+        'use strict';
+        angular.element(document).ready(function() {
+            angular.bootstrap(document, ['sale_app_offline']);
+        }); 
+    });
+}else{
+    require([
+         'angular' 
+        ,'app/sale_app/app'
+    ], function (angular) {
+        'use strict';
+        angular.element(document).ready(function() {
+            angular.bootstrap(document, ['sale_app']);
+        }); 
+    });
+}

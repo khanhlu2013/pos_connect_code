@@ -100,6 +100,7 @@
                     <li class="dropdown">
                         <a id="sale_app/menu/action" href="#" class="dropdown-toggle" data-toggle="dropdown">action <b class="caret"></b></a>
                         <ul class="dropdown-menu">
+                            <li ng-click="launch_product()"><a href='#'>launch product</a></li>
                             <li id='sale_app/menu/action/sync' ng-click="menu_action_sync()"><a href='#'>sync</a></li>
                             <li id='sale_app/menu/action/hold' ng-click="hold()"><a href='#'>hold - ctrl+h</a></li>
                             <li id='sale_app/menu/action/get_hold' ng-click="get_hold_ui()"><a href='#'>get hold - ctrl+g</a></li>  
@@ -153,6 +154,7 @@
 
     <script type="text/javascript">
         var STATIC_URL                      = "{{STATIC_URL}}";
+        window._IS_OFFLINE_                 = "{{IS_OFFLINE}}"
         window._STATIC_URL_                 = "{{STATIC_URL}}";
         window._STORE_ID_                   = Number("{{STORE_ID_}}");
         window._TAX_RATE_                   = {{TAX_RATE_}};
@@ -167,8 +169,8 @@
         window._RECEIPT_DOCUMENT_TYPE_      = "{{RECEIPT_DOCUMENT_TYPE}}";
     </script>
 
-    <script data-main = "{{ STATIC_URL }}js/sale_main.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script>
-    <!-- // <script data-main = "{{ STATIC_URL }}sale.min.10.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script> -->
+    <!-- // <script data-main = "{{ STATIC_URL }}js/sale_main.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script> -->
+    <script data-main = "{{ STATIC_URL }}sale.min.10.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script>
 
 </body>
 </html>

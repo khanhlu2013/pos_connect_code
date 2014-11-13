@@ -213,7 +213,7 @@ define(
             is_pouch_exist().then(
                  function(db_exitance){
                     if(db_exitance){
-                        confirm_service('launch pos?').then(function(){
+                        confirm_service('launch pos page?').then(function(){
                             launch_pos_url();
                         });                        
                     }else{

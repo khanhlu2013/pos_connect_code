@@ -14,11 +14,13 @@
         ,pouchdb_raw :  'lib/pouchdb-3.0.6'
         ,blockUI : 'lib/angular-block-ui'
         ,infiniteScroll : 'lib/infinite-scroll'
+        ,angular_mock : 'lib/angular-mocks'
         ,angular_hotkey : 'lib/hotkeys'
     }
     ,shim:{
          angular              : { deps:['jquery'], exports : 'angular'}
         ,ui_bootstrap         : { deps      : ['angular']}
+        ,angular_mock         : { deps      : ['angular'] }        
         ,ngTable              : { deps      : ['angular']} 
         ,blockUI              : { deps      : ['angular']} 
         ,infiniteScroll       : { deps      : ['angular','jquery']}

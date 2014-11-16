@@ -34,7 +34,30 @@ def get_receipt_pagination(request):
     response = {'receipt_lst':receipt_lst_serialized,'total':paginator.count}
 
     return HttpResponse(json.dumps(response,cls=DjangoJSONEncoder),mimetype='application/javascript')
-  
+
+
+def get_item_base_on_doc_id(request):
+    cur_login_store = request.session.get('cur_login_store')
+    doc_id = request.GET['doc_id']
+    receipt = dao.get_item_base_on_doc_id(doc_id=doc_id)
+    if receipt.store.id != cur_login_store.id:
+        return
+
+    receipt_serialized = Receipt_serializer(receipt).data
+
+    return HttpResponse(json.dumps(receipt_serialized,cls=DjangoJSONEncoder),mimetype='application/javascript')
+
+def get_item(request):
+    cur_login_store = request.session.get('cur_login_store')
+    id = request.GET['id']
+    receipt = dao.get_item(id=id)
+    if receipt.store.id != cur_login_store.id:
+        return
+
+    receipt_serialized = Receipt_serializer(receipt).data
+
+    return HttpResponse(json.dumps(receipt_serialized,cls=DjangoJSONEncoder),mimetype='application/javascript')
+
 def get_receipt_by_count(request):
     cur_login_store = request.session.get('cur_login_store')
     

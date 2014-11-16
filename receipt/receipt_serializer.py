@@ -69,7 +69,7 @@ class Receipt_serializer(serializers.ModelSerializer):
 
     class Meta:
         model = Receipt
-        fields = ('id','date','tax_rate','tender_ln_lst','receipt_ln_lst')
+        fields = ('id','date','tax_rate','tender_ln_lst','receipt_ln_lst','_receipt_doc_id')
 
 
 def serialize_receipt_lst(receipt_lst):

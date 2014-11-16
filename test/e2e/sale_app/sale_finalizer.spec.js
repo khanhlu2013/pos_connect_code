@@ -1,7 +1,7 @@
 var base_path = './../';
 var lib = require(base_path + 'lib');
 
-describe('sale_app', function() {
+describe('sale page -> sale_finalizer', function() {
     var Ui_prompt_dlg = require(base_path + 'page/ui/Prompt_dlg.js');
     var Sale_page = require(base_path + 'page/sale/Sale_page')
     var Receipt_dlg = require(base_path + 'page/receipt/Report_dlg');
@@ -161,40 +161,40 @@ describe('sale_app', function() {
         Sale_page.visit();//switch back online
         Sale_page.menu_report_receipt();
         lib.wait_for_block_ui();
-        expect(Receipt_dlg.online.receipt.lst.count()).toEqual(1);
-        expect(Receipt_dlg.online.receipt.get_col(0,'total')).toEqual('$30.95');
-        Receipt_dlg.online.receipt.click_col(0,'info');
-        expect(Receipt_dlg.online.receipt_ln.lst.count()).toEqual(7);
+        expect(Receipt_dlg.receipt.lst.count()).toEqual(1);
+        expect(Receipt_dlg.receipt.get_col(0,'total')).toEqual('$30.95');
+        Receipt_dlg.receipt.click_col(0,'info');
+        expect(Receipt_dlg.receipt_ln.lst.count()).toEqual(7);
 
         //verify receipt ln
 
-        expect(Receipt_dlg.online.receipt_ln.get_col(0,'qty')).toEqual('1');
-        expect(Receipt_dlg.online.receipt_ln.get_col(0,'product')).toEqual(offline_name);
-        expect(Receipt_dlg.online.receipt_ln.get_col(0,'price')).toEqual('$11.89');
+        expect(Receipt_dlg.receipt_ln.get_col(0,'qty')).toEqual('1');
+        expect(Receipt_dlg.receipt_ln.get_col(0,'product')).toEqual(offline_name);
+        expect(Receipt_dlg.receipt_ln.get_col(0,'price')).toEqual('$11.89');
 
-        expect(Receipt_dlg.online.receipt_ln.get_col(1,'qty')).toEqual('1');
-        expect(Receipt_dlg.online.receipt_ln.get_col(1,'product')).toEqual(product_name_1);
-        expect(Receipt_dlg.online.receipt_ln.get_col(1,'price')).toEqual('$0.50');
+        expect(Receipt_dlg.receipt_ln.get_col(1,'qty')).toEqual('1');
+        expect(Receipt_dlg.receipt_ln.get_col(1,'product')).toEqual(product_name_1);
+        expect(Receipt_dlg.receipt_ln.get_col(1,'price')).toEqual('$0.50');
 
-        // expect(Receipt_dlg.online.receipt_ln.get_col(2,'qty')).toEqual('5');
-        // expect(Receipt_dlg.online.receipt_ln.get_col(2,'product')).toEqual(product_name_2);
-        // expect(Receipt_dlg.online.receipt_ln.get_col(2,'price')).toEqual('$1.00');
+        // expect(Receipt_dlg.receipt_ln.get_col(2,'qty')).toEqual('5');
+        // expect(Receipt_dlg.receipt_ln.get_col(2,'product')).toEqual(product_name_2);
+        // expect(Receipt_dlg.receipt_ln.get_col(2,'price')).toEqual('$1.00');
 
-        // expect(Receipt_dlg.online.receipt_ln.get_col(3,'qty')).toEqual('3');
-        // expect(Receipt_dlg.online.receipt_ln.get_col(3,'product')).toEqual(product_name_2);
-        // expect(Receipt_dlg.online.receipt_ln.get_col(3,'price')).toEqual('$1.33');
+        // expect(Receipt_dlg.receipt_ln.get_col(3,'qty')).toEqual('3');
+        // expect(Receipt_dlg.receipt_ln.get_col(3,'product')).toEqual(product_name_2);
+        // expect(Receipt_dlg.receipt_ln.get_col(3,'price')).toEqual('$1.33');
 
-        // expect(Receipt_dlg.online.receipt_ln.get_col(4,'qty')).toEqual('1');
-        // expect(Receipt_dlg.online.receipt_ln.get_col(4,'product')).toEqual(product_name_2);
-        // expect(Receipt_dlg.online.receipt_ln.get_col(4,'price')).toEqual('$2.00');
+        // expect(Receipt_dlg.receipt_ln.get_col(4,'qty')).toEqual('1');
+        // expect(Receipt_dlg.receipt_ln.get_col(4,'product')).toEqual(product_name_2);
+        // expect(Receipt_dlg.receipt_ln.get_col(4,'price')).toEqual('$2.00');
 
-        expect(Receipt_dlg.online.receipt_ln.get_col(5,'qty')).toEqual('1');
-        expect(Receipt_dlg.online.receipt_ln.get_col(5,'product')).toEqual('none inventory');
-        expect(Receipt_dlg.online.receipt_ln.get_col(5,'price')).toEqual(lib.currency(ni_price));
+        expect(Receipt_dlg.receipt_ln.get_col(5,'qty')).toEqual('1');
+        expect(Receipt_dlg.receipt_ln.get_col(5,'product')).toEqual('none inventory');
+        expect(Receipt_dlg.receipt_ln.get_col(5,'price')).toEqual(lib.currency(ni_price));
 
-        expect(Receipt_dlg.online.receipt_ln.get_col(6,'qty')).toEqual('1');
-        expect(Receipt_dlg.online.receipt_ln.get_col(6,'product')).toEqual(product_kit);
-        expect(Receipt_dlg.online.receipt_ln.get_col(6,'price')).toEqual('$1.40');
+        expect(Receipt_dlg.receipt_ln.get_col(6,'qty')).toEqual('1');
+        expect(Receipt_dlg.receipt_ln.get_col(6,'product')).toEqual(product_kit);
+        expect(Receipt_dlg.receipt_ln.get_col(6,'price')).toEqual('$1.40');
 
         Receipt_dlg.exit();
         lib.auth.logout();

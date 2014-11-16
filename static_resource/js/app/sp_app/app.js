@@ -7,7 +7,7 @@ define(
     ,'ui_bootstrap'
     ,'service/csrf'
     ,'blockUI'
-    ,'service/init_global_setting'    
+    ,'service/global_setting'    
     ,'infiniteScroll'
 ]
 ,function
@@ -22,7 +22,7 @@ define(
         ,'service.menu'
         ,'service.csrf'
         ,'blockUI'
-        ,'service/init_global_setting'   
+        ,'service/global_setting'   
         ,'infinite-scroll'     
     ]);
     
@@ -32,7 +32,7 @@ define(
         blockUIConfig.delay = 0;
     }]);
 
-    app.run(['service/init_global_setting',function(init_global_setting){
-        init_global_setting();
+    app.run(['service/global_setting',function(global_setting){
+        global_setting.set(_GLOBAL_SETTING_);
     }])    
 });

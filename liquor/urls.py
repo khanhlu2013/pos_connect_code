@@ -15,11 +15,12 @@ import payment_type.urls
 from store_product import sp_page_view
 from django.contrib.auth.decorators import login_required
 from test.e2e import protractor_test_cleanup_view
-
+from liquor import global_setting
 admin.autodiscover()
 
 urlpatterns = patterns('',
     url(r'^$',login_required(sp_page_view.sp_page_view.as_view()),name='sp_search'),   
+    url(r'^get_global_setting/$',login_required(global_setting.get_global_setting_api)),   
     url(r'^admin/', include(admin.site.urls)), 
     url(r'^account/login/$','django.contrib.auth.views.login',{'template_name':'login.html'},name = 'liquor_login_named_url'),
     url(r'^account/logout/$','django.contrib.auth.views.logout_then_login',name = 'liquor_logout_named_url'),

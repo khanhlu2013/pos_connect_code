@@ -1,7 +1,7 @@
 var base_path = './../'
 var lib = require(base_path + 'lib');
 
-describe('sale page \'s init_db_service when refresh/loading page', function() {
+describe('sale page reload/init_db', function() {
     var Sale_page = require(base_path + 'page/sale/Sale_page');
     var Report_dlg = require(base_path + 'page/receipt/Report_dlg.js');
     var Tender_dlg = require(base_path + 'page/sale/Tender_dlg.js');

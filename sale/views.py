@@ -1,5 +1,5 @@
 from django.views.generic import TemplateView
-from liquor import init_global_setting
+from liquor import global_setting
 
 class Sale_angular_view(TemplateView):
     template_name = 'sale_app.html'
@@ -10,7 +10,7 @@ class Sale_angular_view(TemplateView):
 
     def get_context_data(self,**kwargs):
         context = super(Sale_angular_view,self).get_context_data(**kwargs)
-        init_global_setting.exe(context,self.cur_login_store)
+        global_setting.set(self.cur_login_store,context)
         return context
 
 
@@ -24,5 +24,5 @@ class Sale_offline_angular_view(TemplateView):
     def get_context_data(self,**kwargs):
         context = super(Sale_offline_angular_view,self).get_context_data(**kwargs)
         context['IS_OFFLINE'] = True
-        init_global_setting.exe(context,self.cur_login_store)
+        global_setting.set(self.cur_login_store,context)
         return context

@@ -258,8 +258,8 @@ describe('receipt_app\'s Report dialog', function() {
         browser.wait(function(){ return pt_lst_from_server !== null;/* when it is true, quit waiting */}).then(
             function(){
                 Tender_dlg.cash_txt.sendKeys(cash_amount);
-                Tender_dlg.set_pt(pt_lst_from_server[0].id,pt_0_amount);
-                Tender_dlg.set_pt(pt_lst_from_server[1].id,pt_1_amount);
+                Tender_dlg.set_pt_value(pt_lst_from_server[0].id,pt_0_amount);
+                Tender_dlg.set_pt_value(pt_lst_from_server[1].id,pt_1_amount);
                 Tender_dlg.ok();
             }
         )        
@@ -348,8 +348,8 @@ describe('receipt_app\'s Report dialog', function() {
         browser.wait(function(){ return pt_lst_from_server !== null;/* when it is true, quit waiting */}).then(
             function(){
                 Tender_dlg.cash_txt.sendKeys(cash_amount);
-                Tender_dlg.set_pt(pt_lst_from_server[0].id,pt_0_amount);
-                Tender_dlg.set_pt(pt_lst_from_server[1].id,pt_1_amount);
+                Tender_dlg.set_pt_value(pt_lst_from_server[0].id,pt_0_amount);
+                Tender_dlg.set_pt_value(pt_lst_from_server[1].id,pt_1_amount);
                 Tender_dlg.ok();
             }
         )        

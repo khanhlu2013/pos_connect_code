@@ -31,10 +31,10 @@ define(
         ,Tender_ln
         ,misc_service
     ){
-        return function(ds_lst){
+        return function(sale_able_lst,prefill_tender_ln_lst,tax_rate){
             var template = 
             '<form name="form" novalidate role="form">' +
-                '<div class="modal-header"><h3>payment</h3></div>' +
+                '<div class="modal-header"><h3 id="sale_app/service/tender_ui/due_lbl">due: {{get_due()|currency}}</h3></div>' +
                 '<div class="modal-body">' +
                     // '<form name="form" novalidate role="form">' +
                         '<div class="form-horizontal" >' +
@@ -75,11 +75,11 @@ define(
                 '</div>' +
             '</form>'
             ;
-            var ModalCtrl = function($scope,$modalInstance,ds_lst){
+            var ModalCtrl = function($scope,$modalInstance,sale_able_lst,prefill_tender_ln_lst,tax_rate){
                 $scope.get_due = function(){
                     var due = 0.0;
-                    for(var i = 0;i<$scope.ds_lst.length;i++){
-                        due += $scope.ds_lst[i].get_line_total($rootScope.GLOBAL_SETTING.tax_rate);
+                    for(var i = 0;i<$scope.sale_able_lst.length;i++){
+                        due += $scope.sale_able_lst[i].get_line_total(tax_rate);
                     }      
                     return misc_service.round_float_2_decimal(due);              
                 }
@@ -98,31 +98,78 @@ define(
 
                     for (var pt_id in $scope.temp_tender_ln_dic) {
                         if ($scope.temp_tender_ln_dic.hasOwnProperty(pt_id)) {
-                            var pt = null;var name = null;
-                            if(pt_id!=='null'){
-                                pt_id = parseInt(pt_id);
-                                pt = misc_service.get_item_from_lst_base_on_id(pt_id,$scope.pt_lst);
-                                name = pt.name;
+                            var amount = $scope.temp_tender_ln_dic[pt_id];
+                            if(amount !== null){
+                                //when we remove the existing amount, it could be null
+                                var pt = null;var name = null;
+                                if(pt_id!=='null'){
+                                    pt_id = parseInt(pt_id);
+                                    pt = misc_service.get_item_from_lst_base_on_id(pt_id,$scope.pt_lst);
+                                    name = pt.name;
+                                }
+                                tender_ln_lst.push(new Tender_ln(null/*id*/,pt,$scope.temp_tender_ln_dic[pt_id]/*amount*/,name));
                             }
-                            tender_ln_lst.push(new Tender_ln(null/*id*/,pt,$scope.temp_tender_ln_dic[pt_id]/*amount*/,name));
                         }
                     }                          
                     $modalInstance.close(tender_ln_lst); 
                 }
+                function activate_disable_pt(pt_lst,prefill_tender_ln_lst){
+                    /*
+                        pt_lst could contain disable items. but if these disable items in pt_lst exist in prefill_tender_ln_lst, then we will activate these disable items.
+                    */
+                    for(var i = 0;i<pt_lst.length;i++){
+                        var cur_pt = pt_lst[i];
+                        if(cur_pt.active === false){
+                            var tender_ln_lst = prefill_tender_ln_lst.filter(function(item){
+                                if(item.pt === null/*cash tender ln*/){
+                                    return false;
+                                }else{
+                                    return item.pt.id === cur_pt.id;
+                                }
+
+                            });
+                            if(tender_ln_lst.length === 1){
+                                cur_pt.active = true;
+                            }
+                        }
+                    }
+                }
                 $scope.cancel = function(){ $modalInstance.dismiss('_cancel_'); }
-                $scope.pt_lst = angular.copy($rootScope.GLOBAL_SETTING.payment_type_lst).filter(function(pt){return pt.active});
+                $scope.pt_lst = angular.copy($rootScope.GLOBAL_SETTING.payment_type_lst);
                 var cash_pt = new Payment_type(null,'cash','___'/*sort*/,true/*active*/);
                 $scope.pt_lst.unshift(cash_pt);
-                $scope.ds_lst = ds_lst;
+                $scope.sale_able_lst = sale_able_lst;
                 $scope.temp_tender_ln_dic = {};
-                $scope.temp_tender_ln_dic['null'] = $scope.get_due();                
+                if(prefill_tender_ln_lst !== null && prefill_tender_ln_lst !== undefined){
+                    activate_disable_pt($scope.pt_lst,prefill_tender_ln_lst);
+                    for(var i = 0;i<prefill_tender_ln_lst.length ;i++){
+                        var cur_tender_ln = prefill_tender_ln_lst[i];
+                        var cur_pt = cur_tender_ln.pt;
+                        var cur_pt_id = cur_pt === null ? null : cur_pt.id;
+                        $scope.temp_tender_ln_dic[cur_pt_id] = cur_tender_ln.amount;
+                    }
+                }else{
+                    $scope.temp_tender_ln_dic['null'] = $scope.get_due();  
+                }           
+                $scope.pt_lst = $scope.pt_lst.filter(function(pt){return pt.active});     
             }
-            ModalCtrl.$inject = ['$scope','$modalInstance','ds_lst'];           
+            ModalCtrl.$inject = ['$scope','$modalInstance','sale_able_lst','prefill_tender_ln_lst','tax_rate'];           
             var dlg = $modal.open({
                  template:template
                 ,controller:ModalCtrl
                 ,size:'lg'
-                ,resolve : {ds_lst:function(){return ds_lst;}}
+                ,resolve : 
+                    {
+                        sale_able_lst:function(){
+                            return sale_able_lst;
+                        }
+                        ,prefill_tender_ln_lst:function(){
+                            return prefill_tender_ln_lst
+                        }
+                        ,tax_rate:function(){
+                            return tax_rate;
+                        }
+                    }
             })
 
             return dlg.result;

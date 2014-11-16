@@ -1,4 +1,4 @@
-var base_path = './../';
+var base_path = './../../';
 var lib = require(base_path + 'lib');
 
 describe('tax app', function() {

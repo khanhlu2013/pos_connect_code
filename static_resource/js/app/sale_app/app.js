@@ -7,7 +7,7 @@ define(
     ,'service/menu'
     ,'app/sale_app/controller'
     ,'blockUI'
-    ,'service/init_global_setting'
+    ,'service/global_setting'
     ,'angular_hotkey'
     ,'directive/share_directive'
     ,'infiniteScroll'
@@ -24,7 +24,7 @@ define(
         ,'service.menu'      
         ,'sale_app/controller'
         ,'blockUI'
-        ,'service/init_global_setting'
+        ,'service/global_setting'
         ,'cfp.hotkeys'
         ,'directive/share_directive'
         ,'infinite-scroll'
@@ -41,7 +41,7 @@ define(
     }]);
 
     app.constant('IS_USE_VALUE_CUSTOMER_PRICE','IS_USE_VALUE_CUSTOMER_PRICE');
-    app.run(['service/init_global_setting',function(init_global_setting){
-        init_global_setting();
+    app.run(['service/global_setting',function(global_setting){
+        global_setting.set(_GLOBAL_SETTING_);
     }])
 });

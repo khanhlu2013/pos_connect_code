@@ -42,6 +42,7 @@ var Report_dlg = function () {
             ,saving_lbl : element(by.id('receipt_app/service/report/receipt_summary/saving'))
             ,subtotal_derivation_lbl : element(by.id('receipt_app/service/report/receipt_summary/subtotal_derivation'))    
             ,change_lbl : element(by.id('receipt_app/service/report/receipt_summary/change'))   
+            ,change_receipt_tender_btn : element(by.id('receipt_app/service/report/receipt_summary/change_receipt_tender_btn'))   
         }           
     }
 

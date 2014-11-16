@@ -35,7 +35,8 @@ define(
             tax_rate,
             tender_ln_lst,
             receipt_ln_lst,
-            receipt_doc_id
+            receipt_doc_id,
+            receipt_doc_rev
         ){
             this.id = id;
             this.date = date;
@@ -43,10 +44,14 @@ define(
             this.tender_ln_lst = tender_ln_lst;
             this.receipt_ln_lst = receipt_ln_lst;
             this.doc_id = receipt_doc_id;
+            this.doc_rev = receipt_doc_rev;
         }
 
         Receipt.prototype = {
              constructor: Receipt
+            ,is_reside_offline: function(){
+                return this.id === null;
+            }
             ,get_total_non_cash_payment_type: function(){
                 var amount = 0.0;
                 for(var i = 0;i<this.tender_ln_lst.length;i++){
@@ -141,7 +146,8 @@ define(
                 ,str_2_float(data.tax_rate)
                 ,tender_ln_lst
                 ,receipt_ln_lst
-                ,null//doc_id
+                ,data._receipt_doc_id
+                ,null//doc_rev
             );
         }        
         return Receipt;

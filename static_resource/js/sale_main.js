@@ -1,5 +1,5 @@
 requirejs.config({
-     baseUrl: STATIC_URL + 'js'
+     baseUrl: _GLOBAL_SETTING_.STATIC_URL + 'js'
     ,paths: {
          app : 'app'
         ,lib : 'lib'
@@ -33,8 +33,7 @@ requirejs.config({
     }
 });
 
-if(window._IS_OFFLINE_ === 'True'){
-    delete window._IS_OFFLINE_;
+if(_GLOBAL_SETTING_.IS_OFFLINE === 'True'){
     require([
          'angular' 
         ,'app/sale_app/app_offline'

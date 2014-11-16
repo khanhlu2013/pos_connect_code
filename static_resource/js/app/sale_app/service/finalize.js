@@ -88,7 +88,7 @@ define(
             var defer = $q.defer();
             if(ds_lst.length == 0){return $q.reject('ds_lst is empty')}
 
-            tender_ui_service(ds_lst).then(
+            tender_ui_service(ds_lst,null,$rootScope.GLOBAL_SETTING.tax_rate).then(
                 function(tender_ln_lst){
                     var receipt_ln_lst = _create_receipt_ln_lst(ds_lst);
                     var receipt = new Receipt(
@@ -97,13 +97,16 @@ define(
                         ,$rootScope.GLOBAL_SETTING.tax_rate
                         ,tender_ln_lst
                         ,receipt_ln_lst
-                        ,null//receipt_doc_id . it is null because we don't know this doc_id until we saved into pouch
+                        ,null//doc_id . it is null because we don't know this doc_id until we saved into pouch
+                        ,null//doc_rev. it is null because we don't know this doc_id until we saved into pouch
                     );
 
                     var pouch = get_pouch_db();
                     pouch.post(receipt_storage_adapter.javascript_2_pouch(receipt)).then(
                         function(response){ 
-                            defer.resolve(receipt.get_change()); 
+                            receipt.doc_id = response.id;
+                            receipt.doc_rev = response.rev;
+                            defer.resolve(receipt); 
                         }
                         ,function(reason){ 
                             defer.reject(reason); 

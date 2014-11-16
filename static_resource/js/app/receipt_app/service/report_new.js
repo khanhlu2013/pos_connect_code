@@ -6,6 +6,8 @@ define(
     ,'service/ui'
     ,'app/receipt_app/service/api_offline'
     ,'app/sale_app/service/sale_able_info_dlg'
+    ,'app/sale_app/service/tender_ui'
+    ,'app/receipt_app/service/adjust_receipt_tender'    
 ]
 ,function
 (
@@ -19,6 +21,8 @@ define(
         ,'service/ui'
         ,'receipt_app/service/api_offline'
         ,'sale_app/service/sale_able_info_dlg'
+        ,'sale_app/service/tender_ui'
+        ,'receipt_app/service/adjust_receipt_tender'        
     ]);
     mod.factory('receipt_app/service/report_new',
     [
@@ -28,6 +32,8 @@ define(
         ,'service/ui/alert'
         ,'receipt_app/service/api_offline'
         ,'sale_app/service/sale_able_info_dlg'
+        ,'sale_app/service/tender_ui'
+        ,'receipt_app/service/adjust_receipt_tender'        
     ,function(
          $modal
         ,push_receipt
@@ -35,6 +41,8 @@ define(
         ,alert_service
         ,receipt_offline_api
         ,sale_able_info_dlg
+        ,tender_ui
+        ,adjust_receipt_tender
     ){
         return function(){
             var template_receipt_table = 
@@ -130,6 +138,13 @@ define(
                     '</div>' + 
                 '</div>'  /* end form horizontal*/
             ;                    
+            var receipt_button_toolbar_template = 
+                '<div ng-hide="$parent.cur_receipt===null" class="btn-group">' +
+                    '<button id="receipt_app/service/report/print_btn" class="btn btn-primary" ng-click="print_cur_receipt()">print</button>' +
+                    '<button id="receipt_app/service/report/receipt_summary/change_receipt_tender_btn" class="btn btn-primary" ng-click="adjust_cur_receipt_tender_ln()">adjust tender</button>' +      
+                    '<button class="btn btn-primary" ng-click="return_cur_receipt_product()">return product</button>' +                                  
+                '</div>'
+            ;
             var template = 
                 '<div class="modal-header"><h3>{{is_internet_offline? \'Offline receipts\' : \'Receipts\'}}</h3></div>' +
                 '<div class="modal-body">' +
@@ -157,6 +172,7 @@ define(
                         '<div>' +
                             '<div id="receipt_app/service/report/master" class="col-xs-4">' + template_receipt_table + '</div>' +
                             '<div id="receipt_app/service/report/detail" ng-hide="$parent.cur_receipt===null" class="col-xs-8">' + 
+                                receipt_button_toolbar_template +
                                 template_receipt_ln_table + 
                                 receipt_summary_template +
                             '</div>' +
@@ -165,7 +181,6 @@ define(
                     '</div>' +
                 '</div>' +
                 '<div class="modal-footer">' +
-                    '<button id="receipt_app/service/report/print_btn" ng-hide="$parent.cur_receipt===null" class="btn btn-success" ng-click="print()">print</button>' +
                     '<button id="receipt_app/service/report/exit_btn" class="btn btn-warning" ng-click="exit()">exit</button>' +
                 '</div>' 
             ;
@@ -181,8 +196,11 @@ define(
                     sale_able_info_dlg(receipt_ln,false/*is_enable_override_price*/);
                 }
                 $scope.toogle_cur_receipt = function(receipt){
-                    if($scope.is_cur_receipt(receipt)){ $scope.cur_receipt = null;}
-                    else{ $scope.cur_receipt = receipt; }
+                    if($scope.is_cur_receipt(receipt)){ 
+                        $scope.cur_receipt = null;
+                    }else{ 
+                        $scope.cur_receipt = receipt; 
+                    }
                 }
                 $scope.is_cur_receipt = function(receipt){
                     if($scope.cur_receipt === null){ return false; }
@@ -208,7 +226,32 @@ define(
                         }
                     )
                 }
-                $scope.print = function() {
+                $scope.return_cur_receipt_product = function(){
+                    alert_service('return products is a complicated feature. Not sure when i am going to do it.','Sorry!','green');
+                }                
+                $scope.adjust_cur_receipt_tender_ln = function(){
+                    tender_ui($scope.cur_receipt.receipt_ln_lst,$scope.cur_receipt.tender_ln_lst,$scope.cur_receipt.tax_rate).then(
+                        function(new_tender_ln_lst){
+                            adjust_receipt_tender($scope.cur_receipt,new_tender_ln_lst).then(
+                                function(adjust_receipt){
+                                    var index = -1;
+                                    for(var i = 0;i<$scope.receipt_lst.length;i++){
+                                        if($scope.receipt_lst[i] === $scope.cur_receipt);
+                                        index = i;
+                                        break;
+                                    }
+                                    $scope.receipt_lst[index] = adjust_receipt;
+                                    $scope.cur_receipt = adjust_receipt;
+                                },function(reason){
+                                    alert_service(reason);
+                                }
+                            )
+                        },function(reason){
+                            alert_service(reason);
+                        }
+                    )
+                }
+                $scope.print_cur_receipt = function() {
                     var ds_lst_html = document.getElementById('receipt_app/service/report/ds_lst').outerHTML;
                     var subtotal_derivation_html = "";
                     if($scope.cur_receipt.get_saving()!==0.0 || $scope.cur_receipt.get_crv()!==0.0){
@@ -257,7 +300,9 @@ define(
                     popupWin.print();
                     popupWin.close();
                 }                 
-                $scope.exit = function(){$modalInstance.dismiss('_cancel_');}
+                $scope.exit = function(){
+                    $modalInstance.close();
+                }
                 function handle_internet_offline(){
                     $scope.is_internet_offline = true;
                     receipt_offline_api.get_receipt_lst().then(
@@ -306,11 +351,11 @@ define(
                 )
             }
             ModalCtrl.$inject = ['$scope','$modalInstance','$rootScope'];    
-            $modal.open({
+            return $modal.open({
                  template:template
                 ,controller:ModalCtrl
                 ,size:'lg'
-            });
+            }).result;
         }
     }])
 })

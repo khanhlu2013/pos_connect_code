@@ -132,6 +132,7 @@ define(
                 ,doc.tender_ln_lst.map(_pouch_2_java__tender_ln)
                 ,doc.receipt_ln_lst.map(_pouch_2_java__receipt_ln)
                 ,doc._id
+                ,doc._rev
             );
             return receipt;
         }

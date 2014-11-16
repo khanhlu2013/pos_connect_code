@@ -1,5 +1,5 @@
 from django.views.generic import TemplateView
-from liquor import init_global_setting
+from liquor import global_setting
 
 class sp_page_view(TemplateView):
     template_name = 'sp_app.html'
@@ -10,5 +10,5 @@ class sp_page_view(TemplateView):
     
     def get_context_data(self,**kwargs):
         context = super(sp_page_view,self).get_context_data(**kwargs)
-        init_global_setting.exe(context,self.cur_login_store);
+        global_setting.set(self.cur_login_store,context)
         return context

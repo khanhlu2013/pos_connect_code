@@ -26,13 +26,39 @@ var Sale_page = function () {
         lib.click(element(by.id('sale_app/menu/report/receipt')));
         lib.wait_for_block_ui();
     }
-    this.menu_setting_group = function(){lib.click(this.menu_setting);lib.click(element(by.id('sale_app/menu/setting/group')));}
-    this.menu_setting_payment_type = function(){lib.click(this.menu_setting);lib.click(element(by.id('sale_app/menu/setting/payment_type')));}
-    this.menu_setting_shortcut = function(){lib.click(this.menu_setting);lib.click(element(by.id('sale_app/menu/setting/shortcut')));}
-    this.menu_setting_mix_match = function(){ lib.click(this.menu_setting); lib.click(element(by.id('sale_app/menu/setting/mix_match'))); }
-    this.menu_action_hold = function(){lib.click(this.menu_action);lib.click(element(by.id('sale_app/menu/action/hold')));}
-    this.menu_action_get_hold = function(){lib.click(this.menu_action);lib.click(element(by.id('sale_app/menu/action/get_hold')));}
-    this.menu_action_sync = function(){lib.click(this.menu_action);lib.click(element(by.id('sale_app/menu/action/sync')));}
+    this.menu_setting_tax = function(){
+        lib.click(this.menu_setting);
+        lib.click(element(by.id('sale_app/menu/setting/tax')));
+    }
+    this.menu_setting_group = function(){
+        lib.click(this.menu_setting);
+        lib.click(element(by.id('sale_app/menu/setting/group')));
+    }
+    this.menu_setting_payment_type = function(){
+        lib.click(this.menu_setting);
+        lib.click(element(by.id('sale_app/menu/setting/payment_type')));
+    }
+    this.menu_setting_shortcut = function(){
+        lib.click(this.menu_setting);
+        lib.click(element(by.id('sale_app/menu/setting/shortcut')));
+    }
+    this.menu_setting_mix_match = function(){ 
+        lib.click(this.menu_setting); 
+        lib.click(element(by.id('sale_app/menu/setting/mix_match'))); 
+    }
+    this.menu_action_hold = function(){
+        lib.click(this.menu_action);
+        lib.click(element(by.id('sale_app/menu/action/hold')));
+    }
+    this.menu_action_get_hold = function(){
+        lib.click(this.menu_action);
+        lib.click(element(by.id('sale_app/menu/action/get_hold')));
+    }
+    this.menu_action_sync = function(){
+        lib.click(this.menu_action);
+        lib.click(element(by.id('sale_app/menu/action/sync')));
+        lib.wait_for_block_ui();
+    }
 
     //function btn
     this.void = function(){ lib.click(this.void_btn) }
@@ -43,6 +69,7 @@ var Sale_page = function () {
     this.scan = function(str){
         this.scan_txt.clear();
         this.scan_txt.sendKeys(str,protractor.Key.ENTER); 
+        lib.wait_for_block_ui();
     }
 
     //function table

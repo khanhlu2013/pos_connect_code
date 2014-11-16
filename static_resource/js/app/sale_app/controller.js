@@ -26,6 +26,9 @@ define(
     ,'app/sp_app/service/non_inventory_prompt'
     ,'app/group_app/service/manage'
     ,'app/sale_app/service/init_db'
+    ,'app/sale_app/service/tender_ui'
+    ,'app/receipt_app/service/adjust_receipt_tender'
+    ,'app/receipt_app/service/report_new'    
 ], function
 (
      angular
@@ -61,6 +64,9 @@ define(
         ,'sp_app/service/non_inventory_prompt'
         ,'group_app/service/manage'
         ,'sale_app/service/init_db'
+        ,'sale_app/service/tender_ui'
+        ,'receipt_app/service/adjust_receipt_tender'
+        ,'receipt_app/service/report_new'        
     ]);
     mod.controller('Sale_page_ctrl', 
     [
@@ -96,6 +102,9 @@ define(
         ,'sp_app/service/non_inventory_prompt'
         ,'group_app/service/manage'
         ,'sale_app/service/init_db'
+        ,'sale_app/service/tender_ui'
+        ,'receipt_app/service/adjust_receipt_tender'
+        ,'receipt_app/service/report_new'
     ,function(
          $scope
         ,$rootScope
@@ -129,6 +138,9 @@ define(
         ,non_inventory_prompt_service
         ,manage_group_service
         ,init_db
+        ,tender_ui
+        ,adjust_receipt_tender
+        ,receipt_report_service
     ){
 
         hotkeys.bindTo($scope)
@@ -177,8 +189,8 @@ define(
         $scope.finalize = function(){
             if($scope.ds_lst.length === 0){return;}
             finalize($scope.ds_lst).then(
-                function(change_amount){
-                    $scope.previous_change = change_amount;
+                function(receipt){
+                    $scope.previous_receipt = receipt;
                     set_ps_lst([]);
                 }
                 ,function(reason){
@@ -419,15 +431,40 @@ define(
                 }
             )
         }
+        $scope.menu_report_receipt_in_sale_page = function(){
+            receipt_report_service().then(
+                function(){
+                    
+                },function(reason){
+                    alert_service(reason);
+                }
+            )
+        }
         $scope.launch_product = function(){
             confirm_service('launch product page?').then(function(){
                 $window.open('/');
             });  
         }
+        $scope.change_previous_receipt_tender_ln = function(){
+            tender_ui($scope.previous_receipt.receipt_ln_lst,$scope.previous_receipt.tender_ln_lst,$scope.previous_receipt.tax_rate).then(
+                function(new_tender_ln_lst){
+                    adjust_receipt_tender($scope.previous_receipt,new_tender_ln_lst).then(
+                        function(receipt){
+                            $scope.previous_receipt = receipt;
+                        },function(reason){
+                            alert_service(reason);
+                        }
+                    )
+                },function(reason){
+                    alert_service(reason);
+                }
+            )
+        }
+
         //init code
         $scope.sku_search_str = "";
         $scope.ds_lst = [];
-        $scope.previous_change = null;
+        $scope.previous_receipt = null;
         $scope.sp_lst__extra_optimize_to_not_lookup = null;//the most reasently searched sp should be added both place: pending_scan_lst to trigger the watch, and here to help refresh_ds not to relook for sp
 
         init_db().then(

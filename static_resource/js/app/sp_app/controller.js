@@ -11,6 +11,7 @@ define(
     ,'app/sp_app/service/api/search'
     ,'service/db'
     ,'app/group_app/service/manage'
+    ,'app/receipt_app/service/report_new'        
 ], function 
 (
      angular
@@ -28,6 +29,7 @@ define(
         ,'sp_app/service/api/search'
         ,'service/db'
         ,'group_app/service/manage'
+        ,'receipt_app/service/report_new'            
     ]);
 
     mod.controller('MainCtrl',
@@ -45,6 +47,7 @@ define(
         ,'blockUI'
         ,'service/db/is_pouch_exist'
         ,'group_app/service/manage'
+        ,'receipt_app/service/report_new'            
     ,function(
          $window
         ,$scope
@@ -59,6 +62,7 @@ define(
         ,blockUI
         ,is_pouch_exist
         ,manage_group_service
+        ,receipt_report_dlg
     ){
         //SORT
         $scope.cur_sort_column = 'name';
@@ -241,7 +245,9 @@ define(
                 }
             );
         }
-
+        $scope.menu_report_receipt_in_sp_page = function(){
+            receipt_report_dlg();            
+        }
         $scope.name_search_reach_the_end = false;
         $scope.name_search_str = '';
         $scope.is_blur_name_search_text_box = false;

@@ -75,9 +75,8 @@
                     <li class="dropdown">
                         <a id="sp_app/menu/report" href="#" class="dropdown-toggle" data-toggle="dropdown">report <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li id='sale_app/menu/report/sale' ng-click="menu_report_sale()"><a href='#'>sale report</a></li>
-                            <li class="divider"></li>
-                            <li id="sp_app/menu/report/receipt" ng-click="menu_report_receipt()"><a href='#'>receipt</a></li>
+                            <li id="sp_app/menu/report/receipt" ng-click="menu_report_receipt_in_sp_page()"><a href='#'>receipt</a></li>
+                            <li id='sale_app/menu/report/sale' ng-click="menu_report_sale()"><a href='#'>sale</a></li>
                         </ul>
                     </li>   
                     <li class="dropdown">
@@ -128,22 +127,22 @@
         </table>
         {% endverbatim sp_table%}         
     </div>
+    
     <script type="text/javascript">
-        var STATIC_URL                      = "{{STATIC_URL}}";
-        window._STATIC_URL_                 = "{{STATIC_URL}}";
-        window._STORE_ID_                   = Number("{{STORE_ID_}}");
-        window._TAX_RATE_                   = {{TAX_RATE_}};
-        window._COUCH_SERVER_URL_           = "{{COUCH_SERVER_URL_}}";
-        window._STORE_DB_PREFIX_            = "{{STORE_DB_PREFIX_}}";
-        window._MIX_MATCH_LST_              = {{MIX_MATCH_LST_|safe}};
-        window._PAYMENT_TYPE_LST_           = {{PAYMENT_TYPE_LST_|safe}};
-        window._SHORTCUT_LST_               = {{SHORTCUT_LST_|safe}};
-        window._SHORTCUT_ROW_COUNT_         = {{SHORTCUT_ROW_COUNT_}};
-        window._SHORTCUT_COLUMN_COUNT_      = {{SHORTCUT_COLUMN_COUNT_}};
-        window._STORE_PRODUCT_DOCUMENT_TYPE_= "{{STORE_PRODUCT_DOCUMENT_TYPE}}";
-        window._RECEIPT_DOCUMENT_TYPE_      = "{{RECEIPT_DOCUMENT_TYPE}}";
-
-
+        var _GLOBAL_SETTING_ = {}
+        _GLOBAL_SETTING_.STATIC_URL                 = "{{STATIC_URL}}";
+        _GLOBAL_SETTING_.IS_OFFLINE                 = "{{IS_OFFLINE}}";
+        _GLOBAL_SETTING_.STORE_ID                   = Number("{{STORE_ID}}");
+        _GLOBAL_SETTING_.TAX_RATE                   = {{TAX_RATE}};
+        _GLOBAL_SETTING_.COUCH_SERVER_URL           = "{{COUCH_SERVER_URL}}";
+        _GLOBAL_SETTING_.STORE_DB_PREFIX            = "{{STORE_DB_PREFIX}}";
+        _GLOBAL_SETTING_.MIX_MATCH_LST              = {{MIX_MATCH_LST|safe}};
+        _GLOBAL_SETTING_.PAYMENT_TYPE_LST           = {{PAYMENT_TYPE_LST|safe}};
+        _GLOBAL_SETTING_.SHORTCUT_LST               = {{SHORTCUT_LST|safe}};
+        _GLOBAL_SETTING_.SHORTCUT_ROW_COUNT         = {{SHORTCUT_ROW_COUNT}};
+        _GLOBAL_SETTING_.SHORTCUT_COLUMN_COUNT      = {{SHORTCUT_COLUMN_COUNT}};
+        _GLOBAL_SETTING_.STORE_PRODUCT_DOCUMENT_TYPE= "{{STORE_PRODUCT_DOCUMENT_TYPE}}";
+        _GLOBAL_SETTING_.RECEIPT_DOCUMENT_TYPE      = "{{RECEIPT_DOCUMENT_TYPE}}";
     </script>
 
     <!-- // <script data-main = "{{ STATIC_URL }}js/sp_main.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script> -->

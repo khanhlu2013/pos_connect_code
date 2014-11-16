@@ -97,6 +97,56 @@ define(
                 );              
                 return defer.promise;                
             }
+            ,get_item : function(id){
+                var defer = $q.defer();
+
+                $http({
+                    url:'/receipt/get_item',
+                    method:'GET',
+                    params:{ id: id }
+                }).then(
+                    function(data){ 
+                        defer.resolve(Receipt.build(data.data));
+                    }
+                    ,function(reason){ 
+                        defer.reject(reason); 
+                    }
+                );              
+                return defer.promise;                     
+            }
+            ,get_item_base_on_doc_id : function(doc_id){
+                var defer = $q.defer();
+
+                $http({
+                    url:'/receipt/get_item_base_on_doc_id',
+                    method:'GET',
+                    params:{ doc_id: doc_id }
+                }).then(
+                    function(data){ 
+                        defer.resolve(Receipt.build(data.data));
+                    }
+                    ,function(reason){ 
+                        defer.reject(reason); 
+                    }
+                );              
+                return defer.promise;                   
+            }
+            ,adjust_receipt_tender : function(id,tender_ln_lst){
+                var defer = $q.defer();
+                $http({
+                    url:'/receipt/adjust_receipt_tender',
+                    method:'POST',
+                    data:{id:id,tender_ln_lst:JSON.stringify(tender_ln_lst)}
+                }).then(
+                    function(data){ 
+                        defer.resolve(Receipt.build(data.data));
+                    }
+                    ,function(reason){ 
+                        defer.reject(reason); 
+                    }
+                );              
+                return defer.promise;                 
+            }
         }
     }])
 })

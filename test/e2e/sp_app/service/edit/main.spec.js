@@ -41,11 +41,11 @@ describe('Sp page', function() {
         expect(Sp_prompt_dlg.sku_txt.isDisplayed()).toBeFalsy();
 
         //verify suggestion
-        expect(Sp_prompt_dlg.suggest_name.isDisplayed()).toBeFalsy();
-        expect(Sp_prompt_dlg.suggest_price.isDisplayed()).toBeFalsy();
-        expect(Sp_prompt_dlg.suggest_crv.isDisplayed()).toBeFalsy();
-        expect(Sp_prompt_dlg.suggest_cost.isDisplayed()).toBeFalsy();
-        expect(Sp_prompt_dlg.suggest_is_taxable.isDisplayed()).toBeFalsy();
+        expect(Sp_prompt_dlg.suggest.main.name_btn.isDisplayed()).toBeFalsy();
+        expect(Sp_prompt_dlg.suggest.main.price_btn.isDisplayed()).toBeFalsy();
+        expect(Sp_prompt_dlg.suggest.main.crv_btn.isDisplayed()).toBeFalsy();
+        expect(Sp_prompt_dlg.suggest.main.cost_btn.isDisplayed()).toBeFalsy();
+        expect(Sp_prompt_dlg.suggest.main.is_taxable_btn.isDisplayed()).toBeFalsy();
 
 
         //fillout & submit form

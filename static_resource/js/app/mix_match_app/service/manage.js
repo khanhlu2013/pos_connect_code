@@ -68,8 +68,8 @@ define(
                             '<td>{{mm.name}}</td>' +
                             '<td>{{mm.qty}}</td>' +
                             '<td>{{mm.mm_price|currency}}</td>' +
-                            '<td><span ng-class="mm.is_include_crv_tax ? \'glyphicon glyphicon-ok\' : \'glyphicon glyphicon-remove\'"></span></td>' +
-                            '<td><span ng-class="mm.is_disable ? \'glyphicon glyphicon-ok\' : \'glyphicon glyphicon-remove\'"></span></td>' +                            
+                            '<td><span class="glyphicon" ng-class="mm.is_include_crv_tax ? \'glyphicon-check\' : \'glyphicon-unchecked\'"></span></td>' +
+                            '<td><span class="glyphicon" ng-class="mm.is_disable ? \'glyphicon-check\' : \'glyphicon-unchecked\'"></span></td>' +                            
                             '<td class="alncenter"><button ng-click="delete(mm)" class="btn btn-danger glyphicon glyphicon-trash"></button></td>' +
                             '<td class="alncenter"><button ng-click="edit(mm)" class="btn btn-primary glyphicon glyphicon-pencil"></button></td>' +
                         '</tr>' +

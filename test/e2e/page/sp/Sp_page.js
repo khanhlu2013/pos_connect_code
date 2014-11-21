@@ -25,7 +25,11 @@ var Sale_page = function () {
     this.menu_setting_tax = function(){ lib.click(this.menu_setting); lib.click(element(by.id('sp_app/menu/setting/tax'))); }
 
     //txt function
-    this.sku_search = function(sku_search_str){ this.sku_txt.clear();this.sku_txt.sendKeys(sku_search_str,protractor.Key.ENTER); }
+    this.sku_search = function(sku_search_str){ 
+        this.sku_txt.clear();
+        this.sku_txt.sendKeys(sku_search_str,protractor.Key.ENTER); 
+        lib.wait_for_block_ui();
+    }
     this.name_search = function(name_search_str){ this.name_txt.clear();this.name_txt.sendKeys(name_search_str,protractor.Key.ENTER); }
 
     //index function
@@ -58,14 +62,15 @@ var Sale_page = function () {
             this.lst.get(index).all(by.tagName('td')).get(col_index).all(by.tagName('span')).get(0).getAttribute('class').then(
                 function(cls){
                     var ret_val; 
-                    if(cls.indexOf('glyphicon-ok') !== -1){ret_val = true; }
-                    else{ ret_val = false; }
+                    if(cls.indexOf('glyphicon-check') !== -1){
+                        ret_val = true; 
+                    }else{
+                        ret_val = false; 
+                    }
                     defer.fulfill(ret_val);
                 }
             )
             return defer.promise;
-            return true;
-            
         }else{
             return this.lst.get(index).all(by.tagName('td')).get(col_index).getText(); 
         }

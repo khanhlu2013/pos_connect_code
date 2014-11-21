@@ -40,6 +40,5 @@ describe('sp prompt dialog', function() {
 
         //verify suggestion
         expect(Sp_prompt_dlg.get_name()).toEqual(name_1);
-
     })
 });

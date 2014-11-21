@@ -3,6 +3,8 @@ var lib = require(base_path + 'lib');
 
 var Sp_prompt_dlg = function () {
 
+    this.self = element(by.id('sp_app/service/prompt/dialog'));
+
     //text box
     this.name_txt = element(by.id('sp_app/service/prompt/name_txt'));
     this.price_txt = element(by.id('sp_app/service/prompt/price_txt'));
@@ -16,11 +18,27 @@ var Sp_prompt_dlg = function () {
     this.sku_txt = element(by.id('sp_app/service/prompt/sku_txt'));
 
     //suggest div
-    this.suggest_name = element(by.id('sp_app/service/prompt/suggest_name'));
-    this.suggest_price = element(by.id('sp_app/service/prompt/suggest_price'));
-    this.suggest_crv = element(by.id('sp_app/service/prompt/suggest_crv'));
-    this.suggest_cost = element(by.id('sp_app/service/prompt/suggest_cost'));
-    this.suggest_is_taxable = element(by.id('sp_app/service/prompt/suggest_taxable'));
+    this.suggest = {
+        main : {
+             name_btn : element(by.id('sp_app/service/prompt/suggest/main/name'))
+            ,price_btn : element(by.id('sp_app/service/prompt/suggest/main/price'))
+            ,crv_btn : element(by.id('sp_app/service/prompt/suggest/main/crv'))
+            ,cost_btn : element(by.id('sp_app/service/prompt/suggest/main/cost'))
+            ,is_taxable_btn : element(by.id('sp_app/service/prompt/suggest/main/is_taxable'))
+        }
+        ,extra : {
+             name_btn : element(by.id('sp_app/service/prompt/suggest/extra/name'))
+            ,price_btn : element(by.id('sp_app/service/prompt/suggest/extra/price'))
+            ,crv_btn : element(by.id('sp_app/service/prompt/suggest/extra/crv'))
+            ,cost_btn : element(by.id('sp_app/service/prompt/suggest/extra/cost'))
+            ,is_taxable_btn : element(by.id('sp_app/service/prompt/suggest/extra/is_taxable'))
+
+            ,name_lst : element.all(by.repeater('extra in get_suggest_extra(\'name\')|orderBy:\'percent\':true'))
+            ,price_lst : element.all(by.repeater('extra in get_suggest_extra(\'price\')|orderBy:extra'))
+            ,crv_lst : element.all(by.repeater('extra in get_suggest_extra(\'crv\')|orderBy:\'percent\':true'))
+            ,cost_lst : element.all(by.repeater('extra in get_suggest_extra(\'cost\')|orderBy:extra'))         
+        }
+    }
 
     //check box
     this.is_taxable_check = element(by.id('sp_app/service/prompt/is_taxable_check'));

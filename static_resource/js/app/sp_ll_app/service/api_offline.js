@@ -135,27 +135,50 @@ define(
             return defer.promise; 
         }
         
+        // function by_sp_doc_id(sp_doc_id){
+        //     blockUI.start('search sp by doc_id: ' + sp_doc_id);
+        //     var defer = $q.defer();
+        //     var db = get_db();
+        //     db.allDocs({key:sp_doc_id,include_docs:true}).then(function(lst){
+        //         if(lst.rows.length == 0){
+        //             defer.reject('error: can not find product in offline database from localstorage\'s pending scan. Click void button and refresh the page to try again');
+        //             blockUI.stop();
+        //         }else if(lst.rows.length > 1){
+        //             defer.reject('multiple product found for 1 sp_doc_id ' + sp_doc_id);
+        //             blockUI.stop();
+        //         }else{
+        //             var sp_couch = lst.rows[0].doc;
+        //             _post_search_aka_recursive_search_for_bd_and_form_sp(sp_couch).then(
+        //                  function(sp){ defer.resolve(sp); blockUI.stop(); }
+        //                 ,function(reason){ defer.reject(reason); blockUI.stop(); }
+        //             )
+        //         }
+        //     });
+        //     return defer.promise; 
+        // }
+
         function by_sp_doc_id(sp_doc_id){
             blockUI.start('search sp by doc_id: ' + sp_doc_id);
             var defer = $q.defer();
-            console.log('---------');
-            console.log(sp_doc_id);
             var db = get_db();
-            db.allDocs({key:sp_doc_id,include_docs:true}).then(function(lst){
-                if(lst.rows.length == 0){
-                    defer.reject('error: can not find product in offline database from localstorage\'s pending scan. Click void button and refresh the page to try again');
-                    blockUI.stop();
-                }else if(lst.rows.length > 1){
-                    defer.reject('multiple product found for 1 sp_doc_id ' + sp_doc_id);
-                    blockUI.stop();
-                }else{
-                    var sp_couch = lst.rows[0].doc;
-                    _post_search_aka_recursive_search_for_bd_and_form_sp(sp_couch).then(
-                         function(sp){ defer.resolve(sp); blockUI.stop(); }
-                        ,function(reason){ defer.reject(reason); blockUI.stop(); }
-                    )
+            db.get(sp_doc_id).then(
+                function(pouch_result){
+                    _post_search_aka_recursive_search_for_bd_and_form_sp(pouch_result).then(
+                         function(sp){ 
+                            defer.resolve(sp); 
+                            blockUI.stop(); 
+                        }
+                        ,function(reason){ 
+                            defer.reject(reason); 
+                            blockUI.stop(); 
+                        }
+                    )                    
                 }
-            });
+                ,function(reason){
+                    defer.reject('Bug: can not find sp by doc_id in local database. Click void to try again.');
+                    blockUI.stop();
+                }
+            );        
             return defer.promise; 
         }
 

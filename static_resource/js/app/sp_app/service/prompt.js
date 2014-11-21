@@ -29,31 +29,30 @@ define(
         ,search_single_sp_dlg
         ,alert_service
     ){
-
         //- NAME -------------------------------------------------------------------------------------------------------------------------------------------------------
         var template_name_main_suggestion = 
             '<button' + 
-                ' id="sp_app/service/prompt/suggest_name_main_btn"' +
-                ' ng-click="$parent.sp.name=get_suggest(\'name\')"' +
+                ' id="sp_app/service/prompt/suggest/main/name"' +
+                ' ng-click="$parent.sp.name=get_suggest_main(\'name\').value"' +
                 ' type="button"' +
                 ' class="btn btn-primary">' +
-                    '{{get_suggest(\'name\')}}' +
+                    '{{get_suggest_main(\'name\').value}}' +
             '</button>'
         ;
         var template_name_extra_suggestion =
             '<button ' +
-                ' id="sp_app/service/prompt/suggest_name_extra_btn"' +
+                ' id="sp_app/service/prompt/suggest/extra/name"' +
                 ' ng-disabled="!is_many_suggestion(\'name\')"' +
                 ' type="button"' +
                 ' class="btn btn-primary dropdown-toggle">' + 
                     '<span class="caret"></span>' +
             '</button type="button">' +
             '<ul class="dropdown-menu" role="menu">' +
-                '<li ng-repeat="sp in suggest_product.sp_lst | orderBy:\'name\'"><a ng-click="$parent.sp.name=sp.name" href="#">{{sp.name}}</a></li>' +
+                '<li ng-repeat="extra in get_suggest_extra(\'name\')|orderBy:\'percent\':true"><a ng-click="$parent.sp.name=extra.value" href="#">{{extra.value}} - ({{extra.percent}}%)</a></li>' +
             '</ul>'      
         ;
         var template_name_suggestion = 
-            '<div id="sp_app/service/prompt/suggest_name" ng-hide="is_no_suggestion(\'name\')" class="btn-group" dropdown>' +
+            '<div ng-hide="is_no_suggestion(\'name\')" class="btn-group" dropdown>' +
                 template_name_main_suggestion +
                 template_name_extra_suggestion +
             '</div>'
@@ -72,28 +71,28 @@ define(
         //- PRICE -------------------------------------------------------------------------------------------------------------------------------------------------------
         var template_price_main_suggestion = 
             '<button' + 
-                ' id="sp_app/service/prompt/suggest_price_main_btn"' +
-                ' ng-click="$parent.sp.price=get_suggest(\'price\')"' +
+                ' id="sp_app/service/prompt/suggest/main/price"' +
+                ' ng-click="$parent.sp.price=get_suggest_main(\'price\')"' +
                 ' type="button"' +
                 ' class="btn btn-primary">' + 
 
-                    '{{get_suggest(\'price\')|currency}}' + 
+                    '{{get_suggest_main(\'price\')|currency}}' + 
             '</button>'
         ;
         var template_price_extra_suggestion = 
             '<button' +
-                ' id="sp_app/service/prompt/suggest_price_extra_btn"' +
+                ' id="sp_app/service/prompt/suggest/extra/price"' +
                 ' ng-disabled="!is_many_suggestion(\'price\')"' +
                 ' type="button"' +
                 ' class="btn btn-primary dropdown-toggle">' + 
                     '<span class="caret"></span>' +
             '</button>' +
             '<ul class="dropdown-menu" role="menu">' +
-                '<li ng-repeat="sp in suggest_product.sp_lst | orderBy:\'price\'"><a ng-click="$parent.sp.price=sp.price" href="#">{{sp.price|currency}}</a></li>' +
+                '<li ng-repeat="extra in get_suggest_extra(\'price\')|orderBy:extra"><a ng-click="$parent.sp.price=extra" href="#">{{extra|currency}}</a></li>' +
             '</ul>'
         ;  
         var template_price_suggestion = 
-            '<div id="sp_app/service/prompt/suggest_price" ng-hide="is_no_suggestion(\'price\')" class="btn-group" dropdown>' +   
+            '<div ng-hide="is_no_suggestion(\'price\')" class="btn-group" dropdown>' +   
                 template_price_main_suggestion +
                 template_price_extra_suggestion +
             '</div>'
@@ -112,29 +111,27 @@ define(
         //- CRV -------------------------------------------------------------------------------------------------------------------------------------------------------
         var template_crv_main_suggestion = 
             '<button' +
-                ' id="sp_app/service/prompt/suggest_crv_main_btn"' +
-                ' ng-click="$parent.sp.crv=get_suggest(\'crv\')"' +
+                ' id="sp_app/service/prompt/suggest/main/crv"' +
+                ' ng-click="$parent.sp.crv=get_suggest_main(\'crv\').value"' +
                 ' type="button"' +
                 ' class="btn btn-primary">' +
-                    '{{get_suggest(\'crv\')|currency}}' +
+                    '{{get_suggest_main(\'crv\').value|currency}}' +
             '</button>'         
         ;
         var template_crv_extra_suggestion = 
             '<button' +
-                ' id="sp_app/service/prompt/suggest_crv_extra_btn"' +
+                ' id="sp_app/service/prompt/suggest/extra/crv"' +
                 ' ng-disabled="!is_many_suggestion(\'crv\')"' +
                 ' type="button"' +
                 ' class="btn btn-primary dropdown-toggle">' +
                     '<span class="caret"></span>' + 
             '</button>' +
             '<ul class="dropdown-menu" role="menu">' +
-                '<li ng-repeat="sp in suggest_product.sp_lst | orderBy:\'get_crv()\'">' + 
-                    '<a ng-click="$parent.sp.crv=sp.crv" href="#">{{sp.crv|currency}}</a>' +
-                '</li>' +
+                '<li ng-repeat="extra in get_suggest_extra(\'crv\')|orderBy:\'percent\':true"><a ng-click="$parent.sp.crv=extra.value" href="#">{{extra.value|currency}} - ({{extra.percent}}%)</a></li>' +
             '</ul>'
         ;
         var template_crv_suggestion = 
-            '<div id="sp_app/service/prompt/suggest_crv" ng-hide="is_no_suggestion(\'crv\')" class="btn-group" dropdown>' +
+            '<div ng-hide="is_no_suggestion(\'crv\')" class="btn-group" dropdown>' +
                 template_crv_main_suggestion +
                 template_crv_extra_suggestion +
             '</div>'
@@ -153,31 +150,28 @@ define(
         ;
 
         //- TAX -------------------------------------------------------------------------------------------------------------------------------------------------------
-        var template_taxable_main_suggestion = 
+        var template_taxable_main_suggestion =
             '<button' +
-                ' id="sp_app/service/prompt/suggest_taxable_main_btn"' +
-                ' ng-click="$parent.sp.is_taxable=get_suggest(\'is_taxable\')"' +
+                ' id="sp_app/service/prompt/suggest/main/is_taxable"' +
+                ' ng-click="$parent.sp.is_taxable=get_suggest_main(\'is_taxable\').value"' +
                 ' type="button"' +
-                ' class="btn btn-primary">' +
-                    '{{get_suggest(\'is_taxable\')}}' +
+                ' class="glyphicon btn btn-primary"' +                
+                ' ng-class="get_suggest_main(\'is_taxable\').value ? \'glyphicon-check\' : \'glyphicon-unchecked\'">' +
+                    '<span>({{get_suggest_main(\'is_taxable\').percent}}%)</span>' +
             '</button>'         
         ;
-        var template_taxable_extra_suggestion = 
+        var template_taxable_extra_suggestion =
             '<button' +
-                ' id="sp_app/service/prompt/suggest_taxable_extra_btn"' +
-                ' ng-disabled="!is_tax_suggest_has_both_false_and_true()"' +
+                ' id="sp_app/service/prompt/suggest/extra/is_taxable"' +
+                ' ng-click="$parent.sp.is_taxable=!get_suggest_main(\'is_taxable\').value"' +
                 ' type="button"' +
-                ' class="btn btn-primary dropdown-toggle">' +
-                    '<span class="caret"></span>' + 
-            '</button>' +
-            '<ul class="dropdown-menu" role="menu">' +
-                '<li ng-repeat="stat in tax_suggest_statistic">' + 
-                    '<a ng-click="$parent.sp.is_taxable=stat.is_taxable" href="#">{{stat.is_taxable + " - " + stat.value + "%"}}</a>' +
-                '</li>' +
-            '</ul>'
+                ' class="glyphicon btn btn-primary"' +                
+                ' ng-class="!get_suggest_main(\'is_taxable\').value ? \'glyphicon-check\' : \'glyphicon-unchecked\'">' +
+                    '<span>({{100 - get_suggest_main(\'is_taxable\').percent}}%)</span>' +
+            '</button>'    
         ;
         var template_taxable_suggestion = 
-            '<div id="sp_app/service/prompt/suggest_taxable" ng-hide="is_no_suggestion(\'crv\')" class="btn-group" dropdown>' +
+            '<div ng-hide="is_no_suggestion(\'is_taxable\')" class="btn-group" dropdown>' +
                 template_taxable_main_suggestion +
                 template_taxable_extra_suggestion +
             '</div>'
@@ -191,33 +185,32 @@ define(
                 '</div>' +
             '</div>'
         ;        
-
         //- COST -------------------------------------------------------------------------------------------------------------------------------------------------------
         var template_cost_main_suggestion = 
             '<button' +
-                ' id="sp_app/service/prompt/suggest_cost_main_btn"' +
-                ' ng-click="$parent.sp.cost=get_suggest(\'cost\')"' +
+                ' id="sp_app/service/prompt/suggest/main/cost"' +
+                ' ng-click="$parent.sp.cost=get_suggest_main(\'cost\')"' +
                 ' type="button"' +
                 ' class="btn btn-primary">' +
-                    '{{get_suggest(\'cost\')|currency}}' + 
+                    '{{get_suggest_main(\'cost\')|currency}}' + 
             '</button>' 
         ;
         var template_cost_extra_suggestion =
             '<button' +
-                ' id="sp_app/service/prompt/suggest_cost_extra_btn"' +
+                ' id="sp_app/service/prompt/suggest/extra/cost"' +
                 ' ng-disabled="!is_many_suggestion(\'cost\')"' +
                 ' type="button"' +
                 ' class="btn btn-primary dropdown-toggle">' +
                     '<span class="caret"></span>' +
             '</button>' +
             '<ul class="dropdown-menu" role="menu">' +
-                '<li ng-repeat="sp in suggest_product.sp_lst | orderBy:\'get_cost()\'">' +
+                '<li ng-repeat="extra in get_suggest_extra(\'cost\')|orderBy:extra"><a ng-click="$parent.sp.cost=extra" href="#">{{extra|currency}}</a></li>' +            
                     '<a ng-click="$parent.sp.cost=sp.cost" href="#">{{sp.cost|currency}}</a>' +
                 '</li>' +
             '</ul>'
         ;
         var template_cost_suggestion = 
-            '<div id="sp_app/service/prompt/suggest_cost" ng-hide="is_no_suggestion(\'cost\')" class="btn-group" dropdown>' +
+            '<div ng-hide="is_no_suggestion(\'cost\')" class="btn-group" dropdown>' +
                 template_cost_main_suggestion +
                 template_cost_extra_suggestion +
             '</div>'
@@ -356,7 +349,6 @@ define(
             $scope.original_sku = original_sku;
             $scope.original_sp = original_sp;
             initial_blank_sp = {is_sale_report:true,is_taxable:false};
-            $scope.tax_suggest_statistic = (suggest_product == null ? null : suggest_product.get_tax_suggest_statistic())
             $scope.lookup_type_tag = process(lookup_type_tag);
 
             //pending data for storing prompt
@@ -376,22 +368,64 @@ define(
                 $scope.sp.cost = $scope.sp.get_cost();
                 $scope.sp.buydown = $scope.sp.get_buydown();
             }
-            $scope.is_tax_suggest_has_both_false_and_true = function(){
-                if($scope.tax_suggest_statistic == null){
-                    return false;
-                }             
-                return $scope.tax_suggest_statistic[0].value != 0 && $scope.tax_suggest_statistic[1].value != 0;   
+
+            //suggestion
+            //we saved statistic calculation into a scope so that we dont have infinite digest cycle
+            $scope._suggest_main_name = null;
+            $scope._suggest_main_crv = null;
+            $scope._suggest_main_is_taxable = null;
+            $scope._suggest_main_price = null;
+            $scope._suggest_main_cost = null;
+            $scope._suggest_extra_name = null;
+            $scope._suggest_extra_crv = null;
+            $scope._suggest_extra_is_taxable = null;
+            $scope._suggest_extra_price = null;
+            $scope._suggest_extra_cost = null;
+            if($scope.suggest_product !== null){
+                $scope._suggest_main_name = $scope.suggest_product.get_suggest_main('name');
+                $scope._suggest_main_crv = $scope.suggest_product.get_suggest_main('crv');
+                $scope._suggest_main_is_taxable = $scope.suggest_product.get_suggest_main('is_taxable');
+                $scope._suggest_main_price = $scope.suggest_product.get_suggest_main('price');
+                $scope._suggest_main_cost = $scope.suggest_product.get_suggest_main('cost');
+                $scope._suggest_extra_name = $scope.suggest_product.get_suggest_extra('name');
+                $scope._suggest_extra_crv = $scope.suggest_product.get_suggest_extra('crv');
+                $scope._suggest_extra_is_taxable = $scope.suggest_product.get_suggest_extra('is_taxable');
+                $scope._suggest_extra_price = $scope.suggest_product.get_suggest_extra('price');
+                $scope._suggest_extra_cost = $scope.suggest_product.get_suggest_extra('cost');           
             }
-            $scope.is_no_suggestion = function(field){
-                if($scope.suggest_product == null){
-                    return true;
+            $scope.get_suggest_main = function(field){
+                if(field === 'name'){
+                    return $scope._suggest_main_name;
+                }else if(field === 'crv'){
+                    return $scope._suggest_main_crv;
+                }else if(field === 'is_taxable'){
+                    return $scope._suggest_main_is_taxable;
+                }else if(field === 'price'){
+                    return $scope._suggest_main_price;
+                }else if(field === 'cost'){
+                    return $scope._suggest_main_cost;
                 }
-                return $scope.suggest_product.get_suggest_main(field) == null;
+            }        
+            $scope.get_suggest_extra = function(field){
+                if(field === 'name'){
+                    return $scope._suggest_extra_name;
+                }else if(field === 'crv'){
+                    return $scope._suggest_extra_crv;
+                }else if(field === 'is_taxable'){
+                    return $scope._suggest_extra_is_taxable;
+                }else if(field === 'price'){
+                    return $scope._suggest_extra_price;
+                }else if(field === 'cost'){
+                    return $scope._suggest_extra_cost;
+                }
+            }              
+            $scope.is_no_suggestion = function(field){
+                return $scope.get_suggest_main(field) === null;
             }
             $scope.is_many_suggestion = function(field){
-                if($scope.suggest_product == null){
+                if($scope.suggest_product === null){
                     return false;
-                }                
+                }
                 var lst= $scope.suggest_product.get_suggest_extra(field);
                 if(lst == null){
                     return false;
@@ -438,12 +472,6 @@ define(
             }
             $scope.is_create_new_sp = function(){
                 return $scope.original_sp == null;
-            }
-            $scope.get_suggest = function(field){
-                if($scope.suggest_product == null){
-                    return null;
-                }
-                return $scope.suggest_product.get_suggest_main(field);
             }
             $scope.calculate_title = function(){
                 if($scope.suggest_product != null){

@@ -11,7 +11,7 @@ define(
     ,'app/sp_app/service/api/search'
     ,'service/db'
     ,'app/group_app/service/manage'
-    ,'app/receipt_app/service/report_new'        
+    ,'app/receipt_app/service/report'        
 ], function 
 (
      angular
@@ -29,7 +29,7 @@ define(
         ,'sp_app/service/api/search'
         ,'service/db'
         ,'group_app/service/manage'
-        ,'receipt_app/service/report_new'            
+        ,'receipt_app/service/report'            
     ]);
 
     mod.controller('MainCtrl',
@@ -47,7 +47,7 @@ define(
         ,'blockUI'
         ,'service/db/is_pouch_exist'
         ,'group_app/service/manage'
-        ,'receipt_app/service/report_new'            
+        ,'receipt_app/service/report'            
     ,function(
          $window
         ,$scope

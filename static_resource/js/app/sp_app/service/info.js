@@ -69,7 +69,7 @@ define(
                             '<div class="form-group">' +
                                 '<label class="col-sm-4 control-label">Taxable:</label>' +
                                 '<p class="form-control-static col-sm-8">' +
-                                    '<span ng-class="sp.is_taxable ? \'glyphicon glyphicon-ok\' : \'glyphicon glyphicon-remove\'"></span>' +
+                                    '<span class="glyphicon" ng-class="sp.is_taxable ? \'glyphicon-check\' : \'glyphicon-unchecked\'"></span>' +
                                 '</p>' +
                             '</div>' +
 
@@ -83,7 +83,7 @@ define(
                             '<div class="form-group">' +
                                 '<label class="col-sm-4 control-label">Sale report:</label>' +
                                 '<p class="form-control-static col-sm-8">' +
-                                    '<span ng-class="sp.is_sale_report ? \'glyphicon glyphicon-ok\' : \'glyphicon glyphicon-remove\'"></span>' +
+                                    '<span class="glyphicon" ng-class="sp.is_sale_report ? \'glyphicon-check\' : \'glyphicon-unchecked\'"></span>' +
                                 '</p>' +
                             '</div>' +
 

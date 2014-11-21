@@ -5,6 +5,7 @@ define(
     ,'app/payment_type_app/model'
     ,'app/receipt_app/model'
     ,'service/misc'
+    ,'app/sale_app/service/sale_able_info_dlg'    
 ]
 ,function
 (
@@ -16,6 +17,7 @@ define(
          'payment_type_app/model'
         ,'receipt_app/model'
         ,'service/misc'
+        ,'sale_app/service/sale_able_info_dlg'        
     ]);
     mod.factory('sale_app/service/tender_ui',
     [
@@ -24,41 +26,61 @@ define(
         ,'payment_type_app/model/Payment_type'
         ,'receipt_app/model/Tender_ln'
         ,'service/misc'
+        ,'sale_app/service/sale_able_info_dlg'        
     ,function(
          $modal
         ,$rootScope
         ,Payment_type
         ,Tender_ln
         ,misc_service
+        ,sale_able_info_dlg
     ){
         return function(sale_able_lst,prefill_tender_ln_lst,tax_rate){
+            var template_receipt = 
+                '<table class="table table-hover table-bordered table-condensed table-striped">' +
+                    '<tr>' +
+                        '<th>qty</th>' +
+                        '<th>product</th>' +
+                        '<th>price</th>' +
+                    '</tr>' +
+
+                    '<tr ng-repeat="receipt_ln in $parent.sale_able_lst | orderBy:\'date\'">' +
+                        '<td>{{receipt_ln.qty}}</td>' +
+                        '<td>{{receipt_ln.get_name()}}</td>' +
+                        '<td class="alncenter"><button ng-click="display_sale_able_info_dlg(receipt_ln)" class="btn btn-primary" type="button">{{receipt_ln.get_advertise_price() | currency}}</button></td>' +
+                    '</tr>' +
+                '</table>'
+            ;
+            var template_pt = 
+                '<div class="form-horizontal" >' +
+                    '<div ng-repeat="pt_tender in pt_lst | orderBy:\'sort\'" class="form-group">' +
+                        '<ng-form name="inner_form">' +
+                            '<label ng-attr-id="{{\'sale_app/service/tender_ui/pt_lbl/\' + pt_tender.id}}" class="col-sm-4 control-label input-lg" >{{pt_tender.name}}:</label>' +
+                            '<div class="col-sm-8">' +
+                                '<input' +
+                                    ' ng-attr-id="{{\'sale_app/service/tender_ui/pt_txt/\' + pt_tender.id}}" ' +
+                                    ' name="a_pt"' +
+                                    ' ng-model="temp_tender_ln_dic[pt_tender.id]"' +
+                                    ' type="number"' +
+                                    ' min="0.01"' +
+                                    ' class="input-lg"' +
+                                    ' focus-me="{{pt_tender.id===null}}"' +
+                                    ' onClick="this.select();"' +
+                                '>' +
+                                '<label ng-show="inner_form.a_pt.$error.number" class="error">invalid number</label>' +
+                                '<label ng-show="inner_form.a_pt.$error.min" class="error">invalid amount</label>' +                                        
+                            '</div>' +
+                        '</ng-form>' +
+                    '</div>' +
+                '</div>'  /* end form horizontal*/  
+            ;          
             var template = 
             '<form name="form" novalidate role="form">' +
                 '<div class="modal-header"><h3 id="sale_app/service/tender_ui/due_lbl">due: {{get_due()|currency}}</h3></div>' +
                 '<div class="modal-body">' +
-                    // '<form name="form" novalidate role="form">' +
-                        '<div class="form-horizontal" >' +
-                            '<div ng-repeat="pt_tender in pt_lst | orderBy:\'sort\'" class="form-group">' +
-                                '<ng-form name="inner_form">' +
-                                    '<label ng-attr-id="{{\'sale_app/service/tender_ui/pt_lbl/\' + pt_tender.id}}" class="col-sm-4 control-label input-lg" >{{pt_tender.name}}:</label>' +
-                                    '<div class="col-sm-8">' +
-                                        '<input' +
-                                            ' ng-attr-id="{{\'sale_app/service/tender_ui/pt_txt/\' + pt_tender.id}}" ' +
-                                            ' name="a_pt"' +
-                                            ' ng-model="temp_tender_ln_dic[pt_tender.id]"' +
-                                            ' type="number"' +
-                                            ' min="0.01"' +
-                                            ' class="input-lg"' +
-                                            ' focus-me="{{pt_tender.id===null}}"' +
-                                            ' onClick="this.select();"' +
-                                        '>' +
-                                        '<label ng-show="inner_form.a_pt.$error.number" class="error">invalid number</label>' +
-                                        '<label ng-show="inner_form.a_pt.$error.min" class="error">invalid amount</label>' +                                        
-                                    '</div>' +
-                                '</ng-form>' +
-                            '</div>' +
-                        '</div>' + /* end form horizontal*/
-                    // '</form>' + /* end modal body*/             
+                    '<div class="col-md-6">' + template_pt + '</div>'  +
+                    '<div class="col-md-6">' + template_receipt + '</div>'  +
+                    '<div class="clear"></div>' +
                 '</div>' +
                 
                 '<div class="modal-footer">' + 
@@ -76,6 +98,9 @@ define(
             '</form>'
             ;
             var ModalCtrl = function($scope,$modalInstance,sale_able_lst,prefill_tender_ln_lst,tax_rate){
+                $scope.display_sale_able_info_dlg = function(receipt_ln){
+                    sale_able_info_dlg(receipt_ln,false/*is_enable_override_price*/);
+                }                
                 $scope.get_due = function(){
                     var due = 0.0;
                     for(var i = 0;i<$scope.sale_able_lst.length;i++){
@@ -136,7 +161,7 @@ define(
                 }
                 $scope.cancel = function(){ $modalInstance.dismiss('_cancel_'); }
                 $scope.pt_lst = angular.copy($rootScope.GLOBAL_SETTING.payment_type_lst);
-                var cash_pt = new Payment_type(null,'cash','___'/*sort*/,true/*active*/);
+                var cash_pt = new Payment_type(null,'cash',null/*sort - null value make it be on top*/,true/*active*/);
                 $scope.pt_lst.unshift(cash_pt);
                 $scope.sale_able_lst = sale_able_lst;
                 $scope.temp_tender_ln_dic = {};

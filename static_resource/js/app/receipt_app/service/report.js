@@ -14,7 +14,7 @@ define(
     angular
 )
 {
-    var mod = angular.module('receipt_app/service/report_new',
+    var mod = angular.module('receipt_app/service/report',
     [
          'receipt_app/service/push'
         ,'receipt_app/service/api'
@@ -24,7 +24,7 @@ define(
         ,'sale_app/service/tender_ui'
         ,'receipt_app/service/adjust_receipt_tender'        
     ]);
-    mod.factory('receipt_app/service/report_new',
+    mod.factory('receipt_app/service/report',
     [
          '$modal'
         ,'receipt_app/service/push'
@@ -117,7 +117,7 @@ define(
                         '<p id="receipt_app/service/report/receipt_summary/total" ng-class="receipt_summary_value_class">{{cur_receipt.get_otd_price()|currency}}</p>' +
                     '</div>' +
 
-                    '<div id="receipt_app/service/report/receipt_summary/tender_div" ng-repeat="tender_ln in cur_receipt.tender_ln_lst" class="form-group">' +
+                    '<div id="receipt_app/service/report/receipt_summary/tender_div" ng-repeat="tender_ln in cur_receipt.tender_ln_lst | orderBy:sort_tender_ln_func" class="form-group">' +
                         '<label' +
                             ' ng-attr-id="receipt_app/service/report/receipt_summary/tender_lbl/{{tender_ln.pt === null ? \'null\' : tender_ln.pt.id}}"' +
                             ' ng-class="receipt_summary_lbl_class">' +
@@ -189,8 +189,13 @@ define(
                 $scope.receipt_summary_lbl_class = 'col-xs-4 control-label';
                 $scope.receipt_summary_value_class = 'col-xs-8 form-control-static';
 
-                // $scope.receipt_summary_lbl_class = 'col-xs-4';
-                // $scope.receipt_summary_value_class = 'col-xs-8';
+                $scope.sort_tender_ln_func = function(tender_ln) {
+                    if(tender_ln.pt === null){
+                        return null;
+                    }else{
+                        return tender_ln.pt.sort;
+                    }
+                };
 
                 $scope.display_sale_able_info_dlg = function(receipt_ln){
                     sale_able_info_dlg(receipt_ln,false/*is_enable_override_price*/);

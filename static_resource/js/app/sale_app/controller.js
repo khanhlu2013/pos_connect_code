@@ -28,7 +28,7 @@ define(
     ,'app/sale_app/service/init_db'
     ,'app/sale_app/service/tender_ui'
     ,'app/receipt_app/service/adjust_receipt_tender'
-    ,'app/receipt_app/service/report_new'    
+    ,'app/receipt_app/service/report'    
 ], function
 (
      angular
@@ -66,7 +66,7 @@ define(
         ,'sale_app/service/init_db'
         ,'sale_app/service/tender_ui'
         ,'receipt_app/service/adjust_receipt_tender'
-        ,'receipt_app/service/report_new'        
+        ,'receipt_app/service/report'        
     ]);
     mod.controller('Sale_page_ctrl', 
     [
@@ -104,7 +104,7 @@ define(
         ,'sale_app/service/init_db'
         ,'sale_app/service/tender_ui'
         ,'receipt_app/service/adjust_receipt_tender'
-        ,'receipt_app/service/report_new'
+        ,'receipt_app/service/report'
     ,function(
          $scope
         ,$rootScope
@@ -434,7 +434,7 @@ define(
         $scope.menu_report_receipt_in_sale_page = function(){
             receipt_report_service().then(
                 function(){
-                    
+                    $scope.previous_receipt = null;//previous receipt's tender ln could be updated, making the change amount could be wrong. i am voting previous receipt no support after comming out of receipt dialog
                 },function(reason){
                     alert_service(reason);
                 }

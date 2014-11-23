@@ -473,10 +473,16 @@ define(
                 $scope.refresh_ds(true/*we wish to optimize but it make no differece since this is the first time, cur ds_lst is empty anyway*/,null/*extra sp to optimize and prevent lookup sp*/);
                 $scope.$watchGroup(
                     [
-                         function(){return JSON.stringify(get_ps_lst());}//the reason i return a string representation of ps_lst is that get_ps_lst() always return a new created ps_lst which have a new identity all the time. This cause the watch to do infinite loop
-                        ,function(){return $rootScope.GLOBAL_SETTING.mix_match_lst;}
+                        function(){
+                            return JSON.stringify(get_ps_lst());
+                        }//the reason i return a string representation of ps_lst is that get_ps_lst() always return a new created ps_lst which have a new identity all the time. This cause the watch to do infinite loop
+                        ,function(){
+                            return $rootScope.GLOBAL_SETTING.mix_match_lst;
+                        }
                     ]
-                    ,function(newVal,oldVal,scope){$scope.refresh_ds(true,$scope.sp_lst__extra_optimize_to_not_lookup/*extra sp to optimize and prevent lookup sp*/);}
+                    ,function(newVal,oldVal,scope){
+                        $scope.refresh_ds(true,$scope.sp_lst__extra_optimize_to_not_lookup/*extra sp to optimize and prevent lookup sp*/);
+                    }
                 );
             },
             function(reason){

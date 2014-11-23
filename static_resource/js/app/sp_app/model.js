@@ -4,6 +4,7 @@ define(
     //-------
     ,'app/group_app/model'
     ,'app/product_app/model'
+    ,'service/misc'
 ]
 ,function
 (
@@ -15,10 +16,18 @@ define(
          'group_app/model'
         ,'product_app/model'
         ,'sp_app/model'
+        ,'service/misc'
     ]);
 
     //Store_product model
-    mod.factory('sp_app/model/Store_product',['$injector',function($injector){
+    mod.factory('sp_app/model/Store_product',
+    [
+         '$injector'
+        ,'service/misc'
+    ,function(
+         $injector
+        ,misc_service
+    ){
 
         //CONSTRUCTOR
         function Store_product(
@@ -163,6 +172,15 @@ define(
                     }
                 }
                 return true;
+            },
+            get_markup:function(){
+                var cost = this.get_cost();
+                if(cost === null){
+                    return null;
+                }else{
+                    var markup = (this.price + this.get_crv() - this.buydown - cost) * 100 / cost;
+                    return misc_service.round_float_2_decimal(markup);                    
+                }
             }
         }
 

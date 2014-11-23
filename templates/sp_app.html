@@ -108,6 +108,7 @@
                 <th class="info" ng-click="column_click('cost')">cost <span ng-class="get_sort_class('cost')"></span></th>
                 <th class="info" ng-click="column_click('buydown')">buydown <span ng-class="get_sort_class('buydown')"></span></th>
                 <th class="info" ng-click="column_click('vc_price')">vc_price <span ng-class="get_sort_class('vc_price')"></span></th>
+                <th>markup</th>
                 <th>info</th>                
             </tr>    
             <tr ng-repeat="sp in sp_lst | orderBy:cur_sort_column:cur_sort_desc | filter:local_filter">
@@ -122,6 +123,7 @@
                 <td class="alnright">{{sp.get_cost()|currency|not_show_zero}}</td>
                 <td class="alnright">{{sp.get_buydown()|currency|not_show_zero}}</td>
                 <td class="alnright">{{sp.value_customer_price|currency|not_show_zero}}</td>
+                <td class="alnright">{{sp.get_markup()}}</td>
                 <td class="alncenter"><button ng-click="display_product_info(sp)" class="btn btn-sm btn-primary glyphicon glyphicon-info-sign"></button></td>
             </tr>
         </table>
@@ -145,7 +147,7 @@
         _GLOBAL_SETTING_.RECEIPT_DOCUMENT_TYPE      = "{{RECEIPT_DOCUMENT_TYPE}}";
     </script>
 
-    <!-- // <script data-main = "{{ STATIC_URL }}js/sp_main.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script> -->
-    <script data-main = "{{ STATIC_URL }}sp.min.11.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script>
+    <script data-main = "{{ STATIC_URL }}js/sp_main.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script>
+    <!-- // <script data-main = "{{ STATIC_URL }}sp.min.11.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script> -->
 </body>
 </html>

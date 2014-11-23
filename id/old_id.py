@@ -6,8 +6,8 @@ from django.db import IntegrityError
 from store_product.cm import insert_new,insert_old
 
 #CONFIGURATION
-store = Store.objects.get(name='2')
-cust_input_file_name = './id/data_long_product_full.txt'
+store = Store.objects.get(name='3')
+cust_input_file_name = './id/data_barel_product_full.txt'
 #END CONFIGURATION
 
 
@@ -30,7 +30,7 @@ def exe_multiple():
                 selected_pid = None
                 while True:
                     if data[index].strip() == END_OF_MULTIPLE_SELECTION:
-                        break;
+                        break
                     else:
                         temp = json.loads(data[index].strip())
                         index += 1
@@ -54,7 +54,7 @@ def exe_multiple():
                         assoc_sku_str = dic['sku'],
                         cost = dic['cost'],
                         vendor = None,
-                        buydown = None
+                        buydown = dic['buydown']
                     )
                 else:
                     print('insert_new ' + dic["name"])
@@ -71,7 +71,7 @@ def exe_multiple():
                         sku_str = dic['sku'],
                         cost = dic['cost'],
                         vendor = None,
-                        buydown = None
+                        buydown = dic['buydown']
                     )                     
 
                 data = []
@@ -107,7 +107,7 @@ def exe_single():
                             assoc_sku_str = dic['sku'],
                             cost = dic['cost'],
                             vendor = None,
-                            buydown = None
+                            buydown = dic['buydown']
                         )
                     except IntegrityError:
                         log_error_single.write('INTEGRITY ERROR: ' + 'pid: ' + str(dic['our_pid']) + ' ,sku: ' + dic['sku'] + ', name: ' + dic['name'] + '\n') 
@@ -129,13 +129,11 @@ def exe_single():
                         sku_str = dic['sku'],
                         cost = dic['cost'],
                         vendor = None,
-                        buydown = None
+                        buydown = dic['buydown']
                     )                   
                 data = []
 
     log_error_single.close()   
-
-
 
 def _group_by_pid(cust_input_file_name):
     """
@@ -144,36 +142,44 @@ def _group_by_pid(cust_input_file_name):
             key(pid) and value({data:sp_info,sku_lst:a_lst_of_sku})    
 
         CUSTOMER DATA FORMAT
-            "PID-1","010986002226","Kenwood Cab 750ml","13.99","0","1","Liquors","Red Wine","9.1"
-            pid,sku,name,price,crv,is_taxable,p_type,p_tag,cost    
+            pid,sku,name,price,tag_along_sku,tag_along_name,tag_along_amount,is_taxable,p_type,p_tag,cost    
     """
 
     cust_dic = {}
     with open(cust_input_file_name, 'rb') as f:
-        line = csv.reader(f, delimiter=',', quotechar='"')
+        # line = csv.reader(f, delimiter=',', quotechar='"')
+        line = csv.reader(f, delimiter=',')
         for raw in line:
-            pid_raw = raw[0]
-            sku_raw = raw[1]
-            name_raw = raw[2]
-            price_raw = raw[3]
-            crv_raw = raw[4]
-            is_taxable_raw = raw[5]
-            p_type_raw = raw[6]
-            p_tag_raw = raw[7]
-            cost_raw = raw[8]
+            pid = raw[0]
+            sku = raw[1].strip()
+            name = raw[2]
+            price = float(raw[3])
 
-            pid = pid_raw
-            sku = sku_raw.strip()
-            name = name_raw
-            price = 9999.99 if price_raw == 'NULL' else float(price_raw)
-            crv = float(crv_raw)
-            is_taxable = True if is_taxable_raw == '1' else False
-            p_type = p_type_raw
-            p_tag = p_tag_raw
-            cost = float(cost_raw)
+            tag_along_sku = raw[4]
+            tag_along_name = raw[5]
+            try:
+                tag_along_amount = float(raw[6])
+            except:
+                tag_along_amount = None
+
+            is_taxable = True if raw[7] == 'TRUE' else False
+            p_type = raw[8]
+            p_tag = raw[9]
+            try:
+                cost = float(raw[10])
+            except:
+                cost = None
             
-            if len(sku) == 0:
+            crv = None
+            buydown = None
+
+            if len(sku) == 0 or price < 0:
                 continue
+
+            if 'crv' in tag_along_sku.lower():
+                crv = tag_along_amount
+            elif 'dis' in tag_along_sku.lower():
+                buydown = abs(tag_along_amount)
 
             if pid not in cust_dic:
                 data = {
@@ -183,7 +189,8 @@ def _group_by_pid(cust_input_file_name):
                     "is_taxable" : is_taxable,
                     "p_type" : p_type,
                     "p_tag" : p_tag,
-                    "cost" : cost
+                    "cost" : cost,
+                    "buydown" : buydown
                 }
                 cur_prod = {
                     "data" : data,
@@ -194,7 +201,7 @@ def _group_by_pid(cust_input_file_name):
                 if sku not in cust_dic[pid]['sku_lst']:
                     cust_dic[pid]['sku_lst'].append(sku)    
 
-    return cust_dic;
+    return cust_dic
 
 def _is_use_our_pid_when_cust_pid_have_1_sku_and_that_sku_assoc_with_1_our_pid(cust_pid,cust_sku,cust_dic,our_pid):
     """
@@ -234,7 +241,22 @@ def _is_use_our_pid_when_cust_pid_have_1_sku_and_that_sku_assoc_with_1_our_pid(c
                     break
         return is_use_our_pid
 
-def _cus_sku_lst_is_1(cust_sku,cust_pid,cust_name,cust_price,cust_crv,cust_is_taxable,cust_p_type,cust_p_tag,cust_cost,log_error_main,log_data_single,log_data_multiple,cust_dic):
+def _cus_sku_lst_is_1(
+         cust_sku
+        ,cust_pid
+        ,cust_name
+        ,cust_price
+        ,cust_crv
+        ,cust_is_taxable
+        ,cust_p_type
+        ,cust_p_tag
+        ,cust_cost
+        ,cust_buydown
+        ,log_error_main
+        ,log_data_single
+        ,log_data_multiple
+        ,cust_dic
+):
     our_prod_sku_assoc_lst = ProdSkuAssoc.objects.filter(sku__sku = cust_sku).exclude(product__creator = store)
     
     if len(our_prod_sku_assoc_lst) == 0:
@@ -252,7 +274,7 @@ def _cus_sku_lst_is_1(cust_sku,cust_pid,cust_name,cust_price,cust_crv,cust_is_ta
                 sku_str = cust_sku,
                 cost = cust_cost,
                 vendor = None,
-                buydown = None
+                buydown = cust_buydown
             ) 
         except Exception:
             log_error_main.write('erro - insert new when we dont have sku - ' + cust_pid + ',' + cust_sku + ',' + cust_name + ',' + str(cust_price) + ',' + str(cust_crv) + '\n')
@@ -274,7 +296,8 @@ def _cus_sku_lst_is_1(cust_sku,cust_pid,cust_name,cust_price,cust_crv,cust_is_ta
             "is_taxable" : cust_is_taxable,
             "p_type" : cust_p_type,
             "p_tag" : cust_p_tag,
-            "cost" : cust_cost
+            "cost" : cust_cost,
+            "buydown" : cust_buydown
         }
         log_data_single.write(json.dumps(dic) + '\n')
         log_data_single.write(END_OF_RECORD + '\n')
@@ -293,7 +316,8 @@ def _cus_sku_lst_is_1(cust_sku,cust_pid,cust_name,cust_price,cust_crv,cust_is_ta
             "is_taxable" : cust_is_taxable,
             "p_type" : cust_p_type,
             "p_tag" : cust_p_tag,
-            "cost" : cust_cost
+            "cost" : cust_cost,
+            "buydown" : cust_buydown
         }                
         log_data_multiple.write(json.dumps(dic) + '\n')
         log_data_multiple.write(END_OF_RECORD + '\n')
@@ -324,6 +348,7 @@ def exe():
         cust_p_type = None if cust_data['p_type'] == 'NULL' else cust_data['p_type']
         cust_p_tag = None if cust_data['p_tag'] == 'NULL' else cust_data['p_tag']
         cust_cost = cust_data['cost']
+        cust_buydown = cust_data['buydown']
 
         if len(cust_sku_lst) == 0:
             raise Exception #this should not happen because if sku is emtpy, we skip them in the _group_by_pid process
@@ -338,6 +363,7 @@ def exe():
                 cust_p_type=cust_p_type,
                 cust_p_tag=cust_p_tag,
                 cust_cost=cust_cost,
+                cust_buydown=cust_buydown,
                 log_error_main=log_error_main,
                 log_data_single=log_data_single,
                 log_data_multiple=log_data_multiple,
@@ -390,7 +416,7 @@ def exe():
                     assoc_sku_str = a_paticular_sku,
                     cost = cust_cost,
                     vendor = None,
-                    buydown = None
+                    buydown = cust_buydown
                 )
             elif len(our_distinct_pid_lst) == 0:
                 #we can not find any pid in our system at assoc with 'cust_sku_lst' . 'a_paticular_sku' can be any sku and we going to use this to add new to our system
@@ -408,8 +434,8 @@ def exe():
                     sku_str = a_paticular_sku,
                     cost = cust_cost,
                     vendor = None,
-                    buydown = None
-                ) 
+                    buydown = cust_buydown
+                )
             #we found a_particular_sku that exist in our system, the rest of sku in 'cust_sku_lst' (we already pop a_particular_sku and took care of it) are going to be taking care here
             for sku in cust_sku_lst:
                 sku_obj,is_created = Sku.objects.get_or_create(sku=sku,defaults={'creator_id':store.id,'is_approved':False,})
@@ -419,5 +445,4 @@ def exe():
     log_data_single.close()
     log_data_multiple.close()
     log_error_main.close()
-
 

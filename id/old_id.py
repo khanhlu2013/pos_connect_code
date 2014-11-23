@@ -116,21 +116,24 @@ def exe_single():
                 
                 elif is_exe == '0\n':
                     print('insert_new ' + dic['name'])
-                    insert_new.exe(
-                        store_id = store.id,
-                        name = dic['name'],
-                        price = dic['price'],
-                        value_customer_price = None,
-                        crv = dic['crv'],
-                        is_taxable = dic['is_taxable'],
-                        is_sale_report = True,
-                        p_type = dic["p_type"],
-                        p_tag = dic["p_tag"],
-                        sku_str = dic['sku'],
-                        cost = dic['cost'],
-                        vendor = None,
-                        buydown = dic['buydown']
-                    )                   
+                    try:
+                        insert_new.exe(
+                            store_id = store.id,
+                            name = dic['name'],
+                            price = dic['price'],
+                            value_customer_price = None,
+                            crv = dic['crv'],
+                            is_taxable = dic['is_taxable'],
+                            is_sale_report = True,
+                            p_type = dic["p_type"],
+                            p_tag = dic["p_tag"],
+                            sku_str = dic['sku'],
+                            cost = dic['cost'],
+                            vendor = None,
+                            buydown = dic['buydown']
+                        )  
+                    except Exception:
+                        log_error_single.write('ERROR: insert old error anyway: ' + 'pid: ' + str(dic['our_pid']) + ' ,sku: ' + dic['sku'] + ', name: ' + dic['name'] + '\n')                   
                 data = []
 
     log_error_single.close()   

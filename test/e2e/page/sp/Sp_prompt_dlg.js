@@ -34,9 +34,9 @@ var Sp_prompt_dlg = function () {
             ,is_taxable_btn : element(by.id('sp_app/service/prompt/suggest/extra/is_taxable'))
 
             ,name_lst : element.all(by.repeater('extra in get_suggest_extra(\'name\')|orderBy:\'percent\':true'))
-            ,price_lst : element.all(by.repeater('extra in get_suggest_extra(\'price\')|orderBy:extra'))
+            ,price_lst : element.all(by.repeater('extra in get_suggest_extra(\'price\')|orderBy:extra:true'))
             ,crv_lst : element.all(by.repeater('extra in get_suggest_extra(\'crv\')|orderBy:\'percent\':true'))
-            ,cost_lst : element.all(by.repeater('extra in get_suggest_extra(\'cost\')|orderBy:extra'))         
+            ,cost_lst : element.all(by.repeater('extra in get_suggest_extra(\'cost\')|orderBy:extra:true'))         
         }
     }
 

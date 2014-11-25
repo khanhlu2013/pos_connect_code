@@ -123,7 +123,7 @@ define(
             var refresh_global_setting_promise = global_setting_service.refresh();
             $q.all([push_receipt_n_download_product_promise,refresh_global_setting_promise]).then(
                 function(resolve_lst){
-                    alert_service(resolve_lst[0]);
+                    alert_service(resolve_lst[0],'info','green');
                 },function(reason){
                     alert_service(reason);
                 }

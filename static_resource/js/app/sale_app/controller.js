@@ -14,7 +14,6 @@ define(
     ,'app/sale_app/service/scan/sku_scan_not_found_handler'
     ,'app/shortcut_app/shortcut_ui'
     ,'service/ui'
-    ,'service/db'
     ,'app/sale_app/service/hold/api'
     ,'app/sale_app/service/hold/get_hold_ui'
     ,'app/sale_app/service/offline_product'
@@ -52,7 +51,6 @@ define(
         ,'sp_app/model'
         ,'shortcut_app/shortcut_ui'
         ,'service/ui'
-        ,'service/db'
         ,'sale_app/service/hold/api'
         ,'sale_app/service/hold/get_hold_ui'
         ,'sale_app/service/offline_product'
@@ -87,7 +85,6 @@ define(
         ,'service/ui/alert'
         ,'service/ui/prompt'
         ,'service/ui/confirm'
-        ,'service/db/download_product'
         ,'blockUI'   
         ,'sp_app/service/info'    
         ,'sale_app/service/hold/api'
@@ -123,7 +120,6 @@ define(
         ,alert_service
         ,prompt_service
         ,confirm_service
-        ,download_product
         ,blockUI     
         ,sp_info_service   
         ,hold_api
@@ -384,9 +380,8 @@ define(
                         preprocess.extract_qty_sku($scope.sku_search_str).then(
                             function(extracted_result){
                                 sku_scan_not_found_handler(extracted_result.sku).then(
-                                     function(created_sp){ 
-                                        if(created_sp.is_create_offline()){ $scope.sku_scan(); }
-                                        else{ download_product(false/*not forcing because db should be here already*/).then(function(){$scope.sku_scan();}) }
+                                    function(){ 
+                                        $scope.sku_scan();
                                     }
                                     ,function(reason){
                                         alert_service(reason);

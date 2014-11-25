@@ -17,6 +17,8 @@ define(
          'blockUI'
     ]);
 
+    var MAX_NUMBER_OF_DOWNLOAD_TRY = 5
+
     mod.factory('service/db/get',['$rootScope',function($rootScope){
         return function(){
             var db_name = $rootScope.GLOBAL_SETTING.store_db_prefix + $rootScope.GLOBAL_SETTING.store_id;
@@ -185,7 +187,7 @@ define(
         ,blockUI
         ,_get_local_and_remote_doc_count
     ){
-        return function(){
+        function _exe(number_of_try){
             /*
                 return {
                     local: the_number_of_local_doc
@@ -215,8 +217,19 @@ define(
                     _get_local_and_remote_doc_count().then(
                         function(response){
                             response.docs_written = info.docs_written;
-                            defer.resolve(response);
-                            blockUI.stop();                            
+                            if(number_of_try < MAX_NUMBER_OF_DOWNLOAD_TRY && response.remote > response.local){
+                                number_of_try += 1;
+                                _exe(number_of_try).then(
+                                    function(response_again){
+                                        defer.resolve(response_again);
+                                    },function(reason){
+                                        defer.reject(reason);
+                                    }
+                                )
+                            }else{
+                                defer.resolve(response);
+                                blockUI.stop();                                     
+                            }
                         }
                         ,function(reason){
                             $rootScope.$apply(function()  {
@@ -233,6 +246,21 @@ define(
                         blockUI.stop();
                     });                     
                 });
+
+            return defer.promise;
+        }
+
+        return function(){
+            var defer = $q.defer();
+
+            var number_of_try = 0;
+            _exe(number_of_try).then(
+                function(response){
+                    defer.resolve(response);
+                },function(reason){
+                    defer.reject(reason);
+                }
+            )
 
             return defer.promise;
         }

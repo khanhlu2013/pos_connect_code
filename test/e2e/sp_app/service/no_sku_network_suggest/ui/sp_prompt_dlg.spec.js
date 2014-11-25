@@ -13,71 +13,71 @@ describe('no_sku_network_suggest -> sp_prompt dialog', function() {
         lib.auth.logout();
     })
 
-    it('can disable all suggestion when there is no suggest',function(){
-        lib.auth.login('1','1');
-        Sp_page.sku_search('a_dummy_sku');        
+    // it('can disable all suggestion when there is no suggest',function(){
+    //     lib.auth.login('1','1');
+    //     Sp_page.sku_search('a_dummy_sku');        
 
-        expect(Sp_prompt_dlg.suggest.main.name_btn.isDisplayed()).toEqual(false);
-        expect(Sp_prompt_dlg.suggest.extra.name_btn.isDisplayed()).toEqual(false);
+    //     expect(Sp_prompt_dlg.suggest.main.name_btn.isDisplayed()).toEqual(false);
+    //     expect(Sp_prompt_dlg.suggest.extra.name_btn.isDisplayed()).toEqual(false);
         
-        expect(Sp_prompt_dlg.suggest.main.price_btn.isDisplayed()).toEqual(false);
-        expect(Sp_prompt_dlg.suggest.extra.price_btn.isDisplayed()).toEqual(false);
+    //     expect(Sp_prompt_dlg.suggest.main.price_btn.isDisplayed()).toEqual(false);
+    //     expect(Sp_prompt_dlg.suggest.extra.price_btn.isDisplayed()).toEqual(false);
 
-        expect(Sp_prompt_dlg.suggest.main.crv_btn.isDisplayed()).toEqual(false);
-        expect(Sp_prompt_dlg.suggest.extra.crv_btn.isDisplayed()).toEqual(false);     
+    //     expect(Sp_prompt_dlg.suggest.main.crv_btn.isDisplayed()).toEqual(false);
+    //     expect(Sp_prompt_dlg.suggest.extra.crv_btn.isDisplayed()).toEqual(false);     
         
-        expect(Sp_prompt_dlg.suggest.main.cost_btn.isDisplayed()).toEqual(false);
-        expect(Sp_prompt_dlg.suggest.extra.cost_btn.isDisplayed()).toEqual(false);
+    //     expect(Sp_prompt_dlg.suggest.main.cost_btn.isDisplayed()).toEqual(false);
+    //     expect(Sp_prompt_dlg.suggest.extra.cost_btn.isDisplayed()).toEqual(false);
 
-        expect(Sp_prompt_dlg.suggest.main.is_taxable_btn.isDisplayed()).toEqual(false);
-        expect(Sp_prompt_dlg.suggest.extra.is_taxable_btn.isDisplayed()).toEqual(false);   
-    })
-
-
-    it('can disable extra suggestion when there is extra suggest',function(){
-        lib.auth.login('2','2');
-        var sku='a_sku',name='prod name',price=1.2,val_cust_price=null,crv=0.03,is_taxable=true,is_sale_report=true,p_type=null,p_tag=null,cost=0.75;
-        lib.api.insert_new(sku,name,price,val_cust_price,crv,is_taxable,is_sale_report,p_type,p_tag,cost);
+    //     expect(Sp_prompt_dlg.suggest.main.is_taxable_btn.isDisplayed()).toEqual(false);
+    //     expect(Sp_prompt_dlg.suggest.extra.is_taxable_btn.isDisplayed()).toEqual(false);   
+    // })
 
 
-        lib.auth.login('1','1')
-        Sp_page.sku_search(sku);
-        Select_product_dlg.click_col(0,'add');
-        Select_product_confirm_dlg.ok();
+    // it('can disable extra suggestion when there is extra suggest',function(){
+    //     lib.auth.login('2','2');
+    //     var sku='a_sku',name='prod name',price=1.2,val_cust_price=null,crv=0.03,is_taxable=true,is_sale_report=true,p_type=null,p_tag=null,cost=0.75;
+    //     lib.api.insert_new(sku,name,price,val_cust_price,crv,is_taxable,is_sale_report,p_type,p_tag,cost);
 
-        //----------------------------------
-        //verify extra suggestion is disable
-        //----------------------------------
-        expect(Sp_prompt_dlg.suggest.main.name_btn.isDisplayed()).toEqual(true);
-        expect(Sp_prompt_dlg.suggest.extra.name_btn.isEnabled()).toEqual(false);
+
+    //     lib.auth.login('1','1')
+    //     Sp_page.sku_search(sku);
+    //     Select_product_dlg.click_col(0,'add');
+    //     Select_product_confirm_dlg.ok();
+
+    //     //----------------------------------
+    //     //verify extra suggestion is disable
+    //     //----------------------------------
+    //     expect(Sp_prompt_dlg.suggest.main.name_btn.isDisplayed()).toEqual(true);
+    //     expect(Sp_prompt_dlg.suggest.extra.name_btn.isEnabled()).toEqual(false);
         
-        expect(Sp_prompt_dlg.suggest.main.price_btn.isDisplayed()).toEqual(true);
-        expect(Sp_prompt_dlg.suggest.extra.price_btn.isEnabled()).toEqual(false);
+    //     expect(Sp_prompt_dlg.suggest.main.price_btn.isDisplayed()).toEqual(true);
+    //     expect(Sp_prompt_dlg.suggest.extra.price_btn.isEnabled()).toEqual(false);
 
-        expect(Sp_prompt_dlg.suggest.main.crv_btn.isDisplayed()).toEqual(true);
-        expect(Sp_prompt_dlg.suggest.extra.crv_btn.isEnabled()).toEqual(false);     
+    //     expect(Sp_prompt_dlg.suggest.main.crv_btn.isDisplayed()).toEqual(true);
+    //     expect(Sp_prompt_dlg.suggest.extra.crv_btn.isEnabled()).toEqual(false);     
         
-        expect(Sp_prompt_dlg.suggest.main.cost_btn.isDisplayed()).toEqual(true);
-        expect(Sp_prompt_dlg.suggest.extra.cost_btn.isEnabled()).toEqual(false);
+    //     expect(Sp_prompt_dlg.suggest.main.cost_btn.isDisplayed()).toEqual(true);
+    //     expect(Sp_prompt_dlg.suggest.extra.cost_btn.isEnabled()).toEqual(false);
 
-        expect(Sp_prompt_dlg.suggest.main.is_taxable_btn.isDisplayed()).toEqual(true);
-        expect(Sp_prompt_dlg.suggest.extra.is_taxable_btn.isEnabled()).toEqual(true);   
+    //     expect(Sp_prompt_dlg.suggest.main.is_taxable_btn.isDisplayed()).toEqual(true);
+    //     expect(Sp_prompt_dlg.suggest.extra.is_taxable_btn.isEnabled()).toEqual(true);   
 
-        //----------------------------------
-        //test the click for main suggestion
-        //----------------------------------
-        lib.click(Sp_prompt_dlg.suggest.main.name_btn);
-        lib.click(Sp_prompt_dlg.suggest.main.price_btn);
-        lib.click(Sp_prompt_dlg.suggest.main.crv_btn);
-        lib.click(Sp_prompt_dlg.suggest.main.cost_btn);
-        lib.click(Sp_prompt_dlg.suggest.main.is_taxable_btn);
+    //     //----------------------------------
+    //     //test the click for main suggestion
+    //     //----------------------------------
+    //     lib.click(Sp_prompt_dlg.suggest.main.name_btn);
+    //     lib.click(Sp_prompt_dlg.suggest.main.price_btn);
+    //     lib.click(Sp_prompt_dlg.suggest.main.crv_btn);
+    //     lib.click(Sp_prompt_dlg.suggest.main.cost_btn);
+    //     lib.click(Sp_prompt_dlg.suggest.main.is_taxable_btn);
 
-        expect(Sp_prompt_dlg.get_name()).toEqual(name);
-        expect(Sp_prompt_dlg.get_price()).toEqual(price.toString());
-        expect(Sp_prompt_dlg.get_crv()).toEqual(crv.toString());
-        expect(Sp_prompt_dlg.get_cost()).toEqual(cost.toString());        
-        expect(Sp_prompt_dlg.get_is_taxable()).toEqual(is_taxable);
-    })    
+    //     expect(Sp_prompt_dlg.get_name()).toEqual(name);
+    //     expect(Sp_prompt_dlg.get_price()).toEqual(price.toString());
+    //     expect(Sp_prompt_dlg.get_crv()).toEqual(crv.toString());
+    //     expect(Sp_prompt_dlg.get_cost()).toEqual(cost.toString());        
+    //     expect(Sp_prompt_dlg.get_is_taxable()).toEqual(is_taxable);
+    // })    
 
     it('can diplay both main and extra suggestion both is available',function(){
         //------------------------------------------------------------

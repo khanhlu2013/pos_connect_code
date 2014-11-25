@@ -8,6 +8,7 @@ define(
     ,'app/sp_app/service/api/search'
     ,'app/sp_app/service/create'
     ,'service/ui'
+    ,'service/db'    
     ,'app/sale_app/service/offline_product'
 ]
 ,function
@@ -20,6 +21,7 @@ define(
          'sp_app/service/api/search'
         ,'sp_app/service/create'
         ,'service/ui'
+        ,'service/db'        
         ,'sale_app/service/offline_product'
     ]);
 
@@ -30,12 +32,14 @@ define(
         ,'sp_app/service/create'    
         ,'service/ui/confirm'
         ,'sale_app/service/offline_product/create'
+        ,'service/db/download_product'       
     ,function(
          $q
         ,search_sp_api   
         ,create_sp_service    
         ,confirm_service
         ,create_product_offline
+        ,download_product
     ){
         return function(sku){
             var defer = $q.defer();
@@ -47,19 +51,33 @@ define(
                     }else{
                         var promise = create_sp_service(data.prod_store__prod_sku__0_0,data.prod_store__prod_sku__1_0,sku).then
                         (
-                             function(created_sp){ defer.resolve(created_sp) }
-                            ,function(reason){ defer.reject(reason); }
+                            function(created_sp){ 
+                                download_product().then(
+                                    function(){
+                                        defer.resolve();
+                                    },function(reason){
+                                        defer.reject(reason);
+                                    }
+                                )
+                            },function(reason){ 
+                                defer.reject(reason); 
+                            }
                         );                        
                     }
                 }
                 ,function(reason){ 
-                    if(reason.status != 0){ defer.reject('search sku ajax error')
+                    if(reason.status != 0){ 
+                        defer.reject('search sku ajax error');
                     }else{
                         confirm_service('There is problem with the internet. Do you want to create this product offline?','red').then(
                             function(){
                                 create_product_offline(sku).then(
-                                     function(created_sp){defer.resolve(created_sp);}
-                                    ,function(reason){defer.reject(reason);}
+                                    function(created_sp){
+                                        defer.resolve();
+                                    }
+                                    ,function(reason){
+                                        defer.reject(reason);
+                                    }
                                 )
                             }
                             ,function(){defer.reject('_cancel_');}

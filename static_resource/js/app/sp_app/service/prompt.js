@@ -88,7 +88,7 @@ define(
                     '<span class="caret"></span>' +
             '</button>' +
             '<ul class="dropdown-menu" role="menu">' +
-                '<li ng-repeat="extra in get_suggest_extra(\'price\')|orderBy:extra:true"><a ng-click="$parent.sp.price=extra" href="#">{{extra|currency}}</a></li>' +
+                '<li ng-repeat="extra in get_suggest_extra(\'price\')|orderBy:\'valueOf()\'"><a ng-click="$parent.sp.price=extra" href="#">{{extra|currency}}</a></li>' +
             '</ul>'
         ;  
         var template_price_suggestion = 
@@ -204,7 +204,7 @@ define(
                     '<span class="caret"></span>' +
             '</button>' +
             '<ul class="dropdown-menu" role="menu">' +
-                '<li ng-repeat="extra in get_suggest_extra(\'cost\')|orderBy:extra:true"><a ng-click="$parent.sp.cost=extra" href="#">{{extra|currency}}</a></li>' +            
+                '<li ng-repeat="extra in get_suggest_extra(\'cost\')|orderBy:\'valueOf()\'"><a ng-click="$parent.sp.cost=extra" href="#">{{extra|currency}}</a></li>' +            
                     '<a ng-click="$parent.sp.cost=sp.cost" href="#">{{sp.cost|currency}}</a>' +
                 '</li>' +
             '</ul>'

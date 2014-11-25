@@ -14,6 +14,11 @@ cust_input_file_name = './id/data_barel_product_full.txt'
 END_OF_RECORD = '-----'
 END_OF_MULTIPLE_SELECTION = '*_*'
 
+"""
+    . multiple log: customer have a pid and that pid only have 1 sku. ( we import alternative sku later) That one customer sku assoc with many pid in our system. so we need to pick on, or none to create new product sharing same sku.
+    . single log: customer have 1 sku and that sku assoc with 1 pid in our system. a common mistake would be : what the hell are you waiting for? go ahead and use that pid, there is only 1. but wait, that one pid in our system could represent many products in customer system. in this case, we must create a new pid to import customer product because we need to keep these product from customer system separate the same way they originally have - not the way we are having: combinging products.
+"""
+
 def exe_multiple():
     log_error_multiple = open('./id/log_error_multiple','w')
     with open('./id/log_data_multiple', 'rb') as f:
@@ -225,8 +230,8 @@ def _is_use_our_pid_when_cust_pid_have_1_sku_and_that_sku_assoc_with_1_our_pid(c
 
     """
     our_product = Product.objects.prefetch_related('sku_set').get(pk=our_pid)
-
     our_sku_lst = [sku_obj.sku for sku_obj in our_product.sku_set.all()]
+
     if len(our_sku_lst) == 0:
         raise Exception
     else:
@@ -238,7 +243,7 @@ def _is_use_our_pid_when_cust_pid_have_1_sku_and_that_sku_assoc_with_1_our_pid(c
                 else:
                     continue
             else:
-                lst = [i for i in cust_dic[temp_cust_pid]['sku_lst'] if i in our_sku_lst]
+                lst = [i for i in cust_dic[temp_cust_pid]['sku_lst'] if i in our_sku_lst]#if 'other' customer product ('other' vs curreny cust_pid product that we are looking at) have sku that exist in our_pid product, this case mean that we have a product that combine multiple product from the customer. this is case 1
                 if len(lst) != 0:
                     is_use_our_pid = False
                     break

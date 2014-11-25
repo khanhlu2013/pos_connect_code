@@ -65,7 +65,6 @@ define(
                 if(original_group == null){
                     original_group = {sp_lst:[]};
                 }
-
                 $scope.original_group = original_group;
                 $scope.group = angular.copy($scope.original_group);
 

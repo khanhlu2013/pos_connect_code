@@ -13,7 +13,7 @@ var Sale_page = function () {
     this.name_txt = element(by.model('name_search_str'));
 
     //table
-    this.lst = element.all(by.repeater('sp in sp_lst | orderBy:cur_sort_column:cur_sort_desc | filter:local_filter'))
+    this.lst = element.all(by.repeater('sp in sp_lst|orderBy:cur_sort_column:cur_sort_desc|filter:local_filter'))
 
     //menu function
     this.menu_action_sync = function(){ lib.click(this.menu_action); lib.click(element(by.id('sp_app/menu/action/sync'))); }
@@ -45,7 +45,8 @@ var Sale_page = function () {
         else if(col_name === 'cost')                    { return 8; }
         else if(col_name === 'buydown')                 { return 9; }
         else if(col_name === 'value_customer_price')    { return 10; }
-        else if(col_name === 'info')                    { return 11; }
+        else if(col_name === 'markup')                  { return 11; }        
+        else if(col_name === 'info')                    { return 12; }
         else                                            { return null; }
     }
 

@@ -27,7 +27,7 @@ describe('no_sku_network_suggest_path -> only product suggest', function() {
         //verify we can select suggestion
         //-------------------------------
         lib.auth.login('1','1');
-        Sp_page.sku_search('111');
+        Sp_page.sku_search(sku);
         expect(Select_product_dlg.lst.count()).toEqual(1);
         Select_product_dlg.click_col(0,'add');
         Select_product_confirm_dlg.ok();
@@ -37,7 +37,7 @@ describe('no_sku_network_suggest_path -> only product suggest', function() {
         //--------------------------------------
         //verify there is no option to select sp 
         //--------------------------------------
-        Sp_page.sku_search('111');        
+        Sp_page.sku_search(sku);        
         expect(Select_product_dlg.select_sp_btn.isDisplayed()).toEqual(false);
 
         //--------------------------------

@@ -27,19 +27,13 @@ def exe(store_id,switch_couch_admin_name=None,switch_couch_admin_pwrd=None,switc
 
     #insert store
     api_key_name,api_key_pwrd = insert_store_2_couch.exe(store_id,couch_admin_name,couch_admin_pwrd,couch_url)
-    print('------')
-    print(api_key_name)
-    print(api_key_pwrd)
     if not settings.IS_LOCAL_ENV:
-        store.pid_key_name = api_key_name
-        store.pid_key_pwrd = api_key_pwrd
+        store.api_key_name = api_key_name
+        store.api_key_pwrd = api_key_pwrd
         if switch_couch_admin_name != None: 
             store.couch_admin_name = switch_couch_admin_name
             store.couch_admin_pwrd = switch_couch_admin_pwrd
             store.couch_url = switch_couch_url
-        print('xxxxxx')
-        print(store.api_key_name)
-        print(store.api_key_pwrd)
         store.save()
 
     #insert product

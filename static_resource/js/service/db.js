@@ -222,8 +222,10 @@ define(
                                 _exe(number_of_try).then(
                                     function(response_again){
                                         defer.resolve(response_again);
+                                        blockUI.stop();                                          
                                     },function(reason){
                                         defer.reject(reason);
+                                        blockUI.stop();                                          
                                     }
                                 )
                             }else{

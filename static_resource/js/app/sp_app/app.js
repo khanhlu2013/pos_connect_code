@@ -23,7 +23,7 @@ define(
         ,'service.csrf'
         ,'blockUI'
         ,'service/global_setting'   
-        ,'infinite-scroll'     
+        ,'infinite-scroll'    
     ]);
     
     app.config(['blockUIConfig',function(blockUIConfig) {
@@ -35,4 +35,5 @@ define(
     app.run(['service/global_setting',function(global_setting){
         global_setting.set(_GLOBAL_SETTING_);
     }])    
+
 });

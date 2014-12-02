@@ -1,0 +1,57 @@
+<h3>average</h3>
+<div class="form-horizontal" >
+    <div class="form-group">
+        <label ng-class="network_product_summary_lbl_class">name:</label>
+        <p 
+            id="product/network_product/summary/name_lbl" 
+            ng-class="network_product_summary_value_class">
+                {{network_product.get_suggest_main('name').value}}
+        </p>
+    </div>
+    <div class="form-group">
+        <label ng-class="network_product_summary_lbl_class">store count:</label>
+        <p 
+            ng-class="network_product_summary_value_class">
+                {{network_product.get_sp_lst().length}}
+        </p>
+    </div>    
+    <div class="form-group">
+        <label ng-class="network_product_summary_lbl_class">price:</label>
+        <p 
+            id="product/network_product/summary/price_lbl" 
+            ng-class="network_product_summary_value_class">
+                {{network_product.get_suggest_main('price')|currency}}
+        </p>
+    </div>
+    <div class="form-group">
+        <label ng-class="network_product_summary_lbl_class">tax:</label>
+        <p ng-hide="network_product.get_suggest_main('is_taxable').percent === 50" ng-class="network_product_summary_value_class">
+            <span
+                id="product/network_product/summary/is_taxable/sign_span"
+                class="glyphicon"
+                ng-class="network_product.get_suggest_main('is_taxable').value === true ? 'glyphicon-check' : 'glyphicon-unchecked'">
+            </span>
+            <span
+                id="product/network_product/summary/is_taxable/percent_span"
+                ng-hide="network_product.get_suggest_main('is_taxable').percent === 100">
+                    ({{network_product.get_suggest_main('is_taxable').percent}}%)
+            </span>
+        </p>
+    </div>
+    <div class="form-group">
+        <label ng-class="network_product_summary_lbl_class">crv:</label>
+        <p 
+            id="product/network_product/summary/crv_lbl" 
+            ng-class="network_product_summary_value_class">
+                {{network_product.get_suggest_main('crv').value|currency}}
+        </p>
+    </div>
+    <div class="form-group">
+        <label ng-class="network_product_summary_lbl_class">cost:</label>
+        <p 
+            id="product/network_product/summary/cost_lbl" 
+            ng-class="network_product_summary_value_class">
+                {{network_product.get_suggest_main('cost')|currency}}
+        </p>
+    </div>                                                            
+</div>

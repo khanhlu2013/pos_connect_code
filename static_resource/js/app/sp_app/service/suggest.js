@@ -299,70 +299,11 @@ define(
          $modal
         ,$injector
     ){
-        return function(product_to_add,product_lst,my_sp_lst,sku){
-            var template_summary = 
-                '<label>Product summary</label>' +
-                '<div class="form-horizontal" >' +
-                    '<div class="form-group">' +
-                        '<label ng-class="suggest_summary_lbl_class">name:</label>' +
-                        '<p id="sp_app/service/suggest/select_product_confirm_dlg/summary/name_lbl" ng-class="suggest_summary_value_class">{{product_to_add.get_suggest_main(\'name\').value}}</p>' +
-                    '</div>' +
-                    '<div class="form-group">' +
-                        '<label ng-class="suggest_summary_lbl_class">price:</label>' +
-                        '<p id="sp_app/service/suggest/select_product_confirm_dlg/summary/price_lbl" ng-class="suggest_summary_value_class">{{product_to_add.get_suggest_main(\'price\')|currency}}</p>' +
-                    '</div>' +
-                    '<div class="form-group">' +
-                        '<label ng-class="suggest_summary_lbl_class">tax:</label>' +
-                        '<p ng-hide="product_to_add.get_suggest_main(\'is_taxable\').percent === 50" ng-class="suggest_summary_value_class">' +
-                            '<span' +
-                                ' id="sp_app/service/suggest/select_product_confirm_dlg/summary/is_taxable/sign_span"' +
-                                ' class="glyphicon"' +
-                                ' ng-class="product_to_add.get_suggest_main(\'is_taxable\').value === true ? \'glyphicon-check\' : \'glyphicon-unchecked\'">' +
-                            '</span>' +
-                            '<span' +
-                                ' id="sp_app/service/suggest/select_product_confirm_dlg/summary/is_taxable/percent_span"' +
-                                ' ng-hide="product_to_add.get_suggest_main(\'is_taxable\').percent === 100">' + 
-                                    '({{product_to_add.get_suggest_main(\'is_taxable\').percent}}%)' +
-                            '</span>' +
-                        '</p>' +
-                    '</div>' +
-                    '<div class="form-group">' +
-                        '<label ng-class="suggest_summary_lbl_class">crv:</label>' +
-                        '<p id="sp_app/service/suggest/select_product_confirm_dlg/summary/crv_lbl" ng-class="suggest_summary_value_class">{{product_to_add.get_suggest_main(\'crv\').value|currency}}</p>' +
-                    '</div>' +
-                    '<div class="form-group">' +
-                        '<label ng-class="suggest_summary_lbl_class">cost:</label>' +
-                        '<p id="sp_app/service/suggest/select_product_confirm_dlg/summary/cost_lbl" ng-class="suggest_summary_value_class">{{product_to_add.get_suggest_main(\'cost\')|currency}}</p>' +
-                    '</div>' +                                                            
-                '</div>'
-            ;               
-
-            var template_detail = 
-                '<label>Store count:{{product_to_add.get_sp_lst().length}}</label>' +
-                '<table class="table table-hover table-bordered table-condensed table-striped">' + 
-                    '<tr>' +
-                        '<th>name</th>' +
-                        '<th>price</th>' +
-                        '<th>taxable</th>' +
-                        '<th>crv</th>' +
-                        '<th>cost</th>' +
-                    '</tr>' +
-                    '<tr ng-repeat="sp in product_to_add.get_sp_lst()">' +
-                        '<td>{{sp.name}}</td>' +
-                        '<td>{{sp.price | currency}}</td>' +
-                        '<td class="alncenter"><span class="glyphicon" ng-class="sp.is_taxable ? \'glyphicon-check\' : \'glyphicon-unchecked\'"></span></td>' +
-                        '<td>{{sp.get_crv()|currency}}</td>' +
-                        '<td>{{sp.get_cost()|currency}}</td>' +
-                    '</tr>' +
-                '</table>'
-            ;
+        return function(network_product,product_lst,my_sp_lst,sku){
             var template = 
                 '<div id="sp_app/service/suggest/select_product_confirm_dlg" class="modal-header"><h3>confirm add product</h3></div>' +
                 '<div class="modal-body">' +
-                    '<div>' +
-                        '<div class="col-md-5">' + template_summary + '</div>' +
-                        '<div class="col-md-7">' + template_detail + '</div>' +
-                        '<div class="clear"></div>' +
+                    '<div ng-include="$root.GLOBAL_SETTING.partial_url.product.network_product.index">' +   
                     '</div>' +
                 '</div>' +                
                 '<div class="modal-footer">' +
@@ -371,15 +312,20 @@ define(
                     '<button ng-click="cancel()" class="btn btn-warning">cancel</button>' +
                 '</div>'
             ;
-            var ModalCtrl = function($scope,$modalInstance,product_to_add,product_lst,my_sp_lst,sku){
-                $scope.product_to_add = product_to_add;
-                $scope.suggest_summary_lbl_class = 'col-xs-4 control-label';
-                $scope.suggest_summary_value_class = 'col-xs-8 form-control-static';
+            var ModalCtrl = function($scope,$modalInstance,$rootScope,network_product,product_lst,my_sp_lst,sku){
+                //start - contract for network_product partial to work
+                $scope.network_product = network_product;
+                $scope.network_product_summary_lbl_class = 'col-xs-4 control-label';
+                $scope.network_product_summary_value_class = 'col-xs-8 form-control-static';   
+                $scope.suggest_extra_crv = $scope.network_product.get_suggest_extra('crv');
+                $scope.suggest_extra_name = $scope.network_product.get_suggest_extra('name');
+                //end - contract
+                
                 $scope.cancel = function(){
                     $modalInstance.dismiss('_cancel_');
                 }
                 $scope.return_product = function(){
-                    $modalInstance.close(product_to_add);
+                    $modalInstance.close(network_product);
                 }
                 $scope.select_product = function(){
                     var select_product_service = $injector.get('sp_app/service/suggest/select_product')
@@ -393,15 +339,15 @@ define(
                     )
                 }
             }
-            ModalCtrl.$inject = ['$scope','$modalInstance','product_to_add','product_lst','my_sp_lst','sku'];    
+            ModalCtrl.$inject = ['$scope','$modalInstance','$rootScope','network_product','product_lst','my_sp_lst','sku'];    
             var dlg = $modal.open({
                  template:template
                 ,controller:ModalCtrl
                 ,size:'lg'
                 ,backdrop : 'static'
                 ,resolve : {
-                     product_to_add : function(){
-                        return product_to_add;
+                     network_product : function(){
+                        return network_product;
                     }                    
                     ,product_lst : function(){
                         return product_lst;

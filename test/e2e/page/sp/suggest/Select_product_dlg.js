@@ -1,4 +1,5 @@
-var lib = require('./../../../lib');
+var base_path = './../../../';
+var lib = require(base_path +'lib');
 
 var Select_product_dlg = function () {
 

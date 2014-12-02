@@ -530,7 +530,7 @@ define(
                             defer.resolve([]);
                         }else{
                             $http({
-                                url:'/product/get_lookup_type_tag',
+                                url:'/sp/get_lookup_type_tag',
                                 method:'GET'
                             }).then(
                                  function(data){

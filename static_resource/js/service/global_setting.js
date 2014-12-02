@@ -34,6 +34,23 @@ define(
         ,$http
         ,Mix_match
     ){
+        function _get_partial_url(static_url){
+            var network_product_url = static_url + '/partial/product_app/network_product/'
+            var result =
+            {
+                product:
+                {
+                    network_product : 
+                                        {
+                                             index : network_product_url + 'index.html'
+                                            ,summary : network_product_url + 'summary.html'
+                                            ,detail : network_product_url + 'detail.html'
+                                        }
+                }
+            }
+            return result;
+        }
+
         function set(global_setting){
             //django template auto convert json string into json. but when we ajax to get setting, the response data.data is an object with value to key is of type string. so we need to parse here
             if(typeof(global_setting.MIX_MATCH_LST) === 'string'){
@@ -58,6 +75,7 @@ define(
                 ,store_product_document_type:   global_setting.STORE_PRODUCT_DOCUMENT_TYPE
                 ,receipt_document_type:         global_setting.RECEIPT_DOCUMENT_TYPE
                 ,static_url:                    global_setting.STATIC_URL
+                ,partial_url:                   _get_partial_url(global_setting.STATIC_URL)
             }
 
             delete global_setting;

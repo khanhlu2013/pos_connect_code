@@ -27,7 +27,7 @@ define(
     		add_sku : function(product_id,sku){
                 var defer = $q.defer();
 				$http({
-					url:'/product/sku_add_angular',
+					url:'/sp/sku_add_angular',
 					method:'POST',
 					data: {product_id:product_id,sku_str:sku}
 				})
@@ -45,7 +45,7 @@ define(
             delete_sku : function(product_id,sku){
                 var defer = $q.defer();
                 $http({
-                    url:'/product/sku_assoc_delete_angular',
+                    url:'/sp/sku_assoc_delete_angular',
                     method:'POST',
                     data:{product_id:product_id,sku_str:sku}
                 })

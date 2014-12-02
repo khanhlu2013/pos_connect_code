@@ -27,7 +27,7 @@ define(
             update : function(sp){
                 var defer = $q.defer();
                 $http({
-                    url:'/product/kit/update_angular',
+                    url:'/sp/kit/update_angular',
                     method:'POST',
                     data:{sp:JSON.stringify(sp)}
                 })

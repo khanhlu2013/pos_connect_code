@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 from product.models import Product
+from product import dao as product_dao
 import json
 from store_product import sp_serializer
 from django.core.serializers.json import DjangoJSONEncoder
@@ -57,7 +58,7 @@ def search_by_sku_angular(request):
         response['prod_store__prod_sku__0_0'] = [];
         response['prod_store__prod_sku__1_0'] = [];
     else:
-        product_lst = list(Product.objects.filter(sku_set__sku=sku_str).prefetch_related('store_product_set','prodskuassoc_set__store_product_set'))
+        product_lst = list(product_dao.get_lst_base_on_sku(sku_str))
         prod_store__prod_sku__1_0 = []
         prod_store__prod_sku__0_0 = []
 

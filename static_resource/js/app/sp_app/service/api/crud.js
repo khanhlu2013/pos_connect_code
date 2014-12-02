@@ -27,7 +27,7 @@ define(
             insert_new : function(sp,sku){
                 var defer = $q.defer();
                 $http({
-                    url:'/product/insert_new_sp_angular',
+                    url:'/sp/insert_new_sp_angular',
                     method: 'POST',
                     data:{sku_str:sku,sp:JSON.stringify(sp)}
                 }).then(
@@ -44,7 +44,7 @@ define(
             insert_old : function(product_id,sku,sp){
                 var defer = $q.defer();
                 $http({
-                    url:'/product/sp_insert_old_angular',
+                    url:'/sp/sp_insert_old_angular',
                     method:'POST',
                     data:{product_id:product_id,sku_str:sku,sp:JSON.stringify(sp)}
                 }).then(
@@ -61,7 +61,7 @@ define(
             update : function(sp){
                 var defer = $q.defer();
                 $http({
-                    url:'/product/update_sp_angular',
+                    url:'/sp/update_sp_angular',
                     method: 'POST',
                     data:{sp:JSON.stringify(sp)}
                 }).then(

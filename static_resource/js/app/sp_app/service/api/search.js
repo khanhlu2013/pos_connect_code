@@ -31,7 +31,7 @@ define(
             product_id_search : function(product_id){
                 var defer = $q.defer();
                 $http({
-                    url:'/product/search_by_product_id',
+                    url:'/sp/search_by_product_id',
                     method:'GET',
                     params:{product_id:product_id}
                 }).then(
@@ -62,7 +62,7 @@ define(
                 }
 
                 $http({
-                    url: '/product/search_by_name_angular',
+                    url: '/sp/search_by_name_angular',
                     method : "GET",
                     params: {name_str:name_search_str,after:after}
                 })
@@ -82,7 +82,7 @@ define(
 
                 var defer = $q.defer();
                 $http({
-                    url:'/product/search_by_sku_angular',
+                    url:'/sp/search_by_sku_angular',
                     method:'GET',
                     params:{sku_str:sku_search_str}
                 }).then(
@@ -108,7 +108,7 @@ define(
 
                 var defer = $q.defer();
                 $http({
-                    url : '/product/search_by_name_sku_angular',
+                    url : '/sp/search_by_name_sku_angular',
                     method: 'GET',
                     params : {'search_str':search_str,'after':0}
                 })

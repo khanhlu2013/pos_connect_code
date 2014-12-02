@@ -1,6 +1,6 @@
 Montejo 6pk
 {"exe": 0, "our_pid": 33206, "name": "New Product 19104"}
-{"exe": 1, "our_pid": 33837, "name": "Montejo 6pk Btl"}
+{"exe": 0, "our_pid": 33837, "name": "Montejo 6pk Btl"}
 *_*
 {"sku": "018200965319", "is_taxable": true, "cost": 5.59, "crv": 0.3, "name": "Montejo 6pk", "p_type": "Beer", "price": 7.99, "p_tag": "0", "buydown": null}
 -----
@@ -12,168 +12,168 @@ chipotles
 -----
 planter peanuts
 {"exe": 0, "our_pid": 29231, "name": "Planter 2/1 HoneyRoast Peanut"}
-{"exe": 1, "our_pid": 29228, "name": "Planter 2/$1"}
+{"exe": 0, "our_pid": 29228, "name": "Planter 2/$1"}
 *_*
 {"sku": "029000075368", "is_taxable": false, "cost": 0.39, "crv": null, "name": "planter peanuts", "p_type": "Snacks", "price": 0.59, "p_tag": "0", "buydown": null}
 -----
 yan yan
-{"exe": 1, "our_pid": 31969, "name": "Yan Yan Double Cream Cho/Straw"}
+{"exe": 0, "our_pid": 31969, "name": "Yan Yan Double Cream Cho/Straw"}
 {"exe": 0, "our_pid": 33731, "name": "New Product 18674"}
 *_*
 {"sku": "008077101132", "is_taxable": false, "cost": 0.66, "crv": null, "name": "yan yan", "p_type": "Snacks", "price": 1.29, "p_tag": "0", "buydown": null}
 -----
 snickers ice cream bar
-{"exe": 1, "our_pid": 30573, "name": "Snicker Ice Cream Bar"}
+{"exe": 0, "our_pid": 30573, "name": "Snicker Ice Cream Bar"}
 {"exe": 0, "our_pid": 33678, "name": "Snickers Ice Cream 3.33oz"}
 *_*
 {"sku": "047677229617", "is_taxable": false, "cost": 0.95, "crv": null, "name": "snickers ice cream bar", "p_type": "Ice Cream", "price": 2.25, "p_tag": "0", "buydown": null}
 -----
 corona 18pk
-{"exe": 1, "our_pid": 32398, "name": "Corona 18pk Bottles"}
+{"exe": 0, "our_pid": 32398, "name": "Corona 18pk Bottles"}
 {"exe": 0, "our_pid": 33840, "name": "Corona 18pk NR"}
 *_*
 {"sku": "080660956800", "is_taxable": true, "cost": 17.6, "crv": 0.9, "name": "corona 18pk", "p_type": "Beer", "price": 21.99, "p_tag": "0", "buydown": null}
 -----
 jack link stick
-{"exe": 1, "our_pid": 27048, "name": "Jacklink Super Size Stick"}
+{"exe": 0, "our_pid": 27048, "name": "Jacklink Super Size Stick"}
 {"exe": 0, "our_pid": 33699, "name": "Jack Links Wrapped Original Sticks"}
 *_*
 {"sku": "017082880604", "is_taxable": false, "cost": 0.92, "crv": null, "name": "jack link stick", "p_type": "Snacks", "price": 1.69, "p_tag": "0", "buydown": null}
 -----
 Bud & Clamato 25oz
-{"exe": 1, "our_pid": 24532, "name": "Bud Chelada 24oz Can Picante"}
+{"exe": 0, "our_pid": 24532, "name": "Bud Chelada 24oz Can Picante"}
 {"exe": 0, "our_pid": 33675, "name": "New Product 16146"}
 *_*
 {"sku": "018200255106", "is_taxable": true, "cost": 2.03, "crv": 0.1, "name": "Bud & Clamato 25oz", "p_type": "Beer", "price": 2.85, "p_tag": "0", "buydown": null}
 -----
 Kingsford Math Light 6.7lb
-{"exe": 1, "our_pid": 27399, "name": "Kingsford MatchLight 6.7lb"}
+{"exe": 0, "our_pid": 27399, "name": "Kingsford MatchLight 6.7lb"}
 {"exe": 0, "our_pid": 33789, "name": "Kingsford Match Light Charcoal 6.7 lbs"}
 *_*
 {"sku": "044600304854", "is_taxable": false, "cost": 5.62, "crv": null, "name": "Kingsford Math Light 6.7lb", "p_type": "Snacks", "price": 8.99, "p_tag": "0", "buydown": null}
 -----
 Chap Stick moisturizer
-{"exe": 1, "our_pid": 24907, "name": "Chapstick Moisturizer"}
+{"exe": 0, "our_pid": 24907, "name": "Chapstick Moisturizer"}
 {"exe": 0, "our_pid": 33720, "name": "New Product 7103"}
 *_*
 {"sku": "036600828010", "is_taxable": true, "cost": 0.0, "crv": null, "name": "Chap Stick moisturizer", "p_type": "haba", "price": 1.89, "p_tag": "0", "buydown": null}
 -----
 cheez it 3oz
-{"exe": 1, "our_pid": 24946, "name": "Cheez-It 3oz Real Cheese"}
+{"exe": 0, "our_pid": 24946, "name": "Cheez-It 3oz Real Cheese"}
 {"exe": 0, "our_pid": 24943, "name": "Cheez-It 3oz Cheddar Jack"}
 *_*
 {"sku": "024100191345", "is_taxable": false, "cost": 0.8, "crv": null, "name": "cheez it 3oz", "p_type": "Snacks", "price": 1.49, "p_tag": "0", "buydown": null}
 -----
 Jose Cuervo 200ml
-{"exe": 1, "our_pid": 27175, "name": "Jose Cuervo 200 Gold"}
+{"exe": 0, "our_pid": 27175, "name": "Jose Cuervo 200 Gold"}
 {"exe": 0, "our_pid": 33778, "name": "New Product 17468"}
 *_*
 {"sku": "811538010924", "is_taxable": true, "cost": 0.0, "crv": null, "name": "Jose Cuervo 200ml", "p_type": "Beer", "price": 5.99, "p_tag": "0", "buydown": null}
 -----
 Bicycle Playing Card
-{"exe": 1, "our_pid": 29263, "name": "Playing Card Bicycle"}
+{"exe": 0, "our_pid": 29263, "name": "Playing Card Bicycle"}
 {"exe": 0, "our_pid": 33781, "name": "Bicycle Playing Card Regular"}
 *_*
 {"sku": "073854008089", "is_taxable": true, "cost": 1.89, "crv": null, "name": "Bicycle Playing Card", "p_type": "NONE", "price": 3.99, "p_tag": "0", "buydown": null}
 -----
 King Cobra 24oz
 {"exe": 0, "our_pid": 27387, "name": "King Cobra 24oz"}
-{"exe": 1, "our_pid": 33758, "name": "King Cobra 24oz Cans"}
+{"exe": 0, "our_pid": 33758, "name": "King Cobra 24oz Cans"}
 *_*
 {"sku": "184672", "is_taxable": true, "cost": 1.05, "crv": 0.1, "name": "King Cobra 24oz", "p_type": "Beer", "price": 1.73, "p_tag": "0", "buydown": null}
 -----
 blue moon 12pk
 {"exe": 0, "our_pid": 24314, "name": "Blue Moon 12pk"}
-{"exe": 1, "our_pid": 33724, "name": "Blue Moon 12pk Bottles"}
+{"exe": 0, "our_pid": 33724, "name": "Blue Moon 12pk Bottles"}
 *_*
 {"sku": "071990095161", "is_taxable": true, "cost": 11.87, "crv": 0.6, "name": "blue moon 12pk", "p_type": "Beer", "price": 15.99, "p_tag": "0", "buydown": null}
 -----
 limonazo
 {"exe": 0, "our_pid": 27638, "name": "Limonazo .42oz"}
-{"exe": 1, "our_pid": 33755, "name": "Limonazo 0.42oz"}
+{"exe": 0, "our_pid": 33755, "name": "Limonazo 0.42oz"}
 *_*
 {"sku": "712199070824", "is_taxable": false, "cost": 0.22, "crv": null, "name": "limonazo", "p_type": "candy & gum", "price": 0.79, "p_tag": "0", "buydown": null}
 -----
 Newamsterdam Vodka 200ml
-{"exe": 1, "our_pid": 32329, "name": "New Amsterdam Vodka 200ml"}
+{"exe": 0, "our_pid": 32329, "name": "New Amsterdam Vodka 200ml"}
 {"exe": 0, "our_pid": 33845, "name": "Amsterdam Vodka 200"}
 *_*
 {"sku": "085000019474", "is_taxable": true, "cost": 3.18, "crv": null, "name": "Newamsterdam Vodka 200ml", "p_type": "Liquor", "price": 3.98, "p_tag": "0", "buydown": null}
 -----
 Trojan  Condoms magnum
-{"exe": 1, "our_pid": 31370, "name": "Trojan 3pk Magnum Lubricate"}
+{"exe": 0, "our_pid": 31370, "name": "Trojan 3pk Magnum Lubricate"}
 {"exe": 0, "our_pid": 33788, "name": "Trojan Magnums 3pk"}
 *_*
 {"sku": "022600642039", "is_taxable": true, "cost": 1.34, "crv": null, "name": "Trojan  Condoms magnum", "p_type": "haba", "price": 3.99, "p_tag": "0", "buydown": null}
 -----
 BR tissue single rol
-{"exe": 1, "our_pid": 24032, "name": "Bath Tissue"}
+{"exe": 0, "our_pid": 24032, "name": "Bath Tissue"}
 {"exe": 0, "our_pid": 33735, "name": "Isabel 500 Regular"}
 *_*
 {"sku": "6924180200880", "is_taxable": true, "cost": 0.45, "crv": null, "name": "BR tissue single rol", "p_type": "NONE", "price": 0.79, "p_tag": "0", "buydown": null}
 -----
 bud lime a rita 24oz
 {"exe": 0, "our_pid": 24534, "name": "Bud LimeARita 24oz Can"}
-{"exe": 1, "our_pid": 33796, "name": "Budweiser Lime A Rita 24oz Cans"}
+{"exe": 0, "our_pid": 33796, "name": "Budweiser Lime A Rita 24oz Cans"}
 *_*
 {"sku": "189622", "is_taxable": true, "cost": 1.95, "crv": 0.1, "name": "bud lime a rita 24oz", "p_type": "Beer", "price": 2.79, "p_tag": "0", "buydown": null}
 -----
 New Amsterdam Peach 375
-{"exe": 1, "our_pid": 33123, "name": "New Amsterdam Vodka Peach 375ml"}
+{"exe": 0, "our_pid": 33123, "name": "New Amsterdam Vodka Peach 375ml"}
 {"exe": 0, "our_pid": 33844, "name": "Amsterdam Vodka Peak 375"}
 *_*
 {"sku": "085000020395", "is_taxable": true, "cost": 4.38, "crv": null, "name": "New Amsterdam Peach 375", "p_type": "Liquor", "price": 5.99, "p_tag": "0", "buydown": null}
 -----
 haagen dazs bar
-{"exe": 1, "our_pid": 26668, "name": "HaagenDazs IC Bar"}
+{"exe": 0, "our_pid": 26668, "name": "HaagenDazs IC Bar"}
 {"exe": 0, "our_pid": 33805, "name": "Haagen Dazs Coffee Almond Crunch 3oz"}
 *_*
 {"sku": "074570146000", "is_taxable": false, "cost": 2.25, "crv": null, "name": "haagen dazs bar", "p_type": "Ice Cream", "price": 3.25, "p_tag": "0", "buydown": null}
 -----
 Johnnie Walker Black 200
-{"exe": 1, "our_pid": 27127, "name": "Johnnie Walker Black 200"}
+{"exe": 0, "our_pid": 27127, "name": "Johnnie Walker Black 200"}
 {"exe": 0, "our_pid": 33736, "name": "Johnnie Walker Black Square 200ml"}
 *_*
 {"sku": "088110011130", "is_taxable": true, "cost": 8.75, "crv": null, "name": "Johnnie Walker Black 200", "p_type": "Liquor", "price": 13.99, "p_tag": "0", "buydown": 2.0}
 -----
 Natural Ice 25oz
 {"exe": 0, "our_pid": 28577, "name": "Natural 24oz Ice"}
-{"exe": 1, "our_pid": 33657, "name": "Natural Ice 25oz can"}
+{"exe": 0, "our_pid": 33657, "name": "Natural Ice 25oz can"}
 *_*
 {"sku": "018200250088", "is_taxable": true, "cost": 1.21, "crv": 0.1, "name": "Natural Ice 25oz", "p_type": "Beer", "price": 1.58, "p_tag": "0", "buydown": null}
 -----
 mike hard lemonade 24oz
-{"exe": 1, "our_pid": 32316, "name": "Mike's Hard Lemonade 24oz Bottles"}
+{"exe": 0, "our_pid": 32316, "name": "Mike's Hard Lemonade 24oz Bottles"}
 {"exe": 0, "our_pid": 33836, "name": "MikesHard 24oz Lemonade"}
 *_*
 {"sku": "635985000242", "is_taxable": true, "cost": 2.13, "crv": 0.1, "name": "mike hard lemonade 24oz", "p_type": "Beer", "price": 2.99, "p_tag": "0", "buydown": null}
 -----
 Natural Ice 24oz
-{"exe": 1, "our_pid": 28577, "name": "Natural 24oz Ice"}
+{"exe": 0, "our_pid": 28577, "name": "Natural 24oz Ice"}
 {"exe": 0, "our_pid": 33759, "name": "Natural Ice 24oz Cans"}
 *_*
 {"sku": "183592", "is_taxable": true, "cost": 1.05, "crv": 0.1, "name": "Natural Ice 24oz", "p_type": "Beer", "price": 1.49, "p_tag": "0", "buydown": null}
 -----
 Bud Light Lime-A-Rita 25oz
 {"exe": 0, "our_pid": 24534, "name": "Bud LimeARita 24oz Can"}
-{"exe": 1, "our_pid": 33802, "name": "Budweiser Lime A Ritas 24oz Cans"}
+{"exe": 0, "our_pid": 33802, "name": "Budweiser Lime A Ritas 24oz Cans"}
 *_*
 {"sku": "018200250149", "is_taxable": true, "cost": 2.0, "crv": 0.1, "name": "Bud Light Lime-A-Rita 25oz", "p_type": "Beer", "price": 2.65, "p_tag": "0", "buydown": null}
 -----
 Heineken NR 24oz
-{"exe": 1, "our_pid": 26731, "name": "Heineken 24oz NR"}
+{"exe": 0, "our_pid": 26731, "name": "Heineken 24oz NR"}
 {"exe": 0, "our_pid": 33712, "name": "Heineken 24oz Bottles"}
 *_*
 {"sku": "094877", "is_taxable": true, "cost": 2.21, "crv": 0.1, "name": "Heineken NR 24oz", "p_type": "Beer", "price": 3.29, "p_tag": "0", "buydown": null}
 -----
 Jose Cuervo 200
 {"exe": 0, "our_pid": 27175, "name": "Jose Cuervo 200 Gold"}
-{"exe": 1, "our_pid": 33711, "name": "Jose Cuervo 200ml"}
+{"exe": 0, "our_pid": 33711, "name": "Jose Cuervo 200ml"}
 *_*
 {"sku": "082000192954", "is_taxable": true, "cost": 3.9, "crv": null, "name": "Jose Cuervo 200", "p_type": "Liquor", "price": 5.99, "p_tag": "0", "buydown": null}
 -----
 gardettos 5.5
-{"exe": 1, "our_pid": 26382, "name": "Gardettos 5.5oz Original Mix"}
+{"exe": 0, "our_pid": 26382, "name": "Gardettos 5.5oz Original Mix"}
 {"exe": 0, "our_pid": 26376, "name": "Gardettos 1.75oz Original Mix"}
 *_*
 {"sku": "016000166196", "is_taxable": false, "cost": 1.18, "crv": null, "name": "gardettos 5.5", "p_type": "Snacks", "price": 2.49, "p_tag": "0", "buydown": null}
@@ -181,7 +181,7 @@ gardettos 5.5
 samuel adam noble pils 6pk
 {"exe": 0, "our_pid": 29961, "name": "Sam Adam 6pk Seasonal"}
 {"exe": 0, "our_pid": 33665, "name": "Samuel Adams Summer 6pk Bottles"}
-{"exe": 1, "our_pid": 33765, "name": "Samuel Adams Noble 6pk Bottles"}
+{"exe": 0, "our_pid": 33765, "name": "Samuel Adams Noble 6pk Bottles"}
 *_*
 {"sku": "087692300502", "is_taxable": true, "cost": 6.36, "crv": 0.3, "name": "samuel adam noble pils 6pk", "p_type": "Beer", "price": 8.99, "p_tag": "0", "buydown": null}
 -----
@@ -193,85 +193,85 @@ scratchers
 -----
 Johnnie Walker BL 200ml
 {"exe": 0, "our_pid": 27127, "name": "Johnnie Walker Black 200"}
-{"exe": 1, "our_pid": 33761, "name": "Johnnie Walker Black 200ml"}
+{"exe": 0, "our_pid": 33761, "name": "Johnnie Walker Black 200ml"}
 *_*
 {"sku": "088110011109", "is_taxable": true, "cost": 9.05, "crv": null, "name": "Johnnie Walker BL 200ml", "p_type": "Liquor", "price": 13.99, "p_tag": "0", "buydown": 2.0}
 -----
 carmex
-{"exe": 1, "our_pid": 24836, "name": "Carmex 0.35oz Lip Moisturizer"}
+{"exe": 0, "our_pid": 24836, "name": "Carmex 0.35oz Lip Moisturizer"}
 {"exe": 0, "our_pid": 33704, "name": "New Product 11004"}
 *_*
 {"sku": "792554620017", "is_taxable": true, "cost": 1.45, "crv": null, "name": "carmex", "p_type": "haba", "price": 2.19, "p_tag": "0", "buydown": null}
 -----
 new amsterdam  375ml
-{"exe": 1, "our_pid": 32344, "name": "New Amsterdam Vodka Red Berry 375ml"}
+{"exe": 0, "our_pid": 32344, "name": "New Amsterdam Vodka Red Berry 375ml"}
 {"exe": 0, "our_pid": 33843, "name": "Amsterdam Vodka Red 375"}
 *_*
 {"sku": "085000020364", "is_taxable": true, "cost": 4.18, "crv": null, "name": "new amsterdam  375ml", "p_type": "Liquor", "price": 5.99, "p_tag": "0", "buydown": null}
 -----
 Johnnie Walker Red 200
-{"exe": 1, "our_pid": 27141, "name": "Johnnie Walker Red 200"}
+{"exe": 0, "our_pid": 27141, "name": "Johnnie Walker Red 200"}
 {"exe": 0, "our_pid": 33694, "name": "Johnnie Walker Red Square 200ml"}
 *_*
 {"sku": "088110021139", "is_taxable": true, "cost": 5.53, "crv": null, "name": "Johnnie Walker Red 200", "p_type": "Liquor", "price": 7.99, "p_tag": "0", "buydown": null}
 -----
 Budweiser 25oz
 {"exe": 0, "our_pid": 24500, "name": "Bud 24oz Can"}
-{"exe": 1, "our_pid": 33684, "name": "Budweiser 25oz"}
+{"exe": 0, "our_pid": 33684, "name": "Budweiser 25oz"}
 *_*
 {"sku": "018200250002", "is_taxable": true, "cost": 1.52, "crv": 0.1, "name": "Budweiser 25oz", "p_type": "Beer", "price": 1.87, "p_tag": "0", "buydown": null}
 -----
 Hurricane 25oz
 {"exe": 0, "our_pid": 26882, "name": "Hurricane 24oz"}
-{"exe": 1, "our_pid": 33754, "name": "Hurricane 24oz Cans"}
+{"exe": 0, "our_pid": 33754, "name": "Hurricane 24oz Cans"}
 *_*
 {"sku": "018200250125", "is_taxable": true, "cost": 1.25, "crv": 0.1, "name": "Hurricane 25oz", "p_type": "Beer", "price": 1.63, "p_tag": "0", "buydown": null}
 -----
 Guinness Draught 16oz
 {"exe": 0, "our_pid": 26659, "name": "Guinness 16oz 4pk Can"}
-{"exe": 1, "our_pid": 33725, "name": "Guinness Draught 16oz Cans"}
+{"exe": 0, "our_pid": 33725, "name": "Guinness Draught 16oz Cans"}
 *_*
 {"sku": "083820123609", "is_taxable": true, "cost": 1.22, "crv": 0.05, "name": "Guinness Draught 16oz", "p_type": "Beer", "price": 2.16, "p_tag": "0", "buydown": null}
 -----
 Johnnie Walker Black 375ml
 {"exe": 0, "our_pid": 27128, "name": "Johnnie Walker Black 375"}
-{"exe": 1, "our_pid": 33721, "name": "Johnnie Walker Black 375ml"}
+{"exe": 0, "our_pid": 33721, "name": "Johnnie Walker Black 375ml"}
 *_*
 {"sku": "088110011093", "is_taxable": true, "cost": 14.75, "crv": null, "name": "Johnnie Walker Black 375ml", "p_type": "Liquor", "price": 18.99, "p_tag": "0", "buydown": null}
 -----
 churritos chile&limon
 {"exe": 0, "our_pid": 23951, "name": "Barcel 149"}
-{"exe": 1, "our_pid": 33664, "name": "Churitos Chile & Lime 4oz"}
+{"exe": 0, "our_pid": 33664, "name": "Churitos Chile & Lime 4oz"}
 *_*
 {"sku": "074323063912", "is_taxable": false, "cost": 0.89, "crv": null, "name": "churritos chile&limon", "p_type": "Snacks", "price": 1.29, "p_tag": "0", "buydown": null}
 -----
 JACK DANIEL CHARCOAL
 {"exe": 0, "our_pid": 27399, "name": "Kingsford MatchLight 6.7lb"}
-{"exe": 1, "our_pid": 33795, "name": "Jack Daniel's Charcoal 6.8lb"}
+{"exe": 0, "our_pid": 33795, "name": "Jack Daniel's Charcoal 6.8lb"}
 *_*
 {"sku": "023857900606", "is_taxable": true, "cost": 5.0, "crv": null, "name": "JACK DANIEL CHARCOAL", "p_type": "General merchandises", "price": 6.99, "p_tag": "0", "buydown": null}
 -----
 marl special offer $1 off
-{"exe": 1, "our_pid": 23350, "name": "1Pk Deal Marlboro 1Off"}
+{"exe": 0, "our_pid": 23350, "name": "1Pk Deal Marlboro 1Off"}
 {"exe": 0, "our_pid": 33666, "name": "Marlboro Blend 27 $1.00 Off Pack"}
 *_*
 {"sku": "028200173645", "is_taxable": true, "cost": 3.73, "crv": null, "name": "marl special offer $1 off", "p_type": "cigarette & cigar", "price": 5.99, "p_tag": "0", "buydown": 1.0}
 -----
 tums
-{"exe": 1, "our_pid": 31418, "name": "Tums ExtraStrenght AssortFruit"}
+{"exe": 0, "our_pid": 31418, "name": "Tums ExtraStrenght AssortFruit"}
 {"exe": 0, "our_pid": 33676, "name": "Tums Assorted Fruit 12 Tablets"}
 *_*
 {"sku": "307660741206", "is_taxable": false, "cost": 0.0, "crv": null, "name": "tums", "p_type": "NONE", "price": 1.59, "p_tag": "0", "buydown": null}
 -----
 King Cobra 25 oz
 {"exe": 0, "our_pid": 27387, "name": "King Cobra 24oz"}
-{"exe": 1, "our_pid": 33742, "name": "King cobra 25oz can"}
+{"exe": 0, "our_pid": 33742, "name": "King cobra 25oz can"}
 *_*
 {"sku": "018200250118", "is_taxable": true, "cost": 1.28, "crv": 0.1, "name": "King Cobra 25 oz", "p_type": "Beer", "price": 1.6, "p_tag": "0", "buydown": null}
 -----
 Montejo 12pk
 {"exe": 0, "our_pid": 33349, "name": "New Product 19068"}
-{"exe": 1, "our_pid": 33838, "name": "Montejo 12pk Can"}
+{"exe": 0, "our_pid": 33838, "name": "Montejo 12pk Can"}
 *_*
 {"sku": "018200965302", "is_taxable": true, "cost": 10.43, "crv": 0.6, "name": "Montejo 12pk", "p_type": "Beer", "price": 13.99, "p_tag": "0", "buydown": null}
 -----
@@ -282,26 +282,26 @@ LUCKY $2
 {"sku": "735975406815", "is_taxable": false, "cost": 2.0, "crv": null, "name": "LUCKY $2", "p_type": "Scratchers", "price": 2.0, "p_tag": "0", "buydown": null}
 -----
 ariel single roll
-{"exe": 1, "our_pid": 23720, "name": "Ariel Toilet Paper"}
+{"exe": 0, "our_pid": 23720, "name": "Ariel Toilet Paper"}
 {"exe": 0, "our_pid": 24032, "name": "Bath Tissue"}
 *_*
 {"sku": "6924180010205", "is_taxable": true, "cost": 0.55, "crv": null, "name": "ariel single roll", "p_type": "General merchandises", "price": 0.89, "p_tag": "0", "buydown": null}
 -----
 Guinness 4pk CN
-{"exe": 1, "our_pid": 26659, "name": "Guinness 16oz 4pk Can"}
+{"exe": 0, "our_pid": 26659, "name": "Guinness 16oz 4pk Can"}
 {"exe": 0, "our_pid": 33757, "name": "Guinness Draught 4pk 16oz Cans"}
 *_*
 {"sku": "p083820123609", "is_taxable": true, "cost": 5.21, "crv": 0.2, "name": "Guinness 4pk CN", "p_type": "Liquor", "price": 7.69, "p_tag": "0", "buydown": null}
 -----
 old trapper
-{"exe": 1, "our_pid": 28898, "name": "Old Trapper Beef Stick"}
+{"exe": 0, "our_pid": 28898, "name": "Old Trapper Beef Stick"}
 {"exe": 0, "our_pid": 33810, "name": "Old Trapper The Hot One Stick 1.3oz"}
 *_*
 {"sku": "079694102406", "is_taxable": false, "cost": 0.89, "crv": null, "name": "old trapper", "p_type": "Snacks", "price": 1.29, "p_tag": "0", "buydown": null}
 -----
 Johnnie Walker Red 375
 {"exe": 0, "our_pid": 27142, "name": "Johnnie Walker Red 375"}
-{"exe": 1, "our_pid": 33693, "name": "Johnnie Walker Red Square 375ml"}
+{"exe": 0, "our_pid": 33693, "name": "Johnnie Walker Red Square 375ml"}
 *_*
 {"sku": "088110021191", "is_taxable": true, "cost": 9.46, "crv": null, "name": "Johnnie Walker Red 375", "p_type": "Liquor", "price": 14.99, "p_tag": "0", "buydown": null}
 -----
@@ -315,68 +315,68 @@ spring dig ale 6pk
 {"sku": "754527000820", "is_taxable": true, "cost": 6.35, "crv": 0.3, "name": "spring dig ale 6pk", "p_type": "Beer", "price": 8.99, "p_tag": "0", "buydown": null}
 -----
 Straw BER Rita bud light 25oz
-{"exe": 1, "our_pid": 24537, "name": "Bud Straw-Ber-Rita 24oz Can"}
+{"exe": 0, "our_pid": 24537, "name": "Bud Straw-Ber-Rita 24oz Can"}
 {"exe": 0, "our_pid": 33782, "name": "Bud Light lime Straw-ber-Rita 24oz Cans"}
 *_*
 {"sku": "018200255052", "is_taxable": true, "cost": 2.0, "crv": 0.1, "name": "Straw BER Rita bud light 25oz", "p_type": "Beer", "price": 2.65, "p_tag": "0", "buydown": null}
 -----
 bud straw-ber-rita 24oz
-{"exe": 1, "our_pid": 24537, "name": "Bud Straw-Ber-Rita 24oz Can"}
+{"exe": 0, "our_pid": 24537, "name": "Bud Straw-Ber-Rita 24oz Can"}
 {"exe": 0, "our_pid": 33790, "name": "Budweiser Straw-Ber-Rita 24oz Cans"}
 *_*
 {"sku": "185952", "is_taxable": true, "cost": 1.81, "crv": 0.1, "name": "bud straw-ber-rita 24oz", "p_type": "Beer", "price": 2.65, "p_tag": "0", "buydown": null}
 -----
 Tums
-{"exe": 1, "our_pid": 31418, "name": "Tums ExtraStrenght AssortFruit"}
+{"exe": 0, "our_pid": 31418, "name": "Tums ExtraStrenght AssortFruit"}
 {"exe": 0, "our_pid": 33710, "name": "Tums EX750 Assorted Fruit 12 Tablets"}
 *_*
 {"sku": "307660739197", "is_taxable": true, "cost": 1.25, "crv": null, "name": "Tums", "p_type": "haba", "price": 1.39, "p_tag": "0", "buydown": null}
 -----
 Hurricane 24oz
-{"exe": 1, "our_pid": 26882, "name": "Hurricane 24oz"}
+{"exe": 0, "our_pid": 26882, "name": "Hurricane 24oz"}
 {"exe": 0, "our_pid": 33703, "name": "Hurricane 24oz Cans"}
 *_*
 {"sku": "185312", "is_taxable": true, "cost": 1.04, "crv": 0.1, "name": "Hurricane 24oz", "p_type": "Beer", "price": 1.49, "p_tag": "0", "buydown": null}
 -----
 Rolling Rock 25oz
 {"exe": 0, "our_pid": 29834, "name": "Rolling Rock 24oz"}
-{"exe": 1, "our_pid": 33715, "name": "Rolling Rock 25oz Cans"}
+{"exe": 0, "our_pid": 33715, "name": "Rolling Rock 25oz Cans"}
 *_*
 {"sku": "071439006017", "is_taxable": true, "cost": 1.08, "crv": 0.1, "name": "Rolling Rock 25oz", "p_type": "Beer", "price": 1.51, "p_tag": "0", "buydown": null}
 -----
 Johnnie Walker Red Lbel 375
 {"exe": 0, "our_pid": 27142, "name": "Johnnie Walker Red 375"}
-{"exe": 1, "our_pid": 33695, "name": "Johnnie Walker Red 375ml"}
+{"exe": 0, "our_pid": 33695, "name": "Johnnie Walker Red 375ml"}
 *_*
 {"sku": "088110021092", "is_taxable": true, "cost": 10.08, "crv": null, "name": "Johnnie Walker Red Lbel 375", "p_type": "Liquor", "price": 13.99, "p_tag": "0", "buydown": null}
 -----
 rolling 24oz
-{"exe": 1, "our_pid": 29834, "name": "Rolling Rock 24oz"}
+{"exe": 0, "our_pid": 29834, "name": "Rolling Rock 24oz"}
 {"exe": 0, "our_pid": 33730, "name": "Rolling Rock 24oz Cans"}
 *_*
 {"sku": "071439005003", "is_taxable": true, "cost": 1.05, "crv": 0.1, "name": "rolling 24oz", "p_type": "Beer", "price": 1.49, "p_tag": "0", "buydown": null}
 -----
 Busch 24oz
-{"exe": 1, "our_pid": 24565, "name": "Busch 24oz"}
+{"exe": 0, "our_pid": 24565, "name": "Busch 24oz"}
 {"exe": 0, "our_pid": 33702, "name": "Busch 24oz Cans"}
 *_*
 {"sku": "182312", "is_taxable": true, "cost": 1.05, "crv": 0.1, "name": "Busch 24oz", "p_type": "Beer", "price": 1.49, "p_tag": "0", "buydown": null}
 -----
 rolling rock 12pk
 {"exe": 0, "our_pid": 32645, "name": "New Product 13142"}
-{"exe": 1, "our_pid": 33839, "name": "Rolling Rock 12pk Light"}
+{"exe": 0, "our_pid": 33839, "name": "Rolling Rock 12pk Light"}
 *_*
 {"sku": "071439344508", "is_taxable": true, "cost": 6.85, "crv": 0.6, "name": "rolling rock 12pk", "p_type": "Beer", "price": 8.69, "p_tag": "0", "buydown": null}
 -----
 Taaka Vodka 750ml
 {"exe": 0, "our_pid": 31112, "name": "Taaka Vodka 750"}
-{"exe": 1, "our_pid": 33705, "name": "Taaka Vodka 750ml"}
+{"exe": 0, "our_pid": 33705, "name": "Taaka Vodka 750ml"}
 *_*
 {"sku": "088004010140", "is_taxable": true, "cost": 5.17, "crv": null, "name": "Taaka Vodka 750ml", "p_type": "Liquor", "price": 6.99, "p_tag": "0", "buydown": null}
 -----
 fireball 750ml
 {"exe": 0, "our_pid": 26139, "name": "FireBall 750 Cinnamon"}
-{"exe": 1, "our_pid": 33727, "name": "Fireball Cinnamon Whisky 750ml"}
+{"exe": 0, "our_pid": 33727, "name": "Fireball Cinnamon Whisky 750ml"}
 *_*
 {"sku": "088004146689", "is_taxable": true, "cost": 12.53, "crv": null, "name": "fireball 750ml", "p_type": "Liquor", "price": 18.99, "p_tag": "0", "buydown": null}
 -----
@@ -396,32 +396,32 @@ lagunitas little sumpin 6pk
 {"sku": "723830000148", "is_taxable": true, "cost": 7.88, "crv": 0.3, "name": "lagunitas little sumpin 6pk", "p_type": "Beer", "price": 10.69, "p_tag": "0", "buydown": null}
 -----
 3 Musketeers
-{"exe": 1, "our_pid": 23369, "name": "3 Musketeers"}
+{"exe": 0, "our_pid": 23369, "name": "3 Musketeers"}
 {"exe": 0, "our_pid": 33662, "name": "3 Musketeers Regular"}
 *_*
 {"sku": "400030", "is_taxable": false, "cost": 0.6, "crv": null, "name": "3 Musketeers", "p_type": "candy & gum", "price": 1.0, "p_tag": "0", "buydown": null}
 -----
 all 7up 2L products
-{"exe": 1, "our_pid": 23408, "name": "7Up 2L"}
+{"exe": 0, "our_pid": 23408, "name": "7Up 2L"}
 {"exe": 0, "our_pid": 33688, "name": "7-Up 2 Liters"}
 *_*
 {"sku": "780340", "is_taxable": true, "cost": 1.42, "crv": 0.1, "name": "all 7up 2L products", "p_type": "Beverage", "price": 2.19, "p_tag": "0", "buydown": null}
 -----
 camel $.75
-{"exe": 1, "our_pid": 23348, "name": "1Pk Deal Camel 75Off"}
+{"exe": 0, "our_pid": 23348, "name": "1Pk Deal Camel 75Off"}
 {"exe": 0, "our_pid": 33784, "name": "Camel Menthol Silver $0.75 Off Pack"}
 *_*
 {"sku": "012300502603", "is_taxable": true, "cost": 5.1, "crv": null, "name": "camel $.75", "p_type": "cigarette & cigar", "price": 5.76, "p_tag": "0", "buydown": null}
 -----
 tostitos salsa dips
-{"exe": 1, "our_pid": 31305, "name": "TostitoDip 15oz Salsa"}
+{"exe": 0, "our_pid": 31305, "name": "TostitoDip 15oz Salsa"}
 {"exe": 0, "our_pid": 33674, "name": "Tostitos Salsa Medium 15oz"}
 *_*
 {"sku": "028400055987", "is_taxable": false, "cost": 2.41, "crv": null, "name": "tostitos salsa dips", "p_type": "Snacks", "price": 3.99, "p_tag": "0", "buydown": null}
 -----
 Busch 25oz
 {"exe": 0, "our_pid": 24565, "name": "Busch 24oz"}
-{"exe": 1, "our_pid": 33700, "name": "Busch 25oz Cans"}
+{"exe": 0, "our_pid": 33700, "name": "Busch 25oz Cans"}
 *_*
 {"sku": "018200250033", "is_taxable": true, "cost": 1.24, "crv": 0.1, "name": "Busch 25oz", "p_type": "Beer", "price": 1.55, "p_tag": "0", "buydown": null}
 -----

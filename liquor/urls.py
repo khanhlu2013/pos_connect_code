@@ -12,6 +12,7 @@ import store_product.urls
 import mix_match.urls
 import receipt.urls
 import payment_type.urls
+import product.urls
 from store_product import sp_page_view
 from django.contrib.auth.decorators import login_required
 from test.e2e import protractor_test_cleanup_view
@@ -27,7 +28,8 @@ urlpatterns = patterns('',
     url(r'^sale/',include(sale.urls,namespace='sale')),
     url(r'^sale_shortcut/',include(sale_shortcut.urls,namespace='sale_shortcut')),
     url(r'^tax/',include(tax.urls,namespace='tax')),
-    url(r'^product/',include(store_product.urls,namespace='store_product')),
+    url(r'^sp/',include(store_product.urls,namespace='store_product')),
+    url(r'^product/',include(product.urls,namespace='product')),    
     url(r'^mix_match/',include(mix_match.urls,namespace='mix_match')),
     url(r'^group/',include(group.urls,namespace='group')),
     url(r'^receipt/',include(receipt.urls,namespace='receipt')),    

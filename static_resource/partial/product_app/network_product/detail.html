@@ -1,0 +1,33 @@
+<h3>detail</h3>
+<table class="table table-hover table-bordered table-condensed table-striped">
+    <tr>
+        <th>name</th>
+        <th>percent</th>
+    </tr>
+    <tr ng-repeat="name_stat in suggest_extra_name|orderBy:'-percent'">
+        <td>{{name_stat.value}}</td>
+        <td>{{name_stat.percent}}%</td>
+    </tr>
+</table>
+
+<table class="table table-hover table-bordered table-condensed table-striped">
+    <tr>
+        <th>crv</th>
+        <th>percent</th>
+    </tr>
+    <tr ng-repeat="crv_stat in suggest_extra_crv|orderBy:'-percent'">
+        <td>{{crv_stat.value|currency}}</td>
+        <td>{{crv_stat.percent}}%</td>
+    </tr>
+</table>
+
+<table class="table table-hover table-bordered table-condensed table-striped">
+    <tr>
+        <th>cost</th>
+        <th>price</th>
+    </tr>
+    <tr ng-repeat="sp in network_product.get_sp_lst()|orderBy:'get_cost()'">
+        <td>{{sp.get_cost()|currency}}</td>
+        <td>{{sp.price|currency}}</td>
+    </tr>
+</table>

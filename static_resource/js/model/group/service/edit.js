@@ -2,25 +2,25 @@ define(
 [
 	'angular'
 	//---
-	,'app/group_app/service/prompt'
-	,'app/group_app/service/api'
+	,'model/group/service/prompt'
+	,'model/group/api'
 ]
 ,function
 (
 	angular
 )
 {
-	var mod = angular.module('group_app/service/edit',
+	var mod = angular.module('group/service/edit',
 	[
-		 'group_app/service/prompt'
-		,'group_app/service/api'
+		 'group/service/prompt'
+		,'group/api'
 	]);
-	mod.factory('group_app/service/edit',
+	mod.factory('group/service/edit',
 	[
 		 '$http'
 		,'$q'
-		,'group_app/service/prompt'
-		,'group_app/service/api'
+		,'group/service/prompt'
+		,'group/api'
 	,function(
 		 $http
 		,$q

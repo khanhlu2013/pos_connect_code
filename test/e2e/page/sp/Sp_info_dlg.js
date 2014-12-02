@@ -17,8 +17,12 @@ var Sp_info_dlg = function () {
     this.group_lst = element.all(by.repeater('group_info in sp.group_lst'));
 
     //button function
-    this.edit = function(){ lib.click(this.edit_btn); }
-    this.exit = function(){ lib.click(this.exit_btn); }
+    this.edit = function(){ 
+        lib.click(this.edit_btn); 
+    }
+    this.exit = function(){ 
+        lib.click(this.exit_btn); 
+    }
     
     this.switch_tab = function(tab_name){
         if(tab_name === 'main')         { lib.click(this.main_tab); }

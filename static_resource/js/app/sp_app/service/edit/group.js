@@ -2,7 +2,7 @@ define(
 [
 	'angular'
 	//---
-    ,'app/group_app/service/search_dlg'
+    ,'model/group/service/search_dlg'
     ,'app/sp_app/service/api/group'
     ,'service/ui'
     ,'service/misc'
@@ -14,7 +14,7 @@ define(
 {
 	var mod = angular.module('sp_app/service/edit/group',
     [
-         'group_app/service/search_dlg'
+         'group/service/search_dlg'
         ,'service/ui'
         ,'sp_app/service/api/group'
         ,'service/misc'
@@ -23,7 +23,7 @@ define(
     mod.factory('sp_app/service/edit/group',
     [
          '$modal'
-        ,'group_app/service/search_dlg/multiple'
+        ,'group/service/search_dlg/multiple'
         ,'service/ui/alert'
         ,'sp_app/service/api/group'
         ,'service/misc'

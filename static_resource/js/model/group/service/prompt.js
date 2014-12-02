@@ -12,14 +12,14 @@ define(
     angular
 )
 {
-    var mod = angular.module('group_app/service/prompt',
+    var mod = angular.module('group/service/prompt',
     [
          'sp_ll_app/service/search/name_sku_online_dlg'
         ,'service/ui'
         ,'service/misc'
         ,'directive/share_directive'
     ]);
-    mod.factory('group_app/service/prompt',
+    mod.factory('group/service/prompt',
     [
          '$modal'
         ,'sp_ll_app/service/search/name_sku_online_dlg/multiple'

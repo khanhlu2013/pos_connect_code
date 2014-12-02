@@ -2,19 +2,19 @@ define(
 [
     'angular'
     //---
-    ,'app/group_app/model'
+    ,'model/group/model'
 ]
 ,function
 (
     angular
 )
 {
-    var mod = angular.module('group_app/service/api',['group_app/model']);
-    mod.factory('group_app/service/api',
+    var mod = angular.module('group/api',['group/model']);
+    mod.factory('group/api',
     [
          '$http'
         ,'$q'
-        ,'group_app/model/Group'
+        ,'group/model/Group'
     ,function(
          $http
         ,$q

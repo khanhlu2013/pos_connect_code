@@ -10,7 +10,7 @@ define(
     ,'service/ui'
     ,'app/sp_app/service/api/search'
     ,'service/db'
-    ,'app/group_app/service/manage'
+    ,'model/group/service/manage'
     ,'app/receipt_app/service/report'        
 ], function 
 (
@@ -28,7 +28,7 @@ define(
         ,'service/ui'
         ,'sp_app/service/api/search'
         ,'service/db'
-        ,'group_app/service/manage'
+        ,'group/service/manage'
         ,'receipt_app/service/report'            
     ]);
 
@@ -46,7 +46,7 @@ define(
         ,'sp_app/service/api/search'
         ,'blockUI'
         ,'service/db/is_pouch_exist'
-        ,'group_app/service/manage'
+        ,'group/service/manage'
         ,'receipt_app/service/report'            
     ,function(
          $window

@@ -2,23 +2,23 @@ define(
 [
 	'angular'
 	//---
-	,'app/group_app/service/api'
+	,'model/group/api'
 ]
 ,function
 (
 	angular
 )
 {
-	var mod = angular.module('group_app/service/create',
+	var mod = angular.module('group/service/create',
 	[
-		 'group_app/service/prompt'
-		,'group_app/service/api'
+		 'group/service/prompt'
+		,'group/api'
 	]);
-	mod.factory('group_app/service/create',
+	mod.factory('group/service/create',
 	[
 		 '$q'
-		,'group_app/service/prompt'
-		,'group_app/service/api'
+		,'group/service/prompt'
+		,'group/api'
 	,function
 	(
 		 $q

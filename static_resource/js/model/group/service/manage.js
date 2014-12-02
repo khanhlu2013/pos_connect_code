@@ -3,35 +3,35 @@ define(
     'angular'
     //-----
     ,'service/ui'    
-    ,'app/group_app/service/edit'
-    ,'app/group_app/service/create'
-    ,'app/group_app/service/api'
-    ,'app/group_app/service/execute'
+    ,'model/group/service/edit'
+    ,'model/group/service/create'
+    ,'model/group/api'
+    ,'model/group/service/execute'
 ]
 ,function
 (
     angular
 )
 {
-    var mod = angular.module('group_app/service/manage',
+    var mod = angular.module('group/service/manage',
     [
          'service/ui'
-        ,'group_app/service/edit'
-        ,'group_app/service/create'
-        ,'group_app/service/api'
-        ,'group_app/service/execute'
+        ,'group/service/edit'
+        ,'group/service/create'
+        ,'group/api'
+        ,'group/service/execute'
     ]);
 
-    mod.factory('group_app/service/manage',
+    mod.factory('group/service/manage',
     [
          '$modal'
         ,'$http'
-        ,'group_app/service/edit'
+        ,'group/service/edit'
         ,'service/ui/alert'
         ,'service/ui/confirm'
-        ,'group_app/service/create'
-        ,'group_app/service/api'
-        ,'group_app/service/execute'
+        ,'group/service/create'
+        ,'group/api'
+        ,'group/service/execute'
     ,function
     (
          $modal

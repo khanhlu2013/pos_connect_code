@@ -3,7 +3,7 @@ define(
     'angular'
     //--
     ,'service/ui'
-    ,'app/group_app/service/api'
+    ,'model/group/api'
     ,'directive/share_directive'
 ]
 ,function
@@ -11,16 +11,16 @@ define(
     angular
 )
 {
-    var mod = angular.module('group_app/service/search_dlg',
+    var mod = angular.module('group/service/search_dlg',
     [
          'service/ui'
         ,'directive/share_directive'
     ]);
-    mod.factory('group_app/service/search_dlg/multiple',
+    mod.factory('group/service/search_dlg/multiple',
     [
          '$modal'
         ,'service/ui/alert'
-        ,'group_app/service/api'
+        ,'group/api'
     ,function(
          $modal
         ,alert_service

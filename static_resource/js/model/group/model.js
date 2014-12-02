@@ -9,10 +9,10 @@ define(
     angular
 )
 {
-    var mod = angular.module('group_app/model',['sp_app/model']);
+    var mod = angular.module('group/model',['sp_app/model']);
 
     //GROUP MODEL
-    mod.factory('group_app/model/Group',['$injector',function($injector){
+    mod.factory('group/model/Group',['$injector',function($injector){
         function Group(id,name,sp_lst){
             this.id = id;
             this.name = name;

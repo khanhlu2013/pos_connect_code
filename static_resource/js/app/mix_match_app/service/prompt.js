@@ -4,8 +4,8 @@ define(
     //
     ,'app/sp_ll_app/service/search/name_sku_online_dlg'
     ,'service/ui'
-    ,'app/group_app/service/search_dlg'
-    ,'app/group_app/service/api'
+    ,'model/group/service/search_dlg'
+    ,'model/group/api'
 ]
 ,function
 (
@@ -16,8 +16,8 @@ define(
     [
          'sp_ll_app/service/search/name_sku_online_dlg'
         ,'service/ui'
-        ,'group_app/service/search_dlg'
-        ,'group_app/service/api'
+        ,'group/service/search_dlg'
+        ,'group/api'
     ]);
 
     mod.factory('mix_match_app/service/prompt',
@@ -25,8 +25,8 @@ define(
          '$modal'
         ,'service/ui/alert'
         ,'sp_ll_app/service/search/name_sku_online_dlg/multiple'
-        ,'group_app/service/search_dlg/multiple'
-        ,'group_app/service/api'
+        ,'group/service/search_dlg/multiple'
+        ,'group/api'
     ,function(
          $modal
         ,alert_service

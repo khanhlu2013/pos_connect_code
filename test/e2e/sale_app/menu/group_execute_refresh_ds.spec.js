@@ -49,7 +49,7 @@ describe('sale page menu_group_execute', function() {
 
         //scan a product
         Sale_page.visit();
-        Sale_page.scan(product_sku);lib.wait_for_block_ui();
+        Sale_page.scan(product_sku);
 
         //execute group
         Sale_page.menu_setting_group();
@@ -99,7 +99,6 @@ describe('sale page menu_group_execute', function() {
         //verify ds is updated
         Sale_page.click_col(0,'name');
         Sp_info_dlg.edit();
-
         expect(Sp_prompt_dlg.get_price()).toEqual(new_price.toString());
         expect(Sp_prompt_dlg.get_crv()).toEqual(new_crv.toString());
         expect(Sp_prompt_dlg.get_cost()).toEqual(new_cost.toString());
@@ -116,5 +115,5 @@ describe('sale page menu_group_execute', function() {
 
         //clean up
         Sale_page.void();
-    },60000/*60 second timeout*/)
+    },90000/*60 second timeout*/)
 });

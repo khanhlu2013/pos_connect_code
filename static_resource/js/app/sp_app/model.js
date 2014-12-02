@@ -2,7 +2,7 @@ define(
 [
     'angular'
     //-------
-    ,'app/group_app/model'
+    ,'model/group/model'
     ,'app/product_app/model'
     ,'service/misc'
 ]
@@ -13,7 +13,7 @@ define(
 {
     var mod = angular.module('sp_app/model',
     [
-         'group_app/model'
+         'group/model'
         ,'product_app/model'
         ,'sp_app/model'
         ,'service/misc'
@@ -243,7 +243,7 @@ define(
             //build group
             var group_lst = [];
             if(raw_json.group_lst != undefined){
-                var Group = $injector.get('group_app/model/Group');
+                var Group = $injector.get('group/model/Group');
                 group_lst = raw_json.group_lst.map(Group.build)
             }
 

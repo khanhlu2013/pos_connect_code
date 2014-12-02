@@ -6,7 +6,7 @@ module.exports = {
     api_group:{
         insert_empty_group : function(group_name){
             return browser.executeAsyncScript(function(group_name,callback) {
-                var api = angular.injector(['ng','service.csrf','group_app/service/api']).get('group_app/service/api');
+                var api = angular.injector(['ng','service.csrf','group/api']).get('group/api');
                 var empty_group = {name:group_name,sp_lst:[]};
                 api.create(empty_group).then(
                      function(group){ callback(group); }
@@ -16,7 +16,7 @@ module.exports = {
         },
         edit_group : function(group){
             return browser.executeAsyncScript(function(group,callback) {
-                var api = angular.injector(['ng','service.csrf','group_app/service/api']).get('group_app/service/api');
+                var api = angular.injector(['ng','service.csrf','group/api']).get('group/api');
                 api.edit_item(group,group.id).then(
                      function(edited_group){ callback(edited_group); }
                     ,function(reason){ callback(null); }

@@ -2,9 +2,9 @@ define(
 [
     'angular'
     //------
-    ,'app/group_app/service/api'
+    ,'model/group/api'
     ,'service/ui'
-    ,'app/group_app/model'    
+    ,'model/group/model'    
     ,'service/db'
 ]
 ,function
@@ -12,20 +12,20 @@ define(
     angular
 )
 {
-    var mod = angular.module('group_app/service/execute',
+    var mod = angular.module('group/service/execute',
     [
-         'group_app/service/api'
+         'group/api'
         ,'service/ui'
-        ,'group_app/model'
+        ,'group/model'
         ,'service/db'
     ]);
 
-    mod.factory('group_app/service/execute',
+    mod.factory('group/service/execute',
     [
          '$modal'
-        ,'group_app/service/api'
+        ,'group/api'
         ,'service/ui/alert'
-        ,'group_app/model/Group'
+        ,'group/model/Group'
         ,'service/db/download_product'
     ,function(
          $modal

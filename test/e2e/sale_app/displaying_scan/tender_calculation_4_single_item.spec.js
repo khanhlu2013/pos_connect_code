@@ -106,14 +106,14 @@ B   1           1           0           1               0           0       0   
         //TEST B GROUP ---------------------------------------------------------------------------------------------------------------------------------------
         //NO OVERRIDE PRICE
         Sale_page.scan(b1_sku);lib.wait_for_block_ui();expect(Sale_page.tender_btn.getText()).toEqual('$13.42');expect(Sale_page.get_col(0,'crv')).toEqual(lib.currency(b1_crv));Sale_page.void();
-        Sale_page.scan(b2_sku);lib.wait_for_block_ui();expect(Sale_page.tender_btn.getText()).toEqual('$11.92');expect(Sale_page.get_col(0,'crv')).toEqual(lib.currency(b2_crv));Sale_page.void();
-        Sale_page.scan(b3_deal_qty + ' ' + b3_sku);lib.wait_for_block_ui();expect(Sale_page.tender_btn.getText()).toEqual('$2.11');expect(Sale_page.get_col(0,'crv')).toEqual(lib.currency(b3_crv));Sale_page.void();
+        Sale_page.scan(b2_sku);lib.wait_for_block_ui();expect(Sale_page.tender_btn.getText()).toEqual('$11.91');expect(Sale_page.get_col(0,'crv')).toEqual(lib.currency(b2_crv));Sale_page.void();
+        Sale_page.scan(b3_deal_qty + ' ' + b3_sku);lib.wait_for_block_ui();expect(Sale_page.tender_btn.getText()).toEqual('$2.10');expect(Sale_page.get_col(0,'crv')).toEqual(lib.currency(b3_crv));Sale_page.void();
         Sale_page.scan(b4_deal_qty + ' ' + b4_sku);lib.wait_for_block_ui();expect(Sale_page.tender_btn.getText()).toEqual('$1.00');expect(Sale_page.get_col(0,'crv')).toEqual(lib.currency(b4_crv));Sale_page.void();
         
         //YES OVERRIDE PRICE
         Sale_page.scan(b1_sku);lib.wait_for_block_ui();exe_override_price(override_price);expect(Sale_page.tender_btn.getText()).toEqual('$12.26');expect(Sale_page.get_col(0,'crv')).toEqual(lib.currency(b1_crv));Sale_page.void();
         Sale_page.scan(b2_sku);lib.wait_for_block_ui();exe_override_price(override_price);expect(Sale_page.tender_btn.getText()).toEqual('$10.76');expect(Sale_page.get_col(0,'crv')).toEqual(lib.currency(b2_crv));Sale_page.void();
-        Sale_page.scan(b3_deal_qty + ' ' + b3_sku);lib.wait_for_block_ui();exe_override_price(override_price);expect(Sale_page.tender_btn.getText()).toEqual('$2.11');expect(Sale_page.get_col(0,'crv')).toEqual(lib.currency(b3_crv));Sale_page.void();
+        Sale_page.scan(b3_deal_qty + ' ' + b3_sku);lib.wait_for_block_ui();exe_override_price(override_price);expect(Sale_page.tender_btn.getText()).toEqual('$2.10');expect(Sale_page.get_col(0,'crv')).toEqual(lib.currency(b3_crv));Sale_page.void();
         Sale_page.scan(b4_deal_qty + ' ' + b4_sku);lib.wait_for_block_ui();exe_override_price(override_price);expect(Sale_page.tender_btn.getText()).toEqual('$1.00');expect(Sale_page.get_col(0,'crv')).toEqual(lib.currency(b4_crv));Sale_page.void();
 
         //clean up

@@ -49,7 +49,12 @@ define(
         return Modify_ds_instruction;
     }])    
 
-    mod.factory('sale_app/model/Displaying_scan',[function(){
+    mod.factory('sale_app/model/Displaying_scan',
+    [
+        'service/misc'
+    ,function(
+        misc_service
+    ){
         //CONSTRUCTOR
         function Displaying_scan(
              store_product
@@ -171,22 +176,31 @@ define(
                 if(this.get_is_taxable()){
                     result = this.get_buydown()*tax_rate/100.0;
                 }
-                return result;  
+                return misc_service.round_float_2_decimal(result);
             }
             ,get_product_tax: function(tax_rate){
                 var result = 0.0;
                 if(this.get_is_taxable()){
                     result = this._get_b4_tax_price()*tax_rate/100.0;
                 }
-                return result;                
+                return misc_service.round_float_2_decimal(result);             
             }   
-            ,get_otd_price: function(tax_rate){ return this._get_b4_tax_price() + this.get_product_tax(tax_rate) + this.get_buydown_tax(tax_rate); }
-            ,get_line_total: function(tax_rate){ return this.get_otd_price(tax_rate) * this.qty; }
+            ,get_otd_price: function(tax_rate){ 
+                return this._get_b4_tax_price() + this.get_product_tax(tax_rate) + this.get_buydown_tax(tax_rate); 
+            }
+            ,get_line_total: function(tax_rate){ 
+                return this.get_otd_price(tax_rate) * this.qty; 
+            }
         }
         return Displaying_scan;
     }]);    
 
-    mod.factory('sale_app/model/Mix_match_deal_info',['service/misc',function(misc_service){
+    mod.factory('sale_app/model/Mix_match_deal_info',
+    [
+        'service/misc'
+    ,function(
+        misc_service
+    ){
         //CONSTRUCTOR
         function Mix_match_deal_info(
              mm_deal

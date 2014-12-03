@@ -3,8 +3,8 @@ define(
      'angular'
     //--------
     ,'service/db'  
-    ,'app/receipt_app/model'  
-    ,'app/receipt_app/service/receipt_storage_adapter'
+    ,'model/receipt/model'  
+    ,'model/receipt/service/receipt_storage_adapter'
     ,'app/sale_app/service/tender_ui'
 ]
 ,function
@@ -14,21 +14,21 @@ define(
 {
     var mod = angular.module('sale_app/service/finalize',
     [
-         'receipt_app/model'
+         'receipt/model'
         ,'service/db'
-        ,'receipt_app/service/receipt_storage_adapter'
+        ,'receipt/service/receipt_storage_adapter'
         ,'sale_app/service/tender_ui'
     ]);
     mod.factory('sale_app/service/finalize',
     [
          '$q'
         ,'$rootScope'
-        ,'receipt_app/model/Receipt'
-        ,'receipt_app/model/Receipt_ln'        
-        ,'receipt_app/model/Store_product_stamp'    
-        ,'receipt_app/model/Mix_match_deal_info_stamp'               
+        ,'receipt/model/Receipt'
+        ,'receipt/model/Receipt_ln'        
+        ,'receipt/model/Store_product_stamp'    
+        ,'receipt/model/Mix_match_deal_info_stamp'               
         ,'service/db/get'
-        ,'receipt_app/service/receipt_storage_adapter'
+        ,'receipt/service/receipt_storage_adapter'
         ,'sale_app/service/tender_ui'
     ,function(
          $q

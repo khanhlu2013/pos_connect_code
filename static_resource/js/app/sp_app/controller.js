@@ -2,16 +2,16 @@ define(
 [
      'angular'
     //---------------
-    ,'app/sp_app/service/info'
-    ,'app/sp_app/service/create'
-    ,'app/sp_app/service/duplicate'    
+    ,'model/sp/service/info'
+    ,'model/sp/service/create'
+    ,'model/sp/service/duplicate'    
     ,'filter/filter'    
     ,'directive/share_directive'    
     ,'service/ui'
-    ,'app/sp_app/service/api/search'
+    ,'model/sp/api_search'
     ,'service/db'
     ,'model/group/service/manage'
-    ,'app/receipt_app/service/report'        
+    ,'model/receipt/service/receipt_report'        
 ], function 
 (
      angular
@@ -20,16 +20,16 @@ define(
     'use strict';
     var mod =  angular.module('sp_app.controller', 
     [
-         'sp_app/service/info'
-        ,'sp_app/service/create'
-        ,'sp_app/service/duplicate'
+         'sp/service/info'
+        ,'sp/service/create'
+        ,'sp/service/duplicate'
         ,'filter'
         ,'directive/share_directive'
         ,'service/ui'
-        ,'sp_app/service/api/search'
+        ,'sp/api_search'
         ,'service/db'
         ,'group/service/manage'
-        ,'receipt_app/service/report'            
+        ,'receipt/service/receipt_report'            
     ]);
 
     mod.controller('MainCtrl',
@@ -38,16 +38,16 @@ define(
         ,'$scope'
         ,'$rootScope'
         ,'$filter'
-        ,'sp_app/service/info'
-        ,'sp_app/service/create'
-        ,'sp_app/service/duplicate'
+        ,'sp/service/info'
+        ,'sp/service/create'
+        ,'sp/service/duplicate'
         ,'service/ui/alert'
         ,'service/ui/confirm'
-        ,'sp_app/service/api/search'
+        ,'sp/api_search'
         ,'blockUI'
         ,'service/db/is_pouch_exist'
         ,'group/service/manage'
-        ,'receipt_app/service/report'            
+        ,'receipt/service/receipt_report'            
     ,function(
          $window
         ,$scope

@@ -2,13 +2,13 @@ define(
 [
      'angular'
      //----
-    ,'app/tax_app/service/edit'
-    ,'app/mix_match_app/service/manage'
-    ,'app/payment_type_app/service/manage'
-    ,'app/shortcut_app/service/manage'
-    ,'app/report_app/service/report_dlg'
+    ,'model/store/service/set_tax'
+    ,'model/mix_match/service/manage'
+    ,'model/payment_type/service/manage'
+    ,'model/shortcut/service/manage'
+    ,'model/receipt/service/sale_report'
     ,'service/ui'
-    ,'app/receipt_app/service/push'
+    ,'model/receipt/service/push'
     ,'service/db'
     ,'service/global_setting'
 ]
@@ -19,13 +19,13 @@ define(
 {
     var mod = angular.module('service.menu',
     [
-         'tax_app/service/edit'
-        ,'mix_match_app/service/manage'
-        ,'payment_type_app/service/manage'
-        ,'shortcut_app/service/manage'
-        ,'report_app/service/report_dlg'
+         'store/service/set_tax'
+        ,'mix_match/service/manage'
+        ,'payment_type/service/manage'
+        ,'shortcut/service/manage'
+        ,'receipt/service/sale_report'
         ,'service/ui'
-        ,'receipt_app/service/push'
+        ,'receipt/service/push'
         ,'service/db'
         ,'service/global_setting'
     ]);
@@ -35,21 +35,21 @@ define(
          '$scope'
         ,'$window'
         ,'$q'
-        ,'tax_app/service/edit'
-        ,'mix_match_app/service/manage'
-        ,'payment_type_app/service/manage'
-        ,'shortcut_app/service/manage'
-        ,'report_app/service/report_dlg'
+        ,'store/service/set_tax'
+        ,'mix_match/service/manage'
+        ,'payment_type/service/manage'
+        ,'shortcut/service/manage'
+        ,'receipt/service/sale_report'
         ,'service/ui/confirm'
         ,'service/ui/alert'
-        ,'receipt_app/service/push'
+        ,'receipt/service/push'
         ,'service/db/download_product'
         ,'service/global_setting'
     ,function(
          $scope 
         ,$window
         ,$q
-        ,edit_tax
+        ,set_tax_service
         ,manage_mm
         ,manage_pt
         ,manage_shortcut
@@ -64,7 +64,7 @@ define(
             manage_mm();
         }
         $scope.menu_setting_tax = function(){
-            edit_tax();
+            set_tax_service();
         }
         $scope.menu_setting_payment_type = function(){
             manage_pt();

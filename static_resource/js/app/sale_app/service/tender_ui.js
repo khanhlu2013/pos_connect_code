@@ -2,8 +2,8 @@ define(
 [
      'angular'
     //--------
-    ,'app/payment_type_app/model'
-    ,'app/receipt_app/model'
+    ,'model/payment_type/model'
+    ,'model/receipt/model'
     ,'service/misc'
     ,'app/sale_app/service/sale_able_info_dlg'    
 ]
@@ -14,8 +14,8 @@ define(
 {
     var mod = angular.module('sale_app/service/tender_ui',
     [
-         'payment_type_app/model'
-        ,'receipt_app/model'
+         'payment_type/model'
+        ,'receipt/model'
         ,'service/misc'
         ,'sale_app/service/sale_able_info_dlg'        
     ]);
@@ -23,8 +23,8 @@ define(
     [
          '$modal'
         ,'$rootScope'
-        ,'payment_type_app/model/Payment_type'
-        ,'receipt_app/model/Tender_ln'
+        ,'payment_type/model/Payment_type'
+        ,'receipt/model/Tender_ln'
         ,'service/misc'
         ,'sale_app/service/sale_able_info_dlg'        
     ,function(

@@ -2,14 +2,17 @@ define(
 [
     'angular'
     //----
-    ,'app/sp_app/model'
+    ,'model/sp/model'
 ]
 ,function
 (
     angular
 )
 {
-    var mod = angular.module('group/model',['sp_app/model']);
+    var mod = angular.module('group/model',
+    [
+        'sp/model'
+    ]);
 
     //GROUP MODEL
     mod.factory('group/model/Group',['$injector',function($injector){
@@ -20,7 +23,7 @@ define(
         }
         Group.build = function(data){
             var sp_lst = null;
-            var Store_product = $injector.get('sp_app/model/Store_product');
+            var Store_product = $injector.get('sp/model/Store_product');
             if(data.sp_lst != undefined){
                 sp_lst = data.sp_lst.map(Store_product.build)
             }

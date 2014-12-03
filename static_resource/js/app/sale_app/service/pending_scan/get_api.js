@@ -3,7 +3,7 @@ define(
      'angular'
     //-------
     ,'app/sale_app/service/pending_scan/set_api'
-    ,'app/sp_app/model'
+    ,'model/sp/model'
 
 ]
 ,function
@@ -14,12 +14,12 @@ define(
     var mod = angular.module('sale_app/service/pending_scan/get_api',
     [
          'sale_app/service/pending_scan/set_api'
-        ,'sp_app/model'
+        ,'sp/model'
     ]);
     mod.factory('sale_app/service/pending_scan/get_api',
     [
          'sale_app/service/pending_scan/set_api'
-        ,'sp_app/model/Non_inventory'
+        ,'sp/model/Non_inventory'
     ,function(
          set_ps_lst
         ,Non_inventory

@@ -2,11 +2,11 @@ define(
 [
      'angular'
     //--------------
-    ,'app/receipt_app/service/push'
+    ,'model/receipt/service/push'
     ,'service/db'
     ,'service/ui'
-    ,'app/sp_ll_app/service/api_offline'
-    ,'app/receipt_app/service/api_offline'
+    ,'model/sp/api_offline'
+    ,'model/receipt/api_offline'
 ]
 ,function
 (
@@ -15,20 +15,20 @@ define(
 {
     var mod = angular.module('sale_app/service/init_db',
     [
-         'receipt_app/service/push'
+         'receipt/service/push'
         ,'service/db'
         ,'service/ui'
-        ,'sp_ll_app/service/api_offline'
-        ,'receipt_app/service/api_offline'
+        ,'sp/api_offline'
+        ,'receipt/api_offline'
     ]);
     mod.factory('sale_app/service/init_db',
     [
          '$q'
-        ,'receipt_app/service/push'
+        ,'receipt/service/push'
         ,'service/db/download_product'
         ,'service/ui/alert'
-        ,'sp_ll_app/service/api_offline'
-        ,'receipt_app/service/api_offline'
+        ,'sp/api_offline'
+        ,'receipt/api_offline'
     ,function(
          $q
         ,push_receipt

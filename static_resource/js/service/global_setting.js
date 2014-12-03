@@ -10,7 +10,7 @@ define(
 [
      'angular'
     //--------
-    ,'app/mix_match_app/model'
+    ,'model/mix_match/model'
 ]
 ,function
 (
@@ -19,7 +19,7 @@ define(
 {
     var mod = angular.module('service/global_setting',
     [
-        'mix_match_app/model'
+        'mix_match/model'
     ]);
 
     mod.factory('service/global_setting',
@@ -27,7 +27,7 @@ define(
          '$rootScope'
         ,'$q'
         ,'$http'
-        ,'mix_match_app/model/Mix_match'
+        ,'mix_match/model/Mix_match'
     ,function(
          $rootScope
         ,$q 

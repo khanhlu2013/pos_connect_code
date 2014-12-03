@@ -268,7 +268,9 @@ define(
                         }
                     )
                 }
-                $scope.exit = function(){ $modalInstance.dismiss('_cancel_');}
+                $scope.exit = function(){ 
+                    $modalInstance.dismiss('_cancel_');
+                }
             }
             ModalCtrl.$inject = ['$scope','$modalInstance','$http','group'];
             var result = $modal.open({

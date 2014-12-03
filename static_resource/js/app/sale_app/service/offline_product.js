@@ -6,10 +6,10 @@ define(
 [
      'angular'
     //--------
-    ,'app/sp_app/service/prompt'
+    ,'model/sp/service/prompt'
     ,'service/db'
-    ,'app/sp_app/model'
-    ,'app/sp_ll_app/service/api_offline'
+    ,'model/sp/model'
+    ,'model/sp/api_offline'
 ]
 ,function
 (
@@ -18,20 +18,20 @@ define(
 {
     var mod = angular.module('sale_app/service/offline_product',
     [
-         'sp_app/service/prompt'
+         'sp/service/prompt'
         ,'service/db'
-        ,'sp_app/model'
-        ,'sp_ll_app/service/api_offline'
+        ,'sp/model'
+        ,'sp/api_offline'
     ]);
 
     mod.factory('sale_app/service/offline_product/create',
     [
          '$q'
         ,'$rootScope' 
-        ,'sp_app/service/prompt'
+        ,'sp/service/prompt'
         ,'service/db/get'
-        ,'sp_app/model/Store_product'
-        ,'sp_ll_app/service/api_offline'
+        ,'sp/model/Store_product'
+        ,'sp/api_offline'
     ,function(
          $q
         ,$rootScope
@@ -88,9 +88,9 @@ define(
     [   
          '$q'
         ,'$rootScope' 
-        ,'sp_app/service/prompt'
+        ,'sp/service/prompt'
         ,'service/db/get'
-        ,'sp_ll_app/service/api_offline'
+        ,'sp/api_offline'
     ,function(
          $q
         ,$rootScope

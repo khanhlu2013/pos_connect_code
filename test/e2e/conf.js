@@ -15,8 +15,8 @@ exports.config = {
 
         //-------------------------------------------------
 
-         // './group_app/group_crud_in_sp_page.spec.js'  
-        './group_app/group_execute_in_sp_page.spec.js'
+        //  './group_app/group_crud_in_sp_page.spec.js'  
+        // ,'./group_app/group_execute_in_sp_page.spec.js'
         // ,'./payment_type_app/payment_type.spec.js'  
         // ,'./shortcut_app/sale_shortcut.setup.spec.js'   
         // ,'./mix_match_app/mix_match_manage_in_sp_page.spec.js'       
@@ -38,18 +38,18 @@ exports.config = {
         // ,'./sp_app/service/edit/main.spec.js'  
 
         // ,'./sp_app/menu/sync.spec.js' 
-        // ,'./sp_app/menu/tax.spec.js' 
+        './sp_app/menu/tax.spec.js' 
 
         // ,'./sale_app/sp_edit/main.spec.js'   
         // ,'./sale_app/sp_edit/sku.spec.js'     
         // ,'./sale_app/sp_edit/kit.spec.js'     
         // ,'./sale_app/sp_edit/group.spec.js'     
 
-        // ,'./sale_app/menu/tax.spec.js'        
+        ,'./sale_app/menu/tax.spec.js'        
         // ,'./sale_app/menu/pt.spec.js'
         // ,'./sale_app/menu/sale_shortcut.spec.js'
         // ,'./sale_app/menu/mix_match_watch_n_refresh_ds.spec.js'  
-        // './sale_app/menu/group_execute_refresh_ds.spec.js'  xxx
+        // ,'./sale_app/menu/group_execute_refresh_ds.spec.js'
         // ,'./sale_app/menu/sync.spec.js'  
 
         // ,'./sale_app/page/change_button.spec.js'

@@ -5,8 +5,8 @@ define(
 [
      'angular'
     //-------
-    ,'app/sp_app/service/api/search'
-    ,'app/sp_app/service/create'
+    ,'model/sp/api_search'
+    ,'model/sp/service/create'
     ,'service/ui'
     ,'service/db'    
     ,'app/sale_app/service/offline_product'
@@ -18,8 +18,8 @@ define(
 {
     var mod = angular.module('sale_app/service/scan/sku_scan_not_found_handler',
     [
-         'sp_app/service/api/search'
-        ,'sp_app/service/create'
+         'sp/api_search'
+        ,'sp/service/create'
         ,'service/ui'
         ,'service/db'        
         ,'sale_app/service/offline_product'
@@ -28,8 +28,8 @@ define(
     mod.factory('sale_app/service/scan/sku_scan_not_found_handler',
     [
          '$q'
-        ,'sp_app/service/api/search'
-        ,'sp_app/service/create'    
+        ,'sp/api_search'
+        ,'sp/service/create'    
         ,'service/ui/confirm'
         ,'sale_app/service/offline_product/create'
         ,'service/db/download_product'       

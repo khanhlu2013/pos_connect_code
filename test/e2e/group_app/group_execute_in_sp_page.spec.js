@@ -58,7 +58,7 @@ describe('group menu execute in sp page', function() {
             }
         )
 
-        Sp_page.name_search(product_name);
+        Sp_page.sku_search(product_sku);
         Sp_page.menu_setting_group();
         Group_manage_dlg.click_col(0,'execute');
 
@@ -103,22 +103,16 @@ describe('group menu execute in sp page', function() {
         Group_execute_dlg.exit();
         Group_manage_dlg.exit();        
 
-        //verify the page is updated
-        Sp_page.click_col(0,'info');
-        Sp_info_dlg.edit();
-
-        expect(Sp_prompt_dlg.get_price()).toEqual(new_price.toString());
-        expect(Sp_prompt_dlg.get_crv()).toEqual(new_crv.toString());
-        expect(Sp_prompt_dlg.get_cost()).toEqual(new_cost.toString());
-        expect(Sp_prompt_dlg.get_p_type()).toEqual(new_p_type);
-        expect(Sp_prompt_dlg.get_p_tag()).toEqual(new_p_tag);
-        expect(Sp_prompt_dlg.get_vendor()).toEqual(new_vendor);
-        expect(Sp_prompt_dlg.get_buydown()).toEqual(new_buydown.toString());
-        expect(Sp_prompt_dlg.get_value_customer_price()).toEqual(new_value_customer_price.toString());
-        expect(Sp_prompt_dlg.get_is_taxable()).toEqual(new_is_taxable);
-        expect(Sp_prompt_dlg.get_is_sale_report()).toEqual(new_is_sale_report);
-
-        Sp_prompt_dlg.cancel();
-        Sp_info_dlg.exit();        
-    })    
+        // verify the page is updated
+        expect(Sp_page.get_col(0,'price')).toEqual(lib.currency(new_price));
+        expect(Sp_page.get_col(0,'crv')).toEqual(lib.currency(new_crv));
+        expect(Sp_page.get_col(0,'is_taxable')).toEqual(new_is_taxable);
+        expect(Sp_page.get_col(0,'cost')).toEqual(lib.currency(new_cost));
+        expect(Sp_page.get_col(0,'is_sale_report')).toEqual(new_is_sale_report);
+        expect(Sp_page.get_col(0,'p_type')).toEqual(new_p_type);
+        expect(Sp_page.get_col(0,'p_tag')).toEqual(new_p_tag);
+        expect(Sp_page.get_col(0,'vendor')).toEqual(new_vendor);
+        expect(Sp_page.get_col(0,'buydown')).toEqual(lib.currency(new_buydown));
+        expect(Sp_page.get_col(0,'value_customer_price')).toEqual(lib.currency(new_value_customer_price));
+    })
 });

@@ -2,8 +2,8 @@ define(
 [
      'angular'
     //-------
-    ,'app/sp_ll_app/service/api_offline'
-    ,'app/sp_app/service/select_sp_dlg'
+    ,'model/sp/api_offline'
+    ,'model/sp/service/select_sp_dlg'
 ]
 ,function
 (
@@ -12,14 +12,14 @@ define(
 {
     var mod = angular.module('sale_app/service/scan/preprocess',
     [
-         'sp_ll_app/service/api_offline'
-        ,'sp_app/service/select_sp_dlg'
+         'sp/api_offline'
+        ,'sp/service/select_sp_dlg'
     ]);
     mod.factory('sale_app/service/scan/preprocess',
     [
          '$q'
-        ,'sp_ll_app/service/api_offline'
-        ,'sp_app/service/select_sp_dlg'
+        ,'sp/api_offline'
+        ,'sp/service/select_sp_dlg'
         ,'blockUI'
     ,function(
          $q

@@ -30,7 +30,11 @@ var Sale_page = function () {
         this.sku_txt.sendKeys(sku_search_str,protractor.Key.ENTER); 
         lib.wait_for_block_ui();
     }
-    this.name_search = function(name_search_str){ this.name_txt.clear();this.name_txt.sendKeys(name_search_str,protractor.Key.ENTER); }
+    this.name_search = function(name_search_str){ 
+        this.name_txt.clear();
+        this.name_txt.sendKeys(name_search_str,protractor.Key.ENTER); 
+        lib.wait_for_block_ui();
+    }
 
     //index function
     this.get_index = function(col_name){

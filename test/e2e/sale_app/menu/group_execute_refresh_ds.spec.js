@@ -96,22 +96,8 @@ describe('sale page menu_group_execute', function() {
         Group_execute_dlg.exit();
         Group_manage_dlg.exit();
 
-        //verify ds is updated
-        Sale_page.click_col(0,'name');
-        Sp_info_dlg.edit();
-        expect(Sp_prompt_dlg.get_price()).toEqual(new_price.toString());
-        expect(Sp_prompt_dlg.get_crv()).toEqual(new_crv.toString());
-        expect(Sp_prompt_dlg.get_cost()).toEqual(new_cost.toString());
-        expect(Sp_prompt_dlg.get_p_type()).toEqual(new_p_type);
-        expect(Sp_prompt_dlg.get_p_tag()).toEqual(new_p_tag);
-        expect(Sp_prompt_dlg.get_vendor()).toEqual(new_vendor);
-        expect(Sp_prompt_dlg.get_buydown()).toEqual(new_buydown.toString());
-        expect(Sp_prompt_dlg.get_value_customer_price()).toEqual(new_value_customer_price.toString());
-        expect(Sp_prompt_dlg.get_is_taxable()).toEqual(new_is_taxable);
-        expect(Sp_prompt_dlg.get_is_sale_report()).toEqual(new_is_sale_report);
-
-        Sp_prompt_dlg.cancel();
-        Sp_info_dlg.exit();
+        //verify ds is updated by verify the new tender
+        expect(Sale_page.tender_btn.getText()).toEqual('$3.08');
 
         //clean up
         Sale_page.void();

@@ -2,7 +2,7 @@ define(
 [
      'angular'
     //-------
-    ,'app/sp_ll_app/service/api_offline'
+    ,'model/sp/api_offline'
     ,'app/sale_app/service/displaying_scan/compress_ds_lst'
     ,'app/sale_app/model'
     ,'service/misc'
@@ -14,7 +14,7 @@ define(
 {
     var mod = angular.module('sale_app/service/displaying_scan/calculate_ds_lst',
     [
-         'sp_ll_app/service/api_offline'
+         'sp/api_offline'
         ,'sale_app/model'
         ,'service/misc'
         ,'sale_app/service/displaying_scan/compress_ds_lst'
@@ -23,7 +23,7 @@ define(
     [
          '$q'
         ,'$rootScope'
-        ,'sp_ll_app/service/api_offline'
+        ,'sp/api_offline'
         ,'sale_app/model/Displaying_scan'
         ,'sale_app/model/Mix_match_deal_info'        
         ,'service/misc'

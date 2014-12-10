@@ -27,7 +27,10 @@ define(
     ,'app/sale_app/service/init_db'
     ,'app/sale_app/service/tender_ui'
     ,'model/receipt/service/adjust_receipt_tender'
-    ,'model/receipt/service/receipt_report'    
+    ,'model/receipt/service/receipt_report'   
+    ,'service/sync' 
+    ,'model/receipt/service/sale_report'    
+    ,'model/receipt/service/push'
 ], function
 (
      angular
@@ -64,7 +67,10 @@ define(
         ,'sale_app/service/init_db'
         ,'sale_app/service/tender_ui'
         ,'receipt/service/adjust_receipt_tender'
-        ,'receipt/service/receipt_report'        
+        ,'receipt/service/receipt_report'       
+        ,'service/sync' 
+        ,'receipt/service/sale_report'        
+        ,'receipt/service/push'
     ]);
     mod.controller('Sale_page_ctrl', 
     [
@@ -102,6 +108,10 @@ define(
         ,'sale_app/service/tender_ui'
         ,'receipt/service/adjust_receipt_tender'
         ,'receipt/service/receipt_report'
+        ,'service/sync'
+        ,'receipt/service/sale_report'    
+        ,'service/ui/_3_option'    
+        ,'receipt/service/push'
     ,function(
          $scope
         ,$rootScope
@@ -137,18 +147,26 @@ define(
         ,tender_ui
         ,adjust_receipt_tender
         ,receipt_report_service
+        ,sync_service
+        ,sale_report_dlg     
+        ,_3_option_service
+        ,push_receipt_service
     ){
 
         hotkeys.bindTo($scope)
         .add({
             combo: 'ctrl+h',
             description: 'hold',
-            callback: function() {$scope.hold()}
+            callback: function() {
+                $scope.hold()
+            }
         })
         .add({
             combo: 'ctrl+g',
             description: 'get holds',
-            callback: function() {$scope.get_hold_ui()}
+            callback: function() {
+                $scope.get_hold_ui()
+            }
         })
         .add({
             combo: 'f2',
@@ -163,13 +181,17 @@ define(
             combo: 'f7',
             description: 'tender',
             allowIn: ['INPUT'],
-            callback: function() {$scope.finalize();blockUI.stop();}
+            callback: function() {
+                $scope.finalize();blockUI.stop();
+            }
         })
         .add({
             combo: 'ctrl+n',
             description: 'none inventory',
             allowIn: ['INPUT'],
-            callback: function() {$scope.non_inventory_handler();}
+            callback: function() {
+                $scope.non_inventory_handler();
+            }
         })
 
         function get_ds_index(ds){
@@ -188,6 +210,42 @@ define(
                 function(receipt){
                     $scope.previous_receipt = receipt;
                     set_ps_lst([]);
+                    $scope.cur_receipt_count += 1;
+                    if($scope.next_receipt_count_reminder === null){
+                        $scope.next_receipt_count_reminder = $rootScope.GLOBAL_SETTING.max_receipt;//read at the declaration of this variable why i wait until now to init this value
+                    }
+                    if($scope.cur_receipt_count >= $scope.next_receipt_count_reminder){
+                        var message = 'Do you want to save ' + $scope.cur_receipt_count + ' receipts online?';
+                        var title = 'reminder'
+                        var color_1 = 'btn-warning';
+                        var color_2 = 'btn-warning';
+                        var color_3 = 'btn-success';
+                        var caption_1 = 'snooze ' + $rootScope.GLOBAL_SETTING.max_receipt_snooze_1;
+                        var caption_2 = 'snooze ' + $rootScope.GLOBAL_SETTING.max_receipt_snooze_2;
+                        _3_option_service(message,title,color_1,color_2,color_3,caption_1,caption_2,'save').then(
+                            function(selected_option){ 
+                                if(selected_option === 1){
+                                    $scope.next_receipt_count_reminder += $rootScope.GLOBAL_SETTING.max_receipt_snooze_1;
+                                }else if(selected_option === 2){
+                                    $scope.next_receipt_count_reminder += $rootScope.GLOBAL_SETTING.max_receipt_snooze_2;                                    
+                                }else if(selected_option === 3){
+                                    push_receipt_service().then(
+                                        function(response){
+                                            alert_service(response.number_receipt_push + ' receipts saved','info','green');
+                                            $scope.cur_receipt_count = 0;
+                                            $scope.next_receipt_count_reminder = $rootScope.GLOBAL_SETTING.max_receipt;
+                                        },function(reason){
+                                            alert_service(reason);
+                                            $scope.next_receipt_count_reminder += $rootScope.GLOBAL_SETTING.max_receipt_snooze_2;  
+                                        }
+                                    )                             
+                                }
+                            },function(reason){
+                                alert_service(reason);
+                                $scope.next_receipt_count_reminder += $rootScope.GLOBAL_SETTING.max_receipt_snooze_2;                                
+                            }
+                        )
+                    }
                 }
                 ,function(reason){
                     alert_service(reason)
@@ -416,6 +474,15 @@ define(
             }
             return result;
         }
+        $scope.menu_action_sync = function(){
+            sync_service().then(
+                function(response){
+                    alert_service(response,'info','green');
+                },function(reason){
+                    alert_service(reason);
+                }
+            )
+        }
         $scope.menu_setting_group_in_sale_page = function(){
             manage_group_service().then(
                 function(){
@@ -425,6 +492,9 @@ define(
                     alert_service(reason);
                 }
             )
+        }
+        $scope.menu_report_sale = function(){
+            sale_report_dlg();             
         }
         $scope.menu_report_receipt_in_sale_page = function(){
             receipt_report_service().then(
@@ -457,6 +527,8 @@ define(
         }
 
         //init code
+        $scope.cur_receipt_count = 0;//initial receipt count after pushing
+        $scope.next_receipt_count_reminder = null//the true is that we should init next_receipt_count_reminder to GLOBAL_SETTING.max_receipt . but if we do this, this code will be hard to test. So here i sacrify a bit of code readability and make this easy to test. Here is the problem. in test, i can not wait to create 200 receipt to test for max receipt so i need to reduce this amount to speed up test. However, i can only change global setting after the page is loaded. After the page is loaded, this next_receipt_count_reminder is already init and i don't know how to change this scope in protractor. I can onl change rootscope.global_setting. but only after the page is laod which is a bit too late. To fix this, i refrain init this variable here until after the page is load.
         $scope.sku_search_str = "";
         $scope.ds_lst = [];
         $scope.previous_receipt = null;

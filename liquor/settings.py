@@ -43,6 +43,7 @@ INSTALLED_APPS = (
     ,'django.contrib.staticfiles'
     ,'django.contrib.admin'
     ,'django.contrib.sites'
+    # ,'debug_toolbar'
     ,'rest_framework'
     ,'django_extensions'
     ,'storages'
@@ -135,6 +136,7 @@ MIDDLEWARE_CLASSES = (
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.transaction.TransactionMiddleware',
+    # 'debug_toolbar.middleware.DebugToolbarMiddleware',#debug toolbar        
 )
 
 SESSION_SERIALIZER='django.contrib.sessions.serializers.PickleSerializer'
@@ -145,12 +147,6 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
-SP_PAGE_NAME_SEARCH_PAGINATION_SIZE = 50
-
-#sale shortcut
-SHORTCUT_ROW_COUNT = 5
-SHORTCUT_COLUMN_COUNT = 3
-
 #couch settings
 VIEW_DOCUMENT_ID = "_design/views"
 STORE_DB_VIEW_NAME_BY_PRODUCT_ID = "by_product_id"
@@ -160,7 +156,7 @@ STORE_PRODUCT_DOCUMENT_TYPE = 'prod_bus_assoc'
 RECEIPT_DOCUMENT_TYPE = 'receipt'
 
 
-#NEED CLEAN UP ----------------------------------------------------------------------------------------------------------------------------------
+#NEED CLEAN UP -----
 #AUTH_USER_MODEL = 'liqUser.LiqUser'
 LOGIN_URL = 'liquor_login_named_url'
 LOGOUT_URL = 'liquor_logout_named_url'
@@ -175,4 +171,22 @@ STORE_DB_PREFIX = os.environ.get('STORE_DB_PREFIX')
 PROD_BUS_ASSOC_DOCUMENT_TYPE = 'prod_bus_assoc'
 SALE_RECORD_DOCUMENT_TYPE = 'sale_record'
 
+#--------------------------------------------------------------------------------------------------------------------------------------------------
 IS_LOCAL_ENV = os.environ.get('IS_LOCAL_ENV') == '1'
+
+# #debug toolbar
+# DEBUG_TOOLBAR_PATCH_SETTINGS = False
+# INTERNAL_IPS = ('127.0.0.1',)
+
+#infinite scroll pagination
+SP_PAGE_NAME_SEARCH_PAGINATION_SIZE = 50
+
+#sale shortcut
+SHORTCUT_ROW_COUNT = 5
+SHORTCUT_COLUMN_COUNT = 3
+
+#average sale data for network_product info
+NETWORK_PRODUCT_SALE_DAY_OFFSET = 0 # we should change this into 20. 20 days is buffer time that we are sure the last receipt is push. this way the sale data is more accurate.
+NETWORK_PRODUCT_SALE_DAY_LOOKBACK = 3 * 30 #3 months of data is the look back
+
+

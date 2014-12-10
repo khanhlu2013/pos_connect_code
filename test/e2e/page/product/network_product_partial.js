@@ -15,7 +15,7 @@ var Network_product_partial = function () {
     }
     var _detail_name_lst = element.all(by.repeater("name_stat in suggest_extra_name|orderBy:'-percent'"));
     var _detail_crv_lst = element.all(by.repeater("crv_stat in suggest_extra_crv|orderBy:'-percent'"));
-    var _detail_cost_price_volumn_lst = element.all(by.repeater("sp in network_product.get_sp_lst()|orderBy:'get_cost()'"));
+    var _detail_cost_price_sale_lst = element.all(by.repeater("sp in network_product.get_sp_lst()|orderBy:'get_cost()'"));
 
     this.detail = {
         name : {
@@ -42,18 +42,35 @@ var Network_product_partial = function () {
                 return _detail_crv_lst.get(index).all(by.tagName('td')).get(col_index).getText();
             }
         }
-        ,cost_price_volumn : {
-             lst : _detail_cost_price_volumn_lst
+        ,cost_price_sale : {
+             lst : _detail_cost_price_sale_lst
             ,get_col : function(index,name){
                 var col_index;
-                if(name === 'cost'){
-                    col_index = 0; 
-                }else if(name ==='price'){
-                    col_index = 1;
-                }else if(name ==='volumn'){
+                if(name === 'sale'){
                     col_index = 2;
+                    var defer = protractor.promise.defer();
+                    _detail_cost_price_sale_lst.get(index).all(by.tagName('td')).get(col_index).isDisplayed().then(
+                        function(is_display){
+                            if(is_display){
+                                _detail_cost_price_sale_lst.get(index).all(by.tagName('td')).get(col_index).getText().then(
+                                    function(txt){
+                                        defer.fulfill(txt);
+                                    }
+                                )
+                            }else{
+                                defer.fulfill(undefined);
+                            }
+                        }
+                    )
+                    return defer.promise;
+                }else{
+                    if(name === 'cost'){
+                        col_index = 0; 
+                    }else if(name ==='price'){
+                        col_index = 1;
+                    }
+                    return _detail_cost_price_sale_lst.get(index).all(by.tagName('td')).get(col_index).getText();
                 }
-                return _detail_cost_price_volumn_lst.get(index).all(by.tagName('td')).get(col_index).getText();
             }
         }        
     }

@@ -76,6 +76,9 @@ define(
                 ,receipt_document_type:         global_setting.RECEIPT_DOCUMENT_TYPE
                 ,static_url:                    global_setting.STATIC_URL
                 ,partial_url:                   _get_partial_url(global_setting.STATIC_URL)
+                ,max_receipt_snooze_1:          30
+                ,max_receipt_snooze_2:          60
+                ,max_receipt:                   200                                   
             }
 
             delete global_setting;

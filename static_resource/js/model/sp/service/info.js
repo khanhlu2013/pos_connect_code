@@ -8,7 +8,7 @@ define(
     ,'model/sp/service/edit/sp'       
     ,'model/sp/api_search'
     ,'service/ui'
-    ,'model/product/network_product_api'
+    ,'model/sp/api_network_product'
 ]
 ,function
 (
@@ -23,7 +23,7 @@ define(
         ,'sp/service/edit/sku'
         ,'sp/api_search'
         ,'service/ui'
-        ,'product/network_product_api'
+        ,'sp/network_product_api'
     ]);
     
     mod.factory('sp/service/info',
@@ -35,7 +35,7 @@ define(
         ,'sp/service/edit/sku'
         ,'sp/api_search'
         ,'service/ui/alert'
-        ,'product/network_product_api'
+        ,'sp/network_product_api'
     ,function (
          $modal
         ,edit_group
@@ -165,12 +165,12 @@ define(
             '</tab>' 
         ;         
         var network_info_tab = 
-            '<tab id="sp_app/service/info/tab/network_info" heading="network info" select="switch_tab(\'network_info\')">' +
+            '<tab id="sp_app/service/info/tab/network_product" heading="network info" select="switch_tab(\'network_product\')">' +
                 '<h1></h1>' +
-                '<button class="btn btn-primary" ng-click="get_network_info()">get info</button>' +    
+                '<button id="sp_app/service/info/tab/network_product/get_btn" class="btn btn-primary" ng-click="get_network_info()">get info</button>' +    
                 '<div ng-hide="network_product === null" ng-include="$root.GLOBAL_SETTING.partial_url.product.network_product.index">' +
                 '</div>' +
-            '</tab>' 
+            '</tab>'
         ;                  
         var template =
             '<div id="sp_app/service/info/dialog" class="modal-header">' +
@@ -201,13 +201,13 @@ define(
             $scope.cur_tab = "product";
 
             //start - contract for network_product partial to work
-            $scope.network_product = null;            
+            $scope.network_product = null;      
             $scope.suggest_extra_crv = null;
             $scope.suggest_extra_name = null;
             $scope.network_product_summary_lbl_class = 'col-xs-4 control-label';
-            $scope.network_product_summary_value_class = 'col-xs-8 form-control-static';               
+            $scope.network_product_summary_value_class = 'col-xs-8 form-control-static'; 
+            $scope.is_sale_data = true;//read this variable description in the partial template of network_product
             //end - contract
-
             $scope.edit = function(){
                 if($scope.cur_tab == 'product'){
                     edit_sp($scope.sp).then(

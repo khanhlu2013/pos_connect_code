@@ -22,8 +22,6 @@ define(
     mod.factory('service/db/get',['$rootScope',function($rootScope){
         return function(){
             var db_name = $rootScope.GLOBAL_SETTING.store_db_prefix + $rootScope.GLOBAL_SETTING.store_id;
-            // var obj = {'search':pouchdb_quick_search};
-            // PouchDB.plugin(obj);
             return new PouchDB(db_name);            
         }
     }]);

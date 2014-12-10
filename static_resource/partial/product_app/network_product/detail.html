@@ -25,9 +25,11 @@
     <tr>
         <th>cost</th>
         <th>price</th>
+        <th ng-show="is_sale_data">sale</th>
     </tr>
     <tr ng-repeat="sp in network_product.get_sp_lst()|orderBy:'get_cost()'">
         <td>{{sp.get_cost()|currency}}</td>
         <td>{{sp.price|currency}}</td>
+        <td ng-show="is_sale_data">{{sp.sale}}</td>
     </tr>
 </table>

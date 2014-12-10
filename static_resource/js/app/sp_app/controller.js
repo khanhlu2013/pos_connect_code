@@ -11,7 +11,9 @@ define(
     ,'model/sp/api_search'
     ,'service/db'
     ,'model/group/service/manage'
-    ,'model/receipt/service/receipt_report'        
+    ,'model/receipt/service/receipt_report'    
+    ,'service/sync' 
+    ,'model/receipt/service/sale_report'    
 ], function 
 (
      angular
@@ -29,7 +31,9 @@ define(
         ,'sp/api_search'
         ,'service/db'
         ,'group/service/manage'
-        ,'receipt/service/receipt_report'            
+        ,'receipt/service/receipt_report'        
+        ,'service/sync' 
+        ,'receipt/service/sale_report'          
     ]);
 
     mod.controller('MainCtrl',
@@ -48,6 +52,8 @@ define(
         ,'service/db/is_pouch_exist'
         ,'group/service/manage'
         ,'receipt/service/receipt_report'            
+        ,'service/sync'       
+        ,'receipt/service/sale_report'                 
     ,function(
          $window
         ,$scope
@@ -63,6 +69,8 @@ define(
         ,is_pouch_exist
         ,manage_group_service
         ,receipt_report_dlg
+        ,sync_service
+        ,sale_report_dlg        
     ){
         //SORT
         $scope.cur_sort_column = 'name';
@@ -245,8 +253,20 @@ define(
                 }
             );
         }
+        $scope.menu_report_sale = function(){
+            sale_report_dlg();             
+        }        
         $scope.menu_report_receipt_in_sp_page = function(){
             receipt_report_dlg();            
+        }
+        $scope.menu_action_sync = function(){
+            sync_service().then(
+                function(response){
+                    alert_service(response,'info','green');
+                },function(reason){
+                    alert_service(reason);
+                }
+            )
         }
         $scope.name_search_reach_the_end = false;
         $scope.name_search_str = '';

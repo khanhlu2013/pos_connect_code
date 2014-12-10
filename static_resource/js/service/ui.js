@@ -89,6 +89,55 @@ define(
         }
     }]);
 
+    mod.factory('service/ui/_3_option',['$modal',function($modal){
+        return function(message,title,color_1,color_2,color_3,caption_1,caption_2,caption_3){
+            var template = 
+                '<div id="service/ui/_3_option/dialog" class="modal-header alert alert-info">' +
+                    '<h3 class="modal-title">{{title}}</h3>' +
+                '</div>' +
+                '<div class="modal-body">' +
+                    '<h1 id="service/ui/_3_option/message_txt">{{message}}</h1>' +
+                '</div>' +
+                '<div class="modal-footer">' +
+                    '<button id="service/ui/_3_option/_1_btn" class="btn" ng-class="color_1" ng-click="exit(1)" type="button">{{caption_1}}</button>' +                
+                    '<button id="service/ui/_3_option/_2_btn" class="btn" ng-class="color_2" ng-click="exit(2)" type="button">{{caption_2}}</button>' +                         
+                    '<button id="service/ui/_3_option/_3_btn" class="btn" ng-class="color_3" ng-click="exit(3)" type="button">{{caption_3}}</button>' +                          
+                '</div>'
+            ;
+
+            var ModalCtrl = function($scope,$modalInstance,message,title,color_1,color_2,color_3,caption_1,caption_2,caption_3){
+                $scope.message = message;
+                $scope.title = title;
+                $scope.color_1 = color_1;
+                $scope.color_2 = color_2;
+                $scope.color_3 = color_3;
+                $scope.caption_1 = caption_1;
+                $scope.caption_2 = caption_2;
+                $scope.caption_3 = caption_3;
+                $scope.exit = function(option){
+                    $modalInstance.close(option);
+                }             
+            }
+            ModalCtrl.$inject = ['$scope','$modalInstance','message','title','color_1','color_2','color_3','caption_1','caption_2','caption_3'];
+            var dlg = $modal.open({
+                template : template,
+                controller : ModalCtrl,
+                size : 'md',
+                resolve:{ 
+                     message : function(){ return message }
+                    ,title : function(){ return title }                    
+                    ,color_1 : function(){ return color_1 }
+                    ,color_2 : function(){ return color_2 }
+                    ,color_3 : function(){ return color_3 }
+                    ,caption_1 : function(){ return caption_1 }
+                    ,caption_2 : function(){ return caption_2 }
+                    ,caption_3 : function(){ return caption_3 }                    
+                }
+            });         
+            return dlg.result;
+        }
+    }]);
+
     mod.factory('service/ui/confirm',['$modal',function($modal){
         return function(message,color){
             var warning_class = ""

@@ -9,15 +9,15 @@ define(
     angular
 )
 {
-    var mod = angular.module('sp/service/suggest',
+    var mod = angular.module('sp/service/sku_not_found_handler',
     [
         'service/ui'
     ]);
-    mod.factory('sp/service/suggest',[
+    mod.factory('sp/service/sku_not_found_handler',[
          '$modal'
         ,'$q' 
-        ,'sp/service/suggest/select_sp'
-        ,'sp/service/suggest/select_product'    
+        ,'sp/service/sku_not_found_handler/select_sp'
+        ,'sp/service/sku_not_found_handler/select_product'    
     ,function(
          $modal
         ,$q
@@ -73,7 +73,7 @@ define(
         }    
     }])
 
-    mod.factory('sp/service/suggest/select_sp',[
+    mod.factory('sp/service/sku_not_found_handler/select_sp',[
          '$modal'
         ,'$injector'
         ,'service/ui/confirm'          
@@ -139,7 +139,7 @@ define(
                     )
                 }
                 $scope.select_product = function(){
-                    var select_product_service = $injector.get('sp/service/suggest/select_product')
+                    var select_product_service = $injector.get('sp/service/sku_not_found_handler/select_product')
                     select_product_service(product_lst,my_sp_lst,sku).then(
                         function(response){
                             $modalInstance.close(response);
@@ -175,10 +175,10 @@ define(
         }    
     }]) 
 
-    mod.factory('sp/service/suggest/select_product',[
+    mod.factory('sp/service/sku_not_found_handler/select_product',[
          '$modal'
         ,'$injector'
-        ,'sp/service/suggest/select_product_confirmation'
+        ,'sp/service/sku_not_found_handler/select_product_confirmation'
     ,function(
          $modal
         ,$injector
@@ -256,7 +256,7 @@ define(
                     )
                 }
                 $scope.select_sp = function(){
-                    var select_sp_service = $injector.get('sp/service/suggest/select_sp')
+                    var select_sp_service = $injector.get('sp/service/sku_not_found_handler/select_sp')
                     select_sp_service(product_lst,my_sp_lst,sku).then(
                         function(response){
                             $modalInstance.close(response);
@@ -292,7 +292,7 @@ define(
         }    
     }])         
 
-    mod.factory('sp/service/suggest/select_product_confirmation',[
+    mod.factory('sp/service/sku_not_found_handler/select_product_confirmation',[
          '$modal'
         ,'$injector'
     ,function(
@@ -319,6 +319,7 @@ define(
                 $scope.network_product_summary_value_class = 'col-xs-8 form-control-static';   
                 $scope.suggest_extra_crv = $scope.network_product.get_suggest_extra('crv');
                 $scope.suggest_extra_name = $scope.network_product.get_suggest_extra('name');
+                $scope.is_sale_data = false;//read this variable description in the partial template of network_product
                 //end - contract
                 
                 $scope.cancel = function(){
@@ -328,7 +329,7 @@ define(
                     $modalInstance.close(network_product);
                 }
                 $scope.select_product = function(){
-                    var select_product_service = $injector.get('sp/service/suggest/select_product')
+                    var select_product_service = $injector.get('sp/service/sku_not_found_handler/select_product')
                     select_product_service(product_lst,my_sp_lst,sku).then(
                         function(response){
                             $modalInstance.close(response);

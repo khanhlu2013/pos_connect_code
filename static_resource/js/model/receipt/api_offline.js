@@ -31,7 +31,6 @@ define(
         ,receipt_storage_adapter
         ,blockUI
     ){
-
         function get_receipt_lst(){
             blockUI.start('getting offline receipt ...');
             var defer = $q.defer();

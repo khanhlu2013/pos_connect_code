@@ -46,7 +46,7 @@ class Store_product_serializer(serializers.ModelSerializer):
 
     class Meta:
         model = Store_product
-        fields = ('id','product_id','product','store_id','name','price','value_customer_price','crv','is_taxable','is_sale_report','p_type','p_tag','cost','vendor','buydown','group_lst')
+        fields = ('id','product_id','product','store_id','name','price','value_customer_price','crv','is_taxable','is_sale_report','p_type','p_tag','cost','vendor','buydown','group_lst','cur_stock')
 
 
 class Store_product_kit_serializer(serializers.ModelSerializer):

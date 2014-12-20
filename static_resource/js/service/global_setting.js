@@ -41,11 +41,11 @@ define(
                 product:
                 {
                     network_product : 
-                                        {
-                                             index : network_product_url + 'index.html'
-                                            ,summary : network_product_url + 'summary.html'
-                                            ,detail : network_product_url + 'detail.html'
-                                        }
+                        {
+                             index : network_product_url + 'index.html'
+                            ,summary : network_product_url + 'summary.html'
+                            ,detail : network_product_url + 'detail.html'
+                        }
                 }
             }
             return result;

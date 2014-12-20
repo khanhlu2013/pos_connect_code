@@ -35,7 +35,11 @@ define(
                         defer.resolve(Store_product.build(data.data)) 
                     }
                     ,function(reason){ 
-                        defer.reject(reason);
+                        if(reason.data !== null && reason.data !== undefined && reason.data.indexOf('duplicate key value violates unique constraint') !== -1 && reason.data.indexOf('Key (name, store_id)=') !== -1){
+                            defer.reject(sp.name + ' is existed. Please select another name');
+                        }else{
+                            defer.reject(reason);
+                        }
                     }
                 )
                 return defer.promise;
@@ -52,7 +56,11 @@ define(
                         defer.resolve(Store_product.build(data.data)); 
                     }
                     ,function(reason){ 
-                        defer.reject(reason);
+                        if(reason.data !== null && reason.data !== undefined && reason.data.indexOf('duplicate key value violates unique constraint') !== -1 && reason.data.indexOf('Key (name, store_id)=') !== -1){
+                            defer.reject(sp.name + ' is existed. Please select another name');
+                        }else{
+                            defer.reject(reason);
+                        }
                     }
                 )
                 return defer.promise;

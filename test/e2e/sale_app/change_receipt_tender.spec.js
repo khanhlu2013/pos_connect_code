@@ -3,7 +3,7 @@ var lib = require(base_path + 'lib');
 
 describe('sale app when change past receipt tender', function() {
     var Sale_page = require(base_path + 'page/sale/Sale_page');
-    var Report_dlg = require(base_path + 'page/receipt/Report_dlg.js');
+    var Report_dlg = require(base_path + 'page/report/Receipt_report_dlg.js');
     var Tender_dlg = require(base_path + 'page/sale/Tender_dlg.js');
     var Pt_manage_dlg = require(base_path + 'page/payment_type/Manage_dlg.js');
     var Pt_prompt_dlg = require(base_path + 'page/payment_type/Prompt_dlg.js');

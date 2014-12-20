@@ -15,6 +15,10 @@ def d():
     user2,store2=_create_user_then_store_detail(user_name = "2",user_password="2",store_name="2")
     user3,store3=_create_user_then_store_detail(user_name = "3",user_password="3",store_name="3") 
     user4,store4=_create_user_then_store_detail(user_name = "4",user_password="4",store_name="4") 
+    # user5,store5=_create_user_then_store_detail(user_name = "5",user_password="5",store_name="5") 
+    # user6,store6=_create_user_then_store_detail(user_name = "6",user_password="6",store_name="6")
+    # user7,store7=_create_user_then_store_detail(user_name = "7",user_password="7",store_name="7") #irrelevant product with same sku to demonstrate import product
+    # user7,store7=_create_user_then_store_detail(user_name = "8",user_password="8",store_name="8") #firefox: blank guy to import product
 
 def _create_user_then_store_detail(user_name,user_password,store_name,tax_rate=8.725):
     #helper: create user belong to that single store

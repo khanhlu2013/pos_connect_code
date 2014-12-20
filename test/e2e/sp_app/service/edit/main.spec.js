@@ -66,7 +66,7 @@ describe('Sp page', function() {
         Sp_info_dlg.exit();
         expect(Sp_page.lst.count()).toEqual(1);
 
-        expect(Sp_page.get_col(0,'name')).toEqual(data.name);
+        expect(Sp_page.get_col(0,'product')).toEqual(data.name);
         expect(Sp_page.get_col(0,'price')).toEqual(lib.currency(data.price));
         expect(Sp_page.get_col(0,'crv')).toEqual(lib.currency(data.crv));
         expect(Sp_page.get_col(0,'is_taxable')).toEqual(data.is_taxable);

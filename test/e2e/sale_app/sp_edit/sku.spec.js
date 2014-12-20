@@ -4,6 +4,7 @@ var lib = require(base_path + 'lib');
 describe('sale page \'s scan table ', function() {
     var Sp_prompt_dlg = require(base_path + 'page/sp/Sp_prompt_dlg.js');
     var Ui_confirm_dlg = require(base_path + 'page/ui/Confirm_dlg.js');
+    var _3_option_dlg = require(base_path + 'page/ui/_3_option_dlg.js');
     var Ui_prompt_dlg = require(base_path + 'page/ui/Prompt_dlg.js');
     var Sp_info_dlg = require(base_path + 'page/sp/Sp_info_dlg.js');
     var Sale_page = require(base_path + 'page/sale/Sale_page.js');
@@ -54,8 +55,8 @@ describe('sale page \'s scan table ', function() {
         Sp_info_dlg.exit();
 
         //verify the new sku is removed
-        Sale_page.scan(new_sku);lib.wait_for_block_ui();
-        Sp_prompt_dlg.cancel();
+        Sale_page.scan(new_sku);
+        lib.click(_3_option_dlg._3_btn);
         expect(Sale_page.get_col(0,'qty')).toEqual('2')
 
         //clean up

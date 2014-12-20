@@ -3,7 +3,7 @@ var lib = require(base_path + 'lib');
 
 describe('receipt_app\'s Report dialog', function() {
     var Sale_page = require(base_path + 'page/sale/Sale_page');
-    var Report_dlg = require(base_path + 'page/receipt/Report_dlg.js');
+    var Report_dlg = require(base_path + 'page/report/Receipt_report_dlg.js');
     var Tender_dlg = require(base_path + 'page/sale/Tender_dlg.js');
     var Sp_page = require(base_path + 'page/sp/Sp_page');
     var Alert_page = require(base_path + 'page/ui/Alert_dlg.js');

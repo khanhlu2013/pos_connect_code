@@ -15,8 +15,8 @@ var Network_product_partial = function () {
     }
     var _detail_name_lst = element.all(by.repeater("name_stat in suggest_extra_name|orderBy:'-percent'"));
     var _detail_crv_lst = element.all(by.repeater("crv_stat in suggest_extra_crv|orderBy:'-percent'"));
-    var _detail_cost_price_sale_lst = element.all(by.repeater("sp in network_product.get_sp_lst()|orderBy:'get_cost()'"));
-
+    var _detail_cost_price_sale_lst = element.all(by.repeater("sp in (network_product.get_sp_lst()|orderBy:cur_sort_column:cur_sort_desc|emptyToEnd:cur_sort_column)"));
+                                                               
     this.detail = {
         name : {
              lst : _detail_name_lst
@@ -47,7 +47,7 @@ var Network_product_partial = function () {
             ,get_col : function(index,name){
                 var col_index;
                 if(name === 'sale'){
-                    col_index = 2;
+                    col_index = 3;
                     var defer = protractor.promise.defer();
                     _detail_cost_price_sale_lst.get(index).all(by.tagName('td')).get(col_index).isDisplayed().then(
                         function(is_display){
@@ -68,6 +68,8 @@ var Network_product_partial = function () {
                         col_index = 0; 
                     }else if(name ==='price'){
                         col_index = 1;
+                    }else if(name === 'markup'){
+                        col_index = 2;
                     }
                     return _detail_cost_price_sale_lst.get(index).all(by.tagName('td')).get(col_index).getText();
                 }

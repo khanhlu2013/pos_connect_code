@@ -14,7 +14,8 @@ var Sp_info_dlg = function () {
     this.edit_btn = element(by.id('sp_app/service/info/edit_btn'));    
     this.exit_btn = element(by.id('sp_app/service/info/exit_btn'));
     this.get_network_product_btn = element(by.id('sp_app/service/info/tab/network_product/get_btn'));
-    
+    this.duplicate_btn = element(by.id('sp_app/service/info/duplicate_btn'));
+
     //table
     this.group_lst = element.all(by.repeater('group_info in sp.group_lst'));
 
@@ -24,6 +25,9 @@ var Sp_info_dlg = function () {
     }
     this.exit = function(){ 
         lib.click(this.exit_btn); 
+    }
+    this.duplicate = function(){
+        lib.click(this.duplicate_btn);
     }
     
     this.switch_tab = function(tab_name){

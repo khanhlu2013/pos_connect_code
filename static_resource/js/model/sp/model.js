@@ -49,7 +49,8 @@ define(
             breakdown_assoc_lst,
             kit_assoc_lst,
             sp_doc_id,
-            sp_doc_rev
+            sp_doc_rev,
+            cur_stock
         ){
             this.id = id;
             this.product_id = product_id;
@@ -71,6 +72,7 @@ define(
             this.kit_assoc_lst = kit_assoc_lst;
             this.sp_doc_id = sp_doc_id;
             this.sp_doc_rev = sp_doc_rev;
+            this.cur_stock = cur_stock;
         }
 
         //PULIC METHOD
@@ -172,15 +174,29 @@ define(
                 }
                 return true;
             },
+            _get_b4_tax_price:function(){
+                return this.price + this.get_crv() - this.get_buydown();
+            },
             get_markup:function(){
                 var cost = this.get_cost();
                 if(cost === null){
                     return null;
                 }else{
-                    var markup = (this.price + this.get_crv() - this.buydown - cost) * 100 / cost;
+                    var markup = (this._get_b4_tax_price() - cost) * 100 / cost;
                     return misc_service.round_float_2_decimal(markup);                    
                 }
-            }
+            },
+            get_group_count:function(){
+                return this.group_lst.length;
+            },            
+            get_profit:function(){
+                /*this method should not be here, it is a quick fix to get sorting going on in network info. this method only work when this model is attach with a property 'sale'*/
+                if(this.sale === undefined){
+                    return undefined
+                }else{
+                    return this.sale * (this._get_b4_tax_price() - this.get_cost())
+                }
+            }            
         }
 
         //PRIVATE METHOD
@@ -267,26 +283,27 @@ define(
             }
 
             return new Store_product(
-                raw_json.id,
-                raw_json.product_id,
-                raw_json.store_id,
-                raw_json.name,
-                raw_json.price,
-                raw_json.value_customer_price,
-                raw_json.crv,
-                raw_json.is_taxable,
-                raw_json.is_sale_report,
-                raw_json.p_type,
-                raw_json.p_tag,
-                raw_json.cost,
-                raw_json.vendor,
-                raw_json.buydown,
-                product,
-                group_lst,
-                breakdown_assoc_lst,
-                kit_assoc_lst,
-                null,//sp_doc_id - this field is only concern when build sp from offline db
-                null//sp_doc_rev - this field is only concern when build sp from offline db
+                 raw_json.id
+                ,raw_json.product_id
+                ,raw_json.store_id
+                ,raw_json.name
+                ,raw_json.price
+                ,raw_json.value_customer_price
+                ,raw_json.crv
+                ,raw_json.is_taxable
+                ,raw_json.is_sale_report
+                ,raw_json.p_type
+                ,raw_json.p_tag
+                ,raw_json.cost
+                ,raw_json.vendor
+                ,raw_json.buydown
+                ,product
+                ,group_lst
+                ,breakdown_assoc_lst
+                ,kit_assoc_lst
+                ,null//sp_doc_id - this field is only concern when build sp from offline db
+                ,null//sp_doc_rev - this field is only concern when build sp from offline db
+                ,raw_json.cur_stock
             );
         }             
         Store_product.build = _build;

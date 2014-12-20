@@ -45,13 +45,16 @@ var Sale_page = function () {
         else if(col_name === 'is_sale_report')          { return 4; }
         else if(col_name === 'p_type')                  { return 5; }
         else if(col_name === 'p_tag')                   { return 6; }
-        else if(col_name === 'vendor')                  { return 7; }
-        else if(col_name === 'cost')                    { return 8; }
-        else if(col_name === 'buydown')                 { return 9; }
-        else if(col_name === 'value_customer_price')    { return 10; }
-        else if(col_name === 'markup')                  { return 11; }        
-        else if(col_name === 'info')                    { return 12; }
-        else                                            { return null; }
+        else if(col_name === 'group')                   { return 7; }
+        else if(col_name === 'deal')                    { return 8; }
+        else if(col_name === 'vendor')                  { return 9; }
+        else if(col_name === 'cost')                    { return 10; }
+        else if(col_name === 'markup')                  { return 11; }          
+        else if(col_name === 'buydown')                 { return 12; }
+        else if(col_name === 'value_customer_price')    { return 13; }
+        else if(col_name === 'stock')                   { return 14; }
+        else if(col_name === 'info')                    { return 15; }
+        else                                            { return -1; }
     }
 
     //table function
@@ -79,6 +82,10 @@ var Sale_page = function () {
         }else{
             return this.lst.get(index).all(by.tagName('td')).get(col_index).getText(); 
         }
+    }
+    this.visit = function(){
+        browser.get('http://127.0.0.1:8000');
+        lib.wait_for_block_ui();   
     }
 }
 

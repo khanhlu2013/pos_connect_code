@@ -97,13 +97,13 @@ describe('no_sku_network_suggest -> select product dialog', function() {
             //--------------------------  
             expect(Network_product_partial.detail.cost_price_sale.lst.count()).toEqual(3);
             expect(Network_product_partial.detail.cost_price_sale.get_col(0,'cost')).toEqual('$2.00');
-            expect(Network_product_partial.detail.cost_price_sale.get_col(0,'price')).toEqual('$1.00');
+            expect(Network_product_partial.detail.cost_price_sale.get_col(0,'price')).toEqual('$2.00');
             expect(Network_product_partial.detail.cost_price_sale.get_col(0,'sale')).toEqual(undefined);
             expect(Network_product_partial.detail.cost_price_sale.get_col(1,'cost')).toEqual('$7.00');
-            expect(Network_product_partial.detail.cost_price_sale.get_col(1,'price')).toEqual('$6.00');    
+            expect(Network_product_partial.detail.cost_price_sale.get_col(1,'price')).toEqual('$8.00');    
             expect(Network_product_partial.detail.cost_price_sale.get_col(1,'sale')).toEqual(undefined);                
             expect(Network_product_partial.detail.cost_price_sale.get_col(2,'cost')).toEqual('');
-            expect(Network_product_partial.detail.cost_price_sale.get_col(2,'price')).toEqual('$5.00');                        
+            expect(Network_product_partial.detail.cost_price_sale.get_col(2,'price')).toEqual('$6.00');                        
             expect(Network_product_partial.detail.cost_price_sale.get_col(2,'sale')).toEqual(undefined);            
     })
 

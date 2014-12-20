@@ -41,7 +41,6 @@ define(
          '$window'
         ,'$scope'
         ,'$rootScope'
-        ,'$filter'
         ,'sp/service/info'
         ,'sp/service/create'
         ,'sp/service/duplicate'
@@ -58,7 +57,6 @@ define(
          $window
         ,$scope
         ,$rootScope
-        ,$filter
         ,sp_info_service
         ,create_service
         ,duplicate_service
@@ -75,6 +73,20 @@ define(
         //SORT
         $scope.cur_sort_column = 'name';
         $scope.cur_sort_desc = false;
+        
+        $scope.is_in_deal = function(sp){
+            var is_in_deal = false;
+            for(var i = 0;i<$rootScope.GLOBAL_SETTING.mix_match_lst.length;i++){
+                var cur_deal = $rootScope.GLOBAL_SETTING.mix_match_lst[i];
+                for(var j = 0;j<cur_deal.sp_lst.length;j++){
+                    if(sp.product_id === cur_deal.sp_lst[i].product_id){
+                        is_in_deal = true;
+                        break;
+                    }
+                }
+            }
+            return is_in_deal;
+        }
         $scope.column_click = function(column_name){
             if($scope.cur_sort_column == column_name){
                 $scope.cur_sort_desc = !$scope.cur_sort_desc;
@@ -200,8 +212,11 @@ define(
         //SHOW SP INFO
         $scope.display_product_info = function(sp){
             sp_info_service(sp).then(
-                function(data){
-                    if(typeof(data) == 'string' && data == 'duplicate'){
+                function(){
+
+                }
+                ,function(reason){ 
+                    if(typeof(reason) === 'string' && reason === '_duplicate_'){
                         duplicate_service(sp).then
                         (
                             function(data){ 
@@ -211,10 +226,9 @@ define(
                                 alert_service(reason);
                             }
                         )
+                    }else{
+                        alert_service(reason);
                     }
-                }
-                ,function(reason){ 
-                    alert_service(reason);
                 }
             )
         }

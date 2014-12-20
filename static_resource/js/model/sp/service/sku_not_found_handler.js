@@ -11,7 +11,7 @@ define(
 {
     var mod = angular.module('sp/service/sku_not_found_handler',
     [
-        'service/ui'
+         'service/ui'
     ]);
     mod.factory('sp/service/sku_not_found_handler',[
          '$modal'
@@ -320,6 +320,24 @@ define(
                 $scope.suggest_extra_crv = $scope.network_product.get_suggest_extra('crv');
                 $scope.suggest_extra_name = $scope.network_product.get_suggest_extra('name');
                 $scope.is_sale_data = false;//read this variable description in the partial template of network_product
+
+                $scope.cur_sort_column = 'get_cost()';
+                $scope.cur_sort_desc = false;
+                $scope.column_click = function(column_name){
+                    if($scope.cur_sort_column == column_name){
+                        $scope.cur_sort_desc = !$scope.cur_sort_desc;
+                    }else{
+                        $scope.cur_sort_column = column_name;
+                        $scope.cur_sort_desc = false;
+                    }
+                }
+                $scope.get_sort_class = function(column_name){
+                    if(column_name == $scope.cur_sort_column){
+                        return "glyphicon glyphicon-arrow-" + ($scope.cur_sort_desc ? 'down' : 'up');
+                    }else{
+                        return '';
+                    }
+                }                
                 //end - contract
                 
                 $scope.cancel = function(){

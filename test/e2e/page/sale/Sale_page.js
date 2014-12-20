@@ -16,7 +16,7 @@ var Sale_page = function () {
     this.change_btn = element(by.id('sale_app/main_page/change_btn'));
     this.void_btn = element(by.id('sale_app/main_page/void_btn'));
     this.non_inventory_btn = element(by.id('sale_app/main_page/non_inventory_btn'));
-
+    this.shortcut_btn = element(by.id('sale_app/main_page/shortcut_btn'));
     //table
     this.lst = element.all(by.repeater('ds in ds_lst'));
 
@@ -59,11 +59,23 @@ var Sale_page = function () {
         lib.click(element(by.id('sale_app/menu/action/sync')));
         lib.wait_for_block_ui();
     }
-
+    this.menu_action_toogle_value_customer_price = function(){
+        lib.click(this.menu_action);
+        lib.click(element(by.id('sale_app/menu/action/toogle_value_customer_price')))
+    }
     //function btn
-    this.void = function(){ lib.click(this.void_btn) }
-    this.tender = function(){ lib.click(this.tender_btn); }
-    this.non_inventory = function(){ lib.click(this.non_inventory_btn); }
+    this.shortcut = function(){
+        lib.click(this.shortcut_btn);
+    }
+    this.void = function(){ 
+        lib.click(this.void_btn) 
+    }
+    this.tender = function(){ 
+        lib.click(this.tender_btn); 
+    }
+    this.non_inventory = function(){ 
+        lib.click(this.non_inventory_btn); 
+    }
 
     //function txt
     this.scan = function(str){
@@ -79,7 +91,7 @@ var Sale_page = function () {
         else if(col_name === 'crv')    { return 2; }
         else if(col_name === 'price')   { return 3; }
         else if(col_name === 'delete')  { return 4; }
-        else                            { return null; }
+        else                            { return -1; }
     }
     this.click_col = function(index,col_name){
         var col = this.get_col_index(col_name);
@@ -93,43 +105,6 @@ var Sale_page = function () {
         var col = this.get_col_index(col_name); 
         return this.lst.get(index).all(by.tagName('td')).get(col).getWebElement().getInnerHtml();      
     }
-
-    //function shortcut
-    var COL = 3
-    var ROW = 5
-    var PARENT_LEFT = 0;
-    var PARENT_RIGHT = 4;
-    this.shortcut_lst = element.all(by.repeater("row_usage in row_lst"));
-    
-    //function shortcut parent
-    this._get_parent_td = function(position){
-        var row_coordinate = position;
-        var col_coordinate = PARENT_LEFT;
-        if(position > ROW -1){
-            row_coordinate = position - ROW;
-            col_coordinate = PARENT_RIGHT;
-        }        
-        return this.shortcut_lst.get(row_coordinate).all(by.tagName('td')).get(col_coordinate);
-    }
-    this.get_parent_text = function(position){
-        return this._get_parent_td(position).getText();
-    }
-    this.click_parent = function(position){
-        lib.click(this._get_parent_td(position));
-    }
-
-    //function shortcut child
-    this._get_child_td = function(position){
-        var row_coordinate = Math.floor(position/COL);
-        var col_coordinate = (position % COL) + 1;  
-        return this.shortcut_lst.get(row_coordinate).all(by.tagName('td')).get(col_coordinate);
-    }
-    this.click_child = function(position){
-        lib.click(this._get_child_td(position));
-    }
-    this.get_child_text = function(position){
-        return this._get_child_td(position).getText();
-    }    
 
     //function misc
     this.visit = function(is_offline){

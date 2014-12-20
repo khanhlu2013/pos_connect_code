@@ -4,6 +4,7 @@ define(
 	//----
 	,'model/sp/service/prompt'
 	,'model/sp/api_crud'
+    ,'service/db'
 ]
 ,function
 (
@@ -14,28 +15,48 @@ define(
 	[
 		 'sp/service/prompt'
 		,'sp/api_crud'
+        ,'service/db'		
 	]);
 	mod.factory('sp/service/duplicate',
 	[
-		'$http',
-		'$filter',
-		'$q',
-		'sp/service/prompt',
-		'sp/api_crud',
-	function(
-		$http,
-		$filter,
-		$q,
-		prompt_service,
-		sp_crud_api
+		 '$http'
+		,'$filter'
+		,'$q'
+		,'sp/service/prompt'
+		,'sp/api_crud'
+        ,'service/db/download_product'		
+	,function(
+		 $http
+		,$filter
+		,$q
+		,prompt_service
+		,sp_crud_api
+        ,download_product		
 	){
 		return function(sp){
-			var prompt_promise = prompt_service(null/*original_sp*/,null/*suggest_product*/,sp/*duplicate_sp*/,null/*sku*/,false/*is_operate_offline*/);
-			var duplicate_promise = prompt_promise.then(
-				 function(prompt_result){ return sp_crud_api.insert_new(prompt_result.sp,prompt_result.sku); }
-				,function(reason){ return $q.reject(reason);}
+			var defer = $q.defer();
+
+			prompt_service(null/*original_sp*/,null/*suggest_product*/,sp/*duplicate_sp*/,null/*sku*/,false/*is_operate_offline*/).then(
+				function(prompt_result){ 
+				 	sp_crud_api.insert_new(prompt_result.sp,prompt_result.sku).then(
+				 		function(sp){
+				 			download_product(false).then(
+				 				function(){
+				 					defer.resolve(sp);
+				 				},function(reason){
+				 					defer.reject(reason);
+				 				}
+				 			)
+				 		},function(reason){
+				 			defer.reject(reason);
+				 		}
+				 	)
+				}
+				,function(reason){ 
+					defer.reject(reason);
+				}
 			);
-			return duplicate_promise;			
+			return defer.promise;			
 		}
 	}]);
 })

@@ -1,0 +1,449 @@
+<html>
+<head>
+    <title>
+        Welcome to Pos Connect
+    </title>
+
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjUf8cmm74qsu31Hcj-eqobJ0homHROsQ"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>  
+
+    <script type="text/javascript">
+        var map = undefined;
+        var center = { lat: 37.4548346, lng: -122.0108167};
+        var center_zoom = 11;var loc_zoom = 14;
+        var liquor_barrel_loc = {lat:37.5821117,lng:-122.0234426};
+        var for_less_loc = {lat:37.3714431,lng:-121.8445328};
+        var one_stop_grocer_loc = {lat:37.399674,lng:-122.0750644};
+        var ceci_loc = {lat:37.404074,lng:-121.8801043};
+        function set_map_center(loc){
+            if(map === undefined){
+                return;
+            }
+            set_cur_div('map');
+            if(loc === undefined){
+                map.setCenter(center);
+                map.setZoom(center_zoom);    
+            }else{
+                map.setCenter(loc);
+                map.setZoom(loc_zoom);                
+            }
+        }
+
+        function init_google_map() {
+            var mapOptions = {center:center , zoom: center_zoom };
+            map = new google.maps.Map(document.getElementById('map_div'), mapOptions);
+            
+            var marker = new google.maps.Marker({
+                position: liquor_barrel_loc,
+                map: map,
+                title: 'Liquor Barrel'
+            });      
+
+            var marker = new google.maps.Marker({
+                position: for_less_loc,
+                map: map,
+                title: 'Liquor 4 less'
+            });  
+
+            var marker = new google.maps.Marker({
+                position: one_stop_grocer_loc,
+                map: map,
+                title: 'One Stop Grocer'
+            });    
+   
+            var marker = new google.maps.Marker({
+                position: ceci_loc,
+                map: map,
+                title: "Ceci's Liquor"
+            });       
+        }
+    </script>   
+
+</head>
+<body>
+    
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/share.css">
+
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#product-navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">welcome to pos_connect</a>
+            </div>
+
+            <div class="collapse navbar-collapse">
+                <form class="navbar-form navbar-right" method="post" action="{% url 'django.contrib.auth.views.login' %}">
+                    {% csrf_token %}
+                    <input id="id_username" maxlength="254" name="username" type="text" class="form-control" placeholder="user"/>
+                    <input id="id_password" name="password" type="password" class="form-control" placeholder="password"/>
+
+                    <input id="login_btn" type="submit" value="login" class="btn btn-success"/>
+                    <input type="hidden" name="next" value="{{ next }}" />
+                </form>                
+            </div><!-- /.navbar-collapse -->
+
+        </div><!-- /.container-fluid -->
+    </nav>   
+
+    {% if form.errors %}
+    <h1 class="alncenter text-danger bg-danger">login error - try again!</h1>
+    {% endif %}
+
+    <h1></h1>
+
+    <div>
+        <div class="panel-group col-xs-4" id="accordion" role="tablist" aria-multiselectable="false">
+            <div id="carousel_panel" class="panel panel-default">
+                <div class="panel-heading" role="tab" id="heading_1">
+                    <h4 class="panel-title">
+                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse_1" aria-expanded="false" aria-controls="collapse_1" id="collapse_1_anchor">
+                            why pos_connect?
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapse_1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading_1">
+                    <div class="panel-body">
+                        <p>
+                            This pos connect businesses together to share and form statistic data, helping owners maximizing profit. Your data is more secure with online access. I have addressed some concerns such as privacy in data sharing, competition among businesses in this network, and internet disconnection. <a href="javascript:loadVideo('kpUKQE4KNYc');">(<span class="glyphicon glyphicon-play"></span>03:15)</a>
+                        </p>
+                        <ul>
+                            <li><a href="javascript:set_cur_div('carousel',0);">slides</a>
+                                <ul>
+                                    <li><a href="javascript:set_cur_div('carousel',1);">profit maximization</a></li>
+                                    <li><a href="javascript:set_cur_div('carousel',3);">easy import new product</a></li>
+                                    <li><a href="javascript:set_cur_div('carousel',4);">online access</a></li>
+                                    <li><a href="javascript:set_cur_div('carousel',5);">data security & offline support</a></li>
+                                    <li><a href="javascript:set_cur_div('carousel',6);">privacy protection</a></li>
+                                    <li><a href="javascript:set_cur_div('carousel',7);">competition protection</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                        
+                    </div>
+                </div>
+            </div>
+            <div id="map_panel" class="panel panel-default">
+                <div class="panel-heading" role="tab" id="heading_2">
+                    <h4 class="panel-title">
+                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse_2" aria-expanded="false" aria-controls="collapse_2" id="collapse_2_anchor">
+                            network map
+                        </a>                        
+                    </h4>
+                </div>
+                <div id="collapse_2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading_2">
+                    <div class="panel-body">
+                        <ul>
+                            <li><a href="javascript:set_map_center();">( all )</a></li>
+                            <li><a href="javascript:set_map_center(for_less_loc);">Liquor 4 less</a></li>
+                            <li><a href="javascript:set_map_center(liquor_barrel_loc);">Liquor Barrel</a></li>
+                            <li><a href="javascript:set_map_center(ceci_loc);">Ceci's Liquor</a></li>
+                            <li><a href="javascript:set_map_center(one_stop_grocer_loc);">One Stop Grocer</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div id="future_release_panel" class="panel panel-default">
+                <div class="panel-heading" role="tab" id="heading_3">
+                    <h4 class="panel-title">
+                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse_3" aria-expanded="false" aria-controls="collapse_3" id="collapse_3_anchor">
+                            future release
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapse_3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading_3">
+                    <div class="panel-body">
+                        <ul>
+                            <li>suggest high profit products</li>
+                            <li>inventory control</li>
+                            <li>automatic purchase order</li>      
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div id="manual_panel" class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingThree">
+                    <h4 class="panel-title">
+                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse_4" aria-expanded="false" aria-controls="collapse_4" id="collapse_4_anchor">
+                            manual
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapse_4" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                    <div class="panel-body">
+                        <ul>
+                            <li>product management <a href="javascript:loadVideo('kpUKQE4KNYc');"><span> (<span class="glyphicon glyphicon-play"></span>1:43)</span></a>
+                            <!-- <li><a href="javascript:loadVideo('kpUKQE4KNYc');">product management<span class="btn-float-right">(<span class="glyphicon glyphicon-play"></span>1:43)</span></a> -->
+                                <ul>
+                                    <li>create - duplicate from</a></li>
+                                    <li>edit main info</a></li>
+                                    <li>edit kit</li>
+                                    <li>edit group</li>    
+                                    <li>edit sku</li>        
+                                </ul>
+                            </li>
+                            <li><a href="javascript:loadVideo('UMmYPvmkbA8');">pos page</a>
+                                <ul>
+                                    <li>intro - db-init,qty,search</a></li>
+                                    <li>shortcut - noninventory - by group</a></li>
+                                    <li>saleable dialog</a></li>
+                                    <li>mix and match</a></li>
+                                    <li>hold</a></li>
+                                    <li>tender - change tender</li>
+                                    <li>offline product</li>
+                                </ul>
+                            </li>
+                            <li>report</a>
+                                <ul>
+                                    <li>receipt</a></li>
+                                    <li>sale</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="javascript:loadVideo('UMmYPvmkbA8');">tax</a></li>
+                            <li><a href="javascript:loadVideo('UMmYPvmkbA8');">group management</a></li>
+                            <li><a href="javascript:loadVideo('RlpPsQaH2GQ');">mix match deal</a></li>    
+                            <li><a href="javascript:loadVideo('RlpPsQaH2GQ');">network suggestion when sku is not found</a></li>        
+                            <li><a href="javascript:loadVideo('UMmYPvmkbA8');">payment type</a></li>
+                            <li><a href="javascript:loadVideo('RlpPsQaH2GQ');">sale sale shortcut</a></li>                            
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-8">
+            <div id="video_div" class="col-xs-12" style="height: 600px"></div>
+            <div id="map_div" class="col-xs-12" style="height: 600px"></div>  
+            <div id="carousel_div" class="carousel slide " data-ride="carousel" style="height: 600px">
+                <!-- Indicators -->
+                <ol class="carousel-indicators">
+                    <li data-target="#carousel_div" data-slide-to="0" class="active"></li> <!-- why pos connect -->
+                    <li data-target="#carousel_div" data-slide-to="1"></li> <!-- maximize profit part1 -->
+                    <li data-target="#carousel_div" data-slide-to="2"></li> <!-- maximize profit part2 -->
+                    <li data-target="#carousel_div" data-slide-to="3"></li> <!-- reliable product information -->
+                    <li data-target="#carousel_div" data-slide-to="4"></li> <!-- data security -->
+                    <li data-target="#carousel_div" data-slide-to="5"></li> <!-- online access -->
+                    <li data-target="#carousel_div" data-slide-to="6"></li> <!-- privacy -->
+                    <li data-target="#carousel_div" data-slide-to="7"></li> <!-- anti network competition -->
+                </ol>
+
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner">
+                    <div class="item active">
+                        <div>
+                            <h1 class="alncenter">why pos_connect?</h1>
+                            <h1><ul>
+                                <li>profit maximization</li>
+                                <li>easy import new product</li>
+                                <li>online access</li>
+                                <li>data security & offline support</li>
+                                <li>privacy protection</li>
+                                <li>competition protection</li>                                
+                            </ul></h1>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div>
+                            <h1 class="alncenter">profit maximization - part 1</h1>
+                            <h3 class="alncenter">what is the most profitable price to set?</h3>
+                            <h3><p>
+                                For each product in each business within the pos_connect's network, pos_connect can gather 3 pieces of data: cost,price and sale volumn. When pos_connect gather these info from different businesses together, we can see the interacting relationship of this 3 data. To put it simple, pos_connect will tell us this cost with this price create this much sale, and that cost with that price create that much sale. Based on your product's cost, this relationship will give you hint to find the correct price.
+                            </p><h3>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div>
+                            <h1 class="alncenter">profit maximization - part 2</h1>
+                            <h3 class="alncenter">what are the profitable products to carry?</h3>
+                            <h3><p>
+                                For each business in the network, pos_connect can sort out the top profitable products. If many businesses are carring these products and you are not, then you should.
+                            </h3></p>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div>
+                            <h1 class="alncenter">easy import new product</h1>
+                            <h3><p>
+                                When your business encounter a new product, you have to define the product information. With pos_connect, there is a chance that other businesses in the network have already defined this product information. pos_connect will sort the most relevant data on top to suggest and help you to import your new product with a few click.
+                            </h3></p>
+                        </div>
+                    </div>      
+                    <div class="item">
+                        <div>
+                            <h1 class="alncenter">online access</h1>
+                            <h3><p>
+                                pos_connect allow you to control your business anywhere with online access. You can remotely view your sale data, changing tax rate, product price, or promotion deal. Mobile devices will be support in the future.
+                            </h3></p>                            
+                        </div>
+                    </div>                          
+                    <div class="item">
+                        <div>
+                            <h1 class="alncenter">data security</h1>
+                            <h3><p>
+                                most pos store its database on local machine and you are responsible to create back up, store it somewhere safe and restore it when something go wrong.
+                            </h3></p>
+                            <h3><p>
+                                pos_connect is power by IBM and Amazon servers. These cooperation have the resource to keep our database safe. If your computer crash, replace it with a new one that connect to the internet and you are done.
+                            </h3></p>      
+                            <h3><p>
+                                to make pos_connect more reliable to your day to day sale operations, it duplicate your product database offline so it is not rely on the internet to make sale. Receipt data is saved offline first and periodically saved online later. This make pos_connect is as fast and reliable as non-web software.
+                            </h3></p>                                                      
+                        </div>
+                    </div>     
+                    <div class="item">
+                        <div>
+                            <h1 class="alncenter">privacy protection</h1>
+                            <h3><p>
+                                data sharing is beneficial but it come with a risk of exposing sensitive data such as cost,price,sale volumn. To address this issue, i make data sharing anonymous. Data from the network are blended together to form statistical information without exposing your business identity.
+                            </h3></p>  
+                            <h3><p>
+                                You can also control how much you like to share. For example, you can decide not to share any data or only share basic product info such as name,taxable,crv but not sensitive data such as cost,price or sale volumn. However sharing is a two way street. You receive what you share.
+                            </h3></p>                                 
+                        </div>
+                    </div>     
+                    <div class="item">
+                        <div>
+                            <h1 class="alncenter">competition protection</h1>
+                            <h3><p>
+                                if data sharing benetfit everyone in the network, including your local competitor who happen to also use pos_connect, it will not benefit you. To address this issue, i create a contract to reduce competition among businesses within the network. I will make sure the distance of all members in the network will be at least 4 mile in radius. You can check out network map to see who are the members close to you. <a class="btn btn-primary" href="javascript:set_cur_div('map');">show map</a>
+                            </h3></p>     
+                            <h3><p>
+                                This contract create more benefit for data sharing.
+                            </h3></p>                              
+                        </div>
+                    </div>                                       
+                </div>
+
+                <!-- Controls -->
+                <a class="left carousel-control" href="#carousel_div" role="button" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                </a>
+                <a class="right carousel-control" href="#carousel_div" role="button" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                </a>
+            </div> <!-- Carousel -->       
+            <a id="show_slide_btn" class="btn btn-primary btn-float-right" href="javascript:set_cur_div('carousel');">show slides</a>
+        </div>        
+
+        <div class="clear"></div>
+    </div>         
+
+    <script>
+        // 2. This code loads the IFrame Player API code asynchronously.
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        // 3. This function creates an <iframe> (and YouTube player) after the API code downloads.
+        var player;
+        var is_youtube_iframe_ready = false;
+        function onYouTubeIframeAPIReady() {
+            is_youtube_iframe_ready = true;
+        }
+        function loadVideo(id) {
+            if(!is_youtube_iframe_ready)return;
+
+            set_cur_div('video')
+            if(!player){
+                player = new YT.Player('video_div', {
+                    video_id:null,
+                    events:{
+                        'onReady':function(evt){
+                            evt.target.loadVideoById(id);  
+                        }
+                    }                    
+                });                                
+            }else{
+                player.loadVideoById(id);                
+            }
+        }
+    </script>
+
+    <script>
+        function _show_collapse(number){
+            $('#collapse_' + number).collapse('show');
+
+            //--------------------------------
+            // //number is base 1 not base zero
+            // var collapse_size = 4;//currenly there is 4 collapse
+
+            // for(var i = 1;i<collapse_size + 1;i++){
+            //     var id = '#collapse_' + i;
+            //     if(i === number){
+            //         continue;
+            //     }else{
+            //         if($(id).hasClass('in')){
+            //             $(id+'_anchor').click();     
+            //         } 
+
+            //         // $(id).removeClass('in'); 
+            //         // $(id).collapse('hide',{'parent':'accordion'});
+            //         // $(id).collapse('hide');
+            //     }
+            // }
+            // if(!$('#collapse_' + number).hasClass('in')){
+            //     $('#collapse_' + number + '_anchor').click();
+            // }
+            // // $('#collapse_' + number).addClass('in'); 
+            // // $('#collapse_' + number).collapse('show',{'parent':'accordion'});
+            // // $('#collapse_' + number).collapse('show');
+        }
+        //set the main right hand div which can show 3 different things: slide,map,video
+        function set_cur_div(div,carousel_number){
+            if(div === 'video'){
+                $("#video_div").show();
+                $("#map_div").hide();                
+                $("#carousel_div").hide();
+                $("#show_slide_btn").show();
+            }else if(div === 'map'){
+                if(player){
+                    player.stopVideo();
+                }
+                if(map === undefined){
+                    init_google_map()
+                }                    
+                $("#video_div").hide();
+                $("#map_div").show();                
+                $("#carousel_div").hide();
+                $("#show_slide_btn").show();
+                _show_collapse(2);
+            }else if(div === 'carousel'){
+                if(player){
+                    player.stopVideo();
+                }  
+                $("#video_div").hide();
+                $("#map_div").hide();                
+                $("#carousel_div").show();
+                if(carousel_number!== undefined){
+                    $("#carousel_div").carousel(carousel_number);
+                }
+                $("#show_slide_btn").hide();
+                _show_collapse(1);
+            }
+        }
+        //default is carousel - aka slide
+        $('.carousel').carousel({
+            interval: false
+        });            
+        set_cur_div('carousel',0); 
+
+        $('#map_panel').on('shown.bs.collapse', function () {
+            set_cur_div('map')
+        })
+        $('#carousel_panel').on('shown.bs.collapse', function () {
+            set_cur_div('carousel')
+        })        
+    </script>
+</body>
+</html>

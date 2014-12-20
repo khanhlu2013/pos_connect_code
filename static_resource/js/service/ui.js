@@ -90,27 +90,86 @@ define(
     }]);
 
     mod.factory('service/ui/_3_option',['$modal',function($modal){
-        return function(message,title,color_1,color_2,color_3,caption_1,caption_2,caption_3){
+        function _title_color_2_class(color){
+            var warning_class = ""
+            if(color == 'green'){
+                warning_class = 'alert alert-success'
+            }else if(color == 'blue'){
+                warning_class = 'alert alert-info'
+            }else if(color == 'orange'){
+                warning_class = 'alert alert-warning'
+            }else if(color == 'red'){
+                warning_class = 'alert alert-danger'
+            }      
+            return warning_class;      
+        }
+
+        function _btn_color_2_class(color){
+            var button_class = ""
+            if(color == 'green'){
+                button_class = 'btn-success'
+            }else if(color == 'blue'){
+                button_class = 'btn-primary'
+            }else if(color == 'orange'){
+                button_class = 'btn-warning'
+            }else if(color == 'red'){
+                button_class = 'btn-danger'
+            }      
+            return button_class;  
+        }
+
+        return function(title,message,caption_1,caption_2,caption_3,title_color,color_1,color_2,color_3){
+
+            var title_class;
+            var class_1; var class_2; var class_3;
+
+            //title class
+            if(title_color === undefined){
+                title_class = 'alert alert-warning'
+            }else{
+                title_class = _title_color_2_class(title_color);
+            }
+
+            //button class
+            if(color_1 === undefined){
+                class_1 = 'btn-primary';
+            }else{
+                class_1 = _btn_color_2_class(color_1);
+            }
+
+            if(color_2 === undefined){
+                class_2 = 'btn-primary';
+            }else{
+                class_2 = _btn_color_2_class(color_2);
+            }
+
+            if(color_3 === undefined){
+                class_3 = 'btn-warning';
+            }else{
+                class_3 = _btn_color_2_class(color_3);
+            }
+
             var template = 
-                '<div id="service/ui/_3_option/dialog" class="modal-header alert alert-info">' +
+                '<div id="service/ui/_3_option/dialog" class="modal-header" ng-class="title_class">' +
                     '<h3 class="modal-title">{{title}}</h3>' +
                 '</div>' +
                 '<div class="modal-body">' +
                     '<h1 id="service/ui/_3_option/message_txt">{{message}}</h1>' +
                 '</div>' +
                 '<div class="modal-footer">' +
-                    '<button id="service/ui/_3_option/_1_btn" class="btn" ng-class="color_1" ng-click="exit(1)" type="button">{{caption_1}}</button>' +                
-                    '<button id="service/ui/_3_option/_2_btn" class="btn" ng-class="color_2" ng-click="exit(2)" type="button">{{caption_2}}</button>' +                         
-                    '<button id="service/ui/_3_option/_3_btn" class="btn" ng-class="color_3" ng-click="exit(3)" type="button">{{caption_3}}</button>' +                          
+                    '<button id="service/ui/_3_option/_1_btn" class="btn" ng-class="class_1" ng-click="exit(1)" type="button">{{caption_1}}</button>' +                
+                    '<button id="service/ui/_3_option/_2_btn" class="btn" ng-class="class_2" ng-click="exit(2)" type="button">{{caption_2}}</button>' +                         
+                    '<button id="service/ui/_3_option/_3_btn" class="btn" ng-class="class_3" ng-click="exit(3)" type="button">{{caption_3}}</button>' +                          
                 '</div>'
             ;
 
-            var ModalCtrl = function($scope,$modalInstance,message,title,color_1,color_2,color_3,caption_1,caption_2,caption_3){
+            var ModalCtrl = function($scope,$modalInstance,message,title,class_1,class_2,class_3,title_class,caption_1,caption_2,caption_3){
                 $scope.message = message;
                 $scope.title = title;
-                $scope.color_1 = color_1;
-                $scope.color_2 = color_2;
-                $scope.color_3 = color_3;
+                $scope.class_1 = class_1;
+                $scope.class_2 = class_2;
+                $scope.class_3 = class_3;
+                $scope.title_class = title_class;
                 $scope.caption_1 = caption_1;
                 $scope.caption_2 = caption_2;
                 $scope.caption_3 = caption_3;
@@ -118,17 +177,18 @@ define(
                     $modalInstance.close(option);
                 }             
             }
-            ModalCtrl.$inject = ['$scope','$modalInstance','message','title','color_1','color_2','color_3','caption_1','caption_2','caption_3'];
+            ModalCtrl.$inject = ['$scope','$modalInstance','message','title','class_1','class_2','class_3','title_class','caption_1','caption_2','caption_3'];
             var dlg = $modal.open({
                 template : template,
                 controller : ModalCtrl,
-                size : 'md',
+                size : 'lg',
                 resolve:{ 
                      message : function(){ return message }
                     ,title : function(){ return title }                    
-                    ,color_1 : function(){ return color_1 }
-                    ,color_2 : function(){ return color_2 }
-                    ,color_3 : function(){ return color_3 }
+                    ,class_1 : function(){ return class_1 }
+                    ,class_2 : function(){ return class_2 }
+                    ,class_3 : function(){ return class_3 }
+                    ,title_class : function(){ return title_class }
                     ,caption_1 : function(){ return caption_1 }
                     ,caption_2 : function(){ return caption_2 }
                     ,caption_3 : function(){ return caption_3 }                    

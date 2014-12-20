@@ -12,7 +12,6 @@ define(
     ,'app/sale_app/service/displaying_scan/modify_ds'
     ,'app/sale_app/service/sale_able_info_dlg'
     ,'app/sale_app/service/scan/sku_scan_not_found_handler'
-    ,'model/shortcut/service/shortcut_ui'
     ,'service/ui'
     ,'app/sale_app/service/hold/api'
     ,'app/sale_app/service/hold/get_hold_ui'
@@ -31,6 +30,8 @@ define(
     ,'service/sync' 
     ,'model/receipt/service/sale_report'    
     ,'model/receipt/service/push'
+    ,'model/shortcut/service/usage'
+    ,'model/sp/service/duplicate'    
 ], function
 (
      angular
@@ -52,7 +53,6 @@ define(
         ,'sale_app/service/scan/sku_scan_not_found_handler'
         ,'sale_app/model'
         ,'sp/model'
-        ,'shortcut/service/shortcut_ui'
         ,'service/ui'
         ,'sale_app/service/hold/api'
         ,'sale_app/service/hold/get_hold_ui'
@@ -71,6 +71,8 @@ define(
         ,'service/sync' 
         ,'receipt/service/sale_report'        
         ,'receipt/service/push'
+        ,'shortcut/service/usage'
+        ,'sp/service/duplicate'
     ]);
     mod.controller('Sale_page_ctrl', 
     [
@@ -87,7 +89,6 @@ define(
         ,'sale_app/service/displaying_scan/modify_ds'
         ,'sale_app/service/sale_able_info_dlg'
         ,'sale_app/service/scan/sku_scan_not_found_handler'
-        ,'shortcut/service/shortcut_ui'
         ,'service/ui/alert'
         ,'service/ui/prompt'
         ,'service/ui/confirm'
@@ -112,6 +113,8 @@ define(
         ,'receipt/service/sale_report'    
         ,'service/ui/_3_option'    
         ,'receipt/service/push'
+        ,'shortcut/service/usage'
+        ,'sp/service/duplicate'
     ,function(
          $scope
         ,$rootScope
@@ -126,7 +129,6 @@ define(
         ,modify_ds
         ,detail_price_dlg
         ,sku_scan_not_found_handler
-        ,shortcut_ui
         ,alert_service
         ,prompt_service
         ,confirm_service
@@ -151,9 +153,19 @@ define(
         ,sale_report_dlg     
         ,_3_option_service
         ,push_receipt_service
+        ,shortcut_usage_service
+        ,duplicate_service
     ){
 
         hotkeys.bindTo($scope)
+        .add({
+            combo: 'ctrl+s',
+            description: 'shortcut',
+            allowIn: ['INPUT'],            
+            callback: function() {
+                $scope.shortcut_click();
+            }
+        })        
         .add({
             combo: 'ctrl+h',
             description: 'hold',
@@ -217,12 +229,12 @@ define(
                     if($scope.cur_receipt_count >= $scope.next_receipt_count_reminder){
                         var message = 'Do you want to save ' + $scope.cur_receipt_count + ' receipts online?';
                         var title = 'reminder'
-                        var color_1 = 'btn-warning';
-                        var color_2 = 'btn-warning';
-                        var color_3 = 'btn-success';
+                        var color_1 = 'orange';
+                        var color_2 = 'orange';
+                        var color_3 = 'green';
                         var caption_1 = 'snooze ' + $rootScope.GLOBAL_SETTING.max_receipt_snooze_1;
                         var caption_2 = 'snooze ' + $rootScope.GLOBAL_SETTING.max_receipt_snooze_2;
-                        _3_option_service(message,title,color_1,color_2,color_3,caption_1,caption_2,'save').then(
+                        _3_option_service(title,message,caption_1,caption_2,'save','orange'/*title color*/,color_1,color_2,color_3).then(
                             function(selected_option){ 
                                 if(selected_option === 1){
                                     $scope.next_receipt_count_reminder += $rootScope.GLOBAL_SETTING.max_receipt_snooze_1;
@@ -350,12 +362,24 @@ define(
                 }else{
                     var sp_copy = angular.copy(ds.store_product);
                     sp_info_service(sp_copy).then( 
-                        function(){ 
+                        function(){
                             _refresh_edited_ds(ds); 
                         }
                         ,function(reason){ 
-                            alert_service(reason);
-                            return; 
+                            if(typeof(reason) === 'string' && reason === '_duplicate_'){
+                                duplicate_service(sp_copy).then
+                                (
+                                    function(sp){ 
+                                        $scope.sku_search_str = sp.product.prod_sku_assoc_lst[0].sku_str;
+                                        $scope.sku_scan();
+                                    }
+                                    ,function(reason){ 
+                                        alert_service(reason);
+                                    }
+                                )
+                            }else{
+                                alert_service(reason);
+                            }
                         }
                     )
                 }
@@ -371,15 +395,21 @@ define(
                 }
             )
         }
-        $scope.void = function(){ set_ps_lst([]); }
-        $scope.exe_shortcut_child = function(row,col){
-            var child_shortcut = shortcut_ui.get_child_of_cur_parent(row,col,$scope);
-            if(child_shortcut == null){ return; }
-            if(child_shortcut.store_product === null){
-                $scope.non_inventory_handler();
-            }else{
-                append_pending_scan.by_product_id(child_shortcut.store_product.product_id,1/*qty*/,null/*non_inventory*/,null/*override_price*/);
-            }
+        $scope.void = function(){ 
+            set_ps_lst([]); 
+        }
+        $scope.shortcut_click = function(){
+            shortcut_usage_service().then(
+                function(child_shortcut){
+                    if(child_shortcut.store_product === null){
+                        $scope.non_inventory_handler();
+                    }else{
+                        append_pending_scan.by_product_id(child_shortcut.store_product.product_id,1/*qty*/,null/*non_inventory*/,null/*override_price*/);
+                    }
+                },function(reason){
+                    alert_service(reason);
+                }
+            )
         }
         function _get_distinct_sp_from_ds_lst(ds_lst){
             var sp_lst = [];
@@ -442,7 +472,11 @@ define(
                                         $scope.sku_scan();
                                     }
                                     ,function(reason){
-                                        alert_service(reason);
+                                        if(reason === '_non_inventory_'){
+                                            $scope.non_inventory_handler();
+                                        }else{
+                                            alert_service(reason);
+                                        }
                                     }
                                 )
                             }
@@ -478,6 +512,7 @@ define(
             sync_service().then(
                 function(response){
                     alert_service(response,'info','green');
+                    $scope.refresh_ds(false/*we do not optimize here*/,null/*extra sp to optimize and prevent lookup sp*/);
                 },function(reason){
                     alert_service(reason);
                 }
@@ -536,7 +571,6 @@ define(
 
         init_db().then(
             function(){
-                shortcut_ui.init($scope);  
                 $scope.refresh_ds(true/*we wish to optimize but it make no differece since this is the first time, cur ds_lst is empty anyway*/,null/*extra sp to optimize and prevent lookup sp*/);
                 $scope.$watchGroup(
                     [

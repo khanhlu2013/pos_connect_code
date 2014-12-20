@@ -9,6 +9,7 @@ describe('sale app', function() {
     var Shortcut_manage_dlg = require(base_path + 'page/shortcut/Manage_dlg.js');
     var Sale_page = require(base_path + 'page/sale/Sale_page.js');
     var Non_inventory_prompt_dlg = require(base_path + 'page/sp/Non_inventory_prompt_dlg.js');
+    var Shorcut_usage_dlg = require(base_path + 'page/shortcut/Usage_dlg.js');
 
     //shortcut setup/manage
 
@@ -62,39 +63,43 @@ describe('sale app', function() {
         expect(Shortcut_manage_dlg.get_child_text(child_4_position)).toEqual(child_4_caption);
         Shortcut_manage_dlg.exit();
 
+        Sale_page.shortcut();
+
         //verify shortcut is not created for default position 0 (they are created under position 1)
-        expect(Sale_page.get_parent_text(parent_position)).toEqual(folder_1_name);
-        expect(Sale_page.get_child_text(child_0_position)).toEqual("");
-        expect(Sale_page.get_child_text(child_4_position)).toEqual("");     
+        expect(Shorcut_usage_dlg.get_parent_text(parent_position)).toEqual(folder_1_name);
+        expect(Shorcut_usage_dlg.get_child_text(child_0_position)).toEqual("");
+        expect(Shorcut_usage_dlg.get_child_text(child_4_position)).toEqual("");     
 
         //verify shortcut is creaed under position 1
-        Sale_page.click_parent(parent_position);       
-        expect(Sale_page.get_child_text(child_0_position)).toEqual(child_0_caption);
-        expect(Sale_page.get_child_text(child_4_position)).toEqual(child_4_caption);     
+        Shorcut_usage_dlg.click_parent(parent_position);       
+        expect(Shorcut_usage_dlg.get_child_text(child_0_position)).toEqual(child_0_caption);
+        expect(Shorcut_usage_dlg.get_child_text(child_4_position)).toEqual(child_4_caption);     
 
         //verify clicking shortcut will scan the product
-        Sale_page.click_child(child_0_position);lib.wait_for_block_ui();
-        Sale_page.click_child(child_4_position);lib.wait_for_block_ui();
+        Shorcut_usage_dlg.click_child(child_0_position);lib.wait_for_block_ui();
+        Sale_page.shortcut();
+        Shorcut_usage_dlg.click_parent(parent_position);  
+        Shorcut_usage_dlg.click_child(child_4_position);lib.wait_for_block_ui();
         expect(Sale_page.lst.count()).toEqual(2);
 
-        // //verify that create a shortcut in manage dialog will update shortcut usage grid in sale page
-        expect(Sale_page.get_child_text(child_5_position)).toEqual('');
+        //create a non inventory shortcut
         Sale_page.menu_setting_shortcut();
         Shortcut_manage_dlg.click_parent(parent_position);
         Shortcut_manage_dlg.click_child(child_5_position);
         Shortcut_prompt_dlg.set_caption(child_5_caption);
         Shortcut_prompt_dlg.ok();
         Shortcut_manage_dlg.exit();
-        Sale_page.click_parent(parent_position);
-        expect(Sale_page.get_child_text(child_5_position)).toEqual(child_5_caption);
 
         //verify that clicking a non_inventory shortcut will bring up non_inventory dialog
-        Sale_page.click_child(child_5_position);lib.wait_for_block_ui();
+        Sale_page.shortcut();
+        Shorcut_usage_dlg.click_parent(parent_position);
+        expect(Shorcut_usage_dlg.get_child_text(child_5_position)).toEqual(child_5_caption);
+        Shorcut_usage_dlg.click_child(child_5_position);lib.wait_for_block_ui();
         expect(Non_inventory_prompt_dlg.self.isPresent()).toEqual(true);
         Non_inventory_prompt_dlg.cancel();
 
         //clean up
         Sale_page.void();
         lib.auth.logout();
-    })
+    },60000)
 });

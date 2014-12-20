@@ -6,6 +6,8 @@ describe('sale page', function() {
     var Ui_confirm_dlg = require(base_path + 'page/ui/Confirm_dlg');
     var Sp_prompt_dlg = require(base_path + 'page/sp/Sp_prompt_dlg.js');
     var Sale_page = require(base_path + 'page/sale/Sale_page.js');
+    var _3_option_dlg = require(base_path + 'page/ui/_3_option_dlg.js');
+    var Non_inventory_dlg = require(base_path + 'page/sp/Non_inventory_prompt_dlg.js');
 
     beforeEach(function(){
         lib.auth.login('1','1');
@@ -15,15 +17,24 @@ describe('sale page', function() {
 
     it('can create and edit offline product',function(){
         lib.auth.login('1','1');
+        //-------------------------------------------------------------
+        //when the internet is disconnect and we are scanning a new sku
+        //-------------------------------------------------------------
         Sale_page.visit(true/*is_offline*/);
-        
-        //scan
-        var sku = '123';
-        Sale_page.scan(sku);lib.wait_for_block_ui();
+        var sku = '123'; 
+        Sale_page.scan(sku);
 
-        //confirm offline message
-        expect(Ui_confirm_dlg.self.isPresent()).toBeTruthy();   
-        Ui_confirm_dlg.ok();
+        //------------------------------------------
+        //we have an option to sell as non-inventory
+        //------------------------------------------
+        lib.click(_3_option_dlg._1_btn);
+        Non_inventory_dlg.cancel();
+
+        //------------------------------------------
+        //or we can create this product offline
+        //------------------------------------------      
+        Sale_page.scan(sku);      
+        lib.click(_3_option_dlg._2_btn);
 
         //fill out form
         var name = 'offline product';
@@ -51,11 +62,13 @@ describe('sale page', function() {
         Sp_prompt_dlg.set_value_customer_price(value_customer_price);
         expect(Sp_prompt_dlg.get_sku()).toEqual(sku);
         Sp_prompt_dlg.ok();
-        
+    
         expect(Sale_page.lst.count()).toEqual(1);
         expect(Sale_page.tender_btn.getText()).toEqual('$4.32');
 
-        //attemp to edit this product offline
+        //-----------------------------------------------------------------------
+        //if we decide to create product offline then we can edit offline product
+        //----------------------------------------------------------------------- 
         Sale_page.click_col(0,'name');
 
         //verify edit prefill

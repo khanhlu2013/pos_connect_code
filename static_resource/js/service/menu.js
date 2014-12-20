@@ -34,6 +34,7 @@ define(
         ,'payment_type/service/manage'
         ,'shortcut/service/manage'
         ,'service/ui/confirm'
+        ,'service/ui/alert'
 
     ,function(
          $scope 
@@ -44,12 +45,19 @@ define(
         ,manage_pt
         ,manage_shortcut
         ,confirm_service
+        ,alert_service
     ){
         $scope.menu_setting_mix_match = function(){
             manage_mm();
         }
         $scope.menu_setting_tax = function(){
-            set_tax_service();
+            set_tax_service().then(
+                function(){
+
+                },function(reason){
+                    alert_service(reason);
+                }
+            )
         }
         $scope.menu_setting_payment_type = function(){
             manage_pt();

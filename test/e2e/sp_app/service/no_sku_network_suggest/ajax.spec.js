@@ -52,7 +52,7 @@ describe('no sku network suggestion -> ajax', function() {
         Confirm_dlg.ok();
         Sp_page.sku_search(new_sku);
         expect(Sp_page.lst.count()).toEqual(1);
-        expect(Sp_page.get_col(0,'name')).toEqual(product_name);
+        expect(Sp_page.get_col(0,'product')).toEqual(product_name);
         expect(Sp_page.get_col(0,'price')).toEqual('$2.00');
     });
 
@@ -68,7 +68,7 @@ describe('no sku network suggestion -> ajax', function() {
         Sp_prompt_dlg.ok();
 
         expect(Sp_page.lst.count()).toEqual(1);
-        expect(Sp_page.get_col(0,'name')).toEqual(product_name);
+        expect(Sp_page.get_col(0,'product')).toEqual(product_name);
         expect(Sp_page.get_col(0,'price')).toEqual('$2.00');        
     });  
 
@@ -95,7 +95,7 @@ describe('no sku network suggestion -> ajax', function() {
         Sp_prompt_dlg.ok();
 
         expect(Sp_page.lst.count()).toEqual(1);
-        expect(Sp_page.get_col(0,'name')).toEqual(product_name);
+        expect(Sp_page.get_col(0,'product')).toEqual(product_name);
         expect(Sp_page.get_col(0,'price')).toEqual('$2.00');      
     });          
 });

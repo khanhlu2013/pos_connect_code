@@ -72,6 +72,18 @@ define(
                             '</div>' +
                         '</ng-form>' +
                     '</div>' +
+                    '<h1></h1>' +
+                    '<h1></h1>' +                    
+                    '<button' +
+                        ' id="sale_app/service/tender_ui/ok_btn"' +
+                        ' ng-disabled="get_change() < 0.0 || form.$invalid"' +
+                        ' ng-click="ok()"' +
+                        ' class="btn btn-lg btn-success"' +
+                        ' type="submit"' +
+                        ' modal-enter="ok()">' +
+                            'change: {{get_change()|currency}}' +
+                    '</button>' +
+                    '<button id="sale_app/service/tender_ui/cancel_btn" ng-click="cancel()" class="btn btn-lg btn-warning" type="button">cancel</button>' +                    
                 '</div>'  /* end form horizontal*/  
             ;          
             var template = 
@@ -83,18 +95,18 @@ define(
                     '<div class="clear"></div>' +
                 '</div>' +
                 
-                '<div class="modal-footer">' + 
-                    '<button' +
-                        ' id="sale_app/service/tender_ui/ok_btn"' +
-                        ' ng-disabled="get_change() < 0.0 || form.$invalid"' +
-                        ' ng-click="ok()"' +
-                        ' class="btn btn-lg btn-success"' +
-                        ' type="submit"' +
-                        ' modal-enter="ok()">' +
-                            'change: {{get_change()|currency}}' +
-                    '</button>' +
-                    '<button id="sale_app/service/tender_ui/cancel_btn" ng-click="cancel()" class="btn btn-lg btn-warning" type="button">cancel</button>' +
-                '</div>' +
+                // '<div class="modal-footer">' + 
+                //     '<button' +
+                //         ' id="sale_app/service/tender_ui/ok_btn"' +
+                //         ' ng-disabled="get_change() < 0.0 || form.$invalid"' +
+                //         ' ng-click="ok()"' +
+                //         ' class="btn btn-lg btn-success"' +
+                //         ' type="submit"' +
+                //         ' modal-enter="ok()">' +
+                //             'change: {{get_change()|currency}}' +
+                //     '</button>' +
+                //     '<button id="sale_app/service/tender_ui/cancel_btn" ng-click="cancel()" class="btn btn-lg btn-warning" type="button">cancel</button>' +
+                // '</div>' +
             '</form>'
             ;
             var ModalCtrl = function($scope,$modalInstance,sale_able_lst,prefill_tender_ln_lst,tax_rate){

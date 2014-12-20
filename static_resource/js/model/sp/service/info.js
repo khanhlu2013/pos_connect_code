@@ -9,6 +9,7 @@ define(
     ,'model/sp/api_search'
     ,'service/ui'
     ,'model/sp/api_network_product'
+    ,'filter/filter'
 ]
 ,function
 (
@@ -24,6 +25,7 @@ define(
         ,'sp/api_search'
         ,'service/ui'
         ,'sp/network_product_api'
+        ,'filter'
     ]);
     
     mod.factory('sp/service/info',
@@ -158,8 +160,8 @@ define(
                 '<pre ng-show="sp.get_my_sku_assoc_lst().length == 0">there is no sku</pre>' +                 
             '</tab>' 
         ;       
-        var purchase_history_tab = 
-            '<tab id="sp_app/service/info/tab/purchase_history" heading="purchase history" select="switch_tab(\'purchase_history\')">' +
+        var inventory_tab = 
+            '<tab id="sp_app/service/info/tab/inventory" heading="purchase history" select="switch_tab(\'inventory\')">' +
                 '<h1></h1>' +
                 '<h1>purchase history:under construction</h1>' +                
             '</tab>' 
@@ -183,14 +185,14 @@ define(
                     group_tab +
                     kit_tab +    
                     sku_tab +       
-                    purchase_history_tab + 
+                    inventory_tab + 
                     network_info_tab +                                                 
                 '</tabset>' +
             '</div>' + /* end modal body*/
 
             '<div class="modal-footer">' +
                 '<button id="sp_app/service/info/edit_btn" class="btn btn-primary btn-float-left" ng-click="edit()">edit {{cur_tab}}</button>' +
-                '<button ng-click="duplicate()" ng-show="cur_tab==\'product\'" class="btn btn-primary btn-float-left" ng-click="duplicate()">duplicate</button>' +
+                '<button id="sp_app/service/info/duplicate_btn" ng-click="duplicate()" ng-show="cur_tab==\'product\'" class="btn btn-primary btn-float-left" ng-click="duplicate()">duplicate</button>' +
                 '<button id="sp_app/service/info/exit_btn" class="btn btn-warning" ng-click="exit()">exit</button>' +
             '</div>'
         ;      
@@ -207,6 +209,24 @@ define(
             $scope.network_product_summary_lbl_class = 'col-xs-4 control-label';
             $scope.network_product_summary_value_class = 'col-xs-8 form-control-static'; 
             $scope.is_sale_data = true;//read this variable description in the partial template of network_product
+
+            $scope.cur_sort_column = 'get_cost()';
+            $scope.cur_sort_desc = false;
+            $scope.column_click = function(column_name){
+                if($scope.cur_sort_column == column_name){
+                    $scope.cur_sort_desc = !$scope.cur_sort_desc;
+                }else{
+                    $scope.cur_sort_column = column_name;
+                    $scope.cur_sort_desc = false;
+                }
+            }
+            $scope.get_sort_class = function(column_name){
+                if(column_name == $scope.cur_sort_column){
+                    return "glyphicon glyphicon-arrow-" + ($scope.cur_sort_desc ? 'down' : 'up');
+                }else{
+                    return '';
+                }
+            }
             //end - contract
             $scope.edit = function(){
                 if($scope.cur_tab == 'product'){
@@ -251,7 +271,7 @@ define(
                 $modalInstance.close($scope.sp);
             }
             $scope.duplicate = function(){
-                $modalInstance.close('duplicate');
+                $modalInstance.dismiss('_duplicate_');
             }
         }
         ModalCtrl.$inject = ['$scope','$modalInstance','$rootScope','sp'];

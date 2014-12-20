@@ -59,6 +59,9 @@ var Sp_prompt_dlg = function () {
     this.set_vendor = function(vendor){ this.vendor_txt.clear(); this.vendor_txt.sendKeys(vendor); }
     this.set_buydown = function(buydown){ this.buydown_txt.clear(); this.buydown_txt.sendKeys(buydown); }
     this.set_value_customer_price = function(val_cus_price){ this.value_customer_price_txt.clear(); this.value_customer_price_txt.sendKeys(val_cus_price); }
+    this.set_sku = function(sku){
+        this.sku_txt.clear(); this.sku_txt.sendKeys(sku);
+    }
     this.set_is_taxable = function(is_taxable){
         var is_taxable_check = this.is_taxable_check;
         is_taxable_check.isSelected().then( function(val){ if(is_taxable !== val){ lib.click(is_taxable_check); } } );

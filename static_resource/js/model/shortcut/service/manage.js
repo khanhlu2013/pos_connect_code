@@ -25,23 +25,23 @@ define(
     ]);
     mod.factory('shortcut/service/manage',
     [
-        '$modal',
-        '$http',
-        'service/ui/alert',
-        'shortcut/service/edit',
-        'shortcut/service/create',
-        'shortcut/service/set_child',
-        'shortcut/service/shortcut_ui',
-        'shortcut/api',
-    function(
-        $modal,
-        $http,
-        alert_service,
-        edit_service,
-        create_service,
-        set_child_service,
-        shortcut_ui,
-        shortcut_api
+         '$modal'
+        ,'$http'
+        ,'service/ui/alert'
+        ,'shortcut/service/edit'
+        ,'shortcut/service/create'
+        ,'shortcut/service/set_child'
+        ,'shortcut/service/shortcut_ui'
+        ,'shortcut/api'
+    ,function(
+         $modal
+        ,$http
+        ,alert_service
+        ,edit_service
+        ,create_service
+        ,set_child_service
+        ,shortcut_ui
+        ,shortcut_api
     ){
         return function(){
             var template = 

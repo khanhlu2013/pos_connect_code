@@ -61,7 +61,7 @@ define(
             '<div class="form-group">' +
                 '<label class="col-sm-4 control-label" >Name:</label>' +
                 '<div class="col-sm-8">' +
-                    '<input id="sp_app/service/prompt/name_txt" name="product_name" ng-model="$parent.sp.name" type="text" required>' +
+                    '<input id="sp_app/service/prompt/name_txt" name="product_name" ng-model="$parent.sp.name" type="text" size="45" required>' +
                     template_name_suggestion +
                     '<label class="error" ng-show="form.product_name.$error.required">require</label>' +
                 '</div>' +
@@ -101,7 +101,7 @@ define(
             '<div class="form-group">' +
                 '<label class="col-sm-4 control-label">Price:</label>' +
                 '<div class="col-sm-8">' +
-                    '<input id="sp_app/service/prompt/price_txt" name="price" ng-model="$parent.sp.price" type="number" required>' +
+                    '<input id="sp_app/service/prompt/price_txt" name="price" ng-model="$parent.sp.price" type="number" size="45" required>' +
                     template_price_suggestion +
                     '<label class="error" ng-show="form.price.$invalid">require</label>' +
                 '</div>' +
@@ -140,7 +140,7 @@ define(
             '<div class="form-group">' +
                 '<label class="col-sm-4 control-label">Crv:</label>' +
                 '<div class="col-sm-8">' +
-                    '<input id="sp_app/service/prompt/crv_txt" name="crv" ng-model="$parent.sp.crv" ng-disabled="{{sp.is_kit()}}" type="number">' +
+                    '<input id="sp_app/service/prompt/crv_txt" name="crv" ng-model="$parent.sp.crv" ng-disabled="{{sp.is_kit()}}" type="number" size="45">' +
                     template_crv_suggestion +
                     '<label class="error" ng-show="form.crv.$invalid">' +
                         'invalid input' +
@@ -219,7 +219,7 @@ define(
             '<div class="form-group">' +
                 '<label class="col-sm-4 control-label">Cost:</label>' +
                 '<div class="col-sm-8">' +
-                    '<input id="sp_app/service/prompt/cost_txt" name="cost" ng-model="$parent.sp.cost" ng-disabled="{{sp.is_kit()}}" type="number"}}"">' +
+                    '<input id="sp_app/service/prompt/cost_txt" name="cost" ng-model="$parent.sp.cost" ng-disabled="{{sp.is_kit()}}" type="number" size="45"}}"">' +
                     template_cost_suggestion +
                     '<label class="error" ng-show="form.cost.$invalid">' +
                         'invalid number' +
@@ -243,13 +243,13 @@ define(
             '<div class="form-group">' +
                 '<label class="col-sm-4 control-label">Type:</label>' +
                 '<div class="col-sm-8">' +
-                    '<input id="sp_app/service/prompt/p_type_txt" ng-model="$parent.sp.p_type" typeahead="item.type for item in lookup_type_tag | filter:$viewValue | limitTo:8" type="text" class="form-control">' +
+                    '<input id="sp_app/service/prompt/p_type_txt" ng-model="$parent.sp.p_type" typeahead="item.type for item in lookup_type_tag | filter:$viewValue | limitTo:8" type="text" size="45">' +
                 '</div>' +
             '</div>' +
             '<div class="form-group">' +
                 '<label class="col-sm-4 control-label">Tag:</label>' +
                 '<div class="col-sm-8">' +
-                    '<input id="sp_app/service/prompt/p_tag_txt" ng-model="$parent.sp.p_tag" type="text">' +
+                    '<input id="sp_app/service/prompt/p_tag_txt" ng-model="$parent.sp.p_tag" type="text" size="45">' +
                 '</div>' +
             '</div>'
         ;
@@ -258,7 +258,7 @@ define(
             '<div class="form-group">' +
                 '<label class="col-sm-4 control-label">Vendor:</label>' +
                 '<div class="col-sm-8">' +
-                    '<input id="sp_app/service/prompt/vendor_txt" ng-model="$parent.sp.vendor" type="text">' +
+                    '<input id="sp_app/service/prompt/vendor_txt" ng-model="$parent.sp.vendor" type="text" size="45">' +
                 '</div>' +    
             '</div>'
         ;
@@ -267,7 +267,7 @@ define(
             '<div class="form-group">' +
                 '<label class="col-sm-4 control-label">Buydown:</label>' +
                 '<div class="col-sm-8">' +
-                    '<input id="sp_app/service/prompt/buydown_txt" name="buydown" ng-disabled="{{sp.is_kit()}}" ng-model="$parent.sp.buydown" type="number"}}">' +    
+                    '<input id="sp_app/service/prompt/buydown_txt" name="buydown" ng-disabled="{{sp.is_kit()}}" ng-model="$parent.sp.buydown" type="number" size="45"}}">' +    
                     '<label class="error" ng-show="form.buydown.$invalid">' +
                         'invalid input' +
                     '</label>' +                                     
@@ -279,7 +279,7 @@ define(
             '<div class="form-group">' +
                 '<label class="col-sm-4 control-label">value customer price:</label>' +
                 '<div class="col-sm-8">' +
-                    '<input id="sp_app/service/prompt/value_customer_price_txt" name="value_customer_price" ng-model="$parent.sp.value_customer_price" type="number" />' +
+                    '<input id="sp_app/service/prompt/value_customer_price_txt" name="value_customer_price" ng-model="$parent.sp.value_customer_price" type="number" size="45" />' +
                     '<label class="error" ng-show="form.value_customer_price.$invalid">' +
                         'invalid number' +
                     '</label>' +

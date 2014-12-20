@@ -104,11 +104,14 @@
                 <th class="info" ng-click="column_click('is_sale_report')">report <span ng-class="get_sort_class('is_sale_report')"></span></th>
                 <th class="info" ng-click="column_click('p_type')">type <span ng-class="get_sort_class('p_type')"></span></th>
                 <th class="info" ng-click="column_click('p_tag')">tag <span ng-class="get_sort_class('p_tag')"></span></th>
+                <th class="info" ng-click="column_click('get_group_count()')">group <span ng-class="get_sort_class('get_group_count()')"></span></th>
+                <th>deal</th>
                 <th class="info" ng-click="column_click('vendor')">vendor <span ng-class="get_sort_class('vendor')"></span></th>
                 <th class="info" ng-click="column_click('cost')">cost <span ng-class="get_sort_class('cost')"></span></th>
+                <th class="info" ng-click="column_click('get_markup()')">markup <span ng-class="get_sort_class('get_markup()')"></span></th>                
                 <th class="info" ng-click="column_click('buydown')">buydown <span ng-class="get_sort_class('buydown')"></span></th>
                 <th class="info" ng-click="column_click('vc_price')">vc_price <span ng-class="get_sort_class('vc_price')"></span></th>
-                <th>markup</th>
+                <th class="info" ng-click="column_click('cur_stock')">stock <span ng-class="get_sort_class('cur_stock')"></span></th>
                 <th>info</th>                
             </tr>    
             <tr ng-repeat="sp in sp_lst|orderBy:cur_sort_column:cur_sort_desc|filter:local_filter">
@@ -119,11 +122,14 @@
                 <td class="alncenter"><span class="glyphicon" ng-class="sp.is_sale_report ? 'glyphicon-check' : 'glyphicon-unchecked' "></span></td>
                 <td>{{sp.p_type}}</td>
                 <td>{{sp.p_tag}}</td>
+                <td class="alnright">{{sp.get_group_count()|not_show_zero}}</td>
+                <td class="alncenter"><span class="glyphicon" ng-class="is_in_deal(sp) ? 'glyphicon-check' : 'glyphicon-unchecked' "></span></td>
                 <td>{{sp.vendor}}</td>
                 <td class="alnright">{{sp.get_cost()|currency|not_show_zero}}</td>
+                <td class="alnright">{{sp.get_markup()}}</td>                
                 <td class="alnright">{{sp.get_buydown()|currency|not_show_zero}}</td>
                 <td class="alnright">{{sp.value_customer_price|currency|not_show_zero}}</td>
-                <td class="alnright">{{sp.get_markup()}}</td>
+                <td class="alnright">{{sp.cur_stock}}</td>
                 <td class="alncenter"><button ng-click="display_product_info(sp)" class="btn btn-sm btn-primary glyphicon glyphicon-info-sign"></button></td>
             </tr>
         </table>

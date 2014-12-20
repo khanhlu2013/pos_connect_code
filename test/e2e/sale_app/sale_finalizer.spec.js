@@ -3,14 +3,14 @@ var lib = require(base_path + 'lib');
 
 describe('sale page -> sale_finalizer', function() {
     var Ui_prompt_dlg = require(base_path + 'page/ui/Prompt_dlg.js');
-    var Sale_page = require(base_path + 'page/sale/Sale_page')
-    var Receipt_dlg = require(base_path + 'page/receipt/Report_dlg');
+    var Sale_page = require(base_path + 'page/sale/Sale_page');
+    var Receipt_dlg = require(base_path + 'page/report/Receipt_report_dlg');
     var Sale_able_info_dlg = require(base_path + 'page/sale/Sale_able_info_dlg');
     var Tender_dlg = require(base_path + 'page/sale/Tender_dlg');
     var Non_inventory_prompt_dlg = require(base_path + 'page/sp/Non_inventory_prompt_dlg.js');
     var Ui_confirm_dlg = require(base_path + 'page/ui/Confirm_dlg.js');
     var Sp_prompt_dlg = require(base_path + 'page/sp/Sp_prompt_dlg.js');
-
+    var _3_option_dlg = require(base_path + 'page/ui/_3_option_dlg.js');
     beforeEach(function(){
         lib.auth.login('1','1');
         lib.setup.init_data();
@@ -97,9 +97,8 @@ describe('sale page -> sale_finalizer', function() {
         var offline_cost = 7.21;
         var offline_vendor = 'vendor';
         var offline_buydown = 0.45;
-        Sale_page.scan(offline_sku);
-        lib.wait_for_block_ui();
-        Ui_confirm_dlg.ok();//confirm that product will be create offline
+        Sale_page.scan(offline_sku);    
+        lib.click(_3_option_dlg._2_btn);
         Sp_prompt_dlg.set_name(offline_name);
         Sp_prompt_dlg.set_price(offline_price);
         Sp_prompt_dlg.set_value_customer_price(offline_value_customer_price);

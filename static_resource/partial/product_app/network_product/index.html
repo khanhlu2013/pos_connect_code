@@ -7,7 +7,26 @@
     $scope.network_product_summary_value_class
     $scope.suggest_extra_crv
     $scope.suggest_extra_name
-    $scope.is_sale_data // warning, this variable is quite messy.  For more info about this variable read network_product_api inside product project. this variable is a visual help to see if we include sale data or not in network_product info. Eventhough it can be calculated by searching to see if we have sale data embeded in network_product info or not, we still need this variable in case we don't have any sale data and want to display it as empty columns. in the case of sku_not_found_handler, network_product info does not contain sale data which is not the concern of sku_not_found_handler, we don't want to display this column.
+    $scope.is_sale_data // warning, this variable is quite messy.  For more info about this variable read network_product_api inside product project. 
+                                this variable is a visual help to see if we include sale data or not in network_product info. Eventhough it can be calculated by searching to see if we have sale data embeded in network_product info or not, we still need this variable in case we don't have any sale data and want to display it as empty columns. in the case of sku_not_found_handler, network_product info does not contain sale data which is not the concern of sku_not_found_handler, we don't want to display this column.
+
+    $scope.cur_sort_column;
+    $scope.cur_sort_desc;
+    $scope.column_click = function(column_name){
+        if($scope.cur_sort_column == column_name){
+            $scope.cur_sort_desc = !$scope.cur_sort_desc;
+        }else{
+            $scope.cur_sort_column = column_name;
+            $scope.cur_sort_desc = false;
+        }
+    }
+    $scope.get_sort_class = function(column_name){
+        if(column_name == $scope.cur_sort_column){
+            return "glyphicon glyphicon-arrow-" + ($scope.cur_sort_desc ? 'down' : 'up');
+        }else{
+            return '';
+        }
+    }                                
  -->
 
 <div>

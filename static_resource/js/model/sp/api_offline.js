@@ -93,6 +93,7 @@ define(
                 ,kit_assoc_lst                           
                 ,sp_couch._id
                 ,sp_couch._rev
+                ,null//cur_stock : we don't store this info in couch/pouch
             );
             return sp;
         }

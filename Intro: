@@ -1,15 +1,36 @@
-Intro:
-    Hi, my name is Lu and welcome to pos_connect. In this introduction video, lets go right into why should you use this software. What is the advantage and disadvanrage in compare with other product. Most pos in the market are design to stand alone and does not connect to each other and I believe, when things are connected, it open door to many possibility. Think about this, if you have information about the cost,price and sale volumns of a product in only one store, it does not have alot of meaning. But when these data come together from different stores, you can start see the relationship of the cost, price and sale volumn to find out what is the most profitable price. We can also find out a list of most profitable product your business should carry(demo). Here is another example of data sharing: it would be very easy to add new product into your store because chances are other store in the network already define this information( as a demo - let me show you with afew click, and you can import new product into your store through network suggestion) Data sharing is powerful with lot of potential but it also comes with a risk of exposing your sensitive business data to the network. To address the privacy issue, I make data sharing anonymous. ( as you can see here, you don't know what business is this data is comming from. I also suffle product information to further hiding the indentity of the business). You can decide how much you want to share. For example you can decide not to share anything or you only want to share the general product info such as name,crv, is it taxable but not the sensitive data such as price cost or sale volumns. However, to be fair, sharing is a 2 way street, you receive what you share. Another issue would be if your competitor next door also use this software and benefit from data sharing, then this will not benefit you. To address this issue I create a contract that there are no 2 stores that are located within 10 miles radius in the network. To make this clear, I have a map to show everybody where are all the member in the network. With this contract to help reducing the competition among member in the network, i encourage you to participate in data sharing which benefit everybody.
 
-    For this sharing to be possible, it must be a web app, similar to your email account. you access the email software and email data online. This software's databases is hosted by IBM and Amazon and we can trust them to handle our data. This means your data is more secure because they are located online and not on your local computer where it can crash. We wont need to worry about creating a backup, keeping it safe and up-to-date which is not a simple process and many thing that can go wrong. If your computer crash, simply replace it with a new one,connect it to the internet and you are back on track. You can also viewing sale data or edit product information online, so you can do this at home and the software at your store can receive this update. This fexibility come with a price that this software need the internet to work. To help reduce this issue, i have work really hard to make this software to work both online and offline. This pos will download your product database offline as a cache in your web browser so that after the page is loaded, it does not connect to the internet anymore to collect sale data. All receipts are first saved offline and then they are saved online at a later time when the internet is available. For this reason, the operation of this pos will work as fast as any non-web software out there. However, if you need to change the price for example, you will need the internet because the central database is located online.
+    intro
+        Hi, my name is Lu and welcome to pos_connect. I have other video that talk about all the detail of this software. In this introduction video, Lets talk about MAIN IDEA behide this pos, the advantage as well as DISADVANTAGE so you can decide if this is a right tool for your business. Beside being a very simple and easy to use pos, the main idea of pos_connect is ALLOW you to ANONYMOUSLY EXCHANGE INFORMATION with other MEMBER in pos_connect NETWORK. Before talking about the benefit and concern of information exchange, lets me show you all the member in the network map so you know who you are exchanging information with.
 
-    To conclude this introduction, i want to create an honest, and fair system where people can benefit from each other though data sharing. The more data, the more reliable and meaningful it become. For this, I would like to invite you to explore this possibility of data sharing through this project. I also try to make this software easy to use. If you find any feature could be improved, you can visit the feature request page where you can post and see very body request and how i address them. Thank you for watching.
+    intro about information exchange
+        Information exchange is a fair concept: if you SHARE then you can RECEIVE. There are two type of information you can exchange with pos_connect network that is The product information and the profit information.
+
+    product information exchange
+        Lets first talk about product information exchange which is mandatory. I know you don't like the word mandatory, but you will see it only bring benefit for you and other member. When you carry a new product, you have to define the product information. With pos_connect, there is a chance that other member in the network have already defined this information to help you. (demo)
+            there are 50% of these member naming this product this way, so i choose this most popular name, in the summary section. Same thing for the crv.
+
+            After defining this product the way you like, your product information will be used to suggest other member to import this product the same way you just did.
+
+    profit information exchange
+        The second type of information you can exchange with other member is profit information and this is optional. You share your profit information with the network and recieve the same information from the network to help you increase your profit. 
+
+            lets see how: lets search for a product in your store. pos_connect allow you to see the network information for this product. This is the product information you saw ealier, but we concern about the profit information in this table that show you the relationship of cost, price and profit
 
 
-. anonymous sharing is best show as the current store spespective
-. network information for a certain product (name,cost,price,sale)
-. map
-. request page: must log in to add request. but all the request log are display on the login page to see
-. bring up the concept of an app. there are 2 app in this liquor project
-. remove the map contract, remove the map. it is kind of cool when you have more customer, you can add this back in to say your network is large. right now it is not the time
-. push receipt reminder
+    online access: pos_connect let you remotely control the business anywhere online. Mobile device will be support in the future. Let me give you a quick background info for this demo. pos_connect is split into 2 app ...
+
+    data security
+        non-web pos store its database on local machine and you are responsible to create back up, store it somewhere safe and when things go wrong, you have to restore the system. Not an easy process.
+
+        pos_connect is power by IBM and Amazon servers. These cooperation have the resource take care of all the task i memtion above. If your computer crash, replace it with a new one that connect to the internet and you are done.
+
+        because all your data is online, pos_connect need the internet to access that data. for the remote control app, it need 100% internet to operate. To make your daily sale operation more reliable interm of internet disconnection, the sale app operate  offline to collect sale data.Sale app download product database offline and save all sale data temporarily offline so that it is as fast and reliable as non-web software. Sale app only need SOME internet connection to save sale data online at some point.
+
+        As a demo, let me turn off the internet, but it does not matter the internet is on or off, sale app talk to local product database and temporarily save receipt data offline so that it is as fast and reliable as non-web pos software. Once in a while, pos_connect will remind you to save your sale data online because that is the FINAL DESTINATION of all data. 
+
+    (conclusion)
+        In conclusion, i would like to invite you to join pos_connect to explore the possibility of data sharing. With more member, pos_connect can create more reliable and valualbe data to benefit all of its members. thank you for watching.
+
+
+
+

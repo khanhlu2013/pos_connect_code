@@ -103,15 +103,15 @@ describe('sp app -> info -> network product', function() {
             //--------------------------  
             expect(Network_product_partial.detail.cost_price_sale.lst.count()).toEqual(3);
             expect(Network_product_partial.detail.cost_price_sale.get_col(0,'cost')).toEqual(lib.currency(cost_1));
-            expect(Network_product_partial.detail.cost_price_sale.get_col(0,'price')).toEqual(lib.currency(price_1));
+            expect(Network_product_partial.detail.cost_price_sale.get_col(0,'price')).toEqual(lib.currency(price_1+crv_1));
             expect(Network_product_partial.detail.cost_price_sale.get_col(0,'sale')).toEqual(qty1.toString());
 
             expect(Network_product_partial.detail.cost_price_sale.get_col(1,'cost')).toEqual(lib.currency(cost_3));
-            expect(Network_product_partial.detail.cost_price_sale.get_col(1,'price')).toEqual(lib.currency(price_3));
+            expect(Network_product_partial.detail.cost_price_sale.get_col(1,'price')).toEqual(lib.currency(price_3+crv_3));
             expect(Network_product_partial.detail.cost_price_sale.get_col(1,'sale')).toEqual('');
 
             expect(Network_product_partial.detail.cost_price_sale.get_col(2,'cost')).toEqual('');
-            expect(Network_product_partial.detail.cost_price_sale.get_col(2,'price')).toEqual(lib.currency(price_2));      
+            expect(Network_product_partial.detail.cost_price_sale.get_col(2,'price')).toEqual(lib.currency(price_2+crv_2));      
             expect(Network_product_partial.detail.cost_price_sale.get_col(2,'sale')).toEqual(qty2.toString());                              
     },70000)
 });

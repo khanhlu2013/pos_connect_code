@@ -9,6 +9,8 @@ from payment_type.models import Payment_type
 from store_product.models import Store_product
 import datetime
 from store_product.cm import insert_new
+from bulk_update.helper import bulk_update
+
 
 def _iso_date_str_to_python_date(iso_date_str):
     fmt="%Y-%m-%dT%H:%M:%S.%fZ"
@@ -243,6 +245,40 @@ def _create_sp_n_update_receipt_lst_json(receipt_lst_json,store_id):
         _update(receipt_lst_json,sp_lst_django)
 
 
+def _get_sp_from_lst_base_on_id(sp_id,sp_lst):
+    result = None
+    for sp in sp_lst:
+        if sp.id == sp_id:
+            result = sp
+            break
+
+    return result
+    
+
+def _adjust_cur_stock(receipt_lst_json):
+    """
+        first: create a dictionary of pid and the qty
+        then: create a query to do this subtraction
+            . update sp set cur_stock = cur_stock = 1 where pid = 1
+
+    """
+    #step1: get all the sp that part of these receipt
+    sp_id_lst = []
+    for receipt_json in receipt_lst_json:
+        for receipt_ln in receipt_json['receipt_ln_lst']:
+            if receipt_ln['store_product_stamp'] != None:
+                sp_id_lst.append(receipt_ln['store_product_stamp']['sp_id'])
+    sp_lst = Store_product.objects.filter(pk__in = sp_id_lst)
+
+    #step2: update the model
+    for receipt_json in receipt_lst_json:
+        for receipt_ln in receipt_json['receipt_ln_lst']:
+            if receipt_ln['store_product_stamp'] != None:
+                sp = _get_sp_from_lst_base_on_id(receipt_ln['store_product_stamp']['sp_id'],sp_lst)
+                sp.cur_stock -= receipt_ln['qty']
+    bulk_update(sp_lst, update_fields=['cur_stock'])
+
+
 def exe(request):
     cur_login_store = request.session.get('cur_login_store')
     receipt_lst_json = json.loads(request.POST['receipt_lst'])
@@ -250,7 +286,8 @@ def exe(request):
     
     _create_sp_n_update_receipt_lst_json(receipt_lst_json_needToCreate,cur_login_store.id)#we need to report this list back to the client so that the client can clean up these sp_doc. we hide from the client which one in this list is already created or newly created. 
     _create_receipt(receipt_lst_json_needToCreate,cur_login_store.id)
-    
+    _adjust_cur_stock(receipt_lst_json_needToCreate)
+
     res = {
          'sp_doc_id_lst' : _get_sp_doc_id_lst_withoutProductId(receipt_lst_json)
         ,'receipt_doc_id_lst' : [receipt_json['doc_id'] for receipt_json in receipt_lst_json]

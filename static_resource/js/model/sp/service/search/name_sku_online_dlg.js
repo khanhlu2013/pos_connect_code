@@ -62,7 +62,7 @@ define(
                             '<tr ng-repeat="sp_multiple in sp_lst | orderBy:\'name\' | filter:local_filter">' + 
                                 '<td>{{sp_multiple.name}}</td>' +
                                 '<td class="alnright">{{sp_multiple.price | currency}}</td>' +
-                                '<td class="alncenter"><button ng-class="is_sp_selected(sp_multiple) ? \'btn-warning glyphicon-check\' : \'btn-primary glyphicon-unchecked\'" class="btn glyphicon" ng-click="toggle_select(sp_multiple)"></button></td>' +
+                                '<td class="alncenter"><button ng-class="is_sp_selected(sp_multiple) ? \'btn-warning glyphicon-check\' : \'btn-primary glyphicon-unchecked\'" class="btn glyphicon" ng-click="toggle_select(sp_multiple)" onclick="this.blur()"></button></td>' +
                             '</tr>' +
                         '</table>' +
                     '</div>' +

@@ -1,5 +1,12 @@
 /*
-    module with 1 service to create either online or offline ( if internet is disconnected ) _TODO_ for offline
+    this module is only call from the sale app when offline sku is not found
+        . this module search for this sku online, and make sure this sku is not found in the cur store. when sku is not found for current store, the search about take a step to search for network info
+            . if search success, 
+                . in this case, we did not find the sku offline and if there is nothing go wrong the sku online for cur_store should not be found. this service verify that.    
+                . if network suggest is empty, then this service will give the user an option of sale as non_inventory or create new product
+                . if network suggest is not empty, the extra suggest is use as input for create product which does not concern about non-inventory since create product is 
+                  also used in product app, which don't care about non-inventory.
+            . if the above search faile, then it will give an option of non_inventory sell or create product offline
 */
 define(
 [
@@ -31,6 +38,7 @@ define(
         ,'sp/api_search'
         ,'sp/service/create'    
         ,'service/ui/confirm'
+        ,'service/ui/_3_option'
         ,'sale_app/service/offline_product/create'
         ,'service/db/download_product'       
     ,function(
@@ -38,9 +46,29 @@ define(
         ,search_sp_api   
         ,create_sp_service    
         ,confirm_service
+        ,_3_option
         ,create_product_offline
         ,download_product
     ){
+        function _create_product_and_sync(product_lst,my_sp_lst,sku){
+            var defer = $q.defer();
+            create_sp_service(product_lst,my_sp_lst,sku).then
+            (
+                function(created_sp){ 
+                    download_product().then(
+                        function(){
+                            defer.resolve();
+                        },function(reason){
+                            defer.reject(reason);
+                        }
+                    )
+                },function(reason){ 
+                    defer.reject(reason); 
+                }
+            );   
+            return defer.promise;           
+        }
+
         return function(sku){
             var defer = $q.defer();
 
@@ -49,38 +77,60 @@ define(
                     if(data.prod_store__prod_sku__1_1.length != 0){
                         defer.reject('Error: online and offline database is not in sync. Refresh the page and try again.');
                     }else{
-                        var promise = create_sp_service(data.prod_store__prod_sku__0_0,data.prod_store__prod_sku__1_0,sku).then
-                        (
-                            function(created_sp){ 
-                                download_product().then(
-                                    function(){
-                                        defer.resolve();
-                                    },function(reason){
-                                        defer.reject(reason);
+                        if(data.prod_store__prod_sku__0_0.length === 0 && data.prod_store__prod_sku__1_0.length === 0){
+                            _3_option('sku not found','None Inventory or create new product?','None Inventory','create new product','cancel').then(
+                                function(option){
+                                    if(option ===1){
+                                        defer.reject('_non_inventory_');
+                                    }else if(option == 2){
+                                        _create_product_and_sync(data.prod_store__prod_sku__0_0,data.prod_store__prod_sku__1_0,sku).then(
+                                            function(){
+                                                defer.resolve();
+                                            },function(reason){
+                                                defer.reject(reason);
+                                            }
+                                        )
+                                    }else{
+                                        defer.reject('_cancel_');
                                     }
-                                )
-                            },function(reason){ 
-                                defer.reject(reason); 
-                            }
-                        );                        
+                                },function(reason){
+                                    alert_service(reason);
+                                }
+                            )
+                        }else{
+                            _create_product_and_sync(data.prod_store__prod_sku__0_0,data.prod_store__prod_sku__1_0,sku).then(
+                                function(){
+                                    defer.resolve();
+                                },function(reason){
+                                    defer.reject(reason);
+                                }
+                            )
+                        }
                     }
                 }
                 ,function(reason){ 
                     if(reason.status != 0){ 
                         defer.reject('search sku ajax error');
                     }else{
-                        confirm_service('There is problem with the internet. Do you want to create this product offline?','red').then(
-                            function(){
-                                create_product_offline(sku).then(
-                                    function(created_sp){
-                                        defer.resolve();
-                                    }
-                                    ,function(reason){
-                                        defer.reject(reason);
-                                    }
-                                )
+                        _3_option('internet is disconnected','None Inventory or create product offline.','none inventory','create product offline','cancel','red'/*title color*/,'blue'/*color_1*/,'red'/*color_2*/,'orange'/*color_3*/).then(
+                            function(option){
+                                if(option === 1){
+                                    defer.reject('_non_inventory_');
+                                }else if(option === 2){
+                                    create_product_offline(sku).then(
+                                        function(created_sp){
+                                            defer.resolve();
+                                        }
+                                        ,function(reason){
+                                            defer.reject(reason);
+                                        }
+                                    )
+                                }else if(option === 3){
+                                    defer.reject('_cancel_');
+                                }         
+                            },function(){
+                                defer.reject('_cancel_');
                             }
-                            ,function(){defer.reject('_cancel_');}
                         )
                     }
                 }

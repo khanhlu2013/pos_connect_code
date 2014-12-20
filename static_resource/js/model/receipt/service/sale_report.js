@@ -40,7 +40,7 @@ define(
                 '<div class="row">' +
                     '<div class="col-lg-3">' +
                         '<div class="input-group">' +
-                            '<input type="text" class="form-control" datepicker-popup="MM-dd-yyyy" ng-model="from_date" is-open="$parent.opened_from" close-text="close" datepicker-options="dateOptions"></input>' +
+                            '<input id="report/sale/from_date_txt" type="text" class="form-control" datepicker-popup="MM-dd-yyyy" ng-model="from_date" is-open="$parent.opened_from" close-text="close" datepicker-options="dateOptions"></input>' +
                             '<span class="input-group-btn">' +
                                 '<button type="button" class="btn btn-default" ng-click="open($event,\'opened_from\')"><i class="glyphicon glyphicon-calendar"></i></button>' +
                             '</span>' +
@@ -49,7 +49,7 @@ define(
 
                     '<div class="col-lg-3">' +
                         '<div class="input-group">' +
-                            '<input type="text" class="form-control" datepicker-popup="MM-dd-yyyy" ng-model="to_date" is-open="$parent.opened_to" close-text="close" datepicker-options="dateOptions"></input>' +
+                            '<input id="report/sale/to_date_txt" type="text" class="form-control" datepicker-popup="MM-dd-yyyy" ng-model="to_date" is-open="$parent.opened_to" close-text="close" datepicker-options="dateOptions"></input>' +
                             '<span class="input-group-btn">' +
                                 '<button type="button" class="btn btn-default" ng-click="open($event,\'opened_to\')"><i class="glyphicon glyphicon-calendar"></i></button>' +                        
                             '</span>' +
@@ -123,7 +123,7 @@ define(
                     '<div ng-show="receipt_lst !== null && receipt_lst.length === 0"><pre>there is no data in this range</pre></div>' +
                 '</div>' +
                 '<div class="modal-footer">' + 
-                    '<button class="btn btn-warning" ng-click="exit()">exit</button>'
+                    '<button id="report/sale/exit_btn" class="btn btn-warning" ng-click="exit()">exit</button>'
                 '</div>'                                
             ;
 

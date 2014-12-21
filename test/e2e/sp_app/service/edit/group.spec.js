@@ -15,19 +15,24 @@ describe('sp page', function() {
     })
 
     it('can crud sp.group',function(){
+        //---------------------------------
+        // insert fixture: a sp and a group
+        //---------------------------------
         lib.auth.login('1','1');
-
         //insert sp
         var sku = '111';
         lib.api.insert_new(sku,'aa'/*name*/);
-        
         //insert group
         var group_name = 'my group name';
         lib.api_group.insert_empty_group(group_name);
 
-        //add group to sp
+
+        //----------------
+        // add group to sp
+        //----------------
         Sp_page.sku_search(sku);
         expect(Sp_page.lst.count()).toEqual(1);
+        expect(Sp_page.get_col(0,'group')).toEqual('')
         Sp_page.click_col(0,'info');
         Sp_info_dlg.switch_tab('group');
         Sp_info_dlg.edit();
@@ -36,18 +41,40 @@ describe('sp page', function() {
         Group_search_multiple_dlg.click_col(0,'select');
         Group_search_multiple_dlg.ok();
         Sp_group_dlg.ok();
+        Sp_info_dlg.exit();
 
-        //verify sp info display 1 group
+
+        //-----------------
+        // verify add group
+        //-----------------
+        expect(Sp_page.get_col(0,'group')).toEqual('1');
+        Sp_page.click_col(0,'info');
         expect(Sp_info_dlg.group_lst.count()).toEqual(1);
 
-        //remove group
+
+        //-------------
+        // remove group
+        //-------------
+        Sp_info_dlg.switch_tab('group')
         Sp_info_dlg.edit();
         expect(Sp_group_dlg.lst.count()).toEqual(1);
         Sp_group_dlg.click_col(0,'remove');    
         Sp_group_dlg.ok();
+        Sp_info_dlg.exit();
+
+
+        //--------------------
+        // verify remove group
+        //--------------------
+        expect(Sp_page.get_col(0,'group')).toEqual('');
+        Sp_page.click_col(0,'info');
+        Sp_info_dlg.switch_tab('group')
         expect(Sp_info_dlg.group_lst.count()).toEqual(0);
 
-        //clean up
+
+        //---------
+        // clean up
+        //---------
         Sp_info_dlg.exit();
         lib.auth.logout();
     })

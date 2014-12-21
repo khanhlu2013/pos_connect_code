@@ -23,7 +23,7 @@ exports.config = {
         //         ,'./group_app/group_execute_in_sp_page.spec.js'
         //         ,'./payment_type_app/payment_type.spec.js'  
         //         ,'./shortcut_app/sale_shortcut.setup.spec.js'   
-        //         ,'./mix_match_app/mix_match_manage_in_sp_page.spec.js'       
+        //         ,'./sp_app/menu/mix_match_manage_in_sp_page.spec.js'       
         //         ,'./sp_app/menu/sync.spec.js' 
         //         ,'./sp_app/menu/tax.spec.js'         
 
@@ -92,8 +92,9 @@ exports.config = {
         //         ,'./sale_app/change_receipt_tender.spec.js'   
         //         ,'./sale_app/receipt_push_substract_stock.spec.js'
         //         ,'./sale_app/toogle_value_customer_price.spec.js'        
-                './sale_app/sku_not_found_handler.spec.js'           
+        //         ,'./sale_app/sku_not_found_handler.spec.js'           
         //         ,'./sale_app/duplicate.spec.js'    
+        //         ,'./sale_app/share_sku.spec.js'            
 
 
         //     // --------
@@ -101,7 +102,7 @@ exports.config = {
         //     // -------- 
         //         ,'./report/receipt_report_online_ui.spec.js'
         //         ,'./report/receipt_report_offline_ui.spec.js'
-        //     //     // ,'./report/sale_report.spec.js'        
+        //         ,'./report/sale_report.spec.js'        
         
 
 

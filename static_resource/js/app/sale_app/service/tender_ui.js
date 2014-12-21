@@ -67,6 +67,7 @@ define(
                                     ' focus-me="{{pt_tender.id===null}}"' +
                                     ' onClick="this.select();"' +
                                 '>' +
+                                '<input type="radio" name="pay_off_by_group" ng-model="$parent.pay_off_by" ng-value="pt_tender.id" ng-change="pay_off_by_handler($parent.pay_off_by)">' +
                                 '<label ng-show="inner_form.a_pt.$error.number" class="error">invalid number</label>' +
                                 '<label ng-show="inner_form.a_pt.$error.min" class="error">invalid amount</label>' +                                        
                             '</div>' +
@@ -94,22 +95,17 @@ define(
                     '<div class="col-md-6">' + template_receipt + '</div>'  +
                     '<div class="clear"></div>' +
                 '</div>' +
-                
-                // '<div class="modal-footer">' + 
-                //     '<button' +
-                //         ' id="sale_app/service/tender_ui/ok_btn"' +
-                //         ' ng-disabled="get_change() < 0.0 || form.$invalid"' +
-                //         ' ng-click="ok()"' +
-                //         ' class="btn btn-lg btn-success"' +
-                //         ' type="submit"' +
-                //         ' modal-enter="ok()">' +
-                //             'change: {{get_change()|currency}}' +
-                //     '</button>' +
-                //     '<button id="sale_app/service/tender_ui/cancel_btn" ng-click="cancel()" class="btn btn-lg btn-warning" type="button">cancel</button>' +
-                // '</div>' +
             '</form>'
             ;
             var ModalCtrl = function($scope,$modalInstance,sale_able_lst,prefill_tender_ln_lst,tax_rate){
+                $scope.pay_off_by = null;
+                if(prefill_tender_ln_lst === null){
+                    $scope.pay_off_by = null;//cash
+                }
+                $scope.pay_off_by_handler = function(pt_id){
+                    $scope.temp_tender_ln_dic = {};
+                    $scope.temp_tender_ln_dic[pt_id] = $scope.get_due();
+                }
                 $scope.display_sale_able_info_dlg = function(receipt_ln){
                     sale_able_info_dlg(receipt_ln,false/*is_enable_override_price*/);
                 }                
@@ -163,7 +159,6 @@ define(
                                 }else{
                                     return item.pt.id === cur_pt.id;
                                 }
-
                             });
                             if(tender_ln_lst.length === 1){
                                 cur_pt.active = true;
@@ -201,7 +196,7 @@ define(
                             return sale_able_lst;
                         }
                         ,prefill_tender_ln_lst:function(){
-                            return prefill_tender_ln_lst
+                            return prefill_tender_ln_lst;
                         }
                         ,tax_rate:function(){
                             return tax_rate;

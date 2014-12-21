@@ -65,7 +65,7 @@ var Sale_page = function () {
     this.get_col = function(index,col_name){
         var col_index = this.get_index(col_name);
 
-        if(col_name === 'is_taxable' || col_name === 'is_sale_report'){
+        if(col_name === 'is_taxable' || col_name === 'is_sale_report' || col_name === 'deal'){
             var defer = protractor.promise.defer();
             this.lst.get(index).all(by.tagName('td')).get(col_index).all(by.tagName('span')).get(0).getAttribute('class').then(
                 function(cls){

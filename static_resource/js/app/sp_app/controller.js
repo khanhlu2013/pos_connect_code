@@ -79,7 +79,7 @@ define(
             for(var i = 0;i<$rootScope.GLOBAL_SETTING.mix_match_lst.length;i++){
                 var cur_deal = $rootScope.GLOBAL_SETTING.mix_match_lst[i];
                 for(var j = 0;j<cur_deal.sp_lst.length;j++){
-                    if(sp.product_id === cur_deal.sp_lst[i].product_id){
+                    if(sp.product_id === cur_deal.sp_lst[j].product_id){
                         is_in_deal = true;
                         break;
                     }

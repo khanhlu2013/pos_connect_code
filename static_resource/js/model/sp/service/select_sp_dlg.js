@@ -11,7 +11,7 @@ define(
     mod.factory('sp/service/select_sp_dlg',['$modal',function($modal){
         return function(sp_lst){
             var template = 
-                '<div class="modal-header">' +
+                '<div class="modal-header" id="sp/service/select">' +
                     '<h3>select a product</h3>' +
                 '</div>' +
 
@@ -21,26 +21,24 @@ define(
                             '<th>product</th>' + 
                             '<th>price</th>' +
                             '<th>crv</th>' +
+                            '<th>taxable</th>' +
                             '<th>buydown</th>' +
-                            '<th>cost</th>' +
                             '<th>select</th>' + 
                         '</tr>' +
 
-                        '<tr ng-repeat="sp in sp_lst">' +
-                            '<td>{{sp.name}}</td>' +
-                            '<td>{{sp.price}}</td>' +
-                            '<td>{{sp.crv}}</td>' +     
-                            '<td>{{sp.buydown}}</td>' +                                                     
-                            '<td>{{sp.cost}}</td>' +
-                            '<td><button ng-click="select(sp)" class="btn btn-primary">select</button></td>' +                                            
+                        '<tr ng-repeat="sp_to_select in sp_lst|orderBy:\'name\'">' +
+                            '<td>{{sp_to_select.name}}</td>' +
+                            '<td>{{sp_to_select.price}}</td>' +
+                            '<td>{{sp_to_select.get_crv()}}</td>' +   
+                            '<td class="alncenter"><span class="glyphicon" ng-class="sp.is_taxable() ? \'glyphicon-check\' : \'glyphicon-unchecked\'"></span></td>' +
+                            '<td>{{sp_to_select.get_buydown()}}</td>' +                                                     
+                            '<td class="alncenter"><button ng-click="select(sp_to_select)" class="btn btn-primary">select</button></td>' +                                            
                         '</tr>' +
-
-                        
                     '</table>' +
                 '</div>' +
 
                 '<div class="modal-footer">' +
-                    '<button ng-click="exit()" class="btn btn-warning">exit</button>' +
+                    '<button id="sp/service/select/exit_btn" ng-click="exit()" class="btn btn-warning">exit</button>' +
                 '</div>'
             ;                               
             var ModalCtrl = function($scope,$modalInstance,sp_lst){

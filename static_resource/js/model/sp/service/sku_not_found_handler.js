@@ -186,12 +186,12 @@ define(
     ){
         return function(product_lst,my_sp_lst,sku){
             var template = 
-                '<div id="sp_app/service/suggest/select_product_dlg" class="modal-header"><h3>sku: {{sku}} not found</h3></div>' +
+                '<div class="alert alert-warning" id="sp_app/service/suggest/select_product_dlg" class="modal-header"><h3>sku not found - {{sku}}</h3></div>' +
                 '<div class="modal-body">' +
-                    '<h3>Option 1</h3>' +
+                    '<h3>Option 1: </h3>' +
                     '<div class="indent_40px">' +
-                        '<label>Select a product to add</label>' +
                         '<table class="table table-hover table-bordered table-condensed table-striped">' + 
+                            '<label>add products from pos_connect network</label>' +
                             '<tr>' +
                                 '<th>store count</th>' +                            
                                 '<th>name</th>' +
@@ -226,9 +226,8 @@ define(
                         '</table>' +
                     '</div>' +
 
-                    '<h3>Option 2</h3>' +
+                    '<h3>Option 2:</h3>' +
                     '<div class="indent_40px">' +
-                        '<label>If not found,</label>' +
                         '<button id="sp_app/service/suggest/select_product_dlg/create_new_product_btn" ng-click="create_new_product()" class="btn btn-primary">create new product</button>' +
                     '</div>' +
 

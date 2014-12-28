@@ -29,7 +29,7 @@
         <th ng-show="is_sale_data" class="info" ng-click="column_click('sale')">sale <span ng-class="get_sort_class('sale')"></span></th>
         <th ng-show="is_sale_data" class="info" ng-click="column_click('get_profit()')">profit <span ng-class="get_sort_class('get_profit()')"></span></th>
     </tr>
-    <tr ng-repeat="sp in (network_product.get_sp_lst()|orderBy:cur_sort_column:cur_sort_desc|emptyToEnd:cur_sort_column)" ng-class="sp.store_id === $root.GLOBAL_SETTING.store_id ? 'success' : ''">
+    <tr ng-repeat="sp in (network_product.get_sp_lst()|orderBy:cur_sort_column:cur_sort_desc|emptyToEnd:cur_sort_column)" ng-class="sp.store_id === $root.GLOBAL_SETTING.STORE_ID ? 'success' : ''">
         <td class="alnright">{{sp.get_cost()|currency}}</td>
         <td class="alnright">{{sp._get_b4_tax_price()|currency}}</td>
         <td class="alnright">{{sp.get_markup()}}</td>

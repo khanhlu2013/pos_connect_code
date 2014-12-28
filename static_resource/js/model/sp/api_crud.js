@@ -32,7 +32,7 @@ define(
                     data:{sku_str:sku,sp:JSON.stringify(sp)}
                 }).then(
                     function(data){ 
-                        defer.resolve(Store_product.build(data.data)) 
+                        defer.resolve(Store_product.build(data.data));
                     }
                     ,function(reason){ 
                         if(reason.data !== null && reason.data !== undefined && reason.data.indexOf('duplicate key value violates unique constraint') !== -1 && reason.data.indexOf('Key (name, store_id)=') !== -1){

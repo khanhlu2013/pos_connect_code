@@ -21,7 +21,7 @@ define(
 
     mod.factory('service/db/get',['$rootScope',function($rootScope){
         return function(){
-            var db_name = $rootScope.GLOBAL_SETTING.store_db_prefix + $rootScope.GLOBAL_SETTING.store_id;
+            var db_name = $rootScope.GLOBAL_SETTING.STORE_DB_PREFIX + $rootScope.GLOBAL_SETTING.STORE_ID;
             return new PouchDB(db_name);            
         }
     }]);
@@ -36,7 +36,7 @@ define(
     ){
         return function(){
             var defer = $q.defer();
-            var db_name = '_pouch_' + $rootScope.GLOBAL_SETTING.store_db_prefix + $rootScope.GLOBAL_SETTING.store_id;
+            var db_name = '_pouch_' + $rootScope.GLOBAL_SETTING.STORE_DB_PREFIX + $rootScope.GLOBAL_SETTING.STORE_ID;
             var request = indexedDB.open(db_name);
 
             request.onupgradeneeded = function (e){
@@ -149,12 +149,11 @@ define(
             var defer = $q.defer();
 
             //local db
-            var store_id = $rootScope.GLOBAL_SETTING.store_id;
-            var db_name = $rootScope.GLOBAL_SETTING.store_db_prefix + store_id;
+            var db_name = $rootScope.GLOBAL_SETTING.STORE_DB_PREFIX + $rootScope.GLOBAL_SETTING.STORE_ID;
             var local_db = new PouchDB(db_name);
 
             //remote db
-            var source_url = $rootScope.GLOBAL_SETTING.couch_server_url + '/' + db_name;
+            var source_url = $rootScope.GLOBAL_SETTING.COUCH_SERVER_URL + '/' + db_name;
             var remote_db = new PouchDB(source_url);
 
             var promise_lst = []
@@ -195,10 +194,10 @@ define(
             */
             var defer = $q.defer();
 
-            var store_id = $rootScope.GLOBAL_SETTING.store_id;
-            var db_name = $rootScope.GLOBAL_SETTING.store_db_prefix + store_id;
+            var store_id = $rootScope.GLOBAL_SETTING.STORE_ID;
+            var db_name = $rootScope.GLOBAL_SETTING.STORE_DB_PREFIX + store_id;
             var local_db = new PouchDB(db_name);
-            var source_url = $rootScope.GLOBAL_SETTING.couch_server_url + '/' + db_name;
+            var source_url = $rootScope.GLOBAL_SETTING.COUCH_SERVER_URL + '/' + db_name;
 
             blockUI.start('syncing database ...');
             console.log('begin syncing for store_id: ' + store_id);

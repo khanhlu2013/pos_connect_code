@@ -32,7 +32,7 @@ describe('sale_app', function() {
         Sale_page.visit();                  
         Sale_page.scan(sku_1);
         Sale_page.scan(sku_2);
-        Sale_page.non_inventory();
+        Sale_page.menu_action_non_inventory();
         Non_inventory_prompt_dlg.set_price(3);
         Non_inventory_prompt_dlg.ok();
         

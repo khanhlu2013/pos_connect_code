@@ -24,10 +24,10 @@ describe('sale page\'s receipt reminder', function() {
         //reduce global setting of max_receipt to speed up test
         //-----------------------------------------------------
         browser.executeAsyncScript(function(callback) {
-            angular.element(document).scope().GLOBAL_SETTING.max_receipt = 3;
+            angular.element(document).scope().GLOBAL_SETTING.MAX_RECEIPT = 3;
             angular.element(document).scope().next_receipt_count_reminder = 3;
-            angular.element(document).scope().GLOBAL_SETTING.max_receipt_snooze_1 = 1;
-            angular.element(document).scope().GLOBAL_SETTING.max_receipt_snooze_2 = 2;
+            angular.element(document).scope().GLOBAL_SETTING.MAX_RECEIPT_SNOOZE_1 = 1;
+            angular.element(document).scope().GLOBAL_SETTING.MAX_RECEIPT_SNOOZE_2 = 2;
 
             callback();
         })

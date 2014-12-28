@@ -243,9 +243,9 @@ define(
                     when call from refresh_ds from the scan page, we have this suggest_sp_lst ready.
                     when call from hold feature, we don't have this suggest_sp_lst in hand. this is why this suggest_sp_lst param is optional. 
             */
-            var all_mm_lst = angular.copy($rootScope.GLOBAL_SETTING.mix_match_lst);
+            var all_mm_lst = angular.copy($rootScope.GLOBAL_SETTING.MIX_MATCH_LST);
             var mm_lst = all_mm_lst.filter(function(mm){return !mm.is_disable;})
-            var tax_rate = $rootScope.GLOBAL_SETTING.tax_rate;
+            var tax_rate = $rootScope.GLOBAL_SETTING.TAX_RATE;
             mm_lst.sort(function(a,b){
                 return b.qty - a.qty;
             })

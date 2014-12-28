@@ -55,8 +55,8 @@ define(
                 '<div class="form-horizontal" >' +
                     '<div ng-repeat="pt_tender in pt_lst | orderBy:\'sort\'" class="form-group">' +
                         '<ng-form name="inner_form">' +
-                            '<label ng-attr-id="{{\'sale_app/service/tender_ui/pt_lbl/\' + pt_tender.id}}" class="col-sm-4 control-label input-lg" >{{pt_tender.name}}:</label>' +
-                            '<div class="col-sm-8">' +
+                            '<label ng-attr-id="{{\'sale_app/service/tender_ui/pt_lbl/\' + pt_tender.id}}" class="col-sm-3 control-label input-lg" >{{pt_tender.name}}:</label>' +
+                            '<div class="col-sm-9">' +
                                 '<input' +
                                     ' ng-attr-id="{{\'sale_app/service/tender_ui/pt_txt/\' + pt_tender.id}}" ' +
                                     ' name="a_pt"' +
@@ -67,7 +67,7 @@ define(
                                     ' focus-me="{{pt_tender.id===null}}"' +
                                     ' onClick="this.select();"' +
                                 '>' +
-                                '<input type="radio" name="pay_off_by_group" ng-model="$parent.pay_off_by" ng-value="pt_tender.id" ng-change="pay_off_by_handler($parent.pay_off_by)">' +
+                                '<button class="btn btn-primary btn-lg" type="button" ng-click="pay_off_by_handler(pt_tender.id)"><span class="glyphicon glyphicon-hand-left"></span></button>' +
                                 '<label ng-show="inner_form.a_pt.$error.number" class="error">invalid number</label>' +
                                 '<label ng-show="inner_form.a_pt.$error.min" class="error">invalid amount</label>' +                                        
                             '</div>' +
@@ -79,17 +79,19 @@ define(
                         ' id="sale_app/service/tender_ui/ok_btn"' +
                         ' ng-disabled="get_change() < 0.0 || form.$invalid"' +
                         ' ng-click="ok()"' +
-                        ' class="btn btn-lg btn-success"' +
+                        ' class="btn btn-xl btn-success"' +
                         ' type="submit"' +
                         ' modal-enter="ok()">' +
-                            'change: {{get_change()|currency}}' +
+                            '{{get_change()|currency}}' +
                     '</button>' +
-                    '<button id="sale_app/service/tender_ui/cancel_btn" ng-click="cancel()" class="btn btn-lg btn-warning" type="button">cancel</button>' +                    
+                    '<button id="sale_app/service/tender_ui/cancel_btn" ng-click="cancel()" class="btn btn-xl btn-warning" type="button"><span class="glyphicon glyphicon-remove"></span></button>' +                    
                 '</div>'  /* end form horizontal*/  
             ;          
             var template = 
             '<form name="form" novalidate role="form">' +
-                '<div class="modal-header"><h3 id="sale_app/service/tender_ui/due_lbl">due: {{get_due()|currency}}</h3></div>' +
+                '<div class="modal-header"><h3 id="sale_app/service/tender_ui/due_lbl">due: {{get_due()|currency}} ' +
+                    '<button ng-click="toogle_print_receipt()" class="btn btn-primary btn-lg btn-float-right"><span class="glyphicon glyphicon-print"> </span> <span class="glyphicon" ng-class="$parent.is_print_receipt ? \'glyphicon-check\' : \'glyphicon-unchecked\'"></span></button>' +
+                '</div>' +
                 '<div class="modal-body">' +
                     '<div class="col-md-6">' + template_pt + '</div>'  +
                     '<div class="col-md-6">' + template_receipt + '</div>'  +
@@ -98,9 +100,9 @@ define(
             '</form>'
             ;
             var ModalCtrl = function($scope,$modalInstance,sale_able_lst,prefill_tender_ln_lst,tax_rate){
-                $scope.pay_off_by = null;
-                if(prefill_tender_ln_lst === null){
-                    $scope.pay_off_by = null;//cash
+                $scope.is_print_receipt = false;
+                $scope.toogle_print_receipt = function(){
+                    $scope.is_print_receipt = ! $scope.is_print_receipt;
                 }
                 $scope.pay_off_by_handler = function(pt_id){
                     $scope.temp_tender_ln_dic = {};
@@ -167,7 +169,7 @@ define(
                     }
                 }
                 $scope.cancel = function(){ $modalInstance.dismiss('_cancel_'); }
-                $scope.pt_lst = angular.copy($rootScope.GLOBAL_SETTING.payment_type_lst);
+                $scope.pt_lst = angular.copy($rootScope.GLOBAL_SETTING.PAYMENT_TYPE_LST);
                 var cash_pt = new Payment_type(null,'cash',null/*sort - null value make it be on top*/,true/*active*/);
                 $scope.pt_lst.unshift(cash_pt);
                 $scope.sale_able_lst = sale_able_lst;

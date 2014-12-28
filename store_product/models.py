@@ -2,7 +2,6 @@ from django.db import models
 from store.models import Store
 from product.models import Product    
 
-
 class Store_product(models.Model):
     product = models.ForeignKey(Product)
     store = models.ForeignKey(Store)
@@ -18,6 +17,7 @@ class Store_product(models.Model):
     vendor = models.CharField(blank=True,null=True,max_length=100)
     buydown = models.DecimalField(max_digits=6, decimal_places=2,blank=True,null=True)
     group_lst = models.ManyToManyField('group.Group',related_name='sp_lst')
+    report_lst = models.ManyToManyField('report.Report',related_name='sp_lst')
     breakdown_lst = models.ManyToManyField('self',symmetrical=False,through='Kit_breakdown_assoc',related_name='kit_lst')
     sp_doc_id = models.CharField(blank=True,null=True,max_length=100)# if not null, these are product that are created offline. these field prevent created_offline product to be re_create multiple time on the server due to the possibility of client's failure to remove offline create product after the server created them and sync them down. 
     cur_stock = models.IntegerField(default=0)

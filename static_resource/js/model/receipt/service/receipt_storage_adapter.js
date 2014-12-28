@@ -112,7 +112,7 @@ define(
 
         function _pouch_2_java__tender_ln(doc){
             var pt = null;
-            if(doc.pt !== null){ pt = misc_service.get_item_from_lst_base_on_id(doc.pt.id,$rootScope.GLOBAL_SETTING.payment_type_lst); }
+            if(doc.pt !== null){ pt = misc_service.get_item_from_lst_base_on_id(doc.pt.id,$rootScope.GLOBAL_SETTING.PAYMENT_TYPE_LST); }
             
             var tender_ln = new Tender_ln(
                 doc.id,
@@ -148,7 +148,7 @@ define(
                 ,tax_rate       : receipt.tax_rate
                 ,tender_ln_lst  : receipt.tender_ln_lst
                 ,receipt_ln_lst : receipt.receipt_ln_lst.map(_java_2_pouch__receipt_ln)
-                ,d_type         : $rootScope.GLOBAL_SETTING.receipt_document_type
+                ,d_type         : $rootScope.GLOBAL_SETTING.RECEIPT_DOCUMENT_TYPE
             }
             return doc;
         }

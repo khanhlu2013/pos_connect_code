@@ -2,7 +2,7 @@ from rest_framework import serializers,fields
 from product.models import Product,ProdSkuAssoc
 from store_product.models import Store_product,Kit_breakdown_assoc
 from group.models import Group
-
+from report.models import Report
 
 class Prod_sku_assoc_serializer(serializers.ModelSerializer):
     product_id = serializers.Field(source='product.id')
@@ -13,6 +13,14 @@ class Prod_sku_assoc_serializer(serializers.ModelSerializer):
         model = ProdSkuAssoc
         fields = ('sku_str','store_set','creator_id','product_id')
 
+
+class Report_serializer(serializers.ModelSerializer):
+    """
+        this group serializer does not contain sp to prevent infinite recursive sp -> report -> sp ...
+    """
+    class Meta:
+        model = Report
+        fields = ('id','name')
 
 class Group_serializer(serializers.ModelSerializer):
     """
@@ -34,6 +42,7 @@ class Store_product_serializer(serializers.ModelSerializer):
     product = Product_prodSkuAssoc_serializer(many=False)
     store_id = serializers.Field(source='store.id')
     group_lst = Group_serializer(many=True)
+    report_lst = Report_serializer(many=True)
 
     def to_native(self,obj):
         if not self.fields.has_key('breakdown_assoc_lst'):
@@ -46,7 +55,7 @@ class Store_product_serializer(serializers.ModelSerializer):
 
     class Meta:
         model = Store_product
-        fields = ('id','product_id','product','store_id','name','price','value_customer_price','crv','is_taxable','is_sale_report','p_type','p_tag','cost','vendor','buydown','group_lst','cur_stock')
+        fields = ('id','product_id','product','store_id','name','price','value_customer_price','crv','is_taxable','is_sale_report','p_type','p_tag','cost','vendor','buydown','group_lst','cur_stock','report_lst')
 
 
 class Store_product_kit_serializer(serializers.ModelSerializer):

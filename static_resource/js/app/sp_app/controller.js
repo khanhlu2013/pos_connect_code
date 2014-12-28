@@ -14,6 +14,7 @@ define(
     ,'model/receipt/service/receipt_report'    
     ,'service/sync' 
     ,'model/receipt/service/sale_report'    
+    ,'model/report/service/manage'
 ], function 
 (
      angular
@@ -34,6 +35,7 @@ define(
         ,'receipt/service/receipt_report'        
         ,'service/sync' 
         ,'receipt/service/sale_report'          
+        ,'report/service/manage'
     ]);
 
     mod.controller('MainCtrl',
@@ -52,7 +54,8 @@ define(
         ,'group/service/manage'
         ,'receipt/service/receipt_report'            
         ,'service/sync'       
-        ,'receipt/service/sale_report'                 
+        ,'receipt/service/sale_report'  
+        ,'report/service/manage'               
     ,function(
          $window
         ,$scope
@@ -65,10 +68,11 @@ define(
         ,search_api
         ,blockUI
         ,is_pouch_exist
-        ,manage_group_service
+        ,manage_group
         ,receipt_report_dlg
         ,sync_service
-        ,sale_report_dlg        
+        ,sale_report_dlg       
+        ,manage_report 
     ){
         //SORT
         $scope.cur_sort_column = 'name';
@@ -76,8 +80,8 @@ define(
         
         $scope.is_in_deal = function(sp){
             var is_in_deal = false;
-            for(var i = 0;i<$rootScope.GLOBAL_SETTING.mix_match_lst.length;i++){
-                var cur_deal = $rootScope.GLOBAL_SETTING.mix_match_lst[i];
+            for(var i = 0;i<$rootScope.GLOBAL_SETTING.MIX_MATCH_LST.length;i++){
+                var cur_deal = $rootScope.GLOBAL_SETTING.MIX_MATCH_LST[i];
                 for(var j = 0;j<cur_deal.sp_lst.length;j++){
                     if(sp.product_id === cur_deal.sp_lst[j].product_id){
                         is_in_deal = true;
@@ -134,14 +138,8 @@ define(
             )
         }
         //NAME SEARCH
-        $scope.name_search = function(search_by){
-            /*
-                EXPLAIN search_by. accept 3 constance
-                    . user
-                    . infinite_scroll
-                    . code -> when we execute group, we want to call this name_search again to refresh the data on the page
-            */
-            
+        $scope.name_search = function(is_get_next_page,ignore_same_search_str){
+           
             if($scope.name_search_busy === true){
                 return;
             }
@@ -170,15 +168,15 @@ define(
                     $scope.name_search_reach_the_end = false;
                 }else{
                     //the search str is the same
-                    if(search_by === 'user'){
+                    if(ignore_same_search_str === true){
                         return;
-                    }else if(search_by === 'infinite_scroll'){
+                    }else if(is_get_next_page === true){
                         if($scope.name_search_reach_the_end){
                             return;
                         }else{
                             after = $scope.sp_lst.length;
                         }                        
-                    }else if(search_by === 'code'){
+                    }else{
                         after = 0;
                         $scope.sp_lst = [];
                         $scope.old_name_search_str = $scope.name_search_str;
@@ -239,7 +237,7 @@ define(
             is_pouch_exist().then(
                  function(db_exitance){
                     if(db_exitance){
-                        confirm_service('launch pos page?').then(function(){
+                        confirm_service('launch sale app?').then(function(){
                             launch_pos_url();
                         });                        
                     }else{
@@ -253,14 +251,27 @@ define(
                 }
             )
         }
-        $scope.menu_setting_group_in_sp_page = function(){
-            manage_group_service().then(
+        function _refresh_current_sp_lst_in_interface(){
+            if($scope.name_search_str.length !== 0){
+                $scope.name_search(false/*is_get_next_page*/,false/*ignore_same_search_str*/);
+            }else if($scope.sku_search_str.length !== 0){
+                $scope.sku_search();
+            }              
+        }
+        $scope.menu_report_create_in_sp_page = function(){
+            manage_report().then(
                 function(){
-                    if($scope.name_search_str.length !== 0){
-                        $scope.name_search('code');
-                    }else if($scope.sku_search_str.length !== 0){
-                        $scope.sku_search();
-                    }
+                    _refresh_current_sp_lst_in_interface();
+                }
+                ,function(reason){
+                    alert_service(reason);
+                }
+            );
+        }      
+        $scope.menu_setting_group_in_sp_page = function(){
+            manage_group().then(
+                function(){
+                    _refresh_current_sp_lst_in_interface();
                 }
                 ,function(reason){
                     alert_service(reason);

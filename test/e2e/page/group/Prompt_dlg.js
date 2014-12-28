@@ -36,9 +36,3 @@ var Prompt_dlg = function () {
 }
 
 module.exports = new Prompt_dlg();
-
-
-
-
-
-

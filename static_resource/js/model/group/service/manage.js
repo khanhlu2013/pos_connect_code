@@ -25,7 +25,6 @@ define(
     mod.factory('group/service/manage',
     [
          '$modal'
-        ,'$http'
         ,'group/service/edit'
         ,'service/ui/alert'
         ,'service/ui/confirm'
@@ -35,7 +34,6 @@ define(
     ,function
     (
          $modal
-        ,$http
         ,edit_group_service
         ,alert_service
         ,angular_confirm
@@ -72,7 +70,7 @@ define(
                     '<button id="group_app/service/manage/exit_btn" ng-click="exit()" class="btn btn-warning"><span class="glyphicon glyphicon-remove"></span></button>' +
                 '</div>'                
             ;
-            var ModalCtrl = function($scope,$modalInstance,$http,group_lst){
+            var ModalCtrl = function($scope,$modalInstance,group_lst){
                 $scope.group_lst = group_lst;
 
                 $scope.execute_group = function(group_id){
@@ -133,10 +131,10 @@ define(
                     )
                 }
                 $scope.exit = function(){
-                    $modalInstance.close($scope.sp_lst);
+                    $modalInstance.close($scope.group_lst);
                 }
             }
-            ModalCtrl.$inject = ['$scope','$modalInstance','$http','group_lst'];
+            ModalCtrl.$inject = ['$scope','$modalInstance','group_lst'];
             
             var dlg = $modal.open({
                 template:template,

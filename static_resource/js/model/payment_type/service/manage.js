@@ -75,7 +75,7 @@ define(
                 $scope.pt_lst = pt_lst;
 
                 $scope.exit = function(){
-                    $rootScope.GLOBAL_SETTING.payment_type_lst = $scope.pt_lst;
+                    $rootScope.GLOBAL_SETTING.PAYMENT_TYPE_LST = $scope.pt_lst;
                     $modalInstance.dismiss('_cancel_');
                 }
                 $scope.create = function(){

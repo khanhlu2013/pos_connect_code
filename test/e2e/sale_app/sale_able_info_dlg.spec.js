@@ -105,7 +105,7 @@ describe('sale page\'s Sale_able_info_dlg', function() {
 
         //non inventory
         var ni_price=1.1;var ni_crv=2.2; var ni_is_taxable=true;
-        Sale_page.non_inventory();
+        Sale_page.menu_action_non_inventory();
         Non_inventory_prompt_dlg.set_price(ni_price);
         Non_inventory_prompt_dlg.set_crv(ni_crv);
         Non_inventory_prompt_dlg.set_is_taxable(ni_is_taxable);

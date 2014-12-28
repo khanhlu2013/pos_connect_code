@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>pos connect </title>
-
+    <title>sale app</title>
 </head>
 <body ng-controller="Sale_page_ctrl">
     <!-- <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"> -->
@@ -29,62 +28,67 @@
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="product-navbar-collapse">
-                <ul class="nav navbar-nav">
-                    <div class="navbar-form navbar-left" role="search">
-                        <input 
-                            type="text" 
-                            id='sale_app/main_page/scan_txt' 
-                            class="form-control" 
-                            placeholder="sku" 
-                            onClick="this.select();"
-                            ng-enter="sku_scan()"
-                            ng-model="sku_search_str"     
-                            focus-me="is_focus_sku_txt"
-                        >
-                        <button 
-                            id="sale_app/main_page/search_btn" 
-                            ng-click="search()" 
-                            type="button" 
-                            class="btn btn-primary navbar-btn">
-                            <i class="glyphicon glyphicon-search"></i>
-                        </button>    
-                        <button 
-                            id="sale_app/main_page/shortcut_btn" 
-                            ng-click="shortcut_click()" 
-                            type="button" 
-                            class="btn btn-primary navbar-btn">shortcut
-                        </button>                         
-                        <button 
-                            id="sale_app/main_page/non_inventory_btn" 
-                            ng-click="non_inventory_handler()" 
-                            type="button" 
-                            class="btn btn-primary navbar-btn">none inv
-                        </button>                           
-                        <button 
-                            id="sale_app/main_page/void_btn" 
-                            ng-click="void()" 
-                            type="button" 
-                            class="btn btn-warning navbar-btn">void
-                        </button>     
-                        {% verbatim %} 
-                        <button 
-                            ng-hide="ds_lst.length === 0"
-                            id="sale_app/main_page/tender_btn" 
-                            type="button" 
-                            ng-click="finalize()"
-                            class="btn btn-primary btn-lg">
-                                {{get_tender_amount()|currency}}
-                        </button>      
-                        <button 
-                            ng-hide="previous_receipt === null || ds_lst.length !== 0" 
-                            class="btn btn-success btn-lg"
-                            ng-click="change_previous_receipt_tender_ln()"
-                            id="sale_app/main_page/change_btn" >
-                                change: {{previous_receipt.get_change()|currency}}
-                        </button>
-                        {% endverbatim %} 
-                    </div>
-                </ul>
+
+                <div class="navbar-form navbar-left" role="search">
+                    <input 
+                        type="text" 
+                        id='sale_app/main_page/scan_txt' 
+                        class="form-control input-lg" 
+                        placeholder="sku" 
+                        onClick="this.select();"
+                        ng-enter="sku_scan()"
+                        ng-model="sku_search_str"     
+                        focus-me="is_focus_sku_txt"
+                    >
+                    <button 
+                        id="sale_app/main_page/search_btn" 
+                        ng-click="search()" 
+                        type="button" 
+                        class="btn btn-primary btn-lg">
+                        <i class="glyphicon glyphicon-search"></i>
+                    </button>    
+                    <button 
+                        id="sale_app/main_page/shortcut_btn" 
+                        ng-click="shortcut_click()" 
+                        type="button" 
+                        class="btn btn-primary btn-lg">
+                            <span class="glyphicon glyphicon-th"></span>
+                    </button>                                                   
+                    <button 
+                        id="sale_app/main_page/void_btn" 
+                        ng-click="void()" 
+                        type="button" 
+                        class="btn btn-warning btn-lg">
+                            <span class="glyphicon glyphicon-trash"></span>
+                    </button>     
+                    {% verbatim %} 
+                    <button 
+                        ng-hide="ds_lst.length === 0"
+                        id="sale_app/main_page/tender_btn" 
+                        type="button" 
+                        ng-click="finalize()"
+                        class="btn btn-primary btn-lg">
+                            {{get_tender_amount()|currency}}
+                    </button>      
+                    <button 
+                        ng-hide="previous_receipt === null || ds_lst.length !== 0" 
+                        class="btn btn-success btn-lg"
+                        ng-click="change_previous_receipt_tender_ln()"
+                        id="sale_app/main_page/change_btn" >
+                            change: {{previous_receipt.get_change()|currency}}
+                    </button>
+                    {% endverbatim %} 
+                </div>
+
+<!--                 <div ng-controller="service.menu" class="navbar-form navbar-right">
+                    <button 
+                        ng-click="logout()" 
+                        id="logout_link" 
+                        class="btn btn-primary btn-lg">
+                        <span class="glyphicon glyphicon-user"></span>
+                    </button>  
+                </div>   -->
+
                 <ul ng-controller="service.menu" class="nav navbar-nav navbar-right">
                     <li class="dropdown">
                         <a id="sale_app/menu/setting" href="#" class="dropdown-toggle" data-toggle="dropdown">setting <b class="caret"></b></a>
@@ -94,6 +98,10 @@
                             <li id="sale_app/menu/setting/shortcut" ng-click="menu_setting_shortcut()"><a href='#'>shortcut</a></li>
                             <li id="sale_app/menu/setting/mix_match" ng-click="menu_setting_mix_match()"><a href='#'>mix match</a></li>
                             <li id="sale_app/menu/setting/payment_type" ng-click="menu_setting_payment_type()"><a href='#'>payment type</a></li>
+                            <li role="presentation" class="divider"></li>                            
+                            <li id="sp_app/menu/setting/store" ng-click="menu_setting_store()">
+                                <a href='#'>store - {% verbatim %}{{$root.GLOBAL_SETTING.STORE.name}}{% endverbatim %}</a>
+                            </li>                                
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -101,21 +109,25 @@
                         <ul class="dropdown-menu">
                             <li id="sale_app/menu/report/receipt" ng-click="menu_report_receipt_in_sale_page()"><a href='#'>receipt</a></li>                            
                             <li id='sale_app/menu/report/sale' ng-click="menu_report_sale()"><a href='#'>sale</a></li>
+                            <li role="presentation" class="divider"></li>
+                            <li id='sp_app/menu/report/create' ng-click="menu_report_create_in_sale_page()"><a href='#'>create custom report</a></li>                                
                         </ul>
                     </li>   
                     <li class="dropdown">
                         <a id="sale_app/menu/action" href="#" class="dropdown-toggle" data-toggle="dropdown">action <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li ng-click="launch_product()"><a href='#'>launch product</a></li>
                             <li id='sale_app/menu/action/sync' ng-click="menu_action_sync()"><a href='#'>sync</a></li>
+                            <li ng-click="launch_product()"><a href='#'>product app</a></li>
+                            <li role="presentation" class="divider"></li>
                             <li id='sale_app/menu/action/hold' ng-click="hold()"><a href='#'>hold - ctrl+h</a></li>
                             <li id='sale_app/menu/action/get_hold' ng-click="get_hold_ui()"><a href='#'>get hold - ctrl+g</a></li>  
                             <li id='sale_app/menu/action/non_inventory' ng-click="non_inventory_handler()"><a href='#'>none inventory - ctrl+n</a></li>  
-                            <li id='sale_app/menu/action/toogle_value_customer_price' ng-click="toogle_value_customer_price()"><a href='#'>toogle value customer price - F2</a></li>                 
+                            <li id='sale_app/menu/action/toogle_value_customer_price' ng-click="toogle_value_customer_price()"><a href='#'>toogle value customer price - F2</a></li> 
+                            <li role="presentation" class="divider"></li>
+                            <li ng-click="menu_action_logout()"><a id="logout_link" href='#'>logout - {{user}}</a></li>                            
                         </ul>
                     </li>                    
-                    <!-- <li> <a id="logout_link" href='{% url "liquor_logout_named_url" %}'>{{ request.session.cur_login_store }} - {{ user }} - logout</a> </li> -->
-                    <li ng-click="logout()"><a id="logout_link" href='#'>{{ request.session.cur_login_store }} - {{ user }} - logout</a></li>
+                    <!-- <li ng-click="logout()"><a id="logout_link" href='#'>{{ request.session.cur_login_store }} - {{ user }} - logout</a></li> -->
                 </ul>   
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
@@ -157,10 +169,11 @@
         _GLOBAL_SETTING_.SHORTCUT_COLUMN_COUNT      = {{SHORTCUT_COLUMN_COUNT}};
         _GLOBAL_SETTING_.STORE_PRODUCT_DOCUMENT_TYPE= "{{STORE_PRODUCT_DOCUMENT_TYPE}}";
         _GLOBAL_SETTING_.RECEIPT_DOCUMENT_TYPE      = "{{RECEIPT_DOCUMENT_TYPE}}";
+        _GLOBAL_SETTING_.STORE                      = {{STORE|safe}};        
     </script>
 
-    <!-- // <script data-main = "{{ STATIC_URL }}js/sale_main.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script> -->
-    <script data-main = "{{ STATIC_URL }}sale.min.14.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script>
+    <script data-main = "{{ STATIC_URL }}js/sale_main.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script>
+    <!-- // <script data-main = "{{ STATIC_URL }}sale.min.14.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script> -->
 
 </body>
 </html>

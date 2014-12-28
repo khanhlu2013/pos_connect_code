@@ -18,6 +18,7 @@ var Sale_page = function () {
     //menu function
     this.menu_action_sync = function(){ lib.click(this.menu_action); lib.click(element(by.id('sp_app/menu/action/sync'))); }
     this.menu_report_receipt = function(){ lib.click(this.menu_report); lib.click(element(by.id('sp_app/menu/report/receipt'))); }
+    this.menu_report_create = function(){ lib.click(this.menu_report); lib.click(element(by.id('sp_app/menu/report/create'))); }
     this.menu_setting_group = function(){ lib.click(this.menu_setting); lib.click(element(by.id('sp_app/menu/setting/group'))); }
     this.menu_setting_payment_type = function(){ lib.click(this.menu_setting); lib.click(element(by.id('sp_app/menu/setting/payment_type'))); }
     this.menu_setting_mix_match = function(){ lib.click(this.menu_setting); lib.click(element(by.id('sp_app/menu/setting/mix_match'))); }

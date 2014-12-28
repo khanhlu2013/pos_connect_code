@@ -94,6 +94,7 @@ define(
                 ,sp_couch._id
                 ,sp_couch._rev
                 ,null//cur_stock : we don't store this info in couch/pouch
+                ,null//report_lst
             );
             return sp;
         }

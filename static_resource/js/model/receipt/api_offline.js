@@ -42,7 +42,7 @@ define(
                         blockUI.stop();
                     }else{
                         var db = get_pouch_db();
-                        db.query('views/by_d_type',{key:$rootScope.GLOBAL_SETTING.receipt_document_type})
+                        db.query('views/by_d_type',{key:$rootScope.GLOBAL_SETTING.RECEIPT_DOCUMENT_TYPE})
                         .then(
                             function(pouch_result){
                                 var result = [];

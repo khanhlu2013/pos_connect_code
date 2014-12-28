@@ -106,7 +106,7 @@ define(
                     $scope.ni = angular.copy(original_non_inventory)
                 }
                 $scope.get_otd_price = function(){
-                    return $scope.ni.get_otd_price($rootScope.GLOBAL_SETTING.tax_rate);
+                    return $scope.ni.get_otd_price($rootScope.GLOBAL_SETTING.TAX_RATE);
                 }
                 $scope.cancel = function(){
                     $modalInstance.dismiss('_cancel_');

@@ -303,7 +303,7 @@ define(
             var template = 
                 '<div id="sp_app/service/suggest/select_product_confirm_dlg" class="modal-header"><h3>confirm add product</h3></div>' +
                 '<div class="modal-body">' +
-                    '<div ng-include="$root.GLOBAL_SETTING.partial_url.product.network_product.index">' +   
+                    '<div ng-include="$root.GLOBAL_SETTING.PARTIAL_URL.product.network_product.index">' +   
                     '</div>' +
                 '</div>' +                
                 '<div class="modal-footer">' +

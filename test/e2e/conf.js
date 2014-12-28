@@ -10,7 +10,7 @@ exports.config = {
     [
         //  './sp_app/main_page_name_search.js'                        
         // ,'./sp_app/main_page_sku_search.js'                          
-        
+      
 
         // //--------------
         // // PRODUCT APP -
@@ -19,7 +19,8 @@ exports.config = {
         //     // ------
         //     // MENU -
         //     // ------       
-        //          './group_app/group_crud_in_sp_page.spec.js'  
+        //          './group_app/group_crud_in_sp_page.spec.js'
+        //         ,'./report/report_crud_in_sp_page.spec.js'                   
         //         ,'./group_app/group_execute_in_sp_page.spec.js'
         //         ,'./payment_type_app/payment_type.spec.js'  
         //         ,'./shortcut_app/sale_shortcut.setup.spec.js'   
@@ -54,55 +55,55 @@ exports.config = {
 
 
 
-        // //-----------
-        // // SALE APP -
-        // //-----------
+        //-----------
+        // SALE APP -
+        //-----------
 
-        //     // ------
-        //     // CRUD -
-        //     // ------ 
-        //         ,'./sale_app/sp_edit/main.spec.js'   
-        //         ,'./sale_app/sp_edit/sku.spec.js'     
-        //         ,'./sale_app/sp_edit/kit.spec.js'     
-        //         ,'./sale_app/sp_edit/group.spec.js'     
+            // ------
+            // CRUD -
+            // ------ 
+                 './sale_app/sp_edit/main.spec.js'   
+                ,'./sale_app/sp_edit/sku.spec.js'     
+                ,'./sale_app/sp_edit/kit.spec.js'     
+                ,'./sale_app/sp_edit/group.spec.js'     
 
-        //     // ------
-        //     // MENU -
-        //     // ------   
-        //         ,'./sale_app/menu/tax.spec.js'        
-        //         ,'./sale_app/menu/pt.spec.js'
-        //         ,'./sale_app/menu/sale_shortcut.spec.js'
-        //         ,'./sale_app/menu/mix_match_watch_n_refresh_ds.spec.js'  
-        //         ,'./sale_app/menu/group_execute_refresh_ds.spec.js'
-        //         ,'./sale_app/menu/sync.spec.js'  
+            // ------
+            // MENU -
+            // ------   
+                ,'./sale_app/menu/tax.spec.js'        
+                ,'./sale_app/menu/pt.spec.js'
+                ,'./sale_app/menu/sale_shortcut.spec.js'
+                ,'./sale_app/menu/mix_match_watch_n_refresh_ds.spec.js'  
+                ,'./sale_app/menu/group_execute_refresh_ds.spec.js'
+                ,'./sale_app/menu/sync.spec.js'  
 
-        //     // ------
-        //     // MISC -
-        //     // ------ 
-        //         ,'./sale_app/page/change_button.spec.js'
-        //         ,'./sale_app/page/suggest_mm_and_cur_mm_info_on_ds_item.spec.js'
-        //         ,'./sale_app/sale_able_info_dlg.spec.js'
-        //         ,'./sale_app/hold.spec.js'   
-        //         ,'./sale_app/init_db.spec.js'    
-        //         ,'./sale_app/displaying_scan/non_inventory.spec.js'    
-        //         ,'./sale_app/displaying_scan/tender_calculation_4_single_item.spec.js'
-        //         ,'./sale_app/sale_finalizer.spec.js'
-        //         ,'./sale_app/offline_product.spec.js'
-        //         ,'./sale_app/receipt_reminder.spec.js'
-        //         ,'./sale_app/change_receipt_tender.spec.js'   
-        //         ,'./sale_app/receipt_push_substract_stock.spec.js'
-        //         ,'./sale_app/toogle_value_customer_price.spec.js'        
-        //         ,'./sale_app/sku_not_found_handler.spec.js'           
-        //         ,'./sale_app/duplicate.spec.js'    
-        //         ,'./sale_app/share_sku.spec.js'            
+            // ------
+            // MISC -
+            // ------ 
+                ,'./sale_app/page/change_button.spec.js'
+                ,'./sale_app/page/suggest_mm_and_cur_mm_info_on_ds_item.spec.js'
+                ,'./sale_app/sale_able_info_dlg.spec.js'
+                ,'./sale_app/hold.spec.js'   
+                ,'./sale_app/init_db.spec.js'    
+                ,'./sale_app/displaying_scan/non_inventory.spec.js'    
+                ,'./sale_app/displaying_scan/tender_calculation_4_single_item.spec.js'
+                ,'./sale_app/sale_finalizer.spec.js'
+                ,'./sale_app/offline_product.spec.js'
+                ,'./sale_app/receipt_reminder.spec.js'
+                ,'./sale_app/change_receipt_tender.spec.js'   
+                ,'./sale_app/receipt_push_substract_stock.spec.js'
+                ,'./sale_app/toogle_value_customer_price.spec.js'        
+                ,'./sale_app/sku_not_found_handler.spec.js'           
+                ,'./sale_app/duplicate.spec.js'    
+                ,'./sale_app/share_sku.spec.js'            
 
 
-        //     // --------
-        //     // REPORT -
-        //     // -------- 
-        //         ,'./report/receipt_report_online_ui.spec.js'
-        //         ,'./report/receipt_report_offline_ui.spec.js'
-        //         ,'./report/sale_report.spec.js'        
+            // --------
+            // REPORT -
+            // -------- 
+                ,'./report/receipt_report_online_ui.spec.js'
+                ,'./report/receipt_report_offline_ui.spec.js'
+                ,'./report/sale_report.spec.js'        
         
 
 

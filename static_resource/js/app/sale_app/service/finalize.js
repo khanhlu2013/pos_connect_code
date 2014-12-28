@@ -88,13 +88,13 @@ define(
             var defer = $q.defer();
             if(ds_lst.length == 0){return $q.reject('ds_lst is empty')}
 
-            tender_ui_service(ds_lst,null,$rootScope.GLOBAL_SETTING.tax_rate).then(
+            tender_ui_service(ds_lst,null,$rootScope.GLOBAL_SETTING.TAX_RATE).then(
                 function(tender_ln_lst){
                     var receipt_ln_lst = _create_receipt_ln_lst(ds_lst);
                     var receipt = new Receipt(
                          null// id. it is null because it is not yet saved online. 
                         ,new Date()
-                        ,$rootScope.GLOBAL_SETTING.tax_rate
+                        ,$rootScope.GLOBAL_SETTING.TAX_RATE
                         ,tender_ln_lst
                         ,receipt_ln_lst
                         ,null//doc_id . it is null because we don't know this doc_id until we saved into pouch

@@ -9,6 +9,8 @@ var Report_dlg = function () {
 
     //btn
     this.exit_btn = element(by.id('report/sale/exit_btn'));
+    this.refresh_report_btn = element(by.id('report/sale/refresh_report'));
+    this.refresh_today_report_btn = element(by.id('report/sale/refresh_today_report'));
 
     //txt input
     this.from_txt = element(by.id('report/sale/from_date_txt'));
@@ -18,6 +20,13 @@ var Report_dlg = function () {
     this.exit = function(){ 
         lib.click(this.exit_btn); 
     }
+    this.refresh_today_report = function(){
+        lib.click(this.refresh_today_report_btn);
+    }
+    this.refresh_report = function(){
+        lib.click(this.refresh_report_btn);
+        lib.wait_for_block_ui();
+    }    
 }
 
 module.exports = new Report_dlg();

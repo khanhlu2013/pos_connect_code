@@ -70,19 +70,19 @@ define(
                         //buydown tax
                         '<div ng-hide="ds.get_buydown() === null || ds.get_buydown() === 0.0" class="form-group">' +
                             '<label class="col-sm-5 control-label">buydown tax:</label>' +
-                            '<p id="sale_app/service/sale_able_info_dlg/buydown_tax" class="col-sm-7 form-control-static">{{ds.get_buydown_tax(GLOBAL_SETTING.tax_rate)|currency|not_show_zero}}</p>' +  
+                            '<p id="sale_app/service/sale_able_info_dlg/buydown_tax" class="col-sm-7 form-control-static">{{ds.get_buydown_tax(GLOBAL_SETTING.TAX_RATE)|currency|not_show_zero}}</p>' +  
                         '</div>' +
 
                         //tax
                         '<div class="form-group">' +
                             '<label class="col-sm-5 control-label">tax ({{tax_rate}}%) :</label>' +
-                            '<p id="sale_app/service/sale_able_info_dlg/tax" class="col-sm-7 form-control-static">{{ds.get_product_tax(GLOBAL_SETTING.tax_rate)|currency|not_show_zero}}</p>' +  
+                            '<p id="sale_app/service/sale_able_info_dlg/tax" class="col-sm-7 form-control-static">{{ds.get_product_tax(GLOBAL_SETTING.TAX_RATE)|currency|not_show_zero}}</p>' +  
                         '</div>' +
 
                         //out the door
                         '<div class="form-group">' +
                             '<label class="col-sm-5 control-label">out the door $:</label>' +
-                            '<p id="sale_app/service/sale_able_info_dlg/otd_price" class="col-sm-7 form-control-static">{{ds.get_otd_price(GLOBAL_SETTING.tax_rate)|currency}}</p>' +  
+                            '<p id="sale_app/service/sale_able_info_dlg/otd_price" class="col-sm-7 form-control-static">{{ds.get_otd_price(GLOBAL_SETTING.TAX_RATE)|currency}}</p>' +  
                         '</div>' +                 
                     '</div>' +
 
@@ -96,7 +96,7 @@ define(
 
             var ModalCtrl = function($scope,$modalInstance,$filter,$rootScope,ds_original,is_enable_override_price){
                 $scope.ds = angular.copy(ds_original);
-                $scope.tax_rate = $rootScope.GLOBAL_SETTING.tax_rate;
+                $scope.tax_rate = $rootScope.GLOBAL_SETTING.TAX_RATE;
                 $scope.is_enable_override_price = is_enable_override_price;
 
                 $scope.remove_override_price = function(){

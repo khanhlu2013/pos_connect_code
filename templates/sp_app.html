@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>pos connect </title>
-
+    <title>product app</title>
 </head>
 <body ng-controller="MainCtrl">
     <!-- <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"> -->
@@ -45,7 +44,7 @@
                             class="form-control" 
                             placeholder="name" 
                             onClick="this.select();" 
-                            ng-enter="name_search('user')"
+                            ng-enter="name_search(false,true)"
                             ng-model="name_search_str"
                             blur-me="is_blur_name_search_text_box"
                         >
@@ -70,6 +69,10 @@
                             <li id="sp_app/menu/setting/shortcut" ng-click="menu_setting_shortcut()"><a href='#'>shortcut</a></li>
                             <li id="sp_app/menu/setting/mix_match" ng-click="menu_setting_mix_match()"><a href='#'>mix match</a></li>
                             <li id="sp_app/menu/setting/payment_type" ng-click="menu_setting_payment_type()"><a href='#'>payment type</a></li>
+                            <li role="presentation" class="divider"></li>
+                            <li id="sp_app/menu/setting/store" ng-click="menu_setting_store()">
+                                <a href='#'>store - {% verbatim %}{{$root.GLOBAL_SETTING.STORE.name}}{% endverbatim %}</a>
+                            </li>                                 
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -77,23 +80,26 @@
                         <ul class="dropdown-menu">
                             <li id="sp_app/menu/report/receipt" ng-click="menu_report_receipt_in_sp_page()"><a href='#'>receipt</a></li>
                             <li id='sale_app/menu/report/sale' ng-click="menu_report_sale()"><a href='#'>sale</a></li>
+                            <li role="presentation" class="divider"></li>
+                            <li id='sp_app/menu/report/create' ng-click="menu_report_create_in_sp_page()"><a href='#'>create custom report</a></li>                            
                         </ul>
                     </li>   
                     <li class="dropdown">
                         <a id="sp_app/menu/action" href="#" class="dropdown-toggle" data-toggle="dropdown">action <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li ng-click="launch_pos()"><a href="#">lauch pos</a></li>
+                            <li ng-click="launch_pos()"><a href="#">sale app</a></li>
                             <li id='sp_app/menu/action/sync' ng-click="menu_action_sync()"><a href='#'>sync</a></li>
+                            <li role="presentation" class="divider"></li>
+                            <li ng-click="menu_action_logout()"><a id="logout_link" href='#'>logout - {{user}}</a></li>                               
                         </ul>
                     </li>                      
-                    <!-- <li> <a id="logout_link" href='{% url "liquor_logout_named_url" %}'>{{ request.session.cur_login_store }} - {{ user }} - logout</a> </li> -->
-                    <li ng-click="logout()"><a id="logout_link" href='#'>{{ request.session.cur_login_store }} - {{ user }} - logout</a></li>
+                    <!-- <li ng-click="logout()"><a id="logout_link" href='#'>{{ request.session.cur_login_store }} - {{ user }} - logout</a></li> -->
                 </ul>   
 
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </nav>        
-    <div ng-hide="sp_lst.length == 0" infinite-scroll="name_search('infinite_scroll')" infinite-scroll-distance='0'>
+    <div ng-hide="sp_lst.length == 0" infinite-scroll="name_search(true,false)" infinite-scroll-distance='0'>
         {% verbatim sp_table %}        
         <table id='product_tbl' class="table table-hover table-bordered table-condensed table-striped">
             <tr>
@@ -101,17 +107,33 @@
                 <th class="info" ng-click="column_click('price')">price <span ng-class="get_sort_class('price')"></span></th>
                 <th class="info" ng-click="column_click('crv')">crv <span ng-class="get_sort_class('crv')"></span></th>
                 <th class="info" ng-click="column_click('is_taxable')">taxable <span ng-class="get_sort_class('is_taxable')"></span></th>
-                <th class="info" ng-click="column_click('is_sale_report')">report <span ng-class="get_sort_class('is_sale_report')"></span></th>
-                <th class="info" ng-click="column_click('p_type')">type <span ng-class="get_sort_class('p_type')"></span></th>
-                <th class="info" ng-click="column_click('p_tag')">tag <span ng-class="get_sort_class('p_tag')"></span></th>
-                <th class="info" ng-click="column_click('get_group_count()')">group <span ng-class="get_sort_class('get_group_count()')"></span></th>
-                <th>deal</th>
-                <th class="info" ng-click="column_click('vendor')">vendor <span ng-class="get_sort_class('vendor')"></span></th>
+                <th class="info"
+                    ng-click="column_click('is_sale_report')" 
+                    ng-show="$root.GLOBAL_SETTING.STORE.display_is_report">report <span ng-class="get_sort_class('is_sale_report')"></span></th>
+                <th class="info"
+                    ng-click="column_click('p_type')"
+                    ng-show="$root.GLOBAL_SETTING.STORE.display_type">type <span ng-class="get_sort_class('p_type')"></span></th>
+                <th class="info"
+                    ng-click="column_click('p_tag')"
+                    ng-show="$root.GLOBAL_SETTING.STORE.display_tag">tag <span ng-class="get_sort_class('p_tag')"></span></th>
+                <th class="info"
+                    ng-click="column_click('get_group_count()')"
+                    ng-show="$root.GLOBAL_SETTING.STORE.display_group">group <span ng-class="get_sort_class('get_group_count()')"></span></th>
+                <th ng-show="$root.GLOBAL_SETTING.STORE.display_deal">deal</th>
+                <th class="info"
+                    ng-click="column_click('vendor')"
+                    ng-show="$root.GLOBAL_SETTING.STORE.display_vendor">vendor <span ng-class="get_sort_class('vendor')"></span></th>
                 <th class="info" ng-click="column_click('cost')">cost <span ng-class="get_sort_class('cost')"></span></th>
                 <th class="info" ng-click="column_click('get_markup()')">markup <span ng-class="get_sort_class('get_markup()')"></span></th>                
-                <th class="info" ng-click="column_click('buydown')">buydown <span ng-class="get_sort_class('buydown')"></span></th>
-                <th class="info" ng-click="column_click('vc_price')">vc_price <span ng-class="get_sort_class('vc_price')"></span></th>
-                <th class="info" ng-click="column_click('cur_stock')">stock <span ng-class="get_sort_class('cur_stock')"></span></th>
+                <th class="info" 
+                    ng-click="column_click('buydown')"
+                    ng-show="$root.GLOBAL_SETTING.STORE.display_buydown">buydown <span ng-class="get_sort_class('buydown')"></span></th>
+                <th class="info" 
+                    ng-click="column_click('vc_price')"
+                    ng-show="$root.GLOBAL_SETTING.STORE.display_vc_price">vc_price <span ng-class="get_sort_class('vc_price')"></span></th>
+                <th class="info" 
+                    ng-click="column_click('cur_stock')"
+                    ng-show="$root.GLOBAL_SETTING.STORE.display_stock">stock <span ng-class="get_sort_class('cur_stock')"></span></th>
                 <th>info</th>                
             </tr>    
             <tr ng-repeat="sp in sp_lst|orderBy:cur_sort_column:cur_sort_desc|filter:local_filter">
@@ -119,17 +141,18 @@
                 <td class="alnright">{{sp.price | currency}}</td>
                 <td class="alnright">{{sp.get_crv()|currency|not_show_zero}}</td>
                 <td class="alncenter"><span class="glyphicon" ng-class="sp.is_taxable ? 'glyphicon-check' : 'glyphicon-unchecked' "></span></td>
-                <td class="alncenter"><span class="glyphicon" ng-class="sp.is_sale_report ? 'glyphicon-check' : 'glyphicon-unchecked' "></span></td>
-                <td>{{sp.p_type}}</td>
-                <td>{{sp.p_tag}}</td>
-                <td class="alnright">{{sp.get_group_count()|not_show_zero}}</td>
-                <td class="alncenter"><span class="glyphicon" ng-class="is_in_deal(sp) ? 'glyphicon-check' : 'glyphicon-unchecked' "></span></td>
-                <td>{{sp.vendor}}</td>
+                <td class="alncenter"
+                    ng-show="$root.GLOBAL_SETTING.STORE.display_is_report"><span class="glyphicon" ng-class="sp.is_sale_report ? 'glyphicon-check' : 'glyphicon-unchecked' "></span></td>
+                <td ng-show="$root.GLOBAL_SETTING.STORE.display_type">{{sp.p_type}}</td>
+                <td ng-show="$root.GLOBAL_SETTING.STORE.display_tag">{{sp.p_tag}}</td>
+                <td class="alnright" ng-show="$root.GLOBAL_SETTING.STORE.display_group">{{sp.get_group_count()|not_show_zero}}</td>
+                <td class="alncenter" ng-show="$root.GLOBAL_SETTING.STORE.display_deal"><span class="glyphicon" ng-class="is_in_deal(sp) ? 'glyphicon-check' : 'glyphicon-unchecked' "></span></td>
+                <td ng-show="$root.GLOBAL_SETTING.STORE.display_vendor">{{sp.vendor}}</td>
                 <td class="alnright">{{sp.get_cost()|currency|not_show_zero}}</td>
                 <td class="alnright">{{sp.get_markup()}}</td>                
-                <td class="alnright">{{sp.get_buydown()|currency|not_show_zero}}</td>
-                <td class="alnright">{{sp.value_customer_price|currency|not_show_zero}}</td>
-                <td class="alnright">{{sp.cur_stock}}</td>
+                <td class="alnright" ng-show="$root.GLOBAL_SETTING.STORE.display_buydown">{{sp.get_buydown()|currency|not_show_zero}}</td>
+                <td class="alnright" ng-show="$root.GLOBAL_SETTING.STORE.display_vc_price">{{sp.value_customer_price|currency|not_show_zero}}</td>
+                <td class="alnright" ng-show="$root.GLOBAL_SETTING.STORE.display_stock">{{sp.cur_stock}}</td>
                 <td class="alncenter"><button ng-click="display_product_info(sp)" class="btn btn-sm btn-primary glyphicon glyphicon-info-sign"></button></td>
             </tr>
         </table>
@@ -151,9 +174,10 @@
         _GLOBAL_SETTING_.SHORTCUT_COLUMN_COUNT      = {{SHORTCUT_COLUMN_COUNT}};
         _GLOBAL_SETTING_.STORE_PRODUCT_DOCUMENT_TYPE= "{{STORE_PRODUCT_DOCUMENT_TYPE}}";
         _GLOBAL_SETTING_.RECEIPT_DOCUMENT_TYPE      = "{{RECEIPT_DOCUMENT_TYPE}}";
+        _GLOBAL_SETTING_.STORE                      = {{STORE|safe}};
     </script>
 
-    <!-- // <script data-main = "{{ STATIC_URL }}js/sp_main.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script> -->
-    <script data-main = "{{ STATIC_URL }}sp.min.14.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script>
+    <script data-main = "{{ STATIC_URL }}js/sp_main.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script>
+    <!-- // <script data-main = "{{ STATIC_URL }}sp.min.14.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script> -->
 </body>
 </html>

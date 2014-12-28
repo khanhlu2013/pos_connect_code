@@ -75,7 +75,19 @@ define(
             search_sp_api.sku_search(sku).then(
                 function(data){
                     if(data.prod_store__prod_sku__1_1.length != 0){
-                        defer.reject('Error: online and offline database is not in sync. Refresh the page and try again.');
+                        confirm_service('online and offline database is out of sync. Do you want to sync?','orange').then(
+                            function(){
+                                download_product().then(
+                                    function(){
+                                        defer.resolve();
+                                    },function(reason){
+                                        defer.reject(reason);
+                                    }
+                                )
+                            },function(){
+                                defer.reject('_cancel_');
+                            }
+                        )
                     }else{
                         if(data.prod_store__prod_sku__0_0.length === 0 && data.prod_store__prod_sku__1_0.length === 0){
                             _3_option('sku not found','None Inventory or create new product?','None Inventory','create new product','cancel').then(

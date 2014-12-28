@@ -4,6 +4,7 @@ define(
     //-------
     ,'model/group/model'
     ,'model/product/model'
+    ,'model/report/model'
     ,'service/misc'
 ]
 ,function
@@ -14,6 +15,7 @@ define(
     var mod = angular.module('sp/model',
     [
          'group/model'
+        ,'report/model'
         ,'product/model'
         ,'service/misc'
     ]);
@@ -50,7 +52,8 @@ define(
             kit_assoc_lst,
             sp_doc_id,
             sp_doc_rev,
-            cur_stock
+            cur_stock,
+            report_lst
         ){
             this.id = id;
             this.product_id = product_id;
@@ -73,6 +76,7 @@ define(
             this.sp_doc_id = sp_doc_id;
             this.sp_doc_rev = sp_doc_rev;
             this.cur_stock = cur_stock;
+            this.report_lst = report_lst;
         }
 
         //PULIC METHOD
@@ -92,7 +96,11 @@ define(
                 return this.product_id === null;
             } 
             ,is_kit : function(){
-                return this.breakdown_assoc_lst.length !=0;
+                if(this.breakdown_assoc_lst === null || this.breakdown_assoc_lst === undefined){
+                    return false;
+                }else{
+                    return this.breakdown_assoc_lst.length !=0;    
+                }
             }
             ,get_crv : function(){
                 return compute_recursive_field(this,'crv');
@@ -179,7 +187,7 @@ define(
             },
             get_markup:function(){
                 var cost = this.get_cost();
-                if(cost === null){
+                if(cost === null || cost === undefined){
                     return null;
                 }else{
                     var markup = (this._get_b4_tax_price() - cost) * 100 / cost;
@@ -229,17 +237,12 @@ define(
             // we should only use this method for 3 fields only: crv,buydow,cost. RETURN NULL IF SP IS NOT A KIT
             
             //CHECK NULL (when create new, sp is null)
-            if(sp == null){
-                return undefined;
-            }
-
-            //when create new and after edit a field, angular init sp to be not null but this sp still don't have breakdown_assoc_lst
-            if(sp.breakdown_assoc_lst == undefined){
+            if(sp === null || sp === undefined){
                 return undefined;
             }
 
             //NOT A KIT
-            if(sp.breakdown_assoc_lst.length == 0){
+            if(!sp.is_kit()){
                 return sp[field];
             }
 
@@ -255,6 +258,14 @@ define(
 
         //BUILD METHOD
         function _build(raw_json){
+
+            //build report
+            var report_lst = [];
+            if(raw_json.report_lst != undefined){
+                var Report = $injector.get('report/model/Report');
+                report_lst = raw_json.report_lst.map(Report.build)
+            }
+
             //build group
             var group_lst = [];
             if(raw_json.group_lst != undefined){
@@ -304,6 +315,7 @@ define(
                 ,null//sp_doc_id - this field is only concern when build sp from offline db
                 ,null//sp_doc_rev - this field is only concern when build sp from offline db
                 ,raw_json.cur_stock
+                ,report_lst
             );
         }             
         Store_product.build = _build;

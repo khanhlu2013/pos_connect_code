@@ -1,25 +1,34 @@
 define(
 [
-    'angular'
+     'angular'
 ]
 ,function
 (
     angular
 )
 {
-    var mod = angular.module('store/api', []);
-    mod.factory('store/api',['$http','$q',function($http ,$q )
-    {
-        function set_tax(tax){
+    var mod = angular.module('store/api',
+    [
+
+    ]);
+
+    mod.factory('store/api',
+    [
+         '$q'
+        ,'$http'
+    ,function(
+         $q
+        ,$http
+    ){
+        function edit(store){
             var defer = $q.defer();
             $http({
-                url:'/tax/update_angular',
+                url:'/store/edit',
                 method:'POST',
-                data:{ tax_rate:tax }
+                data:{ store:JSON.stringify(store) }
             }).then(
                 function(data){
-                    var new_tax_rate = JSON.parse(data.data);
-                    defer.resolve(new_tax_rate);
+                    defer.resolve(data.data);
                 },
                 function(reason){ 
                     defer.reject(reason); 
@@ -29,7 +38,7 @@ define(
         }
 
         return{
-            set_tax:set_tax
+            edit:edit
         }
     }])
 })

@@ -15,7 +15,6 @@ var Sale_page = function () {
     this.tender_btn = element(by.id('sale_app/main_page/tender_btn'));
     this.change_btn = element(by.id('sale_app/main_page/change_btn'));
     this.void_btn = element(by.id('sale_app/main_page/void_btn'));
-    this.non_inventory_btn = element(by.id('sale_app/main_page/non_inventory_btn'));
     this.shortcut_btn = element(by.id('sale_app/main_page/shortcut_btn'));
     //table
     this.lst = element.all(by.repeater('ds in ds_lst'));
@@ -25,6 +24,11 @@ var Sale_page = function () {
         lib.click(this.menu_report);
         lib.click(element(by.id('sale_app/menu/report/receipt')));
         lib.wait_for_block_ui();
+    }
+    this.menu_report_sale = function(){
+        lib.click(this.menu_report);
+        lib.click(element(by.id('sale_app/menu/report/sale')));
+        lib.wait_for_block_ui();        
     }
     this.menu_setting_tax = function(){
         lib.click(this.menu_setting);
@@ -46,6 +50,10 @@ var Sale_page = function () {
         lib.click(this.menu_setting); 
         lib.click(element(by.id('sale_app/menu/setting/mix_match'))); 
     }
+    this.menu_action_non_inventory = function(){
+        lib.click(this.menu_action);
+        lib.click(element(by.id('sale_app/menu/action/non_inventory')));
+    }    
     this.menu_action_hold = function(){
         lib.click(this.menu_action);
         lib.click(element(by.id('sale_app/menu/action/hold')));
@@ -72,9 +80,6 @@ var Sale_page = function () {
     }
     this.tender = function(){ 
         lib.click(this.tender_btn); 
-    }
-    this.non_inventory = function(){ 
-        lib.click(this.non_inventory_btn); 
     }
 
     //function txt

@@ -82,7 +82,7 @@ define(
                     '<div id="receipt_app/service/report/receipt_summary/subtotal_derivation" ng-hide="cur_receipt.get_saving()===0.0 && cur_receipt.get_crv()===0.0">' +
                         '<div id="receipt_app/service/report/receipt_summary/original_price" class="form-group">' +
                             '<label ng-class="receipt_summary_lbl_class">original price:</label>' +
-                            '<p ng-class="receipt_summary_value_class">{{cur_receipt.get_genesis_price()}}</p>' +
+                            '<p ng-class="receipt_summary_value_class">{{cur_receipt.get_genesis_price()|currency}}</p>' +
                         '</div>' +
                         '<div id="receipt_app/service/report/receipt_summary/saving_div" ng-hide="cur_receipt.get_saving()===0.0" class="form-group">' +
                             '<label ng-class="receipt_summary_lbl_class">saving:</label>' +
@@ -290,7 +290,7 @@ define(
                             change_html + '\n' +
                         '</div>'
                     ;
-                    var static_url = $rootScope.GLOBAL_SETTING.static_url;
+                    var static_url = $rootScope.GLOBAL_SETTING.STATIC_URL;
                     var css_str = 
                         '<link rel="stylesheet" type ="text/css" href="' + static_url + 'css/bootstrap.css">' +
                         '<link rel="stylesheet" type ="text/css" href="' + static_url + 'css/bootstrap-theme.css">' +

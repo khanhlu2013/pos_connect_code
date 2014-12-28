@@ -90,7 +90,7 @@ define(
                 '</div>'
             ;
             var ModalCtrl = function($scope,$modalInstance,$rootScope,hold_lst){
-                $scope.tax_rate = $rootScope.GLOBAL_SETTING.tax_rate;
+                $scope.tax_rate = $rootScope.GLOBAL_SETTING.TAX_RATE;
                 $scope.hold_lst = hold_lst;
                 $scope.cur_hold = null;
 

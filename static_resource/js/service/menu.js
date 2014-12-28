@@ -2,12 +2,12 @@ define(
 [
      'angular'
      //----
+    ,'service/ui'
     ,'model/store/service/set_tax'
     ,'model/mix_match/service/manage'
     ,'model/payment_type/service/manage'
     ,'model/shortcut/service/manage'
-    ,'service/ui'
-
+    ,'model/store/service'
 ]
 ,function
 (
@@ -16,12 +16,12 @@ define(
 {
     var mod = angular.module('service.menu',
     [
-         'store/service/set_tax'
+         'service/ui'
+        ,'store/service/set_tax'
         ,'mix_match/service/manage'
         ,'payment_type/service/manage'
         ,'shortcut/service/manage'
-        ,'service/ui'
-
+        ,'store/service'
     ]);
 
     mod.controller('service.menu',
@@ -29,24 +29,28 @@ define(
          '$scope'
         ,'$window'
         ,'$q'
+        ,'service/ui/confirm'
+        ,'service/ui/alert'        
         ,'store/service/set_tax'
         ,'mix_match/service/manage'
         ,'payment_type/service/manage'
         ,'shortcut/service/manage'
-        ,'service/ui/confirm'
-        ,'service/ui/alert'
-
+        ,'store/service/edit'
     ,function(
          $scope 
         ,$window
         ,$q
+        ,confirm_service
+        ,alert_service        
         ,set_tax_service
         ,manage_mm
         ,manage_pt
         ,manage_shortcut
-        ,confirm_service
-        ,alert_service
+        ,edit_store_service
     ){
+        $scope.menu_setting_store = function(){
+            edit_store_service();
+        }
         $scope.menu_setting_mix_match = function(){
             manage_mm();
         }
@@ -65,7 +69,7 @@ define(
         $scope.menu_setting_shortcut = function(){
             manage_shortcut();
         }
-        $scope.logout = function(){
+        $scope.menu_action_logout = function(){
             confirm_service('logout?','orange').then(
                 function(){
                     $window.location.href = '/account/logout/';

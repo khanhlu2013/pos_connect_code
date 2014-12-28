@@ -3,6 +3,7 @@ define(
 	'angular'
     //---
     ,'model/sp/service/edit/group'
+    ,'model/sp/service/edit/report'    
     ,'model/sp/service/edit/kit'   
     ,'model/sp/service/edit/sku'      
     ,'model/sp/service/edit/sp'       
@@ -19,6 +20,7 @@ define(
     var mod = angular.module('sp/service/info',
     [
          'sp/service/edit/group'
+        ,'sp/service/edit/report'         
         ,'sp/service/edit/kit'
         ,'sp/service/edit/sp'
         ,'sp/service/edit/sku'
@@ -32,6 +34,7 @@ define(
     [
          '$modal'
         ,'sp/service/edit/group'
+        ,'sp/service/edit/report'        
         ,'sp/service/edit/kit'
         ,'sp/service/edit/sp'
         ,'sp/service/edit/sku'
@@ -41,6 +44,7 @@ define(
     ,function (
          $modal
         ,edit_group
+        ,edit_report
         ,edit_kit
         ,edit_sp
         ,edit_sku
@@ -129,7 +133,21 @@ define(
                 '</table>' +      
                 '<pre ng-show="sp.group_lst.length==0">there is no group</pre>' +         
             '</tab>' 
-        ;     
+        ;   
+        var report_tab = 
+            '<tab id="sp_app/service/info/tab/report" heading="custom report" select="switch_tab(\'report\')">' +
+                '<h1></h1>' +
+                '<table ng-hide="sp.report_lst.length==0" class="table table-hover table-bordered table-condensed table-striped">' +
+                    '<tr>' +
+                        '<th>report</th>' +                
+                    '</tr>' +    
+                    '<tr ng-repeat="report_info in sp.report_lst">' +
+                        '<td>{{report_info.name}}</td>' +                    
+                    '</tr>' +                                                  
+                '</table>' +      
+                '<pre ng-show="sp.report_lst.length==0">there is no custom report</pre>' +         
+            '</tab>' 
+        ;               
         var kit_tab = 
             '<tab id="sp_app/service/info/tab/kit" heading="kit" select="switch_tab(\'kit\')">' +
                 '<h1></h1>' +
@@ -170,7 +188,7 @@ define(
             '<tab id="sp_app/service/info/tab/network_product" heading="network info" select="switch_tab(\'network_product\')">' +
                 '<h1></h1>' +
                 '<button id="sp_app/service/info/tab/network_product/get_btn" class="btn btn-primary" ng-click="get_network_info()">get info</button>' +    
-                '<div ng-hide="network_product === null" ng-include="$root.GLOBAL_SETTING.partial_url.product.network_product.index">' +
+                '<div ng-hide="network_product === null" ng-include="$root.GLOBAL_SETTING.PARTIAL_URL.product.network_product.index">' +
                 '</div>' +
             '</tab>'
         ;                  
@@ -180,12 +198,13 @@ define(
             '</div>' +
 
             '<div class="modal-body">' +
-                '<tabset justified="true">' +
+                '<tabset>' +
                     main_tab +
                     group_tab +
                     kit_tab +    
                     sku_tab +       
                     inventory_tab + 
+                    report_tab +                    
                     network_info_tab +                                                 
                 '</tabset>' +
             '</div>' + /* end modal body*/
@@ -199,7 +218,6 @@ define(
 
         var ModalCtrl = function($scope,$modalInstance,$rootScope,sp){
             $scope.sp = sp;
-            $scope.is_show_kit_group_info = true;
             $scope.cur_tab = "product";
 
             //start - contract for network_product partial to work
@@ -240,6 +258,8 @@ define(
                     )
                 }else if($scope.cur_tab == 'group'){
                     edit_group($scope.sp);
+                }else if($scope.cur_tab == 'report'){
+                    edit_report($scope.sp);
                 }else if($scope.cur_tab == 'kit'){
                     edit_kit($scope.sp).then(
                         function(updated_sp){ 

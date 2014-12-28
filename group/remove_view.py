@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from group.models import Group
-from group import group_serializer,group_getter
+from group import group_serializer
 import json
 from django.core.serializers.json import DjangoJSONEncoder
 

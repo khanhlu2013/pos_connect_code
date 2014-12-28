@@ -9,7 +9,6 @@ def exe(request):
     sp = json.loads(request.POST['sp'])
     sku_str = request.POST['sku_str']
     store_id = request.session.get('cur_login_store').id
-
     sp_django = insert_new.exe (
          store_id = store_id
         ,name = value_cleaner.to_string(sp['name'])

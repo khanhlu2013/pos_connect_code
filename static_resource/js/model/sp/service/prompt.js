@@ -3,6 +3,7 @@ define(
     'angular'
     //-------
     ,'model/sp/service/search/name_sku_online_dlg'
+    ,'model/sp/model'
     ,'service/ui'
 ]
 ,function
@@ -14,6 +15,7 @@ define(
     [
          'sp/service/search/name_sku_online_dlg'
         ,'service/ui'
+        ,'sp/model'
     ]);
     mod.factory('sp/service/prompt',
     [
@@ -21,12 +23,14 @@ define(
         ,'$http'
         ,'$q'
         ,'sp/service/search/name_sku_online_dlg/single'
+        ,'sp/model/Store_product'
         ,'service/ui/alert'
     ,function(
          $modal
         ,$http
         ,$q
         ,search_single_sp_dlg
+        ,Store_product
         ,alert_service
     ){
         //- NAME -------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -220,6 +224,7 @@ define(
                 '<label class="col-sm-4 control-label">Cost:</label>' +
                 '<div class="col-sm-8">' +
                     '<input id="sp_app/service/prompt/cost_txt" name="cost" ng-model="$parent.sp.cost" ng-disabled="{{sp.is_kit()}}" type="number" size="45"}}"">' +
+                    '<label ng-show="$parent.sp.get_markup()!== null && $parent.sp.get_markup()!== NaN"> markup: {{$parent.sp.get_markup()}}</label>' +
                     template_cost_suggestion +
                     '<label class="error" ng-show="form.cost.$invalid">' +
                         'invalid number' +
@@ -348,7 +353,10 @@ define(
             $scope.duplicate_sp = duplicate_sp;
             $scope.original_sku = original_sku;
             $scope.original_sp = original_sp;
-            initial_blank_sp = {is_sale_report:true,is_taxable:false};
+            // initial_blank_sp = {is_sale_report:true,is_taxable:false};
+            initial_blank_sp = new Store_product();
+            initial_blank_sp.is_sale_report = true;
+            initial_blank_sp.is_taxable = false;
             $scope.lookup_type_tag = process(lookup_type_tag);
 
             //pending data for storing prompt
@@ -362,7 +370,7 @@ define(
                 }
             }
 
-            //init kit value: we need this because what we store inside sp.kit_field could be different that the current calculated kid field. Thus, we init sp.kit_field to be the actual currently calculated field sp that it will display correctly 
+            //init kit value: we need this because what we store inside - lets say sp.crv - could be different that the current calculated sp.get_crv(). Thus, we init sp.kit_field to be the actual currently calculated field sp that it will display correctly 
             if( !angular.equals($scope.sp,initial_blank_sp) && $scope.sp.is_kit()){
                 $scope.sp.crv = $scope.sp.get_crv();
                 $scope.sp.cost = $scope.sp.get_cost();

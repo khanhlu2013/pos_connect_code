@@ -1,6 +1,6 @@
 from django.conf.urls import patterns,url
 from django.contrib.auth.decorators import login_required
-from store_product.api import get_type_tag_lst,insert_new,insert_old,update_group,update_kit,sp_search,update_sku,update_sp
+from store_product.api import get_type_tag_lst,insert_new,insert_old,update_group,update_report,update_kit,sp_search,update_sku,update_sp
 
 urlpatterns = patterns('',
     # namespace='store_product'
@@ -22,6 +22,9 @@ urlpatterns = patterns('',
 
     #GROUP
     url(r'^group/update_angular$',login_required(update_group.exe)),
+
+    #REPORT
+    url(r'^report/update_angular$',login_required(update_report.exe)),    
 
     #UPDATE KIT
     url(r'^kit/update_angular$',login_required(update_kit.exe)),

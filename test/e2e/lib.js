@@ -83,7 +83,11 @@ module.exports = {
 
             return browser.executeAsyncScript(function(data,callback) {
                 var api = angular.injector(['ng','service.csrf','sp/api_crud']).get('sp/api_crud');
-                api.insert_new(data.sp,data.sku).then(function(data){callback(data);} )
+                api.insert_new(data.sp,data.sku).then(
+                    function(res){
+                        callback(res);
+                    } 
+                )
             },data)
         },
         insert_old : function(product_id,sku,name,price,value_customer_price,crv,is_taxable,is_sale_report,p_type,p_tag,cost,vendor,buydown){
@@ -115,12 +119,22 @@ module.exports = {
         login : function(name,pwrd){
             //get the page.
             browser.driver.get(env.baseUrl);
-            browser.driver.isElementPresent(by.id('logout_link')).then(
+            browser.driver.isElementPresent(by.id('sale_app/menu/action')).then(
                 function(is_present){
                     if(is_present){
+                        browser.driver.findElement(by.id('sale_app/menu/action')).click();
                         browser.driver.findElement(by.id('logout_link')).click();
                         browser.driver.findElement(by.id('service/ui/confirm/ok_btn')).click();
-                        // browser.driver.get(env.baseUrl);//make sure the logout finished
+                    }
+                }
+            )
+
+            browser.driver.isElementPresent(by.id('sp_app/menu/action')).then(
+                function(is_present){
+                    if(is_present){
+                        browser.driver.findElement(by.id('sp_app/menu/action')).click();
+                        browser.driver.findElement(by.id('logout_link')).click();
+                        browser.driver.findElement(by.id('service/ui/confirm/ok_btn')).click();
                     }
                 }
             )
@@ -138,8 +152,26 @@ module.exports = {
         logout : function(){
             // browser.wait(function(){ return element(by.css('.block-ui-overlay')).isDisplayed().then(function(val){ return !val; })});
             browser.wait(function(){ return element(by.css('.block-ui-overlay')).getSize().then(function(size){ return size.height === 0 })});
-            browser.findElement(by.id('logout_link')).click();
-            browser.findElement(by.id('service/ui/confirm/ok_btn')).click();
+
+            browser.driver.isElementPresent(by.id('sale_app/menu/action')).then(
+                function(is_present){
+                    if(is_present){
+                        browser.driver.findElement(by.id('sale_app/menu/action')).click();
+                        browser.driver.findElement(by.id('logout_link')).click();
+                        browser.driver.findElement(by.id('service/ui/confirm/ok_btn')).click();
+                    }
+                }
+            )
+
+            browser.driver.isElementPresent(by.id('sp_app/menu/action')).then(
+                function(is_present){
+                    if(is_present){
+                        browser.driver.findElement(by.id('sp_app/menu/action')).click();
+                        browser.driver.findElement(by.id('logout_link')).click();
+                        browser.driver.findElement(by.id('service/ui/confirm/ok_btn')).click();
+                    }
+                }
+            )
         }
     },
     setup:{

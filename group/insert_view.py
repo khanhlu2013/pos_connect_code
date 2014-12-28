@@ -1,8 +1,7 @@
 from django.http import HttpResponse
 from django.core.serializers.json import DjangoJSONEncoder
 from group.models import Group
-from group.group_serializer import serialize_group_lst
-from group import group_getter
+from group.group_serializer import Group_serializer
 import json
 from store_product.models import Store_product
 
@@ -25,6 +24,6 @@ def group_insert_angular_view(request):
         group.sp_lst.add(*sp_lst)
 
     #response
-    group_serialized = serialize_group_lst([group,])[0]
+    group_serialized = Group_serializer(group,many=False).data
     return HttpResponse(json.dumps(group_serialized,cls=DjangoJSONEncoder), mimetype='application/json')
 

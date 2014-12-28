@@ -49,6 +49,11 @@ html,body {
 .btn-float-right{
   float: right;
 }
+.btn-xl {
+    padding: 18px 28px;
+    font-size: 60px;
+    border-radius: 10px;
+}
 .xlg-dialog .modal-dialog {
     width :60%;
     min-width: 750px;

@@ -11,9 +11,9 @@ define(
     mod.factory('shortcut/service/shortcut_ui',['$rootScope',function($rootScope){
         function init($scope){
 
-            $scope.shortcut_lst = $rootScope.GLOBAL_SETTING.shortcut_lst;          
-            $scope.row_count = $rootScope.GLOBAL_SETTING.shortcut_row_count;
-            $scope.column_count = $rootScope.GLOBAL_SETTING.shortcut_column_count;              
+            $scope.shortcut_lst = $rootScope.GLOBAL_SETTING.SHORTCUT_LST;          
+            $scope.row_count = $rootScope.GLOBAL_SETTING.SHORTCUT_ROW_COUNT;
+            $scope.column_count = $rootScope.GLOBAL_SETTING.SHORTCUT_COLUMN_COUNT;              
             $scope.current_parent_pos = 0;
             $scope.col_lst = [];for(var i = 0;i<$scope.column_count;i++){ $scope.col_lst.push(i);}
             $scope.row_lst = [];for(var i = 0;i<$scope.row_count;i++){ $scope.row_lst.push(i);}

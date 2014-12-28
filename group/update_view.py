@@ -1,8 +1,7 @@
 from django.http import HttpResponse
 from django.core.serializers.json import DjangoJSONEncoder
-from group.models import Group
-from group.group_serializer import serialize_group_lst
-from group import group_getter
+from group.group_serializer import Group_serializer
+from group import dao
 import json
 from store_product.models import Store_product
 
@@ -22,7 +21,7 @@ def group_update_angular_view(request):
 
 
     #validate group id 
-    group = group_getter.get_group_item(id=id,store_id=cur_login_store.id)
+    group = dao.get_group_item(id=id,store_id=cur_login_store.id)
     if group.store.id != cur_login_store.id:
         return
 
@@ -36,7 +35,7 @@ def group_update_angular_view(request):
         group.sp_lst.add(*sp_lst)
 
     #response
-    group = group_getter.get_group_item(id=id,store_id=cur_login_store.id)
-    group_serialized = serialize_group_lst([group,])[0]
+    group = dao.get_group_item(id=id,store_id=cur_login_store.id)
+    group_serialized = Group_serializer(group,many=False).data
     return HttpResponse(json.dumps(group_serialized,cls=DjangoJSONEncoder), mimetype='application/json')
 

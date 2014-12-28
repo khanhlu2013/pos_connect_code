@@ -32,6 +32,7 @@ define(
     ,'model/receipt/service/push'
     ,'model/shortcut/service/usage'
     ,'model/sp/service/duplicate'    
+    ,'model/report/service/manage'
 ], function
 (
      angular
@@ -73,6 +74,7 @@ define(
         ,'receipt/service/push'
         ,'shortcut/service/usage'
         ,'sp/service/duplicate'
+        ,'report/service/manage'
     ]);
     mod.controller('Sale_page_ctrl', 
     [
@@ -115,6 +117,7 @@ define(
         ,'receipt/service/push'
         ,'shortcut/service/usage'
         ,'sp/service/duplicate'
+        ,'report/service/manage'
     ,function(
          $scope
         ,$rootScope
@@ -144,7 +147,7 @@ define(
         ,calculate_ds_lst
         ,misc_service
         ,non_inventory_prompt_service
-        ,manage_group_service
+        ,manage_group
         ,init_db
         ,tender_ui
         ,adjust_receipt_tender
@@ -155,6 +158,7 @@ define(
         ,push_receipt_service
         ,shortcut_usage_service
         ,duplicate_service
+        ,manage_report
     ){
 
         hotkeys.bindTo($scope)
@@ -224,7 +228,7 @@ define(
                     set_ps_lst([]);
                     $scope.cur_receipt_count += 1;
                     if($scope.next_receipt_count_reminder === null){
-                        $scope.next_receipt_count_reminder = $rootScope.GLOBAL_SETTING.max_receipt;//read at the declaration of this variable why i wait until now to init this value
+                        $scope.next_receipt_count_reminder = $rootScope.GLOBAL_SETTING.MAX_RECEIPT;//read at the declaration of this variable why i wait until now to init this value
                     }
                     if($scope.cur_receipt_count >= $scope.next_receipt_count_reminder){
                         var message = 'Do you want to save ' + $scope.cur_receipt_count + ' receipts online?';
@@ -232,29 +236,29 @@ define(
                         var color_1 = 'orange';
                         var color_2 = 'orange';
                         var color_3 = 'green';
-                        var caption_1 = 'snooze ' + $rootScope.GLOBAL_SETTING.max_receipt_snooze_1;
-                        var caption_2 = 'snooze ' + $rootScope.GLOBAL_SETTING.max_receipt_snooze_2;
+                        var caption_1 = 'snooze ' + $rootScope.GLOBAL_SETTING.MAX_RECEIPT_SNOOZE_1;
+                        var caption_2 = 'snooze ' + $rootScope.GLOBAL_SETTING.MAX_RECEIPT_SNOOZE_2;
                         _3_option_service(title,message,caption_1,caption_2,'save','orange'/*title color*/,color_1,color_2,color_3).then(
                             function(selected_option){ 
                                 if(selected_option === 1){
-                                    $scope.next_receipt_count_reminder += $rootScope.GLOBAL_SETTING.max_receipt_snooze_1;
+                                    $scope.next_receipt_count_reminder += $rootScope.GLOBAL_SETTING.MAX_RECEIPT_SNOOZE_1;
                                 }else if(selected_option === 2){
-                                    $scope.next_receipt_count_reminder += $rootScope.GLOBAL_SETTING.max_receipt_snooze_2;                                    
+                                    $scope.next_receipt_count_reminder += $rootScope.GLOBAL_SETTING.MAX_RECEIPT_SNOOZE_2;                                    
                                 }else if(selected_option === 3){
                                     push_receipt_service().then(
                                         function(response){
                                             alert_service(response.number_receipt_push + ' receipts saved','info','green');
                                             $scope.cur_receipt_count = 0;
-                                            $scope.next_receipt_count_reminder = $rootScope.GLOBAL_SETTING.max_receipt;
+                                            $scope.next_receipt_count_reminder = $rootScope.GLOBAL_SETTING.MAX_RECEIPT;
                                         },function(reason){
                                             alert_service(reason);
-                                            $scope.next_receipt_count_reminder += $rootScope.GLOBAL_SETTING.max_receipt_snooze_2;  
+                                            $scope.next_receipt_count_reminder += $rootScope.GLOBAL_SETTING.MAX_RECEIPT_SNOOZE_2;  
                                         }
                                     )                             
                                 }
                             },function(reason){
                                 alert_service(reason);
-                                $scope.next_receipt_count_reminder += $rootScope.GLOBAL_SETTING.max_receipt_snooze_2;                                
+                                $scope.next_receipt_count_reminder += $rootScope.GLOBAL_SETTING.MAX_RECEIPT_SNOOZE_2;                                
                             }
                         )
                     }
@@ -277,7 +281,7 @@ define(
         $scope.get_tender_amount = function(){
             var result = 0.0;
             for(var i = 0;i<$scope.ds_lst.length;i++){
-                result += $scope.ds_lst[i].get_line_total($rootScope.GLOBAL_SETTING.tax_rate);
+                result += $scope.ds_lst[i].get_line_total($rootScope.GLOBAL_SETTING.TAX_RATE);
             }
             return result;
         }
@@ -518,8 +522,11 @@ define(
                 }
             )
         }
+        $scope.menu_report_create_in_sale_page = function(){
+            manage_report();
+        }        
         $scope.menu_setting_group_in_sale_page = function(){
-            manage_group_service().then(
+            manage_group().then(
                 function(){
                     $scope.refresh_ds(false/*we do not optimize here*/,null/*extra sp to optimize and prevent lookup sp*/);
                 }
@@ -541,7 +548,7 @@ define(
             )
         }
         $scope.launch_product = function(){
-            confirm_service('launch product page?').then(function(){
+            confirm_service('launch product app?').then(function(){
                 $window.open('/');
             });  
         }
@@ -578,7 +585,7 @@ define(
                             return JSON.stringify(get_ps_lst());
                         }//the reason i return a string representation of ps_lst is that get_ps_lst() always return a new created ps_lst which have a new identity all the time. This cause the watch to do infinite loop
                         ,function(){
-                            return $rootScope.GLOBAL_SETTING.mix_match_lst;
+                            return $rootScope.GLOBAL_SETTING.MIX_MATCH_LST;
                         }
                     ]
                     ,function(newVal,oldVal,scope){

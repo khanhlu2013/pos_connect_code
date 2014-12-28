@@ -12,6 +12,16 @@ class Store(Business):
     couch_admin_pwrd = models.CharField(max_length=100)
     couch_url = models.CharField(max_length=100)
 
+    display_is_report = models.BooleanField(default=True)
+    display_type = models.BooleanField(default=True)
+    display_tag = models.BooleanField(default=True)
+    display_group = models.BooleanField(default=True)
+    display_deal = models.BooleanField(default=True)
+    display_vendor = models.BooleanField(default=True)
+    display_buydown = models.BooleanField(default=True)
+    display_vc_price = models.BooleanField(default=True)
+    display_stock = models.BooleanField(default=True)
+
     def save(self,*args,**kwargs):
         if self.id == None:
             #insert temporary api key and pwrd so to satisfy model so that we can have the generated id for the store that is needed both online and offline to create db name on couch

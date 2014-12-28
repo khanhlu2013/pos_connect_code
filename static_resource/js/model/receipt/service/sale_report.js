@@ -40,7 +40,7 @@ define(
                 '<div class="row">' +
                     '<div class="col-lg-3">' +
                         '<div class="input-group">' +
-                            '<input id="report/sale/from_date_txt" type="text" class="form-control" datepicker-popup="MM-dd-yyyy" ng-model="from_date" is-open="$parent.opened_from" close-text="close" datepicker-options="dateOptions"></input>' +
+                            '<input id="report/sale/from_date_txt" type="text" class="form-control" datepicker-popup="MM-dd-yyyy" ng-model="$parent.from_date" is-open="$parent.opened_from" close-text="close" datepicker-options="dateOptions"></input>' +
                             '<span class="input-group-btn">' +
                                 '<button type="button" class="btn btn-default" ng-click="open($event,\'opened_from\')"><i class="glyphicon glyphicon-calendar"></i></button>' +
                             '</span>' +
@@ -49,7 +49,7 @@ define(
 
                     '<div class="col-lg-3">' +
                         '<div class="input-group">' +
-                            '<input id="report/sale/to_date_txt" type="text" class="form-control" datepicker-popup="MM-dd-yyyy" ng-model="to_date" is-open="$parent.opened_to" close-text="close" datepicker-options="dateOptions"></input>' +
+                            '<input id="report/sale/to_date_txt" type="text" class="form-control" datepicker-popup="MM-dd-yyyy" ng-model="$parent.to_date" is-open="$parent.opened_to" close-text="close" datepicker-options="dateOptions"></input>' +
                             '<span class="input-group-btn">' +
                                 '<button type="button" class="btn btn-default" ng-click="open($event,\'opened_to\')"><i class="glyphicon glyphicon-calendar"></i></button>' +                        
                             '</span>' +
@@ -69,11 +69,11 @@ define(
                             '</div>' +
           
                             '<div class="btn-group">' +
-                                '<button ng-disabled="from_date==null||to_date==null" ng-click="refresh_report()" class="btn btn-primary"><i class="glyphicon glyphicon-refresh"></i></button>' +                
+                                '<button id="report/sale/refresh_report" ng-disabled="$parent.from_date===null||$parent.to_date===null" ng-click="refresh_report()" class="btn btn-primary"><i class="glyphicon glyphicon-refresh"></i></button>' +                
                             '</div>' +   
                                 
                             '<div class="btn-group">' +
-                                '<button ng-click="refresh_today_report()" class="btn btn-primary"><i class="glyphicon glyphicon-refresh"></i> today</button>' +                
+                                '<button id="report/sale/refresh_today_report" ng-click="refresh_today_report()" class="btn btn-primary"><i class="glyphicon glyphicon-refresh"></i> today</button>' +                
                             '</div>' +                                                                   
                         '</div>' +
                     '</div>' +                    
@@ -142,6 +142,7 @@ define(
                 $scope.sale_stamp_report_data = [];
                 $scope.non_report_live_report_data = [];
                 $scope.payment_type_report_data = [];
+
                 push_receipt().then(
                      function(){/*do nothing*/}
                     ,function(reason){ 
@@ -165,14 +166,34 @@ define(
                     else if(type === TYPE_NON_REPORT_LIVE){ return 'no report'; }
                     else if(type === TYPE_PAYMENT_TYPE){ return 'payment type'; }
                 }
-                $scope.refresh_today_report = function(){ $scope.from_date = new Date(); $scope.to_date = new Date(); $scope.refresh_report(); }
-                $scope.open = function($event,from_or_to) { $event.preventDefault(); $event.stopPropagation(); $scope[from_or_to] = true; };                
-                $scope.get_active_class = function(type){ var result = ""; if(type === $scope.cur_report_type){ result = 'active'}; return result; }
-                $scope.set_report_type = function(type){ $scope.cur_report_type = type; }
+                $scope.refresh_today_report = function(){ 
+                    $scope.from_date = new Date(); 
+                    $scope.to_date = new Date(); 
+                    $scope.refresh_report(); 
+                }
+                $scope.open = function($event,from_or_to) { 
+                    $event.preventDefault(); 
+                    $event.stopPropagation(); 
+                    $scope[from_or_to] = true; 
+                };                
+                $scope.get_active_class = function(type){ 
+                    var result = ""; 
+                    if(type === $scope.cur_report_type){ result = 'active'}; 
+                    return result; 
+                }
+                $scope.set_report_type = function(type){ 
+                    $scope.cur_report_type = type; 
+                }
                 $scope.get_type_tag_report_data = function(){
-                    if($scope.cur_report_type === TYPE_SALE_LIVE){ return $scope.sale_live_report_data; }
-                    else if($scope.cur_report_type === TYPE_SALE_STAMP){ return $scope.sale_stamp_report_data; }
-                    else if($scope.cur_report_type === TYPE_NON_REPORT_LIVE){ return $scope.non_report_live_report_data; }
+                    if($scope.cur_report_type === TYPE_SALE_LIVE){ 
+                        return $scope.sale_live_report_data; 
+                    }
+                    else if($scope.cur_report_type === TYPE_SALE_STAMP){ 
+                        return $scope.sale_stamp_report_data; 
+                    }
+                    else if($scope.cur_report_type === TYPE_NON_REPORT_LIVE){ 
+                        return $scope.non_report_live_report_data; 
+                    }
                 }
                 function _update_type_tag_dic(type,tag,sub_total,total,dic){ 
                     /*

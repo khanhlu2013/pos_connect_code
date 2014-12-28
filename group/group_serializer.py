@@ -15,8 +15,3 @@ class Group_sp_lst_serializer(serializers.ModelSerializer):
         model = Group
         fields = ('id','name','sp_lst')
 
-def serialize_group_lst(group_lst):
-    return Group_serializer(group_lst,many=True).data  
-
-def serialize_group_item(group):
-    return Group_sp_lst_serializer(group,many=False).data  

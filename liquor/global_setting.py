@@ -9,6 +9,8 @@ from sale_shortcut.sale_shortcut_serializer import Parent_serializer
 from payment_type.models import Payment_type
 from django.core.serializers.json import DjangoJSONEncoder
 from django.http import HttpResponse
+from store.store_serializer import Store_serializer
+from store.models import Store
 
 def _get_global_setting(store):
     pt_lst = Payment_type.objects.filter(store_id=store.id)
@@ -16,6 +18,7 @@ def _get_global_setting(store):
     shortcut_lst = shortcut_getter.get_shorcut_lst(store.id) 
 
     res = {}
+    res['STORE'] = json.dumps(Store_serializer(store,many=False).data,cls=DjangoJSONEncoder)
     res['STORE_ID'] = store.id
     res['TAX_RATE'] = store.tax_rate
     res['COUCH_SERVER_URL'] = couch_util.get_couch_access_url(store=store)
@@ -35,5 +38,6 @@ def set(store,context):
 
 def get_global_setting_api(request):
     cur_login_store = request.session.get('cur_login_store')
-    global_setting = _get_global_setting(cur_login_store)
+    store = Store.objects.get(pk=cur_login_store.id)
+    global_setting = _get_global_setting(store)
     return HttpResponse(json.dumps(global_setting,cls=DjangoJSONEncoder),content_type='application/json')

@@ -2,7 +2,7 @@ define(
 [
     'angular'
     //-----
-    ,'model/store/api'
+    ,'model/store/api_tax'
 ]
 ,function
 (
@@ -11,7 +11,7 @@ define(
 {
     var mod = angular.module('store/service/set_tax',
     [
-        'store/api'
+        'store/api_tax'
     ]);
 
     mod.factory('store/service/set_tax',
@@ -21,24 +21,24 @@ define(
         ,'$q'
         ,'$rootScope'
         ,'service/ui/prompt'
-        ,'store/api'
+        ,'store/api_tax'
     ,function(
          $http
         ,$modal
         ,$q
         ,$rootScope
         ,prompt_service
-        ,store_api
+        ,store_api_tax
     ){
         return function(){
             var defer = $q.defer();
 
-            prompt_service('enter tax rate',$rootScope.GLOBAL_SETTING.tax_rate/*prefill*/,false/*null is not allow*/,true/*is float*/)
+            prompt_service('enter tax rate',$rootScope.GLOBAL_SETTING.TAX_RATE/*prefill*/,false/*null is not allow*/,true/*is float*/)
             .then(
                 function(prompt_data){
-                    store_api.set_tax(prompt_data).then(
+                    store_api_tax.set_tax(prompt_data).then(
                         function(new_tax_rate){
-                            $rootScope.GLOBAL_SETTING.tax_rate = new_tax_rate;
+                            $rootScope.GLOBAL_SETTING.TAX_RATE = new_tax_rate;
                             defer.resolve(new_tax_rate);
                         },function(reason){
                             defer.reject(reason); 

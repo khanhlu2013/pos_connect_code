@@ -125,7 +125,9 @@ define(
                     )
                 }
                 $scope.exit = function(){ 
-                    if($rootScope.GLOBAL_SETTING !== undefined){ $rootScope.GLOBAL_SETTING.mix_match_lst = $scope.mm_lst; }
+                    if($rootScope.GLOBAL_SETTING !== undefined){ 
+                        $rootScope.GLOBAL_SETTING.MIX_MATCH_LST = $scope.mm_lst; 
+                    }
                     $modalInstance.close();
                 }
             }

@@ -30,7 +30,7 @@ define(
                             '<td>{{sp_to_select.name}}</td>' +
                             '<td>{{sp_to_select.price}}</td>' +
                             '<td>{{sp_to_select.get_crv()}}</td>' +   
-                            '<td class="alncenter"><span class="glyphicon" ng-class="sp.is_taxable() ? \'glyphicon-check\' : \'glyphicon-unchecked\'"></span></td>' +
+                            '<td class="alncenter"><span class="glyphicon" ng-class="sp_to_select.is_taxable ? \'glyphicon-check\' : \'glyphicon-unchecked\'"></span></td>' +
                             '<td>{{sp_to_select.get_buydown()}}</td>' +                                                     
                             '<td class="alncenter"><button ng-click="select(sp_to_select)" class="btn btn-primary">select</button></td>' +                                            
                         '</tr>' +
@@ -54,7 +54,7 @@ define(
             var dlg = $modal.open({
                 template : template,
                 controller : ModalCtrl,
-                size : 'md',
+                size : 'lg',
                 resolve:{ sp_lst:function(){return sp_lst}}
             })
             return dlg.result;

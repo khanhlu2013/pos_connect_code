@@ -21,7 +21,7 @@ class Address(models.Model):
 
 class KT_Business(Address):
     name = models.CharField(max_length=255)
-    
+    phone = models.CharField(max_length=255,blank=True,null=True)
     def __unicode__(self):
         return self.name
     

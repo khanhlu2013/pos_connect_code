@@ -22,7 +22,7 @@ describe('sale_app/displaying_scan/non_inventory', function() {
         var crv = 0.12;
         var is_taxable = true;
         var cost = 1.51;
-        Sale_page.non_inventory();
+        Sale_page.menu_action_non_inventory();
         expect(Non_inventory_prompt_dlg.get_name()).toEqual('none inventory');
         Non_inventory_prompt_dlg.set_price(price);
         Non_inventory_prompt_dlg.set_crv(crv);
@@ -33,7 +33,7 @@ describe('sale_app/displaying_scan/non_inventory', function() {
         expect(Sale_page.tender_btn.getText()).toEqual('$1.47');
 
         //can combine
-        Sale_page.non_inventory();
+        Sale_page.menu_action_non_inventory();
         Non_inventory_prompt_dlg.set_price(price);
         Non_inventory_prompt_dlg.set_crv(crv);
         Non_inventory_prompt_dlg.set_is_taxable(is_taxable);
@@ -44,7 +44,7 @@ describe('sale_app/displaying_scan/non_inventory', function() {
         expect(Sale_page.get_col(0,'qty')).toEqual('2');
 
         //can separate 
-        Sale_page.non_inventory();
+        Sale_page.menu_action_non_inventory();
         Non_inventory_prompt_dlg.set_price(1);
         Non_inventory_prompt_dlg.set_crv(2);
         Non_inventory_prompt_dlg.set_is_taxable(false);

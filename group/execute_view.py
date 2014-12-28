@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.core.serializers.json import DjangoJSONEncoder
 from group.group_serializer import Group_sp_lst_serializer
-from group import group_getter
+from group import dao
 import json
 from store_product.models import Store_product
 from store_product.sp_couch import store_product_couch_getter
@@ -16,7 +16,7 @@ def exe(request):
         return
 
     #validate group id 
-    group = group_getter.get_group_item(id=group_id,store_id=cur_login_store.id)
+    group = dao.get_group_item(id=group_id,store_id=cur_login_store.id)
 
     #validate group is not empty
     pid_lst = [item.product.id for item in group.sp_lst.all()]
@@ -26,7 +26,7 @@ def exe(request):
     #update    
     row = Store_product.objects.filter(store_id=cur_login_store.id,product_id__in=pid_lst).update(**option)    
     update_couch(pid_lst,cur_login_store, option)
-    group = group_getter.get_group_item(id=group_id,store_id=cur_login_store.id)
+    group = dao.get_group_item(id=group_id,store_id=cur_login_store.id)
     group_serialized = Group_sp_lst_serializer(group).data
     return HttpResponse(json.dumps(group_serialized,cls=DjangoJSONEncoder), mimetype='application/json')
 

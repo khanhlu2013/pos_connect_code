@@ -149,7 +149,7 @@
                 <td class="alncenter" ng-show="$root.GLOBAL_SETTING.STORE.display_deal"><span class="glyphicon" ng-class="is_in_deal(sp) ? 'glyphicon-check' : 'glyphicon-unchecked' "></span></td>
                 <td ng-show="$root.GLOBAL_SETTING.STORE.display_vendor">{{sp.vendor}}</td>
                 <td class="alnright">{{sp.get_cost()|currency|not_show_zero}}</td>
-                <td class="alnright">{{sp.get_markup()}}</td>                
+                <td class="alnright" ng-show="sp.get_markup()!==null && sp.get_markup()!==undefined">{{sp.get_markup()}}%</td>                
                 <td class="alnright" ng-show="$root.GLOBAL_SETTING.STORE.display_buydown">{{sp.get_buydown()|currency|not_show_zero}}</td>
                 <td class="alnright" ng-show="$root.GLOBAL_SETTING.STORE.display_vc_price">{{sp.value_customer_price|currency|not_show_zero}}</td>
                 <td class="alnright" ng-show="$root.GLOBAL_SETTING.STORE.display_stock">{{sp.cur_stock}}</td>
@@ -177,7 +177,7 @@
         _GLOBAL_SETTING_.STORE                      = {{STORE|safe}};
     </script>
 
-    <!-- // <script data-main = "{{ STATIC_URL }}js/sp_main.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script> -->
-    <script data-main = "{{ STATIC_URL }}sp.min.15.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script>
+    <script data-main = "{{ STATIC_URL }}js/sp_main.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script>
+    <!-- // <script data-main = "{{ STATIC_URL }}sp.min.15.js" src="{{ STATIC_URL }}js/lib/require/require.js"></script> -->
 </body>
 </html>

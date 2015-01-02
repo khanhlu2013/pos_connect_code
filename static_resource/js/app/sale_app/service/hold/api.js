@@ -7,6 +7,7 @@ define(
 [
      'angular' 
     //--------
+    ,'service/ui'
     ,'app/sale_app/service/displaying_scan/calculate_ds_lst'
     ,'app/sale_app/service/hold/model'
     ,'app/sale_app/model'
@@ -20,7 +21,8 @@ define(
 {
     var mod = angular.module('sale_app/service/hold/api',
     [
-         'sale_app/service/displaying_scan/calculate_ds_lst'
+         'service/ui'
+        ,'sale_app/service/displaying_scan/calculate_ds_lst'
         ,'sale_app/service/hold/model'
         ,'sale_app/model'
         ,'sale_app/service/pending_scan/get_api'
@@ -29,7 +31,7 @@ define(
     mod.factory('sale_app/service/hold/api',
     [
          '$q'
-        ,'$rootScope'
+        ,'service/ui/confirm'
         ,'sale_app/service/displaying_scan/calculate_ds_lst'
         ,'sale_app/service/hold/model/Hold'
         ,'sale_app/model/Pending_scan'
@@ -37,25 +39,29 @@ define(
         ,'sale_app/service/pending_scan/set_api'             
     ,function(
          $q
-        ,$rootScope
+        ,confirm_service
         ,calculate_ds
         ,Hold
         ,Pending_scan
         ,get_ps_lst
         ,set_ps_lst
     ){
-        function get_lst(){
+        function get_lst(GLOBAL_SETTING){
             var defer = $q.defer();
 
             //take care of init hold_lst to emtpy array 
             var str = localStorage.getItem('hold_lst');
-            if(str === null){localStorage.setItem('hold_lst',"[]");defer.resolve([]);return defer.promise;}
+            if(str === null){
+                localStorage.setItem('hold_lst',"[]");
+                defer.resolve([]);
+                return defer.promise;
+            }
 
             //process str : aka converting ps_lst -> ds_lst
             var raw_lst = JSON.parse(str);
             var promise_lst = []
             for(var i = 0;i<raw_lst.length;i++){
-                promise_lst.push(calculate_ds(raw_lst[i].ps_lst,[]/*sp_lst*/));
+                promise_lst.push(calculate_ds(raw_lst[i].ps_lst,[]/*sp_lst*/,GLOBAL_SETTING));
             }
             $q.all(promise_lst).then(
                 function(lst_of_ds_lst){
@@ -67,7 +73,20 @@ define(
                         result.push(hold);
                     }
                     defer.resolve(result);
-                },function(reason){defer.reject(reason);}
+                },function(reason){
+                    if(reason === 'Bug: can not find sp by doc_id in local database. Click void to try again.'){
+                        confirm_service('Error in retriving hold list. You need to delete hold list!','red').then(
+                            function(){
+                                localStorage.setItem('hold_lst',"[]");
+                                defer.reject('_cancel_');
+                            },function(){
+                                defer.reject('_cancel_');
+                            }
+                        )
+                    }else{
+                        defer.reject(reason);
+                    }
+                }
             )
 
             return defer.promise;

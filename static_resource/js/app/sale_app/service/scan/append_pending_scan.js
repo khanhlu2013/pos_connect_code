@@ -32,13 +32,13 @@ define(
         ,get_ps_lst
         ,set_ps_lst
         ,Pending_scan
-        ,search_sp
+        ,offline_sp_api
         ,blockUI
     ){
-        function by_product_id(product_id,qty,non_inventory,override_price){
+        function by_product_id(product_id,qty,non_inventory,override_price,GLOBAL_SETTING){
             blockUI.start();
             var defer = $q.defer();
-            search_sp.by_product_id(product_id).then(
+            offline_sp_api.by_product_id(product_id,GLOBAL_SETTING).then(
                  function(sp){
                     var ps_lst = by_doc_id(sp.sp_doc_id,qty,non_inventory,override_price);
                     defer.resolve(ps_lst); 

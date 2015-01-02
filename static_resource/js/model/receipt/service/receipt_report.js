@@ -44,7 +44,7 @@ define(
         ,tender_ui
         ,adjust_receipt_tender
     ){
-        return function(){
+        return function(GLOBAL_SETTING){
             var template_receipt_table = 
                 '<table ng-hide="receipt_lst.length===0" class="table table-hover table-bordered table-condensed table-striped">' +
                     '<tr>' +
@@ -73,7 +73,7 @@ define(
                     '<tr ng-repeat="receipt_ln in $parent.cur_receipt.receipt_ln_lst | orderBy:\'date\'">' +
                         '<td>{{receipt_ln.qty}}</td>' +
                         '<td>{{receipt_ln.get_name()}}</td>' +
-                        '<td class="alncenter"><button ng-click="display_sale_able_info_dlg(receipt_ln)" class="btn btn-primary">{{receipt_ln.get_advertise_price() | currency}}</button></td>' +
+                        '<td class="alncenter"><button ng-click="display_sale_able_info_dlg(receipt_ln,$parent.cur_receipt.tax_rate)" class="btn btn-primary">{{receipt_ln.get_advertise_price() | currency}}</button></td>' +
                     '</tr>' +
                 '</table>'
             ;    
@@ -185,7 +185,7 @@ define(
                 '</div>' 
             ;
 
-            var ModalCtrl = function($scope,$modalInstance,$rootScope){
+            var ModalCtrl = function($scope,$modalInstance,GLOBAL_SETTING){
                 $scope.receipt_summary_lbl_class = 'col-xs-4 control-label';
                 $scope.receipt_summary_value_class = 'col-xs-8 form-control-static';
 
@@ -197,8 +197,8 @@ define(
                     }
                 };
 
-                $scope.display_sale_able_info_dlg = function(receipt_ln){
-                    sale_able_info_dlg(receipt_ln,false/*is_enable_override_price*/);
+                $scope.display_sale_able_info_dlg = function(receipt_ln,tax_rate){
+                    sale_able_info_dlg(receipt_ln,false/*is_enable_override_price*/,tax_rate);
                 }
                 $scope.toogle_cur_receipt = function(receipt){
                     if($scope.is_cur_receipt(receipt)){ 
@@ -235,9 +235,9 @@ define(
                     alert_service('return products is a complicated feature. Not sure when i am going to do it.','Sorry!','green');
                 }                
                 $scope.adjust_cur_receipt_tender_ln = function(){
-                    tender_ui($scope.cur_receipt.receipt_ln_lst,$scope.cur_receipt.tender_ln_lst,$scope.cur_receipt.tax_rate).then(
+                    tender_ui($scope.cur_receipt.receipt_ln_lst,$scope.cur_receipt.tender_ln_lst,$scope.cur_receipt.tax_rate,GLOBAL_SETTING).then(
                         function(new_tender_ln_lst){
-                            adjust_receipt_tender($scope.cur_receipt,new_tender_ln_lst).then(
+                            adjust_receipt_tender($scope.cur_receipt,new_tender_ln_lst,GLOBAL_SETTING).then(
                                 function(adjust_receipt){
                                     var index = -1;
                                     for(var i = 0;i<$scope.receipt_lst.length;i++){
@@ -290,7 +290,7 @@ define(
                             change_html + '\n' +
                         '</div>'
                     ;
-                    var static_url = $rootScope.GLOBAL_SETTING.STATIC_URL;
+                    var static_url = GLOBAL_SETTING.STATIC_URL;
                     var css_str = 
                         '<link rel="stylesheet" type ="text/css" href="' + static_url + 'css/bootstrap.css">' +
                         '<link rel="stylesheet" type ="text/css" href="' + static_url + 'css/bootstrap-theme.css">' +
@@ -310,7 +310,7 @@ define(
                 }
                 function handle_internet_offline(){
                     $scope.is_internet_offline = true;
-                    receipt_offline_api.get_receipt_lst().then(
+                    receipt_offline_api.get_receipt_lst(GLOBAL_SETTING).then(
                         function(lst){
                             $scope.receipt_lst = lst;
                             var message = 'Internet is disconnected! ';
@@ -330,7 +330,7 @@ define(
                 $scope.from_date = null;
                 $scope.to_date = null;
                 $scope.is_internet_offline = false;
-                push_receipt().then(
+                push_receipt(GLOBAL_SETTING).then(
                     function(){
                         var default_number_receipt = 15;
                         receipt_online_api.get_receipt_by_count(default_number_receipt).then(
@@ -355,11 +355,14 @@ define(
                     }
                 )
             }
-            ModalCtrl.$inject = ['$scope','$modalInstance','$rootScope'];    
+            ModalCtrl.$inject = ['$scope','$modalInstance','GLOBAL_SETTING'];    
             return $modal.open({
                  template:template
                 ,controller:ModalCtrl
                 ,size:'lg'
+                ,resolve : {
+                    GLOBAL_SETTING : function(){ return GLOBAL_SETTING}
+                }
             }).result;
         }
     }])

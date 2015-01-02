@@ -17,7 +17,7 @@ define(
     function(
         //dependency_alias
     ){
-        function Store(id,name,tax_rate,phone,street,city,state,zip_code
+        function Store(id,name,tax_rate,phone,street,city,state,zip_code,is_profit_information_exchange
             ,display_is_report
             ,display_type
             ,display_tag
@@ -36,6 +36,7 @@ define(
             this.city = city;
             this.state = state;
             this.zip_code = zip_code;
+            this.is_profit_information_exchange = is_profit_information_exchange;
 
             this.display_is_report = display_is_report;
             this.display_type = display_type;
@@ -57,6 +58,7 @@ define(
                 ,raw_json.city
                 ,raw_json.state
                 ,raw_json.zip_code
+                ,raw_json.is_profit_information_exchange
 
                 ,raw_json.display_is_report
                 ,raw_json.display_type

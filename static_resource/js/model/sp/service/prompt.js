@@ -224,7 +224,7 @@ define(
                 '<label class="col-sm-4 control-label">Cost:</label>' +
                 '<div class="col-sm-8">' +
                     '<input id="sp_app/service/prompt/cost_txt" name="cost" ng-model="$parent.sp.cost" ng-disabled="{{sp.is_kit()}}" type="number" size="45"}}"">' +
-                    '<label ng-show="$parent.sp.get_markup()!== null && $parent.sp.get_markup()!== NaN"> markup: {{$parent.sp.get_markup()}}</label>' +
+                    '<label ng-show="$parent.sp.get_markup()!== null && $parent.sp.get_markup()!== NaN"> markup: {{$parent.sp.get_markup()}}%</label>' +
                     template_cost_suggestion +
                     '<label class="error" ng-show="form.cost.$invalid">' +
                         'invalid number' +

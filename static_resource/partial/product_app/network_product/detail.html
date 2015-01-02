@@ -10,7 +10,7 @@
     </tr>
 </table>
 
-<table class="table table-hover table-bordered table-condensed table-striped">
+<table ng-hide="suggest_extra_crv.length === 0" class="table table-hover table-bordered table-condensed table-striped">
     <tr>
         <th>crv</th>
         <th>percent</th>
@@ -32,7 +32,7 @@
     <tr ng-repeat="sp in (network_product.get_sp_lst()|orderBy:cur_sort_column:cur_sort_desc|emptyToEnd:cur_sort_column)" ng-class="sp.store_id === $root.GLOBAL_SETTING.STORE_ID ? 'success' : ''">
         <td class="alnright">{{sp.get_cost()|currency}}</td>
         <td class="alnright">{{sp._get_b4_tax_price()|currency}}</td>
-        <td class="alnright">{{sp.get_markup()}}</td>
+        <td class="alnright" ng-show="sp.get_markup()!==null && sp.get_markup()!==undefined">{{sp.get_markup()}}%</td>
         <td class="alnright" ng-show="is_sale_data">{{sp.sale}}</td>
         <td class="alnright" ng-show="is_sale_data">{{sp.sale * (sp._get_b4_tax_price() - sp.get_cost()) | currency | not_show_zero}}</td>
     </tr>

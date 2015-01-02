@@ -51,33 +51,29 @@ def _get_sale_data(product_id):
     now = date.today()
     end = now - timedelta(days=settings.NETWORK_PRODUCT_SALE_DAY_OFFSET)
     start = end - timedelta(days=settings.NETWORK_PRODUCT_SALE_DAY_LOOKBACK)
-    #xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-    end = end + timedelta(days=1)
-    start = start + timedelta(days=1)
-    #xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-    return Store.objects.filter(receipt__receipt_ln_lst__store_product__product_id=product_id,receipt__date__range=(start,end)).annotate(sale=Sum('receipt__receipt_ln_lst__qty'))
+    return Store.objects.filter(is_profit_information_exchange=True,receipt__receipt_ln_lst__store_product__product_id=product_id,receipt__date__range=(start,end)).annotate(sale=Sum('receipt__receipt_ln_lst__qty'))
 
 
 def exe(request):
     #param
     product_id = json.loads(request.GET['product_id'])
+    cur_login_store = request.session.get('cur_login_store')
+    response = {}
 
     #get product data
     product = dao.get_item_base_on_pid(product_id)
     product_serialized = Product_serializer(product,many=False).data
+    response['product'] = product_serialized
 
     #get sale data
-    sale_data = _get_sale_data(product_id)
     sale_data_serialized = []
-    for item in sale_data:
-        sale_data_serialized.append({
-             'store_id' : item.id
-            ,'sale' : item.sale   
-        })
+    if cur_login_store.is_profit_information_exchange:
+        sale_data = _get_sale_data(product_id)
+        for item in sale_data:
+            sale_data_serialized.append({
+                 'store_id' : item.id
+                ,'sale' : item.sale   
+            })
+        response['sale'] = sale_data_serialized
 
-    #response
-    response = {
-         'product' : product_serialized
-        ,'sale' : sale_data_serialized
-    }
     return HttpResponse(json.dumps(response,cls=DjangoJSONEncoder),content_type='application/json')

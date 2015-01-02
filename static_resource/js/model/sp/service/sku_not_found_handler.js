@@ -3,6 +3,7 @@ define(
     'angular'
     //---
     ,'service/ui'
+    ,'model/product/network_product_module'
 ]
 ,function
 (
@@ -12,7 +13,9 @@ define(
     var mod = angular.module('sp/service/sku_not_found_handler',
     [
          'service/ui'
+        ,'product/network_product'
     ]);
+
     mod.factory('sp/service/sku_not_found_handler',[
          '$modal'
         ,'$q' 
@@ -302,8 +305,7 @@ define(
             var template = 
                 '<div id="sp_app/service/suggest/select_product_confirm_dlg" class="modal-header"><h3>confirm add product</h3></div>' +
                 '<div class="modal-body">' +
-                    '<div ng-include="$root.GLOBAL_SETTING.PARTIAL_URL.product.network_product.index">' +   
-                    '</div>' +
+                    '<div ng-controller="product/network_product/controller" ng-init="init(network_product)" ng-include="$root.GLOBAL_SETTING.PARTIAL_URL.product.network_product.index"></div>' +
                 '</div>' +                
                 '<div class="modal-footer">' +
                     '<button ng-click="select_product()" class="btn btn-primary btn-float-left">back</button>' +
@@ -311,34 +313,8 @@ define(
                     '<button ng-click="cancel()" class="btn btn-warning">cancel</button>' +
                 '</div>'
             ;
-            var ModalCtrl = function($scope,$modalInstance,$rootScope,network_product,product_lst,my_sp_lst,sku){
-                //start - contract for network_product partial to work
+            var ModalCtrl = function($scope,$modalInstance,network_product,product_lst,my_sp_lst,sku){
                 $scope.network_product = network_product;
-                $scope.network_product_summary_lbl_class = 'col-xs-4 control-label';
-                $scope.network_product_summary_value_class = 'col-xs-8 form-control-static';   
-                $scope.suggest_extra_crv = $scope.network_product.get_suggest_extra('crv');
-                $scope.suggest_extra_name = $scope.network_product.get_suggest_extra('name');
-                $scope.is_sale_data = false;//read this variable description in the partial template of network_product
-
-                $scope.cur_sort_column = 'get_cost()';
-                $scope.cur_sort_desc = false;
-                $scope.column_click = function(column_name){
-                    if($scope.cur_sort_column == column_name){
-                        $scope.cur_sort_desc = !$scope.cur_sort_desc;
-                    }else{
-                        $scope.cur_sort_column = column_name;
-                        $scope.cur_sort_desc = false;
-                    }
-                }
-                $scope.get_sort_class = function(column_name){
-                    if(column_name == $scope.cur_sort_column){
-                        return "glyphicon glyphicon-arrow-" + ($scope.cur_sort_desc ? 'down' : 'up');
-                    }else{
-                        return '';
-                    }
-                }                
-                //end - contract
-                
                 $scope.cancel = function(){
                     $modalInstance.dismiss('_cancel_');
                 }
@@ -357,7 +333,7 @@ define(
                     )
                 }
             }
-            ModalCtrl.$inject = ['$scope','$modalInstance','$rootScope','network_product','product_lst','my_sp_lst','sku'];    
+            ModalCtrl.$inject = ['$scope','$modalInstance','network_product','product_lst','my_sp_lst','sku'];    
             var dlg = $modal.open({
                  template:template
                 ,controller:ModalCtrl

@@ -22,20 +22,18 @@ define(
     mod.factory('sale_app/service/tender_ui',
     [
          '$modal'
-        ,'$rootScope'
         ,'payment_type/model/Payment_type'
         ,'receipt/model/Tender_ln'
         ,'service/misc'
         ,'sale_app/service/sale_able_info_dlg'        
     ,function(
          $modal
-        ,$rootScope
         ,Payment_type
         ,Tender_ln
         ,misc_service
         ,sale_able_info_dlg
     ){
-        return function(sale_able_lst,prefill_tender_ln_lst,tax_rate){
+        return function(sale_able_lst,prefill_tender_ln_lst,tax_rate,GLOBAL_SETTING){
             var template_receipt = 
                 '<table class="table table-hover table-bordered table-condensed table-striped">' +
                     '<tr>' +
@@ -99,7 +97,7 @@ define(
                 '</div>' +
             '</form>'
             ;
-            var ModalCtrl = function($scope,$modalInstance,sale_able_lst,prefill_tender_ln_lst,tax_rate){
+            var ModalCtrl = function($scope,$modalInstance,sale_able_lst,prefill_tender_ln_lst,tax_rate,GLOBAL_SETTING){
                 $scope.is_print_receipt = false;
                 $scope.toogle_print_receipt = function(){
                     $scope.is_print_receipt = ! $scope.is_print_receipt;
@@ -109,7 +107,7 @@ define(
                     $scope.temp_tender_ln_dic[pt_id] = $scope.get_due();
                 }
                 $scope.display_sale_able_info_dlg = function(receipt_ln){
-                    sale_able_info_dlg(receipt_ln,false/*is_enable_override_price*/);
+                    sale_able_info_dlg(receipt_ln,false/*is_enable_override_price*/,tax_rate);
                 }                
                 $scope.get_due = function(){
                     var due = 0.0;
@@ -169,7 +167,7 @@ define(
                     }
                 }
                 $scope.cancel = function(){ $modalInstance.dismiss('_cancel_'); }
-                $scope.pt_lst = angular.copy($rootScope.GLOBAL_SETTING.PAYMENT_TYPE_LST);
+                $scope.pt_lst = angular.copy(GLOBAL_SETTING.PAYMENT_TYPE_LST);
                 var cash_pt = new Payment_type(null,'cash',null/*sort - null value make it be on top*/,true/*active*/);
                 $scope.pt_lst.unshift(cash_pt);
                 $scope.sale_able_lst = sale_able_lst;
@@ -187,7 +185,7 @@ define(
                 }           
                 $scope.pt_lst = $scope.pt_lst.filter(function(pt){return pt.active});     
             }
-            ModalCtrl.$inject = ['$scope','$modalInstance','sale_able_lst','prefill_tender_ln_lst','tax_rate'];           
+            ModalCtrl.$inject = ['$scope','$modalInstance','sale_able_lst','prefill_tender_ln_lst','tax_rate','GLOBAL_SETTING'];           
             var dlg = $modal.open({
                  template:template
                 ,controller:ModalCtrl
@@ -200,8 +198,11 @@ define(
                         ,prefill_tender_ln_lst:function(){
                             return prefill_tender_ln_lst;
                         }
-                        ,tax_rate:function(){
+                        ,tax_rate : function(){
                             return tax_rate;
+                        }
+                        ,GLOBAL_SETTING:function(){
+                            return GLOBAL_SETTING;
                         }
                     }
             })

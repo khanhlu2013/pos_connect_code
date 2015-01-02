@@ -15,7 +15,7 @@ define(
     ,'model/sp/api_search'
     ,'model/sp/service/create'
     ,'service/ui'
-    ,'service/db'    
+    ,'util/offline_db'    
     ,'app/sale_app/service/offline_product'
 ]
 ,function
@@ -28,7 +28,7 @@ define(
          'sp/api_search'
         ,'sp/service/create'
         ,'service/ui'
-        ,'service/db'        
+        ,'util/offline_db'        
         ,'sale_app/service/offline_product'
     ]);
 
@@ -40,7 +40,7 @@ define(
         ,'service/ui/confirm'
         ,'service/ui/_3_option'
         ,'sale_app/service/offline_product/create'
-        ,'service/db/download_product'       
+        ,'util/offline_db/download_product'       
     ,function(
          $q
         ,search_sp_api   
@@ -50,12 +50,12 @@ define(
         ,create_product_offline
         ,download_product
     ){
-        function _create_product_and_sync(product_lst,my_sp_lst,sku){
+        function _create_product_and_sync(product_lst,my_sp_lst,sku,GLOBAL_SETTING){
             var defer = $q.defer();
             create_sp_service(product_lst,my_sp_lst,sku).then
             (
                 function(created_sp){ 
-                    download_product().then(
+                    download_product(false,GLOBAL_SETTING).then(
                         function(){
                             defer.resolve();
                         },function(reason){
@@ -69,7 +69,7 @@ define(
             return defer.promise;           
         }
 
-        return function(sku){
+        return function(sku,GLOBAL_SETTING){
             var defer = $q.defer();
 
             search_sp_api.sku_search(sku).then(
@@ -77,7 +77,7 @@ define(
                     if(data.prod_store__prod_sku__1_1.length != 0){
                         confirm_service('online and offline database is out of sync. Do you want to sync?','orange').then(
                             function(){
-                                download_product().then(
+                                download_product(false,GLOBAL_SETTING).then(
                                     function(){
                                         defer.resolve();
                                     },function(reason){
@@ -95,7 +95,7 @@ define(
                                     if(option ===1){
                                         defer.reject('_non_inventory_');
                                     }else if(option == 2){
-                                        _create_product_and_sync(data.prod_store__prod_sku__0_0,data.prod_store__prod_sku__1_0,sku).then(
+                                        _create_product_and_sync(data.prod_store__prod_sku__0_0,data.prod_store__prod_sku__1_0,sku,GLOBAL_SETTING).then(
                                             function(){
                                                 defer.resolve();
                                             },function(reason){
@@ -110,7 +110,7 @@ define(
                                 }
                             )
                         }else{
-                            _create_product_and_sync(data.prod_store__prod_sku__0_0,data.prod_store__prod_sku__1_0,sku).then(
+                            _create_product_and_sync(data.prod_store__prod_sku__0_0,data.prod_store__prod_sku__1_0,sku,GLOBAL_SETTING).then(
                                 function(){
                                     defer.resolve();
                                 },function(reason){
@@ -129,7 +129,7 @@ define(
                                 if(option === 1){
                                     defer.reject('_non_inventory_');
                                 }else if(option === 2){
-                                    create_product_offline(sku).then(
+                                    create_product_offline(sku,GLOBAL_SETTING).then(
                                         function(created_sp){
                                             defer.resolve();
                                         }

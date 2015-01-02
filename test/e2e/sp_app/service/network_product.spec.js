@@ -8,7 +8,7 @@ describe('sp app -> info -> network product', function() {
     var Sp_info_dlg = require(base_path + 'page/sp/Sp_info_dlg.js');
     var Sale_page = require(base_path + 'page/sale/Sale_page.js');
     var Tender_dlg = require(base_path + 'page/sale/Tender_dlg.js');
-
+    var Alert_dlg = require(base_path + 'page/ui/Alert_dlg.js');
     beforeEach(function(){
         lib.auth.login('1','1');
         lib.setup.init_data();
@@ -16,17 +16,21 @@ describe('sp app -> info -> network product', function() {
     })
 
     it('can fetch network product info',function(){
-        //--------------------------------
-        //setup 1 same product for 3 store
-        //--------------------------------
+        //----------------------------------------------------------------------------------------------------------------------------------------------------
+        // setup 1 same product for 3 store. make some sale for 3 store. we will make store1 and store2 sale volumn to be include in the profit exchange info 
+        // by changing their receipt date to be in the range of look back + offset. store 3 volumn will be leaved alone so that it will not be atleast off_set
+        // to be included for exchanging data
+        //----------------------------------------------------------------------------------------------------------------------------------------------------
         var sku = '111';var val_cus_price = null;var is_sale_report = true; var p_type = null;var p_tag = null;
         
 
         var name_1 = 'a'; var price_1 = 1; var cost_1 = 2   ; var crv_1 = 1; var tax_1 = true;var qty1 = 1;
         var name_2 = 'a'; var price_2 = 5; var cost_2 = null; var crv_2 = 1; var tax_2 = true;var qty2 = 2;
-        var name_3 = 'b'; var price_3 = 6; var cost_3 = 7   ; var crv_3 = 2; var tax_3 = false;
+        var name_3 = 'b'; var price_3 = 6; var cost_3 = 7   ; var crv_3 = 2; var tax_3 = false;var qty3 = 3;
 
-        //store1
+        //--------
+        // store 1
+        //--------
         lib.auth.login('1','1');
         var sp = null;
         lib.api.insert_new(sku,name_1,price_1,val_cus_price,crv_1,tax_1,is_sale_report,p_type,p_tag,cost_1).then(
@@ -38,9 +42,19 @@ describe('sp app -> info -> network product', function() {
         Sale_page.scan(qty1 + ' ' +sku);
         Sale_page.tender();
         Tender_dlg.ok();
-        Sale_page.menu_action_sync();
+        //lets change receipt date before we push them
+        lib.api_receipt.get_lst().then(
+            function(lst){
+                lib.api_receipt.edit_date(lst[0],(20 + 1) * -1)//20 days offset, 1 day to make sure it is in the range
+                .then(function(){
+                    Sale_page.menu_action_sync();Alert_dlg.ok();                    
+                })
+            }
+        )
 
-        //store2
+        //--------
+        // store 2
+        //--------
         lib.auth.login('2','2');
         browser.wait(function(){
             return sp !== null;
@@ -50,12 +64,19 @@ describe('sp app -> info -> network product', function() {
             }
         )
         Sale_page.visit();
-        Sale_page.scan(qty2 + ' ' + sku);
-        Sale_page.tender();
-        Tender_dlg.ok();
-        Sale_page.menu_action_sync();
-        
-        //store3
+        Sale_page.scan(qty2 + ' ' + sku);Sale_page.tender();Tender_dlg.ok();
+        lib.api_receipt.get_lst().then(
+            function(lst){
+                lib.api_receipt.edit_date(lst[0],(20 + 1) * -1)//20 days offset, 1 day to make sure it is in the range
+                .then(function(){
+                    Sale_page.menu_action_sync();Alert_dlg.ok();
+                })
+            }
+        )            
+
+        //--------
+        // store 3
+        //--------
         lib.auth.login('3','3');
         browser.wait(function(){
             return sp !== null;
@@ -64,10 +85,16 @@ describe('sp app -> info -> network product', function() {
                 lib.api.insert_old(sp.product_id,sku,name_3,price_3,val_cus_price,crv_3,tax_3,is_sale_report,p_type,p_type,cost_3);
             }
         )
+        Sale_page.visit();
+        Sale_page.scan(qty3 + ' ' + sku);
+        Sale_page.tender();
+        Tender_dlg.ok();
+        Sale_page.menu_action_sync();Alert_dlg.ok();
 
         //--------------------------------------------------------------------------------
         //verify statistic calculation of network_product in confirm select product dialog
         //--------------------------------------------------------------------------------
+            Sale_page.visit_product();
             Sp_page.sku_search(sku);
             Sp_page.click_col(0,'info');
             Sp_info_dlg.switch_tab('network_product');

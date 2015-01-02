@@ -23,7 +23,7 @@ define(
         ,'blockUI'
     ,function(
          $q
-        ,search_sp_offline
+        ,offline_sp_api
         ,select_sp
         ,blockUI
     ){
@@ -46,14 +46,14 @@ define(
             }else{ defer.resolve({qty:1,sku:lst[0]});return defer.promise; }
         }
 
-        function exe(scan_str){
+        function exe(scan_str,GLOBAL_SETTING){
             blockUI.start('process scan string');
             var defer = $q.defer();
             extract_qty_sku(scan_str).then(
                 function(sku_qty){
                     var sku = sku_qty.sku;var qty = sku_qty.qty;
 
-                    search_sp_offline.by_sku(sku).then(
+                    offline_sp_api.by_sku(sku,GLOBAL_SETTING).then(
                         function(sp_lst){
                             if(sp_lst.length > 1){
                                 blockUI.stop();

@@ -42,7 +42,7 @@ define(
         ,alert_service
         ,confirm_service
     ){
-        return function(){
+        return function(GLOBAL_SETTING){
             var template = 
                 '<div class="modal-header"><h3>select hold</h3></div>' +
 
@@ -89,8 +89,8 @@ define(
                     '<button id="sale_app/service/hold/get_hold_ui/cancel_btn" class="btn btn-warning" ng-click="cancel()">cancel</button>' +
                 '</div>'
             ;
-            var ModalCtrl = function($scope,$modalInstance,$rootScope,hold_lst){
-                $scope.tax_rate = $rootScope.GLOBAL_SETTING.TAX_RATE;
+            var ModalCtrl = function($scope,$modalInstance,hold_lst,GLOBAL_SETTING){
+                $scope.tax_rate = GLOBAL_SETTING.TAX_RATE;
                 $scope.hold_lst = hold_lst;
                 $scope.cur_hold = null;
 
@@ -121,18 +121,31 @@ define(
                 $scope.select = function(hold){
                     //before we exe_select, if there are pending scan, we need to confirm with the user that we need to put it on hold.
                     if(get_ps_lst().length != 0){ 
-                        confirm_service('we need to hold current scan. continue?','orange').then( function(){ exe_select(hold); } );
+                        confirm_service('we need to hold current scan. continue?','orange').then( 
+                            function(){ 
+                                exe_select(hold); 
+                            } 
+                        );
                     }
                     else{ exe_select(hold); }
                 }
-                $scope.cancel = function(){ $modalInstance.dismiss('_cancel_');}
+                $scope.cancel = function(){ 
+                    $modalInstance.dismiss('_cancel_');
+                }
             }
-            ModalCtrl.$inject = ['$scope','$modalInstance','$rootScope','hold_lst'];
+            ModalCtrl.$inject = ['$scope','$modalInstance','hold_lst','GLOBAL_SETTING'];
             var dlg = $modal.open({
                  template : template
                 ,controller : ModalCtrl
                 ,size : 'lg'
-                ,resolve:{ hold_lst:function(){return hold_api.get_lst();} }
+                ,resolve:{ 
+                    hold_lst:function(){
+                        return hold_api.get_lst(GLOBAL_SETTING);
+                    }
+                    ,GLOBAL_SETTING : function(){
+                        return GLOBAL_SETTING;
+                    }
+                }
             })
             return dlg.result;
 

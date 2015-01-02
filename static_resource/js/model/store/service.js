@@ -77,7 +77,13 @@ define(
                         '</div>' +
                     '</div>' +
 
-                    '<hr>' + //---------------------------------------------------------------
+                    '<div class="form-group">' +
+                        '<label class="col-sm-4">profit information exchange</label>' +
+                        '<div class="col-sm-8">' +
+                            '<input id="store/edit/is_profit_information_exchange_check" ng-model="$parent.store.is_profit_information_exchange" name="is_profit_information_exchange" type="checkbox">' +
+                            '<label ng-show="form.is_profit_information_exchange.$error.required" class="error">required</label>' +
+                        '</div>' +
+                    '</div>' +  
 
                     '<div class="form-group">' +
                         '<label class="col-sm-4">phone</label>' +
@@ -168,9 +174,9 @@ define(
                     template_form +
                 '</div>' +
                 '<div class="modal-footer">' + 
-                    '<button ng-disabled="form.$invalid || is_unchange()" class="btn btn-primary" ng-click="ok()">ok</button>' +
+                    '<button id="store/edit/ok_btn" ng-disabled="form.$invalid || is_unchange()" class="btn btn-primary" ng-click="ok()">ok</button>' +
                     '<button ng-disabled="is_unchange()" class="btn btn-success" ng-click="reset()">reset</button>' +
-                    '<button class="btn btn-warning" ng-click="cancel()">cancel</button>' +
+                    '<button id="store/edit/cancel_btn" class="btn btn-warning" ng-click="cancel()">cancel</button>' +
                 '</div>'
             ;
             ModalCtrl = function($scope,$modalInstance,store_ori){

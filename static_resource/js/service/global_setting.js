@@ -39,17 +39,17 @@ define(
         ,Store
     ){
         function _get_partial_url(static_url){
-            var network_product_url = static_url + '/partial/product_app/network_product/'
+            var network_product_url = static_url + 'partial/product_app/network_product/'
             var result =
             {
                 product:
                 {
-                    network_product : 
-                        {
-                             index : network_product_url + 'index.html'
-                            ,summary : network_product_url + 'summary.html'
-                            ,detail : network_product_url + 'detail.html'
-                        }
+                    network_product: 
+                    {
+                         index : network_product_url + 'index.html'
+                        ,summary : network_product_url + 'summary.html'
+                        ,detail : network_product_url + 'detail.html'
+                    }
                 }
             }
             return result;

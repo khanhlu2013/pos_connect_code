@@ -3,6 +3,65 @@ var request = require('request');
 
 module.exports = {
 
+    api_receipt:{
+        edit_date : function(receipt,delta_date){
+            return browser.executeAsyncScript(function(receipt,delta_date,callback){
+                function _subtract_date_base_on_qty(receipt,delta_date,offline_db,$q,receipt_storage_adapter,GLOBAL_SETTING){
+                    var defer = $q.defer();
+                    var new_date = new Date(receipt.date);
+                    new_date.setDate(new_date.getDate() + delta_date)
+                    receipt.date = new_date;
+                    offline_db.put(receipt_storage_adapter.javascript_2_pouch(receipt,GLOBAL_SETTING),receipt.doc_id,receipt.doc_rev).then(
+                        function(response){
+                            defer.resolve(response);
+                        },function(reason){
+                            defer.reject(reason);
+                        }
+                    )
+                    return defer.promise;
+                }   
+
+                var global_setting_service = angular.injector(['ng','service/global_setting']).get('service/global_setting');
+                global_setting_service.refresh().then(
+                    function(global_setting){
+                        var offline_receipt_api = angular.injector(['ng','receipt/api_offline']).get('receipt/api_offline');
+                        var offline_db_get_service = angular.injector(['ng','util/offline_db']).get('util/offline_db/get');
+                        var offline_db = offline_db_get_service(global_setting);
+                        var $q = angular.injector(['ng']).get('$q');
+                        var receipt_storage_adapter = angular.injector(['ng','receipt/service/receipt_storage_adapter']).get('receipt/service/receipt_storage_adapter');
+                        offline_receipt_api.get_item(receipt.doc_id,global_setting).then(
+                            function(receipt){
+                                _subtract_date_base_on_qty(receipt,delta_date,offline_db,$q,receipt_storage_adapter,global_setting).then(
+                                    function(){
+                                        callback();
+                                    }
+                                )
+                            }
+                        )
+                    }
+                )
+            },receipt,delta_date);
+        },
+        get_lst : function(){
+            return browser.executeAsyncScript(function(callback){
+                var global_setting_service = angular.injector(['ng','service/global_setting']).get('service/global_setting');
+                global_setting_service.refresh().then(
+                    function(global_setting){
+                        var offline_receipt_api = angular.injector(['ng','receipt/api_offline']).get('receipt/api_offline');
+                        var offline_db_get_service = angular.injector(['ng','util/offline_db']).get('util/offline_db/get');
+                        var offline_db = offline_db_get_service(global_setting);
+                        var $q = angular.injector(['ng']).get('$q');
+                        var receipt_storage_adapter = angular.injector(['ng','receipt/service/receipt_storage_adapter']).get('receipt/service/receipt_storage_adapter');
+                        offline_receipt_api.get_receipt_lst(global_setting).then(
+                            function(receipt_lst){
+                                callback(receipt_lst);
+                            }
+                        )
+                    }
+                ) 
+            });
+        }
+    },
     api_group:{
         insert_empty_group : function(group_name){
             return browser.executeAsyncScript(function(group_name,callback) {
@@ -208,5 +267,15 @@ module.exports = {
             }
             return result;
         }
+    },
+    get_global_setting : function(){
+        browser.executeAsyncScript(function(callback){
+            var global_setting_service = angular.injector(['ng','service/global_setting']).get('service/global_setting');
+            global_setting_service.refresh().then(
+                function(global_setting){
+                    callback(global_setting);
+                }
+            )   
+        })
     }
 };

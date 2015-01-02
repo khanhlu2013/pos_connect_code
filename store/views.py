@@ -13,5 +13,6 @@ def edit(request):
 
     Store.objects.filter(pk=store['id']).update(**store)
     updated_store = Store.objects.get(pk=store['id'])
+    request.session['cur_login_store'] = updated_store
 
     return HttpResponse(json.dumps(Store_serializer(updated_store,many=False).data,cls=DjangoJSONEncoder),content_type='application/json')

@@ -4,7 +4,7 @@ define(
 	//----
 	,'model/sp/service/prompt'
 	,'model/sp/api_crud'
-    ,'service/db'
+    ,'util/offline_db'
 ]
 ,function
 (
@@ -15,7 +15,7 @@ define(
 	[
 		 'sp/service/prompt'
 		,'sp/api_crud'
-        ,'service/db'		
+        ,'util/offline_db'		
 	]);
 	mod.factory('sp/service/duplicate',
 	[
@@ -24,7 +24,7 @@ define(
 		,'$q'
 		,'sp/service/prompt'
 		,'sp/api_crud'
-        ,'service/db/download_product'		
+        ,'util/offline_db/download_product'		
 	,function(
 		 $http
 		,$filter
@@ -33,14 +33,14 @@ define(
 		,sp_crud_api
         ,download_product		
 	){
-		return function(sp){
+		return function(sp,GLOBAL_SETTING){
 			var defer = $q.defer();
 
 			prompt_service(null/*original_sp*/,null/*suggest_product*/,sp/*duplicate_sp*/,null/*sku*/,false/*is_operate_offline*/).then(
 				function(prompt_result){ 
 				 	sp_crud_api.insert_new(prompt_result.sp,prompt_result.sku).then(
 				 		function(sp){
-				 			download_product(false).then(
+				 			download_product(false,GLOBAL_SETTING).then(
 				 				function(){
 				 					defer.resolve(sp);
 				 				},function(reason){

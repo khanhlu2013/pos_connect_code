@@ -5,7 +5,7 @@ define(
     ,'model/group/api'
     ,'service/ui'
     ,'model/group/model'    
-    ,'service/db'
+    ,'util/offline_db'
 ]
 ,function
 (
@@ -17,7 +17,7 @@ define(
          'group/api'
         ,'service/ui'
         ,'group/model'
-        ,'service/db'
+        ,'util/offline_db'
     ]);
 
     mod.factory('group/service/execute',
@@ -26,7 +26,7 @@ define(
         ,'group/api'
         ,'service/ui/alert'
         ,'group/model/Group'
-        ,'service/db/download_product'
+        ,'util/offline_db/download_product'
     ,function(
          $modal
         ,group_api
@@ -34,7 +34,7 @@ define(
         ,Group
         ,download_product
     ){
-        return function(group_id){
+        return function(group_id,GLOBAL_SETTING){
 
             var template_price =
                 '<div class="form-group">' +
@@ -204,7 +204,7 @@ define(
                     '<button id="group_app/service/execute/exit_btn" ng-click="exit()" class="btn btn-warning">exit</button>' +
                 '</div>'
             ;
-            var ModalCtrl = function($scope,$modalInstance,$http,group){
+            var ModalCtrl = function($scope,$modalInstance,$http,group,GLOBAL_SETTING){
                 $scope.group = group;
                 $scope.option = {};
 
@@ -242,7 +242,7 @@ define(
                         ,data:{group_id:group.id,option:JSON.stringify($scope.option)}
                     }).then(
                         function(group_response_data){
-                            download_product(false/*is_force*/).then(
+                            download_product(false/*is_force*/,GLOBAL_SETTING).then(
                                 function(){
                                     $scope.group = Group.build(group_response_data.data);
                                     alert_service('execute is complete successfully','info','green');
@@ -272,7 +272,7 @@ define(
                     $modalInstance.dismiss('_cancel_');
                 }
             }
-            ModalCtrl.$inject = ['$scope','$modalInstance','$http','group'];
+            ModalCtrl.$inject = ['$scope','$modalInstance','$http','group','GLOBAL_SETTING'];
             var result = $modal.open({
                  template:template
                 ,controller:ModalCtrl
@@ -280,6 +280,9 @@ define(
                 ,resolve:{
                     group : function(){
                         return group_api.get_item(group_id);
+                    }
+                    ,GLOBAL_SETTING: function(){
+                        return GLOBAL_SETTING
                     }
                 }
             });

@@ -112,6 +112,11 @@ var Sale_page = function () {
     }
 
     //function misc
+    this.visit_product = function(){
+        var url = 'http://127.0.0.1:8000';
+        browser.get(url);
+        lib.wait_for_block_ui();           
+    }
     this.visit = function(is_offline){
         var posUrl
         if(is_offline === true)  {posUrl = 'http://127.0.0.1:8000/sale/index_offline_angular';}

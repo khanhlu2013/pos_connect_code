@@ -82,5 +82,5 @@ describe('sale page\'s receipt reminder', function() {
         Sale_page.scan(sku);Sale_page.tender();Tender_dlg.ok();
         Sale_page.scan(sku);Sale_page.tender();Tender_dlg.ok();        
         expect(_3_option_dlg.self.isPresent()).toEqual(true);                
-    })
+    },60000)
 });

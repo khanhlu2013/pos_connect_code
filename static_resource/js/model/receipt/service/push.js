@@ -3,7 +3,8 @@ define(
     'angular'
     //--------
     ,'model/receipt/api_offline'
-    ,'service/db'
+    ,'util/offline_db'
+    ,'util/offline_db'
 ]
 ,function
 (
@@ -13,15 +14,16 @@ define(
     var mod = angular.module('receipt/service/push',
     [
          'receipt/api_offline'
-        ,'service/db'
+        ,'util/offline_db'
+        ,'util/offline_db'
     ]);
     mod.factory('receipt/service/push',
     [
          '$http'
         ,'$q'
         ,'receipt/api_offline'
-        ,'service/db/remove_doc'
-        ,'service/db/download_product'
+        ,'util/offline_db/remove_doc'
+        ,'util/offline_db/download_product'
         ,'blockUI'
     ,function(
          $http
@@ -31,21 +33,21 @@ define(
         ,download_product
         ,blockUI
     ){
-        function clean_up(receipt_doc_id_lst,sp_doc_id_lst){
+        function _clean_up(receipt_doc_id_lst,sp_doc_id_lst,GLOBAL_SETTING){
             var defer = $q.defer();
             if(receipt_doc_id_lst.length === 0 && sp_doc_id_lst.length === 0){ defer.resolve(true);return defer.promise; }
 
             var promise_lst = []            
             for(var i = 0;i<receipt_doc_id_lst.length;i++){
-                promise_lst.push(remove_doc(receipt_doc_id_lst[i]));
+                promise_lst.push(remove_doc(receipt_doc_id_lst[i],GLOBAL_SETTING));
             }
             for(var i = 0;i<sp_doc_id_lst.length;i++){
-                promise_lst.push(remove_doc(sp_doc_id_lst[i]));
+                promise_lst.push(remove_doc(sp_doc_id_lst[i],GLOBAL_SETTING));
             }
 
             $q.all(promise_lst).then(
                 function(){ 
-                    download_product(false).then(
+                    download_product(false,GLOBAL_SETTING).then(
                         function(download_product_response){
                             defer.resolve(download_product_response);
                         }
@@ -61,7 +63,7 @@ define(
             return defer.promise;
         }
 
-        return function(){
+        return function(GLOBAL_SETTING){
             /*
                 if no offline db
                     return null
@@ -80,7 +82,7 @@ define(
             blockUI.start('uploading receipts ...')
             var defer = $q.defer();
 
-            receipt_api_offline.get_receipt_lst().then(
+            receipt_api_offline.get_receipt_lst(GLOBAL_SETTING).then(
                 function(receipt_lst){
                     if(receipt_lst === null){
                         defer.resolve(null);
@@ -98,7 +100,7 @@ define(
                             function(response){
                                 var receipt_doc_id_lst = response.data.receipt_doc_id_lst;
                                 var sp_doc_id_lst = response.data.sp_doc_id_lst;
-                                clean_up(receipt_doc_id_lst,sp_doc_id_lst).then(
+                                _clean_up(receipt_doc_id_lst,sp_doc_id_lst,GLOBAL_SETTING).then(
                                     function(download_product_response){ 
                                         var push_response = download_product_response;
                                         push_response.number_receipt_push=receipt_doc_id_lst.length;

@@ -22,7 +22,6 @@ define(
     mod.factory('sale_app/service/displaying_scan/calculate_ds_lst',
     [
          '$q'
-        ,'$rootScope'
         ,'sp/api_offline'
         ,'sale_app/model/Displaying_scan'
         ,'sale_app/model/Mix_match_deal_info'        
@@ -30,8 +29,7 @@ define(
         ,'sale_app/service/displaying_scan/compress_ds_lst'
     ,function(
          $q
-        ,$rootScope
-        ,search_sp_offline
+        ,offline_sp_api
         ,Displaying_scan
         ,Mix_match_deal_info
         ,misc_service
@@ -182,7 +180,7 @@ define(
             }        
         }      
 
-        function search_sp_base_on_ps_lst(ps_lst,suggest_sp_lst){
+        function search_sp_base_on_ps_lst(ps_lst,suggest_sp_lst,GLOBAL_SETTING){
             var defer = $q.defer();
             var promise_lst = [];
 
@@ -191,7 +189,7 @@ define(
                 if(cur_ps.sp_doc_id !== null){
                     var existed_sp = misc_service.get_item_from_lst_base_on_property('sp_doc_id'/*property*/,cur_ps.sp_doc_id/*value*/,suggest_sp_lst);
                     if(existed_sp===null){
-                        promise_lst.push(search_sp_offline.by_sp_doc_id(cur_ps.sp_doc_id));
+                        promise_lst.push(offline_sp_api.by_sp_doc_id(cur_ps.sp_doc_id,GLOBAL_SETTING));
                     }                    
                 }
             }
@@ -235,7 +233,7 @@ define(
         }
         //------------------------------------------------    
 
-        return function(ps_lst,suggest_sp_lst){
+        return function(ps_lst,suggest_sp_lst,GLOBAL_SETTING){
             /*
                 suggest_sp_lst: this is some (possibly not all or none) the distinct sp we need from the provided ps_lst so that we don't need spend time to search for all sp from ps_lst. 
                     . In case of pos page perform an appending_scan, this suggest_sp_lst will be missing for the sp that we most recently appended.
@@ -243,22 +241,21 @@ define(
                     when call from refresh_ds from the scan page, we have this suggest_sp_lst ready.
                     when call from hold feature, we don't have this suggest_sp_lst in hand. this is why this suggest_sp_lst param is optional. 
             */
-            var all_mm_lst = angular.copy($rootScope.GLOBAL_SETTING.MIX_MATCH_LST);
+            var all_mm_lst = angular.copy(GLOBAL_SETTING.MIX_MATCH_LST);
             var mm_lst = all_mm_lst.filter(function(mm){return !mm.is_disable;})
-            var tax_rate = $rootScope.GLOBAL_SETTING.TAX_RATE;
             mm_lst.sort(function(a,b){
                 return b.qty - a.qty;
             })
 
             var defer = $q.defer();
 
-            search_sp_base_on_ps_lst(ps_lst,suggest_sp_lst).then(
+            search_sp_base_on_ps_lst(ps_lst,suggest_sp_lst,GLOBAL_SETTING).then(
                  function(sp_distinct_lst){
                     var possible_mm_lst = get_posible_deal_from_sp_lst(sp_distinct_lst,mm_lst);
                     var ds_extract_lst = form_ds_extract(ps_lst,sp_distinct_lst);
 
                     for(var i = 0;i<possible_mm_lst.length;i++){
-                        form_deal(ds_extract_lst,possible_mm_lst[i],tax_rate);
+                        form_deal(ds_extract_lst,possible_mm_lst[i],GLOBAL_SETTING.TAX_RATE);
                     }            
                     var compress_ds_lst = compress_ds_lst_function(ds_extract_lst,true/*is_consider_mm_deal*/);
                     _assign_possible_deal_to_ds_lst_4_suggestion(compress_ds_lst,possible_mm_lst)

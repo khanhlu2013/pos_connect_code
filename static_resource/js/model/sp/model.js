@@ -190,8 +190,12 @@ define(
                 if(cost === null || cost === undefined){
                     return null;
                 }else{
-                    var markup = (this._get_b4_tax_price() - cost) * 100 / cost;
-                    return misc_service.round_float_2_decimal(markup);                    
+                    var crv = this.get_crv();
+                    if(crv === null || crv === undefined){
+                        crv = 0.0;
+                    }
+                    var markup = (this._get_b4_tax_price() - cost - crv) * 100 / cost;
+                    return misc_service.round_float_1_decimal(markup);                    
                 }
             },
             get_group_count:function(){

@@ -110,9 +110,11 @@ define(
             return receipt_ln;
         }
 
-        function _pouch_2_java__tender_ln(doc){
+        function _pouch_2_java__tender_ln(doc,GLOBAL_SETTING){
             var pt = null;
-            if(doc.pt !== null){ pt = misc_service.get_item_from_lst_base_on_id(doc.pt.id,$rootScope.GLOBAL_SETTING.PAYMENT_TYPE_LST); }
+            if(doc.pt !== null){ 
+                pt = misc_service.get_item_from_lst_base_on_id(doc.pt.id,GLOBAL_SETTING.PAYMENT_TYPE_LST); 
+            }
             
             var tender_ln = new Tender_ln(
                 doc.id,
@@ -123,20 +125,20 @@ define(
             return tender_ln;
         }
 
-        function pouch_2_javascript(doc){
+        function pouch_2_javascript(doc,GLOBAL_SETTING){
             var receipt = new Receipt
             (
                  doc.id 
                 ,new Date(doc.date)
                 ,doc.tax_rate
-                ,doc.tender_ln_lst.map(_pouch_2_java__tender_ln)
+                ,doc.tender_ln_lst.map(function(x){return _pouch_2_java__tender_ln(x,GLOBAL_SETTING)})
                 ,doc.receipt_ln_lst.map(_pouch_2_java__receipt_ln)
                 ,doc._id
                 ,doc._rev
             );
             return receipt;
         }
-        function javascript_2_pouch(receipt){
+        function javascript_2_pouch(receipt,GLOBAL_SETTING){
             /*
                 desc    : see comment on top of this file
                 param   : receipt: receipt_app/model/Receipt obj
@@ -148,7 +150,7 @@ define(
                 ,tax_rate       : receipt.tax_rate
                 ,tender_ln_lst  : receipt.tender_ln_lst
                 ,receipt_ln_lst : receipt.receipt_ln_lst.map(_java_2_pouch__receipt_ln)
-                ,d_type         : $rootScope.GLOBAL_SETTING.RECEIPT_DOCUMENT_TYPE
+                ,d_type         : GLOBAL_SETTING.RECEIPT_DOCUMENT_TYPE
             }
             return doc;
         }

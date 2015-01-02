@@ -3,7 +3,7 @@ define(
      'angular'
     ,'service/global_setting'    
     ,'model/receipt/service/push'    
-    ,'service/db'    
+    ,'util/offline_db'    
 ]
 ,function
 (
@@ -14,23 +14,23 @@ define(
     [
          'service/global_setting'
         ,'receipt/service/push'
-        ,'service/db'        
+        ,'util/offline_db'        
     ]);
     mod.factory('service/sync',
     [
          '$q'
         ,'service/global_setting'
         ,'receipt/service/push'
-        ,'service/db/download_product'        
+        ,'util/offline_db/download_product'        
     ,function(
          $q
         ,global_setting_service     
         ,push_receipt
         ,download_product
     ){
-        function _push_receipt_n_download_product(){
+        function _push_receipt_n_download_product(GLOBAL_SETTING){
             var defer = $q.defer();
-            push_receipt().then(
+            push_receipt(GLOBAL_SETTING).then(
                 function(push_response){
                     if(push_response === null){
                         defer.resolve('there is no offline database to sync');
@@ -43,7 +43,7 @@ define(
                         }
                     }else{
                         //there is offline database but there is no offline receipt. in this case, push does not do a download product. lets do it now
-                        download_product(false/*not force. by now, we know local db exist*/).then(
+                        download_product(false/*not force. by now, we know local db exist*/,GLOBAL_SETTING).then(
                             function(response){
                                 if(response.local !== response.remote){
                                     defer.reject(response.remote - response.local + ' products missing. please sync again.');
@@ -64,9 +64,9 @@ define(
             return defer.promise;
         }
 
-        return function(){
+        return function(GLOBAL_SETTING){
             var defer = $q.defer();
-            var push_receipt_n_download_product_promise = _push_receipt_n_download_product();
+            var push_receipt_n_download_product_promise = _push_receipt_n_download_product(GLOBAL_SETTING);
             var refresh_global_setting_promise = global_setting_service.refresh();
             $q.all([push_receipt_n_download_product_promise,refresh_global_setting_promise]).then(
                 function(resolve_lst){

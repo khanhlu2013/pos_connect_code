@@ -5,7 +5,7 @@ define(
 	,'model/sp/service/search/name_sku_online_dlg'
     ,'model/sp/api_kit'
     ,'service/ui'
-    ,'service/db'
+    ,'util/offline_db'
 ]
 ,function
 (
@@ -17,7 +17,7 @@ define(
          'sp/service/search/name_sku_online_dlg'
         ,'sp/api_kit'
         ,'service/ui'
-        ,'service/db'
+        ,'util/offline_db'
     ]);
 
     mod.factory('sp/service/edit/kit',
@@ -26,7 +26,7 @@ define(
         ,'sp/service/edit/kit/prompt'
         ,'sp/api_kit'
         ,'service/ui/alert'
-        ,'service/db/download_product'
+        ,'util/offline_db/download_product'
     ,function(
          $modal
         ,prompt_service
@@ -69,7 +69,7 @@ define(
                 '<button id="sp_app/service/edit/kit/ok_btn" ng-disabled="is_unchange()||form.$invalid" class="btn btn-success" ng-click="ok()" type="button">ok</button>' +
             '</div>'        
         ;   
-        var ModalCtrl = function($scope,$modalInstance,original_sp){
+        var ModalCtrl = function($scope,$modalInstance,original_sp,GLOBAL_SETTING){
             $scope.original_sp = original_sp;
             $scope.sp = angular.copy(original_sp);
 
@@ -115,7 +115,7 @@ define(
             $scope.ok = function(){
                 api_kit.update($scope.sp).then(
                     function(data){
-                        download_product(false/*no force*/).then(
+                        download_product(false/*no force*/,GLOBAL_SETTING).then(
                              function(){ $modalInstance.close(data); }
                             ,function(reason){ 
                                 alert_service(reason); 
@@ -127,15 +127,20 @@ define(
                 )
             }            
         };
-        ModalCtrl.$inject = ['$scope','$modalInstance','original_sp'];        
-        return function(sp){
+        ModalCtrl.$inject = ['$scope','$modalInstance','original_sp','GLOBAL_SETTING'];        
+        return function(sp,GLOBAL_SETTING){
             var dlg = $modal.open({
                 template:template,
                 controller:ModalCtrl,
                 backdrop:'static',
                 size:'lg',
                 resolve:{
-                    original_sp:function(){return sp}
+                    original_sp:function(){
+                        return sp
+                    }
+                    ,GLOBAL_SETTING : function(){
+                        return GLOBAL_SETTING
+                    }
                 }
             })
             return dlg.result;

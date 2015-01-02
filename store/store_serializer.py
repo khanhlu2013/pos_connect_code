@@ -5,7 +5,7 @@ class Store_serializer(serializers.ModelSerializer):
     
     class Meta:
         model = Store
-        fields = ('id','name','phone','street','city','state','zip_code','tax_rate',
+        fields = ('id','name','phone','street','city','state','zip_code','tax_rate','is_profit_information_exchange',
             'display_is_report',
             'display_type',
             'display_tag',

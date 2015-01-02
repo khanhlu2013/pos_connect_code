@@ -34,6 +34,9 @@ define(
         function round_float_2_decimal(num){
             return parseFloat(num.toFixed(2));
         }
+        function round_float_1_decimal(num){
+            return parseFloat(num.toFixed(1));
+        }        
         function get_unique_lst(lst) {
             return lst.reduce(function(p, c) {
                 if (p.indexOf(c) < 0) p.push(c);
@@ -67,6 +70,7 @@ define(
             ,get_item_from_lst_base_on_property : get_item_from_lst_base_on_property
             ,round_float_2_decimal:round_float_2_decimal
             ,get_unique_lst:get_unique_lst
+            ,round_float_1_decimal:round_float_1_decimal
         }
     }])
 })

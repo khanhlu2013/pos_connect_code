@@ -34,7 +34,7 @@ define(
         var TYPE_NON_REPORT_LIVE = 'TYPE_NON_REPORT_LIVE';
         var TYPE_PAYMENT_TYPE = 'TYPE_PAYMENT_TYPE';
 
-        return function(){
+        return function(GLOBAL_SETTING){
             
             var button_toolbar_template = 
                 '<div class="row">' +
@@ -127,7 +127,7 @@ define(
                 '</div>'                                
             ;
 
-            var ModalCtrl = function($scope,$modalInstance){
+            var ModalCtrl = function($scope,$modalInstance,GLOBAL_SETTING){
                 var UNDEFINED_TYPE_STR = 'undefined';
                 var NON_INVENTORY_TYPE_STR = 'non inventory';
                 var TAXALBE = 'tax';
@@ -143,7 +143,7 @@ define(
                 $scope.non_report_live_report_data = [];
                 $scope.payment_type_report_data = [];
 
-                push_receipt().then(
+                push_receipt(GLOBAL_SETTING).then(
                      function(){/*do nothing*/}
                     ,function(reason){ 
                         alert_service(reason); 
@@ -371,12 +371,15 @@ define(
                 );                
                 $scope.exit = function(){ $modalInstance.close(); }
             }
-            ModalCtrl.$inject = ['$scope','$modalInstance'];  
+            ModalCtrl.$inject = ['$scope','$modalInstance','GLOBAL_SETTING'];  
             var dlg = $modal.open({
                  template: template
                 ,controller : ModalCtrl
                 ,size : 'lg'
                 ,backdrop : 'static'
+                ,resolve: {
+                    GLOBAL_SETTING : function(){ return GLOBAL_SETTING}
+                }
             });
         }    
     }])

@@ -19,7 +19,10 @@ describe('sale page', function() {
     });
 
     it('can create,edit,delete kit',function(){
-        //fixture: create 3 product
+
+        //-----------------------------------------------------------------------------------------------------------------
+        // fixture: create 3 product for 1 store, scan 3 of them so we can edit the kit info for any of these product later
+        //-----------------------------------------------------------------------------------------------------------------
         lib.auth.login('1','1');
         var sku_1 = '1';var product_name_1 = 'product name 1';var product_price_1=1;
         var sku_2 = '2';  
@@ -36,7 +39,9 @@ describe('sale page', function() {
         lib.wait_for_block_ui();
         expect(Sale_page.lst.count()).toEqual(3);
 
-        //add 2 and 3 into 1        
+        //-------------------
+        // add 2 and 3 into 1        
+        //-------------------
         Sale_page.click_col(0,'name');
         Sp_info_dlg.switch_tab('kit');
         Sp_info_dlg.edit();
@@ -57,7 +62,9 @@ describe('sale page', function() {
         Sp_kit_dlg.ok();
         Sp_info_dlg.exit();
 
-        //add 3 into 2
+        //-------------
+        // add 3 into 2
+        //-------------
         Sale_page.click_col(1,'name');
         Sp_info_dlg.switch_tab('kit');
         Sp_info_dlg.edit();     
@@ -72,13 +79,12 @@ describe('sale page', function() {
         Sp_kit_dlg.ok();
         Sp_info_dlg.exit();
 
-        //VERIFY CIRCULAR VALIDATION: add 2 into 3 and it should failed
-        //search for product 3
+        //--------------------------------------
+        // add 2 into 3 -> EXPECT CIRCULAR ERROR
+        //--------------------------------------
         Sale_page.click_col(2,'name');
         Sp_info_dlg.switch_tab('kit');
         Sp_info_dlg.edit();  
-
-        //add product 2
         Sp_kit_dlg.add();
         Sp_kit_prompt_dlg.set_qty(2);
         Sp_kit_prompt_dlg.prompt_sp();
@@ -92,7 +98,9 @@ describe('sale page', function() {
         Sp_kit_dlg.cancel();
         Sp_info_dlg.exit();
 
-        //verify kit calculation of product 1
+        //------------------------------------
+        // verify kit calculation of product 1
+        //------------------------------------
         Sale_page.click_col(0,'name');
         Sp_info_dlg.edit(); 
         expect(Sp_prompt_dlg.get_crv()).toEqual('9.9');
@@ -101,7 +109,9 @@ describe('sale page', function() {
         Sp_prompt_dlg.cancel();
         Sp_info_dlg.exit();
 
-        //edit and remove kit info of product 1
+        //--------------------------------------
+        // edit and remove kit info of product 1
+        //--------------------------------------
         Sale_page.click_col(0,'name');
         Sp_info_dlg.switch_tab('kit');
         Sp_info_dlg.edit();
@@ -114,7 +124,9 @@ describe('sale page', function() {
         Sp_kit_dlg.ok();
         Sp_info_dlg.exit();
 
-        //verify edit and removal of kit info of product 1
+        //-------------------------------------------------
+        // verify edit and removal of kit info of product 1
+        //-------------------------------------------------
         Sale_page.click_col(0,'name');
         Sp_info_dlg.edit(); 
         expect(Sp_prompt_dlg.get_crv()).toEqual('2.2');
@@ -123,7 +135,9 @@ describe('sale page', function() {
         Sp_prompt_dlg.cancel();
         Sp_info_dlg.exit();
 
-        //clean up
+        //---------
+        // clean up
+        //---------
         Sale_page.void();
         lib.auth.logout();
     },60000)

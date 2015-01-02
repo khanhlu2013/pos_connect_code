@@ -187,7 +187,7 @@ SHORTCUT_ROW_COUNT = 5
 SHORTCUT_COLUMN_COUNT = 3
 
 #average sale data for network_product info
-NETWORK_PRODUCT_SALE_DAY_OFFSET = 0 # we should change this into 20 in production. 20 days is buffer time that we are sure the last receipt is push. this way the sale data is more accurate.
+NETWORK_PRODUCT_SALE_DAY_OFFSET = 20 # 20 days is buffer time that we are sure the last receipt is push. this way the sale data is more accurate due to most recent receipt are mostly not yet pushed
 NETWORK_PRODUCT_SALE_DAY_LOOKBACK = 3 * 30 #3 months of data is the look back
 
 

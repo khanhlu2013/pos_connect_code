@@ -24,6 +24,7 @@ var Sale_page = function () {
     this.menu_setting_mix_match = function(){ lib.click(this.menu_setting); lib.click(element(by.id('sp_app/menu/setting/mix_match'))); }
     this.menu_setting_shortcut = function(){ lib.click(this.menu_setting); lib.click(element(by.id('sp_app/menu/setting/shortcut'))); }
     this.menu_setting_tax = function(){ lib.click(this.menu_setting); lib.click(element(by.id('sp_app/menu/setting/tax'))); }
+    this.menu_setting_store = function(){ lib.click(this.menu_setting); lib.click(element(by.id('sp_app/menu/setting/store'))); }
 
     //txt function
     this.sku_search = function(sku_search_str){ 

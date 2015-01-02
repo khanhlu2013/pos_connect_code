@@ -32,7 +32,7 @@ define(
         ,alert_service
     ){
   
-        return function(receipt,new_tender_ln_lst){
+        return function(receipt,new_tender_ln_lst,GLOBAL_SETTING){
             var defer = $q.defer();
             /*
                 lets check if receipt is located offline. Notice this if this receipt said that it is online, it must be online. but if this receipt said it is located offline,
@@ -42,9 +42,9 @@ define(
                 however, when receipt is online, we don't need to get object before update, we can simple update without get item
             */
             if(receipt.is_reside_offline()){
-                receipt_offline_api.get_item(receipt.doc_id).then(
+                receipt_offline_api.get_item(receipt.doc_id,GLOBAL_SETTING).then(
                     function(offline_receipt){
-                        receipt_offline_api.adjust_receipt_tender(offline_receipt,new_tender_ln_lst).then(
+                        receipt_offline_api.adjust_receipt_tender(offline_receipt,new_tender_ln_lst,GLOBAL_SETTING).then(
                             function(adjust_receipt){
                                 defer.resolve(adjust_receipt);
                             },function(reason){

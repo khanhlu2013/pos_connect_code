@@ -60,9 +60,11 @@ define(
                 function(data){
                     var product = Product.build(data.data.product);
                     var sale_data = data.data.sale;
-                    for(var i = 0;i<product.sp_lst.length;i++){
-                        var cur_sp = product.sp_lst[i];
-                        cur_sp.sale = _get_sale_data_from_lst_base_on_store_id(cur_sp.store_id,sale_data);
+                    if(sale_data !== undefined){
+                        for(var i = 0;i<product.sp_lst.length;i++){
+                            var cur_sp = product.sp_lst[i];
+                            cur_sp.sale = _get_sale_data_from_lst_base_on_store_id(cur_sp.store_id,sale_data);
+                        }
                     }
                     defer.resolve(product);
                 },function(response){

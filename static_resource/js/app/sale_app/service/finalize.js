@@ -2,7 +2,7 @@ define(
 [
      'angular'
     //--------
-    ,'service/db'  
+    ,'util/offline_db'  
     ,'model/receipt/model'  
     ,'model/receipt/service/receipt_storage_adapter'
     ,'app/sale_app/service/tender_ui'
@@ -15,29 +15,27 @@ define(
     var mod = angular.module('sale_app/service/finalize',
     [
          'receipt/model'
-        ,'service/db'
+        ,'util/offline_db'
         ,'receipt/service/receipt_storage_adapter'
         ,'sale_app/service/tender_ui'
     ]);
     mod.factory('sale_app/service/finalize',
     [
          '$q'
-        ,'$rootScope'
         ,'receipt/model/Receipt'
         ,'receipt/model/Receipt_ln'        
         ,'receipt/model/Store_product_stamp'    
         ,'receipt/model/Mix_match_deal_info_stamp'               
-        ,'service/db/get'
+        ,'util/offline_db/get'
         ,'receipt/service/receipt_storage_adapter'
         ,'sale_app/service/tender_ui'
     ,function(
          $q
-        ,$rootScope
         ,Receipt
         ,Receipt_ln
         ,Store_product_stamp
         ,Mix_match_deal_info_stamp
-        ,get_pouch_db
+        ,get_offline_db
         ,receipt_storage_adapter
         ,tender_ui_service
     ){
@@ -84,25 +82,25 @@ define(
             return result;
         }
 
-        return function(ds_lst){
+        return function(ds_lst,GLOBAL_SETTING){
             var defer = $q.defer();
             if(ds_lst.length == 0){return $q.reject('ds_lst is empty')}
 
-            tender_ui_service(ds_lst,null,$rootScope.GLOBAL_SETTING.TAX_RATE).then(
+            tender_ui_service(ds_lst,null,GLOBAL_SETTING.TAX_RATE,GLOBAL_SETTING).then(
                 function(tender_ln_lst){
                     var receipt_ln_lst = _create_receipt_ln_lst(ds_lst);
                     var receipt = new Receipt(
                          null// id. it is null because it is not yet saved online. 
                         ,new Date()
-                        ,$rootScope.GLOBAL_SETTING.TAX_RATE
+                        ,GLOBAL_SETTING.TAX_RATE
                         ,tender_ln_lst
                         ,receipt_ln_lst
                         ,null//doc_id . it is null because we don't know this doc_id until we saved into pouch
                         ,null//doc_rev. it is null because we don't know this doc_id until we saved into pouch
                     );
 
-                    var pouch = get_pouch_db();
-                    pouch.post(receipt_storage_adapter.javascript_2_pouch(receipt)).then(
+                    var pouch = get_offline_db(GLOBAL_SETTING);
+                    pouch.post(receipt_storage_adapter.javascript_2_pouch(receipt,GLOBAL_SETTING)).then(
                         function(response){ 
                             receipt.doc_id = response.id;
                             receipt.doc_rev = response.rev;

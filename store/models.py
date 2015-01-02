@@ -12,6 +12,8 @@ class Store(Business):
     couch_admin_pwrd = models.CharField(max_length=100)
     couch_url = models.CharField(max_length=100)
 
+    is_profit_information_exchange = models.BooleanField(default=True)
+
     display_is_report = models.BooleanField(default=True)
     display_type = models.BooleanField(default=True)
     display_tag = models.BooleanField(default=True)

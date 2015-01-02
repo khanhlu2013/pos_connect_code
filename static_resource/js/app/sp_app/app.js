@@ -26,6 +26,15 @@ define(
         ,'infinite-scroll'    
     ]);
     
+    app.config(['$sceDelegateProvider',function($sceDelegateProvider) {
+        $sceDelegateProvider.resourceUrlWhitelist([
+            // Allow same origin resource loads.
+            'self',
+            // Allow loading from our assets domain.  Notice the difference between * and **.
+            'https://liquorkhanhlu2013.s3.amazonaws.com/**'
+        ]);
+    }]);
+
     app.config(['blockUIConfig',function(blockUIConfig) {
         blockUIConfig.message = 'Please wait ..... ';
         blockUIConfig.autoBlock = true;

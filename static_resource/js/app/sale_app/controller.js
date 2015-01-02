@@ -130,7 +130,7 @@ define(
         ,set_ps_lst
         ,Modify_ds_instruction
         ,modify_ds
-        ,detail_price_dlg
+        ,sale_able_info_dlg
         ,sku_scan_not_found_handler
         ,alert_service
         ,prompt_service
@@ -142,7 +142,7 @@ define(
         ,edit_product_offline
         ,hotkeys
         ,toogle_value_customer_price
-        ,finalize
+        ,finalize_receipt_service
         ,set_ds_lst
         ,calculate_ds_lst
         ,misc_service
@@ -222,7 +222,7 @@ define(
         }
         $scope.finalize = function(){
             if($scope.ds_lst.length === 0){return;}
-            finalize($scope.ds_lst).then(
+            finalize_receipt_service($scope.ds_lst,$rootScope.GLOBAL_SETTING).then(
                 function(receipt){
                     $scope.previous_receipt = receipt;
                     set_ps_lst([]);
@@ -245,7 +245,7 @@ define(
                                 }else if(selected_option === 2){
                                     $scope.next_receipt_count_reminder += $rootScope.GLOBAL_SETTING.MAX_RECEIPT_SNOOZE_2;                                    
                                 }else if(selected_option === 3){
-                                    push_receipt_service().then(
+                                    push_receipt_service($rootScope.GLOBAL_SETTING).then(
                                         function(response){
                                             alert_service(response.number_receipt_push + ' receipts saved','info','green');
                                             $scope.cur_receipt_count = 0;
@@ -286,7 +286,7 @@ define(
             return result;
         }
         $scope.get_hold_ui = function(){
-            get_hold_ui().then(
+            get_hold_ui($rootScope.GLOBAL_SETTING).then(
                 function(hold){ 
                     set_ds_lst(hold.ds_lst); 
                 }
@@ -305,7 +305,7 @@ define(
             );
         }
         $scope.show_detail_price = function(ds){
-            detail_price_dlg(ds,true/*is_enable_override_price*/).then(function(new_ds){
+            sale_able_info_dlg(ds,true/*is_enable_override_price*/,$rootScope.GLOBAL_SETTING.TAX_RATE).then(function(new_ds){
                 var instruction = new Modify_ds_instruction(
                      undefined/*is_delete*/
                     ,undefined/*new_qty*/
@@ -354,7 +354,7 @@ define(
                 )
             }else{
                 if(ds.store_product.is_create_offline()){
-                    edit_product_offline(ds.store_product).then( 
+                    edit_product_offline(ds.store_product,$rootScope.GLOBAL_SETTING).then( 
                         function(){ 
                             _refresh_edited_ds(ds); 
                         } 
@@ -365,13 +365,13 @@ define(
                     )
                 }else{
                     var sp_copy = angular.copy(ds.store_product);
-                    sp_info_service(sp_copy).then( 
+                    sp_info_service(sp_copy,$rootScope.GLOBAL_SETTING).then( 
                         function(){
                             _refresh_edited_ds(ds); 
                         }
                         ,function(reason){ 
                             if(typeof(reason) === 'string' && reason === '_duplicate_'){
-                                duplicate_service(sp_copy).then
+                                duplicate_service(sp_copy,$rootScope.GLOBAL_SETTING).then
                                 (
                                     function(sp){ 
                                         $scope.sku_search_str = sp.product.prod_sku_assoc_lst[0].sku_str;
@@ -390,7 +390,7 @@ define(
             }
         }
         function _refresh_edited_ds(ds){
-            sp_offline_api.by_sp_doc_id(ds.store_product.sp_doc_id).then(
+            sp_offline_api.by_sp_doc_id(ds.store_product.sp_doc_id,$rootScope.GLOBAL_SETTING).then(
                 function(sp){ 
                     ds.store_product = sp; set_ds_lst($scope.ds_lst); 
                 }
@@ -408,7 +408,7 @@ define(
                     if(child_shortcut.store_product === null){
                         $scope.non_inventory_handler();
                     }else{
-                        append_pending_scan.by_product_id(child_shortcut.store_product.product_id,1/*qty*/,null/*non_inventory*/,null/*override_price*/);
+                        append_pending_scan.by_product_id(child_shortcut.store_product.product_id,1/*qty*/,null/*non_inventory*/,null/*override_price*/,$rootScope.GLOBAL_SETTING);
                     }
                 },function(reason){
                     alert_service(reason);
@@ -442,7 +442,7 @@ define(
                     }
                 }
             }
-            calculate_ds_lst(ps_lst,optimize_distinct_sp).then(
+            calculate_ds_lst(ps_lst,optimize_distinct_sp,$rootScope.GLOBAL_SETTING).then(
                  function(data){
                     $scope.ds_lst = data;
                     $scope.is_focus_sku_txt = true;
@@ -457,7 +457,7 @@ define(
         }
         $scope.sku_scan = function(){
             $scope.sku_search_str = $scope.sku_search_str.trim();
-            preprocess.exe($scope.sku_search_str).then(
+            preprocess.exe($scope.sku_search_str,$rootScope.GLOBAL_SETTING).then(
                  function(data){ 
                     $scope.sp_lst__extra_optimize_to_not_lookup = [data.sp,];
                     append_pending_scan.by_doc_id(data.sp.sp_doc_id,data.qty,null/*non_inventory*/,null/*override price*/); 
@@ -471,7 +471,7 @@ define(
                         //SKU NOT FOUND HANDLER
                         preprocess.extract_qty_sku($scope.sku_search_str).then(
                             function(extracted_result){
-                                sku_scan_not_found_handler(extracted_result.sku).then(
+                                sku_scan_not_found_handler(extracted_result.sku,$rootScope.GLOBAL_SETTING).then(
                                     function(){ 
                                         $scope.sku_scan();
                                     }
@@ -492,7 +492,7 @@ define(
         $scope.search = function(){ 
             search_name_sku_single_dlg().then(
                 function(sp){
-                    append_pending_scan.by_product_id(sp.product_id,1/*qty*/,null/*non_inventory*/,null/*override_price*/);
+                    append_pending_scan.by_product_id(sp.product_id,1/*qty*/,null/*non_inventory*/,null/*override_price*/,$rootScope.GLOBAL_SETTING);
                 }
             )
         }
@@ -513,7 +513,7 @@ define(
             return result;
         }
         $scope.menu_action_sync = function(){
-            sync_service().then(
+            sync_service($rootScope.GLOBAL_SETTING).then(
                 function(response){
                     alert_service(response,'info','green');
                     $scope.refresh_ds(false/*we do not optimize here*/,null/*extra sp to optimize and prevent lookup sp*/);
@@ -526,7 +526,7 @@ define(
             manage_report();
         }        
         $scope.menu_setting_group_in_sale_page = function(){
-            manage_group().then(
+            manage_group($rootScope.GLOBAL_SETTING).then(
                 function(){
                     $scope.refresh_ds(false/*we do not optimize here*/,null/*extra sp to optimize and prevent lookup sp*/);
                 }
@@ -536,10 +536,10 @@ define(
             )
         }
         $scope.menu_report_sale = function(){
-            sale_report_dlg();             
+            sale_report_dlg($rootScope.GLOBAL_SETTING);             
         }
         $scope.menu_report_receipt_in_sale_page = function(){
-            receipt_report_service().then(
+            receipt_report_service($rootScope.GLOBAL_SETTING).then(
                 function(){
                     $scope.previous_receipt = null;//previous receipt's tender ln could be updated, making the change amount could be wrong. i am voting previous receipt no support after comming out of receipt dialog
                 },function(reason){
@@ -553,9 +553,9 @@ define(
             });  
         }
         $scope.change_previous_receipt_tender_ln = function(){
-            tender_ui($scope.previous_receipt.receipt_ln_lst,$scope.previous_receipt.tender_ln_lst,$scope.previous_receipt.tax_rate).then(
+            tender_ui($scope.previous_receipt.receipt_ln_lst,$scope.previous_receipt.tender_ln_lst,$scope.previous_receipt.tax_rate,$rootScope.GLOBAL_SETTING).then(
                 function(new_tender_ln_lst){
-                    adjust_receipt_tender($scope.previous_receipt,new_tender_ln_lst).then(
+                    adjust_receipt_tender($scope.previous_receipt,new_tender_ln_lst,$rootScope.GLOBAL_SETTING).then(
                         function(receipt){
                             $scope.previous_receipt = receipt;
                         },function(reason){
@@ -570,13 +570,13 @@ define(
 
         //init code
         $scope.cur_receipt_count = 0;//initial receipt count after pushing
-        $scope.next_receipt_count_reminder = null//the true is that we should init next_receipt_count_reminder to GLOBAL_SETTING.max_receipt . but if we do this, this code will be hard to test. So here i sacrify a bit of code readability and make this easy to test. Here is the problem. in test, i can not wait to create 200 receipt to test for max receipt so i need to reduce this amount to speed up test. However, i can only change global setting after the page is loaded. After the page is loaded, this next_receipt_count_reminder is already init and i don't know how to change this scope in protractor. I can onl change rootscope.global_setting. but only after the page is laod which is a bit too late. To fix this, i refrain init this variable here until after the page is load.
+        $scope.next_receipt_count_reminder = null//the true is that we should init next_receipt_count_reminder to GLOBAL_SETTING.max_receipt . but if we do this, this code will be hard to test. So here i sacrify a bit of code readability and make this easy to test. Here is the problem. in test, i can not wait to create 200 receipt to test for max receipt so i need to reduce this amount to speed up test. However, i can only change global setting after the page is loaded. After the page is loaded, this next_receipt_count_reminder is already init and i don't know how to change this scope in protractor. I can onl change rootScope.global_setting. but only after the page is laod which is a bit too late. To fix this, i refrain init this variable here until after the page is load.
         $scope.sku_search_str = "";
         $scope.ds_lst = [];
         $scope.previous_receipt = null;
         $scope.sp_lst__extra_optimize_to_not_lookup = null;//the most reasently searched sp should be added both place: pending_scan_lst to trigger the watch, and here to help refresh_ds not to relook for sp
 
-        init_db().then(
+        init_db($rootScope.GLOBAL_SETTING).then(
             function(){
                 $scope.refresh_ds(true/*we wish to optimize but it make no differece since this is the first time, cur ds_lst is empty anyway*/,null/*extra sp to optimize and prevent lookup sp*/);
                 $scope.$watchGroup(

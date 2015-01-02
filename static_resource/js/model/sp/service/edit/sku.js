@@ -4,7 +4,7 @@ define(
     //------------
     ,'service/ui'
     ,'model/sp/api_sku'
-    ,'service/db'
+    ,'util/offline_db'
 ]
 ,function
 (
@@ -15,7 +15,7 @@ define(
     [
          'service/ui'
         ,'sp/api_sku'
-        ,'service/db'       
+        ,'util/offline_db'       
     ]);
     mod.factory('sp/service/edit/sku',
     [
@@ -26,7 +26,7 @@ define(
         ,'service/ui/alert'
         ,'service/ui/prompt'
         ,'sp/api_sku'
-        ,'service/db/download_product'
+        ,'util/offline_db/download_product'
     ,function(
          $modal
         ,$http
@@ -61,7 +61,7 @@ define(
                 '<button id="sp_app/service/edit/sku/exit_btn" class="btn btn-warning" ng-click="exit()">exit</button>' +
             '</div>'                
         ;
-        var ModalCtrl = function($scope,$modalInstance,$filter,$q,sp){
+        var ModalCtrl = function($scope,$modalInstance,$filter,$q,sp,GLOBAL_SETTING){
             $scope.sp=sp;
 
             $scope.add_sku = function(){
@@ -70,7 +70,7 @@ define(
                     function(sku){
                         api_sku.add_sku($scope.sp.product_id,sku).then(
                             function(updated_sp){ 
-                                download_product(false/*not force*/).then(
+                                download_product(false/*not force*/,GLOBAL_SETTING).then(
                                     function(){ 
                                         angular.copy(updated_sp,$scope.sp); 
                                     }
@@ -96,7 +96,7 @@ define(
                     function(){
                         api_sku.delete_sku($scope.sp.product_id,prod_sku_assoc.sku_str).then(
                             function(updated_sp){
-                                download_product(false/*not force*/).then(
+                                download_product(false/*not force*/,GLOBAL_SETTING).then(
                                     function(){
                                         angular.copy(updated_sp,$scope.sp);
                                     }
@@ -118,14 +118,17 @@ define(
                 $modalInstance.close();
             }
         }
-        ModalCtrl.$inject = ['$scope','$modalInstance','$filter','$q','sp'];        
-        return function(sp){
+        ModalCtrl.$inject = ['$scope','$modalInstance','$filter','$q','sp','GLOBAL_SETTING'];        
+        return function(sp,GLOBAL_SETTING){
             var dlg = $modal.open({
                 template:template,
                 controller:ModalCtrl,
                 size:'md',
                 resolve:{
-                    sp:function(){return sp},
+                    sp:function(){return sp}
+                    ,GLOBAL_SETTING:function(){
+                        return GLOBAL_SETTING;
+                    }
                 }
             });
             return dlg.result;

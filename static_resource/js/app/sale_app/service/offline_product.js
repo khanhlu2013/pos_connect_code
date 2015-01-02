@@ -7,7 +7,7 @@ define(
      'angular'
     //--------
     ,'model/sp/service/prompt'
-    ,'service/db'
+    ,'util/offline_db'
     ,'model/sp/model'
     ,'model/sp/api_offline'
 ]
@@ -19,7 +19,7 @@ define(
     var mod = angular.module('sale_app/service/offline_product',
     [
          'sp/service/prompt'
-        ,'service/db'
+        ,'util/offline_db'
         ,'sp/model'
         ,'sp/api_offline'
     ]);
@@ -27,20 +27,18 @@ define(
     mod.factory('sale_app/service/offline_product/create',
     [
          '$q'
-        ,'$rootScope' 
         ,'sp/service/prompt'
-        ,'service/db/get'
+        ,'util/offline_db/get'
         ,'sp/model/Store_product'
         ,'sp/api_offline'
     ,function(
          $q
-        ,$rootScope
         ,sp_prompt
-        ,get_pouch_db
+        ,get_offline_db
         ,Store_product
         ,offline_sp_api
     ){
-        return function(sku){
+        return function(sku,GLOBAL_SETTING){
             var defer = $q.defer();
 
             sp_prompt(null/*original_sp*/,null/*suggest_product*/,null/*duplicate_sp*/,sku,true/*is_operate_offline*/).then(
@@ -50,9 +48,9 @@ define(
                         id                      : null,
                         product_id              : null,
                         breakdown_assoc_lst     : [],
-                        store_id                : $rootScope.GLOBAL_SETTING.STORE_ID,
+                        store_id                : GLOBAL_SETTING.STORE_ID,
                         sku_lst                 : [sku],
-                        d_type                  : $rootScope.GLOBAL_SETTING.STORE_PRODUCT_DOCUMENT_TYPE,
+                        d_type                  : GLOBAL_SETTING.STORE_PRODUCT_DOCUMENT_TYPE,
                         name                    : sp.name,
                         price                   : sp.price,
                         value_customer_price    : (sp.value_customer_price === undefined ? null : sp.value_customer_price),
@@ -66,10 +64,10 @@ define(
                         buydown                 : (sp.buydown === undefined ? null : sp.buydown)
                     }
 
-                    var pouch = get_pouch_db();
+                    var pouch = get_offline_db(GLOBAL_SETTING);
                     pouch.post(doc).then(
                         function(response){
-                            offline_sp_api.by_sp_doc_id(response.id).then(
+                            offline_sp_api.by_sp_doc_id(response.id,GLOBAL_SETTING).then(
                                  function(sp){ defer.resolve(sp); }
                                 ,function(reason){ defer.reject(reason); }
                             )
@@ -87,18 +85,16 @@ define(
     mod.factory('sale_app/service/offline_product/edit',
     [   
          '$q'
-        ,'$rootScope' 
         ,'sp/service/prompt'
-        ,'service/db/get'
+        ,'util/offline_db/get'
         ,'sp/api_offline'
     ,function(
          $q
-        ,$rootScope
         ,sp_prompt
-        ,get_pouch_db
+        ,get_offline_db
         ,offline_sp_api
     ){
-        return function(offline_create_product){
+        return function(offline_create_product,GLOBAL_SETTING){
             var defer = $q.defer();
             if(offline_create_product.product_id !== null || offline_create_product.id !== null){
                 return $q.reject('Bug: this is not a created offline product');
@@ -114,9 +110,9 @@ define(
                         id                      : null,
                         product_id              : null,
                         breakdown_assoc_lst     : offline_create_product.breakdown_assoc_lst,
-                        store_id                : $rootScope.GLOBAL_SETTING.STORE_ID,
+                        store_id                : GLOBAL_SETTING.STORE_ID,
                         sku_lst                 : [offline_create_product.product.prod_sku_assoc_lst[0].sku_str],
-                        d_type                  : $rootScope.GLOBAL_SETTING.STORE_PRODUCT_DOCUMENT_TYPE,
+                        d_type                  : GLOBAL_SETTING.STORE_PRODUCT_DOCUMENT_TYPE,
                         name                    : sp.name,
                         price                   : sp.price,
                         value_customer_price    : (sp.value_customer_price === undefined ? null : sp.value_customer_price),
@@ -130,10 +126,10 @@ define(
                         buydown                 : (sp.buydown === undefined ? null : sp.buydown)
                     }
 
-                    var pouch = get_pouch_db();
+                    var pouch = get_offline_db(GLOBAL_SETTING);
                     pouch.put(doc).then(
                         function(response){
-                            offline_sp_api.by_sp_doc_id(response.id).then(
+                            offline_sp_api.by_sp_doc_id(response.id,GLOBAL_SETTING).then(
                                  function(sp){ defer.resolve(sp); }
                                 ,function(reason){ defer.reject(reason); }
                             )

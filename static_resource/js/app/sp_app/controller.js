@@ -9,7 +9,7 @@ define(
     ,'directive/share_directive'    
     ,'service/ui'
     ,'model/sp/api_search'
-    ,'service/db'
+    ,'util/offline_db'
     ,'model/group/service/manage'
     ,'model/receipt/service/receipt_report'    
     ,'service/sync' 
@@ -30,7 +30,7 @@ define(
         ,'directive/share_directive'
         ,'service/ui'
         ,'sp/api_search'
-        ,'service/db'
+        ,'util/offline_db'
         ,'group/service/manage'
         ,'receipt/service/receipt_report'        
         ,'service/sync' 
@@ -50,7 +50,7 @@ define(
         ,'service/ui/confirm'
         ,'sp/api_search'
         ,'blockUI'
-        ,'service/db/is_pouch_exist'
+        ,'util/offline_db/is_exist'
         ,'group/service/manage'
         ,'receipt/service/receipt_report'            
         ,'service/sync'       
@@ -67,7 +67,7 @@ define(
         ,confirm_service
         ,search_api
         ,blockUI
-        ,is_pouch_exist
+        ,is_offline_db_exist
         ,manage_group
         ,receipt_report_dlg
         ,sync_service
@@ -209,13 +209,13 @@ define(
         }
         //SHOW SP INFO
         $scope.display_product_info = function(sp){
-            sp_info_service(sp).then(
+            sp_info_service(sp,$rootScope.GLOBAL_SETTING).then(
                 function(){
 
                 }
                 ,function(reason){ 
                     if(typeof(reason) === 'string' && reason === '_duplicate_'){
-                        duplicate_service(sp).then
+                        duplicate_service(sp,$rootScope.GLOBAL_SETTING).then
                         (
                             function(data){ 
                                 $scope.sp_lst=[data]; 
@@ -234,7 +234,7 @@ define(
             $window.open('sale/index_angular/');
         }
         $scope.launch_pos = function(){
-            is_pouch_exist().then(
+            is_offline_db_exist($rootScope.GLOBAL_SETTING).then(
                  function(db_exitance){
                     if(db_exitance){
                         confirm_service('launch sale app?').then(function(){
@@ -269,7 +269,7 @@ define(
             );
         }      
         $scope.menu_setting_group_in_sp_page = function(){
-            manage_group().then(
+            manage_group($rootScope.GLOBAL_SETTING).then(
                 function(){
                     _refresh_current_sp_lst_in_interface();
                 }
@@ -282,10 +282,10 @@ define(
             sale_report_dlg();             
         }        
         $scope.menu_report_receipt_in_sp_page = function(){
-            receipt_report_dlg();            
+            receipt_report_dlg($rootScope.GLOBAL_SETTING);            
         }
         $scope.menu_action_sync = function(){
-            sync_service().then(
+            sync_service($rootScope.GLOBAL_SETTING).then(
                 function(response){
                     alert_service(response,'info','green');
                 },function(reason){

@@ -10,7 +10,7 @@ define(
 [
      'angular'
     //-------
-    ,'service/db'
+    ,'util/offline_db'
     ,'model/sp/model'
     ,'model/product/model'
     ,'service/misc'
@@ -22,7 +22,7 @@ define(
 {
     var mod = angular.module('sp/api_offline',
     [
-         'service/db'
+         'util/offline_db'
         ,'sp/model'
         ,'product/model'
         ,'service/misc'
@@ -31,7 +31,7 @@ define(
     mod.factory('sp/api_offline',
     [
          '$q'
-        ,'service/db/get'
+        ,'util/offline_db/get'
         ,'sp/model/Store_product'
         ,'sp/model/Kit_breakdown_assoc'        
         ,'product/model/Product'   
@@ -40,7 +40,7 @@ define(
         ,'blockUI'
     ,function(
          $q
-        ,get_db
+        ,get_offline_db
         ,Store_product
         ,Kit_breakdown_assoc
         ,Product
@@ -99,7 +99,7 @@ define(
             return sp;
         }
 
-        function _post_search_aka_recursive_search_for_bd_and_form_sp(sp_couch){
+        function _post_search_aka_recursive_search_for_bd_and_form_sp(sp_couch,GLOBAL_SETTING){
             var defer = $q.defer();
 
             if(sp_couch.breakdown_assoc_lst.length === 0){
@@ -107,7 +107,7 @@ define(
             }else{
                 var promise_lst = [];
                 for(var i = 0;i<sp_couch.breakdown_assoc_lst.length;i++){
-                    promise_lst.push(by_product_id(sp_couch.breakdown_assoc_lst[i].product_id))
+                    promise_lst.push(by_product_id(sp_couch.breakdown_assoc_lst[i].product_id,GLOBAL_SETTING))
                 }
                 $q.all(promise_lst).then(
                      function(data){ defer.resolve(_create_sp(sp_couch,data)); }
@@ -117,17 +117,17 @@ define(
             return defer.promise;
         }
 
-        function by_product_id(product_id){
+        function by_product_id(product_id,GLOBAL_SETTING){
             blockUI.start('search sp by product_id: ' + product_id);
             var defer = $q.defer();
 
-            var db = get_db();
+            var db = get_offline_db(GLOBAL_SETTING);
             db.query('views/by_product_id',{key:product_id}).then(function(lst){
                 if(lst.rows.length == 0){ defer.resolve(null); blockUI.stop();}
                 else if(lst.rows.length > 1){ defer.reject('multiple product found for 1 product_id ' + product_id); blockUI.stop(); }
                 else{
                     var sp_couch = lst.rows[0].value;
-                    _post_search_aka_recursive_search_for_bd_and_form_sp(sp_couch).then(
+                    _post_search_aka_recursive_search_for_bd_and_form_sp(sp_couch,GLOBAL_SETTING).then(
                          function(sp){ defer.resolve(sp); blockUI.stop(); }
                         ,function(reason){ defer.reject(reason); blockUI.stop(); }
                     )
@@ -137,13 +137,13 @@ define(
             return defer.promise; 
         }
         
-        function by_sp_doc_id(sp_doc_id){
+        function by_sp_doc_id(sp_doc_id,GLOBAL_SETTING){
             blockUI.start('search sp by doc_id: ' + sp_doc_id);
             var defer = $q.defer();
-            var db = get_db();
+            var db = get_offline_db(GLOBAL_SETTING);
             db.get(sp_doc_id).then(
                 function(pouch_result){
-                    _post_search_aka_recursive_search_for_bd_and_form_sp(pouch_result).then(
+                    _post_search_aka_recursive_search_for_bd_and_form_sp(pouch_result,GLOBAL_SETTING).then(
                          function(sp){ 
                             defer.resolve(sp); 
                             blockUI.stop(); 
@@ -162,17 +162,17 @@ define(
             return defer.promise; 
         }
 
-        function by_sku(sku){
+        function by_sku(sku,GLOBAL_SETTING){
             blockUI.start('search for sku: ' + sku )
             var defer = $q.defer();
             var return_lst = [];
             var promise_lst = [];
 
-            var db = get_db();
+            var db = get_offline_db(GLOBAL_SETTING);
             db.query('views/by_sku',{key:sku}).then(function(result){
                 for(var i=0;i<result.rows.length;i++){
                     var sp_couch = result.rows[i].value;
-                    promise_lst.push(_post_search_aka_recursive_search_for_bd_and_form_sp(sp_couch));
+                    promise_lst.push(_post_search_aka_recursive_search_for_bd_and_form_sp(sp_couch,GLOBAL_SETTING));
                 }
 
                 $q.all(promise_lst).then(

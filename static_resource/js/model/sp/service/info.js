@@ -2,15 +2,17 @@ define(
 [
 	'angular'
     //---
+    ,'filter/filter'    
+    ,'service/ui'
     ,'model/sp/service/edit/group'
     ,'model/sp/service/edit/report'    
     ,'model/sp/service/edit/kit'   
     ,'model/sp/service/edit/sku'      
     ,'model/sp/service/edit/sp'       
     ,'model/sp/api_search'
-    ,'service/ui'
-    ,'model/sp/api_network_product'
-    ,'filter/filter'
+    ,'model/product/network_product_api'
+    ,'model/product/network_product_module'
+
 ]
 ,function
 (
@@ -19,15 +21,16 @@ define(
 {
     var mod = angular.module('sp/service/info',
     [
-         'sp/service/edit/group'
+         'filter'
+        ,'service/ui'        
+        ,'sp/service/edit/group'
         ,'sp/service/edit/report'         
         ,'sp/service/edit/kit'
         ,'sp/service/edit/sp'
         ,'sp/service/edit/sku'
         ,'sp/api_search'
-        ,'service/ui'
         ,'sp/network_product_api'
-        ,'filter'
+        ,'product/network_product'
     ]);
     
     mod.factory('sp/service/info',
@@ -80,7 +83,7 @@ define(
 
                     '<div class="form-group">' +
                         '<label class="col-sm-4 control-label">Cost:</label>' +
-                        '<p class="col-sm-8 form-control-static">{{sp.get_cost()|currency}}</p>' +
+                        '<p class="col-sm-8 form-control-static">{{sp.get_cost()|currency}}<span ng-show="$parent.sp.get_markup()!== null && $parent.sp.get_markup()!== NaN"> (mark up:{{$parent.sp.get_markup()}}%)</span></p>' +
                     '</div>' +
 
                     '<hr>' +
@@ -188,8 +191,7 @@ define(
             '<tab id="sp_app/service/info/tab/network_product" heading="network info" select="switch_tab(\'network_product\')">' +
                 '<h1></h1>' +
                 '<button id="sp_app/service/info/tab/network_product/get_btn" class="btn btn-primary" ng-click="get_network_info()">get info</button>' +    
-                '<div ng-hide="network_product === null" ng-include="$root.GLOBAL_SETTING.PARTIAL_URL.product.network_product.index">' +
-                '</div>' +
+                '<div id="sp/info/network_product" ng-hide="network_product === null" ng-controller="product/network_product/controller" ng-include="$root.GLOBAL_SETTING.PARTIAL_URL.product.network_product.index"></div>' +
             '</tab>'
         ;                  
         var template =
@@ -210,45 +212,19 @@ define(
             '</div>' + /* end modal body*/
 
             '<div class="modal-footer">' +
-                '<button id="sp_app/service/info/edit_btn" class="btn btn-primary btn-float-left" ng-click="edit()">edit {{cur_tab}}</button>' +
+                '<button ng-hide="cur_tab===\'network_product\'" id="sp_app/service/info/edit_btn" class="btn btn-primary btn-float-left" ng-click="edit()">edit {{cur_tab}}</button>' +
                 '<button id="sp_app/service/info/duplicate_btn" ng-click="duplicate()" ng-show="cur_tab==\'product\'" class="btn btn-primary btn-float-left" ng-click="duplicate()">duplicate</button>' +
                 '<button id="sp_app/service/info/exit_btn" class="btn btn-warning" ng-click="exit()">exit</button>' +
             '</div>'
         ;      
 
-        var ModalCtrl = function($scope,$modalInstance,$rootScope,sp){
+        var ModalCtrl = function($scope,$modalInstance,sp,GLOBAL_SETTING){
             $scope.sp = sp;
             $scope.cur_tab = "product";
 
-            //start - contract for network_product partial to work
-            $scope.network_product = null;      
-            $scope.suggest_extra_crv = null;
-            $scope.suggest_extra_name = null;
-            $scope.network_product_summary_lbl_class = 'col-xs-4 control-label';
-            $scope.network_product_summary_value_class = 'col-xs-8 form-control-static'; 
-            $scope.is_sale_data = true;//read this variable description in the partial template of network_product
-
-            $scope.cur_sort_column = 'get_cost()';
-            $scope.cur_sort_desc = false;
-            $scope.column_click = function(column_name){
-                if($scope.cur_sort_column == column_name){
-                    $scope.cur_sort_desc = !$scope.cur_sort_desc;
-                }else{
-                    $scope.cur_sort_column = column_name;
-                    $scope.cur_sort_desc = false;
-                }
-            }
-            $scope.get_sort_class = function(column_name){
-                if(column_name == $scope.cur_sort_column){
-                    return "glyphicon glyphicon-arrow-" + ($scope.cur_sort_desc ? 'down' : 'up');
-                }else{
-                    return '';
-                }
-            }
-            //end - contract
             $scope.edit = function(){
                 if($scope.cur_tab == 'product'){
-                    edit_sp($scope.sp).then(
+                    edit_sp($scope.sp,GLOBAL_SETTING).then(
                         function(updated_sp){ 
                             angular.copy(updated_sp,$scope.sp); 
                         }
@@ -261,7 +237,7 @@ define(
                 }else if($scope.cur_tab == 'report'){
                     edit_report($scope.sp);
                 }else if($scope.cur_tab == 'kit'){
-                    edit_kit($scope.sp).then(
+                    edit_kit($scope.sp,GLOBAL_SETTING).then(
                         function(updated_sp){ 
                             angular.copy(updated_sp,$scope.sp); 
                         }
@@ -270,15 +246,13 @@ define(
                         }
                     )
                 }else if($scope.cur_tab == 'sku'){
-                    edit_sku($scope.sp);
+                    edit_sku($scope.sp,GLOBAL_SETTING);
                 }
             }
             $scope.get_network_info = function(){
                 network_product_api($scope.sp.product_id).then(
                     function(product){
-                        $scope.network_product = product;
-                        $scope.suggest_extra_crv = $scope.network_product.get_suggest_extra('crv');
-                        $scope.suggest_extra_name = $scope.network_product.get_suggest_extra('name');
+                        $scope.$broadcast('network_product_is_updated',product);
                     },function(reason){
                         alert_service(reason);
                     }
@@ -294,17 +268,26 @@ define(
                 $modalInstance.dismiss('_duplicate_');
             }
         }
-        ModalCtrl.$inject = ['$scope','$modalInstance','$rootScope','sp'];
+        ModalCtrl.$inject = ['$scope','$modalInstance','sp','GLOBAL_SETTING'];
 
-        return function(sp){
+        return function(sp,GLOBAL_SETTING){
             var dlg = $modal.open({
                 template: template,
                 controller: ModalCtrl,
                 size: 'lg',
-                resolve : { sp : function(){
-                    if(sp.is_instantiate_offline()){ return search_api.product_id_search(sp.product_id); }
-                    else{ return sp; }
-                }}
+                resolve : { 
+                    sp : function(){
+                        if(sp.is_instantiate_offline()){ 
+                            return search_api.product_id_search(sp.product_id); 
+                        }
+                        else{ 
+                            return sp; 
+                        }
+                    }
+                    ,GLOBAL_SETTING: function(){
+                        return GLOBAL_SETTING
+                    }
+                }
             });
             return dlg.result;
         } 

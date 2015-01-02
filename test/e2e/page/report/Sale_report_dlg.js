@@ -14,7 +14,7 @@ var Report_dlg = function () {
 
     //txt input
     this.from_txt = element(by.id('report/sale/from_date_txt'));
-    this.to_txt = element(by.id('report/sale/from_date_txt'));
+    this.to_txt = element(by.id('report/sale/to_date_txt'));
 
     //function btn
     this.exit = function(){ 

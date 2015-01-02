@@ -41,7 +41,7 @@ define(
         ,api
         ,exe_service
     ){
-        return function(){
+        return function(GLOBAL_SETTING){
             var template = 
                 '<div class="modal-header"><div class="modal-title"><h3>manage group</h3></div></div>' +
                 
@@ -70,11 +70,11 @@ define(
                     '<button id="group_app/service/manage/exit_btn" ng-click="exit()" class="btn btn-warning"><span class="glyphicon glyphicon-remove"></span></button>' +
                 '</div>'                
             ;
-            var ModalCtrl = function($scope,$modalInstance,group_lst){
+            var ModalCtrl = function($scope,$modalInstance,group_lst,GLOBAL_SETTING){
                 $scope.group_lst = group_lst;
 
                 $scope.execute_group = function(group_id){
-                    exe_service(group_id);
+                    exe_service(group_id,GLOBAL_SETTING);
                 }
                 $scope.delete_group = function(group){
                     var confirm_promise = angular_confirm('delete ' + group.name + ' group?');
@@ -134,14 +134,19 @@ define(
                     $modalInstance.close($scope.group_lst);
                 }
             }
-            ModalCtrl.$inject = ['$scope','$modalInstance','group_lst'];
+            ModalCtrl.$inject = ['$scope','$modalInstance','group_lst','GLOBAL_SETTING'];
             
             var dlg = $modal.open({
                 template:template,
                 controller:ModalCtrl,
                 size:'lg',
                 resolve:{
-                    group_lst: function(){return api.get_lst();}
+                    group_lst: function(){
+                        return api.get_lst();
+                    }
+                    ,GLOBAL_SETTING : function(){
+                        return GLOBAL_SETTING;
+                    }
                 }
             });
             return dlg.result;

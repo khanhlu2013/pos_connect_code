@@ -43,7 +43,7 @@ ROOT_URLCONF = 'liquor.urls'
 TEMPLATE_LOADERS = ( 'django.template.loaders.filesystem.Loader', )
 LOGIN_URL = 'liquor_login_named_url'
 LOGOUT_URL = 'liquor_logout_named_url'
-LOGIN_REDIRECT_URL  = 'sp_search'
+LOGIN_REDIRECT_URL  = 'sp_app_named_url'
 
 #- this will read the environment variable DATABASE_URL and translate it for django to understand
 import dj_database_url

@@ -38,4 +38,33 @@ gulp.task('cdnizer',function(){
             },         
         ]))
         .pipe(gulp.dest("./../templates/dist"));    
+
+    gulp.src("./../templates/login.html")
+        .pipe(cdnizer([
+            {
+                file: '{{STATIC_URL}}bower_components/jquery/dist/jquery.js',
+                package: 'jquery',
+                test: 'window.jquery',
+                cdn: 'https://ajax.googleapis.com/ajax/libs/jquery/${ version }/jquery.min.js'
+            },        
+            {
+                file: '{{STATIC_URL}}bower_components/bootstrap/dist/js/bootstrap.js',
+                package: 'bootstrap',
+                // test: 'xxx',
+                cdn: 'https://maxcdn.bootstrapcdn.com/bootstrap/${ version }/js/bootstrap.min.js'
+            },         
+            {
+                file: '{{STATIC_URL}}bower_components/bootstrap/dist/css/bootstrap.css',
+                package: 'bootstrap',
+                // test: 'xxx',
+                cdn: 'https://maxcdn.bootstrapcdn.com/bootstrap/${ version }/css/bootstrap.min.css'
+            },      
+            {
+                file: '{{STATIC_URL}}bower_components/bootstrap/dist/css/bootstrap-theme.css',
+                package: 'bootstrap',
+                // test: 'xxx',
+                cdn: 'https://maxcdn.bootstrapcdn.com/bootstrap/${ version }/css/bootstrap-theme.min.css'
+            },                          
+        ]))
+        .pipe(gulp.dest("./../templates/dist"));            
 })

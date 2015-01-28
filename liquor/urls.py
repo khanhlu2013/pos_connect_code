@@ -23,11 +23,11 @@ from liquor import app_view
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^$',login_required(app_view.product_app_view.as_view()),name='sp_search'),   
+    url(r'^$',login_required(app_view.product_app_view.as_view()),name= settings.LOGIN_REDIRECT_URL),   
     url(r'^get_global_setting/$',login_required(global_setting.get_global_setting_api)),   
     url(r'^admin/', include(admin.site.urls)), 
-    url(r'^account/login/$','django.contrib.auth.views.login',{'template_name':'login.html'},name = 'liquor_login_named_url'),
-    url(r'^account/logout/$','django.contrib.auth.views.logout_then_login',name = 'liquor_logout_named_url'),
+    url(r'^account/login/$','django.contrib.auth.views.login',{'template_name':('dist/login.html' if settings.IS_USE_CDN else 'login.html')},name = settings.LOGIN_URL),
+    url(r'^account/logout/$','django.contrib.auth.views.logout_then_login',name = settings.LOGOUT_URL),
     url(r'^sale/',include(sale.urls,namespace='sale')),
     url(r'^sale_shortcut/',include(sale_shortcut.urls,namespace='sale_shortcut')),
     url(r'^tax/',include(tax.urls,namespace='tax')),

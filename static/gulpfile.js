@@ -43,7 +43,7 @@ gulp.task('cdnizer',function(){
         .pipe(cdnizer([
             {
                 file: '{{STATIC_URL}}bower_components/jquery/dist/jquery.js',
-                package: 'jquery',
+                package: 'jQuery',
                 test: 'window.jquery',
                 cdn: 'https://ajax.googleapis.com/ajax/libs/jquery/${ version }/jquery.min.js'
             },        

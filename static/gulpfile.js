@@ -16,7 +16,7 @@ gulp.task('watch', ['js'], function () {
 
 var cdnizer = require("gulp-cdnizer");
 gulp.task('cdnizer',function(){
-    gulp.src("./../templates/new_product_app.html")
+    gulp.src("./../templates/product_app.html")
         .pipe(cdnizer([
             {
                 file: '{{STATIC_URL}}bower_components/angular/angular.js',

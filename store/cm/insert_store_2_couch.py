@@ -24,7 +24,7 @@ def exe(store_id,couch_admin_name=None,couch_admin_pwrd=None,couch_url=None):
     """
     #STEP1
     couch_access_url = None
-    if settings.IS_LOCAL_ENV:
+    if settings.IS_USE_COUCH_VS_BIG_COUCH:
         couch_access_url = couch_util.get_couch_access_url()
     else:
         couch_access_url = couch_util.get_couch_access_url(name=couch_admin_name,pwrd=couch_admin_pwrd,url=couch_url)
@@ -35,7 +35,7 @@ def exe(store_id,couch_admin_name=None,couch_admin_pwrd=None,couch_url=None):
     #STEP2
     api_key_name = None
     api_key_pwrd = None
-    if settings.IS_LOCAL_ENV:
+    if settings.IS_USE_COUCH_VS_BIG_COUCH:
         insert_user_into_old_couch_4_test_purpose.exe(store_id)
         api_key_name = str(store_id)
         api_key_pwrd = str(store_id)

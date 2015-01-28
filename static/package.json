@@ -1,0 +1,7 @@
+{
+  "devDependencies": {
+    "gulp-concat": "^2.4.3",
+    "gulp": "^3.8.10",
+    "gulp-cdnizer": "^1.1.1"
+  }
+}

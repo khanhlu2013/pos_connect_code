@@ -1,7 +1,7 @@
 from django.conf import settings
 
 def get_couch_access_url(*args, **kwargs):
-    if settings.IS_LOCAL_ENV:
+    if settings.IS_USE_COUCH_VS_BIG_COUCH:
         name = settings.COUCH_LOCAL_ADMIN_NAME
         pwrd = settings.COUCH_LOCAL_ADMIN_PWRD
         url = settings.COUCH_LOCAL_URL

@@ -1,6 +1,5 @@
-venv
 *.pyc
 .env
-.env_protractor
-secrete.txt
+static/bower_components/*.*
+static/node_modules/*.*
 task.txt

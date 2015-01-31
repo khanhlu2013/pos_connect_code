@@ -2,7 +2,7 @@ var app = angular.module('app.productApp');
 app.requires.push.apply(app.requires,[
     'model.store_product',
     'share.ui'
-])
+]);
 
 app.controller('app.productApp.productCtrl',
 [
@@ -91,4 +91,4 @@ function(
     $scope.name_search_str = '';
     $scope.is_blur_name_search_text_box = false;
     $scope.name_search_busy = false; 
-}])
+}]);

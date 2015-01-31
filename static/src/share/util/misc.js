@@ -11,4 +11,4 @@ mod.factory('share.util.misc',function(){
     return{
         get_unique_lst:get_unique_lst
     }
-})
+});

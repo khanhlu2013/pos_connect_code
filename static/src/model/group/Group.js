@@ -23,4 +23,4 @@ function(
         return new Group(data.id,data.name,sp_lst);
     }
     return Group;
-}])
+}]);

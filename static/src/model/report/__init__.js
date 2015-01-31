@@ -1,1 +1,1 @@
-var mod = angular.module('model.report',[])
+var mod = angular.module('model.report',[]);

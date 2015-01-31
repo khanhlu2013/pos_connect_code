@@ -2,8 +2,10 @@ var app = angular.module('app.productApp', [
     'share.util.csrf',
     'share.filter',
     'share.directive',
-    'ui.bootstrap'
-])
+    'ui.bootstrap',
+    'infinite-scroll',
+    'blockUI'    
+]);
 
 app.config(['$sceDelegateProvider',function($sceDelegateProvider) {
     $sceDelegateProvider.resourceUrlWhitelist([

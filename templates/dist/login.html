@@ -7,7 +7,6 @@
 
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{{STATIC_URL}}css/share.css">
 
     <style>
         .paragraph {
@@ -19,10 +18,20 @@
         .right_anker{
             float: right;
         }
+        .carousel {
+            background: rgb(149, 203, 240);
+        }
+        .carousel-control.left, .carousel-control.right {
+            background-image: none
+        }
+        .carousel-inner > .item{
+            margin: 80px auto;
+            margin-left: 100px;
+            margin-right: 100px;  
+        }        
     </style>    
 </head>
 <body>
-    <h1>{{STATIC_URL}}</h1>
     <!-- MENU - LOGIN FORM -->
     <nav class="navbar navbar-default" role="navigation">
         <div class="container-fluid">

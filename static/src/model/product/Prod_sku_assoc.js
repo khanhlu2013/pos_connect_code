@@ -16,4 +16,4 @@ mod.factory('model.product.Prod_sku_assoc',[function(){
         );
     }
     return Prod_sku_assoc;
-}])
+}]);

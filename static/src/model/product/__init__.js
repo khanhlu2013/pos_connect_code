@@ -1,1 +1,1 @@
-angular.module('model.product',[])
+angular.module('model.product',[]);

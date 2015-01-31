@@ -1,1 +1,1 @@
-var mod = angular.module('share.util',[])
+var mod = angular.module('share.util',[]);

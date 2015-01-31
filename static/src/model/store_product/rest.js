@@ -1,7 +1,7 @@
-var mod = angular.module('model.store_product')
+var mod = angular.module('model.store_product');
 mod.requires.push.apply(mod.requires,[
     'model.product'
-])
+]);
 
 mod.factory('model.store_product.rest',
 [
@@ -119,4 +119,4 @@ function(
         by_sku:by_sku,
         by_name_sku:by_name_sku
     }
-}])
+}]);

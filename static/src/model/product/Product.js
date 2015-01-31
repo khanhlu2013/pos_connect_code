@@ -2,7 +2,7 @@ var mod = angular.module('model.product');
 
 mod.requires.push.apply(mod.requires,[
     'share.util'
-])
+]);
 
 mod.factory('model.product.Product',[
     '$injector',
@@ -177,4 +177,4 @@ function(
         )
     }
     return Product;    
-}])
+}]);

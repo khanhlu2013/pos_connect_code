@@ -5,7 +5,7 @@ mod.requires.push.apply(mod.requires,
     'model.group',    
     'model.product',
     'share.util'
-])
+]);
 
 //Store_product model
 mod.factory('model.store_product.Store_product',
@@ -311,4 +311,4 @@ mod.factory('model.store_product.Store_product',
     }             
     Store_product.build = _build;
     return Store_product;
-}])
+}]);

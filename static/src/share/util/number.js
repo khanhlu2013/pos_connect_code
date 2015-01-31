@@ -11,4 +11,4 @@ mod.factory('share.util.number',function(){
         round_float_1_decimal:round_float_1_decimal,
         round_float_2_decimal:round_float_2_decimal
     }    
-})
+});

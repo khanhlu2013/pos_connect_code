@@ -1,7 +1,7 @@
 var base_path = './../../../../'
 var lib = require(base_path + 'lib');
 
-describe('no_sku_network_suggest -> select product dialog', function() {
+describe('product app -> no_sku_network_suggest -> select product dialog', function() {
     var Sp_page = require(base_path + 'page/sp/Sp_page.js');
     var Select_product_dlg = require(base_path + 'page/sp/suggest/Select_product_dlg.js');
     var Network_product_partial = require(base_path + 'page/product/network_product_partial.js');

@@ -15,12 +15,94 @@
     <!-- inject:js -->
     <!-- endinject -->
 </head>
-<body ng-controller="app.productApp.productCtrl">
 
- 
-    <h1>pos_connect product app</h1>
-    <input type="text" ng-model="name_search_str" ng-enter="name_search(false)"></input>
-    <button type="button" ng-click="name_search(false)" class="btn btn-primary">search</button>
+<body ng-controller="app.productApp.productCtrl">
+    
+    <nav class="navbar navbar-inverse" role="navigation">
+        <div class="container-fluid">
+
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#product-navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="product-navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <div class="navbar-form navbar-left" role="search">
+                        <input 
+                            type="text" 
+                            id='sku_txt' 
+                            class="form-control" 
+                            placeholder="sku" 
+                            onClick="this.select();"
+                            ng-enter="sku_search()"
+                            ng-model="sku_search_str"                            
+                        >
+                        <input 
+                            type="text" 
+                            id='name_txt'
+                            class="form-control" 
+                            placeholder="name" 
+                            onClick="this.select();" 
+                            ng-enter="name_search(false)"
+                            ng-model="name_search_str"
+                        >
+                    </div>
+                </ul>
+                
+                <ul ng-controller="share.menu.menuCtrl" class="nav navbar-nav navbar-right">
+                    <div class="navbar-form navbar-left" role="search">
+                        <input 
+                            type="text" 
+                            class="form-control" 
+                            placeholder="local filter" 
+                            onClick="this.select();" 
+                            ng-model="$parent.local_filter"
+                        >                        
+                    </div>  
+                    <li class="dropdown">
+                        <a id="sp_app/menu/setting" href="#" class="dropdown-toggle" data-toggle="dropdown">setting <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li id="sp_app/menu/setting/group" ng-click="menu_setting_group()"><a href='#'>group</a></li>                 
+                            <li id="sp_app/menu/setting/shortcut" ng-click="menu_setting_shortcut()"><a href='#'>shortcut</a></li>
+                            <li id="sp_app/menu/setting/mix_match" ng-click="menu_setting_mix_match()"><a href='#'>mix match</a></li>
+                            <li id="sp_app/menu/setting/payment_type" ng-click="menu_setting_payment_type()"><a href='#'>payment type</a></li>
+                            <li role="presentation" class="divider"></li>
+                            <li id="sp_app/menu/setting/store" ng-click="menu_setting_store()">
+                                <a href='#'>store - {% verbatim %}{{$root.GLOBAL_SETTING.STORE.name}}{% endverbatim %}</a>
+                            </li>                                 
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a id="sp_app/menu/report" href="#" class="dropdown-toggle" data-toggle="dropdown">report <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li id="sp_app/menu/report/receipt" ng-click="menu_report_receipt_in_sp_page()"><a href='#'>receipt</a></li>
+                            <li id='sale_app/menu/report/sale' ng-click="menu_report_sale()"><a href='#'>sale</a></li>
+                            <li role="presentation" class="divider"></li>
+                            <li id='sp_app/menu/report/create' ng-click="menu_report_create_in_sp_page()"><a href='#'>create custom report</a></li>                            
+                        </ul>
+                    </li>   
+                    <li class="dropdown">
+                        <a id="sp_app/menu/action" href="#" class="dropdown-toggle" data-toggle="dropdown">action <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li ng-click="launch_pos()"><a href="#">sale app</a></li>
+                            <li id='sp_app/menu/action/sync' ng-click="menu_action_sync()"><a href='#'>sync</a></li>
+                            <li role="presentation" class="divider"></li>
+                            <li ng-click="menu_action_logout()"><a id="logout_link" href='#'>logout - {{user}}</a></li>                               
+                        </ul>
+                    </li>                      
+                    <!-- <li ng-click="logout()"><a id="logout_link" href='#'>{{ request.session.cur_login_store }} - {{ user }} - logout</a></li> -->
+                </ul>   
+
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>  
 
     <div ng-hide="sp_lst.length === 0" infinite-scroll="name_search(true)" infinite-scroll-distance='0'>
         {% verbatim sp_table %}        

@@ -21,14 +21,14 @@ module.exports = {
                     return defer.promise;
                 }   
 
-                var global_setting_service = angular.injector(['ng','service/global_setting']).get('service/global_setting');
+                var global_setting_service = angular.injector(['ng','share.util.global_setting']).get('share.util.global_setting');
                 global_setting_service.refresh().then(
                     function(global_setting){
-                        var offline_receipt_api = angular.injector(['ng','receipt/api_offline']).get('receipt/api_offline');
-                        var offline_db_get_service = angular.injector(['ng','util/offline_db']).get('util/offline_db/get');
+                        var offline_receipt_api = angular.injector(['ng','model.receipt']).get('model.receipt.rest_offline');
+                        var offline_db_get_service = angular.injector(['ng','share.util.offline_db']).get('share.util.offline_db.get');
                         var offline_db = offline_db_get_service(global_setting);
                         var $q = angular.injector(['ng']).get('$q');
-                        var receipt_storage_adapter = angular.injector(['ng','receipt/service/receipt_storage_adapter']).get('receipt/service/receipt_storage_adapter');
+                        var receipt_storage_adapter = angular.injector(['ng','model.receipt']).get('model.receipt.receipt_storage_adapter');
                         offline_receipt_api.get_item(receipt.doc_id,global_setting).then(
                             function(receipt){
                                 _subtract_date_base_on_qty(receipt,delta_date,offline_db,$q,receipt_storage_adapter,global_setting).then(
@@ -44,14 +44,14 @@ module.exports = {
         },
         get_lst : function(){
             return browser.executeAsyncScript(function(callback){
-                var global_setting_service = angular.injector(['ng','service/global_setting']).get('service/global_setting');
+                var global_setting_service = angular.injector(['ng','share.util.global_setting']).get('share.util.global_setting');
                 global_setting_service.refresh().then(
                     function(global_setting){
-                        var offline_receipt_api = angular.injector(['ng','receipt/api_offline']).get('receipt/api_offline');
-                        var offline_db_get_service = angular.injector(['ng','util/offline_db']).get('util/offline_db/get');
+                        var offline_receipt_api = angular.injector(['ng','model.receipt']).get('model.receipt.rest_offline');
+                        var offline_db_get_service = angular.injector(['ng','share.util.offline_db']).get('share.util.offline_db.get');
                         var offline_db = offline_db_get_service(global_setting);
                         var $q = angular.injector(['ng']).get('$q');
-                        var receipt_storage_adapter = angular.injector(['ng','receipt/service/receipt_storage_adapter']).get('receipt/service/receipt_storage_adapter');
+                        var receipt_storage_adapter = angular.injector(['ng','model.receipt']).get('model.receipt.receipt_storage_adapter');
                         offline_receipt_api.get_receipt_lst(global_setting).then(
                             function(receipt_lst){
                                 callback(receipt_lst);
@@ -65,7 +65,7 @@ module.exports = {
     api_group:{
         insert_empty_group : function(group_name){
             return browser.executeAsyncScript(function(group_name,callback) {
-                var api = angular.injector(['ng','service.csrf','group/api']).get('group/api');
+                var api = angular.injector(['ng','share.util.csrf','model.group']).get('model.group.rest');
                 var empty_group = {name:group_name,sp_lst:[]};
                 api.create(empty_group).then(
                      function(group){ callback(group); }
@@ -75,7 +75,7 @@ module.exports = {
         },
         edit_group : function(group){
             return browser.executeAsyncScript(function(group,callback) {
-                var api = angular.injector(['ng','service.csrf','group/api']).get('group/api');
+                var api = angular.injector(['ng','share.util.csrf','model.group']).get('model.group.rest');
                 api.edit_item(group,group.id).then(
                      function(edited_group){ callback(edited_group); }
                     ,function(reason){ callback(null); }
@@ -86,9 +86,9 @@ module.exports = {
     api_pt:{
         insert_lst : function(pt_name_lst){
             return browser.executeAsyncScript(function(pt_name_lst,callback) {
-                var api = angular.injector(['ng','service.csrf','payment_type/api']).get('payment_type/api');
+                var api = angular.injector(['ng','share.util.csrf','model.payment_type']).get('model.payment_type.rest');
                 var $q = angular.injector(['ng']).get('$q');
-                var Payment_type = angular.injector(['payment_type/model']).get('payment_type/model/Payment_type');
+                var Payment_type = angular.injector(['model.payment_type']).get('model.payment_type.Payment_type');
                 var promise_lst = [];
                 for(var i = 0;i<pt_name_lst.length;i++){
                     promise_lst.push(api.create(new Payment_type(null/*id*/,pt_name_lst[i]/*name*/,pt_name_lst[i]/*sort*/,true/*active*/)));
@@ -117,7 +117,7 @@ module.exports = {
             };     
             var data = { mm : mm };
             return browser.executeAsyncScript(function(data,callback) {
-                var api = angular.injector(['ng','service.csrf','mix_match/api']).get('mix_match/api');
+                var api = angular.injector(['ng','share.util.csrf','model.mix_match']).get('model.mix_match.rest');
                 api.create(data.mm).then(function(data){callback(data);} )
             },data)            
         },
@@ -141,7 +141,7 @@ module.exports = {
             var data = { sp:sp,sku:sku };
 
             return browser.executeAsyncScript(function(data,callback) {
-                var api = angular.injector(['ng','service.csrf','sp/api_crud']).get('sp/api_crud');
+                var api = angular.injector(['ng','share.util.csrf','model.store_product']).get('model.store_product.rest_crud');
                 api.insert_new(data.sp,data.sku).then(
                     function(res){
                         callback(res);
@@ -154,20 +154,20 @@ module.exports = {
             var data = {product_id:product_id,sku:sku,sp:sp };
 
             return browser.executeAsyncScript(function(data,callback) {
-                var api = angular.injector(['ng','service.csrf','sp/api_crud']).get('sp/api_crud');
+                var api = angular.injector(['ng','share.util.csrf','model.store_product']).get('model.store_product.rest_crud');
                 api.insert_old(data.product_id,data.sku,data.sp).then(function(data){callback(data);});
             },data)
         },
         add_sku : function(product_id,sku){
             var data = {product_id:product_id,sku:sku};
             return browser.executeAsyncScript(function(data,callback){
-                var api = angular.injector(['ng','service.csrf','sp/api_sku']).get('sp/api_sku');
+                var api = angular.injector(['ng','share.util.csrf','model.store_product']).get('model.store_product.rest_sku');
                 api.add_sku(data.product_id,data.sku).then(function(data){callback(data);});
             },data)
         },
         update_kit : function(sp){
             return browser.executeAsyncScript(function(sp,callback){
-                var api = angular.injector(['ng','service.csrf','sp/api_kit']).get('sp/api_kit');
+                var api = angular.injector(['ng','share.util.csrf','model.store_product']).get('model.store_product.rest_kit');
                 api.update(sp).then(function(updated_sp){callback(updated_sp);});
             },sp)
         }      
@@ -239,7 +239,7 @@ module.exports = {
                 PRECONDITION: make sure user is already logged in in order to access angular to inject stuff
             */
             browser.executeAsyncScript(function(callback) {
-                var $http = angular.injector(['ng','service.csrf']).get('$http');
+                var $http = angular.injector(['ng','share.util.csrf']).get('$http');
                 $http({
                     url:'protractor_test_cleanup',
                     method: 'POST'
@@ -270,7 +270,7 @@ module.exports = {
     },
     get_global_setting : function(){
         browser.executeAsyncScript(function(callback){
-            var global_setting_service = angular.injector(['ng','service/global_setting']).get('service/global_setting');
+            var global_setting_service = angular.injector(['ng','share.util.global_setting']).get('share.util.global_setting');
             global_setting_service.refresh().then(
                 function(global_setting){
                     callback(global_setting);

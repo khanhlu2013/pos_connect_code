@@ -3,7 +3,7 @@ mod.requires.push.apply(mod.requires,[
     'model.product'
 ]);
 
-mod.factory('model.store_product.rest',
+mod.factory('model.store_product.rest_search',
 [
     '$q',
     '$http',

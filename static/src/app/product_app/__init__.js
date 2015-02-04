@@ -1,10 +1,12 @@
 var app = angular.module('app.productApp', [
+    'ui.bootstrap',
+    'infinite-scroll',
+    'blockUI',    
     'share.util.csrf',
     'share.filter',
     'share.directive',
-    'ui.bootstrap',
-    'infinite-scroll',
-    'blockUI'    
+    'share.menu',
+    'share.util.global_setting'
 ]);
 
 app.config(['$sceDelegateProvider',function($sceDelegateProvider) {
@@ -17,4 +19,7 @@ app.config(['$sceDelegateProvider',function($sceDelegateProvider) {
     ]);
 }]);
 
+app.run(['share.util.global_setting',function(global_setting){
+    global_setting.set(_GLOBAL_SETTING_);
+}]) 
 

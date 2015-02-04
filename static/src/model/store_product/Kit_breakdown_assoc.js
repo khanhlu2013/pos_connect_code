@@ -1,5 +1,4 @@
 var mod = angular.module('model.store_product');
-
 mod.factory('model.store_product.Kit_breakdown_assoc',
 [
     '$injector'

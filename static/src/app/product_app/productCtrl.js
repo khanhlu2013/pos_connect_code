@@ -3,17 +3,61 @@ app.requires.push.apply(app.requires,[
     'model.store_product',
     'share.ui'
 ]);
-
 app.controller('app.productApp.productCtrl',
 [
     '$scope',
-    'model.store_product.rest',
+    '$rootScope',
+    'model.store_product.rest_search',
     'share.ui.alert',
+    'model.store_product.sku_not_found_handler',
 function(
     $scope,
-    store_product_rest,
-    alert_service
+    $rootScope,
+    sp_rest_search,
+    alert_service,
+    sku_not_found_handler
 ){
+    var un_subscribe_group = $rootScope.$on('model.group.manage',function(event,data){
+        _refresh_current_sp_lst();
+    })
+    $scope.$on('$destroy',un_subscribe_group);
+
+    $scope.sku_search = function(){
+        $scope.name_search_str = "";
+        $scope.local_filter = "";
+        $scope.sku_search_str = $scope.sku_search_str.trim().toLowerCase();
+
+        if($scope.sku_search_str.length === 0){
+            $scope.sp_lst = [];
+            return;
+        }
+        sp_rest_search.by_sku($scope.sku_search_str).then(
+            function(data){
+                $scope.sp_lst = data.prod_store__prod_sku__1_1;
+                if($scope.sp_lst.length === 0){
+                    var promise = sku_not_found_handler(data.prod_store__prod_sku__0_0,data.prod_store__prod_sku__1_0,$scope.sku_search_str).then
+                    (
+                        function(created_sp){ 
+                            $scope.sp_lst = [created_sp];
+                        }
+                        ,function(reason){
+                            alert_service(reason);
+                        }
+                    );
+                } 
+            }
+            ,function(reason){ 
+                alert_service(reason) 
+            }
+        )
+    }
+    function _refresh_current_sp_lst(){
+        if($scope.name_search_str.length !== 0){
+            $scope.name_search(false/*is_get_next_page*/,false/*ignore_same_search_str*/);
+        }else if($scope.sku_search_str.length !== 0){
+            $scope.sku_search();
+        }              
+    }    
     $scope.column_click = function(column_name){
         if($scope.cur_sort_column === column_name){
             $scope.cur_sort_desc = !$scope.cur_sort_desc;
@@ -59,7 +103,7 @@ function(
         }
 
         $scope.name_search_busy = true;
-        store_product_rest.by_name($scope.name_search_str,after).then(
+        sp_rest_search.by_name($scope.name_search_str,after).then(
             function(data){
                 if(data.length === 0){
                     $scope.name_search_reach_the_end = true;
@@ -71,8 +115,6 @@ function(
 
                 if($scope.sp_lst.length === 0){ 
                     alert_service('no result found for ' + '"' + $scope.name_search_str + '"','info','blue');
-                }else{
-                    $scope.is_blur_name_search_text_box = true;
                 }
                 $scope.name_search_busy = false;
             }
@@ -89,6 +131,5 @@ function(
     $scope.sp_lst = [];        
     $scope.name_search_reach_the_end = false;
     $scope.name_search_str = '';
-    $scope.is_blur_name_search_text_box = false;
     $scope.name_search_busy = false; 
 }]);

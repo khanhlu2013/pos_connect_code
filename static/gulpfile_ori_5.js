@@ -9,7 +9,6 @@ var minifyCSS = require('gulp-minify-css');
 var rev = require('gulp-rev');
 var inject = require("gulp-inject");
 var awspublish = require('gulp-awspublish');
-var process = require('child_process');
 
 //concatinate product app js
 gulp.task('_concat_product_app_js', function () {
@@ -21,9 +20,7 @@ gulp.task('_concat_product_app_js', function () {
         '!src/app/sale_app'
     ])
     .pipe(concat('product_app.js'))
-    .pipe(rev())   
-    .pipe(uglify())
-    .pipe(rename({suffix: '.min'}))     
+    .pipe(rev())    
     .pipe(gulp.dest('./dist'))
 })
 
@@ -34,22 +31,27 @@ gulp.task('_concat_css',function(){
         'bower_components/angular-block-ui/dist/angular-block-ui.css'
     ])
     .pipe(concat('pos_connect.css'))
-    .pipe(rev())    
-    .pipe(minifyCSS())
-    .pipe(rename({suffix: '.min'}))          
+    .pipe(rev())      
     .pipe(gulp.dest('./dist'))
 })
 
-gulp.task('build_product_app_local', function () {
+gulp.task('_minify_product_app_js',function() {
+    return gulp.src('dist/product_app-????????.js')
+        .pipe(uglify())
+        .pipe(rename({suffix: '.min'}))
+        .pipe(gulp.dest('./dist'))
+});
+
+gulp.task('_minify_css', function() {
+    return gulp.src('dist/*-????????.css')
+        .pipe(minifyCSS())
+        .pipe(rename({suffix: '.min'}))        
+        .pipe(gulp.dest('./dist'))
+});
+
+gulp.task('_inject_resource_to_product_html_local', function () {
     var target = gulp.src('./../templates/product_app.html');
-    var sources = gulp.src([
-        './bower_components/angular-block-ui/dist/angular-block-ui.js',
-        './bower_components/angular-block-ui/dist/angular-block-ui.css',
-        './bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js',
-        'src/**/__init__.js',
-        'src/**/*.js',
-        'css/**/*.css'        
-    ], {read: false/*It's not necessary to read the files (will speed up things), we're only after their paths:*/});
+    var sources = gulp.src(['./dist/*.*','!./dist/*.min.*'], {read: false/*It's not necessary to read the files (will speed up things), we're only after their paths:*/});
     var transform = function (filepath, file, i, length) {
         filepath = '{{STATIC_URL}}' + filepath.substr(1);
         return inject.transform.apply(inject.transform, arguments);
@@ -152,11 +154,30 @@ gulp.task('build_dist',function(cb) {
     runSequence(
         '_clean',
         ['_concat_product_app_js', '_concat_css'],
+        ['_minify_product_app_js', '_minify_css'],
         ['_inject_resource_to_product_html_deploy'],
         ['_cdnizer_product_app', '_cdnizer_login_page'],
         cb
     );
 }); 
+gulp.task('build_local',function(cb) {
+    runSequence(
+        '_clean',
+        ['_concat_product_app_js', '_concat_css'],
+        ['_inject_resource_to_product_html_local'],
+        cb
+    );
+}); 
+gulp.task('build',function(cb) {
+    runSequence(
+        '_clean',
+        ['_concat_product_app_js', '_concat_css'],
+        ['_minify_product_app_js', '_minify_css'],
+        ['_inject_resource_to_product_html_local', '_inject_resource_to_product_html_deploy'],
+        ['_cdnizer_product_app', '_cdnizer_login_page'],
+        cb
+    );
+});
 gulp.task('upload_s3', function() {
     var publisher = awspublish.create({ bucket: 'pos-connect-test' });
     var headers = {'Cache-Control': 'max-age=315360000, no-transform, public'};
@@ -166,21 +187,7 @@ gulp.task('upload_s3', function() {
         .pipe(awspublish.reporter());// print upload updates to console
 });
 gulp.task('watch', function () {
-    gulp.watch(['src/**/*.js','!src/app/sale_app/**/*.js','./../templates/product_app.html'], ['build_product_app_local']);
-    gulp.watch(['css/**/*.css'], ['build_product_app_local']);
+    gulp.watch(['src/**/*.js','!src/app/sale_app/**/*.js'], ['build_local']);
+    gulp.watch(['css/**/*.css'], ['build_local']);
 })
-
-gulp.task('dev', function(){
-    var django_process = process.spawn;
-    var PIPE = {stdio: 'inherit'};
-    django_process('foreman', ['start','--procfile','./../Procfile_local','--env','./../.env'], PIPE);
-
-    var couchdb_process = process.spawn;
-    var PIPE = {stdio: 'inherit'};
-    couchdb_process('couchdb', [], PIPE);    
-
-    var watch_process = process.spawn;
-    var PIPE = {stdio: 'inherit'};
-    watch_process('gulp', ['watch'], PIPE);       
-});
 

@@ -70,4 +70,12 @@ table.sale_shortcut_tbl td { min-width: 120px; height: 75px}
 .sale_shortcut_parent_selected {background-color:#CFF5B5;}
 .sale_shortcut_parent_unselected {background-color:#FFFFFF;}
 
-
+/* disable angular ui bootstrap modal animation */
+.modal.fade {
+  opacity: 1;
+}
+.modal.fade .modal-dialog, .modal.in .modal-dialog {
+  -webkit-transform: translate(0, 0);
+  -ms-transform: translate(0, 0);
+  transform: translate(0, 0);
+}

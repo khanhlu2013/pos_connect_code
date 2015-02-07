@@ -7,12 +7,14 @@ app.controller('app.productApp.productCtrl',
 [
     '$scope',
     '$rootScope',
+    '$q',
     'model.store_product.rest_search',
     'share.ui.alert',
     'model.store_product.sku_not_found_handler',
 function(
     $scope,
     $rootScope,
+    $q,
     sp_rest_search,
     alert_service,
     sku_not_found_handler
@@ -47,7 +49,7 @@ function(
                 } 
             }
             ,function(reason){ 
-                alert_service(reason) 
+                alert_service(reason);
             }
         )
     }
@@ -131,5 +133,6 @@ function(
     $scope.sp_lst = [];        
     $scope.name_search_reach_the_end = false;
     $scope.name_search_str = '';
+    $scope.sku_search_str = '';
     $scope.name_search_busy = false; 
 }]);

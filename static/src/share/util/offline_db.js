@@ -6,14 +6,16 @@ mod.factory('share.util.offline_db.remove_doc',
 [
     '$q',
     'share.util.offline_db.get',
+    'share_setting',
 function(
     $q,
-    get_offline_db
+    get_offline_db,
+    share_setting
 ){
-    return function(doc_id,GLOBAL_SETTING){
+    return function(doc_id){
         var defer = $q.defer();
 
-        var db = get_offline_db(GLOBAL_SETTING);
+        var db = get_offline_db();
         db.get(doc_id).then(
              function(doc) { 
                 db.remove(doc).then(
@@ -32,22 +34,29 @@ function(
     }
 }]);
     
-mod.factory('share.util.offline_db.get',[function(){
-    return function(GLOBAL_SETTING){
-       var db_name = GLOBAL_SETTING.STORE_DB_PREFIX + GLOBAL_SETTING.STORE_ID;
+mod.factory('share.util.offline_db.get',
+[
+    'share_setting',
+function(
+    share_setting
+){
+    return function(){
+       var db_name = share_setting.STORE_DB_PREFIX + share_setting.STORE_ID;
        return new PouchDB(db_name);            
     }
 }]);
 
 mod.factory('share.util.offline_db.is_exist',
 [
-     '$q'
-,function(
-     $q
+    '$q',
+    'share_setting',
+function(
+    $q,
+    share_setting
 ){
-    return function(GLOBAL_SETTING){
+    return function(){
         var defer = $q.defer();
-        var db_name = '_pouch_' + GLOBAL_SETTING.STORE_DB_PREFIX + GLOBAL_SETTING.STORE_ID;
+        var db_name = '_pouch_' + share_setting.STORE_DB_PREFIX + share_setting.STORE_ID;
         var request = indexedDB.open(db_name);
 
         request.onupgradeneeded = function (e){
@@ -79,7 +88,7 @@ mod.factory('share.util.offline_db.download_product',
     ,_force_download_product
     ,is_offline_db_exist
 ){
-    return function(is_force,GLOBAL_SETTING){
+    return function(is_force){
         /*
             return {
                 local: the_number_of_local_doc
@@ -90,7 +99,7 @@ mod.factory('share.util.offline_db.download_product',
         var defer = $q.defer();
 
         if(is_force){
-            _force_download_product(GLOBAL_SETTING).then(
+            _force_download_product().then(
                 function(response){
                     defer.resolve(response);
                 },function(reason){
@@ -98,10 +107,10 @@ mod.factory('share.util.offline_db.download_product',
                 }
             )
         }else{
-            is_offline_db_exist(GLOBAL_SETTING).then(
+            is_offline_db_exist().then(
                 function(is_db_exist){
                     if(is_db_exist){
-                        _force_download_product(GLOBAL_SETTING).then(
+                        _force_download_product().then(
                             function(response){
                                 defer.resolve(response);
                             },function(reason){
@@ -126,19 +135,21 @@ mod.factory('share.util.offline_db.download_product',
 
 mod.factory('share.util.offline_db._get_local_and_remote_doc_count',
 [
-     '$q'
-,function(
-     $q
+    '$q',
+    'share_setting',
+function(
+    $q,
+    share_setting
 ){
-    return function(GLOBAL_SETTING){
+    return function(){
         var defer = $q.defer();
 
         //local db
-        var db_name = GLOBAL_SETTING.STORE_DB_PREFIX + GLOBAL_SETTING.STORE_ID;
+        var db_name = share_setting.STORE_DB_PREFIX + share_setting.STORE_ID;
         var local_db = new PouchDB(db_name);
 
         //remote db
-        var source_url = GLOBAL_SETTING.COUCH_SERVER_URL + '/' + db_name;
+        var source_url = share_setting.COUCH_SERVER_URL + '/' + db_name;
         var remote_db = new PouchDB(source_url);
 
         var promise_lst = []
@@ -163,13 +174,15 @@ mod.factory('share.util.offline_db._force_download_product',
     ,'$rootScope'
     ,'blockUI'
     ,'share.util.offline_db._get_local_and_remote_doc_count'
+    ,'share_setting'
 ,function(
      $q
     ,$rootScope
     ,blockUI
     ,_get_local_and_remote_doc_count
+    ,share_setting
 ){
-    function _exe(number_of_try,GLOBAL_SETTING){
+    function _exe(number_of_try){
         /*
             return {
                 local: the_number_of_local_doc
@@ -179,10 +192,10 @@ mod.factory('share.util.offline_db._force_download_product',
         */
         var defer = $q.defer();
 
-        var store_id = GLOBAL_SETTING.STORE_ID;
-        var db_name = GLOBAL_SETTING.STORE_DB_PREFIX + store_id;
+        var store_id = share_setting.STORE_ID;
+        var db_name = share_setting.STORE_DB_PREFIX + store_id;
         var local_db = new PouchDB(db_name);
-        var source_url = GLOBAL_SETTING.COUCH_SERVER_URL + '/' + db_name;
+        var source_url = share_setting.COUCH_SERVER_URL + '/' + db_name;
 
         blockUI.start('syncing database ...');
         console.log('begin syncing for store_id: ' + store_id);
@@ -196,12 +209,12 @@ mod.factory('share.util.offline_db._force_download_product',
                 });                            
             })
             .on('complete', function (info) {
-                _get_local_and_remote_doc_count(GLOBAL_SETTING).then(
+                _get_local_and_remote_doc_count(share_setting).then(
                     function(response){
                         response.docs_written = info.docs_written;
                         if(number_of_try < MAX_NUMBER_OF_DOWNLOAD_TRY && response.remote > response.local){
                             number_of_try += 1;
-                            _exe(number_of_try,GLOBAL_SETTING).then(
+                            _exe(number_of_try,share_setting).then(
                                 function(response_again){
                                     defer.resolve(response_again);
                                     blockUI.stop();                                          
@@ -233,11 +246,11 @@ mod.factory('share.util.offline_db._force_download_product',
         return defer.promise;
     }
 
-    return function(GLOBAL_SETTING){
+    return function(){
         var defer = $q.defer();
 
         var number_of_try = 0;
-        _exe(number_of_try,GLOBAL_SETTING).then(
+        _exe(number_of_try).then(
             function(response){
                 defer.resolve(response);
             },function(reason){

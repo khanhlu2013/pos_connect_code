@@ -20,14 +20,16 @@ module.exports = function(config) {
         'static/bower_components/angular-block-ui/dist/angular-block-ui.js',
         'static/bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
         'static/bower_components/bootstrap/dist/js/bootstrap.js',
-        'static/bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js',                
-        'static/src/**/__init__.js',        
+        'static/bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js',   
+        'static/src/**/__init__.js',
         'static/src/**/*.js',
+        'test/unit/mock/app/product_app/init_share_setting.js',        
         'test/unit/**/*.js'
     ],
 
     // list of files to exclude
     exclude: [
+        'static/src/app/product_app/init_share_setting.js',        
     ],
 
 

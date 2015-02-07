@@ -420,17 +420,19 @@ mod.factory('model.store_product.sku_not_found_handler.select_product',[
 }]);       
 
 mod.factory('model.store_product.sku_not_found_handler.select_product_confirmation',[
-     '$modal'
-    ,'$injector'
-,function(
-     $modal
-    ,$injector
+    '$modal',
+    '$injector',
+    'share_setting',
+function(
+    $modal,
+    $injector,
+    share_setting
 ){
     return function(network_product,product_lst,my_sp_lst,sku){
         var template = 
             '<div id="sp_app/service/suggest/select_product_confirm_dlg" class="modal-header"><h3>confirm add product</h3></div>' +
             '<div class="modal-body">' +
-                '<div ng-controller="model.product.network_product_controller" ng-init="init(network_product)" ng-include="$root.GLOBAL_SETTING.PARTIAL_URL.product.network_product.index"></div>' +
+                '<div ng-controller="model.product.network_product_controller" ng-init="init(network_product)" ng-include="share_setting.PARTIAL_URL.product.network_product.index"></div>' +
             '</div>' +                
             '<div class="modal-footer">' +
                 '<button ng-click="select_product()" class="btn btn-primary btn-float-left">back</button>' +
@@ -440,6 +442,7 @@ mod.factory('model.store_product.sku_not_found_handler.select_product_confirmati
         ;
         var ModalCtrl = function($scope,$modalInstance,network_product,product_lst,my_sp_lst,sku){
             $scope.network_product = network_product;
+            $scope.share_setting = share_setting;
             $scope.cancel = function(){
                 $modalInstance.dismiss('_cancel_');
             }

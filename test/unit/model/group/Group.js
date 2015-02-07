@@ -1,4 +1,4 @@
-describe("Group model", function () {
+describe("model.group.Group", function () {
 
     beforeEach(module('model.group'));
  

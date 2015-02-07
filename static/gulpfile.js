@@ -165,7 +165,7 @@ gulp.task('upload_s3', function() {
         .pipe(publisher.cache())// create a cache file to speed up consecutive uploads
         .pipe(awspublish.reporter());// print upload updates to console
 });
-gulp.task('watch', function () {
+gulp.task('watch',['build_product_app_local'],function () {
     gulp.watch(['src/**/*.js','!src/app/sale_app/**/*.js','./../templates/product_app.html'], ['build_product_app_local']);
     gulp.watch(['css/**/*.css'], ['build_product_app_local']);
 })

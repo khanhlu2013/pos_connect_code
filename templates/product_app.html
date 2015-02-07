@@ -6,6 +6,24 @@
     <link rel="stylesheet" href="{{STATIC_URL}}bower_components/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="{{STATIC_URL}}bower_components/bootstrap/dist/css/bootstrap-theme.css">
 
+    <script type="text/javascript">
+        var _GLOBAL_SETTING_ = {}
+        _GLOBAL_SETTING_.STATIC_URL                 = "{{STATIC_URL}}";
+        _GLOBAL_SETTING_.IS_OFFLINE                 = "{{IS_OFFLINE}}";
+        _GLOBAL_SETTING_.STORE_ID                   = Number("{{STORE_ID}}");
+        _GLOBAL_SETTING_.TAX_RATE                   = {{TAX_RATE}};
+        _GLOBAL_SETTING_.COUCH_SERVER_URL           = "{{COUCH_SERVER_URL}}";
+        _GLOBAL_SETTING_.STORE_DB_PREFIX            = "{{STORE_DB_PREFIX}}";
+        _GLOBAL_SETTING_.MIX_MATCH_LST              = {{MIX_MATCH_LST|safe}};
+        _GLOBAL_SETTING_.PAYMENT_TYPE_LST           = {{PAYMENT_TYPE_LST|safe}};
+        _GLOBAL_SETTING_.SHORTCUT_LST               = {{SHORTCUT_LST|safe}};
+        _GLOBAL_SETTING_.SHORTCUT_ROW_COUNT         = {{SHORTCUT_ROW_COUNT}};
+        _GLOBAL_SETTING_.SHORTCUT_COLUMN_COUNT      = {{SHORTCUT_COLUMN_COUNT}};
+        _GLOBAL_SETTING_.STORE_PRODUCT_DOCUMENT_TYPE= "{{STORE_PRODUCT_DOCUMENT_TYPE}}";
+        _GLOBAL_SETTING_.RECEIPT_DOCUMENT_TYPE      = "{{RECEIPT_DOCUMENT_TYPE}}";
+        _GLOBAL_SETTING_.STORE                      = {{STORE|safe}};
+    </script>
+    
     <script src="{{STATIC_URL}}bower_components/jquery/dist/jquery.js"></script>
     <script src="{{STATIC_URL}}bower_components/angular/angular.js"></script>
     <script src="{{STATIC_URL}}bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
@@ -163,23 +181,5 @@
         </table>
         {% endverbatim sp_table%}         
     </div>
-
-    <script type="text/javascript">
-        var _GLOBAL_SETTING_ = {}
-        _GLOBAL_SETTING_.STATIC_URL                 = "{{STATIC_URL}}";
-        _GLOBAL_SETTING_.IS_OFFLINE                 = "{{IS_OFFLINE}}";
-        _GLOBAL_SETTING_.STORE_ID                   = Number("{{STORE_ID}}");
-        _GLOBAL_SETTING_.TAX_RATE                   = {{TAX_RATE}};
-        _GLOBAL_SETTING_.COUCH_SERVER_URL           = "{{COUCH_SERVER_URL}}";
-        _GLOBAL_SETTING_.STORE_DB_PREFIX            = "{{STORE_DB_PREFIX}}";
-        _GLOBAL_SETTING_.MIX_MATCH_LST              = {{MIX_MATCH_LST|safe}};
-        _GLOBAL_SETTING_.PAYMENT_TYPE_LST           = {{PAYMENT_TYPE_LST|safe}};
-        _GLOBAL_SETTING_.SHORTCUT_LST               = {{SHORTCUT_LST|safe}};
-        _GLOBAL_SETTING_.SHORTCUT_ROW_COUNT         = {{SHORTCUT_ROW_COUNT}};
-        _GLOBAL_SETTING_.SHORTCUT_COLUMN_COUNT      = {{SHORTCUT_COLUMN_COUNT}};
-        _GLOBAL_SETTING_.STORE_PRODUCT_DOCUMENT_TYPE= "{{STORE_PRODUCT_DOCUMENT_TYPE}}";
-        _GLOBAL_SETTING_.RECEIPT_DOCUMENT_TYPE      = "{{RECEIPT_DOCUMENT_TYPE}}";
-        _GLOBAL_SETTING_.STORE                      = {{STORE|safe}};
-    </script>
 </body>
 </html>

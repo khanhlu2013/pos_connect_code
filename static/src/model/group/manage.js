@@ -22,7 +22,7 @@ function
     edit_service,
     exe_service
 ){
-    return function(GLOBAL_SETTING){
+    return function(){
         var template = 
             '<div class="modal-header"><div class="modal-title"><h3>manage group</h3></div></div>' +
             
@@ -51,11 +51,11 @@ function
                 '<button id="group_app/service/manage/exit_btn" ng-click="exit()" class="btn btn-warning"><span class="glyphicon glyphicon-remove"></span></button>' +
             '</div>'                
         ;
-        var ModalCtrl = function($scope,$modalInstance,$rootScope,group_lst,GLOBAL_SETTING){
+        var ModalCtrl = function($scope,$modalInstance,$rootScope,group_lst){
             $scope.group_lst = group_lst;
 
             $scope.execute_group = function(group_id){
-                exe_service(group_id,GLOBAL_SETTING)
+                exe_service(group_id);
             }
             $scope.delete_group = function(group){
                 confirm_service('delete ' + group.name + ' group?').then(
@@ -112,7 +112,7 @@ function
                 $modalInstance.close();
             }
         }
-        ModalCtrl.$inject = ['$scope','$modalInstance','$rootScope','group_lst','GLOBAL_SETTING'];
+        ModalCtrl.$inject = ['$scope','$modalInstance','$rootScope','group_lst'];
         
         var dlg = $modal.open({
             template:template,
@@ -121,9 +121,6 @@ function
             resolve:{
                 group_lst: function(){
                     return rest_service.get_lst();
-                }
-                ,GLOBAL_SETTING : function(){
-                    return GLOBAL_SETTING;
                 }
             }
         });

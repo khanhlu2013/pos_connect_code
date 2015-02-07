@@ -7,21 +7,19 @@ mod.requires.push.apply(mod.requires,[
 mod.controller('share.menu.menuCtrl',
 [
     '$scope',
-    '$rootScope',
     '$window',
     'share.ui.alert',
     'share.ui.confirm',
     'model.group.manage',
 function(
     $scope,
-    $rootScope,
     $window,
     alert_service,
     confirm_service,
     manage_group
 ){
     $scope.menu_setting_group = function(){
-        manage_group($rootScope.GLOBAL_SETTING);
+        manage_group();
     }
     $scope.menu_setting_store = function(){
         alert_service('store settings');

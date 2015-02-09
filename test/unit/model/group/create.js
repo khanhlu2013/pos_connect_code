@@ -1,6 +1,6 @@
 describe("model.group.create", function () {
     var group_prompt_mock = jasmine.createSpy();
-    var group_rest_mock = {create:jasmine.createSpy()};
+    var group_rest_mock = {create_item:jasmine.createSpy()};
 
     beforeEach(module('model.group',function($provide){
         $provide.value('model.group.prompt', group_prompt_mock);
@@ -15,7 +15,7 @@ describe("model.group.create", function () {
 
             //setup group_rest.create promise
             var create_defer = $q.defer();
-            group_rest_mock.create.and.returnValue(create_defer.promise)
+            group_rest_mock.create_item.and.returnValue(create_defer.promise)
 
             //execute create service
             var created_group = undefined;
@@ -29,7 +29,7 @@ describe("model.group.create", function () {
             var a_dummy_prompt_result = 'a dummy prompt';
             prompt_defer.resolve(a_dummy_prompt_result);
             $rootScope.$digest(); 
-            expect(group_rest_mock.create).toHaveBeenCalledWith(a_dummy_prompt_result);
+            expect(group_rest_mock.create_item).toHaveBeenCalledWith(a_dummy_prompt_result);
 
             //resolve create promise
             var a_dummy_created_group = 'a dummy created group';

@@ -14,7 +14,7 @@ function(
 
         prompt_service(null).then(
              function(group_prompt_result){ 
-                rest.create(group_prompt_result).then(
+                rest.create_item(group_prompt_result).then(
                     function(created_group){
                         defer.resolve(created_group);
                     },function(reason){

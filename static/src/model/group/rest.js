@@ -34,7 +34,7 @@ function(
         })
         .then(
             function(data){
-                defer.resolve(data.data);
+                defer.resolve(Group.build(data.data));
             }
             ,function(reason){ 
                 defer.reject(reason);
@@ -59,7 +59,7 @@ function(
         )
         return defer.promise;
     }
-    function create(group_prompt_result){
+    function create_item(group_prompt_result){
         var defer = $q.defer();
         $http({
             url:'/group/insert_angular',
@@ -102,13 +102,31 @@ function(
         )
         return defer.promise;
     }        
+    function execute_item(group_id,option){
+        var defer = $q.defer();
+
+        $http({
+             method:'POST'
+            ,url:'/group/execute'
+            ,data:{group_id:group_id,option:JSON.stringify(option)}
+        }).then(
+            function(group_response_data){
+                defer.resolve(Group.build(group_response_data.data));
+            }
+            ,function(reason){
+                defer.reject(reason);
+            }
+        )       
+        return defer.promise; 
+    }
 
     return{
         delete_item:delete_item,
-        create:create,
+        create_item:create_item,
         get_lst:get_lst,
         get_item:get_item,
-        edit_item:edit_item
+        edit_item:edit_item,
+        execute_item:execute_item
     }
 }])
 

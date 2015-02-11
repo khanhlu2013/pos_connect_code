@@ -25,7 +25,7 @@ describe('model.group.manage',function(){
         return result;
     }
 
-    beforeEach(module('app.product_app.partial'));
+    beforeEach(module('app.productApp.partial'));
     beforeEach(module('model.group',function($provide){
         $provide.value('$modalInstance',modal_instance_mock);
         $provide.value('share.ui.confirm',confirm_service_mock);
@@ -73,8 +73,8 @@ describe('model.group.manage',function(){
         var view;
         var setup = function(group_lst,$compile,$injector,$templateCache){
             createController(group_lst);
-            var service = $injector.get('model.group.manage');
-            service();  
+            // var service = $injector.get('model.group.manage');
+            // service();  
             var html = $templateCache.get('model.group.manage.html');
             view = $compile(angular.element(html))(scope);
             scope.$digest();

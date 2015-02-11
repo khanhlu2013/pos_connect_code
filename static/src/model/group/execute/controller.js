@@ -4,36 +4,12 @@ mod.requires.push.apply(mod.requires,[
     'share.util.offline_db'
 ]);
 
-mod.factory('model.group.execute',
-[
-    '$modal',
-    '$templateCache',
-    'model.group.rest',
-function(
-    $modal,
-    $templateCache,
-    group_rest
-){
-    return function(group_id){
-        
-        var result = $modal.open({
-             template:$templateCache.get('model.group.execute.html')
-            ,controller:'model.group.execute.modalCtrl'
-            ,size:'lg'
-            ,resolve:{
-                group : function(){
-                    return group_rest.get_item(group_id);
-                }
-            }
-        });
-        return result;
-    }
-}]);
-
-mod.controller('model.group.execute.modalCtrl',
+mod.controller('model.group.execute.controller',
 [
     '$scope',
     '$modalInstance',
+
+
     '$http',
     'share.ui.alert',
     'model.group.Group',

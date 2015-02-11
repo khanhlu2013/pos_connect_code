@@ -24,7 +24,7 @@ gulp.task('_partial_product_app',function(){
     //     quotes: true
     // }))
     .pipe(ngHtml2Js({
-        moduleName: "app.product_app.partial",
+        moduleName: "app.productApp.partial",
         rename:function(url){
             url = url.replace(/\//g, '.');//replace file path '/' into '.'
             return url;

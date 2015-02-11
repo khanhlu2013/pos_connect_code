@@ -7,6 +7,7 @@ mod.requires.push.apply(mod.requires,[
     'share.filter',
     'share.directive',
     'share.menu',
+    'app.product_app.partial'
 ]);
 
 mod.config(['$sceDelegateProvider',function($sceDelegateProvider) {

@@ -10,6 +10,30 @@ var rev = require('gulp-rev');
 var inject = require("gulp-inject");
 var awspublish = require('gulp-awspublish');
 var process = require('child_process');
+var ngHtml2Js = require("gulp-ng-html2js");
+var minifyHtml = require("gulp-minify-html");
+
+gulp.task('_partial_product_app',function(){
+    return gulp.src([
+        'src/**/*.html',
+        '!src/app/sale_app/**/*.*'
+    ])
+    // .pipe(minifyHtml({
+    //     empty: true,
+    //     spare: true,
+    //     quotes: true
+    // }))
+    .pipe(ngHtml2Js({
+        moduleName: "app.product_app.partial",
+        rename:function(url){
+            url = url.replace(/\//g, '.');//replace file path '/' into '.'
+            return url;
+        }
+    }))
+    .pipe(concat("product_app.partial.min.js"))
+    // .pipe(uglify())
+    .pipe(gulp.dest("./dist"));
+});
 
 //concatinate product app js
 gulp.task('_concat_product_app_js', function () {
@@ -40,7 +64,7 @@ gulp.task('_concat_css',function(){
     .pipe(gulp.dest('./dist'))
 })
 
-gulp.task('build_product_app_local', function () {
+gulp.task('build_product_app_local', ['_partial_product_app'],function () {
     var target = gulp.src('./../templates/product_app.html');
     var sources = gulp.src([
         './bower_components/angular-block-ui/dist/angular-block-ui.js',
@@ -48,7 +72,9 @@ gulp.task('build_product_app_local', function () {
         './bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js',
         'src/**/__init__.js',
         'src/**/*.js',
-        'css/**/*.css'        
+        'dist/product_app.partial.min.js',        
+        'css/**/*.css',        
+        '!src/app/sale_app/**/*.*'        
     ], {read: false/*It's not necessary to read the files (will speed up things), we're only after their paths:*/});
     var transform = function (filepath, file, i, length) {
         filepath = '{{STATIC_URL}}' + filepath.substr(1);
@@ -138,7 +164,7 @@ gulp.task('_cdnizer_login_page',function(){
             }         
         ]))
         .pipe(gulp.dest("./../templates/dist"));            
-})
+});
 gulp.task('_clean', function () {
     return del.sync(
         [
@@ -166,10 +192,15 @@ gulp.task('upload_s3', function() {
         .pipe(awspublish.reporter());// print upload updates to console
 });
 gulp.task('watch',['build_product_app_local'],function () {
-    gulp.watch(['src/**/*.js','!src/app/sale_app/**/*.js','./../templates/product_app.html'], ['build_product_app_local']);
-    gulp.watch(['css/**/*.css'], ['build_product_app_local']);
-})
-
+    gulp.watch([
+        'css/**/*.css',
+        'src/**/*.js',
+        'src/**/*.html',
+        '!src/app/sale_app/**/*.*',
+        './../templates/product_app.html'
+    ],
+    ['build_product_app_local']);
+});
 gulp.task('dev', function(){
     var django_process = process.spawn;
     var PIPE = {stdio: 'inherit'};
@@ -179,8 +210,8 @@ gulp.task('dev', function(){
     var PIPE = {stdio: 'inherit'};
     couchdb_process('couchdb', [], PIPE);    
 
-    var watch_process = process.spawn;
-    var PIPE = {stdio: 'inherit'};
-    watch_process('gulp', ['watch'], PIPE);       
+    // var watch_process = process.spawn;
+    // var PIPE = {stdio: 'inherit'};
+    // watch_process('gulp', ['watch'], PIPE);       
 });
 

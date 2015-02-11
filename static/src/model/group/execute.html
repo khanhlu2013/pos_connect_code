@@ -1,0 +1,42 @@
+<div class="modal-header"><h3>{{group.name}} - execute</h3></div>
+
+<div class="modal-body">
+    <div ng-hide="group.sp_lst.length === 0">
+        <div class="col-sm-5">
+            <div ng-include=" 'model.group.execute.input_form.html' "></div>
+            <div ng-hide="is_option_empty()">
+                <hr>
+                <h3>actions</h3>
+                <ul>
+                    <li ng-show="value!== undefined" ng-repeat="(key,value) in option">{{key}} : <span ng-class="value===null?'error':''">{{value !== null ? value : 'empty'}}</span></li>
+                </ul>
+            </div>  
+        </div>
+        <div class="col-sm-7">
+            <table class="table table-hover table-bordered table-condensed table-striped">
+                <tr>
+                    <th>product</th>
+                    <th>price</th>
+                    <th>crv</th>
+                    <th>tax</th>
+                    <th>cost</th>
+                </tr>
+
+                <tr ng-repeat="sp in group.sp_lst">
+                    <td>{{sp.name}}</td>
+                    <td>{{sp.price|currency}}</td>
+                    <td>{{sp.crv|currency}}</td>
+                    <td class="alncenter"><span class="glyphicon" ng-class="sp.is_taxable? 'glyphicon-check' : 'glyphicon-unchecked'"></span></td>
+                    <td>{{sp.cost|currency}}</td>
+                </tr>
+            </table>
+        </div>                     
+        <div class="clear"></div>
+    </div>
+    <pre id="group_app/service/execute/empty_group_warning_lbl" ng-show="group.sp_lst.length === 0" class="error">there is no product in this group</pre>
+</div>
+
+<div class="modal-footer">
+    <button id="group_app/service/execute/ok_btn" ng-disabled="is_option_empty() || form.$invalid" ng-click="ok() || group.sp_lst.length === 0" class="btn btn-success">ok</button>
+    <button id="group_app/service/execute/exit_btn" ng-click="exit()" class="btn btn-warning">exit</button>
+</div>

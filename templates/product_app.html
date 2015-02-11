@@ -87,35 +87,35 @@
                     <li class="dropdown">
                         <a id="sp_app/menu/setting" href="#" class="dropdown-toggle" data-toggle="dropdown">setting <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li id="sp_app/menu/setting/group" ng-click="menu_setting_group()"><a href='#'>group</a></li>                 
-                            <li id="sp_app/menu/setting/shortcut" ng-click="menu_setting_shortcut()"><a href='#'>shortcut</a></li>
-                            <li id="sp_app/menu/setting/mix_match" ng-click="menu_setting_mix_match()"><a href='#'>mix match</a></li>
-                            <li id="sp_app/menu/setting/payment_type" ng-click="menu_setting_payment_type()"><a href='#'>payment type</a></li>
+                            <li id="sp_app/menu/setting/group" ng-click="menu_setting_group()"><a>group</a></li>                 
+                            <li id="sp_app/menu/setting/shortcut" ng-click="menu_setting_shortcut()"><a>shortcut</a></li>
+                            <li id="sp_app/menu/setting/mix_match" ng-click="menu_setting_mix_match()"><a>mix match</a></li>
+                            <li id="sp_app/menu/setting/payment_type" ng-click="menu_setting_payment_type()"><a>payment type</a></li>
                             <li role="presentation" class="divider"></li>
                             <li id="sp_app/menu/setting/store" ng-click="menu_setting_store()">
-                                <a href='#'>store - {% verbatim %}{{$root.GLOBAL_SETTING.STORE.name}}{% endverbatim %}</a>
+                                <a>store - {% verbatim %}{{$root.GLOBAL_SETTING.STORE.name}}{% endverbatim %}</a>
                             </li>                                 
                         </ul>
                     </li>
                     <li class="dropdown">
                         <a id="sp_app/menu/report" href="#" class="dropdown-toggle" data-toggle="dropdown">report <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li id="sp_app/menu/report/receipt" ng-click="menu_report_receipt_in_sp_page()"><a href='#'>receipt</a></li>
-                            <li id='sale_app/menu/report/sale' ng-click="menu_report_sale()"><a href='#'>sale</a></li>
+                            <li id="sp_app/menu/report/receipt" ng-click="menu_report_receipt_in_sp_page()"><a>receipt</a></li>
+                            <li id='sale_app/menu/report/sale' ng-click="menu_report_sale()"><a>sale</a></li>
                             <li role="presentation" class="divider"></li>
-                            <li id='sp_app/menu/report/create' ng-click="menu_report_create_in_sp_page()"><a href='#'>create custom report</a></li>                            
+                            <li id='sp_app/menu/report/create' ng-click="menu_report_create_in_sp_page()"><a>create custom report</a></li>                            
                         </ul>
                     </li>   
                     <li class="dropdown">
                         <a id="sp_app/menu/action" href="#" class="dropdown-toggle" data-toggle="dropdown">action <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li ng-click="launch_pos()"><a href="#">sale app</a></li>
-                            <li id='sp_app/menu/action/sync' ng-click="menu_action_sync()"><a href='#'>sync</a></li>
+                            <li id='sp_app/menu/action/sync' ng-click="menu_action_sync()"><a>sync</a></li>
                             <li role="presentation" class="divider"></li>
-                            <li ng-click="menu_action_logout()"><a id="logout_link" href='#'>logout - {{user}}</a></li>                               
+                            <li ng-click="menu_action_logout()"><a id="logout_link">logout - {{user}}</a></li>                               
                         </ul>
                     </li>                      
-                    <!-- <li ng-click="logout()"><a id="logout_link" href='#'>{{ request.session.cur_login_store }} - {{ user }} - logout</a></li> -->
+                    <!-- <li ng-click="logout()"><a id="logout_link">{{ request.session.cur_login_store }} - {{ user }} - logout</a></li> -->
                 </ul>   
 
             </div><!-- /.navbar-collapse -->

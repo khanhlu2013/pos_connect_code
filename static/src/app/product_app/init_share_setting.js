@@ -15,4 +15,4 @@ function(
     var constructed_share_setting = construct_share_setting(share_setting);
     for(var k in constructed_share_setting) 
         share_setting[k]=constructed_share_setting[k];
-}]) ;
+}]);

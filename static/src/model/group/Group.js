@@ -2,7 +2,7 @@ var mod = angular.module('model.group');
 mod.requires.push.apply(mod.requires,[
     'model.store_product'
 ])
-
+ 
 mod.factory('model.group.Group',
 [
     '$injector',

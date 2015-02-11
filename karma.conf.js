@@ -23,6 +23,7 @@ module.exports = function(config) {
         'static/bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js',   
         'static/src/**/__init__.js',
         'static/src/**/*.js',
+        'static/dist/product_app.partial.min.js',
         'test/unit/mock/app/product_app/init_share_setting.js',        
         'test/unit/**/*.js'
     ],

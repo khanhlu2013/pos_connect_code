@@ -1,0 +1,95 @@
+<form name="form" novalidate role="form">
+    <div class="form-horizontal" >
+        <!-- price -->
+        <div class="form-group">
+            <label class="col-sm-5 control-label">Price:</label>
+            <div class="col-sm-7">
+                <input id="group_app/service/execute/enable_price_check" ng-click="checkbox_click('price')" ng-model="enable_price" type="checkbox"></input>
+                <input id="group_app/service/execute/price_txt" ng-disabled="!enable_price" ng-required="enable_price" ng-model="option.price" name="price" type="number" min="0.01">
+                <label ng-show="form.price.$error.required && !form.price.$error.number && !form.price.$error.min" class="error">required</label>
+                <label ng-show="form.price.$error.number" class="error">invalid number</label>
+                <label ng-show="form.price.$error.min" class="error">minimum error</label>
+            </div>
+        </div>
+        <!-- crv -->
+        <div class="form-group">
+            <label class="col-sm-5 control-label">Crv:</label>
+            <div class="col-sm-7">
+                <input id="group_app/service/execute/enable_crv_check" ng-click="checkbox_click('crv')" ng-model="enable_crv" type="checkbox"></input>
+                <input id="group_app/service/execute/crv_txt" ng-disabled="!enable_crv" ng-model="option.crv" name="crv" type="number" min="0.01">
+                <label ng-show="form.crv.$error.number" class="error">invalid number</label>
+                <label ng-show="form.crv.$error.min" class="error">minimum error</label>
+            </div>
+        </div>
+        <!-- is_taxable -->
+        <div class="form-group">
+            <label class="col-sm-5 control-label">Tax:</label>
+            <div class="col-sm-7">
+                <input id="group_app/service/execute/enable_is_taxable_check" ng-click="checkbox_click('is_taxable')" ng-model="enable_is_taxable" type="checkbox"></input>
+                <input id="group_app/service/execute/is_taxable_check" ng-disabled="!enable_is_taxable" ng-model="option.is_taxable" name="is_taxable" type="checkbox">
+            </div>
+        </div>
+        <!-- cost -->
+        <div class="form-group">
+            <label class="col-sm-5 control-label">Cost:</label>
+            <div class="col-sm-7">
+                <input id="group_app/service/execute/enable_cost_check" ng-click="checkbox_click('cost')" ng-model="enable_cost" type="checkbox"></input>
+                <input id="group_app/service/execute/cost_txt" ng-disabled="!enable_cost" ng-model="option.cost" name="cost" type="number" min="0.01">
+                <label ng-show="form.cost.$error.number" class="error">invalid number</label>
+                <label ng-show="form.cost.$error.min" class="error">minimum error</label>
+            </div>
+        </div>
+        <!-- is_sale_report -->
+        <div class="form-group">
+            <label class="col-sm-5 control-label">sale report:</label>
+            <div class="col-sm-7">
+                <input id="group_app/service/execute/enable_is_sale_report_check" ng-click="checkbox_click('is_sale_report')" ng-model="enable_is_sale_report" type="checkbox"></input>
+                <input id="group_app/service/execute/is_sale_report_check" ng-disabled="!enable_is_sale_report" ng-model="option.is_sale_report" name="is_sale_report" type="checkbox">
+            </div>
+        </div>
+        <!-- p_type -->
+        <div class="form-group">
+            <label class="col-sm-5 control-label">Type:</label>
+            <div class="col-sm-7">
+                <input id="group_app/service/execute/enable_p_type_check" ng-click="checkbox_click('p_type')" ng-model="enable_p_type" type="checkbox"></input>
+                <input id="group_app/service/execute/p_type_txt" ng-disabled="!enable_p_type" ng-model="option.p_type" name="p_type" type="text">
+            </div>
+        </div>
+        <!-- p_tag -->
+        <div class="form-group">
+            <label class="col-sm-5 control-label">Tag:</label>
+            <div class="col-sm-7">
+                <input id="group_app/service/execute/enable_p_tag_check" ng-click="checkbox_click('p_tag')" ng-model="enable_p_tag" type="checkbox"></input>
+                <input id="group_app/service/execute/p_tag_txt" ng-disabled="!enable_p_tag" ng-model="option.p_tag" name="p_tag" type="text">
+            </div>
+        </div>
+        <!-- vendor -->
+        <div class="form-group">
+            <label class="col-sm-5 control-label">Vendor:</label>
+            <div class="col-sm-7">
+                <input id="group_app/service/execute/enable_vendor_check" ng-click="checkbox_click('vendor')" ng-model="enable_vendor" type="checkbox"></input>
+                <input id="group_app/service/execute/vendor_txt" ng-disabled="!enable_vendor" ng-model="option.vendor" name="vendor" type="text">
+            </div>
+        </div>
+        <!-- buydown -->
+        <div class="form-group">
+            <label class="col-sm-5 control-label">Buydown:</label>
+            <div class="col-sm-7">
+                <input id="group_app/service/execute/enable_buydown_check" ng-click="checkbox_click('buydown')" ng-model="enable_buydown" type="checkbox"></input>
+                <input id="group_app/service/execute/buydown_txt" ng-disabled="!enable_buydown" ng-model="option.buydown" name="buydown" type="number" min="0.01">
+                <label ng-show="form.buydown.$error.number" class="error">invalid number</label>
+                <label ng-show="form.buydown.$error.min" class="error">minimum error</label>
+            </div>
+        </div>
+        <!-- value customer price -->
+        <div class="form-group">
+            <label class="col-sm-5 control-label">value_cus_price:</label>
+            <div class="col-sm-7">
+                <input id="group_app/service/execute/enable_value_customer_price_check" ng-click="checkbox_click('value_customer_price')" ng-model="enable_value_customer_price" type="checkbox"></input>
+                <input id="group_app/service/execute/value_customer_price_txt" ng-disabled="!enable_value_customer_price" ng-model="option.value_customer_price" name="value_customer_price" type="number" min="0.01">
+                <label ng-show="form.value_customer_price.$error.number" class="error">invalid number</label>
+                <label ng-show="form.value_customer_price.$error.min" class="error">minimum error</label>
+            </div>
+        </div>
+    </div>
+</form>

@@ -15,41 +15,8 @@ function
     rest_service
 ){
     return function(){
-        var template = 
-            '<div class="modal-header"><div class="modal-title"><h3>manage group</h3></div></div>' +
-            
-            '<div class="modal-body">' +
-                '<button id="group_app/service/manage/add_btn" ng-click="add_group()" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span></button>' +
-                '<input type="text" ng-model="local_filter.name" placeHolder="local filter">' +
-                '<table ng-hide="group_lst.length == 0" class="table table-hover table-bordered table-condensed table-striped">' +
-                    '<tr>' + 
-                        '<th>group</th>' +
-                        '<th>execute</th>' +                            
-                        '<th>delete</th>' +                            
-                        '<th>edit</th>' +
-                    '</tr>' +
-
-                    '<tr ng-repeat="group in group_lst | filter:local_filter">' +
-                        '<td>{{group.name}}</td>' +
-                        '<td class="alncenter"><button id="model.group.manage.template.execute_btn" ng-click="execute_group(group.id)" class="btn btn-primary"><span class="glyphicon glyphicon-play"></span></button></td>' +                            
-                        '<td class="alncenter"><button id="model.group.manage.template.delete_btn" ng-click="delete_group(group)" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button></td>' +
-                        '<td class="alncenter"><button id="model.group.manage.template.edit_btn" ng-click="edit_group(group)"class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span></button></td>' +
-                    '</tr>' +
-                '</table>' +
-                '<pre ng-show="group_lst.length == 0">there is no group</pre>' +
-            '</div>' +
-            
-            '<div class="modal-footer">' +
-                '<button id="group_app/service/manage/exit_btn" ng-click="exit()" class="btn btn-warning"><span class="glyphicon glyphicon-remove"></span></button>' +
-            '</div>'                
-        ;
-                               
-        if($templateCache.get('model.group.manage.modalCtrl.template')===undefined ){
-            $templateCache.put('model.group.manage.modalCtrl.template',template);
-        }
-
         var dlg = $modal.open({
-            template:$templateCache.get('model.group.manage.modalCtrl.template'),
+            template:$templateCache.get('model.group.manage.html'),
             controller:'model.group.manage.modalCtrl',
             size:'lg',
             resolve:{
@@ -97,7 +64,6 @@ function(
                 if(data === false){
                     return;
                 }
-
                 rest_service.delete_item(group.id)
                 .then(
                     function(){
@@ -108,7 +74,6 @@ function(
                                 break;
                             }
                         }
-
                         if(index === null){
                             alert_service('Bug: should be unreachable. can not find deleted index after success response');
                         }else{

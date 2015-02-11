@@ -4,6 +4,19 @@ describe('model.group.execute',function(){
         get_item : jasmine.createSpy()
     }
 
+    describe('.template',function(){
+        var view;
+        beforeEach(module('app.productApp.partial'));
+        beforeEach(function(group_lst,$compile,$injector,$templateCache){
+            createController(group_lst);
+            var service = $injector.get('model.group.manage');
+            service();  
+            var html = $templateCache.get('model.group.manage.html');
+            view = $compile(angular.element(html))(scope);
+            scope.$digest();
+        })        
+    })
+
     describe('',function(){
         var modal_mock = {
             open: jasmine.createSpy()

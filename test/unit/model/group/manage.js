@@ -17,7 +17,15 @@ describe('model.group.manage',function(){
     var modal_mock = {
         open:jasmine.createSpy().and.returnValue({result:'dummy_modal_open_result'})
     }
+    var ng_id_str_2_jquery_id_str = function(str){
+        str = str.replace(/\./g, '\\.');   //replace '.' -> '\\.'
+        str = str.replace(/\//g, '\\\/'); //replace '/' -> '\\/'
+        var result = '#' + str;
+        // console.log(result);
+        return result;
+    }
 
+    beforeEach(module('app.product_app.partial'));
     beforeEach(module('model.group',function($provide){
         $provide.value('$modalInstance',modal_instance_mock);
         $provide.value('share.ui.confirm',confirm_service_mock);
@@ -44,16 +52,13 @@ describe('model.group.manage',function(){
 
     describe('',function(){
         it('can open modal with correct param',inject(function($templateCache,$injector){
-            //verify template is not load before the service is called
-            expect($templateCache.get('model.group.manage.modalCtrl.template')).toEqual(undefined);
-
             //execute testing code
             var service = $injector.get('model.group.manage');
             service();  
 
             //verify the modal is open with correct param
             var arg = modal_mock.open.calls.mostRecent().args[0];
-            expect(arg.template).toEqual($templateCache.get('model.group.manage.modalCtrl.template'));
+            expect(arg.template).toEqual($templateCache.get('model.group.manage.html'));
             expect(arg.controller).toEqual('model.group.manage.modalCtrl');
 
             //verify the modal is open with correct resolve param
@@ -70,7 +75,7 @@ describe('model.group.manage',function(){
             createController(group_lst);
             var service = $injector.get('model.group.manage');
             service();  
-            var html = $templateCache.get('model.group.manage.modalCtrl.template');
+            var html = $templateCache.get('model.group.manage.html');
             view = $compile(angular.element(html))(scope);
             scope.$digest();
         }
@@ -79,7 +84,7 @@ describe('model.group.manage',function(){
             var group_lst = [{id:1},{id:2},{id:3}];
             setup(group_lst,$compile,$injector,$templateCache);
             scope.delete_group = jasmine.createSpy();
-            var delete_btn = view.find("#model\\.group\\.manage\\.template\\.delete_btn")[2];
+            var delete_btn = view.find(ng_id_str_2_jquery_id_str('model.group.manage.template.delete_btn'))[2];
             delete_btn.click();
             expect(scope.delete_group.calls.mostRecent().args[0].id).toEqual(3);
         }));
@@ -88,7 +93,7 @@ describe('model.group.manage',function(){
             var group_lst = [{id:1},{id:2},{id:3}];
             setup(group_lst,$compile,$injector,$templateCache);
             scope.edit_group = jasmine.createSpy();
-            var edit_btn = view.find("#model\\.group\\.manage\\.template\\.edit_btn")[2];
+            var edit_btn = view.find(ng_id_str_2_jquery_id_str('model.group.manage.template.edit_btn'))[2];
             edit_btn.click();
             expect(scope.edit_group.calls.mostRecent().args[0].id).toEqual(3);
         }));
@@ -97,7 +102,7 @@ describe('model.group.manage',function(){
             var group_lst = [{id:1},{id:2},{id:3}];
             setup(group_lst,$compile,$injector,$templateCache);
             scope.execute_group = jasmine.createSpy();
-            var execute_btn = view.find("#model\\.group\\.manage\\.template\\.execute_btn")[2];
+            var execute_btn = view.find(ng_id_str_2_jquery_id_str('model.group.manage.template.execute_btn'))[2];
             execute_btn.click();
             expect(scope.execute_group.calls.mostRecent().args[0]).toEqual(3);
         }));
@@ -105,7 +110,7 @@ describe('model.group.manage',function(){
         it('has exit button',inject(function($compile,$injector,$templateCache){
             setup([],$compile,$injector,$templateCache);
             scope.exit = jasmine.createSpy();
-            var exit_btn = view.find("#group_app\\/service\\/manage\\/exit_btn")[0];
+            var exit_btn = view.find(ng_id_str_2_jquery_id_str('group_app/service/manage/exit_btn'))[0];
             exit_btn.click();
             expect(scope.exit).toHaveBeenCalledWith();
         }));
@@ -113,7 +118,7 @@ describe('model.group.manage',function(){
         it('has add group button',inject(function($compile,$injector,$templateCache){
             setup([],$compile,$injector,$templateCache);
             scope.add_group = jasmine.createSpy();
-            var add_group_btn = view.find("#group_app\\/service\\/manage\\/add_btn")[0];
+            var add_group_btn = view.find(ng_id_str_2_jquery_id_str('group_app/service/manage/add_btn'))[0];
             add_group_btn.click();
             expect(scope.add_group).toHaveBeenCalledWith();
         }));                  

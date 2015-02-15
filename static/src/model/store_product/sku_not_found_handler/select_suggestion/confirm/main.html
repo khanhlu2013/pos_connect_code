@@ -1,0 +1,26 @@
+<div 
+    id="sp_app/service/suggest/select_product_confirm_dlg" 
+    class="modal-header">
+    <h3>confirm add product</h3>
+</div>
+
+<div class="modal-body">
+    <div 
+        ng-controller="model.product.network_product.controller" 
+        ng-init="init(network_product)" 
+        ng-include=" 'model.product.network_product.main.html' ">
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button 
+        ng-click="select_product()" 
+        class="btn btn-primary btn-float-left">back
+    </button>
+    <button
+        id="sp_app/service/suggest/select_product_confirm_dlg/ok_btn" 
+        ng-click="return_product()" 
+        class="btn btn-success">add product
+    </button>
+    <button ng-click="cancel()" class="btn btn-warning">cancel</button>
+</div>

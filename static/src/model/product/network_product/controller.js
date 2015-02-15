@@ -1,16 +1,19 @@
 var mod = angular.module('model.product');
 
-mod.controller('model.product.network_product_controller',
+mod.controller('model.product.network_product.controller',
 [
-    '$scope'
-,function(
-    $scope
+    '$scope',
+    'share_setting',
+function(
+    $scope,
+    share_setting
 ){
+    $scope.share_setting = share_setting;
     function _is_display_sale_data(network_product){
         var result = false;
 
-        if(network_product.sp_lst.length!==0){
-            result = network_product.sp_lst[0].sale !== undefined;
+        if(network_product.get_sp_lst().length!==0){
+            result = network_product.get_sp_lst()[0].sale !== undefined;
         }
 
         return result;

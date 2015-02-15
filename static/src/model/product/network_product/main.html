@@ -1,0 +1,11 @@
+<div ng-hide="network_product === undefined || network_product === null">
+    <div class="col-md-6">
+        <div ng-include=" 'model.product.network_product.summary.html' "></div>
+    </div>
+    
+    <div class="col-md-6">
+        <div ng-include=" 'model.product.network_product.detail.html' "></div>
+    </div>
+    
+    <div class="clear"></div>
+</div>

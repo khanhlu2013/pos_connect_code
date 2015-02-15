@@ -3,7 +3,6 @@ describe('model.group.execute',function(){
         str = str.replace(/\./g, '\\.');   //replace '.' -> '\\.'
         str = str.replace(/\//g, '\\\/'); //replace '/' -> '\\/'
         var result = '#' + str;
-        // console.log(result);
         return result;
     }
     describe('.template',function(){

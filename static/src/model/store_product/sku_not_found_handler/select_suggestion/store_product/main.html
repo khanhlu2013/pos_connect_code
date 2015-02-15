@@ -1,0 +1,44 @@
+<div id='sp_app/service/suggest/select_sp_dlg' class='modal-header'><h3>sku: {{sku}} not found</h3></div>
+<div class='modal-body'>
+    <h3>Option 1</h3>
+    <div class='indent_40px'>
+        <label>These products are <mark>already inside</mark> your database. If scanned product is found here, you can <mark>simply</mark> add sku.</label>
+        <table class='table table-hover table-bordered table-condensed table-striped'>
+            <tr>
+                <th>your product</th>
+                <th>price</th>
+                <th>taxable</th>
+                <th>crv</th>
+                <th>cost</th>
+                <th>buydown</th>
+                <th><span class='glyphicon glyphicon-plus'> sku</span></th>
+            </tr>
+            <tr ng-repeat='sp in my_sp_lst'>
+                <td>{{sp.name}}</td>
+                <td>{{sp.price | currency}}</td>
+                <td class='alncenter'><span class='glyphicon' ng-class="sp.is_taxable ? 'glyphicon-check' : 'glyphicon-unchecked'"></span></td>
+                <td>{{sp.get_crv()}}</td>
+                <td>{{sp.get_cost()}}</td>
+                <td>{{sp.get_buydown()}}</td>
+                <td class='alncenter'><button ng-click='return_sp(sp)' class='btn btn-primary glyphicon glyphicon-plus'> sku</button></td>
+            </tr>
+        </table>
+    </div>
+    <h3>Option 2</h3>
+    <div class='indent_40px'>
+        <label>If scanned product is <mark>not</mark> found:</label>
+        <button 
+            id='sp_app/service/suggest/select_sp_dlg/create_new_product_btn' 
+            ng-click='create_new_product()' 
+            ng-hide='product_lst.length !== 0' 
+            class='btn btn-primary'>create new product</button>
+        <button 
+            id='sp_app/service/suggest/select_sp_dlg/select_product_btn' 
+            ng-click='select_product()' 
+            ng-hide='product_lst.length === 0' 
+            class='btn btn-primary'>see network suggestion</button>
+    </div>
+</div>
+<div class='modal-footer'>
+    <button ng-click='cancel()' class='btn btn-warning'>cancel</button>
+</div>

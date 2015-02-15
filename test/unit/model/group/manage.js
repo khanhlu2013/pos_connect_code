@@ -21,7 +21,6 @@ describe('model.group.manage',function(){
         str = str.replace(/\./g, '\\.');   //replace '.' -> '\\.'
         str = str.replace(/\//g, '\\\/'); //replace '/' -> '\\/'
         var result = '#' + str;
-        // console.log(result);
         return result;
     }
 

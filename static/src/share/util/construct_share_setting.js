@@ -10,22 +10,6 @@ function(
     Mix_match,
     Store
 ){
-    function _get_partial_url(static_url){
-        var network_product_url = static_url + 'partial/product_app/network_product/'
-        var result =
-        {
-            product:
-            {
-                network_product: 
-                {
-                     index : network_product_url + 'index.html'
-                    ,summary : network_product_url + 'summary.html'
-                    ,detail : network_product_url + 'detail.html'
-                }
-            }
-        }
-        return result;
-    }    
     return function(share_setting){
         /*
             . there are 2 way to get global setting
@@ -64,7 +48,6 @@ function(
             ,STORE_PRODUCT_DOCUMENT_TYPE:   share_setting.STORE_PRODUCT_DOCUMENT_TYPE
             ,RECEIPT_DOCUMENT_TYPE:         share_setting.RECEIPT_DOCUMENT_TYPE
             ,STATIC_URL:                    share_setting.STATIC_URL
-            ,PARTIAL_URL:                   _get_partial_url(share_setting.STATIC_URL)
             ,MAX_RECEIPT_SNOOZE_1:          30
             ,MAX_RECEIPT_SNOOZE_2:          60
             ,MAX_RECEIPT:                   200                                   

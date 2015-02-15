@@ -1,0 +1,70 @@
+<div 
+    class='alert alert-warning' 
+    id='sp_app/service/suggest/select_product_dlg' 
+    class='modal-header'>
+    <h3>sku not found - {{sku}}</h3>
+</div>
+<div class='modal-body'>
+    <h3>Option 1: </h3>
+    <div class='indent_40px'>
+        <table class='table table-hover table-bordered table-condensed table-striped'>
+            <label>add products from pos_connect network</label>
+            <tr>
+                <th>member count</th>
+                <th>name</th>
+                <th>price</th>
+                <th>crv</th>
+                <th>tax</th>
+                <th>cost</th>
+                <th>add</th>
+            </tr>
+            <tr ng-repeat="product in product_lst |orderBy:'-get_sp_lst().length'">
+                <td id="model.store_product.sku_not_found_handler.select_suggestion.product.product_lst.member_count">{{product.get_sp_lst().length}}</td>
+                <td id="model.store_product.sku_not_found_handler.select_suggestion.product.product_lst.name">{{product.get_suggest_main('name').value}}</td>
+                <td id="model.store_product.sku_not_found_handler.select_suggestion.product.product_lst.price">{{product.get_suggest_main('price')|currency}}</td>
+                <td id="model.store_product.sku_not_found_handler.select_suggestion.product.product_lst.crv">{{product.get_suggest_main('crv').value|currency}}</td>
+                <td id="model.store_product.sku_not_found_handler.select_suggestion.product.product_lst.is_taxable" class="alncenter">
+                    <div ng-hide="product.get_suggest_main('is_taxable').percent === 50">
+                        <span
+                            class='glyphicon'
+                            ng-attr-id='sp_app/service/suggest/select_product_dlg/lst/is_taxable/sign/{{product.id}}'
+                            ng-class="product.get_suggest_main('is_taxable').value === true ? 'glyphicon-check' : 'glyphicon-unchecked'">
+                        </span>
+                        <span
+                            ng-attr-id='sp_app/service/suggest/select_product_dlg/lst/is_taxable/percent/{{product.id}}'
+                            ng-hide="product.get_suggest_main('is_taxable').percent === 100 ">
+                                ({{product.get_suggest_main('is_taxable').percent}}%)
+                        </span>
+                    </div>
+                </td>
+                <td id="model.store_product.sku_not_found_handler.select_suggestion.product.product_lst.cost">{{product.get_suggest_main('cost')|currency}}</td>
+                <td class='alncenter'>
+                    <button 
+                        ng-click='select_product(product)' 
+                        id="model.store_product.sku_not_found_handler.select_suggestion.product.product_lst.select_btn" 
+                        class='btn btn-primary glyphicon glyphicon-plus'></button>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+
+    <h3>Option 2:</h3>
+    <div class='indent_40px'>
+        <button 
+            id='sp_app/service/suggest/select_product_dlg/create_new_product_btn' 
+            ng-click='create_new_product()'
+            class='btn btn-primary'>create new product
+        </button>
+    </div>
+
+</div>
+<div class='modal-footer'>
+    <button 
+        id='sp_app/service/suggest/select_product_dlg/select_sp'
+        ng-click='select_sp()'
+        ng-hide='my_sp_lst.length === 0'
+        class='btn btn-primary btn-float-left'>back
+    </button>
+    <button ng-click='cancel()' class='btn btn-warning'>cancel</button>
+</div>

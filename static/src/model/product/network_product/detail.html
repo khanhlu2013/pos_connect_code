@@ -9,7 +9,6 @@
         <td>{{name_stat.percent}}%</td>
     </tr>
 </table>
-
 <table ng-hide="suggest_extra_crv.length === 0" class="table table-hover table-bordered table-condensed table-striped">
     <tr>
         <th>crv</th>
@@ -38,5 +37,4 @@
         <td class="alnright" ng-show="is_sale_data">{{sp.sale}}</td>
         <td class="alnright" ng-show="is_sale_data">{{sp.sale * (sp._get_b4_tax_price() - sp.get_cost()) | currency | not_show_zero}}</td>
     </tr>
-
 </table>

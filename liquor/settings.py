@@ -55,11 +55,11 @@ STATICFILES_FINDERS = ( 'django.contrib.staticfiles.finders.FileSystemFinder', )
 
 #- COUCH, POUCH
 STORE_DB_PREFIX = os.environ.get('STORE_DB_PREFIX') # I should have named this as pouch-store-db-prefix instead. this variable is used for local development only. Before i protractor, i hardcode pouchdb prefix. the came protractor, and i want to separte pouchdb used by protractor and local-without-protractor. But then only care about protractor. so i guess i could hardcode this again. 
-VIEW_DOCUMENT_ID = "_design/views"
 STORE_PRODUCT_DOCUMENT_TYPE = 'prod_bus_assoc'
 STORE_DB_VIEW_NAME_BY_PRODUCT_ID = "by_product_id"
 STORE_DB_VIEW_NAME_BY_SKU = "by_sku"
 STORE_DB_VIEW_NAME_BY_D_TYPE = "by_d_type"
+
 COUCH_DB_HTTP_S = os.environ.get('COUCH_DB_HTTP_S') == '1'
 IS_USE_COUCH_VS_BIG_COUCH = os.environ.get('IS_USE_COUCH_VS_BIG_COUCH') == '1' #when we use big couch, we are using the deploy/online/cloudant db. when we use couch, we use development/local apache couch db
 COUCH_LOCAL_ADMIN_NAME = os.environ.get('COUCH_LOCAL_ADMIN_NAME') #only apply when we use local-apache-couch

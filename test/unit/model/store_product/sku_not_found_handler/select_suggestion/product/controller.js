@@ -11,7 +11,7 @@ describe('model.store_product.sku_not_found_handler.select_suggestion.product.co
     var select_sp_service_mock = jasmine.createSpy();
 
     beforeEach(module('model.store_product',function($provide){
-        $provide.value('model.store_product.sku_not_found_handler.select_product_confirmation',select_product_confirmation_mock)
+        $provide.value('model.store_product.sku_not_found_handler.select_suggestion.product.confirm',select_product_confirmation_mock)
         $provide.value('model.store_product.sku_not_found_handler.select_sp',select_sp_service_mock);
         $provide.value('$modalInstance',modal_instance_mock);
         $provide.value('$modal',modal_mock);

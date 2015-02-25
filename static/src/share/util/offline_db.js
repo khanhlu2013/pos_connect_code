@@ -209,12 +209,12 @@ mod.factory('share.util.offline_db._force_download_product',
                 });                            
             })
             .on('complete', function (info) {
-                _get_local_and_remote_doc_count(share_setting).then(
+                _get_local_and_remote_doc_count().then(
                     function(response){
                         response.docs_written = info.docs_written;
                         if(number_of_try < MAX_NUMBER_OF_DOWNLOAD_TRY && response.remote > response.local){
                             number_of_try += 1;
-                            _exe(number_of_try,share_setting).then(
+                            _exe(number_of_try).then(
                                 function(response_again){
                                     defer.resolve(response_again);
                                     blockUI.stop();                                          

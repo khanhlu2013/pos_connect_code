@@ -14,6 +14,7 @@ def get_couch_access_url(*args, **kwargs):
             name = store.couch_admin_name
             pwrd = store.couch_admin_pwrd
             url = store.couch_url
+
         else:
             name = kwargs['name']
             pwrd = kwargs['pwrd']
@@ -35,7 +36,14 @@ def decimal_2_str(number):
 def get_store_db_name(store_id):
     return settings.STORE_DB_PREFIX + str(store_id)
 
-#-PRIVATE--------------------------------------------------------------------------------------
+def _get_full_view_name(view_name): 
+    """
+        since couch build all views that are group into one doc (when any of them is query), i 
+        want to have each view resign in separate doc so that i can fully LAZY building the view 
+        to spread out the work load for smoother user experience. 
 
-def _get_full_view_name(view_name): # 1111 rethink about this
-    return settings.VIEW_DOCUMENT_ID + '/_view/' + view_name
+        Now, we have multiple doc that each have a separate id and contain 1 view. I also have 
+        a convention to name the doc_id as _design/view_name so that the doc id can be calculated
+        from the view name. This helper function construct the view name that understood by couchdb
+    """
+    return '_design/' + view_name + '/_view/' + view_name

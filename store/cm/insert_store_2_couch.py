@@ -44,43 +44,58 @@ def exe(store_id,couch_admin_name=None,couch_admin_pwrd=None,couch_url=None):
         _grant_cloudant_access_to_api_key(api_key_name,store_id,['_reader',],couch_admin_name,couch_admin_pwrd)
 
     #STEP3:insert design documents
-    _insert_view(couch_db)
+    _insert_by_pid_view(couch_db)
+    _insert_by_sku_view(couch_db)
+    _insert_by_d_type_view(couch_db)
 
     #STEP4:return user_name,user_pwrd 
     return (api_key_name,api_key_pwrd)
 
-def _insert_view(couch_db):
-    d_type_view_map_function = \
+def _insert_by_sku_view(couch_db):
+    map_func = \
+        """function(doc) {
+          if(doc.d_type == '%s')
+          for(var i=0; i<doc.sku_lst.length;i++){
+            emit(doc.sku_lst[i], doc);
+          }
+        }""" % (settings.STORE_PRODUCT_DOCUMENT_TYPE,)
+
+    view = { \
+         settings.STORE_DB_VIEW_NAME_BY_SKU:{"map":map_func}
+    }
+
+    doc = {"_id":'_design/' + settings.STORE_DB_VIEW_NAME_BY_SKU,"language":"javascript","views":view}
+    couch_db.save(doc) 
+    
+def _insert_by_pid_view(couch_db):
+    map_func = \
+        """function(doc) {
+          if(doc.d_type.localeCompare('%s')==0){
+            emit(doc.product_id, doc);
+          }
+        }""" % (settings.STORE_PRODUCT_DOCUMENT_TYPE,)
+
+    view = { \
+         settings.STORE_DB_VIEW_NAME_BY_PRODUCT_ID:{"map":map_func}
+    }
+
+    doc = {"_id":'_design/' + settings.STORE_DB_VIEW_NAME_BY_PRODUCT_ID,"language":"javascript","views":view}
+    couch_db.save(doc)  
+
+def _insert_by_d_type_view(couch_db):
+    map_func = \
         """function(doc) {
           if(doc.d_type != undefined){
             emit(doc.d_type, doc);
           }
         }"""
 
-    product_id_view_map_function = \
-    """function(doc) {
-      if(doc.d_type.localeCompare('%s')==0){
-        emit(doc.product_id, doc);
-      }
-    }""" % (settings.STORE_PRODUCT_DOCUMENT_TYPE,)
-
-    sku_view_map_function = \
-    """function(doc) {
-      if(doc.d_type == '%s')
-      for(var i=0; i<doc.sku_lst.length;i++){
-        emit(doc.sku_lst[i], doc);
-      }
-    }""" % (settings.STORE_PRODUCT_DOCUMENT_TYPE,)
-
-    views = { \
-         settings.STORE_DB_VIEW_NAME_BY_PRODUCT_ID:{"map":product_id_view_map_function}
-        ,settings.STORE_DB_VIEW_NAME_BY_SKU:{"map":sku_view_map_function}
-        ,settings.STORE_DB_VIEW_NAME_BY_D_TYPE:{"map":d_type_view_map_function}
-        
+    view = { \
+         settings.STORE_DB_VIEW_NAME_BY_D_TYPE:{"map":map_func}
     }
 
-    view_doc = {"_id":settings.VIEW_DOCUMENT_ID,"language":"javascript","views":views}
-    couch_db.save(view_doc)    
+    doc = {"_id":'_design/' + settings.STORE_DB_VIEW_NAME_BY_D_TYPE,"language":"javascript","views":view}
+    couch_db.save(doc)    
 
 def _get_cloudant_api_key(couch_admin_name,couch_admin_pwrd):
     headers={'referer': 'https://%s.cloudant.com' % (couch_admin_name), 'content-type': 'multipart/form-data'}

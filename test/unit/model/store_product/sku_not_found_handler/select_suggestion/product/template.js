@@ -20,7 +20,7 @@ describe('model.store_product.sku_not_found_handler.select_suggestion.product.ma
     beforeEach(module('app.productApp.partial'));
     beforeEach(module('model.store_product',function($provide){
         $provide.value('$modalInstance',modal_instance_mock);
-        $provide.value('model.store_product.sku_not_found_handler.select_product_confirmation',select_product_confirmation_mock);
+        $provide.value('model.store_product.sku_not_found_handler.select_suggestion.product.confirm',select_product_confirmation_mock);
     }))
     beforeEach(inject(function($templateCache,$compile,$controller,$rootScope){
         createControllerAndCompileTemplate = function(product_lst,my_sp_lst,sku){

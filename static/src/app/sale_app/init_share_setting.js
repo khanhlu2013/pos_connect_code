@@ -3,7 +3,7 @@
     because _GLOBAL_SETTING_ is a constance passing down from the server in the html. This variable is not available in karma
     environment
 */
-var mod = angular.module('app.productApp');
+var mod = angular.module('app.saleApp');
 mod.requires.push.apply(mod.requires,[
     'share.util.construct_share_setting'
 ])

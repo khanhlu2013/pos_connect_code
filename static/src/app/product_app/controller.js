@@ -1,28 +1,57 @@
 var app = angular.module('app.productApp');
 app.requires.push.apply(app.requires,[
     'model.store_product',
-    'share.ui'
+    'share.ui',
+    'share.util.offline_db'
 ]);
-app.controller('app.productApp.productCtrl',
+app.controller('app.productApp.controller',
 [
     '$scope',
     '$rootScope',
     '$q',
+    '$window',
     'model.store_product.rest_search',
     'share.ui.alert',
+    'share.ui.confirm',
     'model.store_product.sku_not_found_handler',
+    'share.util.offline_db.is_exist',
 function(
     $scope,
     $rootScope,
     $q,
+    $window,
     sp_rest_search,
     alert_service,
-    sku_not_found_handler
+    confirm_service,
+    sku_not_found_handler,
+    is_offline_db_exist
 ){
     var un_subscribe_group = $rootScope.$on('model.group.manage',function(event,data){
         _refresh_current_sp_lst();
     })
     $scope.$on('$destroy',un_subscribe_group);
+
+    function launch_pos_url(){
+        $window.open('sale/index_angular/');
+    }
+    $scope.launch_pos = function(){
+        is_offline_db_exist().then(
+             function(db_exitance){
+                if(db_exitance){
+                    confirm_service('launch sale app?').then(function(){
+                        launch_pos_url();
+                    });                        
+                }else{
+                    confirm_service('first time download database. continue?').then(function(){
+                        launch_pos_url();
+                    });
+                }
+            }
+            ,function(reason){
+                alert_service(reason)
+            }
+        )
+    }
 
     $scope.sku_search = function(){
         $scope.name_search_str = "";

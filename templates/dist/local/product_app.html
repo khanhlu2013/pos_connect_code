@@ -40,15 +40,17 @@
     <script src="{{STATIC_URL}}src/model/mix_match/__init__.js"></script>
     <script src="{{STATIC_URL}}src/model/non_inventory/__init__.js"></script>
     <script src="{{STATIC_URL}}src/model/product/__init__.js"></script>
+    <script src="{{STATIC_URL}}src/model/receipt/__init__.js"></script>
     <script src="{{STATIC_URL}}src/model/report/__init__.js"></script>
     <script src="{{STATIC_URL}}src/model/store/__init__.js"></script>
     <script src="{{STATIC_URL}}src/model/store_product/__init__.js"></script>
     <script src="{{STATIC_URL}}src/share/menu/__init__.js"></script>
     <script src="{{STATIC_URL}}src/share/ui/__init__.js"></script>
     <script src="{{STATIC_URL}}src/share/util/__init__.js"></script>
+    <script src="{{STATIC_URL}}src/share/offline_db_util.js"></script>
     <script src="{{STATIC_URL}}src/app/product_app/app.js"></script>
+    <script src="{{STATIC_URL}}src/app/product_app/controller.js"></script>
     <script src="{{STATIC_URL}}src/app/product_app/init_share_setting.js"></script>
-    <script src="{{STATIC_URL}}src/app/product_app/productCtrl.js"></script>
     <script src="{{STATIC_URL}}src/model/group/Group.js"></script>
     <script src="{{STATIC_URL}}src/model/group/create.js"></script>
     <script src="{{STATIC_URL}}src/model/group/edit.js"></script>
@@ -59,10 +61,14 @@
     <script src="{{STATIC_URL}}src/model/non_inventory/Non_inventory.js"></script>
     <script src="{{STATIC_URL}}src/model/product/Prod_sku_assoc.js"></script>
     <script src="{{STATIC_URL}}src/model/product/Product.js"></script>
+    <script src="{{STATIC_URL}}src/model/receipt/dao.js"></script>
+    <script src="{{STATIC_URL}}src/model/receipt/push.js"></script>
+    <script src="{{STATIC_URL}}src/model/receipt/storage_adapter.js"></script>
     <script src="{{STATIC_URL}}src/model/report/Report.js"></script>
     <script src="{{STATIC_URL}}src/model/store/Store.js"></script>
     <script src="{{STATIC_URL}}src/model/store_product/Kit_breakdown_assoc.js"></script>
-    <script src="{{STATIC_URL}}src/model/store_product/Store_product.js"></script>
+    <script src="{{STATIC_URL}}src/model/store_product/dao.js"></script>
+    <script src="{{STATIC_URL}}src/model/store_product/model.js"></script>
     <script src="{{STATIC_URL}}src/model/store_product/prompt.js"></script>
     <script src="{{STATIC_URL}}src/model/store_product/rest_crud.js"></script>
     <script src="{{STATIC_URL}}src/model/store_product/rest_search.js"></script>
@@ -86,17 +92,17 @@
     <script src="{{STATIC_URL}}src/model/store_product/sku_not_found_handler/create_sp/create_new_product.js"></script>
     <script src="{{STATIC_URL}}src/model/store_product/sku_not_found_handler/create_sp/create_old_product.js"></script>
     <script src="{{STATIC_URL}}src/model/store_product/sku_not_found_handler/select_suggestion/main.js"></script>
-    <script src="{{STATIC_URL}}src/model/store_product/sku_not_found_handler/select_suggestion/confirm/controller.js"></script>
-    <script src="{{STATIC_URL}}src/model/store_product/sku_not_found_handler/select_suggestion/confirm/main.js"></script>
     <script src="{{STATIC_URL}}src/model/store_product/sku_not_found_handler/select_suggestion/product/controller.js"></script>
     <script src="{{STATIC_URL}}src/model/store_product/sku_not_found_handler/select_suggestion/product/main.js"></script>
     <script src="{{STATIC_URL}}src/model/store_product/sku_not_found_handler/select_suggestion/store_product/controller.js"></script>
     <script src="{{STATIC_URL}}src/model/store_product/sku_not_found_handler/select_suggestion/store_product/main.js"></script>
+    <script src="{{STATIC_URL}}src/model/store_product/sku_not_found_handler/select_suggestion/product/confirm/controller.js"></script>
+    <script src="{{STATIC_URL}}src/model/store_product/sku_not_found_handler/select_suggestion/product/confirm/main.js"></script>
     <script src="{{STATIC_URL}}dist/product_app.partial.min.js"></script>
     <!-- endinject -->
 </head>
 
-<body ng-controller="app.productApp.productCtrl">
+<body ng-controller="app.productApp.controller">
     
     <nav class="navbar navbar-inverse" role="navigation">
         <div class="container-fluid">

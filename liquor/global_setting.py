@@ -30,6 +30,9 @@ def _get_global_setting(store):
     res['SHORTCUT_COLUMN_COUNT'] = settings.SHORTCUT_COLUMN_COUNT
     res['STORE_PRODUCT_DOCUMENT_TYPE'] = settings.STORE_PRODUCT_DOCUMENT_TYPE
     res['RECEIPT_DOCUMENT_TYPE'] = settings.RECEIPT_DOCUMENT_TYPE  
+    res['VIEW_BY_PRODUCT_ID'] = setting.STORE_DB_VIEW_NAME_BY_PRODUCT_ID
+    res['VIEW_BY_SKU'] = setting.STORE_DB_VIEW_NAME_BY_SKU
+    res['VIEW_BY_D_TYPE'] = setting.STORE_DB_VIEW_NAME_BY_D_TYPE
 
     return res;
 

@@ -5,7 +5,7 @@ mod.controller('model.store_product.sku_not_found_handler.select_suggestion.prod
     '$scope',
     '$modalInstance',
     '$injector',
-    'model.store_product.sku_not_found_handler.select_product_confirmation',
+    'model.store_product.sku_not_found_handler.select_suggestion.product.confirm',
     'product_lst',
     'my_sp_lst',
     'sku',

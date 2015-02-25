@@ -1,6 +1,6 @@
 var mod = angular.module('model.store_product');
 
-mod.controller('model.store_product.sku_not_found_handler.select_suggestion.confirm.controller',
+mod.controller('model.store_product.sku_not_found_handler.select_suggestion.product.confirm.controller',
 [
     '$scope',
     '$modalInstance',

@@ -1,4 +1,4 @@
-describe('model.store_product.sku_not_found_handler.select_suggestion.confirm.controller',function(){
+describe('model.store_product.sku_not_found_handler.select_suggestion.product.confirm.controller',function(){
     var modal_instance_mock = {
         dismiss : jasmine.createSpy(),
         close : jasmine.createSpy()
@@ -12,7 +12,7 @@ describe('model.store_product.sku_not_found_handler.select_suggestion.confirm.co
     beforeEach(inject(function($rootScope,$controller){
         scope = $rootScope.$new();
         createController = function(network_product,product_lst,my_sp_lst,sku){
-            $controller('model.store_product.sku_not_found_handler.select_suggestion.confirm.controller',{
+            $controller('model.store_product.sku_not_found_handler.select_suggestion.product.confirm.controller',{
                 $scope:scope,
                 $modalInstance:modal_instance_mock,
                 share_setting:share_setting_mock,
@@ -38,7 +38,7 @@ describe('model.store_product.sku_not_found_handler.select_suggestion.confirm.co
     });    
 });
 
-describe('model.store_product.sku_not_found_handler.select_suggestion.confirm.controller',function(){
+describe('model.store_product.sku_not_found_handler.select_suggestion.product.confirm.controller',function(){
     var $rootScope;
     var modal_instance_mock = {
         dismiss : jasmine.createSpy(),
@@ -58,7 +58,7 @@ describe('model.store_product.sku_not_found_handler.select_suggestion.confirm.co
         $rootScope = _$rootScope_;
         scope = $rootScope.$new();
         createController = function(network_product,product_lst,my_sp_lst,sku){
-            $controller('model.store_product.sku_not_found_handler.select_suggestion.confirm.controller',{
+            $controller('model.store_product.sku_not_found_handler.select_suggestion.product.confirm.controller',{
                 $scope:scope,
                 $modalInstance:modal_instance_mock,
                 share_setting:share_setting_mock,

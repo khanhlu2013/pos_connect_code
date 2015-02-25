@@ -1,0 +1,1 @@
+var mod = angular.module('app.saleApp',[]);

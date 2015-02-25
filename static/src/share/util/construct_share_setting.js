@@ -35,22 +35,25 @@ function(
 
         var result = 
         {
-             STORE:                         Store.build(share_setting.STORE)
-            ,STORE_ID :                     share_setting.STORE_ID
-            ,TAX_RATE :                     share_setting.TAX_RATE
-            ,COUCH_SERVER_URL:              share_setting.COUCH_SERVER_URL       
-            ,STORE_DB_PREFIX:               share_setting.STORE_DB_PREFIX
-            ,MIX_MATCH_LST :                share_setting.MIX_MATCH_LST.map(Mix_match.build)
-            ,PAYMENT_TYPE_LST:              share_setting.PAYMENT_TYPE_LST
-            ,SHORTCUT_LST:                  share_setting.SHORTCUT_LST
-            ,SHORTCUT_ROW_COUNT:            share_setting.SHORTCUT_ROW_COUNT
-            ,SHORTCUT_COLUMN_COUNT:         share_setting.SHORTCUT_COLUMN_COUNT
-            ,STORE_PRODUCT_DOCUMENT_TYPE:   share_setting.STORE_PRODUCT_DOCUMENT_TYPE
-            ,RECEIPT_DOCUMENT_TYPE:         share_setting.RECEIPT_DOCUMENT_TYPE
-            ,STATIC_URL:                    share_setting.STATIC_URL
-            ,MAX_RECEIPT_SNOOZE_1:          30
-            ,MAX_RECEIPT_SNOOZE_2:          60
-            ,MAX_RECEIPT:                   200                                   
+            STORE:                         Store.build(share_setting.STORE),
+            STORE_ID :                     share_setting.STORE_ID,
+            TAX_RATE :                     share_setting.TAX_RATE,
+            COUCH_SERVER_URL:              share_setting.COUCH_SERVER_URL,       
+            STORE_DB_PREFIX:               share_setting.STORE_DB_PREFIX,
+            MIX_MATCH_LST :                share_setting.MIX_MATCH_LST.map(Mix_match.build),
+            PAYMENT_TYPE_LST:              share_setting.PAYMENT_TYPE_LST,
+            SHORTCUT_LST:                  share_setting.SHORTCUT_LST,
+            SHORTCUT_ROW_COUNT:            share_setting.SHORTCUT_ROW_COUNT,
+            SHORTCUT_COLUMN_COUNT:         share_setting.SHORTCUT_COLUMN_COUNT,
+            STORE_PRODUCT_DOCUMENT_TYPE:   share_setting.STORE_PRODUCT_DOCUMENT_TYPE,
+            RECEIPT_DOCUMENT_TYPE:         share_setting.RECEIPT_DOCUMENT_TYPE,
+            STATIC_URL:                    share_setting.STATIC_URL,
+            MAX_RECEIPT_SNOOZE_1:          30,
+            MAX_RECEIPT_SNOOZE_2:          60,
+            MAX_RECEIPT:                   200,
+            VIEW_BY_PRODUCT_ID:            share_setting.VIEW_BY_PRODUCT_ID,
+            VIEW_BY_SKU:                   share_setting.VIEW_BY_SKU,
+            VIEW_BY_D_TYPE:                share_setting.VIEW_BY_D_TYPE,
         }        
         return result;
     }

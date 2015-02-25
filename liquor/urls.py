@@ -24,6 +24,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     url(r'^$',login_required(app_view.product_app_view.as_view()),name= settings.LOGIN_REDIRECT_URL),   
+    url(r'^sale/index_angular/$',login_required(app_view.Sale_angular_view.as_view()),name='index_angular'),
     url(r'^get_global_setting/$',login_required(global_setting.get_global_setting_api)),   
     url(r'^admin/', include(admin.site.urls)), 
     url(r'^account/login/$','django.contrib.auth.views.login',{'template_name':('dist/login.html' if settings.IS_USE_CDN else 'login.html')},name = settings.LOGIN_URL),

@@ -1,9 +1,9 @@
 var mod = angular.module('model.store_product');
-mod.factory('model.store_product.sku_not_found_handler.select',[
+mod.factory('model.store_product.sku_not_found_handler.select_suggestion',[
      '$modal'
     ,'$q' 
-    ,'model.store_product.sku_not_found_handler.select_sp'
-    ,'model.store_product.sku_not_found_handler.select_product'    
+    ,'model.store_product.sku_not_found_handler.select_suggestion.store_product'
+    ,'model.store_product.sku_not_found_handler.select_suggestion.product'    
 ,function(
      $modal
     ,$q

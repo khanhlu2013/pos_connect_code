@@ -26,7 +26,7 @@ describe('model.store_product.sku_not_found_handler.select_suggestion.product.co
         $provide.value('share_setting',share_setting_mock);
     }))
     beforeEach(inject(function($rootScope,$templateCache,$compile,$controller){
-        var html = $templateCache.get('model.store_product.sku_not_found_handler.select_suggestion.product.confirm.main.html');
+        var html = $templateCache.get('model.store_product.sku_not_found_handler.select_suggestion.product.confirm.template.html');
         scope = $rootScope.$new();
         createControllerAndView = function(network_product,product_lst,my_sp_lst,sku){
             $controller('model.store_product.sku_not_found_handler.select_suggestion.product.confirm.controller',{

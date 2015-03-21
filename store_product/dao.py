@@ -12,16 +12,26 @@ def get_lst_by_sku(sku,store_id):
 def get_lst(store_id):
     return Store_product.objects.prefetch_related('prodskuassoc_set__store_product_set').filter(store_id=store_id)
 
+# def get_type_tag_lst(store_id):
+#     result = {}
+#     type_tag_lst =  Store_product.objects.filter(store_id=store_id).values_list('p_type','p_tag').distinct().order_by('p_type','p_tag')
+
+#     for item in type_tag_lst:
+#         p_type,p_tag = item
+#         if p_type != None:
+#             if not p_type in result:
+#                 result[p_type] = [] if p_tag == None else [p_tag,]
+#             elif p_tag != None:
+#                 result[p_type].append(p_tag)
+            
+#     return result
+
 def get_type_tag_lst(store_id):
-    result = {}
     type_tag_lst =  Store_product.objects.filter(store_id=store_id).values_list('p_type','p_tag').distinct().order_by('p_type','p_tag')
 
+    #we could have return type_tag_lst that containing tuple. however, json don't understand tuple datatype. so lets convert to object
+    result = []
     for item in type_tag_lst:
-        p_type,p_tag = item
-        if p_type != None:
-            if not p_type in result:
-                result[p_type] = [] if p_tag == None else [p_tag,]
-            elif p_tag != None:
-                result[p_type].append(p_tag)
-            
+        p_type,p_tag = item;
+        result.append({'p_type':p_type,'p_tag':p_tag})
     return result

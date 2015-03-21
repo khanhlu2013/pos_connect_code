@@ -15,22 +15,20 @@
 
 var mod = angular.module('model.receipt');
 mod.requires.push.apply(mod.requires,[
-    'share.util.offline_db'
+    'share.offline_db_util'
 ])
 mod.factory('model.receipt.push',
 [
     '$http',
     '$q',
     'model.receipt.dao',
-    'share.util.offline_db.remove_doc',
-    'share.util.offline_db.download_product',
+    'share.offline_db_util',
     'blockUI',
 function(
     $http,
     $q,
     dao,
-    remove_local_db_doc,
-    download_product,
+    offline_db_util,
     blockUI
 ){
 
@@ -40,15 +38,15 @@ function(
 
         var promise_lst = []            
         for(var i = 0;i<receipt_doc_id_lst.length;i++){
-            promise_lst.push(remove_local_db_doc(receipt_doc_id_lst[i]));
+            promise_lst.push(offline_db_util.remove_doc(receipt_doc_id_lst[i]));
         }
         for(var i = 0;i<sp_doc_id_lst.length;i++){
-            promise_lst.push(remove_local_db_doc(sp_doc_id_lst[i]));
+            promise_lst.push(offline_db_util.remove_doc(sp_doc_id_lst[i]));
         }
         //this is a good optimized spot to decide if donwload product is need here
         $q.all(promise_lst).then(
             function(){ 
-                download_product(false).then(
+                offline_db_util.download_product(false).then(
                     function(){
                         defer.resolve();
                     }

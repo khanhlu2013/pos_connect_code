@@ -10,7 +10,7 @@ describe('model.store_product.sku_not_found_handler.select_suggestion.store_prod
     beforeEach(module('model.store_product',function($provide){
         $provide.value('$modalInstance',modal_instance_mock);
         $provide.value('share.ui.confirm',confirm_service_mock);
-        $provide.value('model.store_product.sku_not_found_handler.select_product',select_product_service_mock);
+        $provide.value('model.store_product.sku_not_found_handler.select_suggestion.product',select_product_service_mock);
     }))
     beforeEach(inject(function(_$rootScope_,$controller){
         $rootScope = _$rootScope_;

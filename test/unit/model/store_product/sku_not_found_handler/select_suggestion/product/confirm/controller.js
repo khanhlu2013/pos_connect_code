@@ -52,7 +52,7 @@ describe('model.store_product.sku_not_found_handler.select_suggestion.product.co
     var select_product_mock = jasmine.createSpy();
     beforeEach(module('model.store_product',function($provide){
         $provide.value('$modal',modal_mock);
-        $provide.value('model.store_product.sku_not_found_handler.select_product',select_product_mock);
+        $provide.value('model.store_product.sku_not_found_handler.select_suggestion.product',select_product_mock);
     }));
     beforeEach(inject(function(_$rootScope_,$controller){
         $rootScope = _$rootScope_;

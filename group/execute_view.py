@@ -4,7 +4,7 @@ from group.group_serializer import Group_sp_lst_serializer
 from group import dao
 import json
 from store_product.models import Store_product
-from store_product.sp_couch import store_product_couch_getter
+from store_product import dao_couch
 from util import couch_db_util
 
 def exe(request):
@@ -32,7 +32,7 @@ def exe(request):
 
 
 def update_couch(pid_lst,store,option):
-    sp_lst = store_product_couch_getter.get_lst(pid_lst,store.id)
+    sp_lst = dao_couch.get_lst(pid_lst,store.id)
 
     for sp in sp_lst:
         if 'price' in option: sp['price'] = str(option['price'])

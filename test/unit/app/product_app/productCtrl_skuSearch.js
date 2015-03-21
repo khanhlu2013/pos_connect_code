@@ -18,7 +18,7 @@ describe("product_app -> controller -> sku_search", function () {
             if(sku_not_found_handler != null){
                 ctrlParam['model.store_product.sku_not_found_handler'] = sku_not_found_handler;
             }            
-            return $controller('app.productApp.productCtrl',ctrlParam);
+            return $controller('app.productApp.controller',ctrlParam);
         }
     })); 
 

@@ -2,7 +2,7 @@ var app = angular.module('app.productApp');
 app.requires.push.apply(app.requires,[
     'model.store_product',
     'share.ui',
-    'share.util.offline_db'
+    'share.offline_db_util'
 ]);
 app.controller('app.productApp.controller',
 [
@@ -14,7 +14,8 @@ app.controller('app.productApp.controller',
     'share.ui.alert',
     'share.ui.confirm',
     'model.store_product.sku_not_found_handler',
-    'share.util.offline_db.is_exist',
+    'share.offline_db_util',
+    'model.store_product.search.online.infinite_scroll_handler',
 function(
     $scope,
     $rootScope,
@@ -24,7 +25,8 @@ function(
     alert_service,
     confirm_service,
     sku_not_found_handler,
-    is_offline_db_exist
+    offline_db_util,
+    search_online_infinite_scroll_handler
 ){
     var un_subscribe_group = $rootScope.$on('model.group.manage',function(event,data){
         _refresh_current_sp_lst();
@@ -35,7 +37,7 @@ function(
         $window.open('sale/index_angular/');
     }
     $scope.launch_pos = function(){
-        is_offline_db_exist().then(
+        offline_db_util.is_exist().then(
              function(db_exitance){
                 if(db_exitance){
                     confirm_service('launch sale app?').then(function(){
@@ -83,11 +85,9 @@ function(
         )
     }
     function _refresh_current_sp_lst(){
-        if($scope.name_search_str.length !== 0){
-            $scope.name_search(false/*is_get_next_page*/,false/*ignore_same_search_str*/);
-        }else if($scope.sku_search_str.length !== 0){
-            $scope.sku_search();
-        }              
+        $scope.sp_lst = [];        
+        $scope.name_search_str = '';
+        $scope.sku_search_str = '';             
     }    
     $scope.column_click = function(column_name){
         if($scope.cur_sort_column === column_name){
@@ -104,50 +104,29 @@ function(
             return '';
         }
     }    
-    $scope.name_search = function(is_infinite_scroll){
-       
-        //return if busy
-        if($scope.name_search_busy === true){
-            return;
-        }
 
+    $scope.name_search = function(){
         //clear out search form
         $scope.sku_search_str = "";
         $scope.local_filter = "";
+        $scope.infinite_scroll_reach_the_end = false;
         $scope.name_search_str = $scope.name_search_str.trim();
+        $scope.sp_lst = [];
+
         if($scope.name_search_str.length === 0){
-            $scope.sp_lst = [];
             return;
         }
-
-        var after = null;
-        if(is_infinite_scroll === true){
-            if($scope.name_search_reach_the_end){
-                return;
-            }else{
-                after = $scope.sp_lst.length;
-            }                        
-        }else{
-            after = 0;
-            $scope.sp_lst = [];
-            $scope.name_search_reach_the_end = false;                        
-        }
-
-        $scope.name_search_busy = true;
-        sp_rest_search.by_name($scope.name_search_str,after).then(
+ 
+        sp_rest_search.by_name($scope.name_search_str,0/*after*/).then(
             function(data){
-                if(data.length === 0){
-                    $scope.name_search_reach_the_end = true;
-                }else{
-                    for(var i = 0;i<data.length;i++){
-                        $scope.sp_lst.push(data[i]);
-                    }                        
-                }
+                $scope.sp_lst = data;
 
-                if($scope.sp_lst.length === 0){ 
+                if(data.length === 0){
                     alert_service('no result found for ' + '"' + $scope.name_search_str + '"','info','blue');
+                }else{
+                    $scope.is_blur_infinite_scroll_triggerer_textbox = true;
                 }
-                $scope.name_search_busy = false;
+                
             }
             ,function(reason){ 
                 alert_service(reason); 
@@ -155,13 +134,23 @@ function(
         )
     }
 
+    $scope.infinite_scroll_handler = function(){
+        if($scope.name_search_str.length === 0){
+            //infinite scroll only apply for name search. because sku search does not have 'after' limit. Thus, when name_serch_str is empty, infinite_scroll_handler will do nothing
+            return;
+        }
+        search_online_infinite_scroll_handler($scope,$scope.name_search_str,true/*is_name_only_or_name_sku*/,$scope.sp_lst);
+    }
+
     //SORT
     $scope.cur_sort_column = 'name';
     $scope.cur_sort_desc = false;        
 
+    $scope.infinite_scroll_reach_the_end = false; //WHY DO WE NEED THIS VAR? read the story inside search_online_infinite_scroll_handler()
+    $scope.is_blur_infinite_scroll_triggerer_textbox = false;   
+
     $scope.sp_lst = [];        
-    $scope.name_search_reach_the_end = false;
     $scope.name_search_str = '';
     $scope.sku_search_str = '';
-    $scope.name_search_busy = false; 
+
 }]);

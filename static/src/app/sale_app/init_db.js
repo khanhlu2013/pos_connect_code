@@ -1,6 +1,5 @@
 var mod = angular.module('app.saleApp');
 mod.requires.push.apply(mod.requires,[
-    'share.util.offline_db',
     'model.receipt',
     'share.offline_db_util'
 ])
@@ -8,20 +7,16 @@ mod.factory('app.saleApp.init_db',
 [
     '$q',
     'model.receipt.push',
-    'share.util.offline_db.get',
     'model.receipt.dao',
     'model.store_product.dao',
     'share_setting',
-    'share.util.offline_db.download_product',
     'share.offline_db_util',
 function(
     $q,
     push_receipt,
-    get_offline_db,
     receipt_dao,
     sp_dao,
     share_setting,
-    download_product,
     offline_db_util
 ){
 

@@ -1,0 +1,49 @@
+<div class='modal-header'>
+    <h3 class='modal-title'>search</h3>
+</div>
+
+<div 
+    style="overflow:auto;min-height:650px;max-height:650px"
+    id="inifnite_scroll_parent_sp_search_single"
+    class='modal-body'>
+    <input
+        id='sp_ll_app/service/search/name_sku_online_dlg/single/search_txt'
+        type='text'
+        ng-model='search_str'
+        ng-enter='search("user")'
+        placeholder='name/sku'
+        focus-me={{true}}
+        blur-me='is_blur_infinite_scroll_triggerer_textbox'>
+    <input ng-model='local_filter' type='text' placeholder='local filter'>
+    <table 
+        class='table table-hover table-bordered table-condensed table-striped'
+        infinite-scroll-container="'#inifnite_scroll_parent_sp_search_single'"
+        infinite-scroll="infinite_scroll_handler()" 
+        infinite-scroll-parent="true"
+        infinite-scroll-distance='0'>
+        <tr>
+            <th>name</th>
+            <th>price</th>
+            <th>select</th>
+        </tr>
+
+        <tr ng-repeat='search_sp_single in sp_lst | filter:local_filter'>
+            <td>{{search_sp_single.name}}</td>
+            <td>{{search_sp_single.price|currency}}</td>
+            <td class='alncenter'>
+                <button 
+                    class='btn btn-primary btn-xs' 
+                    ng-click='select(search_sp_single)'>select
+                </button>
+            </td>
+        </tr>
+    </table>
+
+    <div ng-hide='message.length == 0'>
+        <pre>{{message}}</pre>
+    </div>        
+</div>
+
+<div class='modal-footer'>
+    <button class='btn btn-warning' ng-click='cancel()'>cancel</button>
+</div>

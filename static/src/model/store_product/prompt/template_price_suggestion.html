@@ -1,0 +1,21 @@
+<div ng-hide='is_no_suggestion("price")' class='btn-group' dropdown>
+    <button
+        id='sp_app/service/prompt/suggest/main/price'
+        ng-click='sp.price=get_suggest_main("price")'
+        type='button'
+        class='btn btn-primary'>
+            {{get_suggest_main("price")|currency}}
+    </button>
+    <button
+        id='sp_app/service/prompt/suggest/extra/price'
+        ng-disabled='!is_many_suggestion("price")'
+        type='button'
+        class='btn btn-primary dropdown-toggle'>
+            <span class='caret'></span>
+    </button>
+    <ul class='dropdown-menu' role='menu'>
+        <li ng-repeat='extra in get_suggest_extra("price")|orderBy:"valueOf()'>
+            <a ng-click='sp.price=extra' href='#'>{{extra|currency}}</a>
+        </li>
+    </ul>
+</div>

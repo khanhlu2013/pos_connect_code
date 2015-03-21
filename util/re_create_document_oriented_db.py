@@ -1,9 +1,8 @@
-from util import couch_util
+from util import couch_db_util
 from store.cm import insert_store_2_couch
 from store.models import Store
 from store_product.models import Store_product
 from store_product import dao
-from store_product.sp_couch.document import Store_product_document
 from store_product.cm import insert_sp_2_couch
 from store_product.models import Kit_breakdown_assoc
 from django.conf import settings
@@ -59,9 +58,9 @@ def exe(store_id,switch_couch_admin_name=None,switch_couch_admin_pwrd=None,switc
             ,store_id = store_id
             ,product_id = sp.product.id
             ,name = sp.name
-            ,price = couch_util.decimal_2_str(sp.price)
-            ,value_customer_price = couch_util.decimal_2_str(sp.value_customer_price)
-            ,crv = couch_util.decimal_2_str(sp.crv)
+            ,price = couch_db_util.decimal_2_str(sp.price)
+            ,value_customer_price = couch_db_util.decimal_2_str(sp.value_customer_price)
+            ,crv = couch_db_util.decimal_2_str(sp.crv)
             ,is_taxable = sp.is_taxable
             ,is_sale_report = sp.is_sale_report
             ,p_type = sp.p_type
@@ -76,9 +75,9 @@ def exe(store_id,switch_couch_admin_name=None,switch_couch_admin_pwrd=None,switc
 def _get_store_db(store_id,name,pwrd,url):
 
     try:
-        url = couch_util.get_couch_access_url(name=name,pwrd=pwrd,url=url)
+        url = couch_db_util.get_couch_access_url(name=name,pwrd=pwrd,url=url)
         server = Server(url)        
-        store_db_name = couch_util.get_store_db_name(store_id)
+        store_db_name = couch_db_util.get_store_db_name(store_id)
         return server[store_db_name]
     except ResourceNotFound:
         return None        

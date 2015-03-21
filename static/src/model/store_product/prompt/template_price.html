@@ -1,0 +1,22 @@
+<div class='form-group'>
+    <label class='col-sm-4 control-label'>Price:</label>
+    <div class='col-sm-8'>
+        <input 
+            id='sp_app/service/prompt/price_txt' 
+            name='price'
+            ng-model='sp.price' 
+            valid-float='gt0'
+            required>
+        <div ng-include='model.store_product.prompt.template_price_suggestion.html'></div>
+        <label 
+            class='error' 
+            ng-show='form.price.$error.required'>
+            require
+        </label>
+        <label 
+            class='error' 
+            ng-show='form.price.$error.validFloat'>
+            invalid
+        </label>
+    </div>
+</div>

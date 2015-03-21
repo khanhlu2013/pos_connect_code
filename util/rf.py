@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from util import couch_util
+from util import couch_db_util
 from couchdb import Server
 from product.models import Product,Unit,ProdSkuAssoc,Sku
 from store.models import Store
@@ -37,7 +37,7 @@ def delete_data():
     Sku.objects.all().delete()
     Store.objects.all().delete()
 
-    url = couch_util.get_couch_access_url(name='khanhlu82',pwrd='_Mother3169_',url='khanhlu82.cloudant.com')
+    url = couch_db_util.get_couch_access_url(name='khanhlu82',pwrd='_Mother3169_',url='khanhlu82.cloudant.com')
     server = Server(url)
     for db in server:
         del server[db]

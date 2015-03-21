@@ -1,23 +1,26 @@
 var mod = angular.module('model.store_product');
 mod.requires.push.apply(mod.requires,[
-    'share.ui'
+    'share.ui',
+    'share.validation.number',
 ]);
 
 mod.factory('model.store_product.prompt',
 [
-     '$modal'
-    ,'$http'
-    ,'$q'
-    ,'model.store_product.search.online.single'
-    ,'model.store_product.Store_product'
-    ,'share.ui.alert'
-,function(
-     $modal
-    ,$http
-    ,$q
-    ,search_single_sp_dlg
-    ,Store_product
-    ,alert_service
+    '$modal',
+    '$http',
+    '$q',
+    'model.store_product.search.online.single',
+    'model.store_product.Store_product',
+    'share.ui.alert',
+    'model.store_product.type_tag_util',
+function(
+    $modal,
+    $http,
+    $q,
+    search_single_sp_dlg,
+    Store_product,
+    alert_service,
+    type_tag_util
 ){
     //- NAME -------------------------------------------------------------------------------------------------------------------------------------------------------
     var template_name_main_suggestion = 
@@ -91,9 +94,10 @@ mod.factory('model.store_product.prompt',
         '<div class="form-group">' +
             '<label class="col-sm-4 control-label">Price:</label>' +
             '<div class="col-sm-8">' +
-                '<input id="sp_app/service/prompt/price_txt" name="price" ng-model="sp.price" type="number" size="45" required>' +
+                '<input id="sp_app/service/prompt/price_txt" name="price" ng-model="sp.price" valid-float="gt0" required>' +
                 template_price_suggestion +
-                '<label class="error" ng-show="form.price.$invalid">require</label>' +
+                '<label class="error" ng-show="form.price.$error.required">require</label>' +
+                '<label class="error" ng-show="form.price.$error.validFloat">invalid</label>' +
             '</div>' +
         '</div>'
     ;
@@ -130,10 +134,10 @@ mod.factory('model.store_product.prompt',
         '<div class="form-group">' +
             '<label class="col-sm-4 control-label">Crv:</label>' +
             '<div class="col-sm-8">' +
-                '<input id="sp_app/service/prompt/crv_txt" name="crv" ng-model="sp.crv" ng-disabled="{{sp.is_kit()}}" type="number" size="45">' +
+                '<input id="sp_app/service/prompt/crv_txt" name="crv" ng-model="sp.crv" ng-disabled="{{sp.is_kit()}}" valid-float="gte0" >' +
                 template_crv_suggestion +
                 '<label class="error" ng-show="form.crv.$invalid">' +
-                    'invalid input' +
+                    'invalid' +
                 '</label>' +                                                            
             '</div>' +
         '</div>'
@@ -209,16 +213,15 @@ mod.factory('model.store_product.prompt',
         '<div class="form-group">' +
             '<label class="col-sm-4 control-label">Cost:</label>' +
             '<div class="col-sm-8">' +
-                '<input id="sp_app/service/prompt/cost_txt" name="cost" ng-model="sp.cost" ng-disabled="{{sp.is_kit()}}" type="number" size="45"}}"">' +
+                '<input id="sp_app/service/prompt/cost_txt" name="cost" ng-model="sp.cost" ng-disabled="{{sp.is_kit()}}" valid-float="gt0">' +
                 '<label ng-show="sp.get_markup()!== null && sp.get_markup()!== NaN"> markup: {{sp.get_markup()}}%</label>' +
                 template_cost_suggestion +
                 '<label class="error" ng-show="form.cost.$invalid">' +
-                    'invalid number' +
+                    'invalid' +
                 '</label>' +
             '</div>' +
         '</div>'
     ;        
-
 
     //- EXTRA -------------------------------------------------------------------------------------------------------------------------------------------------------
     var template_sale_report =
@@ -230,26 +233,11 @@ mod.factory('model.store_product.prompt',
         '</div>'
     ;
 
-    var template_type_tag = 
-        '<div class="form-group">' +
-            '<label class="col-sm-4 control-label">Type:</label>' +
-            '<div class="col-sm-8">' +
-                '<input id="sp_app/service/prompt/p_type_txt" ng-model="sp.p_type" typeahead="item.type for item in lookup_type_tag | filter:$viewValue | limitTo:8" type="text" size="45">' +
-            '</div>' +
-        '</div>' +
-        '<div class="form-group">' +
-            '<label class="col-sm-4 control-label">Tag:</label>' +
-            '<div class="col-sm-8">' +
-                '<input id="sp_app/service/prompt/p_tag_txt" ng-model="sp.p_tag" type="text" size="45">' +
-            '</div>' +
-        '</div>'
-    ;
-
     var template_vendor =
         '<div class="form-group">' +
             '<label class="col-sm-4 control-label">Vendor:</label>' +
             '<div class="col-sm-8">' +
-                '<input id="sp_app/service/prompt/vendor_txt" ng-model="sp.vendor" type="text" size="45">' +
+                '<input id="sp_app/service/prompt/vendor_txt" ng-model="sp.vendor" type="text">' +
             '</div>' +    
         '</div>'
     ;
@@ -258,9 +246,9 @@ mod.factory('model.store_product.prompt',
         '<div class="form-group">' +
             '<label class="col-sm-4 control-label">Buydown:</label>' +
             '<div class="col-sm-8">' +
-                '<input id="sp_app/service/prompt/buydown_txt" name="buydown" ng-disabled="{{sp.is_kit()}}" ng-model="sp.buydown" type="number" size="45"}}">' +    
+                '<input id="sp_app/service/prompt/buydown_txt" name="buydown" ng-disabled="{{sp.is_kit()}}" ng-model="sp.buydown" valid-float="gte0"}}">' +    
                 '<label class="error" ng-show="form.buydown.$invalid">' +
-                    'invalid input' +
+                    'invalid' +
                 '</label>' +                                     
             '</div>' +
         '</div>'
@@ -270,9 +258,9 @@ mod.factory('model.store_product.prompt',
         '<div class="form-group">' +
             '<label class="col-sm-4 control-label">value customer price:</label>' +
             '<div class="col-sm-8">' +
-                '<input id="sp_app/service/prompt/value_customer_price_txt" name="value_customer_price" ng-model="sp.value_customer_price" type="number" size="45" />' +
+                '<input id="sp_app/service/prompt/value_customer_price_txt" name="value_customer_price" ng-model="sp.value_customer_price" valid-float="gt0" />' +
                 '<label class="error" ng-show="form.value_customer_price.$invalid">' +
-                    'invalid number' +
+                    'invalid' +
                 '</label>' +
             '</div>' +
         '</div>' 
@@ -303,7 +291,7 @@ mod.factory('model.store_product.prompt',
                     template_cost +
                     '<hr>' +
                     template_sale_report +
-                    template_type_tag +
+                    '<div ng-include="\'model.store_product.prompt.template_type_tag.html\'"></div>' +
                     template_vendor +
                     template_buydown +
                     template_value_customer_price +
@@ -325,15 +313,6 @@ mod.factory('model.store_product.prompt',
         '</div>'
     ;      
 
-    function process(lookup_type_tag){
-        var result = [];
-        for(item in lookup_type_tag){
-            var obj = {type:item,tag_lst:lookup_type_tag[item]}
-            result.push(obj);
-        }
-        return result;
-    }
-
     var ModalCtrl = function($scope,$modalInstance,$filter,original_sp,suggest_product,duplicate_sp,original_sku,lookup_type_tag){
         $scope.suggest_product = suggest_product;
         $scope.duplicate_sp = duplicate_sp;
@@ -343,7 +322,6 @@ mod.factory('model.store_product.prompt',
         initial_blank_sp = new Store_product();
         initial_blank_sp.is_sale_report = true;
         initial_blank_sp.is_taxable = false;
-        $scope.lookup_type_tag = process(lookup_type_tag);
 
         //pending data for storing prompt
         $scope.sku = original_sku;            
@@ -386,6 +364,24 @@ mod.factory('model.store_product.prompt',
             $scope._suggest_extra_is_taxable = $scope.suggest_product.get_suggest_extra('is_taxable');
             $scope._suggest_extra_price = $scope.suggest_product.get_suggest_extra('price');
             $scope._suggest_extra_cost = $scope.suggest_product.get_suggest_extra('cost');           
+        }
+        $scope.lookup_type_tag = lookup_type_tag.filter(function(item){
+            return item.p_type != null && item.p_tag != null;
+        });
+        $scope.lookup_type = function(){
+            return type_tag_util.get_type_lst($scope.lookup_type_tag);
+        }
+        $scope.lookup_tag = function(type){
+            return type_tag_util.get_tag_lst($scope.lookup_type_tag,type);
+        }
+        $scope.update_selected_type_tag = function(){
+            if($scope.selected_type_tag != null){
+                $scope.sp.p_type = $scope.selected_type_tag.p_type;
+                $scope.sp.p_tag = $scope.selected_type_tag.p_tag;
+            }else{
+                $scope.sp.p_type = null;
+                $scope.sp.p_tag = null;      
+            }
         }
         $scope.get_suggest_main = function(field){
             if(field === 'name'){
@@ -507,7 +503,7 @@ mod.factory('model.store_product.prompt',
     }
     ModalCtrl.$inject = ['$scope','$modalInstance','$filter','original_sp','suggest_product','duplicate_sp','original_sku','lookup_type_tag'];
 
-    return function(original_sp,suggest_product,duplicate_sp,sku,is_operate_offline){
+    return function(original_sp,suggest_product,duplicate_sp,sku,is_internet_disconnected){
         var dlg = $modal.open({
             template: template,
             controller: ModalCtrl,
@@ -520,22 +516,11 @@ mod.factory('model.store_product.prompt',
                 ,original_sku : function(){return sku}
                 ,lookup_type_tag : function (){
                     var defer = $q.defer();
-                    if(is_operate_offline){
-                        defer.resolve([]);
+                    if(is_internet_disconnected){
+                        defer.resolve(type_tag_util.get_cache());
                     }else{
-                        $http({
-                            url:'/sp/get_lookup_type_tag',
-                            method:'GET'
-                        }).then(
-                             function(data){
-                                defer.resolve(data.data);
-                            }
-                            ,function(reason){
-                                defer.reject(reason);
-                            }
-                        )                            
+                        defer.resolve(type_tag_util.get());
                     }
-
                     return defer.promise;
                 }                    
             }

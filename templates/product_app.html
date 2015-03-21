@@ -9,7 +9,6 @@
     <script type="text/javascript">
         var _GLOBAL_SETTING_ = {}
         _GLOBAL_SETTING_.STATIC_URL                 = "{{STATIC_URL}}";
-        _GLOBAL_SETTING_.IS_OFFLINE                 = "{{IS_OFFLINE}}";
         _GLOBAL_SETTING_.STORE_ID                   = Number("{{STORE_ID}}");
         _GLOBAL_SETTING_.TAX_RATE                   = {{TAX_RATE}};
         _GLOBAL_SETTING_.COUCH_SERVER_URL           = "{{COUCH_SERVER_URL}}";
@@ -68,8 +67,9 @@
                             class="form-control" 
                             placeholder="name" 
                             onClick="this.select();" 
-                            ng-enter="name_search(false)"
+                            ng-enter="name_search()"
                             ng-model="name_search_str"
+                            blur-me="is_blur_infinite_scroll_triggerer_textbox"
                         >
                     </div>
                 </ul>
@@ -122,7 +122,7 @@
         </div><!-- /.container-fluid -->
     </nav>  
 
-    <div ng-hide="sp_lst.length === 0" infinite-scroll="name_search(true)" infinite-scroll-distance='0'>
+    <div ng-hide="sp_lst.length === 0" infinite-scroll="infinite_scroll_handler()" infinite-scroll-distance='0'>
         {% verbatim sp_table %}        
         <table id='product_tbl' class="table table-hover table-bordered table-condensed table-striped">
             <tr>

@@ -1,6 +1,5 @@
 var mod = angular.module('model.store_product');
 mod.requires.push.apply(mod.requires,[
-    'share.util.offline_db',
     'model.product',
     'share.util',
     'share.offline_db_util'
@@ -8,7 +7,6 @@ mod.requires.push.apply(mod.requires,[
 mod.factory('model.store_product.dao',
 [
     '$q',
-    'share.util.offline_db.get',
     'model.store_product.Store_product',
     'model.store_product.Kit_breakdown_assoc',
     'model.product.Product',
@@ -19,7 +17,6 @@ mod.factory('model.store_product.dao',
     'share.offline_db_util',
 function(
     $q,
-    get_offline_db,
     Store_product,
     Kit_breakdown_assoc,
     Product,
@@ -102,7 +99,7 @@ function(
         blockUI.start('search sp by product_id: ' + product_id);
         var defer = $q.defer();
 
-        var db = get_offline_db();
+        var db = offline_db_util.get();
         var view_name = offline_db_util.get_pouch_view_name(share_setting.VIEW_BY_PRODUCT_ID);
         db.query(view_name,{key:product_id}).then(function(lst){
             if(lst.rows.length == 0){ defer.resolve(null); blockUI.stop();}
@@ -122,7 +119,7 @@ function(
     function by_sp_doc_id(sp_doc_id){
         blockUI.start('search sp by doc_id: ' + sp_doc_id);
         var defer = $q.defer();
-        var db = get_offline_db();
+        var db = offline_db_util.get();
         db.get(sp_doc_id).then(
             function(pouch_result){
                 _post_search_aka_recursive_search_for_bd_and_form_sp(pouch_result).then(
@@ -150,7 +147,7 @@ function(
         var return_lst = [];
         var promise_lst = [];
 
-        var db = get_offline_db();
+        var db = offline_db_util.get();
         var view_name = offline_db_util.get_pouch_view_name(share_setting.VIEW_BY_SKU);
         db.query(view_name,{key:sku}).then(function(result){
             for(var i=0;i<result.rows.length;i++){

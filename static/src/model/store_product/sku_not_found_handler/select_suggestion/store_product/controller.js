@@ -31,7 +31,7 @@ function(
         )
     }
     $scope.select_product = function(){
-        var select_product_service = $injector.get('model.store_product.sku_not_found_handler.select_product')
+        var select_product_service = $injector.get('model.store_product.sku_not_found_handler.select_suggestion.product')
         select_product_service(product_lst,my_sp_lst,sku).then(
             function(response){
                 $modalInstance.close(response);

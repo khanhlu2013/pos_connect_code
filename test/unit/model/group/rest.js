@@ -6,9 +6,9 @@ describe('model.group.rest',function(){
     beforeEach(module('model.group',function($provide){
         $provide.value('model.group.Group',Group_mock)
     }))
-    beforeEach(inject(function($injector){
+    beforeEach(inject(function($injector,_$httpBackend_){
         group_rest = $injector.get('model.group.rest');
-        $httpBackend = $injector.get('$httpBackend');
+        $httpBackend = _$httpBackend_;
     }))
     afterEach(function() {
        $httpBackend.verifyNoOutstandingExpectation();
@@ -96,7 +96,7 @@ describe('model.group.rest',function(){
             function(data){
                 create_ed_group = data;
             }
-        )
+        );
 
         //before flushing post request, lets mock Group.build
         var a_dummy_group_after_build = 'a_dummy_group_after_build';

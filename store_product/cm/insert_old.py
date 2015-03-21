@@ -1,7 +1,7 @@
 from store_product.models import Store_product
 from product.models import ProdSkuAssoc
 from store_product.cm import insert_sp_2_couch
-from util import couch_util
+from util import couch_db_util
 
 def exe(
      product_id
@@ -44,9 +44,9 @@ def exe(
         ,store_id = store_id
         ,product_id = product_id
         ,name = name
-        ,price = couch_util.decimal_2_str(price)
-        ,value_customer_price = couch_util.decimal_2_str(value_customer_price)
-        ,crv = couch_util.decimal_2_str(crv)
+        ,price = couch_db_util.decimal_2_str(price)
+        ,value_customer_price = couch_db_util.decimal_2_str(value_customer_price)
+        ,crv = couch_db_util.decimal_2_str(crv)
         ,is_taxable = is_taxable
         ,is_sale_report = is_sale_report
         ,p_type = p_type

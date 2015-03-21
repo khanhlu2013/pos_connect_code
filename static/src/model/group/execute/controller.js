@@ -1,20 +1,18 @@
 var mod = angular.module('model.group');
 mod.requires.push.apply(mod.requires,[
     'share.ui',
-    'share.util.offline_db'
+    'share.offline_db_util'
 ]);
 
 mod.controller('model.group.execute.controller',
 [
     '$scope',
     '$modalInstance',
-
-
     '$http',
     'share.ui.alert',
     'model.group.Group',
     'model.group.rest',
-    'share.util.offline_db.download_product',    
+    'share.offline_db_util',    
     'group',
 function(
     $scope,
@@ -23,7 +21,7 @@ function(
     alert_service,
     Group,
     group_rest,
-    download_product,
+    offline_db_util,
     group    
 ){
     $scope.group = group;
@@ -59,7 +57,7 @@ function(
     $scope.ok = function(){
         group_rest.execute_item($scope.group.id,$scope.option).then(
             function(group_response_data){
-                download_product(false/*is_force*/).then(
+                offline_db_util.download_product(false/*is_force*/).then(
                     function(){
                         $scope.group = Group.build(group_response_data);
                         alert_service('execute is complete successfully','info','green');

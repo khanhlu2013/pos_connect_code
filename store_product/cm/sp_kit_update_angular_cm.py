@@ -1,5 +1,5 @@
 from store_product.models import Store_product,Kit_breakdown_assoc
-from store_product.sp_couch import store_product_couch_getter
+from store_product import dao_couch
 from store_product import sp_serializer
 from util import couch_db_util
 
@@ -50,7 +50,7 @@ def exe_couch(kit_pid,store_id,assoc_json_lst):
     """
        assoc_json_lst: {kit,breakdown,qty}
     """        
-    sp = store_product_couch_getter.exe(kit_pid,store_id)
+    sp = dao_couch.get_item(kit_pid,store_id)
 
     if len(assoc_json_lst) == 0:
         sp['breakdown_assoc_lst'] = []

@@ -1,0 +1,22 @@
+<div ng-hide='is_no_suggestion("name")' class='btn-group' dropdown>
+    <button
+        id='sp_app/service/prompt/suggest/main/name'
+        ng-click='sp.name=get_suggest_main("name").value'
+        type='button'
+        class='btn btn-primary'>
+            {{get_suggest_main('name').value}}
+    </button>
+
+    <button
+        id='sp_app/service/prompt/suggest/extra/name'
+        ng-disabled='!is_many_suggestion("name")'
+        type='button'
+        class='btn btn-primary dropdown-toggle'>
+            <span class='caret'></span>
+    </button type='button'>
+    <ul class='dropdown-menu' role='menu'>
+        <li ng-repeat='extra in get_suggest_extra("name")|orderBy:"percent":true'>
+            <a ng-click='sp.name=extra.value' href='#'>{{extra.value}} - ({{extra.percent}}%)</a>
+        </li>
+    </ul>
+</div>

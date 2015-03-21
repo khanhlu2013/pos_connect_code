@@ -1,0 +1,32 @@
+<div class="form-group">
+    <label class="col-sm-4 control-label">Type - tag:</label>
+    <div class="col-sm-8">
+        <select 
+            ng-options="((item.p_type == false ? 'none' : item.p_type) + ' - ' + (item.p_tag == false ? 'none' : item.p_tag)) group by item.p_type for item in lookup_type_tag" 
+            ng-model="selected_type_tag" ng-change="update_selected_type_tag()">
+            <option value="">-- select type tag --</option>
+        </select>
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-sm-4 control-label">Type:</label>
+    <div class="col-sm-8">
+        <input 
+            id="sp_app/service/prompt/p_type_txt" 
+            ng-model="sp.p_type" 
+            typeahead="item for item in lookup_type() | filter:$viewValue | limitTo:8"
+            type="text">
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-sm-4 control-label">Tag:</label>
+    <div class="col-sm-8">
+        <input 
+            id="sp_app/service/prompt/p_tag_txt" 
+            ng-model="sp.p_tag" 
+            typeahead="item for item in lookup_tag(sp.p_type) | filter:$viewValue | limitTo:8"
+            type="text">
+    </div>
+</div>

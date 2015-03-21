@@ -1,4 +1,4 @@
-describe('model.store_product.sku_not_found_handler.select_suggestion.product.main.html',function(){
+describe('model.store_product.sku_not_found_handler.select_suggestion.product.template.html',function(){
     var view,scope,createControllerAndCompileTemplate;
     var modal_instance_mock = {
         close:jasmine.createSpy(),
@@ -24,7 +24,7 @@ describe('model.store_product.sku_not_found_handler.select_suggestion.product.ma
     }))
     beforeEach(inject(function($templateCache,$compile,$controller,$rootScope){
         createControllerAndCompileTemplate = function(product_lst,my_sp_lst,sku){
-            var html = $templateCache.get('model.store_product.sku_not_found_handler.select_suggestion.product.main.html');
+            var html = $templateCache.get('model.store_product.sku_not_found_handler.select_suggestion.product.template.html');
             scope = $rootScope.$new();
             $controller('model.store_product.sku_not_found_handler.select_suggestion.product.controller',{
                 $scope : scope,

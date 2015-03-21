@@ -1,4 +1,4 @@
-from store_product.sp_couch import store_product_couch_getter
+from store_product import dao_couch
 from store_product.models import Store_product
 from util import couch_db_util
 
@@ -67,7 +67,7 @@ def exe_couch(
     ,buydown
 ):
     #retrieve
-    sp = store_product_couch_getter.exe(product_id,store_id)
+    sp = dao_couch.get_item(product_id,store_id)
     
     #update
     sp['name'] = name

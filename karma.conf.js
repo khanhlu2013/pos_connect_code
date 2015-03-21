@@ -30,7 +30,8 @@ module.exports = function(config) {
 
     // list of files to exclude
     exclude: [
-        'static/src/app/product_app/init_share_setting.js',        
+        'static/src/app/product_app/init_share_setting.js',
+        'static/src/app/sale_app/init_share_setting.js',        
     ],
 
 

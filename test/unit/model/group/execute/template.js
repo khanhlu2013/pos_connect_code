@@ -14,14 +14,16 @@ describe('model.group.execute',function(){
         var Group_mock = {
             build : jasmine.createSpy()
         }
-        var download_product_mock = jasmine.createSpy();
+        var offline_db_util_mock = {
+            download_product : jasmine.createSpy()
+        }        
         var group_rest_mock = {}
         beforeEach(module('app.productApp.partial'));
         beforeEach(module('model.group',function($provide){
             $provide.value('$modalInstance',modal_instance_mock);
             $provide.value('share.ui.alert',share_ui_alert_mock);
             $provide.value('model.group.Group',Group_mock);
-            $provide.value('share.util.offline_db.download_product',download_product_mock);
+            $provide.value('share.offline_db_util',offline_db_util_mock);
             $provide.value('model.group.rest',group_rest_mock);
         }));
         beforeEach(inject(function(_$rootScope_,$compile,$templateCache,$controller){

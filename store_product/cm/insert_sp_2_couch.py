@@ -1,4 +1,4 @@
-from store_product.sp_couch.document import Store_product_document
+from store_product.models import Store_product_document
 from django.conf import settings
 from util import couch_db_util
 

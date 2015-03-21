@@ -10,7 +10,10 @@ describe('model.group.execute.controller',function(){
         build : jasmine.createSpy()
     }
     var share_ui_alert_mock = jasmine.createSpy();
-    var download_product_mock = jasmine.createSpy();
+    var offline_db_util_mock = {
+        download_product : jasmine.createSpy()
+    }
+
     var group_mock = {};
 
     var ng_id_str_2_jquery_id_str = function(str){
@@ -24,7 +27,7 @@ describe('model.group.execute.controller',function(){
         $provide.value('$modalInstance',modal_instance_mock);
         $provide.value('share.ui.alert',share_ui_alert_mock);
         $provide.value('model.group.Group',Group_mock);
-        $provide.value('share.util.offline_db.download_product',download_product_mock);
+        $provide.value('share.offline_db_util',offline_db_util_mock);
         $provide.value('model.group.rest',group_rest_mock);
         $provide.value('group',group_mock);
     }))
@@ -110,7 +113,7 @@ describe('model.group.execute.controller',function(){
 
         //setup promise for download product
         var download_product_defer = $q.defer();
-        download_product_mock.and.returnValue(download_product_defer.promise);
+        offline_db_util_mock.download_product.and.returnValue(download_product_defer.promise);
 
         //execute test code
         var a_dummy_group = {id:'a_dummy_id'};
@@ -124,7 +127,7 @@ describe('model.group.execute.controller',function(){
         var a_dummy_execute_item_response = 'a_dummy_execute_item_response';
         execute_item_defer.resolve(a_dummy_execute_item_response);
         $rootScope.$digest();
-        expect(download_product_mock).toHaveBeenCalledWith(false/*is_force*/);
+        expect(offline_db_util_mock.download_product).toHaveBeenCalledWith(false/*is_force*/);
 
         //setup donwload_product response. The next step is Group.build
         download_product_defer.resolve();

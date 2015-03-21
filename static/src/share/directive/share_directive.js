@@ -31,7 +31,8 @@ mod.directive('blurMe', ['$timeout','$parse',function($timeout, $parse) {
             // on blur event:
             element.bind('focus', function() {
                 if(model.assign !== undefined){
-                  scope.$apply(model.assign(scope, false));
+                    model.assign(scope, false);
+                    // scope.$apply(model.assign(scope, false));
                 }
             });
         }
@@ -47,9 +48,9 @@ mod.directive('focusMe', ['$timeout','$parse',function($timeout, $parse) {
                 if(value === true) { 
                     $timeout(function() {
                         element[0].focus(); 
-                        if(element[0].select !== undefined){
-                             element[0].select();
-                        }
+                        // if(element[0].select !== undefined){
+                        //      element[0].select();
+                        // }
                     });
                 }
             });

@@ -12,7 +12,7 @@ describe('model.store_product.sku_not_found_handler.select_suggestion.product.co
 
     beforeEach(module('model.store_product',function($provide){
         $provide.value('model.store_product.sku_not_found_handler.select_suggestion.product.confirm',select_product_confirmation_mock)
-        $provide.value('model.store_product.sku_not_found_handler.select_sp',select_sp_service_mock);
+        $provide.value('model.store_product.sku_not_found_handler.select_suggestion.store_product',select_sp_service_mock);
         $provide.value('$modalInstance',modal_instance_mock);
         $provide.value('$modal',modal_mock);
     }));

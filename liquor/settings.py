@@ -1,7 +1,8 @@
 from unipath import Path
-PROJECT_ROOT = Path(__file__).ancestor(2)
 import os
 import sys
+
+PROJECT_ROOT = Path(__file__).ancestor(2)
 
 INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
@@ -13,7 +14,6 @@ INSTALLED_APPS = (
     ,'django.contrib.messages'
     ,'django.contrib.staticfiles'
     ,'django.contrib.admin'
-    ,'django.contrib.sites'
     # ,'debug_toolbar'
     ,'rest_framework'
     ,'django_extensions'
@@ -23,7 +23,6 @@ INSTALLED_APPS = (
     ,'product'
     ,'store'
     ,'store_product'
-    ,'sale'
     ,'tax'
     ,'sale_shortcut'
     ,'mix_match'
@@ -52,6 +51,7 @@ DATABASES = {'default': dj_database_url.config()}
 #- STATICFILES_DIRS and STATICFILES_FINDERS are ONLY need for LOCAL development because Django will host these static file on its local server for us. In deployment, we will host this static file our self using amazon s3, and access it though the static_url setting
 STATICFILES_DIRS = ( PROJECT_ROOT.child('static'), )
 STATICFILES_FINDERS = ( 'django.contrib.staticfiles.finders.FileSystemFinder', )
+STATIC_ROOT = ''
 
 #- COUCH, POUCH
 STORE_DB_PREFIX = os.environ.get('STORE_DB_PREFIX') # I should have named this as pouch-store-db-prefix instead. this variable is used for local development only. Before i protractor, i hardcode pouchdb prefix. the came protractor, and i want to separte pouchdb used by protractor and local-without-protractor. But then only care about protractor. so i guess i could hardcode this again. 
@@ -68,7 +68,7 @@ COUCH_LOCAL_URL = os.environ.get('COUCH_LOCAL_URL') #only apply when we use loca
 RECEIPT_DOCUMENT_TYPE = 'receipt'
 
 #- infinite scroll pagination
-SP_PAGE_NAME_SEARCH_PAGINATION_SIZE = 50
+SP_PAGE_NAME_SEARCH_PAGINATION_SIZE = 50 #change back to 50
 
 #- sale shortcut
 SHORTCUT_ROW_COUNT = 5
@@ -141,9 +141,7 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
-STATIC_ROOT = ''
 SITE_ID = 1 #is this related to staging?
-ALLOWED_HOSTS = []
 ALLOWED_HOSTS = ['*']
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 

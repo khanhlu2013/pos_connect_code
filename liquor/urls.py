@@ -4,7 +4,6 @@ from django.contrib import admin
 from django.utils.functional import curry
 from django.views.defaults import server_error
 from django.conf import settings
-import sale.urls
 import sale_shortcut.urls
 import tax.urls
 import group.urls
@@ -29,7 +28,6 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)), 
     url(r'^account/login/$','django.contrib.auth.views.login',{'template_name':('dist/login.html' if settings.IS_USE_CDN else 'login.html')},name = settings.LOGIN_URL),
     url(r'^account/logout/$','django.contrib.auth.views.logout_then_login',name = settings.LOGOUT_URL),
-    url(r'^sale/',include(sale.urls,namespace='sale')),
     url(r'^sale_shortcut/',include(sale_shortcut.urls,namespace='sale_shortcut')),
     url(r'^tax/',include(tax.urls,namespace='tax')),
     url(r'^store/',include(store.urls,namespace='store')),
@@ -40,7 +38,6 @@ urlpatterns = patterns('',
     url(r'^report/',include(report.urls,namespace='report')),
     url(r'^receipt/',include(receipt.urls,namespace='receipt')),    
     url(r'^payment_type/',include(payment_type.urls)),        
-
 )
 
 handler500 = curry(server_error, template_name='500.html')

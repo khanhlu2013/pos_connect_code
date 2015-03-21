@@ -1,5 +1,5 @@
 from product.models import Product
-from store_product.sp_couch import store_product_couch_getter
+from store_product import dao_couch
 from store_product import sp_serializer
 from util import couch_db_util
 from store_product.models import Store_product
@@ -24,7 +24,7 @@ def exe(product_id,store_id,sku_str):
 
 
 def exe_couch(product_id,store_id,sku_str):
-    prod_bus_assoc_doc = store_product_couch_getter.exe(product_id,store_id)
+    prod_bus_assoc_doc = dao_couch.get_item(product_id,store_id)
     sku_lst = prod_bus_assoc_doc['sku_lst']
 
     for idx,cur_sku in enumerate(sku_lst):

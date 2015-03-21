@@ -1,5 +1,5 @@
 from product.models import ProdSkuAssoc,Sku
-from store_product.sp_couch import store_product_couch_getter
+from store_product import dao_couch
 from util import couch_db_util
 from store_product.models import Store_product
 
@@ -52,7 +52,7 @@ def exe_master( \
 
 
 def exe_couch(sku_str,product_id,store_id):
-    prod_bus_assoc_doc = store_product_couch_getter.exe(product_id,store_id)
+    prod_bus_assoc_doc = dao_couch.get_item(product_id,store_id)
     if sku_str in [sku for sku in prod_bus_assoc_doc["sku_lst"]]:
         #this should be an error, but why not forgiving and just return
         return

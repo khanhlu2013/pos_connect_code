@@ -1,5 +1,3 @@
-from util import couch_util
-
 def exe(store):
     exe_master(store)
     exe_couch(store)

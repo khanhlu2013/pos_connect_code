@@ -19,3 +19,9 @@ mod.config(['$sceDelegateProvider',function($sceDelegateProvider) {
         // 'https://liquorkhanhlu2013.s3.amazonaws.com/**'
     ]);
 }]);
+
+mod.config(['blockUIConfig',function(blockUIConfig) {
+    blockUIConfig.message = 'loading ...';
+    blockUIConfig.autoBlock = true;
+    blockUIConfig.delay = 0;
+}]);

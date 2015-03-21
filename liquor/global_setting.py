@@ -1,5 +1,5 @@
 from django.conf import settings
-from util import couch_util
+from util import couch_db_util
 import json
 from sale_shortcut import shortcut_getter
 from mix_match import mix_match_getter
@@ -21,7 +21,7 @@ def _get_global_setting(store):
     res['STORE'] = json.dumps(Store_serializer(store,many=False).data,cls=DjangoJSONEncoder)
     res['STORE_ID'] = store.id
     res['TAX_RATE'] = store.tax_rate
-    res['COUCH_SERVER_URL'] = couch_util.get_couch_access_url(store=store)
+    res['COUCH_SERVER_URL'] = couch_db_util.get_couch_access_url(store=store,is_use_api_key=True)
     res['STORE_DB_PREFIX'] = settings.STORE_DB_PREFIX  
     res['MIX_MATCH_LST'] = json.dumps(Mix_match_serializer(mix_match_lst,many=True).data,cls=DjangoJSONEncoder)
     res['PAYMENT_TYPE_LST'] = json.dumps(Payment_type_serializer(pt_lst,many=True).data,cls=DjangoJSONEncoder)
@@ -30,9 +30,9 @@ def _get_global_setting(store):
     res['SHORTCUT_COLUMN_COUNT'] = settings.SHORTCUT_COLUMN_COUNT
     res['STORE_PRODUCT_DOCUMENT_TYPE'] = settings.STORE_PRODUCT_DOCUMENT_TYPE
     res['RECEIPT_DOCUMENT_TYPE'] = settings.RECEIPT_DOCUMENT_TYPE  
-    res['VIEW_BY_PRODUCT_ID'] = setting.STORE_DB_VIEW_NAME_BY_PRODUCT_ID
-    res['VIEW_BY_SKU'] = setting.STORE_DB_VIEW_NAME_BY_SKU
-    res['VIEW_BY_D_TYPE'] = setting.STORE_DB_VIEW_NAME_BY_D_TYPE
+    res['VIEW_BY_PRODUCT_ID'] = settings.STORE_DB_VIEW_NAME_BY_PRODUCT_ID
+    res['VIEW_BY_SKU'] = settings.STORE_DB_VIEW_NAME_BY_SKU
+    res['VIEW_BY_D_TYPE'] = settings.STORE_DB_VIEW_NAME_BY_D_TYPE
 
     return res;
 

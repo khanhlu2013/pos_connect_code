@@ -6,12 +6,12 @@ module.exports = {
     api_receipt:{
         edit_date : function(receipt,delta_date){
             return browser.executeAsyncScript(function(receipt,delta_date,callback){
-                function _subtract_date_base_on_qty(receipt,delta_date,offline_db,$q,receipt_storage_adapter,GLOBAL_SETTING){
+                function _subtract_date_base_on_qty(receipt,delta_date,offline_db,$q,receipt_storage_adapter){
                     var defer = $q.defer();
                     var new_date = new Date(receipt.date);
                     new_date.setDate(new_date.getDate() + delta_date)
                     receipt.date = new_date;
-                    offline_db.put(receipt_storage_adapter.javascript_2_pouch(receipt,GLOBAL_SETTING),receipt.doc_id,receipt.doc_rev).then(
+                    offline_db.put(receipt_storage_adapter.javascript_2_pouch(receipt),receipt.doc_id,receipt.doc_rev).then(
                         function(response){
                             defer.resolve(response);
                         },function(reason){
@@ -21,44 +21,34 @@ module.exports = {
                     return defer.promise;
                 }   
 
-                var global_setting_service = angular.injector(['ng','share.util.global_setting']).get('share.util.global_setting');
-                global_setting_service.refresh().then(
-                    function(global_setting){
-                        var offline_receipt_api = angular.injector(['ng','model.receipt']).get('model.receipt.rest_offline');
-                        var offline_db_get_service = angular.injector(['ng','share.util.offline_db']).get('share.util.offline_db.get');
-                        var offline_db = offline_db_get_service(global_setting);
-                        var $q = angular.injector(['ng']).get('$q');
-                        var receipt_storage_adapter = angular.injector(['ng','model.receipt']).get('model.receipt.receipt_storage_adapter');
-                        offline_receipt_api.get_item(receipt.doc_id,global_setting).then(
-                            function(receipt){
-                                _subtract_date_base_on_qty(receipt,delta_date,offline_db,$q,receipt_storage_adapter,global_setting).then(
-                                    function(){
-                                        callback();
-                                    }
-                                )
+                var offline_receipt_api = angular.injector(['ng','model.receipt']).get('model.receipt.rest_offline');
+                var offline_db_util = angular.injector(['ng','share.offline_db_util']).get('share.offline_db_util');
+                var offline_db = offline_db_util.get();
+                var $q = angular.injector(['ng']).get('$q');
+                var receipt_storage_adapter = angular.injector(['ng','model.receipt']).get('model.receipt.receipt_storage_adapter');
+                offline_receipt_api.get_item(receipt.doc_id).then(
+                    function(receipt){
+                        _subtract_date_base_on_qty(receipt,delta_date,offline_db,$q,receipt_storage_adapter).then(
+                            function(){
+                                callback();
                             }
                         )
                     }
-                )
+                );
             },receipt,delta_date);
         },
         get_lst : function(){
             return browser.executeAsyncScript(function(callback){
-                var global_setting_service = angular.injector(['ng','share.util.global_setting']).get('share.util.global_setting');
-                global_setting_service.refresh().then(
-                    function(global_setting){
-                        var offline_receipt_api = angular.injector(['ng','model.receipt']).get('model.receipt.rest_offline');
-                        var offline_db_get_service = angular.injector(['ng','share.util.offline_db']).get('share.util.offline_db.get');
-                        var offline_db = offline_db_get_service(global_setting);
-                        var $q = angular.injector(['ng']).get('$q');
-                        var receipt_storage_adapter = angular.injector(['ng','model.receipt']).get('model.receipt.receipt_storage_adapter');
-                        offline_receipt_api.get_receipt_lst(global_setting).then(
-                            function(receipt_lst){
-                                callback(receipt_lst);
-                            }
-                        )
+                var offline_receipt_api = angular.injector(['ng','model.receipt']).get('model.receipt.rest_offline');
+                var offline_db_util = angular.injector(['ng','share.offline_db_util']).get('share.offline_db_util');
+                var offline_db = offline_db_util.get();
+                var $q = angular.injector(['ng']).get('$q');
+                var receipt_storage_adapter = angular.injector(['ng','model.receipt']).get('model.receipt.receipt_storage_adapter');
+                offline_receipt_api.get_receipt_lst().then(
+                    function(receipt_lst){
+                        callback(receipt_lst);
                     }
-                ) 
+                );
             });
         }
     },

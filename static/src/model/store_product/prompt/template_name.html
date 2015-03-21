@@ -1,0 +1,9 @@
+<div class='form-group'>
+    <label class='col-sm-4 control-label' >Name:</label>
+    <div class='col-sm-8'>
+        <input id='sp_app/service/prompt/name_txt' name='product_name' ng-model='sp.name' type='text' size='45' required>
+        <div ng-include='model.store_product.prompt.template_name_suggestion.html'></div>
+        <label class='error' ng-show='form.product_name.$error.required'>require</label>
+    </div>
+</div>
+    

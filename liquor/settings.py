@@ -32,8 +32,8 @@ INSTALLED_APPS = (
     ,'report'
 )
 
-DEBUG = os.environ.get('DEBUG')
-TEMPLATE_DEBUG = os.environ.get('TEMPLATE_DEBUG')
+DEBUG = os.environ.get('DEBUG') == '1'
+TEMPLATE_DEBUG = os.environ.get('TEMPLATE_DEBUG') == '1'
 IS_USE_CDN = os.environ.get('IS_USE_CDN') == '1' #we only use Content Deliver Network CDN when deploy. for local developmet we are not.
 SECRET_KEY = os.environ.get('SECRET_KEY')
 STATIC_URL = os.environ.get('STATIC_URL')

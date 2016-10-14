@@ -47,10 +47,6 @@ if settings.DEBUG:
         url(r'^protractor_test_cleanup$',protractor_test_cleanup_view.exe), 
     )
 
-# if settings.DEBUG:
-#     import debug_toolbar
-#     urlpatterns += patterns('',
-#         url(r'^__debug__/', include(debug_toolbar.urls)),
-#     )    
+
   
 

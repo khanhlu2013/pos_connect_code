@@ -1,0 +1,389 @@
+<html>
+<head>
+    <title>pos_connect</title>
+
+    <script>function cdnizerLoad(u) {document.write('<scr'+'ipt src="'+encodeURIComponent(u)+'"></scr'+'ipt>');}</script><script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script><script>if(!(window.jQuery)) cdnizerLoad("{{STATIC_URL}}bower_components/jquery/dist/jquery.js");</script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css" rel="stylesheet">
+
+    <style>
+        .paragraph {
+            font-size: 18px;
+        }
+        a {
+            display:inline-block;
+        }
+        .right_anker{
+            float: right;
+        }
+        .carousel {
+            background: rgb(149, 203, 240);
+        }
+        .carousel-control.left, .carousel-control.right {
+            background-image: none
+        }
+        .carousel-inner > .item{
+            margin: 80px auto;
+            margin-left: 100px;
+            margin-right: 100px;  
+        }        
+    </style>    
+</head>
+<body>
+    <!-- MENU - LOGIN FORM -->
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#product-navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">welcome to pos_connect</a>
+            </div>
+
+
+<div class="btn-group">
+  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+    Demo Trial <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" role="menu">
+    <li><a href="javascript:demo(1);">Demo store 1</a></li>
+    <li><a href="javascript:demo(2);">Demo store 2</a></li>
+    <li><a href="javascript:demo(3);">Demo store 3</a></li>
+  </ul>
+</div>
+
+
+
+            <div class="collapse navbar-collapse">
+                <form class="navbar-form navbar-right" method="post" action="{% url 'django.contrib.auth.views.login' %}">
+                    {% csrf_token %}
+                    <input id="id_username" maxlength="254" name="username" type="text" class="form-control" placeholder="user"/>
+                    <input id="id_password" name="password" type="password" class="form-control" placeholder="password"/>
+                    <input id="login_btn" type="submit" value="login" class="btn btn-success"/>
+                    <input type="hidden" name="next" value="{{ next }}" />
+                </form>                
+            </div>
+        </div>
+    </nav>   
+
+    {% if form.errors %} <h1 class="alncenter text-danger bg-danger">login error - try again!</h1> {% endif %}
+    <br>
+
+    <div><!-- MAIN DIV -->
+        <div class="panel-group col-xs-4" id="accordion" role="tablist" aria-multiselectable="false">
+            <div id="carousel_panel" class="panel panel-default">
+                <div class="panel-heading" role="tab" id="heading_1">
+                    <h4 class="panel-title">
+                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse_1" aria-expanded="false" aria-controls="collapse_1" id="collapse_1_anchor">
+                            why pos_connect ?
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapse_1" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading_1">
+                    <div class="panel-body">
+                        <p>
+                            pos_connect is simple and easy to use. It also connects you with other members to anonymously exchange information. Product information exchange help you define new product information faster. Profit information exchange helps you maximize your profit. You have the fexibility to manage your business online. pos_connect works both online and offline so that you don't need a reliable and fast internet to use. Your database is power by IBM and Amazon and we can trust them to keep our database secure
+                        </p>
+                        <ul>
+                            <li><a href="javascript:set_cur_div('carousel',0);">product information exchange</a></li>
+                            <li><a href="javascript:set_cur_div('carousel',1);">profit information exchange</a></li>
+                            <li><a href="javascript:set_cur_div('carousel',2);">online business management</a></li>
+                            <li><a href="javascript:set_cur_div('carousel',3);">internet connection reliability</a></li>
+                            <li><a href="javascript:set_cur_div('carousel',4);">data security</a></li>
+                        </ul>
+                        
+                    </div>
+                </div>
+            </div>
+            <div id="future_release_panel" class="panel panel-default">
+                <div class="panel-heading" role="tab" id="heading_3">
+                    <h4 class="panel-title">
+                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse_3" aria-expanded="false" aria-controls="collapse_3" id="collapse_3_anchor">
+                            future release
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapse_3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading_3">
+                    <div class="panel-body">
+                        <ul>
+                            <li>suggest a list of profit products</li>
+                            <li>inventory control</li>
+                            <li>automatic purchase order</li>      
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div id="manual_panel" class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingThree">
+                    <h4 class="panel-title">
+                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse_4" aria-expanded="false" aria-controls="collapse_4" id="collapse_4_anchor">
+                            manual
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapse_4" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                    <div class="panel-body">
+                        <ul>
+                            <li>product management</a>
+                                <ul>
+                                    <li>create: <a class="right_anker" href="javascript:loadVideo(product_management_create_vid);"><span> (<span class="glyphicon glyphicon-play"></span>4:37)</span></a></li>
+                                    <li>create/duplicate: <a class="right_anker" href="javascript:loadVideo(product_management_create_duplicate_vid);"><span> (<span class="glyphicon glyphicon-play"></span>1:47)</span></a></li>
+                                    <li>edit: <a class="right_anker" href="javascript:loadVideo(product_management_edit_main_vid);"><span> (<span class="glyphicon glyphicon-play"></span>3:56)</span></a></li>
+                                    <li>sku: <a class="right_anker" href="javascript:loadVideo(product_management_edit_sku_vid);"><span> (<span class="glyphicon glyphicon-play"></span>1:38)</span></a></li> 
+                                    <li>kit: <a class="right_anker" href="javascript:loadVideo(product_management_edit_kit_vid);"><span> (<span class="glyphicon glyphicon-play"></span>4:43)</span></a></li>
+                                    <li>group: <a class="right_anker" href="javascript:loadVideo(product_management_edit_group_vid);"><span> (<span class="glyphicon glyphicon-play"></span>3:10)</span></a></li>
+                                </ul>
+                            </li>
+                            <li>mix and match: <a class="right_anker" href="javascript:loadVideo(mix_match_vid);"><span> (<span class="glyphicon glyphicon-play"></span>5:47)</span></a></li>
+                            <li>payment type: <a class="right_anker" href="javascript:loadVideo(payment_type_vid);"><span> (<span class="glyphicon glyphicon-play"></span>3:18)</span></a></li>
+                            <li>sale application: <a class="right_anker" href="javascript:loadVideo(sale_app_vid);"><span> (<span class="glyphicon glyphicon-play"></span>7:06)</span></a>
+                                <ul>
+                                    <li>non inventory: <a class="right_anker" href="javascript:loadVideo(non_inventory_vid);"><span> (<span class="glyphicon glyphicon-play"></span>1:56)</span></a></li>
+                                    <li>value customer price: <a class="right_anker" href="javascript:loadVideo(value_customer_price_vid);"><span> (<span class="glyphicon glyphicon-play"></span>2:37)</span></a></li>
+                                    <li>shortcut: <a class="right_anker" href="javascript:loadVideo(sale_shortcut_vid);"><span> (<span class="glyphicon glyphicon-play"></span>4:22)</span></a></li>
+                                    <li>hold transaction: <a class="right_anker" href="javascript:loadVideo(hold_transaction_vid);"><span> (<span class="glyphicon glyphicon-play"></span>2:16)</span></a></li>
+                                </ul>
+                            </li>
+                            <li>report
+                                <ul>
+                                    <li>receipt: <a class="right_anker" href="javascript:loadVideo(report_receipt_vid);"><span> (<span class="glyphicon glyphicon-play"></span>3:23)</span></a></li>
+                                    <li>sale: <a class="right_anker" href="javascript:loadVideo(report_sale_vid);"><span> (<span class="glyphicon glyphicon-play"></span>4:01)</span></a></li>
+                                </ul>
+                            </li>      
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-8">
+            <div id="video_div" class="col-xs-12" style="height: 600px"></div>
+            <div id="carousel_div" class="carousel slide " data-ride="carousel" style="height: 600">
+                <!-- Indicators -->
+                <ol class="carousel-indicators">
+                    <li data-target="#carousel_div" data-slide-to="0" class="active"></li> <!-- product information exchange -->
+                    <li data-target="#carousel_div" data-slide-to="1"></li> <!-- profit information exchange -->
+                    <li data-target="#carousel_div" data-slide-to="2"></li> <!-- online business management -->
+                    <li data-target="#carousel_div" data-slide-to="3"></li> <!-- internet connection reliability -->                    
+                    <li data-target="#carousel_div" data-slide-to="4"></li> <!-- data security -->
+                </ol>
+
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner">
+                    <div class="item active">
+                        <div>
+                            <h2 class="alncenter">Product information exchange</h2>
+                            <br><br>
+                            <p class="paragraph">
+                                When you carry a new product, you have to define its information for the first time. With pos_connect, there is a chance that other members have already defined this information. pos_connect combines all members data and filter out the most popular information to help you import new product. In return, your product information will help other members in the same way.
+                                <a href="javascript:loadVideo(product_information_exchange_vid);"><span> (<span class="glyphicon glyphicon-play"></span>3:25)</span></a>
+                            </p>
+                            <br>
+                            <p class="paragraph">
+                                There is a less common case where product information exchange help you to add new sku to your existing product
+                                <a href="javascript:loadVideo(product_information_exchange_add_sku_vid);"><span> (<span class="glyphicon glyphicon-play"></span>3:04)</span></a>
+                            </p>                            
+                        </div>
+                    </div>   
+                    <div class="item">
+                        <div>
+                            <h2 class="alncenter">Profit Information Exchange (PIE)
+                                <a href="javascript:loadVideo(profit_information_exchange_vid);"><span> (<span class="glyphicon glyphicon-play"></span>3:01)</span></a> 
+                            </h2>
+                            <br><br>
+                            <p class="paragraph">
+                                Members who participate in PIE can anonymously help each other to maximize profit. If you don't like to paticipate in PIE, your data will not be exposed to others to help them maximize their profit, and in return, you will not recieve other PIE members' data to maximize yours
+                            </p>                               
+                            <p class="paragraph">
+                                For a product, pos_connect can show the relationship of cost, price, volumn, and profit from PIE members. PIE members who have a similar product cost as you and make more profit than you can suggest you to lower or raise your price to be more profitable like them.
+                            </p>
+                            <p class="paragraph">
+                                pos_connect can sort out a list of top profitable products that many PIE members are carrying to suggest you.
+                            </p>    
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div>
+                            <h2 class="alncenter">Online business management</h2>
+                            <br><br>
+                            <p class="paragraph"> 
+                                pos_connect give you a flexibility to control your business anywhere with online access. You can remotely view sale data, change tax rate, product price, or promotional deal ...
+                                <a href="javascript:loadVideo(online_access_vid);"><span> (<span class="glyphicon glyphicon-play"></span>2:11)</span></a>
+                            </p>                            
+                        </div>
+                    </div>                          
+                    <div class="item">
+                        <div>
+                            <h2 class="alncenter">Internet connection reliability</h2>
+                            <br><br>
+                            <p class="paragraph">
+                                To make pos_connect more reliable with your day-to-day sale operations, the sale application operates offline by donwloading your product database to your local browser. Sale data is saved offline first and periodically reminded to be upload online later when the internet is available. This make pos_connect fast and reliable like other non-web software.
+                                <a href="javascript:loadVideo(internet_connection_reliability_vid);"><span> (<span class="glyphicon glyphicon-play"></span>4:52)</span></a>
+                            </p>                                                      
+                        </div>
+                    </div>     
+                    <div class="item">
+                        <div>
+                            <h2 class="alncenter">Data security</h2>
+                            <br><br>
+                            <p class="paragraph">
+                                Most pos store its database on your local computer and you are responsible to create back up, keep them up_to_date, and restore it when something go wrong.
+                            </p>
+                            <p class="paragraph">
+                                pos_connect is power by IBM and Amazon servers. These cooperation have the resource to take care all the boring backup task for us. If your computer crash, simply replace it with a new one, connect it to the internet and you are done because your data is online.
+                            </p>      
+                        </div>
+                    </div>                    
+                </div>
+
+                <!-- Controls -->
+                <a class="left carousel-control" href="#carousel_div" role="button" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                </a>
+                <a class="right carousel-control" href="#carousel_div" role="button" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                </a>
+            </div> <!-- Carousel -->       
+            <a id="show_slide_btn" class="btn btn-primary btn-lg" href="javascript:set_cur_div('carousel',cur_slide);">back to slides</a>
+        </div>        
+
+        <div class="clear"></div>
+    </div><!-- MAIN DIV -->         
+
+    <script>
+        //intro
+        var product_information_exchange_vid = 'lFAwi1K15Ik';
+        var product_information_exchange_add_sku_vid = 'B5xbl5ilH88';
+        var profit_information_exchange_vid = 'lHVLrqFfTNk';
+        var online_access_vid = 'cc3fwFdo4ZE';
+        var internet_connection_reliability_vid = 'r_3WqtWz67I';
+
+        //product management
+        var product_management_create_vid = 'B6RRUmMGYdc';
+        var product_management_create_duplicate_vid = 'A4HJVdg6570';
+        var product_management_edit_main_vid = '4Gb2c3I_IEs';
+        var product_management_edit_sku_vid = 'FI-CtVMy2GE';
+        var product_management_edit_kit_vid = 'NWlLgu8PPMA';
+        var product_management_edit_group_vid = 'm_JIspCwKUQ';
+        
+        //misc
+        var mix_match_vid = 'IEG34ljZqvI';
+        var sale_shortcut_vid = '7giuURS0KPU';
+        var payment_type_vid = 'pYByO-Mky3M';
+        var hold_transaction_vid = 'EiiJWXPbm9Q';
+        var report_sale_vid = 'ENeOg3Bq84g';
+        var report_receipt_vid = 'CHzkXbzncMI';
+        var non_inventory_vid = 'hC0eHykYenI';
+        var value_customer_price_vid = 'vwT-8080LNE';
+        var sale_app_vid = 'lMHIqHxSgJU';
+
+
+        // 2. This code loads the IFrame Player API code asynchronously.
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        // 3. This function creates an <iframe> (and YouTube player) after the API code downloads.
+        var player;var cur_vid;
+        var is_youtube_iframe_ready = false;
+        function onYouTubeIframeAPIReady() {
+            is_youtube_iframe_ready = true;
+        }
+        function loadVideo(id) {
+            if(!is_youtube_iframe_ready)return;
+
+            set_cur_div('video')
+            if(!player){
+                player = new YT.Player('video_div', {
+                    video_id:null,
+                    events:{
+                        'onReady':function(evt){
+                            evt.target.loadVideoById(id);  
+                        }
+                    }                    
+                });                                
+            }else{
+                if(cur_vid === undefined || cur_vid !== id){
+                    cur_vid = id;
+                    player.loadVideoById(id);  
+                }else{
+                    player.playVideo();
+                }
+            }
+        }
+        function demo(store) {
+            alert("demo store " + store);
+            $("#id_username").val('store');
+            $("#id_password").val('store');
+            $("#login_btn").click();
+        }        
+    </script>
+
+    <script>
+        function _show_accordion_panel(number){
+            // $('#collapse_' + number).collapse('show');
+
+            //--------------------------------
+            // //number is base 1 not base zero
+            // var collapse_size = 4;//currenly there is 4 collapse
+
+            // for(var i = 1;i<collapse_size + 1;i++){
+            //     var id = '#collapse_' + i;
+            //     if(i === number){
+            //         continue;
+            //     }else{
+            //         if($(id).hasClass('in')){
+            //             $(id+'_anchor').click();     
+            //         } 
+
+            //         // $(id).removeClass('in'); 
+            //         // $(id).collapse('hide',{'parent':'accordion'});
+            //         // $(id).collapse('hide');
+            //     }
+            // }
+            // if(!$('#collapse_' + number).hasClass('in')){
+            //     $('#collapse_' + number + '_anchor').click();
+            // }
+            // // $('#collapse_' + number).addClass('in'); 
+            // // $('#collapse_' + number).collapse('show',{'parent':'accordion'});
+            // // $('#collapse_' + number).collapse('show');
+        }
+        //set the main right hand div which can show 3 different things: slide,video
+        function set_cur_div(div,carousel_number){
+            if(div === 'video'){
+                $("#video_div").show();
+                $("#carousel_div").hide();
+                $("#show_slide_btn").show();
+            }else if(div === 'carousel'){
+                cur_slide = carousel_number;
+                if(player){
+                    player.pauseVideo();
+                }  
+                $("#video_div").hide();             
+                $("#carousel_div").show();
+                if(carousel_number!== undefined){
+                    $("#carousel_div").carousel(carousel_number);
+                }
+                $("#show_slide_btn").hide();
+                _show_accordion_panel(1);
+            }
+        }
+        //default is carousel - aka slide
+        var cur_slide;
+        $('.carousel').carousel({
+            interval: false
+        });            
+        set_cur_div('carousel',0); 
+        $('#carousel_panel').on('shown.bs.collapse', function () {
+            set_cur_div('carousel')
+        })        
+    </script>
+</body>
+</html>

@@ -4,7 +4,7 @@ from django.conf import settings
 
 
 class product_app_view(TemplateView):
-    if settings.IS_USE_CDN:
+    if settings.IS_DEPLOY:
         template_name = 'dist/deploy/product_app.html'
     else:
         template_name = 'dist/local/product_app.html'
@@ -19,7 +19,7 @@ class product_app_view(TemplateView):
         return context
 
 class Sale_angular_view(TemplateView):
-    if settings.IS_USE_CDN:
+    if settings.IS_DEPLOY:
         template_name = 'dist/deploy/sale_app.html'
     else:
         template_name = 'dist/local/sale_app.html'

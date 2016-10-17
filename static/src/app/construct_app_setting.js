@@ -1,8 +1,8 @@
-var mod = angular.module('share.util.construct_share_setting',[
+var mod = angular.module('app.construct_app_setting',[
     'model.mix_match',
     'model.store'
 ]);
-mod.factory('share.util.construct_share_setting',
+mod.factory('app.construct_app_setting',
 [
     'model.mix_match.Mix_match',
     'model.store.Store',    

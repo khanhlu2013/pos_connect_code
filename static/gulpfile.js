@@ -62,9 +62,9 @@ gulp.task('_concat_product_app_js', function () {
     return gulp.src([
         '!src/app/sale_app',        
         'src/**/__init__.js',
-        'src/share/**/*.js', 'src/model/**/*.js','src/app/construct_app_setting.js','src/app/product_app/**/*.js', //app need share and model; model need share(util) which include filter and just toolbox; share is highest toolbox that doesn't belong to any project.
         'bower_components/angular-block-ui/dist/angular-block-ui.js',
-        'bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js'
+        'bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js',        
+        'src/share/**/*.js', 'src/model/**/*.js','src/app/construct_app_setting.js','src/app/product_app/**/*.js', //app need share and model; model need share(util) which include filter and just toolbox; share is highest toolbox that doesn't belong to any project.
     ])
     .pipe(concat('product_app.js'))
     .pipe(rev())   

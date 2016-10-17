@@ -68,7 +68,7 @@ gulp.task('_concat_product_app_js', function () {
     ])
     .pipe(concat('product_app.js'))
     .pipe(rev())   
-    .pipe(uglify())
+    // .pipe(uglify())
     .pipe(rename({suffix: '.min'}))     
     .pipe(gulp.dest('./dist'))
 })

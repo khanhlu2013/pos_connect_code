@@ -58,12 +58,13 @@ gulp.task('_partial_sale_app',function(){
 });
 
 //concatinate product app js
-gulp.task('_concat_product_app_js', function () {
+gulp.task('_concat_product_app_js', ['_partial_product_app'],function () {
     return gulp.src([
         '!src/app/sale_app',        
         'src/**/__init__.js',
         'bower_components/angular-block-ui/dist/angular-block-ui.js',
         'bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js',        
+        'dist/product_app.partial.min.js',           
         'src/share/**/*.js', 'src/model/**/*.js','src/app/construct_app_setting.js','src/app/product_app/**/*.js', //app need share and model; model need share(util) which include filter and just toolbox; share is highest toolbox that doesn't belong to any project.
     ])
     .pipe(concat('product_app.js'))

@@ -60,11 +60,11 @@ gulp.task('_partial_sale_app',function(){
 //concatinate product app js
 gulp.task('_concat_product_app_js', function () {
     return gulp.src([
+        '!src/app/sale_app',        
         'src/**/__init__.js',
-        'src/**/*.js',
+        'src/model/*.js', 'src/share/*.js', 'src/app/*.js', //app need share and model; share need model to build mixmatch and store for share_global_setting (it make more sense to rename share as util), model is the highest
         'bower_components/angular-block-ui/dist/angular-block-ui.js',
-        'bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js',
-        '!src/app/sale_app'
+        'bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js'
     ])
     .pipe(concat('product_app.js'))
     .pipe(rev())   

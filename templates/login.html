@@ -101,24 +101,6 @@
                     </div>
                 </div>
             </div>
-            <div id="future_release_panel" class="panel panel-default">
-                <div class="panel-heading" role="tab" id="heading_3">
-                    <h4 class="panel-title">
-                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse_3" aria-expanded="false" aria-controls="collapse_3" id="collapse_3_anchor">
-                            future release
-                        </a>
-                    </h4>
-                </div>
-                <div id="collapse_3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading_3">
-                    <div class="panel-body">
-                        <ul>
-                            <li>suggest a list of profit products</li>
-                            <li>inventory control</li>
-                            <li>automatic purchase order</li>      
-                        </ul>
-                    </div>
-                </div>
-            </div>
 
             <div id="manual_panel" class="panel panel-default">
                 <div class="panel-heading" role="tab" id="headingThree">
@@ -128,7 +110,7 @@
                         </a>
                     </h4>
                 </div>
-                <div id="collapse_4" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                <div id="collapse_4" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingThree">
                     <div class="panel-body">
                         <ul>
                             <li>product management</a>
@@ -327,34 +309,6 @@
     </script>
 
     <script>
-        function _show_accordion_panel(number){
-            // $('#collapse_' + number).collapse('show');
-
-            //--------------------------------
-            // //number is base 1 not base zero
-            // var collapse_size = 4;//currenly there is 4 collapse
-
-            // for(var i = 1;i<collapse_size + 1;i++){
-            //     var id = '#collapse_' + i;
-            //     if(i === number){
-            //         continue;
-            //     }else{
-            //         if($(id).hasClass('in')){
-            //             $(id+'_anchor').click();     
-            //         } 
-
-            //         // $(id).removeClass('in'); 
-            //         // $(id).collapse('hide',{'parent':'accordion'});
-            //         // $(id).collapse('hide');
-            //     }
-            // }
-            // if(!$('#collapse_' + number).hasClass('in')){
-            //     $('#collapse_' + number + '_anchor').click();
-            // }
-            // // $('#collapse_' + number).addClass('in'); 
-            // // $('#collapse_' + number).collapse('show',{'parent':'accordion'});
-            // // $('#collapse_' + number).collapse('show');
-        }
         //set the main right hand div which can show 3 different things: slide,video
         function set_cur_div(div,carousel_number){
             if(div === 'video'){
@@ -372,7 +326,6 @@
                     $("#carousel_div").carousel(carousel_number);
                 }
                 $("#show_slide_btn").hide();
-                _show_accordion_panel(1);
             }
         }
         //default is carousel - aka slide

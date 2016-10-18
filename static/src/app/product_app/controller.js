@@ -16,6 +16,7 @@ app.controller('app.productApp.controller',
     'model.store_product.sku_not_found_handler',
     'share.offline_db_util',
     'model.store_product.search.online.infinite_scroll_handler',
+    'share_setting',
 function(
     $scope,
     $rootScope,
@@ -26,8 +27,10 @@ function(
     confirm_service,
     sku_not_found_handler,
     offline_db_util,
-    search_online_infinite_scroll_handler
+    search_online_infinite_scroll_handler,
+    share_setting
 ){
+    $scope.share_setting = share_setting;
     var un_subscribe_group = $rootScope.$on('model.group.manage',function(event,data){
         _refresh_current_sp_lst();
     })

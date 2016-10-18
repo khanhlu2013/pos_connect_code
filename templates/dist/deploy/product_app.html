@@ -31,7 +31,7 @@
     <link rel="stylesheet" href="{{STATIC_URL}}dist/pos_connect-72041277.min.css">
     <!-- endinject -->
     <!-- inject:js -->
-    <script src="{{STATIC_URL}}dist/product_app-449fddd8.min.js"></script>
+    <script src="{{STATIC_URL}}dist/product_app-554d90af.min.js"></script>
     <!-- endinject -->
 </head>
 
@@ -95,7 +95,7 @@
                             <li id="sp_app/menu/setting/payment_type" ng-click="menu_setting_payment_type()"><a>payment type</a></li>
                             <li role="presentation" class="divider"></li>
                             <li id="sp_app/menu/setting/store" ng-click="menu_setting_store()">
-                                <a>store - {% verbatim %}{{$root.GLOBAL_SETTING.STORE.name}}{% endverbatim %}</a>
+                                <a>store - {% verbatim %}{{share_setting.STORE.name}}{% endverbatim %}</a>
                             </li>                                 
                         </ul>
                     </li>

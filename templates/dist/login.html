@@ -47,20 +47,20 @@
             </div>
 
             <div class="collapse navbar-collapse">
-                
-                <div class="btn-group">
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                        Demo Trial <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="javascript:demo(1);">Demo store 1</a></li>
-                        <li><a href="javascript:demo(2);">Demo store 2</a></li>
-                        <li><a href="javascript:demo(3);">Demo store 3</a></li>
-                    </ul>
-                </div>
 
                 <form class="navbar-form navbar-right" method="post" action="{% url 'django.contrib.auth.views.login' %}">
                     {% csrf_token %}
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                            Demo Trial <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="javascript:demo(1);">Demo store 1</a></li>
+                            <li><a href="javascript:demo(2);">Demo store 2</a></li>
+                            <li><a href="javascript:demo(3);">Demo store 3</a></li>
+                        </ul>
+                    </div>
+
                     <input id="id_username" maxlength="254" name="username" type="text" class="form-control" placeholder="user"/>
                     <input id="id_password" name="password" type="password" class="form-control" placeholder="password"/>
                     <input id="login_btn" type="submit" value="login" class="btn btn-success"/>
@@ -314,7 +314,6 @@
             }
         }
         function demo(store) {
-            alert("demo store " + store);
             $("#id_username").val(store);
             $("#id_password").val(store);
             $("#login_btn").click();

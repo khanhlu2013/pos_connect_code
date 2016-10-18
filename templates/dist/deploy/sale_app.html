@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html ng-app="app.saleApp">
+<head>
+    <title>sale app</title>
+    
+    <script>function cdnizerLoad(u) {document.write('<scr'+'ipt src="'+encodeURIComponent(u)+'"></scr'+'ipt>');}</script><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+
+    <script type="text/javascript">
+        var _GLOBAL_SETTING_ = {}
+        _GLOBAL_SETTING_.STATIC_URL                 = "{{STATIC_URL}}";
+        _GLOBAL_SETTING_.STORE_ID                   = Number("{{STORE_ID}}");
+        _GLOBAL_SETTING_.TAX_RATE                   = {{TAX_RATE}};
+        _GLOBAL_SETTING_.COUCH_SERVER_URL           = "{{COUCH_SERVER_URL}}";
+        _GLOBAL_SETTING_.STORE_DB_PREFIX            = "{{STORE_DB_PREFIX}}";
+        _GLOBAL_SETTING_.MIX_MATCH_LST              = {{MIX_MATCH_LST|safe}};
+        _GLOBAL_SETTING_.PAYMENT_TYPE_LST           = {{PAYMENT_TYPE_LST|safe}};
+        _GLOBAL_SETTING_.SHORTCUT_LST               = {{SHORTCUT_LST|safe}};
+        _GLOBAL_SETTING_.SHORTCUT_ROW_COUNT         = {{SHORTCUT_ROW_COUNT}};
+        _GLOBAL_SETTING_.SHORTCUT_COLUMN_COUNT      = {{SHORTCUT_COLUMN_COUNT}};
+        _GLOBAL_SETTING_.STORE_PRODUCT_DOCUMENT_TYPE= "{{STORE_PRODUCT_DOCUMENT_TYPE}}";
+        _GLOBAL_SETTING_.RECEIPT_DOCUMENT_TYPE      = "{{RECEIPT_DOCUMENT_TYPE}}";
+        _GLOBAL_SETTING_.STORE                      = {{STORE|safe}};
+    </script>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script><script>if(!(window.jQuery)) cdnizerLoad("{{STATIC_URL}}bower_components/jquery/dist/jquery.js");</script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.20/angular.min.js"></script><script>if(!(window.angular)) cdnizerLoad("{{STATIC_URL}}bower_components/angular/angular.js");</script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.11.2/ui-bootstrap-tpls.min.js"></script>
+
+    <!-- inject:css -->
+    <link rel="stylesheet" href="{{STATIC_URL}}dist/pos_connect-72041277.min.css">
+    <!-- endinject -->
+    <!-- inject:js -->
+    <script src="{{STATIC_URL}}dist/sale_app-92ff5b87.min.js"></script>
+    <!-- endinject -->    
+</head>
+<body ng-controller="app.saleApp.controller">
+    {% verbatim %} 
+    xxx {{message}} xxx      
+    {% endverbatim %} 
+</body>
+</html>
+
+
+

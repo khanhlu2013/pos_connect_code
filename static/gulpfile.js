@@ -18,11 +18,6 @@ gulp.task('_partial_product_app',function(){
         'src/**/*.html',
         '!src/app/sale_app/**/*.*'
     ])
-    // .pipe(minifyHtml({
-    //     empty: true,
-    //     spare: true,
-    //     quotes: true
-    // }))
     .pipe(ngHtml2Js({
         moduleName: "app.productApp.partial",
         rename:function(url){
@@ -30,8 +25,7 @@ gulp.task('_partial_product_app',function(){
             return url;
         }
     }))
-    .pipe(concat("product_app.partial.min.js"))
-    // .pipe(uglify())
+    .pipe(concat("product_app.partial.js"))
     .pipe(gulp.dest("./dist"));
 });
 
@@ -40,11 +34,6 @@ gulp.task('_partial_sale_app',function(){
         'src/**/*.html',
         '!src/app/product_app/**/*.*'
     ])
-    // .pipe(minifyHtml({
-    //     empty: true,
-    //     spare: true,
-    //     quotes: true
-    // }))
     .pipe(ngHtml2Js({
         moduleName: "app.saleApp.partial",
         rename:function(url){
@@ -53,23 +42,37 @@ gulp.task('_partial_sale_app',function(){
         }
     }))
     .pipe(concat("sale_app.partial.min.js"))
-    // .pipe(uglify())
     .pipe(gulp.dest("./dist"));
 });
 
-//concatinate product app js
-gulp.task('_concat_product_app_js', ['_partial_product_app'],function () {
+gulp.task('_concat_product_app_js_deploy', ['_partial_product_app'],function () {
     return gulp.src([
         '!src/app/sale_app',        
         'src/**/__init__.js',
         'bower_components/angular-block-ui/dist/angular-block-ui.js',
         'bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js',        
-        'dist/product_app.partial.min.js',           
+        'dist/product_app.partial.js',           
         'src/share/**/*.js', 'src/model/**/*.js','src/app/construct_app_setting.js','src/app/product_app/**/*.js', //app need share and model; model need share(util) which include filter and just toolbox; share is highest toolbox that doesn't belong to any project.
     ])
     .pipe(concat('product_app.js'))
     .pipe(rev())   
-    // .pipe(uglify())
+    .pipe(uglify())
+    .pipe(rename({suffix: '.min'}))     
+    .pipe(gulp.dest('./dist'))
+})
+
+gulp.task('_concat_sale_app_js_deploy', ['_partial_sale_app'],function () {
+    return gulp.src([
+        '!src/app/product_app',        
+        'src/**/__init__.js',
+        'bower_components/angular-block-ui/dist/angular-block-ui.js',
+        'bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js',        
+        'dist/sale_app.partial.js',           
+        'src/share/**/*.js', 'src/model/**/*.js','src/app/construct_app_setting.js','src/app/sale_app/**/*.js', //app need share and model; model need share(util) which include filter and just toolbox; share is highest toolbox that doesn't belong to any project.
+    ])
+    .pipe(concat('sale_app.js'))
+    .pipe(rev())   
+    .pipe(uglify())
     .pipe(rename({suffix: '.min'}))     
     .pipe(gulp.dest('./dist'))
 })
@@ -120,7 +123,7 @@ gulp.task('build_product_app_local', ['_partial_product_app'],function () {
         './bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js',
         'src/**/__init__.js',
         'src/**/*.js',
-        'dist/product_app.partial.min.js',        
+        'dist/product_app.partial.js',        
         'css/**/*.css',        
         '!src/app/sale_app/**/*.*'        
     ], {read: false/*It's not necessary to read the files (will speed up things), we're only after their paths:*/});
@@ -139,6 +142,22 @@ gulp.task('_inject_resource_to_product_html_deploy', function () {
     var sources = gulp.src([
         './dist/pos_connect-*.min.css',
         './dist/product_app-*.min.js',
+    ], {read: false/*It's not necessary to read the files (will speed up things), we're only after their paths:*/});
+    var transform = function (filepath, file, i, length) {
+        filepath = '{{STATIC_URL}}' + filepath.substr(1);
+        return inject.transform.apply(inject.transform, arguments);
+    }     
+ 
+    return target
+        .pipe(inject(sources,{transform:transform}))
+        .pipe(gulp.dest('./../templates/dist/deploy'))
+});
+
+gulp.task('_inject_resource_to_sale_html_deploy', function () {
+    var target = gulp.src('./../templates/sale_app.html');
+    var sources = gulp.src([
+        './dist/pos_connect-*.min.css',
+        './dist/sale_app-*.min.js',
     ], {read: false/*It's not necessary to read the files (will speed up things), we're only after their paths:*/});
     var transform = function (filepath, file, i, length) {
         filepath = '{{STATIC_URL}}' + filepath.substr(1);
@@ -186,6 +205,44 @@ gulp.task('_cdnizer_product_app',function(){
         ]))
         .pipe(gulp.dest("./../templates/dist/deploy"));    
 })
+
+gulp.task('_cdnizer_sale_app',function(){
+    return gulp.src("./../templates/dist/deploy/sale_app.html")
+        .pipe(cdnizer([
+            {
+                file: '{{STATIC_URL}}bower_components/bootstrap/dist/css/bootstrap.css',
+                package: 'bootstrap',
+                // test: 'xxx',
+                cdn: 'https://maxcdn.bootstrapcdn.com/bootstrap/${ version }/css/bootstrap.min.css'
+            },      
+            {
+                file: '{{STATIC_URL}}bower_components/bootstrap/dist/css/bootstrap-theme.css',
+                package: 'bootstrap',
+                // test: 'xxx',
+                cdn: 'https://maxcdn.bootstrapcdn.com/bootstrap/${ version }/css/bootstrap-theme.min.css'
+            },        
+            {
+                file: '{{STATIC_URL}}bower_components/angular/angular.js',
+                package: 'angular',
+                test: 'window.angular',
+                cdn: 'https://ajax.googleapis.com/ajax/libs/angularjs/${ version }/angular.min.js'
+            },
+            {
+                file: '{{STATIC_URL}}bower_components/jquery/dist/jquery.js',
+                package: 'jquery',
+                test: 'window.jQuery',
+                cdn: 'https://ajax.googleapis.com/ajax/libs/jquery/${ version }/jquery.min.js'
+            },        
+            {
+                file: '{{STATIC_URL}}bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
+                package: 'angular-bootstrap',
+                // test: 'xxx',
+                cdn: '//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/${ version }/ui-bootstrap-tpls.min.js'
+            },        
+        ]))
+        .pipe(gulp.dest("./../templates/dist/deploy"));    
+})
+
 gulp.task('_cdnizer_login_page',function(){
     return gulp.src("./../templates/login.html")
         .pipe(cdnizer([
@@ -225,12 +282,12 @@ gulp.task('_clean', function () {
         {force:true}
     );
 });
-gulp.task('build_dist',function(cb) {
+gulp.task('build_deploy',function(cb) {
     runSequence(
         '_clean',
-        ['_concat_product_app_js', '_concat_css'],
-        ['_inject_resource_to_product_html_deploy'],
-        ['_cdnizer_product_app', '_cdnizer_login_page'],
+        ['_concat_product_app_js_deploy', '_concat_sale_app_js_deploy', '_concat_css'],
+        ['_inject_resource_to_product_html_deploy','_inject_resource_to_sale_html_deploy'],
+        ['_cdnizer_product_app', '_cdnizer_sale_app', '_cdnizer_login_page'],
         cb
     );
 }); 

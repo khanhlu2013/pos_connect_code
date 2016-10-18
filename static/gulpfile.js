@@ -136,7 +136,10 @@ gulp.task('build_product_app_local', ['_partial_product_app'],function () {
 
 gulp.task('_inject_resource_to_product_html_deploy', function () {
     var target = gulp.src('./../templates/product_app.html');
-    var sources = gulp.src(['./dist/*.min.*'], {read: false/*It's not necessary to read the files (will speed up things), we're only after their paths:*/});
+    var sources = gulp.src([
+        './dist/pos_connect-*.min.css',
+        './dist/product_app-*.min.js',
+    ], {read: false/*It's not necessary to read the files (will speed up things), we're only after their paths:*/});
     var transform = function (filepath, file, i, length) {
         filepath = '{{STATIC_URL}}' + filepath.substr(1);
         return inject.transform.apply(inject.transform, arguments);

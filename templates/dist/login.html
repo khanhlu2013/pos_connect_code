@@ -46,21 +46,19 @@
                 <a class="navbar-brand" href="#">welcome to pos_connect</a>
             </div>
 
-
-<div class="btn-group">
-  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-    Demo Trial <span class="caret"></span>
-  </button>
-  <ul class="dropdown-menu" role="menu">
-    <li><a href="javascript:demo(1);">Demo store 1</a></li>
-    <li><a href="javascript:demo(2);">Demo store 2</a></li>
-    <li><a href="javascript:demo(3);">Demo store 3</a></li>
-  </ul>
-</div>
-
-
-
             <div class="collapse navbar-collapse">
+                
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                        Demo Trial <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="javascript:demo(1);">Demo store 1</a></li>
+                        <li><a href="javascript:demo(2);">Demo store 2</a></li>
+                        <li><a href="javascript:demo(3);">Demo store 3</a></li>
+                    </ul>
+                </div>
+
                 <form class="navbar-form navbar-right" method="post" action="{% url 'django.contrib.auth.views.login' %}">
                     {% csrf_token %}
                     <input id="id_username" maxlength="254" name="username" type="text" class="form-control" placeholder="user"/>
@@ -93,8 +91,8 @@
                         <ul>
                             <li>
                                 <a href="javascript:set_cur_div('carousel',0);">product information exchange</a>
-                                <a class="right_anker" href="javascript:loadVideo(product_information_exchange_vid);"><span> (<span class="glyphicon glyphicon-play"></span>3:25)</span></a>
                                 <a class="right_anker" href="javascript:loadVideo(product_information_exchange_add_sku_vid);"><span> (<span class="glyphicon glyphicon-play"></span>3:04)</span></a>
+                                <a class="right_anker" href="javascript:loadVideo(product_information_exchange_vid);"><span> (<span class="glyphicon glyphicon-play"></span>3:25)</span></a>
                             </li>
 
                             <li>
@@ -317,8 +315,8 @@
         }
         function demo(store) {
             alert("demo store " + store);
-            $("#id_username").val('store');
-            $("#id_password").val('store');
+            $("#id_username").val(store);
+            $("#id_password").val(store);
             $("#login_btn").click();
         }        
     </script>
